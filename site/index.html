@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Kiran Gorapalli - Builder of Products People Love. Product Manager based in San Francisco, California.">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>Kiran Gorapalli - Builder of Products People Love</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark" class="preload">
+    <!-- Top Info Bar - Static -->
+    <div class="top-info-bar">
+        <div class="top-info-bar-inner">
+            <div class="logo-container" role="button" aria-label="Scroll to top" tabindex="0">
+                <img src="images/logo.png" alt="KG Logo" class="logo-image">
+                <div class="version-info">
+                    <span class="version-number">v1.0.0</span>
+                    <span class="last-updated">Updated Feb 10, 2026</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <!-- Right side: Share, Theme, Language, Menu -->
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <!-- Moon icon for dark mode -->
+                    <svg class="theme-icon moon-icon" viewBox="0 0 24 24" style="display: none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <!-- Sun icon for light mode -->
+                    <svg class="theme-icon sun-icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="share-button" id="shareButton" aria-label="Share website">
+                    <svg class="share-icon" viewBox="0 0 24 24">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+                <div class="language-selector-wrapper">
+                    <button class="language-selector" id="languageSelector" aria-label="Select language">
+                        <span id="currentLanguage">EN</span>
+                        <span>▼</span>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <div class="language-option selected" data-lang="en">🇺🇸 English</div>
+                        <div class="language-option" data-lang="es">🇪🇸 Español</div>
+                        <div class="language-option" data-lang="fr">🇫🇷 Français</div>
+                        <div class="language-option" data-lang="de">🇩🇪 Deutsch</div>
+                        <div class="language-option" data-lang="zh">🇨🇳 中文</div>
+                        <div class="language-option" data-lang="ja">🇯🇵 日本語</div>
+                        <div class="language-option" data-lang="pt">🇧🇷 Português</div>
+                        <div class="language-option" data-lang="hi">🇮🇳 हिन्दी</div>
+                    </div>
+                </div>
+                <button class="menu-button" id="menuButton" data-i18n="menu">Menu</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <span class="logo">Kiran Gorapalli</span>
+            <button class="close-menu" id="closeMenu">×</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#fenix">My AI Fenix</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#consulting">Consulting</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#causes">Causes</a></li>
+            <li><a href="#releases">Release Notes</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-text">
+            <h1>Kiran Gorapalli</h1>
+            <div class="hero-tagline" data-i18n="tagline">Builder of Products People Love</div>
+            <p class="hero-location" data-i18n="location">(San Francisco, California)</p>
+            <a href="#about" class="scroll-indicator">
+                <span>↓</span>
+                <span data-i18n="scrollDown">Scroll Down</span>
+            </a>
+        </div>
+        <div class="hero-image">
+            <!-- Video will go here - for now using animated placeholder -->
+            <!-- To add your video: <video autoplay muted loop playsinline src="your-video.mp4"></video> -->
+            <div class="hero-video-placeholder">
+                Your professional video here (4-second loop)
+            </div>
+            
+            <!-- Overlay with text -->
+            <div class="hero-video-overlay">
+                <h2 class="hero-video-text">Welcome to my byte of the digiverse</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="section-label">(About Me)</div>
+            
+            <div class="social-links">
+                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+                <a href="https://github.com/kirangorapalli" class="social-icon github" title="GitHub" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                </a>
+                <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="var(--bg-primary)"></polygon>
+                    </svg>
+                </a>
+                <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="7" cy="12" r="4"></circle>
+                        <circle cx="17" cy="12" r="4"></circle>
+                    </svg>
+                </a>
+                <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M8 14.5c1.5-1 4-1.5 6-1 2 .5 3.5 1.5 4 2M7.5 10.5c2-1.5 5-2 7.5-1.5s4 1.5 5 2.5M7 7c2.5-1.5 6-2.5 9-2s5 1.5 6.5 3" stroke="var(--bg-primary)" stroke-width="1.5" fill="none"></path>
+                    </svg>
+                </a>
+                <a href="https://medium.com/@kirangorapalli" class="social-icon medium" title="Medium" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4v16h16V4H4zm13.5 10.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5zm-5 0c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5zm-5 0c0 .83-.67 1.5-1.5 1.5S5 15.33 5 14.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5z"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <p class="about-intro">
+                As a product manager, I focus on producing top-notch and impactful digital experiences.
+            </p>
+
+            <div class="divider"></div>
+
+            <div class="what-i-do-label">
+                <span>(What I do)</span>
+                <span class="expand-icon">↓</span>
+            </div>
+
+            <div class="competencies-grid">
+                <div class="competency">
+                    <h3 class="competency-title">Digital Design</h3>
+                    <p class="competency-desc">I create stunning digital designs that engage and inspire your audience. Let me bring your brand to life with my skills.</p>
+                </div>
+                <div class="competency">
+                    <h3 class="competency-title">Art Direction</h3>
+                    <p class="competency-desc">My art direction expertise ensures that your project is on brand, on message, and visually stunning. Let's tell your story together.</p>
+                </div>
+                <div class="competency">
+                    <h3 class="competency-title">Interaction Design</h3>
+                    <p class="competency-desc">I specialize in designing intuitive user experiences that are both functional and beautiful.</p>
+                </div>
+                <div class="competency">
+                    <h3 class="competency-title">Motion Design</h3>
+                    <p class="competency-desc">From animated logos to explainer videos, I bring your message to life with visually stunning motion design.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Fenix Section -->
+    <section id="fenix">
+        <div class="section-label">(Meet Fenix)</div>
+        <h2 class="section-title">My AI Assistant</h2>
+        <div class="work-card" style="max-width: 800px; margin: 0 auto;">
+            <div class="work-image">
+                <div class="work-image-placeholder">
+                    <img src="images/fenix-section.png" alt="Fenix AI" style="width: 80px; height: 80px; object-fit: contain;">
+                </div>
+            </div>
+            <div class="work-info">
+                <p class="work-desc" style="font-size: 1.1rem;">
+                    Fenix is your personal guide to understanding my work, experience, and availability. Ask questions about my projects, expertise, or how we can work together. Coming soon!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work">
+        <div class="section-label">(Work) <span class="restricted-badge">ACCESS REQUIRED</span></div>
+        
+        <div class="work-marquee">
+            <div class="marquee-content">
+                <span class="marquee-item">Work</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">Work</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">Work</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">Work</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">Work</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">Work</span>
+                <span class="marquee-item">•</span>
+            </div>
+        </div>
+
+        <div class="work-grid">
+            <div class="work-card" role="button" tabindex="0">
+                <div class="work-image">
+                    <div class="work-image-placeholder">💻</div>
+                </div>
+                <div class="work-info">
+                    <h3 class="work-title">Development</h3>
+                    <p class="work-desc">A showcase of code, technical projects, and open source contributions.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">GitHub</span>
+                        <span class="work-tag">Projects</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card" role="button" tabindex="0">
+                <div class="work-image">
+                    <div class="work-image-placeholder">🎨</div>
+                </div>
+                <div class="work-info">
+                    <h3 class="work-title">How I'd Build It</h3>
+                    <p class="work-desc">Product teardowns and redesigns of popular applications from top companies.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">Case Studies</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card" role="button" tabindex="0">
+                <div class="work-image">
+                    <div class="work-image-placeholder">🚀</div>
+                </div>
+                <div class="work-info">
+                    <h3 class="work-title">Sandbox Projects</h3>
+                    <p class="work-desc">Apps, tools, and experiments built from scratch to showcase capabilities.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">Prototypes</span>
+                        <span class="work-tag">Apps</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card" role="button" tabindex="0">
+                <div class="work-image">
+                    <div class="work-image-placeholder">✨</div>
+                </div>
+                <div class="work-info">
+                    <h3 class="work-title">Creative Work</h3>
+                    <p class="work-desc">AI-generated images, videos, and written content exploring new creative frontiers.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">AI Art</span>
+                        <span class="work-tag">Content</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consulting Section -->
+    <section id="consulting">
+        <div class="section-label">(Consulting)</div>
+        <h2 class="section-title">Product Incite</h2>
+        <p style="max-width: 700px; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem;">
+            Strategic product consulting and advisory services. I help organizations build better products through design thinking, agile methodologies, and customer-centric approaches.
+        </p>
+        <a href="https://productincite.com" target="_blank" class="contact-link">Visit ProductIncite.com →</a>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <div class="section-label">(Blog)</div>
+        <h2 class="section-title">Thoughts & Insights</h2>
+        <div class="work-card" style="max-width: 800px; margin: 0 auto;">
+            <div class="work-image">
+                <div class="work-image-placeholder">📝</div>
+            </div>
+            <div class="work-info">
+                <p class="work-desc" style="font-size: 1.1rem;">
+                    Articles on product management, design, technology, and AI transformation. Publishing on Medium.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Causes Section -->
+    <section id="causes">
+        <div class="section-label">(Causes I Support)</div>
+        <h2 class="section-title">Making an Impact</h2>
+
+        <div class="competencies-grid">
+            <div class="competency">
+                <h3 class="competency-title">🐼 WWF</h3>
+                <p class="competency-desc">Protecting wildlife and natural habitats worldwide through conservation efforts and sustainable practices.</p>
+            </div>
+            <div class="competency">
+                <h3 class="competency-title">🏠 Habitat for Humanity</h3>
+                <p class="competency-desc">Building homes, communities, and hope for families in need around the world.</p>
+            </div>
+            <div class="competency">
+                <h3 class="competency-title">🤝 Big Brothers Big Sisters</h3>
+                <p class="competency-desc">Mentoring youth to help them reach their full potential and build brighter futures.</p>
+            </div>
+            <div class="competency">
+                <h3 class="competency-title">🏥 Doctors Without Borders</h3>
+                <p class="competency-desc">Providing medical care in crisis zones and regions with limited healthcare access.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Release Notes Section -->
+    <section id="releases">
+        <div class="section-label">(Release Notes)</div>
+        <h2 class="section-title">Latest Updates</h2>
+        <div class="work-card" style="max-width: 800px; margin: 0 auto;">
+            <div class="work-image">
+                <div class="work-image-placeholder">📋</div>
+            </div>
+            <div class="work-info">
+                <p class="work-desc" style="font-size: 1.1rem;">
+                    Track all the latest changes and updates to this site. Subscribe via RSS to stay informed.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section>
+        <div class="section-label">(My Clients)</div>
+        <h2 class="section-title">What People Say</h2>
+
+        <div class="testimonials-grid">
+            <div class="testimonial">
+                <h3 class="testimonial-title">Exceptional digital design and user experience.</h3>
+                <p class="testimonial-text">Kiran's product management skills are unmatched. He transformed our roadmap into a beautiful and functional strategy that exceeded our expectations.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div>
+                        <div class="author-name">Sarah Chen</div>
+                        <div class="author-title">VP of Product</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <h3 class="testimonial-title">Art direction that captured our essence.</h3>
+                <p class="testimonial-text">Working with Kiran was a pleasure. He listened to our ideas and brought creativity and technical expertise, resulting in a stunning product.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div>
+                        <div class="author-name">Michael Rodriguez</div>
+                        <div class="author-title">Founder, TechStart</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <h3 class="testimonial-title">Kiran's interaction design expertise delivered.</h3>
+                <p class="testimonial-text">Kiran's expertise in AI helped us reimagine our product. His creativity and attention to detail resulted in features that exceeded expectations.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div>
+                        <div class="author-name">Jennifer Park</div>
+                        <div class="author-title">CTO, Innovation Labs</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <h3 class="testimonial-title">Captivating motion design that brought our brand to life.</h3>
+                <p class="testimonial-text">Kiran's approach to product design is exceptional. He brought our brand to life with features that truly captivated our users.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div>
+                        <div class="author-name">David Thompson</div>
+                        <div class="author-title">Head of Design</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta" id="contact">
+        <div class="section-label">(Connect)</div>
+        <h2>Let's talk</h2>
+        <a href="mailto:kiranrao@gmail.com" class="contact-link">Get in Touch</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Kiran Gorapalli. All rights reserved.</p>
+    </footer>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant" title="Chat with Fenix (Coming Soon)">
+        <img src="images/fenix-avatar.png" alt="Fenix AI" style="width: 32px; height: 32px; object-fit: contain;">
+    </div>
+
+    <!-- Share Modal -->
+    <div class="share-modal" id="shareModal">
+        <div class="share-modal-content">
+            <div class="share-modal-header">
+                <h3 class="share-modal-title">Share</h3>
+                <button class="close-share" id="closeShare">×</button>
+            </div>
+
+            <div class="share-options">
+                <!-- Email -->
+                <a href="#" class="share-option" id="shareEmail">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span class="share-option-label">Email</span>
+                </a>
+
+                <!-- WhatsApp -->
+                <a href="#" class="share-option" id="shareWhatsApp">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                    <span class="share-option-label">WhatsApp</span>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="#" class="share-option" id="shareLinkedIn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                    <span class="share-option-label">LinkedIn</span>
+                </a>
+
+                <!-- Twitter/X -->
+                <a href="#" class="share-option" id="shareTwitter">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                    </svg>
+                    <span class="share-option-label">Twitter</span>
+                </a>
+
+                <!-- Facebook -->
+                <a href="#" class="share-option" id="shareFacebook">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                    <span class="share-option-label">Facebook</span>
+                </a>
+
+                <!-- SMS -->
+                <a href="#" class="share-option" id="shareSMS">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span class="share-option-label">SMS</span>
+                </a>
+            </div>
+
+            <div class="share-link-copy">
+                <input type="text" class="share-link-input" id="shareLink" readonly>
+                <button class="copy-link-btn" id="copyLinkBtn">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
