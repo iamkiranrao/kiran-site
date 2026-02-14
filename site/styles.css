@@ -1171,7 +1171,7 @@ footer {
     .hero h1 { font-size: clamp(2rem, 10vw, 3.5rem); margin-bottom: 0.5rem; }
     .hero-tagline { font-size: clamp(1.5rem, 7vw, 2.5rem); margin-bottom: 1rem; }
     .hero-location { font-size: 0.95rem; }
-    .hero-bottom-row { flex-wrap: wrap; gap: 0.5rem; }
+    .hero-bottom-row { flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
     .scroll-indicator { font-size: 0.85rem; }
 
     section { padding: 3rem 1.5rem; }
