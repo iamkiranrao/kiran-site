@@ -738,12 +738,11 @@ nav {
     margin-bottom: 2rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    font-weight: 600;
+    gap: 0.5rem;
     letter-spacing: -0.02em;
 }
 
-.expand-icon { font-size: 1.4rem; color: var(--text-secondary); }
+.expand-icon { font-size: 1.375rem; color: var(--text-primary); }
 
 
 /* ============================================
@@ -763,8 +762,9 @@ nav {
 }
 
 .competency-title {
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--text-primary);
     margin-bottom: 0.75rem;
     letter-spacing: -0.02em;
 }
