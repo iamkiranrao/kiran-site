@@ -1,0 +1,45 @@
+#!/bin/bash
+# Auto-update version number and date in index.html before each commit
+# Version format: v1.X.Y (bumps patch number Y on each commit)
+
+HTML_FILE="site/index.html"
+
+if [ ! -f "$HTML_FILE" ]; then
+    exit 0
+fi
+
+# Only run if index.html is being committed
+if ! git diff --cached --name-only | grep -q "$HTML_FILE"; then
+    # Check if other site files are staged — if so, update index.html too
+    if ! git diff --cached --name-only | grep -q "^site/"; then
+        exit 0
+    fi
+fi
+
+# Extract current version
+CURRENT_VERSION=$(grep -oP 'v\d+\.\d+\.\d+' "$HTML_FILE" | head -1)
+
+if [ -z "$CURRENT_VERSION" ]; then
+    echo "Warning: Could not find version number in $HTML_FILE"
+    exit 0
+fi
+
+# Parse and bump patch version
+IFS='.' read -r MAJOR MINOR PATCH <<< "${CURRENT_VERSION#v}"
+NEW_PATCH=$((PATCH + 1))
+NEW_VERSION="v${MAJOR}.${MINOR}.${NEW_PATCH}"
+
+# Get current date in format "Updated Mon DD, YYYY"
+NEW_DATE="Updated $(date +'%b %d, %Y' | sed 's/ 0/ /')"
+
+# Replace version number
+sed -i "s|${CURRENT_VERSION}|${NEW_VERSION}|g" "$HTML_FILE"
+
+# Replace updated date
+sed -i "s|Updated [A-Z][a-z]\{2\} [0-9]\{1,2\}, [0-9]\{4\}|${NEW_DATE}|g" "$HTML_FILE"
+
+# Re-stage index.html with the updated version/date
+git add "$HTML_FILE"
+
+echo "Version bumped: ${CURRENT_VERSION} -> ${NEW_VERSION}"
+echo "Date updated: ${NEW_DATE}"
