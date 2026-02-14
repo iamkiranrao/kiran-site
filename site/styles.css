@@ -1035,6 +1035,73 @@ footer {
     margin-bottom: 1.5rem;
 }
 
+/* Fenix Video Section */
+.fenix-video-section {
+    padding: 0;
+    position: relative;
+}
+
+.fenix-section-label {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 2;
+    margin: 0;
+}
+
+.fenix-video-container {
+    width: 100%;
+    height: 500px;
+    background: #b8753d;
+    position: relative;
+    overflow: hidden;
+}
+
+.fenix-video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fenix-video-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a3a4a 0%, #00293C 50%, #1a3a4a 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fenix-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.fenix-video-text {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 500;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+    letter-spacing: -0.02em;
+    line-height: 1.6;
+    padding: 0 3rem;
+    max-width: 700px;
+    animation: fadeInUp 1s ease 0.5s both;
+}
+
 /* Floating Fenix AI assistant button */
 .ai-assistant-wrapper {
     position: fixed;
@@ -1188,6 +1255,9 @@ footer {
 
     .hero-image { height: 350px; }
     .hero-video-text { font-size: clamp(1.2rem, 6vw, 2rem); padding: 0 1rem; }
+    .fenix-video-container { height: 350px; }
+    .fenix-video-text { font-size: clamp(1rem, 4vw, 1.4rem); padding: 0 1.5rem; }
+    .fenix-section-label { top: 1.5rem; }
 
     .mobile-menu { max-width: 100%; padding: 1.5rem; }
     .mobile-nav-links a { font-size: 1.8rem; }
