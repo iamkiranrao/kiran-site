@@ -94,8 +94,8 @@ nav {
 .logo-container:hover { transform: translateY(-2px); }
 
 .logo-image {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     object-fit: contain;
     transition: transform 0.3s ease;
     display: block;
@@ -489,9 +489,6 @@ nav {
     margin: 0 auto;
     width: 100%;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
 }
 
 .hero h1 {
@@ -506,7 +503,7 @@ nav {
     font-size: clamp(2.2rem, 6vw, 5rem);
     font-weight: 600;
     line-height: 1.05;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     letter-spacing: -0.03em;
     color: #918a80;
 }
@@ -516,7 +513,7 @@ nav {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-top: auto;
+    margin-top: 0;
 }
 
 .hero-location {
@@ -1158,7 +1155,7 @@ footer {
     nav { padding: 1rem 1.5rem; }
     .nav-container { padding: 0; }
     .top-info-bar { padding: 0.5rem 1.5rem; }
-    .logo-image { width: 32px; height: 32px; }
+    .logo-image { width: 36px; height: 36px; }
     .version-info { font-size: 0.7rem; }
     .version-number { font-size: 0.7rem; }
     .last-updated { font-size: 0.65rem; }
@@ -1171,7 +1168,7 @@ footer {
     .hero h1 { font-size: clamp(2rem, 10vw, 3.5rem); margin-bottom: 0.5rem; }
     .hero-tagline { font-size: clamp(1.5rem, 7vw, 2.5rem); margin-bottom: 1rem; }
     .hero-location { font-size: 0.95rem; }
-    .hero-bottom-row { flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .hero-bottom-row { flex-wrap: wrap; gap: 0.5rem; }
     .scroll-indicator { font-size: 0.85rem; }
 
     section { padding: 3rem 1.5rem; }
@@ -1218,7 +1215,7 @@ footer {
 
 @media (max-width: 480px) {
     .top-info-bar { padding: 0.5rem 1rem; }
-    .logo-image { width: 28px; height: 28px; }
+    .logo-image { width: 34px; height: 34px; }
     .version-info { display: none; }
     .nav-right { gap: 0.5rem; }
 
