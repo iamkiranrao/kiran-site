@@ -838,8 +838,8 @@ section {
 
 .work-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 3rem;
     margin-top: 3rem;
 }
 
@@ -848,14 +848,15 @@ section {
     border-radius: 0;
     overflow: hidden;
     color: var(--text-primary);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.4s ease;
     border: none;
     cursor: pointer;
     text-align: left;
+    width: 100%;
 }
 
 .work-card:hover {
-    transform: translateY(-4px);
+    opacity: 0.9;
 }
 
 .work-card:focus {
@@ -865,14 +866,20 @@ section {
 
 .work-image {
     width: 100%;
-    height: 380px;
-    border-radius: 16px;
+    aspect-ratio: 16 / 9;
+    border-radius: 0;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     margin-bottom: 1.25rem;
+}
+
+.work-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Distinct warm background colors for each card */
@@ -1217,7 +1224,7 @@ footer {
     .scroll-indicator { font-size: 1.1rem; }
     section { padding: 5rem 2.5rem; }
     .about-section { padding: 4rem 2.5rem; }
-    .work-grid { grid-template-columns: repeat(2, 1fr); }
+    .work-grid { grid-template-columns: 1fr; }
     .hero-image { height: 450px; }
 }
 
@@ -1257,7 +1264,7 @@ footer {
     .section-title { font-size: clamp(1.8rem, 8vw, 2.5rem); }
     .about-intro { font-size: clamp(1.3rem, 6vw, 1.8rem); margin-bottom: 0; }
 
-    .work-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .work-grid { grid-template-columns: 1fr; gap: 2rem; }
     .competencies-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .testimonials-grid { grid-template-columns: 1fr; gap: 1.25rem; }
 
@@ -1270,8 +1277,7 @@ footer {
     .mobile-menu { max-width: 100%; padding: 1.5rem; }
     .mobile-nav-links a { font-size: 1.8rem; }
 
-    .work-image { height: 240px; }
-    .work-info { padding: 1.5rem; }
+    .work-info { padding: 0.5rem 0; }
     .testimonial { padding: 2rem; }
 
     .contact-cta { padding: 5rem 1.5rem; }
@@ -1308,8 +1314,6 @@ footer {
     .competency-title { font-size: 1.15rem; }
     .work-title { font-size: 1.4rem; }
     .testimonial-title { font-size: 1.05rem; }
-    .work-image { height: 200px; }
-    .work-image-placeholder { font-size: 3rem; }
     .contact-cta h2 { font-size: 2rem; }
     footer { padding: 2rem 1.5rem; font-size: 0.85rem; }
 }
@@ -1328,7 +1332,7 @@ footer {
 
 @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
     .hero-image { height: 500px; }
-    .work-grid { grid-template-columns: repeat(2, 1fr); }
+    .work-grid { grid-template-columns: 1fr; }
     .competencies-grid { grid-template-columns: repeat(2, 1fr); }
     .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
 }
