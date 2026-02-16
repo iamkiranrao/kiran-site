@@ -422,8 +422,8 @@ if (logoContainer) {
             const progress = 1 - (rect.bottom / (windowHeight + rect.height));
             // Clamp between 0 and 1
             const clamped = Math.min(Math.max(progress, 0), 1);
-            // Scale from 1.15 (zoomed in) down to 1.0 (normal) as it scrolls into view
-            const scale = 1.15 - (clamped * 0.15);
+            // Scale from 1.3 (zoomed in) down to 1.0 (normal) as it scrolls into view
+            const scale = 1.3 - (clamped * 0.3);
             img.style.transform = `scale(${scale})`;
         });
     }
