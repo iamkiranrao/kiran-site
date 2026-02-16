@@ -402,3 +402,33 @@ if (logoContainer) {
         }
     });
 }
+
+// ============================================
+// WORK IMAGE PARALLAX ZOOM EFFECT
+// Images start zoomed in and scale down to normal as they scroll into view
+// ============================================
+(function() {
+    const workImages = document.querySelectorAll('.work-image');
+    if (!workImages.length) return;
+
+    function updateParallax() {
+        const windowHeight = window.innerHeight;
+        workImages.forEach(container => {
+            const img = container.querySelector('img');
+            if (!img) return;
+            const rect = container.getBoundingClientRect();
+            // Calculate how far the element is through the viewport
+            // 0 = just entering from bottom, 1 = fully past the top
+            const progress = 1 - (rect.bottom / (windowHeight + rect.height));
+            // Clamp between 0 and 1
+            const clamped = Math.min(Math.max(progress, 0), 1);
+            // Scale from 1.15 (zoomed in) down to 1.0 (normal) as it scrolls into view
+            const scale = 1.15 - (clamped * 0.15);
+            img.style.transform = `scale(${scale})`;
+        });
+    }
+
+    window.addEventListener('scroll', updateParallax, { passive: true });
+    window.addEventListener('resize', updateParallax, { passive: true });
+    updateParallax();
+})()
