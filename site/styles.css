@@ -648,7 +648,8 @@ nav {
 }
 
 .about-description {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
+    font-weight: 400;
     line-height: 1.7;
     color: var(--text-secondary);
     margin-top: 0.75rem;
@@ -761,7 +762,8 @@ nav {
 .competency-desc {
     color: var(--text-secondary);
     line-height: 1.7;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
+    font-weight: 400;
 }
 
 
@@ -1610,6 +1612,8 @@ footer {
 
     .work-title { font-size: 1.8rem; }
     .work-desc { font-size: 0.8rem; }
+    .about-description { font-size: 0.8rem; }
+    .competency-desc { font-size: 0.8rem; }
     .testimonial { padding: 2rem; }
 
     .contact-cta { padding: 5rem 1.5rem; }
