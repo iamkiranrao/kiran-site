@@ -33,7 +33,7 @@
     --shadow: rgba(0, 0, 0, 0.08);
 }
 
-html { scroll-behavior: smooth; }
+/* scroll-behavior handled in JS for nav offset support */
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -60,55 +60,11 @@ nav {
     padding: 1.25rem 2.5rem;
 }
 
-.top-info-bar {
-    position: relative;
-    width: 100%;
-    padding: 0.75rem 1.25rem;
-    z-index: 999;
-    background: var(--bg-primary);
-}
-
-.top-info-bar-inner {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
 .nav-container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 0.75rem;
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.logo-container:hover { transform: translateY(-2px); }
-
-.logo-image {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-    display: block;
-    flex-shrink: 0;
-}
-
-.logo-container:hover .logo-image {
-    transform: scale(1.05) rotate(2deg);
-}
-
-.version-info {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.75rem;
-    line-height: 1.2;
 }
 
 .version-number {
@@ -119,13 +75,6 @@ nav {
 .last-updated {
     color: var(--text-muted);
     font-size: 0.7rem;
-}
-
-.release-notes-row {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.15rem;
 }
 
 .release-notes-link {
@@ -843,30 +792,6 @@ section {
    WORK SECTION — Bent-inspired large cards
    ============================================ */
 
-.work-marquee {
-    margin: 4rem 0;
-    overflow: hidden;
-}
-
-.marquee-content {
-    display: flex;
-    gap: 3rem;
-    animation: marquee 25s linear infinite;
-}
-
-.marquee-item {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 700;
-    color: var(--text-muted);
-    white-space: nowrap;
-    letter-spacing: -0.03em;
-}
-
-@keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
 #work {
     overflow: visible;
     padding: 4rem 4rem;
@@ -1562,11 +1487,6 @@ footer {
 @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-container { padding: 0; }
-    .top-info-bar { padding: 0.5rem 1.5rem; }
-    .logo-image { width: 36px; height: 36px; }
-    .version-info { font-size: 0.7rem; }
-    .version-number { font-size: 0.7rem; }
-    .last-updated { font-size: 0.65rem; }
 
     .theme-toggle { width: 40px; height: 40px; }
     .share-button { width: 40px; height: 40px; }
@@ -1618,7 +1538,9 @@ footer {
     .fenix-section-logo { width: 100px; height: 100px; }
     .social-links { flex-wrap: wrap; }
     .social-icon { width: 40px; height: 40px; }
-    .marquee-item { font-size: 2rem; }
+    .footer-columns { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-col-divider { width: 100%; height: 1px; align-self: auto; }
+    .testimonial-form-row { flex-direction: column; }
 }
 
 
@@ -1627,9 +1549,6 @@ footer {
    ============================================ */
 
 @media (max-width: 480px) {
-    .top-info-bar { padding: 0.5rem 1rem; }
-    .logo-image { width: 34px; height: 34px; }
-    .version-info { font-size: 0.6rem; }
     .nav-right { gap: 0.5rem; }
 
     .hero h1 { font-size: 2rem; }
@@ -1709,8 +1628,10 @@ a:focus, button:focus {
     outline-offset: 2px;
 }
 
-/* Theme transition */
-* {
+/* Theme transition — scoped to elements that actually change */
+body, nav, section, footer, .mobile-menu, .share-modal-content,
+.work-card, .social-icon, .testimonial, .competency,
+.feedback-comment, .testimonial-input {
     transition-property: background-color, border-color, color;
     transition-duration: 0.3s;
     transition-timing-function: ease;
@@ -1718,3 +1639,13 @@ a:focus, button:focus {
 
 /* Prevent transition on page load */
 .preload * { transition: none !important; }
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
