@@ -183,11 +183,12 @@
         <div class="about-container">
             <div class="about-two-col">
                 <div class="about-left">
-                    <h2 class="about-intro" data-i18n="aboutIntro">Forged in product, fueled by customer obsession.<br>Equal parts strategist, storyteller, and builder.</h2>
+                    <h2 class="about-intro" data-i18n="aboutIntro">Equal parts strategist, storyteller, and builder.</h2>
                 </div>
                 <div class="about-divider-vertical"></div>
                 <div class="about-right">
                     <p class="section-label" data-i18n="aboutLabel">(About Me)</p>
+                    <p class="about-description">I lead product teams, geek out about AI, and believe the best work happens when you're genuinely curious about the people you're building for. This is my little corner of the internet — part portfolio, part playground.</p>
                     <div class="about-right-spacer"></div>
                     <div class="social-links">
                         <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn">
@@ -272,9 +273,35 @@
     <!-- Work Section -->
     <section id="work">
         <div class="work-intro">
-            <p class="work-intro-text">Fenix is my personal assistant and your AI guide to helping you navigate this site and experience it in a way thats right for you.</p>
-            <img src="images/logo.png" alt="Fenix Logo" class="work-intro-logo">
+            <div class="work-intro-left">
+                <h2 class="work-intro-text">Fenix is my personal assistant and your AI guide to helping you navigate this site and experience it in a way that's right for you.</h2>
+                <img src="images/logo.png" alt="Fenix Logo" class="work-intro-logo work-intro-logo-centered">
+            </div>
+            <div class="work-intro-divider"></div>
+            <div class="work-intro-right">
+                <div class="pill-section">
+                    <p class="pill-section-label">Most commonly asked questions ↘</p>
+                    <div class="explore-pills">
+                        <button class="explore-pill" data-fenix="true">What has Kiran shipped?</button>
+                        <button class="explore-pill" data-fenix="true">What's Kiran's product philosophy?</button>
+                        <button class="explore-pill" data-fenix="true">Where has Kiran worked?</button>
+                        <button class="explore-pill" data-fenix="true">What tech stack does Kiran use?</button>
+                        <button class="explore-pill" data-fenix="true">Is Kiran open to new opportunities?</button>
+                    </div>
+                </div>
+                <div class="pill-section">
+                    <p class="pill-section-label">Try asking Fenix ↘</p>
+                    <div class="explore-pills">
+                        <button class="explore-pill" data-fenix="true">Does this site have any easter eggs?</button>
+                        <button class="explore-pill" data-fenix="true">What does Kiran know about payments?</button>
+                        <button class="explore-pill" data-fenix="true">How does Kiran lead?</button>
+                        <button class="explore-pill" data-fenix="true">What does Kiran like to do in his spare time?</button>
+                        <button class="explore-pill" data-fenix="true">What is Kiran's favorite movie?</button>
+                    </div>
+                </div>
+            </div>
         </div>
+        <p class="section-label explore-label">(Explore)</p>
         <div class="work-grid">
             <button class="work-card" id="my-work">
                 <div class="work-image">
@@ -496,12 +523,9 @@
                 </form>
             </div>
 
-            <!-- Vertical Divider -->
-            <div class="footer-col-divider"></div>
-
-            <!-- Right: Testimonial Submission -->
+            <!-- Testimonial Submission -->
             <div class="footer-testimonial">
-                <p class="footer-feedback-label">Worked with me? Would you consider leaving a testimonial?</p>
+                <p class="footer-feedback-label">Worked with me? Would you consider leaving a testimonial? &#x263A;</p>
                 <form name="testimonials" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="testimonial-form" id="testimonialForm">
                     <input type="hidden" name="form-name" value="testimonials">
                     <p class="hidden" style="display:none"><label>Don't fill this out: <input name="bot-field"></label></p>
