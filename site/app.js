@@ -319,6 +319,25 @@ if (workIntroLogo) {
     workIntroLogo.addEventListener('click', launchFenix);
 }
 
+// Explore pills
+document.querySelectorAll('.explore-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+        if (pill.dataset.fenix === 'true') {
+            launchFenix();
+            return;
+        }
+        const sectionId = pill.dataset.section;
+        if (sectionId) {
+            const target = document.getElementById(sectionId);
+            if (target) {
+                const navHeight = document.querySelector('nav').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight;
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            }
+        }
+    });
+});
+
 
 // ==========================================
 // SMOOTH SCROLL
