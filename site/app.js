@@ -391,10 +391,10 @@ if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
 
 const workCards = document.querySelectorAll('.work-card');
 const cardConfig = [
-    { title: 'My Work', link: null },
+    { title: 'Career Highlights', link: null },
     { title: 'How I\'d\'ve Built It', link: null },
-    { title: 'My Sandbox', link: null },
-    { title: 'Creative Lab', link: null },
+    { title: 'My MadLab', link: null },
+    { title: 'Creative Studio', link: null },
     { title: 'Blog & Podcast', link: null },
     { title: 'Learning & Certifications', link: null },
     { title: 'Causes', link: null },
