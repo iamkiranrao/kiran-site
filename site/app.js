@@ -308,9 +308,16 @@ if (translationsEnabled) {
 // AI ASSISTANT
 // ==========================================
 
-document.querySelector('.ai-assistant').addEventListener('click', () => {
+function launchFenix() {
     alert('Fenix AI Assistant coming soon! This will be an interactive chat to help answer questions about my work and experience.');
-});
+}
+
+document.querySelector('.ai-assistant').addEventListener('click', launchFenix);
+
+const workIntroLogo = document.querySelector('.work-intro-logo');
+if (workIntroLogo) {
+    workIntroLogo.addEventListener('click', launchFenix);
+}
 
 
 // ==========================================
@@ -322,7 +329,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+            const navHeight = document.querySelector('nav').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight;
+            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
         }
     });
 });
@@ -403,32 +412,77 @@ if (logoContainer) {
     });
 }
 
-// ============================================
-// WORK IMAGE PARALLAX ZOOM EFFECT
-// Images start zoomed in and scale down to normal as they scroll into view
-// ============================================
-(function() {
-    const workImages = document.querySelectorAll('.work-image');
-    if (!workImages.length) return;
+// Footer logo — scroll to top
+const footerLogo = document.querySelector('.footer-logo');
+if (footerLogo) {
+    footerLogo.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
-    function updateParallax() {
-        const windowHeight = window.innerHeight;
-        workImages.forEach(container => {
-            const img = container.querySelector('img');
-            if (!img) return;
-            const rect = container.getBoundingClientRect();
-            // Calculate how far the element is through the viewport
-            // 0 = just entering from bottom, 1 = fully past the top
-            const progress = 1 - (rect.bottom / (windowHeight + rect.height));
-            // Clamp between 0 and 1
-            const clamped = Math.min(Math.max(progress, 0), 1);
-            // Scale from 1.9 (zoomed in) down to 1.0 (normal) as it scrolls into view
-            const scale = 1.9 - (clamped * 0.9);
-            img.style.transform = `scale(${scale})`;
+// ============================================
+// WORK IMAGE HOVER EFFECT
+// Handled purely in CSS now (grid layout, no parallax)
+// ============================================
+
+
+// ============================================
+// FOOTER FEEDBACK
+// ============================================
+
+let selectedRating = null;
+
+document.querySelectorAll('.feedback-face').forEach(face => {
+    face.addEventListener('click', () => {
+        document.querySelectorAll('.feedback-face').forEach(f => f.classList.remove('selected'));
+        face.classList.add('selected');
+        selectedRating = face.dataset.rating;
+    });
+});
+
+const feedbackSubmit = document.getElementById('feedbackSubmit');
+const feedbackThanks = document.getElementById('feedbackThanks');
+
+if (feedbackSubmit) {
+    feedbackSubmit.addEventListener('click', () => {
+        const comment = document.querySelector('.feedback-comment').value;
+        if (!selectedRating && !comment.trim()) return;
+
+        // Log feedback (replace with actual endpoint when ready)
+        console.log('Feedback:', { rating: selectedRating, comment: comment });
+
+        // Show thank you, hide form elements
+        feedbackSubmit.style.display = 'none';
+        document.querySelector('.feedback-comment').style.display = 'none';
+        document.querySelector('.feedback-faces').style.opacity = '0.5';
+        document.querySelector('.feedback-faces').style.pointerEvents = 'none';
+        feedbackThanks.classList.add('visible');
+    });
+}
+
+// Testimonial Form (Netlify Forms)
+const testimonialForm = document.getElementById('testimonialForm');
+const testimonialThanks = document.getElementById('testimonialThanks');
+
+if (testimonialForm) {
+    testimonialForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(testimonialForm);
+
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(() => {
+            testimonialForm.querySelectorAll('input, textarea, button[type="submit"]').forEach(el => {
+                el.style.display = 'none';
+            });
+            testimonialForm.querySelector('.testimonial-form-row:last-of-type').style.display = 'none';
+            testimonialThanks.classList.add('visible');
+        })
+        .catch(() => {
+            alert('Something went wrong. Please try again.');
         });
-    }
-
-    window.addEventListener('scroll', updateParallax, { passive: true });
-    window.addEventListener('resize', updateParallax, { passive: true });
-    updateParallax();
-})()
+    });
+}
