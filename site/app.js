@@ -371,19 +371,24 @@ if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
 // ==========================================
 
 const workCards = document.querySelectorAll('.work-card');
+const cardConfig = [
+    { title: 'My Work', link: null },
+    { title: 'How I\'d\'ve Built It', link: null },
+    { title: 'My Sandbox', link: null },
+    { title: 'Creative Lab', link: null },
+    { title: 'Blog & Podcast', link: null },
+    { title: 'Learning & Certifications', link: null },
+    { title: 'Causes', link: null },
+    { title: 'Store', link: null }
+];
+
 workCards.forEach((card, index) => {
+    const config = cardConfig[index] || { title: 'Section', link: null };
     card.addEventListener('click', () => {
-        const cardTitles = ['Development', 'How I\'d Build It', 'Sandbox Projects', 'Creative Work'];
-        const cardLinks = [
-            'https://github.com/kirangorapalli',
-            null,
-            null,
-            null
-        ];
-        if (cardLinks[index]) {
-            window.open(cardLinks[index], '_blank');
+        if (config.link) {
+            window.open(config.link, '_blank', 'noopener,noreferrer');
         } else {
-            alert(`${cardTitles[index]} section coming soon! This will showcase detailed project work and case studies.`);
+            alert(`${config.title} — coming soon! This section will showcase detailed content and case studies.`);
         }
     });
     card.addEventListener('keydown', (e) => {
@@ -431,32 +436,42 @@ if (footerLogo) {
 // ============================================
 
 let selectedRating = null;
+const feedbackRatingInput = document.getElementById('feedbackRatingInput');
 
 document.querySelectorAll('.feedback-face').forEach(face => {
     face.addEventListener('click', () => {
         document.querySelectorAll('.feedback-face').forEach(f => f.classList.remove('selected'));
         face.classList.add('selected');
         selectedRating = face.dataset.rating;
+        if (feedbackRatingInput) feedbackRatingInput.value = selectedRating;
     });
 });
 
-const feedbackSubmit = document.getElementById('feedbackSubmit');
+const feedbackForm = document.getElementById('feedbackForm');
 const feedbackThanks = document.getElementById('feedbackThanks');
 
-if (feedbackSubmit) {
-    feedbackSubmit.addEventListener('click', () => {
-        const comment = document.querySelector('.feedback-comment').value;
+if (feedbackForm) {
+    feedbackForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const comment = feedbackForm.querySelector('.feedback-comment').value;
         if (!selectedRating && !comment.trim()) return;
 
-        // Log feedback (replace with actual endpoint when ready)
-        console.log('Feedback:', { rating: selectedRating, comment: comment });
-
-        // Show thank you, hide form elements
-        feedbackSubmit.style.display = 'none';
-        document.querySelector('.feedback-comment').style.display = 'none';
-        document.querySelector('.feedback-faces').style.opacity = '0.5';
-        document.querySelector('.feedback-faces').style.pointerEvents = 'none';
-        feedbackThanks.classList.add('visible');
+        const formData = new FormData(feedbackForm);
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(() => {
+            feedbackForm.querySelector('.feedback-submit').style.display = 'none';
+            feedbackForm.querySelector('.feedback-comment').style.display = 'none';
+            feedbackForm.querySelector('.feedback-faces').style.opacity = '0.5';
+            feedbackForm.querySelector('.feedback-faces').style.pointerEvents = 'none';
+            feedbackThanks.classList.add('visible');
+        })
+        .catch(() => {
+            alert('Something went wrong. Please try again.');
+        });
     });
 }
 
