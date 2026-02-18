@@ -1,0 +1,21 @@
+# Backup files
+*.backup.*
+
+# Working documents
+*.docx
+*.md
+!README.md
+
+# ChatGPT generated images
+ChatGPT*
+
+# Unused translations (commented out in HTML)
+translations.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Strategy docs
+Site Strategy*
+Site Reference*
