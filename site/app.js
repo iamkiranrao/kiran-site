@@ -423,24 +423,17 @@ workCards.forEach((card, index) => {
 // LOGO CLICK TO SCROLL TOP
 // ==========================================
 
-const logoContainer = document.querySelector('.logo-container');
-if (logoContainer) {
-    logoContainer.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    logoContainer.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    });
-}
-
 // Footer logo — scroll to top
 const footerLogo = document.querySelector('.footer-logo');
 if (footerLogo) {
     footerLogo.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    footerLogo.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     });
 }
 

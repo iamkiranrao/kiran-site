@@ -897,7 +897,7 @@ section {
 
 .explore-pill:hover {
     background: var(--text-primary);
-    color: var(--bg);
+    color: var(--bg-primary);
     border-color: var(--text-primary);
 }
 
