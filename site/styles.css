@@ -656,7 +656,7 @@ nav {
 }
 
 .section-label {
-    font-size: 1.375rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 0;
@@ -722,7 +722,7 @@ nav {
 }
 
 .what-i-do-label {
-    font-size: 1.375rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 2rem;
