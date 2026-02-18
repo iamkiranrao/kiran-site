@@ -12,21 +12,24 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="alternate" type="application/rss+xml" title="Kiran Gorapalli - Release Notes & Blog" href="rss.xml">
 
+    <link rel="canonical" href="https://kirangorapalli.netlify.app/">
+    <meta name="theme-color" content="#0a0a0a">
+
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Kiran Gorapalli - Builder of Products People Love">
     <meta property="og:description" content="Product Manager, Designer, and AI enthusiast based in San Francisco. Explore my work, projects, and ideas.">
     <meta property="og:url" content="https://kirangorapalli.netlify.app">
-    <meta property="og:image" content="https://kirangorapalli.netlify.app/images/logo.png">
+    <meta property="og:image" content="https://kirangorapalli.netlify.app/images/og-image.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Kiran Gorapalli - Builder of Products People Love">
     <meta name="twitter:description" content="Product Manager, Designer, and AI enthusiast based in San Francisco.">
-    <meta name="twitter:image" content="https://kirangorapalli.netlify.app/images/logo.png">
+    <meta name="twitter:image" content="https://kirangorapalli.netlify.app/images/og-image.png">
 </head>
 <body class="preload">
-    <!-- Top Info Bar (moved to footer) -->
+    <a href="#about" class="skip-link">Skip to main content</a>
 
     <!-- Navigation -->
     <nav>
@@ -109,44 +112,44 @@
                 <button id="closeShare" class="close-share" aria-label="Close share dialog">×</button>
             </div>
             <div class="share-options">
-                <a id="shareEmail" class="share-option" href="#">
+                <button id="shareEmail" class="share-option" type="button">
                     <svg viewBox="0 0 24 24">
                         <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                         <path d="m2 6 10 7 10-7"></path>
                     </svg>
                     <span class="share-option-label">Email</span>
-                </a>
-                <a id="shareWhatsApp" class="share-option" href="#">
+                </button>
+                <button id="shareWhatsApp" class="share-option" type="button">
                     <svg viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-9.746 9.798c0 2.734.743 5.404 2.152 7.707L2.06 22.5l8.15-2.14a9.868 9.868 0 004.763 1.213h.004c5.44 0 9.868-4.43 9.868-9.873 0-2.634-.704-5.167-2.041-7.41-1.337-2.242-3.236-4.163-5.568-5.472-2.332-1.31-5.044-2.019-7.827-2.019Z"></path>
                     </svg>
                     <span class="share-option-label">WhatsApp</span>
-                </a>
-                <a id="shareLinkedIn" class="share-option" href="#">
+                </button>
+                <button id="shareLinkedIn" class="share-option" type="button">
                     <svg viewBox="0 0 24 24">
                         <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
                         <circle cx="4" cy="4" r="2"></circle>
                     </svg>
                     <span class="share-option-label">LinkedIn</span>
-                </a>
-                <a id="shareTwitter" class="share-option" href="#">
+                </button>
+                <button id="shareTwitter" class="share-option" type="button">
                     <svg viewBox="0 0 24 24">
                         <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"></path>
                     </svg>
                     <span class="share-option-label">Twitter</span>
-                </a>
-                <a id="shareFacebook" class="share-option" href="#">
+                </button>
+                <button id="shareFacebook" class="share-option" type="button">
                     <svg viewBox="0 0 24 24">
                         <path d="M18 2h-3a6 6 0 00-6 6v3H7v4h2v8h4v-8h3l1-4h-4V8a2 2 0 012-2h3z"></path>
                     </svg>
                     <span class="share-option-label">Facebook</span>
-                </a>
-                <a id="shareSMS" class="share-option" href="#">
+                </button>
+                <button id="shareSMS" class="share-option" type="button">
                     <svg viewBox="0 0 24 24">
                         <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path>
                     </svg>
                     <span class="share-option-label">SMS</span>
-                </a>
+                </button>
             </div>
             <div class="share-link-copy">
                 <input type="text" id="shareLink" class="share-link-input" readonly>
@@ -216,9 +219,9 @@
                                 <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path>
                             </svg>
                         </a>
-                        <a href="https://medium.com/@kirangorapalli" class="social-icon medium" title="Medium" target="_blank" rel="noopener noreferrer">
+                        <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
                             <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                                <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zm2.04 0c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75c.66 0 1.19 2.58 1.19 5.75z"></path>
+                                <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path>
                             </svg>
                         </a>
                     </div>
@@ -292,7 +295,7 @@
         <div class="work-grid">
             <button class="work-card" id="my-work">
                 <div class="work-image">
-                    <img src="images/work-career.png" alt="Career Highlights">
+                    <img src="images/work-career.png" alt="Career Highlights" loading="lazy">
                 </div>
                 <div class="work-info">
                     <h3 class="work-title">Career Highlights</h3>
@@ -307,7 +310,7 @@
 
             <button class="work-card" id="how-id-built-it">
                 <div class="work-image">
-                    <img src="images/HowIdbuilt.png" alt="How I'd've Built It">
+                    <img src="images/HowIdbuilt.png" alt="How I'd've Built It" loading="lazy">
                 </div>
                 <div class="work-info">
                     <h3 class="work-title">How I'd've Built It</h3>
@@ -321,7 +324,7 @@
 
             <button class="work-card" id="my-sandbox">
                 <div class="work-image">
-                    <img src="images/work-sandbox.jpg" alt="My Sandbox">
+                    <img src="images/work-sandbox.jpg" alt="My Sandbox" loading="lazy">
                 </div>
                 <div class="work-info">
                     <h3 class="work-title">MadLab</h3>
@@ -336,7 +339,7 @@
 
             <button class="work-card" id="creative-lab">
                 <div class="work-image">
-                    <img src="images/CreativeStudio.png" alt="Creative Studio">
+                    <img src="images/CreativeStudio.png" alt="Creative Studio" loading="lazy">
                 </div>
                 <div class="work-info">
                     <h3 class="work-title">Studio</h3>
@@ -351,7 +354,7 @@
 
             <button class="work-card" id="blog-podcast">
                 <div class="work-image">
-                    <img src="images/work-blog.jpg" alt="Blog & Podcast">
+                    <img src="images/work-blog.jpg" alt="Blog & Podcast" loading="lazy">
                 </div>
                 <div class="work-info">
                     <h3 class="work-title">Blog & Podcast</h3>
@@ -359,14 +362,14 @@
                     <div class="work-tags">
                         <span class="work-tag">Articles</span>
                         <span class="work-tag">Podcast</span>
-                        <span class="work-tag">Medium</span>
+                        <span class="work-tag">Substack</span>
                     </div>
                 </div>
             </button>
 
             <button class="work-card" id="certifications">
                 <div class="work-image">
-                    <img src="images/Certificates.png" alt="Learning & Certifications">
+                    <img src="images/Certificates.png" alt="Learning & Certifications" loading="lazy">
                 </div>
                 <div class="work-info">
                     <h3 class="work-title">Learning & Certifications</h3>
@@ -381,7 +384,7 @@
 
             <button class="work-card" id="causes">
                 <div class="work-image">
-                    <img src="images/work-causes.jpg" alt="Causes">
+                    <img src="images/work-causes.jpg" alt="Causes" loading="lazy">
                 </div>
                 <div class="work-info">
                     <h3 class="work-title">Causes</h3>
@@ -396,7 +399,7 @@
 
             <button class="work-card" id="store">
                 <div class="work-image">
-                    <img src="images/work-store.jpg" alt="Store">
+                    <img src="images/work-store.jpg" alt="Store" loading="lazy">
                 </div>
                 <div class="work-info">
                     <h3 class="work-title">Store</h3>
@@ -411,65 +414,6 @@
         </div>
     </section>
 
-
-    <!-- Release Notes Section (empty anchor) -->
-    <div id="releases"></div>
-
-    <!-- HIDDEN: Testimonials Section (uncomment to restore)
-    <section id="clients">
-        <p class="section-label" data-i18n="clients">(My Clients)</p>
-        <h2 class="section-title" data-i18n="whatPeopleSay">What People Say</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial">
-                <h3 class="testimonial-title" data-i18n="testimonial1Title">Exceptional digital design and user experience.</h3>
-                <p class="testimonial-text" data-i18n="testimonial1Text">Kiran's product management skills are unmatched. He transformed our roadmap into a beautiful and functional strategy that exceeded our expectations.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar"></div>
-                    <div>
-                        <p class="author-name">Sarah Chen</p>
-                        <p class="author-title">VP of Product</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial">
-                <h3 class="testimonial-title" data-i18n="testimonial2Title">Art direction that captured our essence.</h3>
-                <p class="testimonial-text" data-i18n="testimonial2Text">Working with Kiran was a pleasure. He listened to our ideas and brought creativity and technical expertise, resulting in a stunning product.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar"></div>
-                    <div>
-                        <p class="author-name">Michael Rodriguez</p>
-                        <p class="author-title">Founder, TechStart</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial">
-                <h3 class="testimonial-title" data-i18n="testimonial3Title">Kiran's interaction design expertise delivered.</h3>
-                <p class="testimonial-text" data-i18n="testimonial3Text">Kiran's expertise in AI helped us reimagine our product. His creativity and attention to detail resulted in features that exceeded expectations.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar"></div>
-                    <div>
-                        <p class="author-name">Jennifer Park</p>
-                        <p class="author-title">CTO, Innovation Labs</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial">
-                <h3 class="testimonial-title" data-i18n="testimonial4Title">Captivating motion design that brought our brand to life.</h3>
-                <p class="testimonial-text" data-i18n="testimonial4Text">Kiran's approach to product design is exceptional. He brought our brand to life with features that truly captivated our users.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar"></div>
-                    <div>
-                        <p class="author-name">David Thompson</p>
-                        <p class="author-title">Head of Design</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    END HIDDEN Testimonials Section -->
 
     <!-- Contact Section -->
     <section class="contact-cta" id="contact">
@@ -601,6 +545,9 @@
             <img src="images/logo.png" alt="Fenix AI" class="fenix-fab-logo">
         </div>
     </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
 
     <!-- Translations disabled for now - re-enable by uncommenting -->
     <!-- <script src="translations.js"></script> -->

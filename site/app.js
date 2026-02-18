@@ -151,46 +151,40 @@ copyLinkBtn.addEventListener('click', async () => {
 });
 
 // Social share handlers
-document.getElementById('shareEmail').addEventListener('click', (e) => {
-    e.preventDefault();
+document.getElementById('shareEmail').addEventListener('click', () => {
     const subject = encodeURIComponent(shareData.title);
     const body = encodeURIComponent(`${shareData.text}\n\n${shareData.url}`);
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
 });
 
-document.getElementById('shareWhatsApp').addEventListener('click', (e) => {
-    e.preventDefault();
+document.getElementById('shareWhatsApp').addEventListener('click', () => {
     const text = encodeURIComponent(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 });
 
-document.getElementById('shareLinkedIn').addEventListener('click', (e) => {
-    e.preventDefault();
+document.getElementById('shareLinkedIn').addEventListener('click', () => {
     const url = encodeURIComponent(shareData.url);
     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
 });
 
-document.getElementById('shareTwitter').addEventListener('click', (e) => {
-    e.preventDefault();
+document.getElementById('shareTwitter').addEventListener('click', () => {
     const text = encodeURIComponent(shareData.title);
     const url = encodeURIComponent(shareData.url);
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
 });
 
-document.getElementById('shareFacebook').addEventListener('click', (e) => {
-    e.preventDefault();
+document.getElementById('shareFacebook').addEventListener('click', () => {
     const url = encodeURIComponent(shareData.url);
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
 });
 
-document.getElementById('shareSMS').addEventListener('click', (e) => {
-    e.preventDefault();
+document.getElementById('shareSMS').addEventListener('click', () => {
     const body = encodeURIComponent(`${shareData.title}\n${shareData.url}`);
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
         window.location.href = `sms:${/iPhone|iPad|iPod/i.test(navigator.userAgent) ? '&' : '?'}body=${body}`;
     } else {
-        alert('SMS sharing is available on mobile devices');
+        showToast('SMS sharing is available on mobile devices.');
     }
 });
 
@@ -305,11 +299,28 @@ if (translationsEnabled) {
 
 
 // ==========================================
+// TOAST NOTIFICATION
+// ==========================================
+
+let toastTimer = null;
+function showToast(message, duration = 3000) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    clearTimeout(toastTimer);
+    toast.textContent = message;
+    toast.classList.add('visible');
+    toastTimer = setTimeout(() => {
+        toast.classList.remove('visible');
+    }, duration);
+}
+
+
+// ==========================================
 // AI ASSISTANT
 // ==========================================
 
 function launchFenix() {
-    alert('Fenix AI Assistant coming soon! This will be an interactive chat to help answer questions about my work and experience.');
+    showToast('Fenix is coming soon.');
 }
 
 document.querySelector('.ai-assistant').addEventListener('click', launchFenix);
@@ -357,19 +368,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 
 // ==========================================
-// SCROLL PERFORMANCE
-// ==========================================
-
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => { ticking = false; });
-        ticking = true;
-    }
-});
-
-
-// ==========================================
 // ORIENTATION CHANGE
 // ==========================================
 
@@ -407,7 +405,7 @@ workCards.forEach((card, index) => {
         if (config.link) {
             window.open(config.link, '_blank', 'noopener,noreferrer');
         } else {
-            alert(`${config.title} — coming soon! This section will showcase detailed content and case studies.`);
+            showToast(`${config.title} - coming soon.`);
         }
     });
     card.addEventListener('keydown', (e) => {
@@ -474,7 +472,8 @@ if (feedbackForm) {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(formData).toString()
         })
-        .then(() => {
+        .then(response => {
+            if (!response.ok) throw new Error('Submit failed');
             feedbackForm.querySelector('.feedback-submit').style.display = 'none';
             feedbackForm.querySelector('.feedback-comment').style.display = 'none';
             feedbackForm.querySelector('.feedback-faces').style.opacity = '0.5';
@@ -482,7 +481,7 @@ if (feedbackForm) {
             feedbackThanks.classList.add('visible');
         })
         .catch(() => {
-            alert('Something went wrong. Please try again.');
+            showToast('Something went wrong. Please try again.');
         });
     });
 }
@@ -501,7 +500,8 @@ if (testimonialForm) {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(formData).toString()
         })
-        .then(() => {
+        .then(response => {
+            if (!response.ok) throw new Error('Submit failed');
             testimonialForm.querySelectorAll('input, textarea, button[type="submit"]').forEach(el => {
                 el.style.display = 'none';
             });
@@ -509,7 +509,7 @@ if (testimonialForm) {
             testimonialThanks.classList.add('visible');
         })
         .catch(() => {
-            alert('Something went wrong. Please try again.');
+            showToast('Something went wrong. Please try again.');
         });
     });
 }
