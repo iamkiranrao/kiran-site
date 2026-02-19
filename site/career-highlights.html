@@ -26,10 +26,10 @@
             border-bottom: 1px solid var(--border);
         }
 
-        /* Title area above sparkline */
+        /* Title area */
         .hero-title-area {
             text-align: center;
-            padding: 6rem 4rem 1.5rem;
+            padding: 6rem 4rem 1rem;
         }
         .subpage-hero-title {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
@@ -46,84 +46,19 @@
             letter-spacing: -0.01em;
         }
 
-        /* Sparkline timeline container */
-        .sparkline-container {
+        /* Impact hero video */
+        .impact-video-container {
             width: 100%;
-            padding: 1rem 4rem 3rem;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
+            aspect-ratio: 16 / 5;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-primary);
+            border: 12px solid #6b4c2a;
         }
-        .sparkline-svg {
+        .impact-video-canvas {
             width: 100%;
-            min-width: 700px;
-            height: auto;
+            height: 100%;
             display: block;
-        }
-
-        /* Sparkline node animations */
-        .sparkline-path {
-            stroke-dasharray: 2000;
-            stroke-dashoffset: 2000;
-            animation: drawLine 2s ease-out 0.3s forwards;
-        }
-        @keyframes drawLine {
-            to { stroke-dashoffset: 0; }
-        }
-        .sparkline-node {
-            opacity: 0;
-            animation: fadeNode 0.4s ease-out forwards;
-        }
-        .sparkline-node:nth-child(2) { animation-delay: 0.6s; }
-        .sparkline-node:nth-child(3) { animation-delay: 0.9s; }
-        .sparkline-node:nth-child(4) { animation-delay: 1.2s; }
-        .sparkline-node:nth-child(5) { animation-delay: 1.5s; }
-        .sparkline-node:nth-child(6) { animation-delay: 1.8s; }
-        .sparkline-node:nth-child(7) { animation-delay: 2.1s; }
-        @keyframes fadeNode {
-            to { opacity: 1; }
-        }
-
-        /* Sparkline hover effect */
-        .sparkline-node-circle {
-            transition: r 0.2s ease, fill 0.2s ease;
-            cursor: pointer;
-        }
-        .sparkline-node:hover .sparkline-node-circle {
-            r: 8;
-        }
-        .sparkline-node:hover .sparkline-label-company {
-            fill: var(--text-primary);
-        }
-
-        /* Responsive sparkline text */
-        .sparkline-label-company {
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 11px;
-            fill: var(--text-secondary);
-            transition: fill 0.2s ease;
-        }
-        .sparkline-label-year {
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            font-size: 10px;
-            fill: var(--text-muted);
-        }
-        .sparkline-label-role {
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            font-size: 9px;
-            fill: var(--text-muted);
-        }
-
-        /* Current role pulse */
-        .sparkline-pulse {
-            animation: sparkPulse 2s ease-in-out infinite;
-        }
-        @keyframes sparkPulse {
-            0%, 100% { opacity: 0.4; r: 12; }
-            50% { opacity: 0; r: 20; }
         }
 
         /* ============================================
@@ -864,6 +799,90 @@
         }
 
         /* ============================================
+           SUB-TIMELINE (client engagements)
+           ============================================ */
+        .sub-timeline {
+            position: relative;
+            margin-left: 0.5rem;
+            padding-left: 2.5rem;
+            margin-top: 2rem;
+        }
+        .sub-timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        .sub-timeline-entry {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        .sub-timeline-entry:last-child {
+            margin-bottom: 0;
+        }
+        .sub-timeline-dot {
+            position: absolute;
+            left: -2.5rem;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid var(--text-muted);
+            background: var(--bg-primary);
+            z-index: 2;
+            transition: background 0.3s ease, border-color 0.3s ease;
+            margin-left: -0.5px;
+        }
+        .sub-timeline-entry:hover .sub-timeline-dot {
+            border-color: var(--text-primary);
+            background: var(--text-primary);
+        }
+        .sub-timeline-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .sub-timeline-client {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+        .sub-timeline-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .sub-timeline-summary {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+        .sub-timeline-entry .initiatives-grid {
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .sub-timeline {
+                padding-left: 2rem;
+                margin-left: 0;
+            }
+            .sub-timeline-dot {
+                left: -2rem;
+                width: 14px;
+                height: 14px;
+            }
+            .sub-timeline-client {
+                font-size: 1rem;
+            }
+        }
+
+        /* ============================================
            EARLY CAREER (simplified)
            ============================================ */
         .timeline-entry.early-career .timeline-dot {
@@ -894,7 +913,6 @@
            ============================================ */
         @media (max-width: 1024px) {
             .hero-title-area { padding: 2.5rem 2.5rem 1rem; }
-            .sparkline-container { padding: 1rem 2.5rem 2.5rem; }
             .page-intro { padding: 2.5rem 2.5rem; }
             .page-intro-left { padding-right: 2.5rem; }
             .page-intro-right { padding-left: 2.5rem; }
@@ -905,7 +923,6 @@
 
         @media (max-width: 768px) {
             .hero-title-area { padding: 2rem 1.5rem 0.75rem; }
-            .sparkline-container { padding: 0.5rem 1.5rem 2rem; }
             .discretion-notice { padding: 2rem 1.5rem; }
             .gate-prompt { padding: 0 1.5rem 3rem; }
             .gate-prompt-inner { padding: 2rem 1.5rem; }
@@ -937,7 +954,6 @@
         }
 
         @media (max-width: 480px) {
-            .sparkline-svg { min-width: 600px; }
             .timeline-role h2 { font-size: 1.15rem; }
         }
     </style>
@@ -987,7 +1003,7 @@
         </div>
         <ul class="mobile-nav-links">
             <li><a href="index.html">↘ Home</a></li>
-            <li><a href="index.html#work">↘ Fenix, My AI</a></li>
+            <li><a href="index.html#work">↘ Fenix - My AI</a></li>
             <li><a href="career-highlights.html">↘ Career Highlights</a></li>
             <li><a href="index.html#how-id-built-it">↘ How I'd've Built It</a></li>
             <li><a href="index.html#my-sandbox">↘ MadLab</a></li>
@@ -1002,108 +1018,14 @@
 
     <!-- Breadcrumb removed - clean hero entry -->
 
-    <!-- Hero Banner with Sparkline Timeline -->
+    <!-- Hero Banner with Impact Video -->
     <div class="subpage-hero">
         <div class="hero-title-area">
             <h1 class="subpage-hero-title">Career Highlights</h1>
-            <p class="subpage-hero-subtitle">Real products. Real outcomes. Real scale.</p>
         </div>
 
-        <div class="sparkline-container">
-            <!--
-                Timeline sparkline: X axis = time, Y axis = scope/scale
-                Each node represents a career chapter.
-                Line flows upward to suggest growth trajectory.
-                viewBox is 900 x 200 to give us room.
-            -->
-            <svg class="sparkline-svg" viewBox="0 0 900 200" preserveAspectRatio="xMidYMid meet" aria-label="Career timeline from 2008 to present, showing progression across five companies">
-
-                <!-- Subtle horizontal grid lines -->
-                <line x1="60" y1="160" x2="860" y2="160" stroke="var(--border)" stroke-width="0.5" opacity="0.5"/>
-                <line x1="60" y1="120" x2="860" y2="120" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
-                <line x1="60" y1="80" x2="860" y2="80" stroke="var(--border)" stroke-width="0.5" opacity="0.2"/>
-
-                <!-- The path connecting all nodes (drawn with animation) -->
-                <path class="sparkline-path"
-                      d="M 100,150 C 180,148 220,140 280,135 C 340,130 380,110 440,100 C 500,90 560,65 620,55 C 680,45 720,40 780,30"
-                      fill="none"
-                      stroke="var(--text-primary)"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      opacity="0.4"/>
-
-                <!-- Faint filled area under the curve -->
-                <path d="M 100,150 C 180,148 220,140 280,135 C 340,130 380,110 440,100 C 500,90 560,65 620,55 C 680,45 720,40 780,30 L 780,160 L 100,160 Z"
-                      fill="url(#sparkFill)"
-                      opacity="0.08"/>
-
-                <defs>
-                    <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="var(--text-primary)"/>
-                        <stop offset="100%" stop-color="var(--text-primary)" stop-opacity="0"/>
-                    </linearGradient>
-                </defs>
-
-                <!-- NODE 1: Early Career (before 2008) -->
-                <g class="sparkline-node" style="animation-delay: 0.5s;">
-                    <circle class="sparkline-node-circle" cx="100" cy="150" r="5" fill="var(--bg-primary)" stroke="var(--text-muted)" stroke-width="2"/>
-                    <text class="sparkline-label-year" x="100" y="175" text-anchor="middle">Pre-2008</text>
-                    <text class="sparkline-label-company" x="100" y="140" text-anchor="middle" dy="-12">Early Career</text>
-                </g>
-
-                <!-- NODE 2: Magley & Associates -->
-                <g class="sparkline-node" style="animation-delay: 0.8s;">
-                    <circle class="sparkline-node-circle" cx="230" cy="138" r="5" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="2"/>
-                    <text class="sparkline-label-company" x="230" y="128" text-anchor="middle" dy="-12">Magley</text>
-                    <text class="sparkline-label-year" x="230" y="175" text-anchor="middle">2008</text>
-                    <text class="sparkline-label-role" x="230" y="185" text-anchor="middle">Sr. Consultant</text>
-                </g>
-
-                <!-- NODE 3: Wells Fargo - Virtual Channels -->
-                <g class="sparkline-node" style="animation-delay: 1.1s;">
-                    <circle class="sparkline-node-circle" cx="380" cy="105" r="6" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="2"/>
-                    <text class="sparkline-label-company" x="380" y="95" text-anchor="middle" dy="-12">Wells Fargo</text>
-                    <text class="sparkline-label-year" x="380" y="175" text-anchor="middle">2012</text>
-                    <text class="sparkline-label-role" x="380" y="185" text-anchor="middle">AVP, Product</text>
-                </g>
-
-                <!-- NODE 4: First Republic -->
-                <g class="sparkline-node" style="animation-delay: 1.4s;">
-                    <circle class="sparkline-node-circle" cx="530" cy="68" r="6" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="2"/>
-                    <text class="sparkline-label-company" x="530" y="58" text-anchor="middle" dy="-12">First Republic</text>
-                    <text class="sparkline-label-year" x="530" y="175" text-anchor="middle">2016</text>
-                    <text class="sparkline-label-role" x="530" y="185" text-anchor="middle">Director, PM</text>
-                </g>
-
-                <!-- NODE 5: Wells Fargo - Strategy, Digital & AI -->
-                <g class="sparkline-node" style="animation-delay: 1.7s;">
-                    <circle class="sparkline-node-circle" cx="680" cy="42" r="6" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="2"/>
-                    <text class="sparkline-label-company" x="680" y="32" text-anchor="middle" dy="-12">Wells Fargo</text>
-                    <text class="sparkline-label-year" x="680" y="175" text-anchor="middle">2023</text>
-                    <text class="sparkline-label-role" x="680" y="185" text-anchor="middle">VP, Mobile & AI</text>
-                </g>
-
-                <!-- NODE 6: Avatour AI (Current) -->
-                <g class="sparkline-node" style="animation-delay: 2.0s;">
-                    <!-- Pulse ring for current role -->
-                    <circle class="sparkline-pulse" cx="780" cy="30" r="12" fill="none" stroke="var(--text-primary)" stroke-width="1.5"/>
-                    <circle class="sparkline-node-circle" cx="780" cy="30" r="7" fill="var(--text-primary)" stroke="var(--text-primary)" stroke-width="2"/>
-                    <text class="sparkline-label-company" x="780" y="20" text-anchor="middle" dy="-12" style="fill: var(--text-primary); font-weight: 700;">Avatour AI</text>
-                    <text class="sparkline-label-year" x="780" y="175" text-anchor="middle">2025</text>
-                    <text class="sparkline-label-role" x="780" y="185" text-anchor="middle">VP of Product</text>
-                </g>
-
-                <!-- Vertical dashed lines from nodes to year labels -->
-                <g opacity="0.15" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3,3">
-                    <line x1="100" y1="155" x2="100" y2="165"/>
-                    <line x1="230" y1="143" x2="230" y2="165"/>
-                    <line x1="380" y1="111" x2="380" y2="165"/>
-                    <line x1="530" y1="74" x2="530" y2="165"/>
-                    <line x1="680" y1="48" x2="680" y2="165"/>
-                    <line x1="780" y1="37" x2="780" y2="165"/>
-                </g>
-
-            </svg>
+        <div class="impact-video-container">
+            <canvas class="impact-video-canvas" id="impactCanvas"></canvas>
         </div>
     </div>
 
@@ -1286,7 +1208,7 @@
                     <div class="initiative-card-header">
                         <div class="initiative-icon">&#x1F4F1;</div>
                         <div class="initiative-card-summary">
-                            <div class="initiative-title">Mobile App Scale & Ranking</div>
+                            <div class="initiative-title">Teen Banking Platform</div>
                             <div class="initiative-oneliner">Led mobile strategy that grew app user base and jumped JD Power rankings</div>
                         </div>
                         <div class="initiative-metric">#9 to #3</div>
@@ -1932,7 +1854,7 @@
             <div class="timeline-header">
                 <div class="company-logo"><img src="images/first_republic_logo.jpeg" alt="First Republic Bank"></div>
                 <div class="timeline-role">
-                    <h2>Director, Product Management Manager - Digital Channels</h2>
+                    <h2>Director, Product Management Manager - Payments & Digital Channels</h2>
                     <div class="timeline-meta">
                         <span class="company-name">First Republic</span> &middot; Apr 2016 - Oct 2023
                     </div>
@@ -1957,14 +1879,15 @@
             <div class="initiatives-label">Initiatives</div>
             <div class="initiatives-grid">
 
+                <!-- Zelle -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
                         <div class="initiative-icon">&#x1F4B3;</div>
                         <div class="initiative-card-summary">
-                            <div class="initiative-title">Zelle & Apple Pay Launch</div>
-                            <div class="initiative-oneliner">Brought real-time P2P payments and contactless mobile payments to clients</div>
+                            <div class="initiative-title">Zelle P2P Payments</div>
+                            <div class="initiative-oneliner">Launched real-time P2P payments for 1M+ high-net-worth clients</div>
                         </div>
-                        <div class="initiative-metric">+27% volume</div>
+                        <div class="initiative-metric">+40% over forecast</div>
                         <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
@@ -1976,30 +1899,91 @@
                             <div class="initiative-beats">
                                 <div class="initiative-beat">
                                     <div class="initiative-beat-label">The Problem</div>
-                                    <div class="initiative-beat-text">First Republic's high-net-worth clients expected modern payment capabilities but the bank lacked P2P payments and contactless options. Competitors had launched Zelle and Apple Pay months earlier.</div>
+                                    <div class="initiative-beat-text">First Republic's clients had no way to send real-time peer-to-peer payments through the bank's digital channels. They were using Venmo and third-party apps, moving money outside the bank's ecosystem. Competitors had already launched Zelle months earlier.</div>
                                 </div>
                                 <div class="initiative-beat">
                                     <div class="initiative-beat-label">The Bet</div>
-                                    <div class="initiative-beat-text">Launching both Zelle and Apple Pay simultaneously (rather than sequentially) would close the gap faster and drive mobile engagement across the client base of 1M+ accounts.</div>
+                                    <div class="initiative-beat-text">High-net-worth clients would adopt Zelle quickly if it was integrated natively into the mobile and web experience they already used daily. Speed to market mattered more than building a custom solution.</div>
                                 </div>
                                 <div class="initiative-beat">
                                     <div class="initiative-beat-label">What Shipped</div>
-                                    <div class="initiative-beat-text">Zelle integration across mobile and web for 1M clients. Apple Pay provisioning with same-day card activation. Unified payment hub in the mobile app.</div>
+                                    <div class="initiative-beat-text">Zelle integration across mobile and web for 1M+ clients. Seamless enrollment from within the app. Real-time send and receive with instant notifications. Fraud detection rules tailored to high-value transactions.</div>
                                 </div>
                                 <div class="initiative-beat initiative-beat-outcome">
                                     <div class="initiative-beat-label">The Outcome</div>
-                                    <div class="initiative-beat-text">Mobile payment volume increased 27%. Zelle adoption exceeded projections by 40% in the first quarter. Apple Pay became the fastest-adopted feature in the app's history.</div>
+                                    <div class="initiative-beat-text">Zelle adoption exceeded projections by 40% in the first quarter. P2P transaction volume grew steadily month over month. Kept client payment activity within the bank's ecosystem.</div>
                                 </div>
                             </div>
                             <div class="initiative-gallery">
                                 <div class="initiative-gallery-item">
-                                    <div class="initiative-gallery-placeholder">Zelle integration in mobile app</div>
+                                    <div class="initiative-gallery-placeholder">Zelle enrollment flow</div>
                                 </div>
                                 <div class="initiative-gallery-item">
-                                    <div class="initiative-gallery-placeholder">Apple Pay provisioning flow</div>
+                                    <div class="initiative-gallery-placeholder">Send money experience</div>
                                 </div>
                                 <div class="initiative-gallery-item">
-                                    <div class="initiative-gallery-placeholder">Unified payment hub</div>
+                                    <div class="initiative-gallery-placeholder">Transaction confirmation</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">40%</div>
+                                    <div class="initiative-outcome-label">Over forecast</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">1M+</div>
+                                    <div class="initiative-outcome-label">Clients enrolled</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apple Pay -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">&#x1F4F1;</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Apple Pay</div>
+                            <div class="initiative-oneliner">Contactless payments with same-day card provisioning for debit and credit</div>
+                        </div>
+                        <div class="initiative-metric">Fastest adoption</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">Payments</span>
+                                <span class="initiative-tag">Mobile</span>
+                                <span class="initiative-tag">Partnerships</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">Clients were asking for contactless payment support and First Republic had no Apple Pay integration. The bank's card provisioning process was slow, requiring days to add cards to digital wallets. Competitors offered instant provisioning.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">Same-day card provisioning would differentiate First Republic's Apple Pay launch. If clients could add their card to Apple Wallet instantly from within the app, adoption would be significantly higher than industry averages.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">Apple Pay support for debit and credit cards. Same-day in-app provisioning with one-tap activation. Push notifications for contactless transactions. Integration with Apple's Wallet API for real-time card status.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">Apple Pay became the fastest-adopted feature in the app's history. Contactless transaction volume grew 27% within the first quarter. Client satisfaction scores for payments improved measurably.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">In-app card provisioning</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Apple Wallet integration</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Contactless payment confirmation</div>
                                 </div>
                             </div>
                             <div class="initiative-outcome-bar">
@@ -2008,14 +1992,15 @@
                                     <div class="initiative-outcome-label">Volume increase</div>
                                 </div>
                                 <div class="initiative-outcome-stat">
-                                    <div class="initiative-outcome-number">1M+</div>
-                                    <div class="initiative-outcome-label">Clients served</div>
+                                    <div class="initiative-outcome-number">#1</div>
+                                    <div class="initiative-outcome-label">Fastest adopted feature</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Core Platform Migration -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
                         <div class="initiative-icon">&#x1F504;</div>
@@ -2075,9 +2060,369 @@
                     </div>
                 </div>
 
-                <div class="initiative-placeholder">
-                    <strong>More initiatives from First Republic</strong>
-                    Wealth platform, AI compliance engine, mobile loan closing, team leadership - share details for each.
+                <!-- Eagle Tracker Portfolio Management Tool -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">&#x1F4C8;</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Eagle Tracker Portfolio Management Tool</div>
+                            <div class="initiative-oneliner">Built portfolio tracking and analytics tool for wealth management clients</div>
+                        </div>
+                        <div class="initiative-metric">Real-time views</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">Wealth</span>
+                                <span class="initiative-tag">0 to 1</span>
+                                <span class="initiative-tag">Mobile</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">Wealth management clients had no self-service way to view portfolio performance, asset allocation, or gain/loss data digitally. They relied on quarterly statements and phone calls with their relationship manager for basic portfolio questions.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">A real-time portfolio management tool embedded in the mobile app would reduce RM call volume for routine inquiries and give clients the transparency they expected from a modern wealth platform.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">Eagle Tracker: real-time portfolio dashboard with asset allocation views, performance charts, gain/loss tracking, and holdings detail. Integrated across mobile and web. Customizable watchlists and alerts for portfolio thresholds.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">Significantly reduced routine portfolio inquiry calls to relationship managers. Clients gained real-time visibility into their investments for the first time. Became a key differentiator in wealth client retention conversations.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Portfolio dashboard overview</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Asset allocation breakdown</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Performance chart views</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">Real-time</div>
+                                    <div class="initiative-outcome-label">Portfolio visibility</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">Reduced</div>
+                                    <div class="initiative-outcome-label">RM inquiry calls</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Wealth Management Platform -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">&#x1F4BC;</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Digital Wealth Management Platform</div>
+                            <div class="initiative-oneliner">Launched end-to-end digital wealth platform for clients and advisors</div>
+                        </div>
+                        <div class="initiative-metric">Full platform</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">Wealth</span>
+                                <span class="initiative-tag">Platform</span>
+                                <span class="initiative-tag">0 to 1</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">First Republic's wealth management experience was almost entirely offline. Account opening, document collection, investment preferences, and advisor communication all happened through paper, email, and phone calls. The experience didn't match the bank's premium brand.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">A comprehensive digital wealth platform - covering onboarding, document management, advisor messaging, and investment tracking - would modernize the client experience and free advisors to focus on high-value conversations instead of paperwork.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">Digital wealth onboarding with e-signature and document upload. Secure advisor-client messaging within the app. Investment preference questionnaires and risk profiling. Consolidated wealth dashboard alongside banking accounts.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">Reduced wealth onboarding time significantly. Advisor capacity increased as routine tasks moved digital. Client satisfaction scores for wealth services improved. Platform became a competitive differentiator for client acquisition.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Wealth onboarding flow</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Advisor messaging interface</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Consolidated wealth dashboard</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">Digital</div>
+                                    <div class="initiative-outcome-label">End-to-end onboarding</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">Increased</div>
+                                    <div class="initiative-outcome-label">Advisor capacity</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stealth Mode on Mobile -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">&#x1F6E1;</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Stealth Mode on Mobile for Privacy</div>
+                            <div class="initiative-oneliner">Privacy mode that hides balances and sensitive data in public settings</div>
+                        </div>
+                        <div class="initiative-metric">Client favorite</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">Privacy</span>
+                                <span class="initiative-tag">Mobile</span>
+                                <span class="initiative-tag">UX</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">High-net-worth clients were uncomfortable checking balances or reviewing transactions in public - airports, offices, coffee shops. With large balances visible on screen, the app felt risky to use outside of private settings. Some clients avoided the app entirely when in public.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">A one-tap "stealth mode" that masked balances, account numbers, and transaction amounts would make clients feel safe using the app anywhere. Privacy would drive frequency.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">Stealth mode toggle that instantly masks all balances, account numbers, and transaction amounts with blur or placeholder values. Persists across sessions until toggled off. Quick-reveal with biometric tap for individual values. Configurable per account.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">Became one of the most talked-about features among the client base. Increased mobile session frequency among high-balance clients. Generated positive press coverage as a privacy-first innovation in banking.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Normal view vs stealth mode</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Quick-reveal biometric tap</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Stealth mode settings</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">Increased</div>
+                                    <div class="initiative-outcome-label">Session frequency</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">Press</div>
+                                    <div class="initiative-outcome-label">Industry coverage</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOC AI -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">&#x1F4C4;</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">DOC AI - Data Extraction for Compliance</div>
+                            <div class="initiative-oneliner">AI-powered document processing to automate compliance data extraction</div>
+                        </div>
+                        <div class="initiative-metric">85% automation</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">AI</span>
+                                <span class="initiative-tag">Compliance</span>
+                                <span class="initiative-tag">Automation</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">Compliance teams were manually reviewing and extracting data from thousands of documents - tax forms, identification, financial statements, legal filings. The process was slow, error-prone, and couldn't scale with growing regulatory requirements.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">AI-powered document extraction (OCR + NLP) could automate the bulk of data capture from structured and semi-structured documents, reducing manual review to exception handling only.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">DOC AI engine for automated extraction from tax documents, IDs, financial statements, and legal filings. Confidence scoring with human-in-the-loop review for low-confidence extractions. Integration with compliance workflow systems. Support for 50+ document types.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">85% of document data extraction fully automated. Processing time per document dropped from minutes to seconds. Error rate lower than manual review. Freed compliance staff to focus on judgment-based reviews.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Document upload and classification</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">AI extraction with confidence scores</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Human-in-the-loop review queue</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">85%</div>
+                                    <div class="initiative-outcome-label">Fully automated</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">50+</div>
+                                    <div class="initiative-outcome-label">Document types</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Closing Application for Loans -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">&#x1F3E0;</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Digital Closing Application for Loans</div>
+                            <div class="initiative-oneliner">End-to-end digital loan closing with e-signature and document management</div>
+                        </div>
+                        <div class="initiative-metric">Days to hours</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">Lending</span>
+                                <span class="initiative-tag">Digital</span>
+                                <span class="initiative-tag">0 to 1</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">Loan closings required clients to come into a branch, review stacks of paper documents, and sign everything in person. The process took days of scheduling and was especially frustrating for busy professionals and clients in other cities.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">A fully digital closing experience - document review, e-signature, notarization, and funding confirmation all within the app - would dramatically reduce closing times and remove the biggest friction point in the lending experience.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">Digital closing application with secure document delivery, in-app review with annotation, e-signature integration, remote online notarization support, and real-time closing status tracking. Automated document assembly from loan origination data.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">Closing time reduced from days to hours. Eliminated the need for in-branch visits for most loan types. Client satisfaction for the lending experience improved significantly. Operational cost per closing dropped substantially.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Document review interface</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">E-signature flow</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Closing status tracker</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">Days to hrs</div>
+                                    <div class="initiative-outcome-label">Closing time</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">Eliminated</div>
+                                    <div class="initiative-outcome-label">Branch visits</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhancements to Banker Platform -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">&#x1F5A5;</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Enhancements to Banker Platform</div>
+                            <div class="initiative-oneliner">Modernized internal tools for relationship managers and branch staff</div>
+                        </div>
+                        <div class="initiative-metric">+30% efficiency</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">Platform</span>
+                                <span class="initiative-tag">Internal Tools</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">Relationship managers were juggling multiple legacy systems to serve clients - one for accounts, another for loans, a third for wealth. Context-switching between tools during client conversations was slow and created a fragmented experience for both bankers and clients.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">A unified banker platform with a single client view - combining accounts, loans, wealth, and communication history - would reduce time-per-interaction and let RMs focus on the relationship rather than the tooling.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">Unified client 360 view for relationship managers. Consolidated account, loan, and wealth data in a single interface. Quick-action workflows for common RM tasks. Client activity timeline showing digital and branch interactions. Integrated CRM notes and follow-up tracking.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">30% improvement in RM efficiency for client servicing tasks. Reduced average interaction time. Bankers reported significantly higher satisfaction with internal tools. Platform became the foundation for future internal product investments.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Client 360 unified view</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Quick-action workflows</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Activity timeline</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">30%</div>
+                                    <div class="initiative-outcome-label">RM efficiency gain</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">Unified</div>
+                                    <div class="initiative-outcome-label">Client 360 view</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2091,7 +2436,7 @@
             <div class="timeline-header">
                 <div class="company-logo"><img src="images/wellsfargo_logo.jpeg" alt="Wells Fargo"></div>
                 <div class="timeline-role">
-                    <h2>AVP - Digital Product Manager</h2>
+                    <h2>AVP - Digital Product Manager (Auth and Mobile)</h2>
                     <div class="timeline-meta">
                         <span class="company-name">Wells Fargo</span> - Virtual Channels &middot; Aug 2012 - Apr 2016
                     </div>
@@ -2116,75 +2461,13 @@
             <div class="initiatives-label">Initiatives</div>
             <div class="initiatives-grid">
 
-                <div class="initiative-card">
-                    <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F513;</div>
-                        <div class="initiative-card-summary">
-                            <div class="initiative-title">Biometrics & Cardless ATM</div>
-                            <div class="initiative-oneliner">Pioneered fingerprint/face auth and NFC-based cardless ATM access</div>
-                        </div>
-                        <div class="initiative-metric">60% adoption</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    </div>
-                    <div class="initiative-detail">
-                        <div class="initiative-detail-inner">
-                            <div class="initiative-expanded-tags">
-                                <span class="initiative-tag">Security</span>
-                                <span class="initiative-tag">0 to 1</span>
-                            </div>
-                            <div class="initiative-beats">
-                                <div class="initiative-beat">
-                                    <div class="initiative-beat-label">The Problem</div>
-                                    <div class="initiative-beat-text">Password-based authentication was causing friction and security gaps. Customers were locking themselves out, and card skimming at ATMs was a growing fraud vector.</div>
-                                </div>
-                                <div class="initiative-beat">
-                                    <div class="initiative-beat-label">The Bet</div>
-                                    <div class="initiative-beat-text">Biometric authentication (fingerprint and face) combined with NFC cardless ATM would simultaneously improve security and reduce friction - two goals that usually compete.</div>
-                                </div>
-                                <div class="initiative-beat">
-                                    <div class="initiative-beat-label">What Shipped</div>
-                                    <div class="initiative-beat-text">Touch ID and Face ID integration for mobile login and transaction approval. NFC-based cardless ATM withdrawal across 13,000 ATMs. One-time-code fallback for non-biometric devices.</div>
-                                </div>
-                                <div class="initiative-beat initiative-beat-outcome">
-                                    <div class="initiative-beat-label">The Outcome</div>
-                                    <div class="initiative-beat-text">60% biometric adoption within 6 months. Login success rate improved 25%. Fraud at NFC-enabled ATMs dropped 30%. Set the standard for authentication across Wells Fargo's digital portfolio.</div>
-                                </div>
-                            </div>
-                            <div class="initiative-gallery">
-                                <div class="initiative-gallery-item">
-                                    <div class="initiative-gallery-placeholder">Touch ID login prompt</div>
-                                </div>
-                                <div class="initiative-gallery-item">
-                                    <div class="initiative-gallery-placeholder">Cardless ATM NFC flow</div>
-                                </div>
-                                <div class="initiative-gallery-item">
-                                    <div class="initiative-gallery-placeholder">Adoption metrics over time</div>
-                                </div>
-                            </div>
-                            <div class="initiative-outcome-bar">
-                                <div class="initiative-outcome-stat">
-                                    <div class="initiative-outcome-number">60%</div>
-                                    <div class="initiative-outcome-label">Biometric adoption</div>
-                                </div>
-                                <div class="initiative-outcome-stat">
-                                    <div class="initiative-outcome-number">30%</div>
-                                    <div class="initiative-outcome-label">Fraud reduction</div>
-                                </div>
-                                <div class="initiative-outcome-stat">
-                                    <div class="initiative-outcome-number">+25%</div>
-                                    <div class="initiative-outcome-label">Login success</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <!-- DailyChange -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
                         <div class="initiative-icon">&#x1F4B0;</div>
                         <div class="initiative-card-summary">
-                            <div class="initiative-title">DailyChange Savings App</div>
-                            <div class="initiative-oneliner">Micro-savings product that rounded up transactions and auto-transferred to savings</div>
+                            <div class="initiative-title">DailyChange Gamified Payments App</div>
+                            <div class="initiative-oneliner">Gamified round-up savings app that increased ACH transfers by 27%</div>
                         </div>
                         <div class="initiative-metric">+27% ACH</div>
                         <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -2193,7 +2476,8 @@
                         <div class="initiative-detail-inner">
                             <div class="initiative-expanded-tags">
                                 <span class="initiative-tag">0 to 1</span>
-                                <span class="initiative-tag">Mobile</span>
+                                <span class="initiative-tag">Payments</span>
+                                <span class="initiative-tag">Gamification</span>
                             </div>
                             <div class="initiative-beats">
                                 <div class="initiative-beat">
@@ -2202,15 +2486,15 @@
                                 </div>
                                 <div class="initiative-beat">
                                     <div class="initiative-beat-label">The Bet</div>
-                                    <div class="initiative-beat-text">A "set it and forget it" round-up product - where every debit card purchase rounds to the nearest dollar and sweeps the difference to savings - would drive engagement without requiring behavior change.</div>
+                                    <div class="initiative-beat-text">A gamified "set it and forget it" round-up product - where every debit card purchase rounds to the nearest dollar and sweeps the difference to savings - would drive engagement without requiring behavior change. Adding streaks, milestones, and social nudges would make saving feel like a game, not a chore.</div>
                                 </div>
                                 <div class="initiative-beat">
                                     <div class="initiative-beat-label">What Shipped</div>
-                                    <div class="initiative-beat-text">DailyChange: automatic round-up on debit transactions. Real-time savings tracker in the app. Customizable multiplier (1x, 2x, 5x round-ups). Monthly savings summary with goal tracking.</div>
+                                    <div class="initiative-beat-text">DailyChange: automatic round-up on debit transactions with gamification layer. Real-time savings tracker with streaks and milestones. Customizable multiplier (1x, 2x, 5x round-ups). Monthly savings summary with goal tracking and achievement badges.</div>
                                 </div>
                                 <div class="initiative-beat initiative-beat-outcome">
                                     <div class="initiative-beat-label">The Outcome</div>
-                                    <div class="initiative-beat-text">27% increase in ACH volume. Average user saved $38/month without actively trying. The product became a key acquisition hook for younger demographics.</div>
+                                    <div class="initiative-beat-text">27% increase in ACH transfers. Average user saved $38/month without actively trying. The product became a key acquisition hook for younger demographics.</div>
                                 </div>
                             </div>
                             <div class="initiative-gallery">
@@ -2218,7 +2502,7 @@
                                     <div class="initiative-gallery-placeholder">Round-up transaction view</div>
                                 </div>
                                 <div class="initiative-gallery-item">
-                                    <div class="initiative-gallery-placeholder">Savings tracker dashboard</div>
+                                    <div class="initiative-gallery-placeholder">Savings tracker with streaks</div>
                                 </div>
                                 <div class="initiative-gallery-item">
                                     <div class="initiative-gallery-placeholder">Goal tracking & multiplier settings</div>
@@ -2238,9 +2522,428 @@
                     </div>
                 </div>
 
-                <div class="initiative-placeholder">
-                    <strong>More initiatives from Wells Fargo (2012-2016)</strong>
-                    MFA rollout, other payment innovations - share details for each.
+                <!-- Enterprise MFA Rollout -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">&#x1F512;</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Enterprise Multi-Factor Authentication</div>
+                            <div class="initiative-oneliner">Enterprise rollout of MFA across online and mobile, securing 25M+ users</div>
+                        </div>
+                        <div class="initiative-metric">-40% unauth access</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">Security</span>
+                                <span class="initiative-tag">Scale</span>
+                                <span class="initiative-tag">Mobile</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">Single-factor authentication left 25M+ active users vulnerable. Account takeover attempts were rising, regulatory pressure was increasing, and the bank had no consistent MFA solution across its online and mobile channels.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">A unified MFA rollout across both online and mobile - rather than channel-by-channel - would close the security gap faster and create a consistent experience. The key was doing it without tanking login completion rates.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">Multi-factor authentication across online banking and mobile app for 25M+ active users. SMS, email, and authenticator app options. Adaptive step-up authentication based on risk signals. Seamless enrollment flows to minimize drop-off during migration.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">Unauthorized access reduced by 40%. 25M+ active users secured with minimal impact on login completion rates. Established the authentication foundation that biometrics and device fingerprinting would later build on.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">MFA enrollment flow</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Step-up challenge screen</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Authentication method selection</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">-40%</div>
+                                    <div class="initiative-outcome-label">Unauthorized access</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">25M+</div>
+                                    <div class="initiative-outcome-label">Users secured</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biometric Login Integration -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">👤</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Biometric Login Integration</div>
+                            <div class="initiative-oneliner">Touch ID and Android Fingerprint login driving 60%+ adoption</div>
+                        </div>
+                        <div class="initiative-metric">60%+ adoption</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">Security</span>
+                                <span class="initiative-tag">Mobile</span>
+                                <span class="initiative-tag">UX</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">Even with MFA in place, password-based login was still the primary entry point. Customers were forgetting passwords, getting locked out, and abandoning sessions. Login success rates were lower than they needed to be for an app serving millions.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">Integrating biometric authentication - Touch ID on iOS, Android Fingerprint on Android - would simultaneously improve security and reduce friction. Faster login would drive higher session frequency and fewer support calls.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">Touch ID and Android Fingerprint integration for mobile login and transaction approval. Biometric enrollment during first login post-update. Fallback to passcode for failed biometric attempts. Support for both authentication and transaction signing.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">60%+ biometric adoption among mobile users. Login success rates improved by 25%. Password reset calls dropped significantly. Set the precedent for all future authentication investments at Wells Fargo.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Touch ID login prompt</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Android Fingerprint integration</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Biometric enrollment flow</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">60%+</div>
+                                    <div class="initiative-outcome-label">Biometric adoption</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">+25%</div>
+                                    <div class="initiative-outcome-label">Login success rate</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Device Fingerprinting & Behavioral Analytics -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">&#x1F50D;</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Device Fingerprinting & Behavioral Analytics</div>
+                            <div class="initiative-oneliner">Risk-based authentication using device signals and behavioral patterns</div>
+                        </div>
+                        <div class="initiative-metric">-35% ATO</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">Security</span>
+                                <span class="initiative-tag">AI</span>
+                                <span class="initiative-tag">Fraud</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">Account takeover (ATO) attacks were getting more sophisticated. Stolen credentials could bypass MFA if attackers had access to a victim's phone or email. Static authentication rules weren't adapting to evolving threat patterns.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">Layering device fingerprinting and behavioral analytics on top of existing authentication would catch bad actors that credentials alone couldn't. If the device, location, or behavior pattern didn't match, step up the challenge - invisibly to legitimate users.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">Device fingerprinting engine capturing hardware, OS, and browser signals. Behavioral analytics tracking login patterns, navigation habits, and session timing. Risk scoring engine that triggered adaptive step-up authentication. Continuous authentication signals throughout the session, not just at login.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">35% drop in account takeover attempts. Legitimate users experienced fewer challenges due to trusted device recognition. Fraud detection shifted from reactive to proactive. Established the risk-based authentication layer still in use today.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Risk scoring dashboard</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Device trust signals</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Adaptive challenge flow</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">-35%</div>
+                                    <div class="initiative-outcome-label">ATO attempts</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">Fewer</div>
+                                    <div class="initiative-outcome-label">False challenges</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cardless ATM Access -->
+                <div class="initiative-card">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">&#x1F3E7;</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Cardless ATM Access</div>
+                            <div class="initiative-oneliner">Mobile-authenticated cardless withdrawals across 12K+ ATMs</div>
+                        </div>
+                        <div class="initiative-metric">-30% card fraud</div>
+                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-detail-inner">
+                            <div class="initiative-expanded-tags">
+                                <span class="initiative-tag">0 to 1</span>
+                                <span class="initiative-tag">Mobile</span>
+                                <span class="initiative-tag">Security</span>
+                            </div>
+                            <div class="initiative-beats">
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Problem</div>
+                                    <div class="initiative-beat-text">Physical card fraud at ATMs - skimming, cloning, shoulder surfing - was a persistent and costly problem. Customers who lost or forgot their card had no way to access cash. The ATM experience hadn't evolved in decades.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">The Bet</div>
+                                    <div class="initiative-beat-text">If customers could authenticate ATM withdrawals through their mobile app instead of a physical card, it would eliminate the skimming attack vector entirely and give customers a faster, more convenient way to access cash.</div>
+                                </div>
+                                <div class="initiative-beat">
+                                    <div class="initiative-beat-label">What Shipped</div>
+                                    <div class="initiative-beat-text">Cardless ATM access via mobile authentication across 12,000+ Wells Fargo ATMs. One-time access codes generated in the app. NFC tap-to-authenticate for supported devices. Biometric confirmation before code generation for added security.</div>
+                                </div>
+                                <div class="initiative-beat initiative-beat-outcome">
+                                    <div class="initiative-beat-label">The Outcome</div>
+                                    <div class="initiative-beat-text">Physical card fraud reduced by 30% at enabled ATMs. Expanded secure cash access across 12K+ ATMs nationwide. Customers used cardless access even when they had their card - the experience was simply better.</div>
+                                </div>
+                            </div>
+                            <div class="initiative-gallery">
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">Cardless ATM initiation in app</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">One-time code generation</div>
+                                </div>
+                                <div class="initiative-gallery-item">
+                                    <div class="initiative-gallery-placeholder">NFC tap-to-authenticate</div>
+                                </div>
+                            </div>
+                            <div class="initiative-outcome-bar">
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">-30%</div>
+                                    <div class="initiative-outcome-label">Card fraud</div>
+                                </div>
+                                <div class="initiative-outcome-stat">
+                                    <div class="initiative-outcome-number">12K+</div>
+                                    <div class="initiative-outcome-label">ATMs enabled</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alerts Next Gen -->
+                <div class="initiative-card" data-tags="mobile,scale">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">🔔</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Alerts Next Gen</div>
+                            <div class="initiative-oneliner">Rebuilt the alerts platform to deliver smarter, real-time notifications across channels</div>
+                            <div class="initiative-metric">Next Gen</div>
+                        </div>
+                        <div class="initiative-chevron">▾</div>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-tags">
+                            <span class="initiative-tag">Alerts</span>
+                            <span class="initiative-tag">Push Notifications</span>
+                            <span class="initiative-tag">Real-time</span>
+                            <span class="initiative-tag">Multi-channel</span>
+                        </div>
+                        <div class="initiative-beats">
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">Problem</div>
+                                <div class="initiative-beat-text">Legacy alerts system was batch-processed with limited customization. Customers received delayed or irrelevant notifications, leading to low engagement and missed fraud events.</div>
+                            </div>
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">Bet</div>
+                                <div class="initiative-beat-text">A modern, event-driven alerts platform with granular customer preferences and real-time delivery would increase engagement and strengthen fraud detection.</div>
+                            </div>
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">What Shipped</div>
+                                <div class="initiative-beat-text">Next-generation alerts engine with real-time event processing. Configurable alert preferences across push, SMS, and email. Smart bundling to reduce notification fatigue. Priority escalation for security-related alerts.</div>
+                            </div>
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">Outcome</div>
+                                <div class="initiative-beat-text">Faster alert delivery, higher customer engagement with notifications, and improved fraud response times across the digital banking portfolio.</div>
+                            </div>
+                        </div>
+                        <div class="initiative-gallery">
+                            <div class="initiative-gallery-item">
+                                <div class="initiative-gallery-placeholder">Alert preferences dashboard</div>
+                            </div>
+                            <div class="initiative-gallery-item">
+                                <div class="initiative-gallery-placeholder">Real-time notification flow</div>
+                            </div>
+                            <div class="initiative-gallery-item">
+                                <div class="initiative-gallery-placeholder">Smart alert bundling</div>
+                            </div>
+                        </div>
+                        <div class="initiative-outcome-bar">
+                            <div class="initiative-outcome-stat">
+                                <div class="initiative-outcome-number">Real-time</div>
+                                <div class="initiative-outcome-label">Alert delivery</div>
+                            </div>
+                            <div class="initiative-outcome-stat">
+                                <div class="initiative-outcome-number">Multi-channel</div>
+                                <div class="initiative-outcome-label">Push, SMS, Email</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Redesign and Replatforming -->
+                <div class="initiative-card" data-tags="transformation,scale">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">🔄</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Digital Redesign and Replatforming</div>
+                            <div class="initiative-oneliner">Led the redesign and migration of digital banking to a modern platform architecture</div>
+                            <div class="initiative-metric">Replatform</div>
+                        </div>
+                        <div class="initiative-chevron">▾</div>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-tags">
+                            <span class="initiative-tag">Replatforming</span>
+                            <span class="initiative-tag">UX Redesign</span>
+                            <span class="initiative-tag">Architecture</span>
+                            <span class="initiative-tag">Migration</span>
+                        </div>
+                        <div class="initiative-beats">
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">Problem</div>
+                                <div class="initiative-beat-text">Legacy digital banking platform was built on aging infrastructure. Feature velocity was slow, the UX was dated, and the tech stack made it difficult to ship modern experiences at scale.</div>
+                            </div>
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">Bet</div>
+                                <div class="initiative-beat-text">A full redesign paired with platform migration would unlock faster development cycles, improve the customer experience, and position the digital channel for future growth.</div>
+                            </div>
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">What Shipped</div>
+                                <div class="initiative-beat-text">End-to-end digital banking redesign with modernized UI patterns. Platform migration from legacy monolith to a more modular architecture. Phased rollout to minimize customer disruption. Updated information architecture and navigation.</div>
+                            </div>
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">Outcome</div>
+                                <div class="initiative-beat-text">Modernized digital banking experience with improved usability, faster feature delivery, and a scalable foundation for future product development.</div>
+                            </div>
+                        </div>
+                        <div class="initiative-gallery">
+                            <div class="initiative-gallery-item">
+                                <div class="initiative-gallery-placeholder">Before and after redesign</div>
+                            </div>
+                            <div class="initiative-gallery-item">
+                                <div class="initiative-gallery-placeholder">New platform architecture</div>
+                            </div>
+                            <div class="initiative-gallery-item">
+                                <div class="initiative-gallery-placeholder">Migration rollout plan</div>
+                            </div>
+                        </div>
+                        <div class="initiative-outcome-bar">
+                            <div class="initiative-outcome-stat">
+                                <div class="initiative-outcome-number">Full</div>
+                                <div class="initiative-outcome-label">UX redesign</div>
+                            </div>
+                            <div class="initiative-outcome-stat">
+                                <div class="initiative-outcome-number">Modern</div>
+                                <div class="initiative-outcome-label">Platform stack</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Managed Student Loans Digital Roadmap -->
+                <div class="initiative-card" data-tags="strategy,scale">
+                    <div class="initiative-card-header">
+                        <div class="initiative-icon">🎓</div>
+                        <div class="initiative-card-summary">
+                            <div class="initiative-title">Managed Student Loans Digital Roadmap</div>
+                            <div class="initiative-oneliner">Owned the digital product roadmap for the student lending portfolio</div>
+                            <div class="initiative-metric">Roadmap</div>
+                        </div>
+                        <div class="initiative-chevron">▾</div>
+                    </div>
+                    <div class="initiative-detail">
+                        <div class="initiative-tags">
+                            <span class="initiative-tag">Student Loans</span>
+                            <span class="initiative-tag">Product Roadmap</span>
+                            <span class="initiative-tag">Digital Servicing</span>
+                            <span class="initiative-tag">Lending</span>
+                        </div>
+                        <div class="initiative-beats">
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">Problem</div>
+                                <div class="initiative-beat-text">Student loan servicing was primarily offline. Borrowers lacked self-service tools for payments, deferment, and account management, driving high call center volume and poor satisfaction.</div>
+                            </div>
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">Bet</div>
+                                <div class="initiative-beat-text">A dedicated digital roadmap for student loans would reduce servicing costs, improve borrower satisfaction, and bring the lending experience in line with the rest of the digital banking portfolio.</div>
+                            </div>
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">What Shipped</div>
+                                <div class="initiative-beat-text">Digital student loan dashboard with payment management, autopay enrollment, and deferment request flows. Self-service tools for loan details, payoff quotes, and document access. Integrated into the broader online and mobile banking experience.</div>
+                            </div>
+                            <div class="initiative-beat">
+                                <div class="initiative-beat-label">Outcome</div>
+                                <div class="initiative-beat-text">Improved borrower self-service rates, reduced call center volume for student loan inquiries, and a cohesive digital servicing experience for the lending portfolio.</div>
+                            </div>
+                        </div>
+                        <div class="initiative-gallery">
+                            <div class="initiative-gallery-item">
+                                <div class="initiative-gallery-placeholder">Student loan dashboard</div>
+                            </div>
+                            <div class="initiative-gallery-item">
+                                <div class="initiative-gallery-placeholder">Payment management flow</div>
+                            </div>
+                            <div class="initiative-gallery-item">
+                                <div class="initiative-gallery-placeholder">Self-service tools</div>
+                            </div>
+                        </div>
+                        <div class="initiative-outcome-bar">
+                            <div class="initiative-outcome-stat">
+                                <div class="initiative-outcome-number">Self-serve</div>
+                                <div class="initiative-outcome-label">Loan management</div>
+                            </div>
+                            <div class="initiative-outcome-stat">
+                                <div class="initiative-outcome-number">Reduced</div>
+                                <div class="initiative-outcome-label">Call center volume</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2256,29 +2959,326 @@
                 <div class="timeline-role">
                     <h2>Senior Consultant - Tech Innovations</h2>
                     <div class="timeline-meta">
-                        <span class="company-name">Magley & Associates</span> &middot; Dec 2008 - Aug 2012
+                        <span class="company-name">Magley & Associates</span> &middot; 2002 - 2012
                     </div>
                 </div>
             </div>
 
             <ul class="timeline-summary">
+                <li>Led a team of <span class="metric">30+ consultants</span> designing strategies and executing programs to drive digital product transformation</li>
                 <li>Delivered digital programs for <span class="metric">Starbucks, Hilton, Yahoo!, Wachovia</span></li>
-                <li>Managed <span class="metric">30+ consultants</span> and $500K-$20M portfolios</li>
-                <li>Advised executives on agile transformation and roadmaps</li>
+                <li>Spanned business strategy, product strategy, and execution - including business analysis, project management, change management, and agile transformation</li>
             </ul>
 
             <div class="timeline-tags">
                 <span class="timeline-tag">Consulting</span>
                 <span class="timeline-tag">Transformation</span>
+                <span class="timeline-tag">Product Strategy</span>
+                <span class="timeline-tag">Agile</span>
             </div>
 
             <div class="initiatives-label">Client Engagements</div>
-            <div class="initiatives-grid">
-                <div class="initiative-placeholder">
-                    <strong>Starbucks, Hilton, Yahoo!, Wachovia</strong>
-                    Which client engagements were most meaningful? What did you deliver? Share details and I will build cards per engagement.
+
+            <!-- Sub-timeline for client engagements -->
+            <div class="sub-timeline">
+
+                <!-- ---- Starbucks ---- -->
+                <div class="sub-timeline-entry">
+                    <div class="sub-timeline-dot"></div>
+                    <div class="sub-timeline-header">
+                        <div class="sub-timeline-client">Starbucks Corporation</div>
+                    </div>
+                    <div class="sub-timeline-meta">2008 - 2012</div>
+                    <div class="sub-timeline-summary">Launched the Starbucks Card mobile app and introduced first-in-industry digital wallet payments</div>
+                    <div class="initiatives-grid">
+
+                        <!-- Starbucks Card Mobile App -->
+                        <div class="initiative-card" data-tags="mobile,scale">
+                            <div class="initiative-card-header">
+                                <div class="initiative-icon">☕</div>
+                                <div class="initiative-card-summary">
+                                    <div class="initiative-title">Starbucks Card Mobile App</div>
+                                    <div class="initiative-oneliner">Digitized the Starbucks rewards card to drive a better omnichannel experience</div>
+                                    <div class="initiative-metric">45% adoption</div>
+                                </div>
+                                <div class="initiative-chevron">▾</div>
+                            </div>
+                            <div class="initiative-detail">
+                                <div class="initiative-tags">
+                                    <span class="initiative-tag">Mobile</span>
+                                    <span class="initiative-tag">Loyalty</span>
+                                    <span class="initiative-tag">Omnichannel</span>
+                                    <span class="initiative-tag">Rewards</span>
+                                </div>
+                                <div class="initiative-beats">
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Problem</div>
+                                        <div class="initiative-beat-text">The Starbucks rewards experience was tied to a physical card. Customers had to carry it separately, reload it in-store, and had no way to manage their rewards digitally. The myStarbucks mobile app existed but lacked card integration.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Bet</div>
+                                        <div class="initiative-beat-text">A companion mobile app that digitized the rewards card and allowed mobile recharge would drive omnichannel engagement and make the card experience seamless.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">What Shipped</div>
+                                        <div class="initiative-beat-text">Starbucks Card mobile app as a companion to myStarbucks. First-in-industry digital wallet feature enabling in-app payments. Mobile recharge of the rewards card - a top customer feature request. Redesigned rewards portal online with profile onboarding to support the app.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Outcome</div>
+                                        <div class="initiative-beat-text">45% app adoption. The mobile app became one of the top 10 downloaded apps in both Google Play and the Apple App Store.</div>
+                                    </div>
+                                </div>
+                                <div class="initiative-gallery">
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">Starbucks Card app</div>
+                                    </div>
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">Digital wallet payment</div>
+                                    </div>
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">Mobile recharge flow</div>
+                                    </div>
+                                </div>
+                                <div class="initiative-outcome-bar">
+                                    <div class="initiative-outcome-stat">
+                                        <div class="initiative-outcome-number">45%</div>
+                                        <div class="initiative-outcome-label">App adoption</div>
+                                    </div>
+                                    <div class="initiative-outcome-stat">
+                                        <div class="initiative-outcome-number">Top 10</div>
+                                        <div class="initiative-outcome-label">App Store ranking</div>
+                                    </div>
+                                    <div class="initiative-outcome-stat">
+                                        <div class="initiative-outcome-number">First</div>
+                                        <div class="initiative-outcome-label">In-industry digital wallet</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
+
+                <!-- ---- Wachovia ---- -->
+                <div class="sub-timeline-entry">
+                    <div class="sub-timeline-dot"></div>
+                    <div class="sub-timeline-header">
+                        <div class="sub-timeline-client">Wachovia - Treasury Management and Digital Payments</div>
+                    </div>
+                    <div class="sub-timeline-meta">2006 - 2008</div>
+                    <div class="sub-timeline-summary">Redesigned online Bill Pay and built the feature roadmap for digital payments</div>
+                    <div class="initiatives-grid">
+
+                        <!-- Online Bill Pay Redesign -->
+                        <div class="initiative-card" data-tags="payments,scale">
+                            <div class="initiative-card-header">
+                                <div class="initiative-icon">💳</div>
+                                <div class="initiative-card-summary">
+                                    <div class="initiative-title">Online Bill Pay Redesign</div>
+                                    <div class="initiative-oneliner">Redesigned customer onboarding for ACH-based Bill Pay across business and consumer accounts</div>
+                                    <div class="initiative-metric">+38% adoption</div>
+                                </div>
+                                <div class="initiative-chevron">▾</div>
+                            </div>
+                            <div class="initiative-detail">
+                                <div class="initiative-tags">
+                                    <span class="initiative-tag">Payments</span>
+                                    <span class="initiative-tag">ACH</span>
+                                    <span class="initiative-tag">Bill Pay</span>
+                                    <span class="initiative-tag">Onboarding</span>
+                                </div>
+                                <div class="initiative-beats">
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Problem</div>
+                                        <div class="initiative-beat-text">Bill Pay onboarding was cumbersome, with separate flows for business and consumer accounts. Adoption lagged behind competitors and the experience didn't reflect Wachovia's digital banking ambitions.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Bet</div>
+                                        <div class="initiative-beat-text">A redesigned, unified onboarding experience for ACH-based Bill Pay would lift adoption and strengthen Wachovia's position among top online banking platforms.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">What Shipped</div>
+                                        <div class="initiative-beat-text">Redesigned onboarding for online Bill Pay using ACH for both business and consumer accounts. Defined business rules for physical vs. electronic checks, data encryption, eligibility, permissions, stop payments, and automatic overdraft protection. Built a feature roadmap including real-time alerts and notifications. Identified partnership opportunities with business banking, statements, and third-party financial tools.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Outcome</div>
+                                        <div class="initiative-beat-text">38% increase in Bill Pay adoption. Consolidated Wachovia's standing as the 4th best online banking platform among major US banks.</div>
+                                    </div>
+                                </div>
+                                <div class="initiative-gallery">
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">Bill Pay onboarding flow</div>
+                                    </div>
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">ACH payment setup</div>
+                                    </div>
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">Alerts and notifications</div>
+                                    </div>
+                                </div>
+                                <div class="initiative-outcome-bar">
+                                    <div class="initiative-outcome-stat">
+                                        <div class="initiative-outcome-number">+38%</div>
+                                        <div class="initiative-outcome-label">Bill Pay adoption</div>
+                                    </div>
+                                    <div class="initiative-outcome-stat">
+                                        <div class="initiative-outcome-number">#4</div>
+                                        <div class="initiative-outcome-label">US online banking rank</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ---- Hilton Worldwide ---- -->
+                <div class="sub-timeline-entry">
+                    <div class="sub-timeline-dot"></div>
+                    <div class="sub-timeline-header">
+                        <div class="sub-timeline-client">Hilton Worldwide</div>
+                    </div>
+                    <div class="sub-timeline-meta">2004 - 2006</div>
+                    <div class="sub-timeline-summary">Directed product strategy for OnQ, Hilton's proprietary industry-leading ERP platform</div>
+                    <div class="initiatives-grid">
+
+                        <!-- OnQ ERP Platform -->
+                        <div class="initiative-card" data-tags="strategy,transformation">
+                            <div class="initiative-card-header">
+                                <div class="initiative-icon">🏨</div>
+                                <div class="initiative-card-summary">
+                                    <div class="initiative-title">OnQ - Proprietary Hotel ERP Platform</div>
+                                    <div class="initiative-oneliner">Product strategy for a proprietary ERP powering hotel operations, inventory, finance, and guest experience</div>
+                                    <div class="initiative-metric">+10pt RevPAR</div>
+                                </div>
+                                <div class="initiative-chevron">▾</div>
+                            </div>
+                            <div class="initiative-detail">
+                                <div class="initiative-tags">
+                                    <span class="initiative-tag">ERP</span>
+                                    <span class="initiative-tag">Hospitality</span>
+                                    <span class="initiative-tag">Product Strategy</span>
+                                    <span class="initiative-tag">CRM</span>
+                                </div>
+                                <div class="initiative-beats">
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Problem</div>
+                                        <div class="initiative-beat-text">Hilton properties ran on fragmented systems for operations, inventory, finance, and guest management. There was no unified platform, making it difficult to drive consistent guest experiences and operational efficiency at scale.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Bet</div>
+                                        <div class="initiative-beat-text">A proprietary, fully integrated ERP platform would unify hotel operations, improve revenue per available room, and enable personalized guest experiences across the Hilton portfolio.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">What Shipped</div>
+                                        <div class="initiative-beat-text">OnQ - a proprietary ERP platform covering hotel operations, inventory management, finance, and guest experience. Conducted user research and gathered feedback to inform roadmap and feature prioritization. Launched digital innovations including automated self check-in and check-out. Defined features for a custom CRM enabling personalization and preference management.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Outcome</div>
+                                        <div class="initiative-beat-text">10-point RevPAR gain for properties that migrated to the new platform. Improved operational consistency and guest personalization across the Hilton portfolio.</div>
+                                    </div>
+                                </div>
+                                <div class="initiative-gallery">
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">OnQ platform dashboard</div>
+                                    </div>
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">Self check-in flow</div>
+                                    </div>
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">CRM personalization</div>
+                                    </div>
+                                </div>
+                                <div class="initiative-outcome-bar">
+                                    <div class="initiative-outcome-stat">
+                                        <div class="initiative-outcome-number">+10pt</div>
+                                        <div class="initiative-outcome-label">RevPAR gain</div>
+                                    </div>
+                                    <div class="initiative-outcome-stat">
+                                        <div class="initiative-outcome-number">Automated</div>
+                                        <div class="initiative-outcome-label">Self check-in/out</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ---- Yahoo ---- -->
+                <div class="sub-timeline-entry">
+                    <div class="sub-timeline-dot"></div>
+                    <div class="sub-timeline-header">
+                        <div class="sub-timeline-client">Yahoo!</div>
+                    </div>
+                    <div class="sub-timeline-meta">2002 - 2004</div>
+                    <div class="sub-timeline-summary">Crafted and executed product strategy for Yahoo! Messenger with 10.6 million users</div>
+                    <div class="initiatives-grid">
+
+                        <!-- Yahoo! Messenger -->
+                        <div class="initiative-card" data-tags="consumer,scale">
+                            <div class="initiative-card-header">
+                                <div class="initiative-icon">💬</div>
+                                <div class="initiative-card-summary">
+                                    <div class="initiative-title">Yahoo! Messenger Product Strategy</div>
+                                    <div class="initiative-oneliner">Product evolution of a messaging platform with 10.6M users</div>
+                                    <div class="initiative-metric">57 min/day</div>
+                                </div>
+                                <div class="initiative-chevron">▾</div>
+                            </div>
+                            <div class="initiative-detail">
+                                <div class="initiative-tags">
+                                    <span class="initiative-tag">Consumer</span>
+                                    <span class="initiative-tag">Messaging</span>
+                                    <span class="initiative-tag">Product Strategy</span>
+                                    <span class="initiative-tag">Go-to-Market</span>
+                                </div>
+                                <div class="initiative-beats">
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Problem</div>
+                                        <div class="initiative-beat-text">Yahoo! Messenger had a large user base but needed product evolution to stay competitive. Engagement opportunities with adjacent Yahoo properties (Games, Photos, Search) were untapped, and the user experience needed optimization.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Bet</div>
+                                        <div class="initiative-beat-text">Cross-pollinating Messenger with Yahoo's other products and optimizing the core experience would deepen engagement and create new differentiation opportunities.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">What Shipped</div>
+                                        <div class="initiative-beat-text">Product enhancements through cross-functional collaboration with Yahoo! Games, Photos, and Search. UX optimizations that increased time spent. Worked with marketing and sales on product positioning, messaging, and go-to-market strategies. Monitored market trends to identify opportunities for innovation, differentiation, and collaboration.</div>
+                                    </div>
+                                    <div class="initiative-beat">
+                                        <div class="initiative-beat-label">Outcome</div>
+                                        <div class="initiative-beat-text">Users spending an average of 57 minutes per day on the app. Stronger integration across the Yahoo ecosystem and clearer product positioning in a competitive messaging market.</div>
+                                    </div>
+                                </div>
+                                <div class="initiative-gallery">
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">Yahoo! Messenger interface</div>
+                                    </div>
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">Cross-product integrations</div>
+                                    </div>
+                                    <div class="initiative-gallery-item">
+                                        <div class="initiative-gallery-placeholder">Engagement metrics</div>
+                                    </div>
+                                </div>
+                                <div class="initiative-outcome-bar">
+                                    <div class="initiative-outcome-stat">
+                                        <div class="initiative-outcome-number">10.6M</div>
+                                        <div class="initiative-outcome-label">Users</div>
+                                    </div>
+                                    <div class="initiative-outcome-stat">
+                                        <div class="initiative-outcome-number">57 min</div>
+                                        <div class="initiative-outcome-label">Daily avg. usage</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- end .sub-timeline -->
         </div>
 
 
@@ -2368,6 +3368,241 @@
     <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
     <script>
+        // ============================================
+        // IMPACT HERO CANVAS ANIMATION
+        // ============================================
+        (function() {
+            const canvas = document.getElementById('impactCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            // Slides data with per-slide durations based on reading time
+            // Slow reader ~150 wpm (2.5 words/sec). Each slide has ~20 words of persistent text (~8s).
+            // Per-slide unique words added on top. Plus 2s buffer for eye settling after fade.
+            const slides = [
+                { type: 'metric', number: '25M+', description: 'Active users secured through enterprise MFA rollout', context: 'Wells Fargo', initiative: 'Enterprise MFA Rollout', duration: 15000 },
+                { type: 'testimonial', quote: 'Placeholder for testimonial - a user or stakeholder quote about the impact of your work.', name: 'Name, Title', company: 'Company', context: 'Wells Fargo', initiative: 'Enterprise MFA Rollout', duration: 18000 },
+                { type: 'metric', number: '45%', description: 'App adoption for Starbucks Card mobile, top 10 on both app stores', context: 'Starbucks', initiative: 'Starbucks Card Mobile App', duration: 16000 },
+                { type: 'testimonial', quote: 'Placeholder for testimonial - a colleague or executive quote about working with you.', name: 'Name, Title', company: 'Company', context: 'Starbucks', initiative: 'Starbucks Card Mobile App', duration: 18000 },
+                { type: 'metric', number: '10.6M', description: 'Yahoo! Messenger users, averaging 57 minutes a day', context: 'Yahoo!', initiative: 'Yahoo! Messenger Product Strategy', duration: 14000 },
+                { type: 'metric', number: '#9 to #3', description: 'JD Power mobile banking ranking improvement', context: 'Wells Fargo', initiative: 'In-App Marketplace', duration: 14000 },
+                { type: 'testimonial', quote: 'Placeholder for testimonial - an end user or customer quote about the product experience.', name: 'Name, Title', company: 'Company', context: 'Hilton', initiative: 'OnQ ERP Platform', duration: 18000 },
+                { type: 'metric', number: '+10pt', description: 'RevPAR gain for Hilton properties on the OnQ platform', context: 'Hilton', initiative: 'OnQ ERP Platform', duration: 14000 },
+                { type: 'metric', number: '+38%', description: 'Bill Pay adoption, consolidating 4th best online banking platform', context: 'Wachovia', initiative: 'Online Bill Pay Redesign', duration: 14000 },
+            ];
+
+            const FADE_DURATION = 2000;
+            let currentSlide = 0;
+            let slideStart = 0;
+            let dpr = window.devicePixelRatio || 1;
+
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                canvas.style.width = rect.width + 'px';
+                canvas.style.height = rect.height + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function isDark() {
+                return document.documentElement.getAttribute('data-theme') !== 'light';
+            }
+
+            function getColors() {
+                const style = getComputedStyle(document.documentElement);
+                return {
+                    bg: style.getPropertyValue('--bg-primary').trim() || '#0a0a0a',
+                    text: style.getPropertyValue('--text-primary').trim() || '#f0e6d3',
+                    secondary: style.getPropertyValue('--text-secondary').trim() || '#b8a990',
+                    muted: style.getPropertyValue('--text-muted').trim() || '#6b5d50',
+                };
+            }
+
+            // Slide background matches page bg
+            function getSlideBg() {
+                return isDark() ? '#0a0a0a' : '#f5f3f0';
+            }
+
+            // No custom accent colors - use site tokens
+
+            function wrapText(ctx, text, maxWidth, fontSize) {
+                ctx.font = `700 ${fontSize}px Inter, sans-serif`;
+                const words = text.split(' ');
+                const lines = [];
+                let line = '';
+                for (const word of words) {
+                    const test = line ? line + ' ' + word : word;
+                    if (ctx.measureText(test).width > maxWidth && line) {
+                        lines.push(line);
+                        line = word;
+                    } else {
+                        line = test;
+                    }
+                }
+                if (line) lines.push(line);
+                return lines;
+            }
+
+            function drawSlide(slide, alpha, w, h) {
+                const colors = getColors();
+                const isSmall = w < 600;
+                const isMed = w < 900;
+                // Draw slide background with alpha
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = getSlideBg();
+                ctx.fillRect(0, 0, w, h);
+
+                // Header
+                const headerSize = isSmall ? 12 : isMed ? 14 : 15;
+                ctx.font = `700 ${headerSize}px Inter, sans-serif`;
+                ctx.fillStyle = colors.muted;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.letterSpacing = '0.08em';
+                ctx.fillText('SELECT HIGHLIGHTS FROM MY CAREER', w / 2, h * 0.10);
+                ctx.letterSpacing = '0px';
+
+                // Thin divider line under header
+                const divY = h * 0.16;
+                const divW = isSmall ? 45 : 65;
+                ctx.beginPath();
+                ctx.moveTo(w / 2 - divW / 2, divY);
+                ctx.lineTo(w / 2 + divW / 2, divY);
+                ctx.strokeStyle = colors.muted;
+                ctx.globalAlpha = alpha * 0.3;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.globalAlpha = alpha;
+
+                // Company Name and Initiative lines
+                const infoSize = isSmall ? 10 : isMed ? 11 : 12;
+                ctx.font = `700 ${infoSize}px Inter, sans-serif`;
+                ctx.fillStyle = colors.muted;
+                ctx.fillText('Company: ' + slide.context + '   |   Initiative: ' + slide.initiative, w / 2, h * 0.23);
+
+                if (slide.type === 'metric') {
+                    // "By the numbers" label - tight to big number
+                    const labelSize = isSmall ? 10 : isMed ? 12 : 13;
+                    ctx.font = `700 ${labelSize}px Inter, sans-serif`;
+                    ctx.fillStyle = colors.muted;
+                    ctx.letterSpacing = '0.1em';
+                    ctx.fillText('BY THE NUMBERS', w / 2, h * 0.40);
+                    ctx.letterSpacing = '0px';
+
+                    // Big number
+                    const numSize = isSmall ? 44 : isMed ? 58 : 72;
+                    ctx.font = `700 ${numSize}px Inter, sans-serif`;
+                    ctx.fillStyle = colors.text;
+                    ctx.fillText(slide.number, w / 2, h * 0.50);
+
+                    // Description
+                    const descSize = isSmall ? 13 : isMed ? 15 : 17;
+                    const maxDescW = Math.min(w * 0.72, 580);
+                    const lines = wrapText(ctx, slide.description, maxDescW, descSize);
+                    ctx.font = `700 ${descSize}px Inter, sans-serif`;
+                    ctx.fillStyle = colors.secondary;
+                    const descStartY = h * 0.64;
+                    const lineHeight = descSize * 1.6;
+                    lines.forEach((line, i) => {
+                        ctx.fillText(line, w / 2, descStartY + i * lineHeight);
+                    });
+
+                    // Scroll prompt at bottom (same size as old company name)
+                    const ctxSize = isSmall ? 10 : isMed ? 11 : 12;
+                    ctx.font = `700 ${ctxSize}px Inter, sans-serif`;
+                    ctx.fillStyle = colors.muted;
+                    ctx.fillText('Scroll down for the full picture and open the cards to dig deeper', w / 2, h * 0.86);
+
+                } else if (slide.type === 'testimonial') {
+                    // "What users say" label - tight to quote
+                    const labelSize = isSmall ? 10 : isMed ? 12 : 13;
+                    ctx.font = `700 ${labelSize}px Inter, sans-serif`;
+                    ctx.fillStyle = colors.muted;
+                    ctx.letterSpacing = '0.1em';
+                    ctx.fillText('WHAT USERS SAY', w / 2, h * 0.40);
+                    ctx.letterSpacing = '0px';
+
+                    // Quote
+                    const quoteSize = isSmall ? 14 : isMed ? 17 : 20;
+                    const maxQuoteW = Math.min(w * 0.72, 620);
+                    const quoteLines = wrapText(ctx, '\u201C' + slide.quote + '\u201D', maxQuoteW, quoteSize);
+                    ctx.font = `italic 700 ${quoteSize}px Inter, sans-serif`;
+                    ctx.fillStyle = colors.secondary;
+                    const qLineH = quoteSize * 1.7;
+                    const totalQuoteH = quoteLines.length * qLineH;
+                    const quoteStartY = h * 0.54 - totalQuoteH / 2 + qLineH * 0.3;
+                    quoteLines.forEach((line, i) => {
+                        ctx.fillText(line, w / 2, quoteStartY + i * qLineH);
+                    });
+
+                    // Scroll prompt at bottom (same size as old attribution)
+                    const attrSize = isSmall ? 11 : isMed ? 12 : 13;
+                    ctx.font = `700 ${attrSize}px Inter, sans-serif`;
+                    ctx.fillStyle = colors.muted;
+                    ctx.fillText('Scroll down for the full picture and open the cards to dig deeper', w / 2, h * 0.86);
+                }
+
+                ctx.globalAlpha = 1;
+            }
+
+            function animate(timestamp) {
+                if (!slideStart) slideStart = timestamp;
+                const elapsed = timestamp - slideStart;
+                const w = canvas.width / dpr;
+                const h = canvas.height / dpr;
+                const colors = getColors();
+                const slideDur = slides[currentSlide].duration;
+
+                // Clear to base bg
+                ctx.clearRect(0, 0, w, h);
+                ctx.fillStyle = colors.bg;
+                ctx.fillRect(0, 0, w, h);
+
+                // Calculate fade using per-slide duration
+                let alpha = 1;
+                if (elapsed < FADE_DURATION) {
+                    alpha = elapsed / FADE_DURATION;
+                } else if (elapsed > slideDur - FADE_DURATION) {
+                    alpha = Math.max(0, (slideDur - elapsed) / FADE_DURATION);
+                }
+
+                drawSlide(slides[currentSlide], alpha, w, h);
+
+                // Progress dots
+                const dotY = h - 14;
+                const dotSpacing = 14;
+                const dotsW = (slides.length - 1) * dotSpacing;
+                const dotStartX = (w - dotsW) / 2;
+                for (let i = 0; i < slides.length; i++) {
+                    ctx.beginPath();
+                    ctx.arc(dotStartX + i * dotSpacing, dotY, i === currentSlide ? 3 : 2, 0, Math.PI * 2);
+                    ctx.fillStyle = i === currentSlide ? colors.text : colors.muted;
+                    ctx.globalAlpha = i === currentSlide ? 0.9 : 0.3;
+                    ctx.fill();
+                }
+                ctx.globalAlpha = 1;
+
+                // Advance slide
+                if (elapsed >= slideDur) {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slideStart = timestamp;
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            resize();
+            window.addEventListener('resize', resize);
+
+            // Theme changes re-render naturally via getColors()/isDark()
+            const observer = new MutationObserver(() => {});
+            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+            requestAnimationFrame(animate);
+        })();
+
         // ============================================
         // MOBILE MENU
         // ============================================
