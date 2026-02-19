@@ -19,3 +19,9 @@ Thumbs.db
 # Strategy docs
 Site Strategy*
 Site Reference*
+
+# Access code management (sensitive - never commit)
+scripts/career-codes.json
+
+# Preview files
+sparkline-preview.html

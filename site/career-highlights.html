@@ -39,6 +39,13 @@
             line-height: 1.1;
             margin-bottom: 0.5rem;
         }
+        .subpage-hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-bottom: 1.5rem;
+        }
         .subpage-hero-subtitle {
             font-size: clamp(0.9rem, 1.8vw, 1.1rem);
             font-weight: 400;
@@ -53,7 +60,7 @@
             position: relative;
             overflow: hidden;
             background: var(--bg-primary);
-            border: 12px solid #6b4c2a;
+            border: 3px solid #B08527;
         }
         .impact-video-canvas {
             width: 100%;
@@ -81,11 +88,14 @@
         }
 
         /* Gated content wrapper */
+        .gated-section-wrapper {
+            position: relative;
+        }
         .gated-content {
             position: relative;
         }
         .gated-content.locked {
-            max-height: 600px;
+            max-height: 1600px;
             overflow: hidden;
         }
 
@@ -100,23 +110,25 @@
             z-index: 10;
             background: linear-gradient(
                 to bottom,
-                transparent 0%,
-                rgba(10, 10, 10, 0.3) 15%,
-                rgba(10, 10, 10, 0.85) 40%,
-                rgba(10, 10, 10, 0.98) 60%,
-                var(--bg-primary) 75%
+                rgba(10, 10, 10, 0.6) 0%,
+                rgba(10, 10, 10, 0.4) 20%,
+                rgba(10, 10, 10, 0.3) 40%,
+                rgba(10, 10, 10, 0.5) 60%,
+                rgba(10, 10, 10, 0.8) 80%,
+                var(--bg-primary) 100%
             );
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
         [data-theme="light"] .gate-overlay {
             background: linear-gradient(
                 to bottom,
-                transparent 0%,
-                rgba(245, 243, 240, 0.3) 15%,
-                rgba(245, 243, 240, 0.85) 40%,
-                rgba(245, 243, 240, 0.98) 60%,
-                var(--bg-primary) 75%
+                rgba(245, 243, 240, 0.6) 0%,
+                rgba(245, 243, 240, 0.4) 20%,
+                rgba(245, 243, 240, 0.3) 40%,
+                rgba(245, 243, 240, 0.5) 60%,
+                rgba(245, 243, 240, 0.8) 80%,
+                var(--bg-primary) 100%
             );
         }
         .gated-content.locked .gate-overlay {
@@ -127,12 +139,17 @@
         .gate-prompt {
             display: none;
             text-align: center;
-            padding: 0 4rem 4rem;
-            position: relative;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
             z-index: 11;
+            padding: 4rem 4rem 0;
         }
         .gated-content.locked ~ .gate-prompt {
-            display: block;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
         }
 
         .gate-prompt-inner {
@@ -303,7 +320,20 @@
             flex-direction: column;
             justify-content: center;
             padding-left: 4rem;
-            gap: 1rem;
+            gap: 2rem;
+        }
+        .page-intro-fenix-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            opacity: 0.8;
+            margin-top: 1rem;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+        .page-intro-fenix-logo:hover {
+            opacity: 1;
+            transform: scale(1.1);
         }
         .filter-label {
             font-size: 0.8rem;
@@ -330,6 +360,28 @@
         }
         .filter-pill:hover,
         .filter-pill.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .consulting-pill-wrapper {
+            text-align: right;
+            margin-bottom: 1.5rem;
+            margin-top: -2rem;
+        }
+        .consulting-pill {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+        .consulting-pill:hover {
             background: var(--text-primary);
             color: var(--bg-primary);
             border-color: var(--text-primary);
@@ -437,6 +489,12 @@
         .timeline-meta .company-name {
             color: var(--text-secondary);
             font-weight: 500;
+        }
+        .timeline-permission-note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 0.25rem;
         }
 
         /* Summary bullets */
@@ -846,6 +904,23 @@
             gap: 0.75rem;
             margin-bottom: 0.75rem;
         }
+        .sub-timeline-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .sub-timeline-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .sub-timeline-client {
             font-size: 1.15rem;
             font-weight: 600;
@@ -879,6 +954,11 @@
             }
             .sub-timeline-client {
                 font-size: 1rem;
+            }
+            .sub-timeline-logo {
+                width: 32px;
+                height: 32px;
+                border-radius: 6px;
             }
         }
 
@@ -924,7 +1004,7 @@
         @media (max-width: 768px) {
             .hero-title-area { padding: 2rem 1.5rem 0.75rem; }
             .discretion-notice { padding: 2rem 1.5rem; }
-            .gate-prompt { padding: 0 1.5rem 3rem; }
+            .gate-prompt { padding: 2rem 1.5rem 0; }
             .gate-prompt-inner { padding: 2rem 1.5rem; }
             .gate-input-row { flex-direction: column; }
             .gate-contact-links { flex-direction: column; gap: 0.75rem; }
@@ -940,6 +1020,7 @@
             .timeline { padding: 2rem 1.5rem; }
             .timeline::before { left: calc(1.5rem + 10px); }
             .timeline-entry { padding-left: 40px; }
+            .consulting-pill-wrapper { margin-top: -1rem; }
             .timeline-dot { left: 2px; width: 18px; height: 18px; }
             .timeline-entry:hover .timeline-dot { background: var(--text-primary); }
 
@@ -1022,6 +1103,7 @@
     <div class="subpage-hero">
         <div class="hero-title-area">
             <h1 class="subpage-hero-title">Career Highlights</h1>
+            <p class="subpage-hero-tagline">15+ years. The best proof isn't a resume - it's the work. Here's mine.</p>
         </div>
 
         <div class="impact-video-container">
@@ -1032,41 +1114,43 @@
     <!-- Two-Column Intro -->
     <div class="page-intro">
         <div class="page-intro-left">
-            <p class="page-intro-text">15 years of shipping products that move metrics - from startup pivots to platforms serving 30M+ users.</p>
+            <p class="page-intro-text">Each card below has details of the initiatives I led. Open the cards to read more about what I did and why. If you want to know more about <em>how</em> I work - try asking Fenix.</p>
+            <img src="images/logo.png" alt="Fenix Logo" class="page-intro-fenix-logo">
         </div>
         <div class="page-intro-divider"></div>
         <div class="page-intro-right">
-            <div>
-                <div class="filter-label">Filter by</div>
-                <div class="filter-pills">
-                    <button class="filter-pill active" data-filter="all">All</button>
-                    <button class="filter-pill" data-filter="fintech">Fintech</button>
-                    <button class="filter-pill" data-filter="ai">AI</button>
-                    <button class="filter-pill" data-filter="mobile">Mobile</button>
-                    <button class="filter-pill" data-filter="zero-to-one">0 to 1</button>
-                    <button class="filter-pill" data-filter="scale">Scale</button>
-                    <button class="filter-pill" data-filter="transformation">Transformation</button>
+            <div class="pill-section">
+                <p class="pill-section-label">Most commonly asked questions about Kiran's career ↘</p>
+                <div class="explore-pills">
+                    <button class="explore-pill" data-fenix="true">What has Kiran shipped?</button>
+                    <button class="explore-pill" data-fenix="true">What industries has Kiran worked in?</button>
+                    <button class="explore-pill" data-fenix="true">What's Kiran's biggest product win?</button>
+                    <button class="explore-pill" data-fenix="true">How does Kiran approach product strategy?</button>
+                    <button class="explore-pill" data-fenix="true">Is Kiran open to new opportunities?</button>
+                </div>
+            </div>
+            <div class="pill-section">
+                <p class="pill-section-label">Try asking Fenix ↘</p>
+                <div class="explore-pills">
+                    <button class="explore-pill" data-fenix="true">Walk me through a product Kiran built from scratch</button>
+                    <button class="explore-pill" data-fenix="true">How does Kiran work with engineering teams?</button>
+                    <button class="explore-pill" data-fenix="true">What does Kiran think about AI in product?</button>
+                    <button class="explore-pill" data-fenix="true">Tell me about Kiran's leadership style</button>
+                    <button class="explore-pill" data-fenix="true">What would Kiran's teammates say about him?</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Discretion Notice -->
-    <div class="discretion-notice">
-        <p>The work below represents years of building alongside teams I respect at companies that trusted me with meaningful problems. Some of it involved strategic work that requires care in how I share it. I've gated the detail behind a simple access code out of respect for those organizations. I'm proud to share my work with the right people for the right reasons. Reach out on LinkedIn!</p>
-    </div>
-
-    <!-- Gated content wrapper -->
-    <!-- DEV MODE: Change "unlocked" back to "locked" when ready to go live -->
-    <div class="gated-content unlocked" id="gatedContent">
-
-        <!-- Blur/fade overlay -->
-        <div class="gate-overlay"></div>
-
     <!-- ============================================
-         TIMELINE
+         PUBLIC TIMELINE (Avatour - ungated)
          ============================================ -->
-    <div class="timeline" id="timeline">
+    <div class="timeline" id="publicTimeline">
+
+        <!-- Consulting CTA pill -->
+        <div class="consulting-pill-wrapper">
+            <a href="https://www.productincite.com" target="_blank" rel="noopener" class="consulting-pill">Visit Product Incite to see current Consulting Work &rarr;</a>
+        </div>
 
         <!-- ==========================================
              ROLE 1: AVATOUR AI (Current)
@@ -1080,6 +1164,7 @@
                     <div class="timeline-meta">
                         <span class="company-name">Avatour AI</span> - AR/VR Startup &middot; Oct 2025 - Present
                     </div>
+                    <div class="timeline-permission-note">Information shared with explicit permission</div>
                 </div>
             </div>
 
@@ -1171,6 +1256,27 @@
             </div>
         </div>
 
+    </div><!-- end public timeline -->
+
+    <!-- Discretion Notice -->
+    <div class="discretion-notice">
+        <p>The work below represents years past of building alongside teams I respect at companies that trusted me with meaningful problems. Some of it involved strategic work that requires care in how I share it. I've gated the detail behind a simple access code out of respect for those organizations. I'm proud to share my work with the right people for the right reasons. Reach out on LinkedIn!</p>
+    </div>
+
+    <!-- Gated section wrapper (positioning context for overlay prompt) -->
+    <div class="gated-section-wrapper">
+
+    <!-- Gated content wrapper -->
+    <!-- DEV MODE: Change "unlocked" back to "locked" when ready to go live -->
+    <div class="gated-content locked" id="gatedContent">
+
+        <!-- Blur/fade overlay -->
+        <div class="gate-overlay"></div>
+
+    <!-- ============================================
+         TIMELINE (gated)
+         ============================================ -->
+    <div class="timeline" id="timeline">
 
         <!-- ==========================================
              ROLE 2: WELLS FARGO - STRATEGY, DIGITAL & AI
@@ -2955,7 +3061,7 @@
         <div class="timeline-entry" data-tags="transformation">
             <div class="timeline-dot"></div>
             <div class="timeline-header">
-                <div class="company-logo"><img src="images/magley.jpeg" alt="Magley & Associates"></div>
+                <div class="company-logo"><img src="images/magleylogo2.png" alt="Magley & Associates"></div>
                 <div class="timeline-role">
                     <h2>Senior Consultant - Tech Innovations</h2>
                     <div class="timeline-meta">
@@ -2986,6 +3092,7 @@
                 <div class="sub-timeline-entry">
                     <div class="sub-timeline-dot"></div>
                     <div class="sub-timeline-header">
+                        <div class="sub-timeline-logo"><img src="images/starbucks_logo.png" alt="Starbucks"></div>
                         <div class="sub-timeline-client">Starbucks Corporation</div>
                     </div>
                     <div class="sub-timeline-meta">2008 - 2012</div>
@@ -3063,6 +3170,7 @@
                 <div class="sub-timeline-entry">
                     <div class="sub-timeline-dot"></div>
                     <div class="sub-timeline-header">
+                        <div class="sub-timeline-logo"><img src="images/wachovia logo.png" alt="Wachovia"></div>
                         <div class="sub-timeline-client">Wachovia - Treasury Management and Digital Payments</div>
                     </div>
                     <div class="sub-timeline-meta">2006 - 2008</div>
@@ -3136,6 +3244,7 @@
                 <div class="sub-timeline-entry">
                     <div class="sub-timeline-dot"></div>
                     <div class="sub-timeline-header">
+                        <div class="sub-timeline-logo"><img src="images/hilton_logo.png" alt="Hilton"></div>
                         <div class="sub-timeline-client">Hilton Worldwide</div>
                     </div>
                     <div class="sub-timeline-meta">2004 - 2006</div>
@@ -3209,6 +3318,7 @@
                 <div class="sub-timeline-entry">
                     <div class="sub-timeline-dot"></div>
                     <div class="sub-timeline-header">
+                        <div class="sub-timeline-logo"><img src="images/yahoo_logo.jpeg" alt="Yahoo!"></div>
                         <div class="sub-timeline-client">Yahoo!</div>
                     </div>
                     <div class="sub-timeline-meta">2002 - 2004</div>
@@ -3342,6 +3452,8 @@
             </div>
         </div>
     </div>
+
+    </div><!-- end .gated-section-wrapper -->
 
     <!-- Footer (simplified for skeleton) -->
     <footer>
@@ -3571,7 +3683,7 @@
                 drawSlide(slides[currentSlide], alpha, w, h);
 
                 // Progress dots
-                const dotY = h - 14;
+                const dotY = h - 28;
                 const dotSpacing = 14;
                 const dotsW = (slides.length - 1) * dotSpacing;
                 const dotStartX = (w - dotsW) / 2;
