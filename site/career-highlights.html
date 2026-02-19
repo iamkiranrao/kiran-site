@@ -323,12 +323,17 @@
             padding-left: 4rem;
             gap: 2rem;
         }
+        .page-intro-fenix-row {
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+        }
         .page-intro-fenix-logo {
             width: 120px;
             height: 120px;
             object-fit: contain;
             opacity: 0.8;
-            margin-top: 1rem;
             transition: opacity 0.2s ease, transform 0.2s ease;
             cursor: pointer;
         }
@@ -350,6 +355,7 @@
             font-weight: 700;
             color: var(--text-secondary);
             text-decoration: none;
+            text-align: center;
             transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
         .consulting-pill:hover {
@@ -820,7 +826,8 @@
             .initiative-card-header { padding: 1rem; }
             .initiative-metric { right: 2.25rem; bottom: 0.6rem; }
             .initiative-outcome-bar { flex-wrap: wrap; gap: 1rem; }
-            .initiative-gallery-item { width: 160px; }
+            .initiative-gallery { flex-wrap: wrap; overflow-x: visible; }
+            .initiative-gallery-item { width: calc(50% - 0.375rem); flex-shrink: 1; }
             .initiative-hero {
                 width: calc(100% + 2rem);
                 margin-left: -1rem;
@@ -1090,7 +1097,6 @@
     <div class="page-intro">
         <div class="page-intro-left">
             <p class="page-intro-text">Each card below has details of the initiatives I led. Open the cards to read more about what I did and why. If you want to know more about <em>how</em> I work - try asking Fenix.</p>
-            <img src="images/logo.png" alt="Fenix Logo" class="page-intro-fenix-logo">
         </div>
         <div class="page-intro-divider"></div>
         <div class="page-intro-right">
@@ -1115,6 +1121,11 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Fenix Logo (centered, own line) -->
+    <div class="page-intro-fenix-row">
+        <img src="images/logo.png" alt="Fenix Logo" class="page-intro-fenix-logo">
     </div>
 
     <!-- ============================================
