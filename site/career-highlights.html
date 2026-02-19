@@ -991,7 +991,8 @@
             .timeline { padding: 2rem 1.5rem; }
             .timeline::before { left: calc(1.5rem + 10px); }
             .timeline-entry { padding-left: 40px; }
-            .consulting-pill-wrapper { margin-top: 0; }
+            .consulting-pill-wrapper { margin-top: 0; text-align: center; }
+            .consulting-pill { font-size: 0.75rem; padding: 0.4rem 1rem; white-space: nowrap; }
             .timeline-dot { left: 2px; width: 18px; height: 18px; }
             .timeline-entry:hover .timeline-dot { background: var(--text-primary); }
 
@@ -1009,6 +1010,7 @@
         @media (max-width: 480px) {
             .timeline-role h2 { font-size: 1.15rem; }
             .impact-video-container { aspect-ratio: 4 / 3; }
+            .consulting-pill { font-size: 0.7rem; padding: 0.35rem 0.85rem; }
         }
     </style>
 </head>
@@ -3685,6 +3687,16 @@
 
             resize();
             window.addEventListener('resize', resize);
+
+            // Tap/click right half of canvas to advance slide
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                if (x > rect.width / 2) {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slideStart = 0;
+                }
+            });
 
             // Theme changes re-render naturally via getColors()/isDark()
             const observer = new MutationObserver(() => {});
