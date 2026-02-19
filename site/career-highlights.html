@@ -323,16 +323,10 @@
             padding-left: 4rem;
             gap: 2rem;
         }
-        .page-intro-fenix-row {
+        .page-intro-fenix-centered {
             display: flex;
             justify-content: center;
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .page-intro-fenix-inline {
-            display: none;
-            justify-content: center;
-            padding-top: 1rem;
+            margin-top: 1.5rem;
         }
         .page-intro-fenix-logo {
             width: 120px;
@@ -999,8 +993,6 @@
             .page-intro-left { padding-right: 0; margin-bottom: 1.5rem; }
             .page-intro-divider { width: 100%; height: 1px; }
             .page-intro-right { padding-left: 0; padding-top: 1.5rem; }
-            .page-intro-fenix-row { display: none; }
-            .page-intro-fenix-inline { display: flex; }
 
             .timeline { padding: 2rem 1.5rem; }
             .timeline::before { left: calc(1.5rem + 10px); }
@@ -1104,6 +1096,9 @@
     <div class="page-intro">
         <div class="page-intro-left">
             <p class="page-intro-text">Each card below has details of the initiatives I led. Open the cards to read more about what I did and why. If you want to know more about <em>how</em> I work - try asking Fenix.</p>
+            <div class="page-intro-fenix-centered">
+                <img src="images/logo.png" alt="Fenix Logo" class="page-intro-fenix-logo">
+            </div>
         </div>
         <div class="page-intro-divider"></div>
         <div class="page-intro-right">
@@ -1127,16 +1122,7 @@
                     <button class="explore-pill" data-fenix="true">What would Kiran's teammates say about him?</button>
                 </div>
             </div>
-            <!-- Fenix logo: visible inline on mobile only -->
-            <div class="page-intro-fenix-inline">
-                <img src="images/logo.png" alt="Fenix Logo" class="page-intro-fenix-logo">
-            </div>
         </div>
-    </div>
-
-    <!-- Fenix Logo: visible as own centered row on desktop only -->
-    <div class="page-intro-fenix-row">
-        <img src="images/logo.png" alt="Fenix Logo" class="page-intro-fenix-logo">
     </div>
 
     <!-- ============================================
