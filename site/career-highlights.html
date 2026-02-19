@@ -329,6 +329,11 @@
             padding: 2rem 0;
             border-bottom: 1px solid var(--border);
         }
+        .page-intro-fenix-inline {
+            display: none;
+            justify-content: center;
+            padding-top: 1rem;
+        }
         .page-intro-fenix-logo {
             width: 120px;
             height: 120px;
@@ -994,6 +999,8 @@
             .page-intro-left { padding-right: 0; margin-bottom: 1.5rem; }
             .page-intro-divider { width: 100%; height: 1px; }
             .page-intro-right { padding-left: 0; padding-top: 1.5rem; }
+            .page-intro-fenix-row { display: none; }
+            .page-intro-fenix-inline { display: flex; }
 
             .timeline { padding: 2rem 1.5rem; }
             .timeline::before { left: calc(1.5rem + 10px); }
@@ -1120,10 +1127,14 @@
                     <button class="explore-pill" data-fenix="true">What would Kiran's teammates say about him?</button>
                 </div>
             </div>
+            <!-- Fenix logo: visible inline on mobile only -->
+            <div class="page-intro-fenix-inline">
+                <img src="images/logo.png" alt="Fenix Logo" class="page-intro-fenix-logo">
+            </div>
         </div>
     </div>
 
-    <!-- Fenix Logo (centered, own line) -->
+    <!-- Fenix Logo: visible as own centered row on desktop only -->
     <div class="page-intro-fenix-row">
         <img src="images/logo.png" alt="Fenix Logo" class="page-intro-fenix-logo">
     </div>
