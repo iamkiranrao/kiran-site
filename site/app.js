@@ -389,7 +389,7 @@ if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
 
 const workCards = document.querySelectorAll('.work-card');
 const cardConfig = [
-    { title: 'Career Highlights', link: null },
+    { title: 'Career Highlights', link: 'career-highlights.html', sameTab: true },
     { title: 'How I\'d\'ve Built It', link: null },
     { title: 'My MadLab', link: null },
     { title: 'Creative Studio', link: null },
@@ -402,7 +402,9 @@ const cardConfig = [
 workCards.forEach((card, index) => {
     const config = cardConfig[index] || { title: 'Section', link: null };
     card.addEventListener('click', () => {
-        if (config.link) {
+        if (config.link && config.sameTab) {
+            window.location.href = config.link;
+        } else if (config.link) {
             window.open(config.link, '_blank', 'noopener,noreferrer');
         } else {
             showToast(`${config.title} - coming soon.`);

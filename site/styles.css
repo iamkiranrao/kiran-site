@@ -487,9 +487,18 @@ nav {
     font-size: clamp(2.2rem, 6vw, 5rem);
     font-weight: 600;
     line-height: 1.05;
-    margin-bottom: 1rem;
+    margin-bottom: 0.4rem;
     letter-spacing: -0.03em;
     color: #918a80;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    color: var(--text-muted);
 }
 
 .hero-bottom-row {
@@ -1647,6 +1656,7 @@ footer {
 
     .hero h1 { font-size: 2rem; }
     .hero-tagline { font-size: 1.4rem; }
+    .hero-subtitle { font-size: 0.85rem; }
     .hero-location { font-size: 0.9rem; }
     .hero-image { aspect-ratio: 5 / 2; }
 
