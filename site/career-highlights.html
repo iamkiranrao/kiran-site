@@ -299,7 +299,8 @@
         .page-intro-left {
             flex: 1.4;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
             padding-right: 4rem;
         }
         .page-intro-text {
@@ -335,40 +336,10 @@
             opacity: 1;
             transform: scale(1.1);
         }
-        .filter-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-        .filter-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        .filter-pill {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 0.4rem 1rem;
-            border-radius: 999px;
-            font-family: inherit;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-        }
-        .filter-pill:hover,
-        .filter-pill.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
-        }
-
         .consulting-pill-wrapper {
             text-align: right;
             margin-bottom: 1.5rem;
-            margin-top: -2rem;
+            margin-top: 0;
         }
         .consulting-pill {
             display: inline-block;
@@ -1020,7 +991,7 @@
             .timeline { padding: 2rem 1.5rem; }
             .timeline::before { left: calc(1.5rem + 10px); }
             .timeline-entry { padding-left: 40px; }
-            .consulting-pill-wrapper { margin-top: -1rem; }
+            .consulting-pill-wrapper { margin-top: 0; }
             .timeline-dot { left: 2px; width: 18px; height: 18px; }
             .timeline-entry:hover .timeline-dot { background: var(--text-primary); }
 
@@ -1040,7 +1011,7 @@
     </style>
 </head>
 <body class="preload">
-    <a href="#timeline" class="skip-link">Skip to main content</a>
+    <a href="#publicTimeline" class="skip-link">Skip to main content</a>
 
     <!-- Navigation (matches index.html) -->
     <nav>
@@ -3557,6 +3528,11 @@
                 return lines;
             }
 
+            // Safe letterSpacing setter (not supported in Safari < 17)
+            function setLetterSpacing(val) {
+                try { ctx.letterSpacing = val; } catch(e) { /* unsupported */ }
+            }
+
             function drawSlide(slide, alpha, w, h) {
                 const colors = getColors();
                 const isSmall = w < 600;
@@ -3572,9 +3548,9 @@
                 ctx.fillStyle = colors.muted;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.letterSpacing = '0.08em';
+                setLetterSpacing('0.08em');
                 ctx.fillText('SELECT HIGHLIGHTS FROM MY CAREER', w / 2, h * 0.10);
-                ctx.letterSpacing = '0px';
+                setLetterSpacing('0px');
 
                 // Thin divider line under header
                 const divY = h * 0.16;
@@ -3599,9 +3575,9 @@
                     const labelSize = isSmall ? 10 : isMed ? 12 : 13;
                     ctx.font = `700 ${labelSize}px Inter, sans-serif`;
                     ctx.fillStyle = colors.muted;
-                    ctx.letterSpacing = '0.1em';
+                    setLetterSpacing('0.1em');
                     ctx.fillText('BY THE NUMBERS', w / 2, h * 0.40);
-                    ctx.letterSpacing = '0px';
+                    setLetterSpacing('0px');
 
                     // Big number
                     const numSize = isSmall ? 44 : isMed ? 58 : 72;
@@ -3632,9 +3608,9 @@
                     const labelSize = isSmall ? 10 : isMed ? 12 : 13;
                     ctx.font = `700 ${labelSize}px Inter, sans-serif`;
                     ctx.fillStyle = colors.muted;
-                    ctx.letterSpacing = '0.1em';
+                    setLetterSpacing('0.1em');
                     ctx.fillText('WHAT USERS SAY', w / 2, h * 0.40);
-                    ctx.letterSpacing = '0px';
+                    setLetterSpacing('0px');
 
                     // Quote
                     const quoteSize = isSmall ? 14 : isMed ? 17 : 20;
@@ -3896,25 +3872,6 @@
             gateInput.classList.remove('error');
         });
 
-        // ============================================
-        // FILTER PILLS
-        // ============================================
-        document.querySelectorAll('.filter-pill').forEach(pill => {
-            pill.addEventListener('click', () => {
-                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-                pill.classList.add('active');
-
-                const filter = pill.dataset.filter;
-                document.querySelectorAll('.timeline-entry').forEach(entry => {
-                    if (filter === 'all') {
-                        entry.style.display = '';
-                        return;
-                    }
-                    const tags = entry.dataset.tags || '';
-                    entry.style.display = tags.includes(filter) ? '' : 'none';
-                });
-            });
-        });
 
         // ============================================
         // INITIATIVE CARD EXPAND/COLLAPSE
