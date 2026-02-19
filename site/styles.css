@@ -1629,7 +1629,7 @@ footer {
 
     .work-title { font-size: 1.8rem; }
     .work-desc { font-size: 0.8rem; }
-    .about-description { font-size: 0.8rem; }
+    .about-description { font-size: 0.8rem; margin-bottom: 1.25rem; }
     .competency-desc { font-size: 0.8rem; }
     .testimonial { padding: 2rem; }
 
