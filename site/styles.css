@@ -1590,7 +1590,7 @@ footer {
     .menu-button { padding: 0.65rem 1.4rem; font-size: 1.02rem; }
 
     .hero { min-height: auto; }
-    .hero-text { padding: 3.5rem 1.5rem 1.5rem; }
+    .hero-text { padding: 5rem 1.5rem 1.5rem; }
     .hero h1 { font-size: clamp(2rem, 10vw, 3.5rem); margin-bottom: 0.25rem; }
     .hero-tagline { font-size: clamp(1.5rem, 7vw, 2.5rem); margin-bottom: 0.5rem; }
     .hero-location { font-size: 0.95rem; }
@@ -1726,7 +1726,7 @@ img { max-width: 100%; height: auto; display: block; }
 /* Skip to content link */
 .skip-link {
     position: absolute;
-    top: -40px;
+    top: -100px;
     left: 0;
     background: var(--text-primary);
     color: var(--bg-primary);
@@ -1736,10 +1736,14 @@ img { max-width: 100%; height: auto; display: block; }
     font-weight: 600;
     text-decoration: none;
     border-radius: 0 0 8px 0;
+    clip: rect(0, 0, 0, 0);
+    overflow: hidden;
 }
 
 .skip-link:focus {
     top: 0;
+    clip: auto;
+    overflow: visible;
 }
 
 /* Focus states for accessibility */
