@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiran Gorapalli - GEICO Mobile App product teardown. AI assistant analysis, keep/kill/build, wireframes, and business case.">
+    <title>GEICO Mobile App Teardown - Kiran Gorapalli</title>
+    <link rel="icon" href="../images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="canonical" href="https://kirangorapalli.netlify.app/teardowns/geico-mobile-app.html">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="GEICO Mobile App Teardown - Kiran Gorapalli">
+    <meta property="og:description" content="A product teardown of the GEICO mobile app AI assistant - analysis, redesign, and business case.">
+    <meta property="og:url" content="https://kirangorapalli.netlify.app/teardowns/geico-mobile-app.html">
+    <meta property="og:image" content="https://kirangorapalli.netlify.app/images/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GEICO Mobile App Teardown - Kiran Gorapalli">
+    <meta name="twitter:description" content="A product teardown of the GEICO mobile app AI assistant - analysis, redesign, and business case.">
+    <meta name="twitter:image" content="https://kirangorapalli.netlify.app/images/og-image.png">
+
+    <style>
+        /* ============================================
+           GEICO MOBILE APP TEARDOWN - PAGE STYLES
+           ============================================ */
+
+        .subpage-hero {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .hero-title-area {
+            text-align: center;
+            padding: 6rem 4rem 1.5rem;
+        }
+        .subpage-hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+        .subpage-hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-bottom: 0;
+        }
+
+        .breadcrumb {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem 4rem 0;
+        }
+        .breadcrumb a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            transition: color 0.2s ease;
+        }
+        .breadcrumb a:hover { color: var(--text-primary); }
+        .breadcrumb span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0 0.4rem;
+            opacity: 0.5;
+        }
+        .breadcrumb .current {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           TEARDOWN CONTENT
+           ============================================ */
+        .teardown {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 4rem 4rem;
+        }
+        .teardown-section {
+            margin-bottom: 3.5rem;
+        }
+        .teardown-section:last-child { margin-bottom: 0; }
+        .section-number {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+        .teardown p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+        }
+        .teardown p:last-child { margin-bottom: 0; }
+
+        .jtbd-callout {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            background: var(--bg-primary);
+        }
+        .jtbd-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .jtbd-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .persona-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+        .persona-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--border-light);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .persona-info { flex: 1; }
+        .persona-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.15rem;
+        }
+        .persona-demo {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .persona-bio {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Visual Journey Map */
+        .journey-visual {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        .journey-visual-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .journey-sentiment-wrap {
+            padding: 1.5rem 1.25rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .journey-sentiment-wrap svg {
+            width: 100%;
+            display: block;
+        }
+        .journey-stages {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+        .journey-stage-card {
+            padding: 1rem;
+            border-right: 1px solid var(--border);
+        }
+        .journey-stage-card:last-child {
+            border-right: none;
+        }
+        .stage-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .stage-action {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+        .stage-thought {
+            font-size: 0.72rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 2px solid var(--border);
+        }
+        .stage-pain {
+            font-size: 0.68rem;
+            color: #c47474;
+            line-height: 1.5;
+        }
+        .stage-pain-label {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.58rem;
+            letter-spacing: 0.04em;
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 3.5rem;
+        }
+
+        /* Keep / Kill / Build */
+        .kkb-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .kkb-column {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .kkb-header {
+            padding: 0.75rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+        .kkb-keep .kkb-header { color: #6b9e6b; }
+        .kkb-kill .kkb-header { color: #c47474; }
+        .kkb-build .kkb-header { color: #7a9ec4; }
+        .kkb-items { padding: 1rem; }
+        .kkb-item { margin-bottom: 1rem; }
+        .kkb-item:last-child { margin-bottom: 0; }
+        .kkb-item-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        .kkb-item-detail {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Wireframes */
+        .wireframe-pair { margin: 2rem 0; }
+        .wireframe-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .wireframe-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .wireframe-box {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .wireframe-box-label {
+            padding: 0.6rem 1rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .wireframe-box {
+            max-width: 340px;
+        }
+        .wireframe-box svg {
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin: 0 auto;
+        }
+        .wireframe-caption {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+        }
+        .annotation-dot { fill: #c47474; }
+        .annotation-line {
+            stroke: #c47474;
+            stroke-width: 1;
+            stroke-dasharray: 4 3;
+        }
+
+        /* KPIs */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .kpi-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+        .kpi-funnel-stage {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+        .kpi-metric {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .kpi-name {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+        .kpi-rationale {
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        /* Product at a Glance */
+        .product-glance {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 3.5rem;
+        }
+        .product-glance-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .product-glance-body {
+            padding: 1.25rem;
+        }
+        .glance-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-weight: 400;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .glance-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .glance-stat-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+        .glance-stat-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .glance-competitors {
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .glance-row-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .glance-competitor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .glance-competitor-tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 0.25rem 0.65rem;
+            border-radius: 500px;
+        }
+        .glance-position {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .glance-leads, .glance-lags {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .glance-leads .glance-row-label { color: #6b9e6b; }
+        .glance-lags .glance-row-label { color: #c47474; }
+
+        /* Assumptions */
+        .assumptions {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-top: 2.5rem;
+        }
+        .assumptions-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .assumptions p {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .glance-stats { grid-template-columns: repeat(2, 1fr); }
+            .glance-position { grid-template-columns: 1fr; }
+        }
+
+        .exec-summary {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            background: var(--bg-primary);
+        }
+        .exec-summary-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .exec-summary p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 4rem 2rem;
+            text-align: center;
+        }
+        .footer-social { margin-bottom: 2rem; }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: border-color 0.2s ease, opacity 0.2s ease;
+        }
+        .social-icon svg { width: 18px; height: 18px; }
+        .social-icon:hover { opacity: 0.8; }
+        .social-icon.linkedin:hover { border-color: #0A66C2; }
+        .social-icon.github:hover { border-color: #f0e6d3; }
+        .social-icon.youtube:hover { border-color: #FF0000; }
+        .social-icon.flickr:hover { border-color: #FF0084; }
+        .social-icon.spotify:hover { border-color: #1DB954; }
+        .social-icon.substack:hover { border-color: #FF6719; }
+        [data-theme="light"] .social-icon.github:hover { border-color: #333; }
+        .footer-site-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-logo {
+            width: 36px;
+            height: auto;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .footer-logo:hover { opacity: 1; transform: scale(1.05); }
+        .footer-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .footer-meta-sep { opacity: 0.4; }
+        .version-number { letter-spacing: 0.02em; }
+        .last-updated { letter-spacing: -0.01em; }
+        .rss-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+        }
+        .rss-badge:hover { color: var(--text-primary); }
+        .rss-badge svg { opacity: 0.6; }
+        .footer-copyright {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+            letter-spacing: 0.02em;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 500px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-title-area { padding: 5rem 3rem 1.5rem; }
+            .breadcrumb { padding: 1.25rem 3rem 0; }
+            .teardown { padding: 1.5rem 3rem 3rem; }
+            .kkb-grid { grid-template-columns: 1fr; }
+            .kpi-grid { grid-template-columns: 1fr; }
+            footer { padding: 3rem 3rem 2rem; }
+        }
+        @media (max-width: 768px) {
+            .hero-title-area { padding: 4.5rem 1.5rem 1.5rem; }
+            .breadcrumb { padding: 1rem 1.5rem 0; }
+            .teardown { padding: 1.25rem 1.5rem 3rem; }
+            .persona-card { flex-direction: column; gap: 0.75rem; }
+            .wireframe-container { grid-template-columns: 1fr; }
+            .journey-stages {
+                grid-template-columns: 1fr;
+            }
+            .journey-stage-card {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .journey-stage-card:last-child {
+                border-bottom: none;
+            }
+            footer { padding: 2.5rem 1.5rem 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-title-area { padding: 4rem 1rem 1rem; }
+            .breadcrumb { padding: 0.75rem 1rem 0; }
+            .teardown { padding: 1rem 1rem 2rem; }
+            footer { padding: 2rem 1rem 1.5rem; }
+        }
+    </style>
+</head>
+<body class="preload">
+    <a href="#teardown" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-right">
+                <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
+                    <svg class="share-icon" viewBox="0 0 24 24">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+                <button id="menuButton" class="menu-button" aria-label="Open menu">Menu</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div></div>
+            <button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="../index.html">&#8600; Home</a></li>
+            <li><a href="../index.html#work">&#8600; Fenix - My AI</a></li>
+            <li><a href="../career-highlights.html">&#8600; Career Highlights</a></li>
+            <li><a href="../how-id-built-it.html">&#8600; How I'd've Built It</a></li>
+            <li><a href="../index.html#my-sandbox">&#8600; MadLab</a></li>
+            <li><a href="../index.html#creative-lab">&#8600; Studio</a></li>
+            <li><a href="../blog-podcast.html">&#8600; Blog & Podcast</a></li>
+            <li><a href="../learning.html">&#8600; Learning & Certifications</a></li>
+            <li><a href="../causes.html">&#8600; Causes</a></li>
+            <li><a href="../store.html">&#8600; Store</a></li>
+            <li><a href="../index.html#contact">&#8600; Connect</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <div class="subpage-hero">
+        <div class="hero-title-area">
+            <h1 class="subpage-hero-title">GEICO Mobile App</h1>
+            <p class="subpage-hero-tagline">A lookup tool in a resolution world - and the 9-year gap that needs closing</p>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../how-id-built-it.html">How I'd've Built It</a>
+        <span>/</span>
+        <a href="geico.html">GEICO</a>
+        <span>/</span>
+        <span class="current">Mobile App</span>
+    </div>
+
+    <!-- Teardown Content -->
+    <div class="teardown" id="teardown">
+
+        <!-- Product at a Glance -->
+        <div class="product-glance">
+            <div class="product-glance-header">Product at a Glance</div>
+            <div class="product-glance-body">
+                <div class="glance-description">Mobile self-service app for GEICO policyholders. The app is where users interact with insurance day-to-day: filing claims, downloading ID cards, managing payments, getting roadside assistance, and accessing their policy. GEICO is a Berkshire Hathaway subsidiary and the second-largest auto insurer in the US, built on a direct-to-consumer, low-cost-provider model. The app does two jobs: keep people from leaving, and keep them off the phone to save money.</div>
+                <div class="glance-stats">
+                    <div>
+                        <div class="glance-stat-label">Parent Company</div>
+                        <div class="glance-stat-value">Berkshire Hathaway</div>
+                    </div>
+                    <div>
+                        <div class="glance-stat-label">App Store Rating</div>
+                        <div class="glance-stat-value">4.7 / 5</div>
+                    </div>
+                    <div>
+                        <div class="glance-stat-label">Category</div>
+                        <div class="glance-stat-value">Insurance</div>
+                    </div>
+                    <div>
+                        <div class="glance-stat-label">NPS Score</div>
+                        <div class="glance-stat-value">20</div>
+                    </div>
+                </div>
+                <div class="glance-competitors">
+                    <div class="glance-row-label">Competitors</div>
+                    <div class="glance-competitor-tags">
+                        <span class="glance-competitor-tag">Lemonade</span>
+                        <span class="glance-competitor-tag">Progressive</span>
+                        <span class="glance-competitor-tag">State Farm</span>
+                        <span class="glance-competitor-tag">USAA</span>
+                    </div>
+                </div>
+                <div class="glance-position">
+                    <div class="glance-leads">
+                        <div class="glance-row-label">Where It Leads</div>
+                        Brand recognition, pricing competitiveness, 24/7 digital availability, AI transparency labeling (tells users when they're talking to AI)
+                    </div>
+                    <div class="glance-lags">
+                        <div class="glance-row-label">Where It Lags</div>
+                        AI assistant capabilities (keyword-only comprehension), chat-to-phone handoff (no context transfer), resolution automation (0% end-to-end AI resolution vs Lemonade's 27%)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECTION 1: DISCOVERY
+             ============================================ -->
+        <div class="teardown-section">
+            <div class="section-number">Section 01</div>
+            <div class="section-title">Discovery</div>
+
+            <div class="persona-card">
+                <div class="persona-avatar">🚗</div>
+                <div class="persona-info">
+                    <div class="persona-name">Alex T.</div>
+                    <div class="persona-demo">34, switched from State Farm 3 years ago, commutes daily</div>
+                    <div class="persona-bio">Switched to GEICO because the quote came in $40 per month cheaper. Doesn't think about insurance unless something goes wrong. Last time he opened the app was to download his ID card for a rental car at the airport. This time, he notices a charge on his bank statement he doesn't recognize.</div>
+                </div>
+            </div>
+
+            <p>The Trustpilot and App Store reviews split into two groups. The first is angry about claims handling. The second is frustrated that simple questions turn into 45-minute ordeals. The second group was louder and more specific to the AI assistant gap. Alex is that person.</p>
+
+            <p>I initially considered DriveEasy tracking accuracy as the teardown angle, but the AI assistant problem is more universal and a bigger deal, and a more interesting product problem. Every GEICO customer interacts with the assistant. Not every customer uses DriveEasy.</p>
+
+            <div class="journey-visual">
+                <div class="journey-visual-header">Customer Journey - Sentiment Map</div>
+                <div class="journey-sentiment-wrap">
+                    <svg viewBox="0 0 500 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Reference lines -->
+                        <line x1="50" y1="20" x2="450" y2="20" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
+                        <line x1="50" y1="55" x2="450" y2="55" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
+                        <line x1="50" y1="90" x2="450" y2="90" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
+                        <!-- Y-axis labels -->
+                        <text x="2" y="23" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Optimistic</text>
+                        <text x="12" y="58" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Neutral</text>
+                        <text x="8" y="93" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Frustrated</text>
+                        <!-- Smooth sentiment curve -->
+                        <path d="M 50,48 Q 150,35 250,88 T 450,92" stroke="var(--text-secondary)" stroke-width="2" fill="none" opacity="0.4"/>
+                        <!-- Area fill under curve -->
+                        <path d="M 50,48 Q 150,35 250,88 T 450,92 L 450,105 L 50,105 Z" fill="var(--text-secondary)" opacity="0.04"/>
+                        <!-- Data points -->
+                        <circle cx="50" cy="48" r="6" fill="#d4a74a" opacity="0.9"/>
+                        <circle cx="150" cy="35" r="6" fill="#6b9e6b" opacity="0.9"/>
+                        <circle cx="250" cy="88" r="6" fill="#c47474" opacity="0.9"/>
+                        <circle cx="350" cy="92" r="6" fill="#c47474" opacity="0.9"/>
+                        <circle cx="450" cy="92" r="6" fill="#c47474" opacity="0.9"/>
+                        <!-- Sentiment labels -->
+                        <text x="50" y="40" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Neutral</text>
+                        <text x="150" y="25" font-family="Inter, sans-serif" font-size="7" fill="#6b9e6b" text-anchor="middle" font-weight="500">Hopeful</text>
+                        <text x="250" y="78" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Frustrated</text>
+                        <text x="350" y="102" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Angry</text>
+                        <text x="450" y="104" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Defeated</text>
+                        <!-- Stage labels at bottom -->
+                        <text x="50" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">NOTICE</text>
+                        <text x="150" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">TRY</text>
+                        <text x="250" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">WALL</text>
+                        <text x="350" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">HOLD</text>
+                        <text x="450" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">GIVE UP</text>
+                    </svg>
+                </div>
+                <div class="journey-stages">
+                    <div class="journey-stage-card">
+                        <div class="stage-label">Notice</div>
+                        <div class="stage-action">Alex sees a $147.50 charge on his bank statement that he doesn't recognize. Opens the GEICO app.</div>
+                        <div class="stage-thought">"let me just check real quick"</div>
+                        <div class="stage-pain"><span class="stage-pain-label">Friction</span>Reasonable expectation. This is what the app is for.</div>
+                    </div>
+                    <div class="journey-stage-card">
+                        <div class="stage-label">Try Assistant</div>
+                        <div class="stage-action">Taps the chat icon, types: "I got charged twice this month and I don't know why." Full sentence, natural language.</div>
+                        <div class="stage-thought">"OK, this should be easy"</div>
+                        <div class="stage-pain"><span class="stage-pain-label">Friction</span>GEICO's own guidance says to keep questions "short and direct." Alex doesn't know that. The assistant parses keywords, not intent.</div>
+                    </div>
+                    <div class="journey-stage-card">
+                        <div class="stage-label">Hit the Wall</div>
+                        <div class="stage-action">The assistant gives a generic response about billing cycles or suggests a feature that doesn't exist in the app. Alex rephrases: "Why was I charged $147.50 on Feb 3?" Gets a balance summary, not an answer. Tries one more time. "I don't understand your message." Three attempts, zero progress.</div>
+                        <div class="stage-thought">"are you serious right now"</div>
+                        <div class="stage-pain"><span class="stage-pain-label">Friction</span>No "let me connect you to someone" on mobile. The assistant can look things up but can't resolve anything. Alex has to abandon the entire flow and start over through a different channel. Every minute he spent here was wasted time, not progress.</div>
+                    </div>
+                    <div class="journey-stage-card">
+                        <div class="stage-label">Hold</div>
+                        <div class="stage-action">Calls GEICO. Automated menu. Presses buttons. Hold music. 30+ minutes.</div>
+                        <div class="stage-thought">"I already told the app all of this"</div>
+                        <div class="stage-pain"><span class="stage-pain-label">Friction</span>Zero context passes from the chat to the phone agent. When someone picks up, Alex explains the issue from scratch. The AI and the call center don't talk to each other.</div>
+                    </div>
+                    <div class="journey-stage-card">
+                        <div class="stage-label">Give Up</div>
+                        <div class="stage-action">After 45+ minutes total, he either gets an answer or hangs up and tries tomorrow.</div>
+                        <div class="stage-thought">"am I really going to switch insurers over this?"</div>
+                        <div class="stage-pain"><span class="stage-pain-label">Friction</span>For a billing question. 5 minutes of discovery, 10 minutes wasted on the assistant, 30+ minutes on hold. The app that can ping his location in real-time can't answer a simple question.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jtbd-callout">
+                <div class="jtbd-label">Jobs to Be Done</div>
+                <div class="jtbd-text">When something's off with my policy, I want to get it sorted without it becoming a project. GEICO built an assistant that can look things up, but users don't come to support to look things up. They come because something is wrong and they need it fixed. The assistant solves the easy jobs nobody needed help with and fails at the hard jobs everyone does.</div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ============================================
+             SECTION 2: KEEP / KILL / BUILD
+             ============================================ -->
+        <div class="teardown-section">
+            <div class="section-number">Section 02</div>
+            <div class="section-title">Keep / Kill / Build</div>
+
+            <p>GEICO's virtual assistant - originally launched as Kate in 2017 and now branded as the GEICO AI Virtual Assistant - has improved since launch. It's available 24/7 on both app and web, and it now tells you when you're talking to AI. That matters. But the core problem hasn't changed in nine years.</p>
+
+            <div class="kkb-grid">
+                <div class="kkb-column kkb-keep">
+                    <div class="kkb-header">Keep</div>
+                    <div class="kkb-items">
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Basic lookups work</div>
+                            <div class="kkb-item-detail">Balance checks, payment dates, policy details - the assistant handles these. The problem isn't that these features exist. It's that they're all it can do.</div>
+                        </div>
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">AI transparency labeling</div>
+                            <div class="kkb-item-detail">GEICO tells users when they're talking to AI vs. a live agent. Most competitors don't do this. That's good - people should know what they're dealing with.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kkb-column kkb-kill">
+                    <div class="kkb-header">Kill</div>
+                    <div class="kkb-items">
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Keyword-dependent comprehension</div>
+                            <div class="kkb-item-detail">GEICO's own website tells users to keep questions "short and direct" because complex queries break the assistant. Think about that. They published 'don't ask hard questions' in 2026. When your usage guidance is essentially "don't ask it anything hard," the tool has a core problem. Lemonade's AI resolves 27% of claims autonomously. GEICO's can't understand a multi-clause sentence.</div>
+                        </div>
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">No context handoff</div>
+                            <div class="kkb-item-detail">This is the killer. You spend 10 minutes with the assistant, give up, call the phone number, and start from zero. The assistant and the phone system don't talk to each other. All that time in the chat? Wasted. Zero progress.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kkb-column kkb-build">
+                    <div class="kkb-header">Build</div>
+                    <div class="kkb-items">
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Conversational AI</div>
+                            <div class="kkb-item-detail">Users should be able to say "I got charged twice and I don't know why" and get a real answer that references their specific account data. This isn't speculative. Lemonade does this for claims, which are far more complex than billing questions.</div>
+                        </div>
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Smart escalation with context</div>
+                            <div class="kkb-item-detail">When the AI can't resolve, it hands off to a human with the full transcript, policy details, and issue summary. The agent sees everything. The user repeats nothing. That alone changes the whole experience.</div>
+                        </div>
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Phased AI resolution</div>
+                            <div class="kkb-item-detail">I'd start with billing resolution - highest volume, lowest complexity. Then coverage questions. Then simple claims. A PM at GEICO would push back on "rebuild everything at once." Phases make this actually doable.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p>A PM at GEICO would push back here: "Lemonade is digital-native. They built their stack around AI from day one. We're running on legacy systems across 50 states with decades of regulatory complexity." That's exactly the point. The question is whether GEICO uses that as an excuse or actually treats it as a problem to solve.</p>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ============================================
+             SECTION 3: THE REDESIGN
+             ============================================ -->
+        <div class="teardown-section">
+            <div class="section-number">Section 03</div>
+            <div class="section-title">The Redesign</div>
+
+            <p>Two wireframes. The first shows what happens when the assistant can actually resolve things. The second shows what happens when it can't - but hands off intelligently instead of dead-ending.</p>
+
+            <!-- Wireframe 1: Conversational AI -->
+            <div class="wireframe-pair">
+                <div class="wireframe-label">Wireframe 1 - Conversational AI Resolution</div>
+                <div class="wireframe-container">
+                    <div class="wireframe-box">
+                        <div class="wireframe-box-label">CONVERSATIONAL AI</div>
+                        <svg viewBox="0 0 320 600" xmlns="http://www.w3.org/2000/svg">
+                          <defs>
+                            <style>
+                              .wf-phone-frame {
+                                fill: var(--bg-primary);
+                                stroke: var(--border);
+                                stroke-width: 2;
+                              }
+
+                              .wf-status-bar {
+                                fill: var(--bg-dark);
+                                stroke: var(--border);
+                                stroke-width: 1;
+                              }
+
+                              .wf-header-text {
+                                fill: var(--text-primary);
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 16px;
+                                font-weight: 600;
+                              }
+
+                              .wf-badge {
+                                fill: #7a9ec4;
+                                stroke: var(--border-light);
+                                stroke-width: 1;
+                              }
+
+                              .wf-badge-text {
+                                fill: var(--bg-primary);
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 10px;
+                                font-weight: 700;
+                              }
+
+                              .wf-chat-bubble-user {
+                                fill: none;
+                                stroke: #7a9ec4;
+                                stroke-width: 1.5;
+                              }
+
+                              .wf-chat-bubble-assistant {
+                                fill: var(--bg-dark);
+                                stroke: var(--border-light);
+                                stroke-width: 1;
+                              }
+
+                              .wf-chat-text {
+                                fill: var(--text-primary);
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 13px;
+                                line-height: 1.4;
+                              }
+
+                              .wf-assistant-text {
+                                fill: var(--text-secondary);
+                              }
+
+                              .wf-button-primary {
+                                fill: #6b9e6b;
+                                stroke: #6b9e6b;
+                                stroke-width: 1;
+                              }
+
+                              .wf-button-secondary {
+                                fill: none;
+                                stroke: var(--border-light);
+                                stroke-width: 1.5;
+                              }
+
+                              .wf-button-text {
+                                fill: var(--text-primary);
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 12px;
+                                font-weight: 600;
+                              }
+
+                              .wf-button-secondary .wf-button-text {
+                                fill: var(--text-secondary);
+                              }
+
+                              .wf-annotation-box {
+                                fill: none;
+                                stroke: #c47474;
+                                stroke-width: 2;
+                                stroke-dasharray: 4,2;
+                              }
+
+                              .wf-annotation-text {
+                                fill: #c47474;
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 11px;
+                                font-style: italic;
+                              }
+
+                              .wf-content-area {
+                                fill: var(--bg-primary);
+                              }
+                            </style>
+                          </defs>
+
+                          <!-- Phone frame -->
+                          <rect class="wf-phone-frame" x="20" y="20" width="280" height="500" rx="16"/>
+
+                          <!-- Status bar -->
+                          <rect class="wf-status-bar" x="20" y="20" width="280" height="44" rx="16 16 0 0"/>
+                          <text class="wf-header-text" x="40" y="48">GEICO Assistant</text>
+                          <rect class="wf-badge" x="240" y="37" width="28" height="20" rx="4"/>
+                          <text class="wf-badge-text" x="245" y="49">AI</text>
+
+                          <!-- Content area -->
+                          <rect class="wf-content-area" x="20" y="64" width="280" height="380"/>
+
+                          <!-- Chat bubble 1 - User message (right) -->
+                          <rect class="wf-chat-bubble-user" x="100" y="80" width="190" height="55" rx="6"/>
+                          <text class="wf-chat-text" x="110" y="95">I got charged</text>
+                          <text class="wf-chat-text" x="110" y="110">twice this month</text>
+                          <text class="wf-chat-text" x="110" y="125">and I don't know why</text>
+
+                          <!-- Chat bubble 2 - Assistant message (left) with annotation -->
+                          <g>
+                            <rect class="wf-annotation-box" x="25" y="145" width="260" height="100" rx="6"/>
+                            <rect class="wf-chat-bubble-assistant" x="30" y="150" width="250" height="90" rx="6"/>
+                            <text class="wf-chat-text wf-assistant-text" x="40" y="165">I see two charges -</text>
+                            <text class="wf-chat-text wf-assistant-text" x="40" y="180">$147.50 on Feb 3 and</text>
+                            <text class="wf-chat-text wf-assistant-text" x="40" y="195">$147.50 on Feb 17. The</text>
+                            <text class="wf-chat-text wf-assistant-text" x="40" y="210">Feb 3 charge was a</text>
+                            <text class="wf-chat-text wf-assistant-text" x="40" y="225">mid-cycle adjustment.</text>
+                          </g>
+
+                          <!-- Chat bubble 3 - User message (right) -->
+                          <rect class="wf-chat-bubble-user" x="100" y="255" width="190" height="45" rx="6"/>
+                          <text class="wf-chat-text" x="110" y="270">I didn't add</text>
+                          <text class="wf-chat-text" x="110" y="285">roadside assistance</text>
+
+                          <!-- Chat bubble 4 - Assistant message (left) -->
+                          <rect class="wf-chat-bubble-assistant" x="30" y="305" width="250" height="80" rx="6"/>
+                          <text class="wf-chat-text wf-assistant-text" x="40" y="320">I can see the change</text>
+                          <text class="wf-chat-text wf-assistant-text" x="40" y="335">was made Jan 28 at</text>
+                          <text class="wf-chat-text wf-assistant-text" x="40" y="350">2:14 PM. If this</text>
+                          <text class="wf-chat-text wf-assistant-text" x="40" y="365">wasn't you, I can reverse</text>
+
+                          <!-- Action buttons -->
+                          <g>
+                            <!-- Primary button -->
+                            <rect class="wf-button-primary" x="30" y="390" width="110" height="40" rx="6"/>
+                            <text class="wf-button-text" x="40" y="418">Reverse charge</text>
+
+                            <!-- Secondary button -->
+                            <rect class="wf-button-secondary" x="150" y="390" width="130" height="40" rx="6"/>
+                            <text class="wf-button-secondary wf-button-text" x="160" y="418">Talk to agent</text>
+                          </g>
+
+                          <!-- Annotation -->
+                          <text class="wf-annotation-text" x="30" y="455">Understands context. References real account</text>
+                          <text class="wf-annotation-text" x="30" y="470">data. Can take action.</text>
+                        </svg>
+                    </div>
+                </div>
+                <div class="wireframe-caption">This is the real change - the assistant knows your account and can do something about it. Instead of keyword matching, it understands that "I got charged twice" means "show me both charges, explain the difference, and let me dispute one." The two buttons at the bottom are the key detail: the user can resolve in-chat or escalate. Either way, they're making progress.</div>
+            </div>
+
+            <!-- Wireframe 2: Smart Escalation -->
+            <div class="wireframe-pair">
+                <div class="wireframe-label">Wireframe 2 - Smart Escalation Handoff</div>
+                <div class="wireframe-container">
+                    <div class="wireframe-box">
+                        <div class="wireframe-box-label">SMART ESCALATION</div>
+                        <svg viewBox="0 0 320 600" xmlns="http://www.w3.org/2000/svg">
+                          <defs>
+                            <style>
+                              .wf-phone-frame {
+                                fill: var(--bg-primary);
+                                stroke: var(--border);
+                                stroke-width: 2;
+                              }
+
+                              .wf-status-bar {
+                                fill: var(--bg-dark);
+                                stroke: var(--border);
+                                stroke-width: 1;
+                              }
+
+                              .wf-header-text {
+                                fill: var(--text-primary);
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 16px;
+                                font-weight: 600;
+                              }
+
+                              .wf-badge {
+                                fill: #7a9ec4;
+                                stroke: var(--border-light);
+                                stroke-width: 1;
+                              }
+
+                              .wf-badge-text {
+                                fill: var(--bg-primary);
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 10px;
+                                font-weight: 700;
+                              }
+
+                              .wf-chat-bubble-assistant {
+                                fill: var(--bg-dark);
+                                stroke: var(--border-light);
+                                stroke-width: 1;
+                              }
+
+                              .wf-chat-text {
+                                fill: var(--text-primary);
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 13px;
+                                line-height: 1.4;
+                              }
+
+                              .wf-assistant-text {
+                                fill: var(--text-secondary);
+                              }
+
+                              .wf-summary-card {
+                                fill: var(--bg-dark);
+                                stroke: var(--border-light);
+                                stroke-width: 1;
+                              }
+
+                              .wf-summary-card-bordered {
+                                fill: none;
+                                stroke: #6b9e6b;
+                                stroke-width: 2;
+                                stroke-dasharray: 4,2;
+                              }
+
+                              .wf-summary-label {
+                                fill: var(--text-secondary);
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 11px;
+                                font-weight: 600;
+                              }
+
+                              .wf-summary-content {
+                                fill: var(--text-primary);
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 12px;
+                                line-height: 1.6;
+                              }
+
+                              .wf-wait-indicator {
+                                fill: var(--text-muted);
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 12px;
+                              }
+
+                              .wf-progress-bar {
+                                fill: none;
+                                stroke: var(--border-light);
+                                stroke-width: 2;
+                              }
+
+                              .wf-progress-fill {
+                                fill: #7a9ec4;
+                              }
+
+                              .wf-annotation-box {
+                                fill: none;
+                                stroke: #c47474;
+                                stroke-width: 2;
+                                stroke-dasharray: 4,2;
+                              }
+
+                              .wf-annotation-text {
+                                fill: #c47474;
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                                font-size: 11px;
+                                font-style: italic;
+                              }
+
+                              .wf-content-area {
+                                fill: var(--bg-primary);
+                              }
+                            </style>
+                          </defs>
+
+                          <!-- Phone frame -->
+                          <rect class="wf-phone-frame" x="20" y="20" width="280" height="500" rx="16"/>
+
+                          <!-- Status bar -->
+                          <rect class="wf-status-bar" x="20" y="20" width="280" height="44" rx="16 16 0 0"/>
+                          <text class="wf-header-text" x="40" y="48">GEICO Assistant</text>
+                          <rect class="wf-badge" x="240" y="37" width="28" height="20" rx="4"/>
+                          <text class="wf-badge-text" x="245" y="49">AI</text>
+
+                          <!-- Content area -->
+                          <rect class="wf-content-area" x="20" y="64" width="280" height="380"/>
+
+                          <!-- Chat bubble - Assistant escalation message -->
+                          <rect class="wf-chat-bubble-assistant" x="30" y="80" width="250" height="55" rx="6"/>
+                          <text class="wf-chat-text wf-assistant-text" x="40" y="95">This needs a specialist.</text>
+                          <text class="wf-chat-text wf-assistant-text" x="40" y="112">Connecting you now.</text>
+
+                          <!-- Summary card with green dashed border -->
+                          <g>
+                            <rect class="wf-summary-card-bordered" x="25" y="145" width="260" height="155" rx="6"/>
+                            <rect class="wf-summary-card" x="30" y="150" width="250" height="145" rx="6"/>
+
+                            <text class="wf-summary-label" x="40" y="170">Shared with your agent:</text>
+
+                            <text class="wf-summary-label" x="40" y="195">Policy:</text>
+                            <text class="wf-summary-content" x="100" y="195">#GK-4829171</text>
+
+                            <text class="wf-summary-label" x="40" y="218">Issue:</text>
+                            <text class="wf-summary-content" x="100" y="218">Unauthorized coverage</text>
+                            <text class="wf-summary-content" x="100" y="232">change</text>
+
+                            <text class="wf-summary-label" x="40" y="255">Tried:</text>
+                            <text class="wf-summary-content" x="100" y="255">Verified dates, user</text>
+                            <text class="wf-summary-content" x="100" y="269">denies change</text>
+
+                            <text class="wf-summary-label" x="40" y="292">Suggested:</text>
+                            <text class="wf-summary-content" x="100" y="292">Review account access log</text>
+                          </g>
+
+                          <!-- Wait indicator -->
+                          <text class="wf-wait-indicator" x="40" y="320">Estimated wait: 3 min</text>
+
+                          <!-- Progress indicator -->
+                          <rect class="wf-progress-bar" x="40" y="330" width="220" height="4" rx="2"/>
+                          <rect class="wf-progress-fill" x="40" y="330" width="80" height="4" rx="2"/>
+
+                          <!-- Annotation -->
+                          <text class="wf-annotation-text" x="30" y="375">Agent sees everything.</text>
+                          <text class="wf-annotation-text" x="30" y="390">User repeats nothing.</text>
+                        </svg>
+                    </div>
+                </div>
+                <div class="wireframe-caption">When the AI can't resolve, it doesn't say "please call us." It says "I'm connecting you - here's what I've already told them." The summary card is the entire point: policy number, issue description, what was already tried, and a recommended next step. The agent picks up where the bot left off. Estimated wait drops because the agent already knows the issue before answering.</div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ============================================
+             SECTION 4: THE BUSINESS CASE
+             ============================================ -->
+        <div class="teardown-section">
+            <div class="section-number">Section 04</div>
+            <div class="section-title">The Business Case</div>
+
+            <div class="exec-summary">
+                <div class="exec-summary-label">Executive Summary</div>
+                <p>This is a cost and satisfaction play. Chatbot interactions cost roughly $0.50 each. Phone calls cost about $6.00. GEICO's NPS sits at 20 - below the insurance industry average of 23 and well behind USAA at 54. The ROI math isn't complicated.</p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-funnel-stage">AI Resolution Rate</div>
+                    <div class="kpi-metric">50-60%</div>
+                    <div class="kpi-name">Issues resolved without human agent (18-month target)</div>
+                    <div class="kpi-rationale">GEICO's current rate is estimated under 20% (lookup only). Lemonade handles 27% of claims autonomously, 30%+ of all interactions. Billing and coverage questions are simpler than claims.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-funnel-stage">Handle Time</div>
+                    <div class="kpi-metric">Under 10 min</div>
+                    <div class="kpi-name">Average time from issue to resolution (AI-resolved)</div>
+                    <div class="kpi-rationale">Current path: 10 min assistant fail + 30 min hold + resolution = 45+ min. Smart handoff alone cuts the repeat-everything step.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-funnel-stage">NPS Score</div>
+                    <div class="kpi-metric">30+</div>
+                    <div class="kpi-name">Net Promoter Score (12-month target)</div>
+                    <div class="kpi-rationale">From 20 to 30+ closes the gap to industry average. Lemonade's NPS is 75+ for pet insurance customers with AI resolution.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-funnel-stage">Cost Per Interaction</div>
+                    <div class="kpi-metric">$2-3 blended</div>
+                    <div class="kpi-name">Weighted average across AI and phone</div>
+                    <div class="kpi-rationale">Shifting volume from $6 phone calls to $0.50 AI interactions. Even at 50% AI resolution, the blended cost drops significantly.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-funnel-stage">Escalation Context</div>
+                    <div class="kpi-metric">90%+</div>
+                    <div class="kpi-name">Escalations that include full AI summary</div>
+                    <div class="kpi-rationale">Direct measurement of the handoff pipeline. Today this is 0%. The target is that every escalation carries the full conversation history.</div>
+                </div>
+            </div>
+
+            <p>The honest question is whether GEICO's infrastructure can support this without a ground-up rebuild. Kate launched in 2017. Upgrading from keyword matching to conversational AI might mean replacing the entire stack - not a 6-month project but a 2-year platform migration. Industry benchmarks suggest insurance chatbot implementations see positive ROI in 8-14 months, with initial benefits within 60-90 days. But those benchmarks come from companies building new systems, not retrofitting legacy ones.</p>
+
+            <p>I can't see GEICO's internals. A PM there would know whether this is feasible in phases or requires a platform bet. What I can say is: the cost of not doing it is measurable. Every month the assistant can't resolve a billing question, GEICO pays $6 per call instead of $0.50 per chat. Multiply that by their call volume and you've got your answer.</p>
+        </div>
+
+        <!-- Assumptions -->
+        <div class="assumptions">
+            <div class="assumptions-label">Assumptions & Limitations</div>
+            <p>I don't work at GEICO and I've never seen their internal systems, call volume data, or technology roadmap. This analysis is built from their public-facing AI assistant (tested directly), their published usage guidance ("keep questions short and direct"), their NPS score (20, per QuestionPro Q1 2025), competitor benchmarks (Lemonade Q2 2025 earnings, Progressive's Azure AI partnership), and industry cost data ($0.50 vs $6.00, from multiple 2025 industry reports). The persona is a composite based on Trustpilot and App Store review patterns. The KPI numbers are educated ranges, not magic numbers.</p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-social">
+            <div class="social-links">
+                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+                </a>
+                <a href="https://github.com/iamkiranrao" class="social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                </a>
+                <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                </a>
+                <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg>
+                </a>
+                <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg>
+                </a>
+                <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-site-info">
+            <img src="../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
+            <div class="footer-meta">
+                <span class="version-number">v1.0.23</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <span class="last-updated">Updated Feb 2026</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <a href="../rss.xml" class="rss-badge" title="Subscribe to RSS feed" target="_blank" rel="noopener noreferrer">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+                    RSS
+                </a>
+            </div>
+        </div>
+        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const menuButton = document.getElementById('menuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.querySelector('.moon-icon').style.display = 'none';
+            document.querySelector('.sun-icon').style.display = 'block';
+        }
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            document.documentElement.setAttribute('data-theme', isLight ? '' : 'light');
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
+            document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+        });
+
+        window.addEventListener('load', () => {
+            document.body.classList.remove('preload');
+        });
+        document.querySelector('.footer-logo')?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
