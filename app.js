@@ -396,7 +396,7 @@ const cardConfig = [
     { title: 'Blog & Podcast', link: 'blog-podcast.html', sameTab: true },
     { title: 'Learning & Certifications', link: 'learning.html', sameTab: true },
     { title: 'Causes', link: 'causes.html', sameTab: true },
-    { title: 'Store', link: null }
+    { title: 'Store', link: 'store.html', sameTab: true }
 ];
 
 workCards.forEach((card, index) => {
