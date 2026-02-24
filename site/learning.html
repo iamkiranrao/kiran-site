@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiran Gorapalli - Learning & Certifications. Continuous learning across product management, AI, cloud, agile, and change management.">
+    <title>Learning & Certifications - Kiran Gorapalli</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="canonical" href="https://kirangorapalli.netlify.app/learning.html">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Learning & Certifications - Kiran Gorapalli">
+    <meta property="og:description" content="Continuous learning across product management, AI, cloud, agile, and change management.">
+    <meta property="og:url" content="https://kirangorapalli.netlify.app/learning.html">
+    <meta property="og:image" content="https://kirangorapalli.netlify.app/images/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Learning & Certifications - Kiran Gorapalli">
+    <meta name="twitter:description" content="Continuous learning across product management, AI, cloud, agile, and change management.">
+    <meta name="twitter:image" content="https://kirangorapalli.netlify.app/images/og-image.png">
+
+    <style>
+        /* ============================================
+           LEARNING & CERTIFICATIONS - PAGE STYLES
+           ============================================ */
+
+        /* Hero Banner */
+        .subpage-hero {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .hero-title-area {
+            text-align: center;
+            padding: 6rem 4rem 2rem;
+        }
+        .subpage-hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+        .subpage-hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-bottom: 0;
+        }
+
+        /* ============================================
+           CERTIFICATIONS GRID
+           ============================================ */
+        .certs-section {
+            padding: 2.5rem 4rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        /* ============================================
+           CERTIFICATION CARD
+           ============================================ */
+        .cert-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-primary);
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+            cursor: pointer;
+        }
+        .cert-card:hover {
+            border-color: var(--text-muted);
+        }
+        .cert-card.open {
+            grid-column: 1 / -1;
+            border-color: var(--text-muted);
+        }
+
+        /* Card Header (always visible) */
+        .cert-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+        }
+
+        /* Institution logo */
+        .cert-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: rgba(240, 230, 211, 0.06);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        [data-theme="light"] .cert-logo {
+            background: rgba(10, 10, 10, 0.04);
+        }
+        .cert-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
+        /* Summary block */
+        .cert-summary {
+            flex: 1;
+            min-width: 0;
+        }
+        .cert-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+        .cert-issuer {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 0.15rem;
+        }
+        .cert-credential {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.7;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+        }
+        .cert-credential a {
+            color: var(--text-muted);
+            text-decoration: underline;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+        .cert-credential a:hover {
+            opacity: 0.7;
+        }
+
+        /* Skills tags in header */
+        .cert-skills-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+        .cert-tag {
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(240, 230, 211, 0.06);
+            color: var(--text-muted);
+        }
+        [data-theme="light"] .cert-tag {
+            background: rgba(10, 10, 10, 0.05);
+        }
+
+        /* Chevron */
+        .cert-chevron {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            stroke: var(--text-muted);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.3s ease, stroke 0.3s ease;
+            margin-top: 0.25rem;
+        }
+        .cert-card.open .cert-chevron {
+            transform: rotate(180deg);
+            stroke: var(--text-primary);
+        }
+
+        /* ============================================
+           EXPANDED DETAIL SECTION
+           ============================================ */
+        .cert-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .cert-card.open .cert-detail {
+            max-height: 2000px;
+            transition: max-height 0.6s ease;
+        }
+
+        .cert-detail-inner {
+            padding: 0 1.25rem 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Two-column layout for expanded content */
+        .cert-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.25rem;
+        }
+
+        .cert-detail-block {
+            padding: 0;
+        }
+        .cert-detail-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .cert-detail-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .cert-detail-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Skills full list in expanded view */
+        .cert-skills-full {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-top: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .cert-skills-full .cert-tag {
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+        }
+
+        /* Capstone/prototype section */
+        .cert-capstone {
+            margin-top: 1.25rem;
+            padding: 1rem 1.25rem;
+            background: rgba(240, 230, 211, 0.04);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        [data-theme="light"] .cert-capstone {
+            background: rgba(58, 54, 50, 0.03);
+        }
+        .cert-capstone-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+        .cert-capstone-text {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 4rem 2rem;
+            text-align: center;
+        }
+        .footer-social { margin-bottom: 2rem; }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: border-color 0.2s ease, opacity 0.2s ease;
+        }
+        .social-icon svg { width: 18px; height: 18px; }
+        .social-icon:hover { opacity: 0.8; }
+        .social-icon.linkedin:hover { border-color: #0A66C2; }
+        .social-icon.github:hover { border-color: #f0e6d3; }
+        .social-icon.youtube:hover { border-color: #FF0000; }
+        .social-icon.flickr:hover { border-color: #FF0084; }
+        .social-icon.spotify:hover { border-color: #1DB954; }
+        .social-icon.substack:hover { border-color: #FF6719; }
+        [data-theme="light"] .social-icon.github:hover { border-color: #333; }
+
+        .footer-site-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-logo {
+            width: 36px;
+            height: auto;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .footer-logo:hover { opacity: 1; transform: scale(1.05); }
+        .footer-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .footer-meta-sep { opacity: 0.4; }
+        .version-number { letter-spacing: 0.02em; }
+        .last-updated { letter-spacing: -0.01em; }
+        .rss-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+        }
+        .rss-badge:hover { color: var(--text-primary); }
+        .rss-badge svg { opacity: 0.6; }
+        .footer-copyright {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+            letter-spacing: 0.02em;
+        }
+
+        /* ============================================
+           TOAST
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 500px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .hero-title-area { padding: 5rem 3rem 1.5rem; }
+            .certs-section { padding: 2rem 3rem 3rem; }
+            .certs-grid { grid-template-columns: repeat(2, 1fr); }
+            footer { padding: 3rem 3rem 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title-area { padding: 4.5rem 1.5rem 1.5rem; }
+            .certs-section { padding: 1.5rem 1.5rem 3rem; }
+            .certs-grid { grid-template-columns: 1fr; }
+            .cert-detail-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+            footer { padding: 2.5rem 1.5rem 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title-area { padding: 4rem 1rem 1rem; }
+            .certs-section { padding: 1.25rem 1rem 2rem; }
+            .cert-header { padding: 1rem; gap: 0.75rem; }
+            .cert-logo { width: 40px; height: 40px; font-size: 0.6rem; }
+            .cert-detail-inner { padding: 0 1rem 1.25rem; }
+            footer { padding: 2rem 1rem 1.5rem; }
+        }
+    </style>
+</head>
+<body class="preload">
+    <a href="#certs" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-right">
+                <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
+                    <svg class="share-icon" viewBox="0 0 24 24">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+                <button id="menuButton" class="menu-button" aria-label="Open menu">Menu</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div></div>
+            <button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">↘ Home</a></li>
+            <li><a href="index.html#work">↘ Fenix - My AI</a></li>
+            <li><a href="career-highlights.html">↘ Career Highlights</a></li>
+            <li><a href="index.html#how-id-built-it">↘ How I'd've Built It</a></li>
+            <li><a href="index.html#my-sandbox">↘ MadLab</a></li>
+            <li><a href="index.html#creative-lab">↘ Studio</a></li>
+            <li><a href="blog-podcast.html">↘ Blog & Podcast</a></li>
+            <li><a href="learning.html">↘ Learning & Certifications</a></li>
+            <li><a href="index.html#causes">↘ Causes</a></li>
+            <li><a href="index.html#store">↘ Store</a></li>
+            <li><a href="index.html#contact">↘ Connect</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <div class="subpage-hero">
+        <div class="hero-title-area">
+            <h1 class="subpage-hero-title">Learning & Certifications</h1>
+            <p class="subpage-hero-tagline">Staying sharp across product, technology, and leadership</p>
+        </div>
+    </div>
+
+    <!-- Certifications Grid -->
+    <div class="certs-section" id="certs">
+        <div class="certs-grid">
+
+            <!-- 1. Kellogg School of Management -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/kellogg.jpeg" alt="Kellogg"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">AI-Driven Product Strategy</div>
+                        <div class="cert-issuer">Kellogg School of Management, Northwestern University</div>
+                        <div class="cert-credential">Issued Jun 2022 · Credential ID 53061978</div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">AI Strategy</span>
+                            <span class="cert-tag">Product Vision</span>
+                            <span class="cert-tag">Go-to-Market</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">An eight-week executive program that integrates AI into every stage of the product lifecycle. Learned to use generative AI for opportunity analysis, stress-testing assumptions, simulating customer segments, and developing messaging. The biggest shift was moving from thinking about AI as a feature to treating it as a strategic lens across vision, discovery, roadmapping, and growth.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">Product Vision & Strategy</span>
+                                    <span class="cert-tag">AI-Powered Discovery</span>
+                                    <span class="cert-tag">Opportunity Analysis</span>
+                                    <span class="cert-tag">Go-to-Market Strategy</span>
+                                    <span class="cert-tag">Monetization & Pricing</span>
+                                    <span class="cert-tag">Product-Led Growth</span>
+                                    <span class="cert-tag">UX & Agile Development</span>
+                                    <span class="cert-tag">Stakeholder Alignment</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Capstone</div>
+                            <div class="cert-capstone-text">Developed AI-supported strategy artifacts across the full product lifecycle - from vision and opportunity analysis through GTM and monetization - using generative AI to simulate customer segments, stress-test assumptions, and build a defensible product roadmap.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. General Assembly -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/generalassembly_logo.jpeg" alt="General Assembly"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">Data Analytics</div>
+                        <div class="cert-issuer">General Assembly</div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">SQL</span>
+                            <span class="cert-tag">Tableau</span>
+                            <span class="cert-tag">Python</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">How to acquire, clean, analyze, and visualize data to drive real decisions. The bootcamp took a hands-on approach to turning raw datasets into clear narratives - from writing SQL queries and building Excel models to creating Tableau dashboards and Python scripts. Sharpened my ability to frame data as a story that informs product and business strategy.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">SQL</span>
+                                    <span class="cert-tag">Excel</span>
+                                    <span class="cert-tag">Tableau</span>
+                                    <span class="cert-tag">Power BI</span>
+                                    <span class="cert-tag">Python</span>
+                                    <span class="cert-tag">Data Cleaning</span>
+                                    <span class="cert-tag">Data Visualization</span>
+                                    <span class="cert-tag">AI Fundamentals</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Capstone</div>
+                            <div class="cert-capstone-text">Selected a real-world dataset, crafted a problem statement, and applied the full analytics workflow - data collection, cleaning, analysis, and visualization - to solve it. Prepared technical documentation and delivered a stakeholder presentation communicating findings and recommendations.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Scrum Alliance -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/scrum_alliance_logo.jpeg" alt="Scrum Alliance"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">Certified ScrumMaster (CSM)</div>
+                        <div class="cert-issuer">Scrum Alliance</div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">Scrum</span>
+                            <span class="cert-tag">Agile</span>
+                            <span class="cert-tag">Facilitation</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">The difference between doing Scrum and being agile. The certification deepened my understanding of sprint mechanics, but the real value was learning how to remove blockers and create space for engineering teams to do their best work. Changed how I think about the PM's role in ceremonies.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">Scrum Framework</span>
+                                    <span class="cert-tag">Sprint Planning</span>
+                                    <span class="cert-tag">Retrospectives</span>
+                                    <span class="cert-tag">Backlog Management</span>
+                                    <span class="cert-tag">Team Facilitation</span>
+                                    <span class="cert-tag">Servant Leadership</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Certification</div>
+                            <div class="cert-capstone-text">Passed the CSM exam after a two-day intensive covering Scrum theory, roles, events, and artifacts. Applied the framework immediately to restructure sprint cadence on a cross-functional product team.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4a. McKinsey - Business Strategy -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/mckinsey.jpeg" alt="McKinsey"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">Business Strategy</div>
+                        <div class="cert-issuer">McKinsey & Company</div>
+                        <div class="cert-credential">Issued Mar 2023 - <a href="https://www.credly.com/badges/4d7f3fcb-9200-48d1-8686-49a72bd46c94/linked_in_profile" target="_blank" rel="noopener">View Credential</a></div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">Strategy</span>
+                            <span class="cert-tag">McKinsey Method</span>
+                            <span class="cert-tag">Competitive Analysis</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">How to assess the robustness of a business strategy using McKinsey's Strategy Method. Covered frameworks for evaluating competitive positioning, identifying where to play and how to win, and stress-testing strategic assumptions. Sharpened my ability to connect product decisions to broader business strategy and communicate them in terms leadership teams actually care about.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">McKinsey Strategy Method</span>
+                                    <span class="cert-tag">Competitive Positioning</span>
+                                    <span class="cert-tag">Strategic Assessment</span>
+                                    <span class="cert-tag">Market Analysis</span>
+                                    <span class="cert-tag">Business Case Development</span>
+                                    <span class="cert-tag">Executive Communication</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Certification</div>
+                            <div class="cert-capstone-text">Completed McKinsey Academy's Business Strategy digital learning program, demonstrating the ability to assess strategy robustness and apply McKinsey's Strategy Method to real business challenges.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4b. McKinsey - Management Accelerator / Asian Leadership Academy -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/mckinsey.jpeg" alt="McKinsey"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">Management Accelerator - Asian Leadership Academy</div>
+                        <div class="cert-issuer">McKinsey & Company</div>
+                        <div class="cert-credential">Issued Mar 2023 - <a href="https://www.credly.com/badges/83ef3aad-30ae-4cb4-a680-6a923a0be8b6/linked_in_profile" target="_blank" rel="noopener">View Credential</a></div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">Leadership</span>
+                            <span class="cert-tag">Adaptability</span>
+                            <span class="cert-tag">Self-Leadership</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">A toolkit for leading through ambiguity - building adaptability and resilience, sharpening problem solving for real impact, and helping organizations set and execute business strategy. The self-leadership module was especially valuable, reframing how I navigate my career while staying authentic. Part of McKinsey's Connected Leaders Academy designed for Asian professionals in management roles.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">Adaptability & Resilience</span>
+                                    <span class="cert-tag">Problem Solving for Impact</span>
+                                    <span class="cert-tag">Business Strategy Execution</span>
+                                    <span class="cert-tag">Self-Leadership</span>
+                                    <span class="cert-tag">Critical Thinking</span>
+                                    <span class="cert-tag">Executive Communication</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Program</div>
+                            <div class="cert-capstone-text">Completed the 4-month McKinsey Management Accelerator as part of the Asian Leadership Academy, a cohort-based program with structured modules, assessments, and peer learning designed to strengthen core management capabilities.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4c. McKinsey - Problem Solving -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/mckinsey.jpeg" alt="McKinsey"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">Problem Solving</div>
+                        <div class="cert-issuer">McKinsey & Company</div>
+                        <div class="cert-credential">Issued Jan 2023 - <a href="https://www.credly.com/badges/fbec38ff-7042-4c45-be38-e16028e1df9d/linked_in_profile" target="_blank" rel="noopener">View Credential</a></div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">Problem Solving</span>
+                            <span class="cert-tag">Hypothesis-Driven</span>
+                            <span class="cert-tag">Synthesis</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">McKinsey's approach to structured problem solving - how to define challenging problems clearly, prioritize the right issues, build hypothesis-driven analyses, synthesize findings, and develop actionable recommendations. Changed how I break down ambiguous product challenges and present solutions to stakeholders with clarity and conviction.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">Structured Problem Solving</span>
+                                    <span class="cert-tag">Problem Definition</span>
+                                    <span class="cert-tag">Issue Prioritization</span>
+                                    <span class="cert-tag">Hypothesis-Driven Analysis</span>
+                                    <span class="cert-tag">Synthesis</span>
+                                    <span class="cert-tag">Actionable Recommendations</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Certification</div>
+                            <div class="cert-capstone-text">Completed McKinsey Academy's Problem Solving program, demonstrating proficiency in defining problems, prioritizing issues, synthesizing findings, and developing structured recommendations using McKinsey frameworks.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4d. McKinsey - Product Academy Fundamentals -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/mckinsey.jpeg" alt="McKinsey"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">Product Academy Fundamentals</div>
+                        <div class="cert-issuer">McKinsey & Company</div>
+                        <div class="cert-credential">Issued Sep 2022 - <a href="https://www.credly.com/badges/a38009db-0acc-4901-b1a1-bdd9d4c3539a/linked_in_profile" target="_blank" rel="noopener">View Credential</a></div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">Product Strategy</span>
+                            <span class="cert-tag">Platform Building</span>
+                            <span class="cert-tag">Customer Advocacy</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">Foundational themes across the entire product development lifecycle - from defining product strategy to customer advocacy to building platforms. An eight-part speaker series featuring leaders from companies like DoorDash, The New York Times, Twilio, and Microsoft. Reinforced that product management is about solving customer problems and creating outcomes, not just shipping features. Also explored how AI is reshaping product workflows and decision-making.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">Product Strategy</span>
+                                    <span class="cert-tag">Platform Building</span>
+                                    <span class="cert-tag">Customer Advocacy</span>
+                                    <span class="cert-tag">Product Thinking</span>
+                                    <span class="cert-tag">Responsible Product Management</span>
+                                    <span class="cert-tag">AI for Product</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Program</div>
+                            <div class="cert-capstone-text">Completed McKinsey's Product Academy Fundamentals - a cohort-based speaker series featuring product leaders from Silicon Valley Product Group, DoorDash, Intuit, Microsoft, Mozilla, The New York Times, Twilio, and Bloomreach covering every aspect of the product development lifecycle.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Prosci -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/prosci_logo.jpeg" alt="Prosci"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">Certified Change Management Professional (CCMP)</div>
+                        <div class="cert-issuer">Prosci</div>
+                        <div class="cert-credential">Issued Apr 2021</div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">ADKAR</span>
+                            <span class="cert-tag">Change Management</span>
+                            <span class="cert-tag">Prosci 3-Phase</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">That shipping a product is only half the job - the other half is getting people to actually use it. The Prosci 3-Phase Process (Prepare Approach, Manage Change, Sustain Outcomes) and ADKAR model (Awareness, Desire, Knowledge, Ability, Reinforcement) gave me a structured way to think about adoption, resistance, and reinforcement. Learned to build sponsor coalitions, run readiness assessments, and develop change management plans tied to real project timelines. Directly shaped how I approach rollouts, especially for internal tools and platform changes where user buy-in isn't automatic.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">ADKAR Model</span>
+                                    <span class="cert-tag">Prosci 3-Phase Process</span>
+                                    <span class="cert-tag">PCT Model</span>
+                                    <span class="cert-tag">Sponsor Coalitions</span>
+                                    <span class="cert-tag">Stakeholder Engagement</span>
+                                    <span class="cert-tag">Resistance Management</span>
+                                    <span class="cert-tag">Readiness Assessments</span>
+                                    <span class="cert-tag">Adoption Strategy</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Applied Project</div>
+                            <div class="cert-capstone-text">Applied the Prosci Methodology to a real change initiative during the 3-day intensive, building a Master Change Management Plan with sponsor mapping, ADKAR Blueprints, communication strategy, and a resistance mitigation plan - ready for immediate stakeholder conversations.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. API Academy -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/api_academy_logo.jpeg" alt="API Academy"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">Certified API Product Manager</div>
+                        <div class="cert-issuer">API Academy</div>
+                        <div class="cert-credential">Issued May 2023 - Credential ID 165287856</div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">API Product Management</span>
+                            <span class="cert-tag">API Lifecycle</span>
+                            <span class="cert-tag">DevOps</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">How to treat APIs as products with their own lifecycle - from design and deployment through documentation and monetization. Covered product thinking for API consumers, publishing and versioning strategies, building documentation for different audiences (machines, developers, and designers), and how DevOps practices support API scalability and evolvability. Gave me the framework to drive API strategy conversations with engineering and think about developer experience as a core product concern.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">API Product Management</span>
+                                    <span class="cert-tag">API Lifecycle</span>
+                                    <span class="cert-tag">API Documentation</span>
+                                    <span class="cert-tag">Developer Experience</span>
+                                    <span class="cert-tag">DevOps for APIs</span>
+                                    <span class="cert-tag">API Deployment & Publishing</span>
+                                    <span class="cert-tag">Scalability & Evolvability</span>
+                                    <span class="cert-tag">API Monetization</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Certification</div>
+                            <div class="cert-capstone-text">Passed the API Product Manager certification exam covering API product management fundamentals, deployment and publishing, documentation and learning aids, DevOps scalability, and API lifecycle management. Required a minimum 80% score.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. AZ-900 Microsoft Azure Fundamentals -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/cloudguru.jpeg" alt="A Cloud Guru"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">AZ-900 Microsoft Azure Fundamentals</div>
+                        <div class="cert-issuer">Microsoft AI Cloud Partner | Azure & DevOps Consulting</div>
+                        <div class="cert-credential">Issued May 2023 - Credential ID 5043FDCC70E3</div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">Azure</span>
+                            <span class="cert-tag">Cloud Concepts</span>
+                            <span class="cert-tag">IaaS/PaaS/SaaS</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">A foundational understanding of Azure's cloud ecosystem and how it maps to real product and infrastructure decisions. Covered core services like VMs, Virtual Networks, and Azure Storage alongside governance tools like Azure Policy and Cost Management. Gave me the fluency to evaluate Azure-based architecture proposals and understand trade-offs between IaaS, PaaS, and SaaS when scoping product builds.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">Azure Architecture</span>
+                                    <span class="cert-tag">Cloud Concepts</span>
+                                    <span class="cert-tag">IaaS / PaaS / SaaS</span>
+                                    <span class="cert-tag">Azure Governance</span>
+                                    <span class="cert-tag">Identity & Security</span>
+                                    <span class="cert-tag">Cost Management</span>
+                                    <span class="cert-tag">Virtual Networking</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Certification</div>
+                            <div class="cert-capstone-text">Passed the AZ-900 exam covering cloud concepts, Azure architecture and services, and Azure management and governance. Microsoft fundamentals certifications do not expire.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Google Cloud Digital Leader -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/cloudguru.jpeg" alt="A Cloud Guru"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">Google Cloud Certified Cloud Digital Leader</div>
+                        <div class="cert-issuer">Microsoft AI Cloud Partner | Azure & DevOps Consulting</div>
+                        <div class="cert-credential">Issued Apr 2023</div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">Google Cloud</span>
+                            <span class="cert-tag">Digital Transformation</span>
+                            <span class="cert-tag">BigQuery</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">How Google Cloud approaches digital transformation and where its platform fits in the broader cloud landscape. Covered data transformation with BigQuery and Cloud Storage, AI and ML capabilities through Vertex AI, and infrastructure modernization with GKE and Cloud Run. The real value was understanding how to articulate cloud solutions in business terms - connecting technical capabilities to organizational goals.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">Google Cloud Platform</span>
+                                    <span class="cert-tag">Digital Transformation</span>
+                                    <span class="cert-tag">BigQuery</span>
+                                    <span class="cert-tag">Cloud Storage</span>
+                                    <span class="cert-tag">AI / ML on GCP</span>
+                                    <span class="cert-tag">Infrastructure Modernization</span>
+                                    <span class="cert-tag">Cloud Security</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Certification</div>
+                            <div class="cert-capstone-text">Passed the Cloud Digital Leader exam covering digital transformation strategy, Google Cloud data and AI solutions, infrastructure modernization, and scaling cloud operations. Certification valid for 3 years.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. AWS Certified Cloud Practitioner -->
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-logo"><img src="images/cloudguru.jpeg" alt="A Cloud Guru"></div>
+                    <div class="cert-summary">
+                        <div class="cert-name">AWS Certified Cloud Practitioner</div>
+                        <div class="cert-issuer">Microsoft AI Cloud Partner | Azure & DevOps Consulting</div>
+                        <div class="cert-credential">Issued Apr 2023</div>
+                        <div class="cert-skills-preview">
+                            <span class="cert-tag">AWS</span>
+                            <span class="cert-tag">Cloud Security</span>
+                            <span class="cert-tag">EC2 / S3 / Lambda</span>
+                        </div>
+                    </div>
+                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="cert-detail">
+                    <div class="cert-detail-inner">
+                        <div class="cert-detail-grid">
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">What I Learned</div>
+                                <div class="cert-detail-text">Enough AWS infrastructure to be dangerous - in a good way. Understanding how services like EC2, S3, Lambda, and RDS actually work made me a better product partner to engineering. Covered the shared responsibility model, Well-Architected Framework, and cost optimization strategies. I can now participate in architecture discussions, understand billing implications of design decisions, and speak the same language as the teams building the systems.</div>
+                            </div>
+                            <div class="cert-detail-block">
+                                <div class="cert-detail-label">Skills Covered</div>
+                                <div class="cert-skills-full">
+                                    <span class="cert-tag">AWS Core Services</span>
+                                    <span class="cert-tag">Cloud Security</span>
+                                    <span class="cert-tag">Shared Responsibility Model</span>
+                                    <span class="cert-tag">Well-Architected Framework</span>
+                                    <span class="cert-tag">Billing & Pricing</span>
+                                    <span class="cert-tag">IAM</span>
+                                    <span class="cert-tag">Serverless</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-capstone">
+                            <div class="cert-capstone-label">Certification</div>
+                            <div class="cert-capstone-text">Passed the CLF-C02 exam covering cloud concepts, security and compliance, core AWS technology and services, and billing and pricing. Demonstrated ability to explain the value of the AWS Cloud and position core services for common use cases.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-social">
+            <div class="social-links">
+                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+                </a>
+                <a href="https://github.com/iamkiranrao" class="social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                </a>
+                <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                </a>
+                <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg>
+                </a>
+                <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg>
+                </a>
+                <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-site-info">
+            <img src="images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
+            <div class="footer-meta">
+                <span class="version-number">v1.0.23</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <span class="last-updated">Updated Feb 2026</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <a href="rss.xml" class="rss-badge" title="Subscribe to RSS feed" target="_blank" rel="noopener noreferrer">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+                    RSS
+                </a>
+            </div>
+        </div>
+        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================
+        // CERTIFICATION CARD EXPAND/COLLAPSE
+        // ============================================
+        document.querySelectorAll('.cert-card').forEach(card => {
+            const header = card.querySelector('.cert-header');
+            if (!header) return;
+
+            header.addEventListener('click', () => {
+                const wasOpen = card.classList.contains('open');
+
+                // Close all other cards in the same grid
+                const grid = card.closest('.certs-grid');
+                if (grid) {
+                    grid.querySelectorAll('.cert-card.open').forEach(c => {
+                        if (c !== card) c.classList.remove('open');
+                    });
+                }
+
+                // Toggle this card
+                card.classList.toggle('open', !wasOpen);
+
+                // Scroll into view if opening
+                if (!wasOpen) {
+                    setTimeout(() => {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
+            });
+        });
+
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        const menuButton = document.getElementById('menuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ============================================
+        // THEME TOGGLE
+        // ============================================
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.querySelector('.moon-icon').style.display = 'none';
+            document.querySelector('.sun-icon').style.display = 'block';
+        }
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            document.documentElement.setAttribute('data-theme', isLight ? '' : 'light');
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
+            document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+        });
+
+        // ============================================
+        // MISC
+        // ============================================
+        window.addEventListener('load', () => {
+            document.body.classList.remove('preload');
+        });
+        document.querySelector('.footer-logo')?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
