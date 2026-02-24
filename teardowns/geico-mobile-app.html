@@ -142,11 +142,23 @@
             font-weight: 500;
         }
 
-        .persona-card {
+        .persona-wrap {
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 1.5rem;
+            overflow: hidden;
             margin: 1.5rem 0;
+        }
+        .persona-wrap-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .persona-card {
+            padding: 1.5rem;
             display: flex;
             gap: 1.25rem;
             align-items: flex-start;
@@ -791,12 +803,15 @@
             <div class="section-number">Section 01</div>
             <div class="section-title">Discovery</div>
 
-            <div class="persona-card">
-                <div class="persona-avatar">🚗</div>
-                <div class="persona-info">
-                    <div class="persona-name">Alex T.</div>
-                    <div class="persona-demo">34, switched from State Farm 3 years ago, commutes daily</div>
-                    <div class="persona-bio">Switched to GEICO because the quote came in $40 per month cheaper. Doesn't think about insurance unless something goes wrong. Last time he opened the app was to download his ID card for a rental car at the airport. This time, he notices a charge on his bank statement he doesn't recognize.</div>
+            <div class="persona-wrap">
+                <div class="persona-wrap-header">Persona</div>
+                <div class="persona-card">
+                    <div class="persona-avatar">🚗</div>
+                    <div class="persona-info">
+                        <div class="persona-name">Alex T.</div>
+                        <div class="persona-demo">34, switched from State Farm 3 years ago, commutes daily</div>
+                        <div class="persona-bio">Switched to GEICO because the quote came in $40 per month cheaper. Doesn't think about insurance unless something goes wrong. Last time he opened the app was to download his ID card for a rental car at the airport. This time, he notices a charge on his bank statement he doesn't recognize.</div>
+                    </div>
                 </div>
             </div>
 
@@ -816,22 +831,22 @@
                         <text x="2" y="23" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Optimistic</text>
                         <text x="12" y="58" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Neutral</text>
                         <text x="8" y="93" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Frustrated</text>
-                        <!-- Smooth sentiment curve -->
-                        <path d="M 50,48 Q 150,35 250,88 T 450,92" stroke="var(--text-secondary)" stroke-width="2" fill="none" opacity="0.4"/>
+                        <!-- Smooth sentiment curve threading through all dots -->
+                        <path d="M 50,48 C 80,40 120,35 150,35 C 180,35 220,70 250,88 C 280,95 320,92 350,92 C 380,92 420,92 450,92" stroke="var(--text-secondary)" stroke-width="2" fill="none" opacity="0.4"/>
                         <!-- Area fill under curve -->
-                        <path d="M 50,48 Q 150,35 250,88 T 450,92 L 450,105 L 50,105 Z" fill="var(--text-secondary)" opacity="0.04"/>
+                        <path d="M 50,48 C 80,40 120,35 150,35 C 180,35 220,70 250,88 C 280,95 320,92 350,92 C 380,92 420,92 450,92 L 450,105 L 50,105 Z" fill="var(--text-secondary)" opacity="0.04"/>
                         <!-- Data points -->
                         <circle cx="50" cy="48" r="6" fill="#d4a74a" opacity="0.9"/>
                         <circle cx="150" cy="35" r="6" fill="#6b9e6b" opacity="0.9"/>
                         <circle cx="250" cy="88" r="6" fill="#c47474" opacity="0.9"/>
                         <circle cx="350" cy="92" r="6" fill="#c47474" opacity="0.9"/>
                         <circle cx="450" cy="92" r="6" fill="#c47474" opacity="0.9"/>
-                        <!-- Sentiment labels -->
-                        <text x="50" y="40" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Neutral</text>
-                        <text x="150" y="25" font-family="Inter, sans-serif" font-size="7" fill="#6b9e6b" text-anchor="middle" font-weight="500">Hopeful</text>
-                        <text x="250" y="78" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Frustrated</text>
-                        <text x="350" y="102" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Angry</text>
-                        <text x="450" y="104" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Defeated</text>
+                        <!-- Sentiment labels - positioned above dots with clearance -->
+                        <text x="50" y="36" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Neutral</text>
+                        <text x="150" y="23" font-family="Inter, sans-serif" font-size="7" fill="#6b9e6b" text-anchor="middle" font-weight="500">Hopeful</text>
+                        <text x="250" y="76" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Frustrated</text>
+                        <text x="350" y="83" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Angry</text>
+                        <text x="450" y="83" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Defeated</text>
                         <!-- Stage labels at bottom -->
                         <text x="50" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">NOTICE</text>
                         <text x="150" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">TRY</text>
