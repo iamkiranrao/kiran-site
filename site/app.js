@@ -393,8 +393,8 @@ const cardConfig = [
     { title: 'How I\'d\'ve Built It', link: null },
     { title: 'My MadLab', link: null },
     { title: 'Creative Studio', link: null },
-    { title: 'Blog & Podcast', link: null },
-    { title: 'Learning & Certifications', link: null },
+    { title: 'Blog & Podcast', link: 'blog-podcast.html', sameTab: true },
+    { title: 'Learning & Certifications', link: 'learning.html', sameTab: true },
     { title: 'Causes', link: null },
     { title: 'Store', link: null }
 ];
