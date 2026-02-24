@@ -154,11 +154,23 @@
         }
 
         /* Persona card */
-        .persona-card {
+        .persona-wrap {
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 1.5rem;
+            overflow: hidden;
             margin: 1.5rem 0;
+        }
+        .persona-wrap-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .persona-card {
+            padding: 1.5rem;
             display: flex;
             gap: 1.25rem;
             align-items: flex-start;
@@ -828,12 +840,15 @@
             <div class="section-number">Section 01</div>
             <div class="section-title">Discovery</div>
 
-            <div class="persona-card">
-                <div class="persona-avatar">📱</div>
-                <div class="persona-info">
-                    <div class="persona-name">Maya R.</div>
-                    <div class="persona-demo">29, marketing manager in Austin, daily IG user since 2018</div>
-                    <div class="persona-bio">Follows 400+ accounts - college friends, food blogs, a couple of travel photographers she found in 2019. Sees maybe 20 of them in her feed. Hasn't posted since her friend's birthday in October. Opens the app 8-10 times a day, usually without realizing she's doing it.</div>
+            <div class="persona-wrap">
+                <div class="persona-wrap-header">Persona</div>
+                <div class="persona-card">
+                    <div class="persona-avatar">📱</div>
+                    <div class="persona-info">
+                        <div class="persona-name">Maya R.</div>
+                        <div class="persona-demo">29, marketing manager in Austin, daily IG user since 2018</div>
+                        <div class="persona-bio">Follows 400+ accounts - college friends, food blogs, a couple of travel photographers she found in 2019. Sees maybe 20 of them in her feed. Hasn't posted since her friend's birthday in October. Opens the app 8-10 times a day, usually without realizing she's doing it.</div>
+                    </div>
                 </div>
             </div>
 
@@ -863,12 +878,12 @@
                         <circle cx="250" cy="45" r="6" fill="#d4a74a" opacity="0.9"/>
                         <circle cx="350" cy="80" r="6" fill="#c47474" opacity="0.9"/>
                         <circle cx="450" cy="92" r="6" fill="#c47474" opacity="0.9"/>
-                        <!-- Sentiment labels -->
-                        <text x="50" y="47" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Neutral</text>
-                        <text x="150" y="65" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Annoyed</text>
-                        <text x="250" y="37" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Absorbed</text>
-                        <text x="350" y="70" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Frustrated</text>
-                        <text x="450" y="86" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Defeated</text>
+                        <!-- Sentiment labels - positioned above dots with clearance -->
+                        <text x="50" y="43" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Neutral</text>
+                        <text x="150" y="63" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Annoyed</text>
+                        <text x="250" y="33" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Absorbed</text>
+                        <text x="350" y="68" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Frustrated</text>
+                        <text x="450" y="80" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Defeated</text>
                         <!-- Stage labels at bottom -->
                         <text x="50" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">OPEN</text>
                         <text x="150" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">SCROLL</text>
