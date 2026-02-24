@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiran Gorapalli - Blog & Podcast. Long-form thinking on product, AI, and leadership.">
+    <title>Blog & Podcast - Kiran Gorapalli</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="canonical" href="https://kirangorapalli.netlify.app/blog-podcast.html">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Blog & Podcast - Kiran Gorapalli">
+    <meta property="og:description" content="Long-form thinking on product, AI, and leadership.">
+    <meta property="og:url" content="https://kirangorapalli.netlify.app/blog-podcast.html">
+    <meta property="og:image" content="https://kirangorapalli.netlify.app/images/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog & Podcast - Kiran Gorapalli">
+    <meta name="twitter:description" content="Long-form thinking on product, AI, and leadership.">
+    <meta name="twitter:image" content="https://kirangorapalli.netlify.app/images/og-image.png">
+
+    <style>
+        /* ============================================
+           BLOG & PODCAST - PAGE STYLES
+           ============================================ */
+
+        /* Hero Banner */
+        .subpage-hero {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-title-area {
+            text-align: center;
+            padding: 6rem 4rem 2rem;
+        }
+        .subpage-hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+        .subpage-hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-bottom: 0;
+        }
+
+        /* ============================================
+           TAB BAR
+           ============================================ */
+        .tab-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 2rem 4rem 0;
+            background: var(--bg-primary);
+        }
+
+        .tab-button {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            padding: 0.6rem 1.8rem;
+            border-radius: 500px;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-button:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+        .tab-button.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        /* ============================================
+           TAB CONTENT
+           ============================================ */
+        .tab-content {
+            padding: 2.5rem 4rem 4rem;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .tab-panel {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .tab-panel.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* ============================================
+           CONTENT CARDS
+           ============================================ */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .content-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            background: transparent;
+            transition: border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+        .content-card:hover {
+            border-color: var(--text-muted);
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .card-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: -0.01em;
+        }
+        .card-badge {
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: rgba(240, 230, 211, 0.06);
+            color: var(--text-secondary);
+        }
+        [data-theme="light"] .card-badge {
+            background: rgba(10, 10, 10, 0.05);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+            margin-bottom: 0.6rem;
+        }
+
+        .card-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+        .card-tag {
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            background: rgba(240, 230, 211, 0.06);
+            color: var(--text-muted);
+        }
+        [data-theme="light"] .card-tag {
+            background: rgba(10, 10, 10, 0.05);
+        }
+
+        .card-link {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+        .card-link:hover {
+            opacity: 0.7;
+        }
+        .card-link svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Podcast-specific: duration badge */
+        .card-duration {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .card-duration svg {
+            width: 12px;
+            height: 12px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Episode number */
+        .episode-number {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        /* ============================================
+           EMPTY STATE (for future use)
+           ============================================ */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+        .empty-state p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           FOOTER (matches career-highlights)
+           ============================================ */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-social {
+            margin-bottom: 2rem;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: border-color 0.2s ease, opacity 0.2s ease;
+        }
+        .social-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+        .social-icon:hover {
+            opacity: 0.8;
+        }
+        .social-icon.linkedin:hover { border-color: #0A66C2; }
+        .social-icon.github:hover { border-color: #f0e6d3; }
+        .social-icon.youtube:hover { border-color: #FF0000; }
+        .social-icon.flickr:hover { border-color: #FF0084; }
+        .social-icon.spotify:hover { border-color: #1DB954; }
+        .social-icon.substack:hover { border-color: #FF6719; }
+
+        [data-theme="light"] .social-icon.github:hover { border-color: #333; }
+
+        .footer-site-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-logo {
+            width: 36px;
+            height: auto;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .footer-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        .footer-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .footer-meta-sep {
+            opacity: 0.4;
+        }
+        .version-number {
+            letter-spacing: 0.02em;
+        }
+        .last-updated {
+            letter-spacing: -0.01em;
+        }
+        .rss-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+        }
+        .rss-badge:hover {
+            color: var(--text-primary);
+        }
+        .rss-badge svg {
+            opacity: 0.6;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+            letter-spacing: 0.02em;
+        }
+
+        /* ============================================
+           TOAST
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 500px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .hero-title-area {
+                padding: 5rem 3rem 1.5rem;
+            }
+            .tab-bar {
+                padding: 1.5rem 3rem 0;
+            }
+            .tab-content {
+                padding: 2rem 3rem 3rem;
+            }
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            footer {
+                padding: 3rem 3rem 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title-area {
+                padding: 4.5rem 1.5rem 1.5rem;
+            }
+            .tab-bar {
+                padding: 1.5rem 1.5rem 0;
+            }
+            .tab-content {
+                padding: 1.5rem 1.5rem 3rem;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            footer {
+                padding: 2.5rem 1.5rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title-area {
+                padding: 4rem 1rem 1rem;
+            }
+            .tab-bar {
+                padding: 1.25rem 1rem 0;
+            }
+            .tab-content {
+                padding: 1.25rem 1rem 2rem;
+            }
+            .content-card {
+                padding: 1.25rem;
+            }
+            footer {
+                padding: 2rem 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="preload">
+    <a href="#content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-right">
+                <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
+                    <svg class="share-icon" viewBox="0 0 24 24">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+                <button id="menuButton" class="menu-button" aria-label="Open menu">Menu</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div></div>
+            <button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">↘ Home</a></li>
+            <li><a href="index.html#work">↘ Fenix - My AI</a></li>
+            <li><a href="career-highlights.html">↘ Career Highlights</a></li>
+            <li><a href="index.html#how-id-built-it">↘ How I'd've Built It</a></li>
+            <li><a href="index.html#my-sandbox">↘ MadLab</a></li>
+            <li><a href="index.html#creative-lab">↘ Studio</a></li>
+            <li><a href="blog-podcast.html">↘ Blog & Podcast</a></li>
+            <li><a href="learning.html">↘ Learning & Certifications</a></li>
+            <li><a href="index.html#causes">↘ Causes</a></li>
+            <li><a href="index.html#store">↘ Store</a></li>
+            <li><a href="index.html#contact">↘ Connect</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <div class="subpage-hero">
+        <div class="hero-title-area">
+            <h1 class="subpage-hero-title">Blog & Podcast</h1>
+            <p class="subpage-hero-tagline">Long-form thinking on product, AI, and leadership</p>
+        </div>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar" role="tablist">
+        <button class="tab-button active" role="tab" aria-selected="true" aria-controls="blogPanel" id="blogTab" data-tab="blog">Blog</button>
+        <button class="tab-button" role="tab" aria-selected="false" aria-controls="podcastPanel" id="podcastTab" data-tab="podcast">Podcast</button>
+    </div>
+
+    <!-- Content -->
+    <div class="tab-content" id="content">
+
+        <!-- Blog Panel -->
+        <div class="tab-panel active" role="tabpanel" id="blogPanel" aria-labelledby="blogTab">
+            <div class="content-grid">
+
+                <article class="content-card">
+                    <div class="card-meta">
+                        <span class="card-date">17 Feb 2026</span>
+                        <span class="card-badge">Case Study</span>
+                    </div>
+                    <h2 class="card-title">The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI</h2>
+                    <p class="card-excerpt">95% of AI pilots fail. Bank of America landed in the other five - not with better technology, but by starting with password resets and letting the tool earn its place.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">AI</span>
+                        <span class="card-tag">Change Management</span>
+                        <span class="card-tag">Fintech</span>
+                    </div>
+                    <a href="blog/the-bank-that-got-213000-employees-to-actually-use-ai.html" class="card-link">Read <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-meta">
+                        <span class="card-date">Feb 2026</span>
+                        <span class="card-badge">Essay</span>
+                    </div>
+                    <h2 class="card-title">The product manager's job isn't to have the best ideas</h2>
+                    <p class="card-excerpt">Most PMs think their value is in ideation. It's not. Your value is in creating the conditions where the best ideas surface, get pressure-tested, and ship.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Product</span>
+                        <span class="card-tag">Leadership</span>
+                    </div>
+                    <a href="#" class="card-link">Read <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-meta">
+                        <span class="card-date">Jan 2026</span>
+                        <span class="card-badge">Deep Dive</span>
+                    </div>
+                    <h2 class="card-title">AI features that actually stick - lessons from three launches</h2>
+                    <p class="card-excerpt">I've shipped AI features that users loved and ones they ignored. The difference was never the model. It was always the framing.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">AI</span>
+                        <span class="card-tag">Strategy</span>
+                    </div>
+                    <a href="#" class="card-link">Read <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-meta">
+                        <span class="card-date">Dec 2025</span>
+                        <span class="card-badge">Essay</span>
+                    </div>
+                    <h2 class="card-title">Why I still write PRDs (and why you probably should too)</h2>
+                    <p class="card-excerpt">The product world has moved on from long documents. I think that's a mistake. Here's the case for thoughtful written artifacts in a Slack-first world.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Product</span>
+                        <span class="card-tag">Process</span>
+                    </div>
+                    <a href="#" class="card-link">Read <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-meta">
+                        <span class="card-date">Nov 2025</span>
+                        <span class="card-badge">Reflection</span>
+                    </div>
+                    <h2 class="card-title">Building for trust in fintech - what banking taught me about product</h2>
+                    <p class="card-excerpt">Users don't read your security page. They feel trust through micro-interactions, transparent copy, and speed. Fintech products live or die on these details.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Fintech</span>
+                        <span class="card-tag">UX</span>
+                    </div>
+                    <a href="#" class="card-link">Read <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </article>
+
+            </div>
+        </div>
+
+        <!-- Podcast Panel -->
+        <div class="tab-panel" role="tabpanel" id="podcastPanel" aria-labelledby="podcastTab">
+            <div class="content-grid">
+
+                <article class="content-card">
+                    <div class="card-meta">
+                        <span class="card-date">Feb 2026</span>
+                        <span class="card-duration"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 38 min</span>
+                    </div>
+                    <p class="episode-number">Episode 4</p>
+                    <h2 class="card-title">The zero-to-one problem - why most product orgs can't do it</h2>
+                    <p class="card-excerpt">Scaling a product and building one from nothing require completely different muscles. I break down what actually changes, and where most teams get stuck.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">0-to-1</span>
+                        <span class="card-tag">Strategy</span>
+                    </div>
+                    <a href="#" class="card-link">Listen <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></a>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-meta">
+                        <span class="card-date">Jan 2026</span>
+                        <span class="card-duration"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 42 min</span>
+                    </div>
+                    <p class="episode-number">Episode 3</p>
+                    <h2 class="card-title">What engineers wish their PM knew</h2>
+                    <p class="card-excerpt">I sat down with three senior engineers I've worked with and asked them to be brutally honest about what PMs get wrong. Their answers surprised me.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Engineering</span>
+                        <span class="card-tag">Leadership</span>
+                    </div>
+                    <a href="#" class="card-link">Listen <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></a>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-meta">
+                        <span class="card-date">Dec 2025</span>
+                        <span class="card-duration"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 35 min</span>
+                    </div>
+                    <p class="episode-number">Episode 2</p>
+                    <h2 class="card-title">Mobile-first is dead. What comes next?</h2>
+                    <p class="card-excerpt">The mobile-first era shaped how I think about product. But the next wave of product thinking isn't about screens at all - it's about ambient intelligence.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Mobile</span>
+                        <span class="card-tag">AI</span>
+                    </div>
+                    <a href="#" class="card-link">Listen <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></a>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-meta">
+                        <span class="card-date">Nov 2025</span>
+                        <span class="card-duration"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 29 min</span>
+                    </div>
+                    <p class="episode-number">Episode 1</p>
+                    <h2 class="card-title">Why I'm starting a podcast (and what I hope to get wrong)</h2>
+                    <p class="card-excerpt">A first episode about why I'm doing this, what I plan to explore, and why being wrong in public might be the most useful thing a product person can do.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Meta</span>
+                        <span class="card-tag">Product</span>
+                    </div>
+                    <a href="#" class="card-link">Listen <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></a>
+                </article>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <!-- Social Icons -->
+        <div class="footer-social">
+            <div class="social-links">
+                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+                    </svg>
+                </a>
+                <a href="https://github.com/iamkiranrao" class="social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+                    </svg>
+                </a>
+                <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+                    </svg>
+                </a>
+                <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                        <circle cx="7" cy="12" r="5"></circle>
+                        <circle cx="17" cy="12" r="5" opacity="0.45"></circle>
+                    </svg>
+                </a>
+                <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path>
+                    </svg>
+                </a>
+                <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                        <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Site Info -->
+        <div class="footer-site-info">
+            <img src="images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
+            <div class="footer-meta">
+                <span class="version-number">v1.0.23</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <span class="last-updated">Updated Feb 2026</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <a href="rss.xml" class="rss-badge" title="Subscribe to RSS feed" target="_blank" rel="noopener noreferrer">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+                    RSS
+                </a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================
+        // TAB SWITCHING
+        // ============================================
+        const tabs = document.querySelectorAll('.tab-button');
+        const panels = document.querySelectorAll('.tab-panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+
+                // Update tab states
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+
+                // Update panel states with fade
+                panels.forEach(p => {
+                    p.classList.remove('active');
+                });
+
+                const targetPanel = document.getElementById(target + 'Panel');
+                // Small delay for fade effect
+                requestAnimationFrame(() => {
+                    targetPanel.classList.add('active');
+                });
+            });
+        });
+
+        // Keyboard navigation for tabs
+        document.querySelector('.tab-bar').addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                const currentTab = document.querySelector('.tab-button.active');
+                const tabList = Array.from(tabs);
+                const currentIndex = tabList.indexOf(currentTab);
+                let nextIndex;
+
+                if (e.key === 'ArrowRight') {
+                    nextIndex = (currentIndex + 1) % tabList.length;
+                } else {
+                    nextIndex = (currentIndex - 1 + tabList.length) % tabList.length;
+                }
+
+                tabList[nextIndex].focus();
+                tabList[nextIndex].click();
+            }
+        });
+
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        const menuButton = document.getElementById('menuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ============================================
+        // THEME TOGGLE
+        // ============================================
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.querySelector('.moon-icon').style.display = 'none';
+            document.querySelector('.sun-icon').style.display = 'block';
+        }
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            document.documentElement.setAttribute('data-theme', isLight ? '' : 'light');
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
+            document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+        });
+
+        // ============================================
+        // TOAST
+        // ============================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('visible');
+            setTimeout(() => toast.classList.remove('visible'), 3000);
+        }
+
+        // ============================================
+        // MISC
+        // ============================================
+        window.addEventListener('load', () => {
+            document.body.classList.remove('preload');
+        });
+
+        document.querySelector('.footer-logo')?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

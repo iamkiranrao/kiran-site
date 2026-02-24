@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kiran Gorapalli - Release Notes &amp; Blog</title>
+    <link>https://kirangorapalli.netlify.app</link>
+    <description>Release notes, updates, and blog posts from Kiran Gorapalli's portfolio site.</description>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 16 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://kirangorapalli.netlify.app/rss.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>v1.0.19 - Bent Template Restyle &amp; Site Restructure</title>
+      <link>https://kirangorapalli.netlify.app/#releases</link>
+      <guid>https://kirangorapalli.netlify.app/releases/v1.0.19</guid>
+      <pubDate>Sun, 16 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Major visual overhaul inspired by the Framer Bent template. Full-width edge-to-edge images with parallax zoom effect, restructured site into 8 work sections (My Work, How I'd've Built It, My Sandbox, Creative Lab, Blog &amp; Podcast, Learning &amp; Certifications, Causes, Store), compact navigation menu, unified dark background, and Fenix AI assistant integration.</description>
+    </item>
+
+    <item>
+      <title>v1.0.11 - Added Go-to-Market Strategy Competency</title>
+      <link>https://kirangorapalli.netlify.app/#releases</link>
+      <guid>https://kirangorapalli.netlify.app/releases/v1.0.11</guid>
+      <pubDate>Sat, 15 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Added 5th competency block for Go-to-Market Strategy with updated grid layout to accommodate five columns.</description>
+    </item>
+
+    <item>
+      <title>v1.0.10 - Menu Redesign &amp; Fenix Branding</title>
+      <link>https://kirangorapalli.netlify.app/#releases</link>
+      <guid>https://kirangorapalli.netlify.app/releases/v1.0.10</guid>
+      <pubDate>Sat, 15 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Removed brackets from menu items, added downward-right arrow icons, and updated Fenix menu label to "Meet Fenix — my AI Agent".</description>
+    </item>
+
+    <item>
+      <title>v1.0.9 - Fenix Video Section</title>
+      <link>https://kirangorapalli.netlify.app/#releases</link>
+      <guid>https://kirangorapalli.netlify.app/releases/v1.0.9</guid>
+      <pubDate>Sat, 15 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Replaced the Fenix AI section with a cinematic video container featuring a dark teal gradient placeholder and centered text overlay.</description>
+    </item>
+
+    <item>
+      <title>v1.0.8 - AI Integration Description Update</title>
+      <link>https://kirangorapalli.netlify.app/#releases</link>
+      <guid>https://kirangorapalli.netlify.app/releases/v1.0.8</guid>
+      <pubDate>Sat, 15 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Updated the AI Integration competency description to: "I translate what AI makes possible into what customers actually need — then make sure it ships, scales, and earns trust."</description>
+    </item>
+
+  </channel>
+</rss>
