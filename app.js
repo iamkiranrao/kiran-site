@@ -395,7 +395,7 @@ const cardConfig = [
     { title: 'Creative Studio', link: null },
     { title: 'Blog & Podcast', link: 'blog-podcast.html', sameTab: true },
     { title: 'Learning & Certifications', link: 'learning.html', sameTab: true },
-    { title: 'Causes', link: null },
+    { title: 'Causes', link: 'causes.html', sameTab: true },
     { title: 'Store', link: null }
 ];
 
