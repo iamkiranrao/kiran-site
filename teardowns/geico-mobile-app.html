@@ -517,6 +517,45 @@
             margin-bottom: 0;
         }
 
+        /* Cross-link */
+        .related-wrapper {
+            margin-top: 2.5rem;
+        }
+        .related-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+        .related-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 0.85rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .related-link:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+        }
+        .related-link svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         @media (max-width: 768px) {
             .glance-stats { grid-template-columns: repeat(2, 1fr); }
             .glance-position { grid-template-columns: 1fr; }
@@ -1375,6 +1414,15 @@
         <div class="assumptions">
             <div class="assumptions-label">Assumptions & Limitations</div>
             <p>I don't work at GEICO and I've never seen their internal systems, call volume data, or technology roadmap. This analysis is built from their public-facing AI assistant (tested directly), their published usage guidance ("keep questions short and direct"), their NPS score (20, per QuestionPro Q1 2025), competitor benchmarks (Lemonade Q2 2025 earnings, Progressive's Azure AI partnership), and industry cost data ($0.50 vs $6.00, from multiple 2025 industry reports). The persona is a composite based on Trustpilot and App Store review patterns. The KPI numbers are educated ranges, not magic numbers.</p>
+        </div>
+
+        <!-- Related -->
+        <div class="related-wrapper">
+            <div class="related-label">Related</div>
+            <a href="../prototypes/insurance-chatbot/overview.html" class="related-link">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                Insurance AI Assistant - the working prototype built from this analysis
+            </a>
         </div>
 
     </div>

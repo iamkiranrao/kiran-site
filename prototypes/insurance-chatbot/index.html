@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GEICO Insurance AI Assistant - LangGraph + LangChain prototype by Kiran Gorapalli">
+    <title>Insurance AI Assistant - MadLab | Kiran Gorapalli</title>
+    <link rel="icon" href="../../images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-chat: #161616;
+            --text-primary: #f0e6d3;
+            --text-secondary: #a09888;
+            --text-muted: #5a5347;
+            --accent: #4a9eff;
+            --accent-dim: rgba(74, 158, 255, 0.1);
+            --border: #222222;
+            --bot-bg: #1a1a1a;
+            --user-bg: #1e3a5f;
+            --success: #34d399;
+            --warning: #fbbf24;
+            --error: #f87171;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f3f0;
+            --bg-secondary: #edeae6;
+            --bg-chat: #ffffff;
+            --text-primary: #3a3632;
+            --text-secondary: #6b6560;
+            --text-muted: #9a948e;
+            --accent: #2563eb;
+            --accent-dim: rgba(37, 99, 235, 0.08);
+            --border: #c5c0b8;
+            --bot-bg: #f0ede9;
+            --user-bg: #dbeafe;
+            --success: #059669;
+            --warning: #d97706;
+            --error: #dc2626;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        .proto-header {
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: var(--bg-primary);
+        }
+
+        .proto-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .proto-back {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .proto-back:hover { color: var(--text-primary); }
+
+        .proto-title-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+        .proto-title {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        .proto-subtitle {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .proto-badge {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border-radius: 500px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        /* ============================================
+           MAIN LAYOUT
+           ============================================ */
+        .proto-main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ============================================
+           STATE PANEL (LEFT)
+           ============================================ */
+        .state-panel {
+            width: 320px;
+            border-right: 1px solid var(--border);
+            padding: 1.25rem;
+            overflow-y: auto;
+            background: var(--bg-secondary);
+            flex-shrink: 0;
+        }
+
+        .state-title {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .state-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .state-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+
+        .state-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            word-break: break-all;
+        }
+        .state-value.empty {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        .state-value.success { color: var(--success); }
+        .state-value.warning { color: var(--warning); }
+        .state-value.error { color: var(--error); }
+        .state-value.accent { color: var(--accent); }
+
+        /* Graph visualization */
+        .graph-section {
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .graph-nodes {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .graph-node {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .graph-node.active {
+            color: var(--accent);
+            background: var(--accent-dim);
+            border-color: var(--accent);
+        }
+        .graph-node.completed {
+            color: var(--success);
+        }
+        .graph-node-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .graph-node.active .graph-node-dot { background: var(--accent); }
+        .graph-node.completed .graph-node-dot { background: var(--success); }
+
+        .graph-edge {
+            width: 1px;
+            height: 12px;
+            background: var(--border);
+            margin-left: 0.85rem;
+        }
+
+        /* ============================================
+           CHAT PANEL (CENTER)
+           ============================================ */
+        .chat-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 0.85rem 1.15rem;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            animation: messageIn 0.3s ease;
+        }
+
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: var(--bot-bg);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--user-bg);
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.system {
+            align-self: center;
+            background: var(--accent-dim);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 500px;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .typing-indicator {
+            align-self: flex-start;
+            padding: 0.85rem 1.15rem;
+            background: var(--bot-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            border-bottom-left-radius: 4px;
+            display: flex;
+            gap: 0.3rem;
+        }
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            animation: typingBounce 1.4s infinite;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-4px); }
+        }
+
+        /* Chat input */
+        .chat-input-area {
+            border-top: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 0.75rem;
+            background: var(--bg-primary);
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-chat);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .chat-input:focus { border-color: var(--accent); }
+        .chat-input::placeholder { color: var(--text-muted); }
+
+        .chat-send {
+            padding: 0.75rem 1.25rem;
+            border-radius: 10px;
+            border: 1px solid var(--accent);
+            background: var(--accent);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .chat-send:hover { opacity: 0.85; }
+        .chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* Quick replies */
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0 2rem 0.75rem;
+        }
+        .quick-reply {
+            padding: 0.4rem 0.85rem;
+            border-radius: 500px;
+            border: 1px solid var(--border);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .quick-reply:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        /* ============================================
+           ARCHITECTURE INFO (BOTTOM)
+           ============================================ */
+        .arch-bar {
+            border-top: 1px solid var(--border);
+            padding: 0.6rem 2rem;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-secondary);
+        }
+        .arch-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .arch-tag {
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 900px) {
+            .state-panel { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .proto-header { padding: 0.75rem 1rem; }
+            .chat-messages { padding: 1rem; }
+            .chat-input-area { padding: 0.75rem 1rem; }
+            .quick-replies { padding: 0 1rem 0.5rem; }
+            .message { max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="proto-header">
+        <div class="proto-header-left">
+            <a href="../../madlab.html" class="proto-back">&larr; MadLab</a>
+            <div class="proto-title-group">
+                <div class="proto-title">Insurance AI Assistant</div>
+                <div class="proto-subtitle">LangGraph State Machine - Multi-Step Claim Flow</div>
+            </div>
+        </div>
+        <span class="proto-badge">Prototype</span>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="proto-main">
+        <!-- State Panel -->
+        <div class="state-panel">
+            <div class="state-title">LangGraph State</div>
+
+            <div class="state-card">
+                <div class="state-label">Current Node</div>
+                <div class="state-value accent" id="stateNode">classify_intent</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-label">Intent</div>
+                <div class="state-value empty" id="stateIntent">awaiting input</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-label">Policy Number</div>
+                <div class="state-value empty" id="statePolicy">not provided</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-label">User Verified</div>
+                <div class="state-value empty" id="stateVerified">false</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-label">Claim Status</div>
+                <div class="state-value empty" id="stateClaim">none</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-label">Messages</div>
+                <div class="state-value" id="stateMessages">0</div>
+            </div>
+
+            <!-- Graph Visualization -->
+            <div class="graph-section">
+                <div class="state-title">Graph Flow</div>
+                <div class="graph-nodes">
+                    <div class="graph-node active" id="node-classify">
+                        <span class="graph-node-dot"></span>classify_intent
+                    </div>
+                    <div class="graph-edge"></div>
+                    <div class="graph-node" id="node-verify">
+                        <span class="graph-node-dot"></span>verify_policy
+                    </div>
+                    <div class="graph-edge"></div>
+                    <div class="graph-node" id="node-route">
+                        <span class="graph-node-dot"></span>route_request
+                    </div>
+                    <div class="graph-edge"></div>
+                    <div class="graph-node" id="node-collect">
+                        <span class="graph-node-dot"></span>collect_details
+                    </div>
+                    <div class="graph-edge"></div>
+                    <div class="graph-node" id="node-assess">
+                        <span class="graph-node-dot"></span>assess_damage
+                    </div>
+                    <div class="graph-edge"></div>
+                    <div class="graph-node" id="node-respond">
+                        <span class="graph-node-dot"></span>generate_response
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Panel -->
+        <div class="chat-panel">
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="quick-replies" id="quickReplies"></div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..." autocomplete="off">
+                <button class="chat-send" id="chatSend">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Architecture Bar -->
+    <div class="arch-bar">
+        <span>Built by Kiran Gorapalli &middot; LangGraph Architecture Demo</span>
+        <div class="arch-tags">
+            <span class="arch-tag">LangGraph</span>
+            <span class="arch-tag">LangChain</span>
+            <span class="arch-tag">State Machine</span>
+            <span class="arch-tag">Python / Flask</span>
+        </div>
+    </div>
+
+    <script>
+    // ============================================
+    // LANGGRAPH STATE MACHINE (Client-Side Demo)
+    // Mirrors the Python LangGraph architecture:
+    //   State → Nodes → Conditional Edges → Response
+    // ============================================
+
+    // --- STATE (TypedDict equivalent) ---
+    const conversationState = {
+        messages: [],
+        intent: null,
+        policyNumber: null,
+        userVerified: false,
+        claimDetails: { type: null, description: null, date: null },
+        claimId: null,
+        damageEstimate: null,
+        currentNode: 'classify_intent',
+        completedNodes: [],
+        nextStep: null,
+    };
+
+    // --- MOCK DATABASE ---
+    const policyDB = {
+        '1234567890': { name: 'Sarah Johnson', type: 'Auto', vehicle: '2022 Toyota Camry', premium: '$142/mo', status: 'Active', deductible: '$500' },
+        '9876543210': { name: 'Michael Chen', type: 'Auto', vehicle: '2023 Honda Civic', premium: '$128/mo', status: 'Active', deductible: '$750' },
+        '5551234567': { name: 'Emily Rodriguez', type: 'Home', property: '1842 Oak Lane, Austin TX', premium: '$189/mo', status: 'Active', deductible: '$1,000' },
+    };
+
+    // --- NODE FUNCTIONS ---
+    // Each mirrors a LangGraph node: receives state, returns updated state
+
+    function classifyIntent(state, userMessage) {
+        const msg = userMessage.toLowerCase();
+        let intent = 'general';
+
+        if (msg.includes('claim') || msg.includes('accident') || msg.includes('damage') || msg.includes('file')) {
+            intent = 'file_claim';
+        } else if (msg.includes('policy') || msg.includes('coverage') || msg.includes('plan') || msg.includes('deductible')) {
+            intent = 'policy_inquiry';
+        } else if (msg.includes('bill') || msg.includes('pay') || msg.includes('premium') || msg.includes('payment')) {
+            intent = 'billing';
+        } else if (msg.includes('quote') || msg.includes('price') || msg.includes('rate') || msg.includes('estimate')) {
+            intent = 'get_quote';
+        } else if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey') || msg.includes('help')) {
+            intent = 'greeting';
+        }
+
+        // Only update intent if we detected something specific,
+        // or if there's no previous intent. This preserves the
+        // existing intent when the user is just providing data
+        // (like a policy number or claim description).
+        if (intent !== 'general' || !state.intent) {
+            state.intent = intent;
+        }
+
+        state.currentNode = 'classify_intent';
+        if (!state.completedNodes.includes('classify_intent')) state.completedNodes.push('classify_intent');
+
+        return state;
+    }
+
+    function verifyPolicy(state, userMessage) {
+        const policyMatch = userMessage.replace(/\D/g, '');
+
+        if (policyMatch.length >= 10) {
+            const policyNum = policyMatch.substring(0, 10);
+            const policy = policyDB[policyNum];
+
+            if (policy) {
+                state.policyNumber = policyNum;
+                state.userVerified = true;
+                state.policyData = policy;
+                state.currentNode = 'verify_policy';
+                if (!state.completedNodes.includes('verify_policy')) state.completedNodes.push('verify_policy');
+                return state;
+            }
+        }
+
+        state.currentNode = 'verify_policy';
+        return state;
+    }
+
+    function collectClaimDetails(state, userMessage) {
+        const msg = userMessage.toLowerCase();
+        state.currentNode = 'collect_details';
+
+        if (!state.claimDetails.type) {
+            if (msg.includes('collision') || msg.includes('crash') || msg.includes('hit') || msg.includes('fender') || msg.includes('rear')) {
+                state.claimDetails.type = 'collision';
+            } else if (msg.includes('theft') || msg.includes('stolen') || msg.includes('break')) {
+                state.claimDetails.type = 'theft';
+            } else if (msg.includes('weather') || msg.includes('hail') || msg.includes('flood') || msg.includes('storm') || msg.includes('tree')) {
+                state.claimDetails.type = 'weather_damage';
+            } else if (msg.includes('windshield') || msg.includes('glass') || msg.includes('window') || msg.includes('crack')) {
+                state.claimDetails.type = 'glass';
+            } else {
+                state.claimDetails.type = msg.length > 3 ? 'other' : null;
+            }
+        } else if (!state.claimDetails.description) {
+            state.claimDetails.description = userMessage;
+        }
+
+        if (!state.completedNodes.includes('collect_details')) state.completedNodes.push('collect_details');
+        return state;
+    }
+
+    function assessDamage(state) {
+        state.currentNode = 'assess_damage';
+
+        const estimates = {
+            'collision': { low: 1200, high: 4500, avg: 2800, severity: 'Moderate' },
+            'theft': { low: 2000, high: 15000, avg: 8000, severity: 'High' },
+            'weather_damage': { low: 800, high: 6000, avg: 3200, severity: 'Moderate' },
+            'glass': { low: 200, high: 800, avg: 450, severity: 'Low' },
+            'other': { low: 500, high: 3000, avg: 1500, severity: 'Moderate' },
+        };
+
+        const est = estimates[state.claimDetails.type] || estimates['other'];
+        state.damageEstimate = est;
+        state.claimId = 'CLM-' + Date.now().toString(36).toUpperCase().slice(-6);
+
+        if (!state.completedNodes.includes('assess_damage')) state.completedNodes.push('assess_damage');
+        return state;
+    }
+
+    // --- GRAPH ROUTER (Conditional Edges) ---
+    function routeConversation(state, userMessage) {
+        // Greeting flow
+        if (state.intent === 'greeting' && !state.userVerified) {
+            return 'greet';
+        }
+
+        // Need verification first for most intents
+        if (!state.userVerified && state.intent !== 'greeting' && state.intent !== 'get_quote' && state.intent !== 'general') {
+            return 'need_policy';
+        }
+
+        // Policy verification attempt
+        if (!state.userVerified && /\d{10}/.test(userMessage.replace(/\D/g, ''))) {
+            return 'verify';
+        }
+
+        // Claim flow
+        if (state.intent === 'file_claim' && state.userVerified) {
+            if (!state.claimDetails.type) return 'ask_claim_type';
+            if (!state.claimDetails.description) return 'ask_claim_desc';
+            if (!state.claimId) return 'assess';
+            return 'claim_complete';
+        }
+
+        // Policy inquiry
+        if (state.intent === 'policy_inquiry' && state.userVerified) {
+            return 'show_policy';
+        }
+
+        // Billing
+        if (state.intent === 'billing' && state.userVerified) {
+            return 'show_billing';
+        }
+
+        // Quote
+        if (state.intent === 'get_quote') {
+            return 'show_quote';
+        }
+
+        return 'general';
+    }
+
+    // --- RESPONSE GENERATOR ---
+    function generateResponse(route, state) {
+        state.currentNode = 'generate_response';
+        if (!state.completedNodes.includes('generate_response')) state.completedNodes.push('generate_response');
+
+        const responses = {
+            'greet': {
+                text: "Hello! I'm GEICO's AI Insurance Assistant. I can help you with claims, policy questions, billing, and quotes.\n\nTo get started with account-specific help, I'll need your 10-digit policy number. Or just ask me anything!",
+                quickReplies: ['I need to file a claim', 'Check my policy', 'Get a quote', 'Billing question']
+            },
+            'need_policy': {
+                text: `I'd be happy to help with your ${state.intent === 'file_claim' ? 'claim' : state.intent === 'billing' ? 'billing question' : 'policy inquiry'}. For security, I'll need to verify your identity first.\n\nPlease enter your 10-digit policy number.`,
+                quickReplies: ['1234567890', '9876543210']
+            },
+            'verify': {
+                text: state.userVerified
+                    ? `✅ Identity verified!\n\nWelcome back, ${state.policyData?.name}.\n\n**Policy:** ${state.policyNumber}\n**Type:** ${state.policyData?.type}\n**Vehicle:** ${state.policyData?.vehicle || state.policyData?.property}\n**Status:** ${state.policyData?.status}\n\nHow can I help you today?`
+                    : "❌ I couldn't find that policy number in our system. Please double-check and try again.\n\nDemo policy numbers: 1234567890, 9876543210, 5551234567",
+                quickReplies: state.userVerified ? ['File a claim', 'View my policy', 'Billing info'] : ['1234567890']
+            },
+            'ask_claim_type': {
+                text: "I'll help you file a claim. First, what type of incident occurred?",
+                quickReplies: ['Collision / Accident', 'Theft / Break-in', 'Weather damage', 'Windshield / Glass']
+            },
+            'ask_claim_desc': {
+                text: `Got it - **${(state.claimDetails.type || 'unknown').replace('_', ' ')}** claim.\n\nPlease describe what happened in a few sentences. Include details like when and where it occurred.`,
+                quickReplies: ['Rear-ended at a stoplight yesterday', 'Hit a deer on the highway', 'Tree fell on my car during the storm']
+            },
+            'assess': {
+                text: `📋 **Claim Filed Successfully**\n\n**Claim ID:** ${state.claimId || 'Pending'}\n**Type:** ${(state.claimDetails.type || 'unknown').replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())}\n**Description:** ${state.claimDetails.description || 'Not provided'}\n**Policy:** ${state.policyNumber}\n\n🤖 **AI Damage Assessment**\nBased on ${(state.claimDetails.type || 'general').replace('_', ' ')} claims data:\n• Estimated range: **$${state.damageEstimate ? state.damageEstimate.low.toLocaleString() : '0'} - $${state.damageEstimate ? state.damageEstimate.high.toLocaleString() : '0'}**\n• Average cost: **$${state.damageEstimate ? state.damageEstimate.avg.toLocaleString() : '0'}**\n• Severity: **${state.damageEstimate ? state.damageEstimate.severity : 'Unknown'}**\n• Your deductible: **${state.policyData?.deductible || 'N/A'}**\n\nA claims adjuster will contact you within 24 hours. Is there anything else I can help with?`,
+                quickReplies: ['Check claim status', 'View my policy', 'That\'s all, thanks']
+            },
+            'show_policy': {
+                text: `📄 **Your Policy Details**\n\n**Policy #:** ${state.policyNumber}\n**Holder:** ${state.policyData?.name}\n**Type:** ${state.policyData?.type} Insurance\n**Covered:** ${state.policyData?.vehicle || state.policyData?.property}\n**Premium:** ${state.policyData?.premium}\n**Deductible:** ${state.policyData?.deductible}\n**Status:** ✅ ${state.policyData?.status}\n\nWould you like to make changes or ask anything else?`,
+                quickReplies: ['File a claim', 'Billing info', 'That\'s all']
+            },
+            'show_billing': {
+                text: `💳 **Billing Summary**\n\n**Policy #:** ${state.policyNumber}\n**Monthly Premium:** ${state.policyData?.premium}\n**Payment Status:** ✅ Current\n**Next Due:** March 15, 2026\n**AutoPay:** Enabled (Visa ending 4242)\n\nNeed to update your payment method or have other questions?`,
+                quickReplies: ['View policy', 'File a claim', 'That\'s all']
+            },
+            'show_quote': {
+                text: "🚗 **Quick Quote Estimate**\n\nBased on average rates in your area:\n\n• **Liability Only:** ~$89/mo\n• **Full Coverage:** ~$142/mo\n• **Premium Coverage:** ~$198/mo\n\nFor an exact quote, I'd need some details. Want to provide your info, or would you prefer to speak with an agent?",
+                quickReplies: ['Get exact quote', 'Talk to an agent', 'Go back']
+            },
+            'general': {
+                text: "I can help you with:\n\n• **File a claim** - report an accident or incident\n• **Policy info** - check coverage, deductibles, status\n• **Billing** - view payments, update method\n• **Get a quote** - estimate new coverage\n\nWhat would you like to do?",
+                quickReplies: ['File a claim', 'Check my policy', 'Billing question', 'Get a quote']
+            },
+            'claim_complete': {
+                text: `Your claim **${state.claimId}** is being processed. A claims adjuster will reach out within 24 hours.\n\nAnything else I can help with?`,
+                quickReplies: ['View my policy', 'Billing info', 'That\'s all']
+            }
+        };
+
+        return responses[route] || responses['general'];
+    }
+
+    // ============================================
+    // UI CONTROLLER
+    // ============================================
+
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+    const quickRepliesEl = document.getElementById('quickReplies');
+    let messageCount = 0;
+
+    function addMessage(text, type, quickReplies) {
+        // Remove typing indicator if present
+        const typing = document.querySelector('.typing-indicator');
+        if (typing) typing.remove();
+
+        const div = document.createElement('div');
+        div.className = `message ${type}`;
+        div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        messageCount++;
+
+        // Quick replies
+        quickRepliesEl.innerHTML = '';
+        if (quickReplies && type === 'bot') {
+            quickReplies.forEach(text => {
+                const btn = document.createElement('button');
+                btn.className = 'quick-reply';
+                btn.textContent = text;
+                btn.addEventListener('click', () => handleUserMessage(text));
+                quickRepliesEl.appendChild(btn);
+            });
+        }
+    }
+
+    function showTyping() {
+        const div = document.createElement('div');
+        div.className = 'typing-indicator';
+        div.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addSystemMessage(text) {
+        const div = document.createElement('div');
+        div.className = 'message system';
+        div.textContent = text;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function updateStatePanel() {
+        document.getElementById('stateNode').textContent = conversationState.currentNode;
+        document.getElementById('stateMessages').textContent = messageCount;
+
+        const intentEl = document.getElementById('stateIntent');
+        intentEl.textContent = conversationState.intent || 'awaiting input';
+        intentEl.className = 'state-value' + (conversationState.intent ? '' : ' empty');
+
+        const policyEl = document.getElementById('statePolicy');
+        policyEl.textContent = conversationState.policyNumber || 'not provided';
+        policyEl.className = 'state-value' + (conversationState.policyNumber ? ' success' : ' empty');
+
+        const verifiedEl = document.getElementById('stateVerified');
+        verifiedEl.textContent = conversationState.userVerified ? 'true' : 'false';
+        verifiedEl.className = 'state-value' + (conversationState.userVerified ? ' success' : ' empty');
+
+        const claimEl = document.getElementById('stateClaim');
+        if (conversationState.claimId) {
+            claimEl.textContent = conversationState.claimId;
+            claimEl.className = 'state-value success';
+        } else if (conversationState.claimDetails.type) {
+            claimEl.textContent = 'collecting...';
+            claimEl.className = 'state-value warning';
+        } else {
+            claimEl.textContent = 'none';
+            claimEl.className = 'state-value empty';
+        }
+
+        // Update graph nodes
+        const allNodes = ['classify', 'verify', 'route', 'collect', 'assess', 'respond'];
+        const nodeMap = {
+            'classify_intent': 'classify', 'verify_policy': 'verify', 'route_request': 'route',
+            'collect_details': 'collect', 'assess_damage': 'assess', 'generate_response': 'respond'
+        };
+        allNodes.forEach(n => {
+            const el = document.getElementById('node-' + n);
+            el.className = 'graph-node';
+        });
+        conversationState.completedNodes.forEach(cn => {
+            const mapped = nodeMap[cn];
+            if (mapped) document.getElementById('node-' + mapped).className = 'graph-node completed';
+        });
+        const currentMapped = nodeMap[conversationState.currentNode];
+        if (currentMapped) document.getElementById('node-' + currentMapped).className = 'graph-node active';
+    }
+
+    // --- MAIN HANDLER (Graph Execution) ---
+    async function handleUserMessage(text) {
+        if (!text.trim()) return;
+
+        addMessage(text, 'user');
+        chatInput.value = '';
+        chatSend.disabled = true;
+        quickRepliesEl.innerHTML = '';
+
+        conversationState.messages.push({ role: 'user', content: text });
+
+        try {
+            // Step 1: Classify intent
+            classifyIntent(conversationState, text);
+            addSystemMessage(`Node: classify_intent → intent="${conversationState.intent}"`);
+            updateStatePanel();
+
+            showTyping();
+            await sleep(400);
+
+            // Step 2: Try policy verification if digits provided
+            if (/\d{7,}/.test(text.replace(/\D/g, '')) && !conversationState.userVerified) {
+                verifyPolicy(conversationState, text);
+                addSystemMessage(`Node: verify_policy → verified=${conversationState.userVerified}`);
+                updateStatePanel();
+                await sleep(300);
+            }
+
+            // Step 3: Route
+            conversationState.currentNode = 'route_request';
+            if (!conversationState.completedNodes.includes('route_request')) conversationState.completedNodes.push('route_request');
+            updateStatePanel();
+
+            let route = routeConversation(conversationState, text);
+
+            // Step 4: Collect claim details if in claim flow
+            if (route === 'ask_claim_type' || route === 'ask_claim_desc') {
+                if (conversationState.claimDetails.type === null && conversationState.intent === 'file_claim') {
+                    collectClaimDetails(conversationState, text);
+                    if (conversationState.claimDetails.type) {
+                        route = 'ask_claim_desc';
+                    }
+                } else if (conversationState.claimDetails.type && !conversationState.claimDetails.description) {
+                    collectClaimDetails(conversationState, text);
+                    if (conversationState.claimDetails.description) {
+                        assessDamage(conversationState);
+                        route = 'assess';
+                    }
+                }
+                updateStatePanel();
+            }
+
+            // Step 4b: If route is 'assess' but assessDamage hasn't run yet, run it now
+            if (route === 'assess' && !conversationState.claimId) {
+                assessDamage(conversationState);
+                updateStatePanel();
+            }
+
+            // Handle verified + verify route
+            if (route === 'verify' || (!conversationState.userVerified && /\d{10}/.test(text.replace(/\D/g, '')))) {
+                if (!conversationState.userVerified) {
+                    verifyPolicy(conversationState, text);
+                    updateStatePanel();
+                }
+                route = 'verify';
+            }
+
+            await sleep(600);
+
+            // Step 5: Generate response
+            const response = generateResponse(route, conversationState);
+            conversationState.messages.push({ role: 'assistant', content: response.text });
+            addMessage(response.text, 'bot', response.quickReplies);
+            updateStatePanel();
+
+        } catch (err) {
+            // Remove stuck typing indicator and recover
+            const typing = document.querySelector('.typing-indicator');
+            if (typing) typing.remove();
+            addMessage(`Something went wrong: **${err.message}**\n\n(Check browser console for full stack trace)`, 'bot', ['Start over', 'File a claim', 'Check my policy']);
+            console.error('Chat error:', err);
+            console.error('Stack:', err.stack);
+            console.error('State at error:', JSON.stringify(conversationState, null, 2));
+        }
+
+        chatSend.disabled = false;
+        chatInput.focus();
+    }
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    // --- EVENT LISTENERS ---
+    chatSend.addEventListener('click', () => handleUserMessage(chatInput.value));
+    chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleUserMessage(chatInput.value);
+        }
+    });
+
+    // --- THEME ---
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+
+    // --- BOOT ---
+    (async () => {
+        await sleep(500);
+        addMessage("Hello! I'm GEICO's AI Insurance Assistant, powered by a LangGraph state machine.\n\nI can help you with **claims**, **policy questions**, **billing**, and **quotes**.\n\nTry it out - the left panel shows the graph state updating in real-time as we chat.", 'bot', ['I need to file a claim', 'Check my policy', 'Get a quote', 'Hi there!']);
+        updateStatePanel();
+    })();
+    </script>
+</body>
+</html>

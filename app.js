@@ -391,8 +391,8 @@ const workCards = document.querySelectorAll('.work-card');
 const cardConfig = [
     { title: 'Career Highlights', link: 'career-highlights.html', sameTab: true },
     { title: 'How I\'d\'ve Built It', link: 'how-id-built-it.html', sameTab: true },
-    { title: 'My MadLab', link: null },
-    { title: 'Creative Studio', link: null },
+    { title: 'My MadLab', link: 'madlab.html', sameTab: true },
+    { title: 'Creative Studio', link: 'studio.html', sameTab: true },
     { title: 'Blog & Podcast', link: 'blog-podcast.html', sameTab: true },
     { title: 'Learning & Certifications', link: 'learning.html', sameTab: true },
     { title: 'Causes', link: 'causes.html', sameTab: true },
