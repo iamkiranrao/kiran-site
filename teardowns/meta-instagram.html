@@ -714,7 +714,84 @@
             .teardown { padding: 1rem 1rem 2rem; }
             footer { padding: 2rem 1rem 1.5rem; }
         }
+
+        /* Glossary */
+        .page-glossary {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem 4rem 0;
+        }
+        .glossary-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.35rem 0.75rem;
+            cursor: pointer;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .glossary-toggle:hover {
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+        .glossary-toggle .arrow {
+            transition: transform 0.2s ease;
+            font-size: 0.6rem;
+        }
+        .glossary-toggle.open .arrow {
+            transform: rotate(90deg);
+        }
+        .glossary-terms {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+        }
+        .glossary-terms.visible {
+            display: block;
+        }
+        .glossary-term {
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+        .glossary-term:last-child {
+            margin-bottom: 0;
+        }
+        .glossary-term strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
     </style>
+    <!-- Structured Data for Fenix + SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Instagram Teardown",
+        "author": {
+            "@type": "Person",
+            "name": "Kiran Gorapalli",
+            "url": "https://kirangorapalli.netlify.app"
+        },
+        "description": "Product teardown of Instagram's content discovery experience. Analysis of the algorithmic feed, proposed following-first redesign, and business case for retention over session time.",
+        "url": "https://kirangorapalli.netlify.app/teardowns/meta-instagram.html",
+        "image": "https://kirangorapalli.netlify.app/images/og-image.png",
+        "publisher": {
+            "@type": "Person",
+            "name": "Kiran Gorapalli"
+        }
+    }
+    </script>
 </head>
 <body class="preload">
     <a href="#teardown" class="skip-link">Skip to main content</a>
@@ -778,7 +855,7 @@
     <div class="subpage-hero">
         <div class="hero-title-area">
             <h1 class="subpage-hero-title">Instagram</h1>
-            <p class="subpage-hero-tagline">The feed that forgot what it was for - and how to bring it back</p>
+            <p class="subpage-hero-tagline">How the shift from chronological to algorithmic changed what the feed feels like - and what a user-choice model could unlock</p>
         </div>
     </div>
 
@@ -789,6 +866,21 @@
         <a href="meta.html">Meta</a>
         <span>/</span>
         <span class="current">Instagram</span>
+    </div>
+
+    <!-- Glossary -->
+    <div class="page-glossary">
+        <button class="glossary-toggle" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('visible')" aria-expanded="false">
+            <span class="arrow">&#9654;</span> Quick reference
+        </button>
+        <div class="glossary-terms" role="region" aria-label="Glossary">
+            <div class="glossary-term"><strong>Customer Journey Map</strong> — A timeline of what a user does, thinks, and feels at each stage. The sentiment curve shows where frustration peaks.</div>
+            <div class="glossary-term"><strong>Keep / Kill / Build (KKB)</strong> — A product analysis framework. Keep = works well. Kill = causes friction. Build = gaps worth filling.</div>
+            <div class="glossary-term"><strong>Algorithm (Feed)</strong> — The system deciding what content you see. Instagram shifted from chronological to algorithmic in 2016.</div>
+            <div class="glossary-term"><strong>Following-First Feed</strong> — Home screen defaulting to posts from accounts you follow, chronologically. The algorithmic feed still exists but isn't forced.</div>
+            <div class="glossary-term"><strong>Session Digest</strong> — A summary card after a set amount of scrolling. Gives you a natural stopping point that doesn't require willpower.</div>
+            <div class="glossary-term"><strong>DAU/MAU Ratio</strong> — Daily active users divided by monthly active users. Measures how sticky an app is.</div>
+        </div>
     </div>
 
     <!-- Teardown Content -->
@@ -842,7 +934,7 @@
         <!-- ============================================
              SECTION 1: DISCOVERY
              ============================================ -->
-        <div class="teardown-section">
+        <div class="teardown-section" data-section-id="discovery" data-section-type="teardown-discovery" data-skills='["customer-research","journey-mapping","persona-development"]'>
             <div class="section-number">Section 01</div>
             <div class="section-title">Discovery</div>
 
@@ -943,7 +1035,7 @@
         <!-- ============================================
              SECTION 2: KEEP / KILL / BUILD
              ============================================ -->
-        <div class="teardown-section">
+        <div class="teardown-section" data-section-id="keep-kill-build" data-section-type="teardown-kkb" data-skills='["keep-kill-build-analysis","competitive-analysis"]'>
             <div class="section-number">Section 02</div>
             <div class="section-title">Keep / Kill / Build</div>
 
@@ -976,7 +1068,7 @@
                             <div class="kkb-item-detail">Infinite scroll with zero stopping points. No "you're caught up," no session summary, no friction. This is the engine behind scroll fatigue.</div>
                         </div>
                         <div class="kkb-item">
-                            <div class="kkb-item-title">Take a break buried and off by default</div>
+                            <div class="kkb-item-title">Take a break hard to discover and off by default</div>
                             <div class="kkb-item-detail">Five taps deep: Profile > Menu > Your Activity > Time > Set Reminder. Off by default. When your screen time tool requires a tutorial to find, it's not a feature - it's a checkbox.</div>
                         </div>
                     </div>
@@ -1007,7 +1099,7 @@
         <!-- ============================================
              SECTION 3: THE REDESIGN
              ============================================ -->
-        <div class="teardown-section">
+        <div class="teardown-section" data-section-id="redesign" data-section-type="teardown-redesign" data-skills='["wireframing","content-strategy"]'>
             <div class="section-number">Section 03</div>
             <div class="section-title">The Redesign</div>
 
@@ -1168,7 +1260,7 @@
                       <text class="wf-annotation-text-new" x="187" y="105">Algorithm here.</text>
                     </svg>
                 </div>
-                <div class="wireframe-caption">Flip the default. That's it. Users land on Following (chronological, accounts they chose). The algorithmic "For You" feed is one tap away but not forced. Instagram shipped Following and Favorites tabs in March 2022, but buried them behind a dropdown that most users never found - and the tabs reset on every app launch. So a real, permanent toggle that remembers your choice? That's not a small change.</div>
+                <div class="wireframe-caption">Flip the default. That's it. Users land on Following (chronological, accounts they chose). The algorithmic "For You" feed is one tap away but not forced. Instagram shipped Following and Favorites tabs in March 2022, but placed them in a dropdown that most users never discovered - and the tabs reset on every app launch. So a real, permanent toggle that remembers your choice? That's not a small change.</div>
             </div>
 
             <!-- Wireframe 2: Session Digest -->
@@ -1338,7 +1430,7 @@
         <!-- ============================================
              SECTION 4: THE BUSINESS CASE
              ============================================ -->
-        <div class="teardown-section">
+        <div class="teardown-section" data-section-id="business-case" data-section-type="teardown-business-case" data-skills='["business-case-development"]'>
             <div class="section-number">Section 04</div>
             <div class="section-title">The Business Case</div>
 
