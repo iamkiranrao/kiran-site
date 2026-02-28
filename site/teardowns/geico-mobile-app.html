@@ -517,6 +517,45 @@
             margin-bottom: 0;
         }
 
+        /* Cross-link */
+        .related-wrapper {
+            margin-top: 2.5rem;
+        }
+        .related-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+        .related-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 0.85rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .related-link:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+        }
+        .related-link svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         @media (max-width: 768px) {
             .glance-stats { grid-template-columns: repeat(2, 1fr); }
             .glance-position { grid-template-columns: 1fr; }
@@ -677,7 +716,84 @@
             .teardown { padding: 1rem 1rem 2rem; }
             footer { padding: 2rem 1rem 1.5rem; }
         }
+
+        /* Glossary */
+        .page-glossary {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem 4rem 0;
+        }
+        .glossary-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.35rem 0.75rem;
+            cursor: pointer;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .glossary-toggle:hover {
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+        .glossary-toggle .arrow {
+            transition: transform 0.2s ease;
+            font-size: 0.6rem;
+        }
+        .glossary-toggle.open .arrow {
+            transform: rotate(90deg);
+        }
+        .glossary-terms {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+        }
+        .glossary-terms.visible {
+            display: block;
+        }
+        .glossary-term {
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+        .glossary-term:last-child {
+            margin-bottom: 0;
+        }
+        .glossary-term strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
     </style>
+    <!-- Structured Data for Fenix + SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "GEICO Mobile App Teardown",
+        "author": {
+            "@type": "Person",
+            "name": "Kiran Gorapalli",
+            "url": "https://kirangorapalli.netlify.app"
+        },
+        "description": "Product teardown of GEICO's mobile app AI assistant. Analysis of the virtual assistant's limitations, proposed redesign using conversational AI, and business case.",
+        "url": "https://kirangorapalli.netlify.app/teardowns/geico-mobile-app.html",
+        "image": "https://kirangorapalli.netlify.app/images/og-image.png",
+        "publisher": {
+            "@type": "Person",
+            "name": "Kiran Gorapalli"
+        }
+    }
+    </script>
 </head>
 <body class="preload">
     <a href="#teardown" class="skip-link">Skip to main content</a>
@@ -754,6 +870,21 @@
         <span class="current">Mobile App</span>
     </div>
 
+    <!-- Glossary -->
+    <div class="page-glossary">
+        <button class="glossary-toggle" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('visible')" aria-expanded="false">
+            <span class="arrow">&#9654;</span> Quick reference
+        </button>
+        <div class="glossary-terms" role="region" aria-label="Glossary">
+            <div class="glossary-term"><strong>Customer Journey Map</strong> — A timeline of what a user does, thinks, and feels at each stage. The sentiment curve shows where frustration peaks.</div>
+            <div class="glossary-term"><strong>Keep / Kill / Build (KKB)</strong> — A product analysis framework. Keep = works well. Kill = causes friction. Build = gaps worth filling.</div>
+            <div class="glossary-term"><strong>Jobs to Be Done (JTBD)</strong> — What the customer is actually trying to accomplish, not just what features they use.</div>
+            <div class="glossary-term"><strong>Virtual Assistant</strong> — A chatbot interface. GEICO's (originally "Kate", launched 2017) uses keyword matching, not natural language.</div>
+            <div class="glossary-term"><strong>Context Handoff</strong> — When a bot transfers you to a human agent with the full conversation history, so you don't repeat yourself.</div>
+            <div class="glossary-term"><strong>Cost per Interaction</strong> — What each customer contact costs. Chatbot interactions run roughly $0.50; phone calls about $6.00.</div>
+        </div>
+    </div>
+
     <!-- Teardown Content -->
     <div class="teardown" id="teardown">
 
@@ -805,7 +936,7 @@
         <!-- ============================================
              SECTION 1: DISCOVERY
              ============================================ -->
-        <div class="teardown-section">
+        <div class="teardown-section" data-section-id="discovery" data-section-type="teardown-discovery" data-skills='["customer-research","journey-mapping","persona-development"]'>
             <div class="section-number">Section 01</div>
             <div class="section-title">Discovery</div>
 
@@ -906,7 +1037,7 @@
         <!-- ============================================
              SECTION 2: KEEP / KILL / BUILD
              ============================================ -->
-        <div class="teardown-section">
+        <div class="teardown-section" data-section-id="keep-kill-build" data-section-type="teardown-kkb" data-skills='["keep-kill-build-analysis","competitive-analysis"]'>
             <div class="section-number">Section 02</div>
             <div class="section-title">Keep / Kill / Build</div>
 
@@ -968,7 +1099,7 @@
         <!-- ============================================
              SECTION 3: THE REDESIGN
              ============================================ -->
-        <div class="teardown-section">
+        <div class="teardown-section" data-section-id="redesign" data-section-type="teardown-redesign" data-skills='["wireframing","AI-product-strategy","conversational-AI"]'>
             <div class="section-number">Section 03</div>
             <div class="section-title">The Redesign</div>
 
@@ -1324,7 +1455,7 @@
         <!-- ============================================
              SECTION 4: THE BUSINESS CASE
              ============================================ -->
-        <div class="teardown-section">
+        <div class="teardown-section" data-section-id="business-case" data-section-type="teardown-business-case" data-skills='["business-case-development","competitive-analysis"]'>
             <div class="section-number">Section 04</div>
             <div class="section-title">The Business Case</div>
 
@@ -1377,6 +1508,15 @@
             <p>I don't work at GEICO and I've never seen their internal systems, call volume data, or technology roadmap. This analysis is built from their public-facing AI assistant (tested directly), their published usage guidance ("keep questions short and direct"), their NPS score (20, per QuestionPro Q1 2025), competitor benchmarks (Lemonade Q2 2025 earnings, Progressive's Azure AI partnership), and industry cost data ($0.50 vs $6.00, from multiple 2025 industry reports). The persona is a composite based on Trustpilot and App Store review patterns. The KPI numbers are educated ranges, not magic numbers.</p>
         </div>
 
+        <!-- Related -->
+        <div class="related-wrapper">
+            <div class="related-label">Related</div>
+            <a href="../prototypes/insurance-chatbot/overview.html" class="related-link">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                Insurance AI Assistant - the working prototype built from this analysis
+            </a>
+        </div>
+
     </div>
 
     <!-- Footer -->
@@ -1406,9 +1546,9 @@
         <div class="footer-site-info">
             <img src="../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
             <div class="footer-meta">
-                <span class="version-number">v1.0.23</span>
+                <span class="version-number">v1.0.24</span>
                 <span class="footer-meta-sep">&middot;</span>
-                <span class="last-updated">Updated Feb 2026</span>
+                <span class="last-updated">Updated Feb 28, 2026</span>
                 <span class="footer-meta-sep">&middot;</span>
                 <a href="../rss.xml" class="rss-badge" title="Subscribe to RSS feed" target="_blank" rel="noopener noreferrer">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>

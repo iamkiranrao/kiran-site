@@ -67,8 +67,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://kirangorapalli.netlify.app/teardowns/airbnb.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://kirangorapalli.netlify.app/teardowns/airbnb-mobile.html</loc>
     <lastmod>2026-02-28</lastmod>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kirangorapalli.netlify.app/blog/the-bank-that-got-213000-employees-to-actually-use-ai.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
