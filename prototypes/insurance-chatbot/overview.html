@@ -371,7 +371,81 @@
             .bottom-cta { padding: 1.5rem 1rem 2.5rem; }
             footer { padding: 2rem 1rem 1.5rem; }
         }
+
+        /* Glossary */
+        .page-glossary {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 1.5rem 4rem 0;
+        }
+        .glossary-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.35rem 0.75rem;
+            cursor: pointer;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .glossary-toggle:hover {
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+        .glossary-toggle .arrow {
+            transition: transform 0.2s ease;
+            font-size: 0.6rem;
+        }
+        .glossary-toggle.open .arrow {
+            transform: rotate(90deg);
+        }
+        .glossary-terms {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+        }
+        .glossary-terms.visible {
+            display: block;
+        }
+        .glossary-term {
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+        .glossary-term:last-child {
+            margin-bottom: 0;
+        }
+        .glossary-term strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
     </style>
+    <!-- Structured Data for Fenix + SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Insurance AI Assistant",
+        "author": {
+            "@type": "Person",
+            "name": "Kiran Gorapalli",
+            "url": "https://kirangorapalli.netlify.app"
+        },
+        "applicationCategory": "Chatbot Prototype",
+        "operatingSystem": "Web",
+        "description": "A LangGraph-powered chatbot prototype that handles multi-step insurance claims with stateful conversation management and real-time graph visualisation.",
+        "url": "https://kirangorapalli.netlify.app/prototypes/insurance-chatbot/overview.html"
+    }
+    </script>
 </head>
 <body class="preload">
     <a href="#project-content" class="skip-link">Skip to main content</a>
@@ -440,6 +514,19 @@
         <span class="current">Insurance AI Assistant</span>
     </div>
 
+    <!-- Glossary -->
+    <div class="page-glossary">
+        <button class="glossary-toggle" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('visible')" aria-expanded="false">
+            <span class="arrow">&#9654;</span> Quick reference
+        </button>
+        <div class="glossary-terms" role="region" aria-label="Glossary">
+            <div class="glossary-term"><strong>LangGraph</strong> — Framework for multi-step AI conversations. Tracks which stage you're in, what information it has, and what it needs next.</div>
+            <div class="glossary-term"><strong>State Machine</strong> — A system in one of several defined states (greeting, collecting info, processing claim) that moves between them based on what happens.</div>
+            <div class="glossary-term"><strong>NLP</strong> — Natural Language Processing. Lets software understand speech as people naturally talk, not just exact keyword matches.</div>
+            <div class="glossary-term"><strong>Smart Escalation</strong> — When the AI hands off to a human with full conversation context. The agent sees everything — the user repeats nothing.</div>
+        </div>
+    </div>
+
     <!-- Project Content -->
     <div id="project-content">
 
@@ -472,7 +559,7 @@
         <div class="section-divider"><hr></div>
 
         <!-- The Problem -->
-        <div class="project-section">
+        <div class="project-section" data-section-id="the-problem" data-section-type="prototype-problem">
             <h2>The Problem</h2>
             <p>Insurance companies answer the same questions millions of times - filing claims, looking up policies, sorting out billing. Most chatbots make you start over every time you ask something new. You explain your situation, get handed off, and explain it all again. This prototype keeps track of the whole conversation so you never have to repeat yourself.</p>
         </div>
@@ -480,7 +567,7 @@
         <div class="section-divider"><hr></div>
 
         <!-- Architecture -->
-        <div class="project-section">
+        <div class="project-section" data-section-id="system-architecture" data-section-type="prototype-architecture">
             <h2>System Architecture</h2>
             <p>Most chatbots follow a rigid script - if the conversation goes sideways, they're lost. This one uses LangGraph to manage the conversation in stages. Each stage knows what happened before it, so the bot can handle complex, multi-step requests without dropping the thread.</p>
             <p class="key-decision">Why LangGraph over Dialogflow? Dialogflow is great for simple Q&A. But insurance claims aren't simple - they're multi-step, branching conversations. LangGraph remembers what you said three steps ago. Dialogflow doesn't.</p>
@@ -527,7 +614,7 @@
         <div class="section-divider"><hr></div>
 
         <!-- Try It -->
-        <div class="project-section">
+        <div class="project-section" data-section-id="try-it-yourself" data-section-type="prototype-demo">
             <h2>Try It Yourself</h2>
             <p>The prototype includes a mock policy database. Use any of these test policy numbers to interact with the system:</p>
             <table class="creds-table">
@@ -609,7 +696,7 @@
         <div class="footer-site-info">
             <img src="../../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
             <div class="footer-meta">
-                <span class="version-number">v1.0.23</span>
+                <span class="version-number">v1.0.24</span>
                 <span class="footer-meta-sep">&middot;</span>
                 <span class="last-updated">Updated Feb 2026</span>
                 <span class="footer-meta-sep">&middot;</span>
