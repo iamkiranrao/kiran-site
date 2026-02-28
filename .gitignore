@@ -25,3 +25,7 @@ scripts/career-codes.json
 
 # Preview files
 sparkline-preview.html
+
+# Environment files (secrets - never commit)
+command-center/backend/.env
+command-center/frontend/.env.local
