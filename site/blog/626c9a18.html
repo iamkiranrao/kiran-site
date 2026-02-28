@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="From Wells Fargo's 2014 launch complexity to today's seamless experience—understanding the three-layer architecture that makes Apple Pay work, and the strategic principles every payments PM should know.">
+    <title>Demystifying Apple Pay: The Hidden Complexity Behind 'Just Tap and Go' - Kiran Gorapalli</title>
+    <link rel="icon" href="../images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="canonical" href="https://kirangorapalli.netlify.app/blog/demystifying-apple-pay-hidden-complexity.html">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Demystifying Apple Pay: The Hidden Complexity Behind 'Just Tap and Go'">
+    <meta property="og:description" content="From Wells Fargo's 2014 launch complexity to today's seamless experience—understanding the three-layer architecture that makes Apple Pay work, and the strategic principles every payments PM should know.">
+    <meta property="og:url" content="https://kirangorapalli.netlify.app/blog/demystifying-apple-pay-hidden-complexity.html">
+    <meta property="og:image" content="https://kirangorapalli.netlify.app/images/og-image.png">
+    <meta property="article:author" content="Kiran Gorapalli">
+    <meta property="article:published_time" content="2024-12-19">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Demystifying Apple Pay: The Hidden Complexity Behind 'Just Tap and Go'">
+    <meta name="twitter:description" content="From Wells Fargo's 2014 launch complexity to today's seamless experience—understanding the three-layer architecture that makes Apple Pay work, and the strategic principles every payments PM should know.">
+    <meta name="twitter:image" content="https://kirangorapalli.netlify.app/images/og-image.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Demystifying Apple Pay: The Hidden Complexity Behind 'Just Tap and Go'",
+        "description": "From Wells Fargo's 2014 launch complexity to today's seamless experience—understanding the three-layer architecture that makes Apple Pay work, and the strategic principles every payments PM should know.",
+        "url": "https://kirangorapalli.netlify.app/blog/demystifying-apple-pay-hidden-complexity.html",
+        "datePublished": "2024-12-19",
+        "author": {
+            "@type": "Person",
+            "name": "Kiran Gorapalli",
+            "url": "https://kirangorapalli.netlify.app"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Kiran Gorapalli"
+        }
+    }
+    </script>
+
+    <style>
+        /* ============================================
+           BLOG ARTICLE - PAGE STYLES
+           ============================================ */
+
+        /* Hero Banner */
+        .subpage-hero {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-title-area {
+            text-align: center;
+            padding: 6rem 4rem 2.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .subpage-hero-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.04em;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .article-meta-item {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: -0.01em;
+        }
+        .article-meta-sep {
+            opacity: 0.3;
+            color: var(--text-muted);
+        }
+        .article-tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: rgba(240, 230, 211, 0.06);
+            color: var(--text-secondary);
+        }
+        [data-theme="light"] .article-tag {
+            background: rgba(10, 10, 10, 0.05);
+        }
+
+        /* ============================================
+           ARTICLE BODY
+           ============================================ */
+        .article-body {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 3rem 4rem 4rem;
+        }
+
+        .article-body h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-body p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.25rem;
+        }
+
+        .article-body strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .article-body em {
+            font-style: italic;
+        }
+
+        /* Pull quote / highlight */
+        .article-body blockquote {
+            border-left: 3px solid var(--border);
+            margin: 2rem 0;
+            padding: 0 0 0 1.5rem;
+        }
+        .article-body blockquote p {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        /* Sources section */
+        .article-sources {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .article-sources h2 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .article-sources ol {
+            list-style: decimal;
+            padding-left: 1.25rem;
+        }
+        .article-sources li {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        /* Back link */
+        .back-link-wrapper {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 4rem 3rem;
+        }
+        .back-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-social {
+            margin-bottom: 2rem;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: border-color 0.2s ease, opacity 0.2s ease;
+        }
+        .social-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+        .social-icon:hover { opacity: 0.8; }
+        .social-icon.linkedin:hover { border-color: #0A66C2; }
+        .social-icon.github:hover { border-color: #f0e6d3; }
+        .social-icon.youtube:hover { border-color: #FF0000; }
+        .social-icon.flickr:hover { border-color: #FF0084; }
+        .social-icon.spotify:hover { border-color: #1DB954; }
+        .social-icon.substack:hover { border-color: #FF6719; }
+        [data-theme="light"] .social-icon.github:hover { border-color: #333; }
+
+        .footer-site-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-logo {
+            width: 36px;
+            height: auto;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .footer-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        .footer-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .footer-meta-sep { opacity: 0.4; }
+        .version-number { letter-spacing: 0.02em; }
+        .last-updated { letter-spacing: -0.01em; }
+        .rss-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+        }
+        .rss-badge:hover { color: var(--text-primary); }
+        .rss-badge svg { opacity: 0.6; }
+        .footer-copyright {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+            letter-spacing: 0.02em;
+        }
+
+        /* ============================================
+           TOAST
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 500px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .hero-title-area { padding: 5rem 3rem 2rem; }
+            .article-body { padding: 2.5rem 3rem 3rem; }
+            .back-link-wrapper { padding: 0 3rem 2.5rem; }
+            footer { padding: 3rem 3rem 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title-area { padding: 4.5rem 1.5rem 1.5rem; }
+            .article-body { padding: 2rem 1.5rem 3rem; }
+            .back-link-wrapper { padding: 0 1.5rem 2rem; }
+            footer { padding: 2.5rem 1.5rem 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title-area { padding: 4rem 1rem 1.25rem; }
+            .article-body { padding: 1.5rem 1rem 2rem; }
+            .article-body h2 { font-size: 1.3rem; }
+            .article-body p { font-size: 1rem; }
+            .back-link-wrapper { padding: 0 1rem 1.5rem; }
+            footer { padding: 2rem 1rem 1.5rem; }
+        }
+    </style>
+</head>
+<body class="preload">
+    <a href="#article" class="skip-link">Skip to article</a>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-right">
+                <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
+                    <svg class="share-icon" viewBox="0 0 24 24">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+                <button id="menuButton" class="menu-button" aria-label="Open menu">Menu</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div></div>
+            <button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="../index.html">↘ Home</a></li>
+            <li><a href="../index.html#work">↘ Fenix - My AI</a></li>
+            <li><a href="../career-highlights.html">↘ Career Highlights</a></li>
+            <li><a href="../how-id-built-it.html">↘ How I'd've Built It</a></li>
+            <li><a href="../index.html#my-sandbox">↘ MadLab</a></li>
+            <li><a href="../index.html#creative-lab">↘ Studio</a></li>
+            <li><a href="../blog-podcast.html">↘ Blog & Podcast</a></li>
+            <li><a href="../learning.html">↘ Learning & Certifications</a></li>
+            <li><a href="../causes.html">↘ Causes</a></li>
+            <li><a href="../store.html">↘ Store</a></li>
+            <li><a href="../index.html#contact">↘ Connect</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <div class="subpage-hero">
+        <div class="hero-title-area">
+            <h1 class="subpage-hero-title">Demystifying Apple Pay: The Hidden Complexity Behind 'Just Tap and Go'</h1>
+            <div class="article-meta">
+                <span class="article-meta-item">Kiran</span>
+                <span class="article-meta-sep">&middot;</span>
+                <span class="article-meta-item">19 December 2024</span>
+                <span class="article-meta-sep">&middot;</span>
+                <span class="article-meta-item">7 min read</span>
+                <span class="article-meta-sep">&middot;</span>
+                <span class="article-tag">Apple Pay</span>
+                <span class="article-tag">Digital Wallets</span>
+                <span class="article-tag">Payment Architecture</span>
+                <span class="article-tag">Fintech</span>
+                <span class="article-tag">Product Strategy</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article -->
+    <article class="article-body" id="article">
+        <p><em>2014, Wells Fargo headquarters.</em> I'm watching the Apple Pay launch event on screens whilst simultaneously fielding calls from my engineering team about token provisioning failures. Tim Cook makes it look effortless on stage—just tap and go. Meanwhile, I'm debugging why certain card types aren't generating tokens properly. The disconnect between the stage magic and the backend complexity hits me: customers will never see the months of integration work, the security protocols, the fail-safes I've built. They'll just expect it to work.</p>
+
+        <p>That's the thing about great payment experiences—the harder they are to build, the more invisible they should be. Nearly a decade later, Apple Pay has become so seamless that most payments product managers take its architecture for granted. But if you're building payment experiences, understanding the machinery beneath the magic isn't academic curiosity—it's competitive advantage.</p>
+
+        <p>This isn't about appreciating Apple's engineering prowess. It's about recognising how they solved problems that every payments PM faces: security without friction, platform control without custody risk, and ecosystem growth without compromising user trust. The solutions they chose reveal principles that apply far beyond iOS wallets.</p>
+
+        <h2>The Three-Layer Architecture That Makes It Work</h2>
+
+        <p>Apple Pay succeeds because it distributes complexity across three distinct layers, each with a clear responsibility. Most payment systems try to centralise control—Apple deliberately fragments it.</p>
+
+        <!-- Architecture Diagram -->
+        <div style="margin: 2.5rem -1rem; padding: 1.5rem 0;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1080" style="width:100%;max-width:720px;height:auto;" role="img" aria-label="Apple Pay system architecture diagram showing the 5-step payment flow: user authentication on iPhone, NFC tap to merchant terminal, routing through card network, authorisation by issuing bank, and approval response back to the device.">
+          <defs>
+            <style>
+              .dg-lp { fill: var(--text-primary, #f0e6d3); font-family: 'Inter', system-ui, sans-serif; }
+              .dg-lm { fill: var(--text-muted, #5a5347); font-family: 'Inter', system-ui, sans-serif; }
+              .dg-bi { fill: rgba(240,230,211,0.06); stroke: rgba(240,230,211,0.1); stroke-width: 1; }
+              .dg-al { stroke: var(--text-muted, #5a5347); stroke-width: 1.2; fill: none; }
+              .dg-ah { fill: var(--text-muted, #5a5347); stroke: none; }
+              .dg-fn { fill: var(--text-primary, #f0e6d3); font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 12px; }
+              .dg-fc { fill: var(--bg-primary, #0a0a0a); stroke: var(--text-muted, #5a5347); stroke-width: 1.2; }
+              .dg-ll { fill: var(--text-muted, #5a5347); font-family: 'Inter', system-ui, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; }
+              .dg-layer { fill: rgba(240,230,211,0.04); stroke: rgba(240,230,211,0.12); stroke-width: 1; }
+              .dg-callout { fill: rgba(240,230,211,0.03); stroke: rgba(240,230,211,0.08); stroke-width: 1; }
+              .dg-phone { stroke: rgba(240,230,211,0.18); stroke-width: 1.5; fill: none; }
+              .dg-sep { stroke: rgba(240,230,211,0.08); stroke-width: 1; }
+              [data-theme="light"] .dg-bi { fill: rgba(10,10,10,0.035); stroke: rgba(10,10,10,0.1); }
+              [data-theme="light"] .dg-fc { fill: var(--bg-primary, #f5f3f0); stroke: var(--text-muted, #9a948e); }
+              [data-theme="light"] .dg-layer { fill: rgba(10,10,10,0.02); stroke: rgba(10,10,10,0.08); }
+              [data-theme="light"] .dg-callout { fill: rgba(10,10,10,0.015); stroke: rgba(10,10,10,0.06); }
+              [data-theme="light"] .dg-phone { stroke: rgba(10,10,10,0.12); }
+              [data-theme="light"] .dg-sep { stroke: rgba(10,10,10,0.06); }
+            </style>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="dg-ah"/>
+            </marker>
+          </defs>
+
+          <!-- TITLE -->
+          <text x="360" y="28" text-anchor="middle" class="dg-lp" font-size="15" font-weight="700" letter-spacing="-0.03em">Apple Pay: System Architecture</text>
+          <text x="360" y="48" text-anchor="middle" class="dg-lm" font-size="11">How a tap becomes a payment — from device to settlement</text>
+
+          <!-- ===== DEVICE LAYER (y: 68–372) ===== -->
+          <text x="30" y="74" class="dg-ll">DEVICE LAYER</text>
+          <rect x="22" y="82" width="656" height="290" rx="8" class="dg-layer"/>
+
+          <!-- iPhone outline -->
+          <rect x="40" y="100" width="190" height="258" rx="22" class="dg-phone"/>
+
+          <!-- Step 1 badge — sits ON the top border of iPhone container -->
+          <circle cx="135" cy="100" r="12" class="dg-fc"/>
+          <text x="135" y="104" text-anchor="middle" class="dg-fn">1</text>
+
+          <!-- iPhone label + step description -->
+          <text x="135" y="132" text-anchor="middle" class="dg-lp" font-size="12" font-weight="600">iPhone</text>
+          <text x="135" y="148" text-anchor="middle" class="dg-lm" font-size="9">User authenticates</text>
+
+          <!-- Secure Element -->
+          <rect x="52" y="160" width="166" height="76" rx="6" class="dg-bi"/>
+          <text x="135" y="182" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Secure Element (SE)</text>
+          <text x="135" y="198" text-anchor="middle" class="dg-lm" font-size="9">Tamper-resistant chip</text>
+          <text x="135" y="212" text-anchor="middle" class="dg-lm" font-size="9">Stores tokens &amp; crypto keys</text>
+          <text x="135" y="226" text-anchor="middle" class="dg-lm" font-size="9">Isolated from iOS</text>
+
+          <!-- Wallet -->
+          <rect x="52" y="248" width="166" height="52" rx="6" class="dg-bi"/>
+          <text x="135" y="270" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Wallet App + iOS</text>
+          <text x="135" y="286" text-anchor="middle" class="dg-lm" font-size="9">UX, biometrics, orchestration</text>
+
+          <!-- Face ID -->
+          <rect x="52" y="312" width="166" height="32" rx="6" class="dg-bi"/>
+          <text x="135" y="333" text-anchor="middle" class="dg-lm" font-size="10">Face ID / Touch ID</text>
+
+          <!-- Arrows inside phone (upward, with visible line + head) -->
+          <line x1="135" y1="310" x2="135" y2="302" class="dg-al" marker-end="url(#arr)"/>
+          <line x1="135" y1="246" x2="135" y2="238" class="dg-al" marker-end="url(#arr)"/>
+
+          <!-- NFC Controller -->
+          <rect x="256" y="100" width="170" height="60" rx="6" class="dg-bi"/>
+          <text x="341" y="126" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">NFC Controller</text>
+          <text x="341" y="142" text-anchor="middle" class="dg-lm" font-size="9">Near Field Communication</text>
+          <text x="341" y="154" text-anchor="middle" class="dg-lm" font-size="9">Contactless data exchange</text>
+
+          <!-- Token + Cryptogram -->
+          <rect x="256" y="180" width="170" height="62" rx="6" class="dg-bi"/>
+          <text x="341" y="203" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Token + Cryptogram</text>
+          <text x="341" y="219" text-anchor="middle" class="dg-lm" font-size="9">Device Account Number (DAN)</text>
+          <text x="341" y="233" text-anchor="middle" class="dg-lm" font-size="9">Dynamic one-time security code</text>
+
+          <!-- SE → Token (right-angle polyline, visible stem + head) -->
+          <polyline points="218,198 238,198 238,211 254,211" class="dg-al" marker-end="url(#arr)"/>
+
+          <!-- NFC → Token (down, visible stem + head) -->
+          <line x1="341" y1="160" x2="341" y2="178" class="dg-al" marker-end="url(#arr)"/>
+
+          <!-- Data callout -->
+          <rect x="448" y="100" width="218" height="142" rx="6" class="dg-callout" stroke-dasharray="4 3"/>
+          <text x="557" y="124" text-anchor="middle" class="dg-lm" font-size="10" font-weight="600">What stays on-device</text>
+          <text x="460" y="146" class="dg-lm" font-size="9">&#x2713;  Device Account Number</text>
+          <text x="460" y="164" class="dg-lm" font-size="9">&#x2713;  Cryptographic keys (in SE)</text>
+          <text x="460" y="182" class="dg-lm" font-size="9">&#x2713;  Biometric data</text>
+          <line x1="460" y1="198" x2="654" y2="198" class="dg-sep"/>
+          <text x="557" y="216" text-anchor="middle" class="dg-lm" font-size="10" font-weight="600">What's NEVER stored</text>
+          <text x="460" y="234" class="dg-lm" font-size="9">&#x2717;  Actual card number (PAN)</text>
+
+          <!-- ===== ARROW: Device → Merchant ===== -->
+          <!-- Single continuous line, badge covers the middle, ONE arrowhead at bottom -->
+          <line x1="341" y1="372" x2="341" y2="446" class="dg-al" marker-end="url(#arr)"/>
+          <!-- Step 2 badge (solid, drawn on top of line) -->
+          <circle cx="341" cy="409" r="12" class="dg-fc"/>
+          <text x="341" y="413" text-anchor="middle" class="dg-fn">2</text>
+          <text x="365" y="413" class="dg-lm" font-size="9" font-style="italic">NFC tap to terminal</text>
+
+          <!-- ===== MERCHANT LAYER (y: 448–526) ===== -->
+          <text x="30" y="444" class="dg-ll">MERCHANT LAYER</text>
+          <rect x="22" y="450" width="656" height="78" rx="8" class="dg-layer"/>
+
+          <rect x="160" y="464" width="250" height="50" rx="6" class="dg-bi"/>
+          <text x="285" y="487" text-anchor="middle" class="dg-lp" font-size="12" font-weight="600">POS Terminal</text>
+          <text x="285" y="504" text-anchor="middle" class="dg-lm" font-size="9">Receives tokenised payment</text>
+
+          <rect x="432" y="464" width="234" height="50" rx="6" class="dg-callout"/>
+          <text x="549" y="487" text-anchor="middle" class="dg-lm" font-size="9" font-weight="600">Merchant sees only:</text>
+          <text x="549" y="504" text-anchor="middle" class="dg-lm" font-size="9">Token + cryptogram (useless if stolen)</text>
+
+          <!-- ===== ARROW: Merchant → Network ===== -->
+          <!-- Single line, one arrowhead, badge covers middle -->
+          <line x1="341" y1="528" x2="341" y2="602" class="dg-al" marker-end="url(#arr)"/>
+          <circle cx="341" cy="565" r="12" class="dg-fc"/>
+          <text x="341" y="569" text-anchor="middle" class="dg-fn">3</text>
+          <text x="365" y="569" class="dg-lm" font-size="9" font-style="italic">Existing card rails</text>
+
+          <!-- ===== NETWORK LAYER (y: 604–714) ===== -->
+          <text x="30" y="600" class="dg-ll">NETWORK LAYER</text>
+          <rect x="22" y="606" width="656" height="110" rx="8" class="dg-layer"/>
+
+          <rect x="40" y="624" width="186" height="76" rx="6" class="dg-bi"/>
+          <text x="133" y="650" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Acquirer / Processor</text>
+          <text x="133" y="666" text-anchor="middle" class="dg-lm" font-size="9">Merchant's bank</text>
+          <text x="133" y="682" text-anchor="middle" class="dg-lm" font-size="9">Routes transaction</text>
+
+          <rect x="248" y="624" width="204" height="76" rx="6" class="dg-bi"/>
+          <text x="350" y="650" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Card Network</text>
+          <text x="350" y="666" text-anchor="middle" class="dg-lm" font-size="9">Visa / Mastercard / Amex</text>
+          <text x="350" y="682" text-anchor="middle" class="dg-lm" font-size="9">Switches to issuing bank</text>
+
+          <rect x="474" y="624" width="192" height="76" rx="6" class="dg-bi"/>
+          <text x="570" y="650" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Token Service Provider</text>
+          <text x="570" y="666" text-anchor="middle" class="dg-lm" font-size="9">Maps token &#x2192; real PAN</text>
+          <text x="570" y="682" text-anchor="middle" class="dg-lm" font-size="9">Visa/MC Token Vault</text>
+
+          <!-- Horizontal arrows (network) -->
+          <line x1="226" y1="662" x2="246" y2="662" class="dg-al" marker-end="url(#arr)"/>
+          <line x1="452" y1="662" x2="472" y2="662" class="dg-al" marker-end="url(#arr)"/>
+
+          <!-- ===== ARROW: Network → Bank ===== -->
+          <!-- Single line, one arrowhead, badge covers middle -->
+          <line x1="341" y1="716" x2="341" y2="790" class="dg-al" marker-end="url(#arr)"/>
+          <circle cx="341" cy="753" r="12" class="dg-fc"/>
+          <text x="341" y="757" text-anchor="middle" class="dg-fn">4</text>
+          <text x="365" y="757" class="dg-lm" font-size="9" font-style="italic">Auth request</text>
+
+          <!-- ===== ISSUING BANK LAYER (y: 792–902) ===== -->
+          <text x="30" y="788" class="dg-ll">ISSUING BANK LAYER</text>
+          <rect x="22" y="794" width="656" height="110" rx="8" class="dg-layer"/>
+
+          <rect x="40" y="812" width="200" height="76" rx="6" class="dg-bi"/>
+          <text x="140" y="838" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Token Vault</text>
+          <text x="140" y="854" text-anchor="middle" class="dg-lm" font-size="9">De-tokenises: token &#x2192; PAN</text>
+          <text x="140" y="870" text-anchor="middle" class="dg-lm" font-size="9">Verifies cryptogram validity</text>
+
+          <rect x="260" y="812" width="200" height="76" rx="6" class="dg-bi"/>
+          <text x="360" y="838" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Auth &amp; Fraud Engine</text>
+          <text x="360" y="854" text-anchor="middle" class="dg-lm" font-size="9">Balance / credit check</text>
+          <text x="360" y="870" text-anchor="middle" class="dg-lm" font-size="9">Risk scoring &amp; fraud models</text>
+
+          <rect x="480" y="812" width="186" height="76" rx="6" class="dg-bi"/>
+          <text x="573" y="838" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Approve / Decline</text>
+          <text x="573" y="854" text-anchor="middle" class="dg-lm" font-size="9">Response sent back</text>
+          <text x="573" y="870" text-anchor="middle" class="dg-lm" font-size="9">through same rails</text>
+
+          <!-- Horizontal arrows (bank) -->
+          <line x1="240" y1="850" x2="258" y2="850" class="dg-al" marker-end="url(#arr)"/>
+          <line x1="460" y1="850" x2="478" y2="850" class="dg-al" marker-end="url(#arr)"/>
+
+          <!-- ===== STEP 5: Return path (right side) ===== -->
+          <!-- Horizontal right from Approve/Decline -->
+          <line x1="666" y1="850" x2="698" y2="850" class="dg-al"/>
+          <!-- Vertical up — single continuous line, badge drawn on top -->
+          <line x1="698" y1="850" x2="698" y2="476" class="dg-al"/>
+          <!-- Horizontal left into POS Terminal right edge (above callout) -->
+          <line x1="698" y1="476" x2="412" y2="476" class="dg-al" marker-end="url(#arr)"/>
+          <!-- Step 5 badge (solid, covers vertical line, 20px clear of boxes) -->
+          <circle cx="698" cy="663" r="12" class="dg-fc"/>
+          <text x="698" y="667" text-anchor="middle" class="dg-fn">5</text>
+
+          <!-- Step 5 caption -->
+          <text x="350" y="926" text-anchor="middle" class="dg-lm" font-size="9" font-style="italic">Approval flows back through the same rails to the terminal, then to the device</text>
+
+          <!-- ===== APPLE CLOUD LAYER (y: 944–1048) ===== -->
+          <text x="30" y="956" class="dg-ll">APPLE CLOUD LAYER</text>
+          <text x="202" y="956" class="dg-lm" font-size="9" font-style="italic">(provisioning only — not used during payments)</text>
+          <rect x="22" y="964" width="656" height="86" rx="8" class="dg-layer"/>
+
+          <rect x="40" y="978" width="200" height="60" rx="6" class="dg-bi"/>
+          <text x="140" y="1004" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Provisioning Service</text>
+          <text x="140" y="1020" text-anchor="middle" class="dg-lm" font-size="9">Card setup &amp; bank verification</text>
+          <text x="140" y="1032" text-anchor="middle" class="dg-lm" font-size="9">Initial token creation</text>
+
+          <rect x="260" y="978" width="196" height="60" rx="6" class="dg-bi"/>
+          <text x="358" y="1004" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Device Management</text>
+          <text x="358" y="1020" text-anchor="middle" class="dg-lm" font-size="9">Multi-device token lifecycle</text>
+          <text x="358" y="1032" text-anchor="middle" class="dg-lm" font-size="9">Remote wipe if device lost</text>
+
+          <rect x="476" y="978" width="190" height="60" rx="6" class="dg-bi"/>
+          <text x="571" y="1004" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Identity Services</text>
+          <text x="571" y="1020" text-anchor="middle" class="dg-lm" font-size="9">IDs, transit cards, student IDs</text>
+          <text x="571" y="1032" text-anchor="middle" class="dg-lm" font-size="9">Same SE architecture, new uses</text>
+        </svg>
+        </div>
+
+        <p><strong>The Hardware Layer: Secure Element</strong><br>
+        At the device level sits the Secure Element (SE)—a tamper-resistant chip that functions like a tiny, isolated computer. Think of it as a vault that can perform calculations but never reveals its contents. The SE stores payment credentials and performs cryptographic operations, but crucially, it's isolated from iOS itself. Even if someone compromises the phone's operating system, they can't access the payment data.</p>
+
+        <p>The genius here isn't the security—it's the business model implications. By using dedicated hardware, Apple can credibly claim they never see your card details. Banks trust this because there's no software pathway for Apple to harvest financial data. Users trust it because even Apple can't help law enforcement access payment information. The hardware creates legal and technical air gaps that pure software solutions can't match.</p>
+
+        <p><strong>The Software Layer: Wallet App and iOS Integration</strong><br>
+        The Wallet app serves as the user interface, but the real sophistication happens in iOS's payment framework. When you add a card, iOS handles the initial authentication and orchestrates communication between your bank and the Secure Element. It manages biometric authentication, presents transaction confirmations, and handles errors gracefully.</p>
+
+        <p>But notice what iOS doesn't do: it never stores complete card numbers, and it can't initiate payments without explicit user authentication. The software layer manages the experience whilst the hardware layer guards the secrets. This separation lets Apple iterate on user experience without touching the security foundations.</p>
+
+        <p><strong>The Cloud Layer: Token Vault and Device Management</strong><br>
+        Apple's servers manage device provisioning, token lifecycle, and account recovery. When you set up a new iPhone and want to restore your payment cards, Apple's cloud services handle the re-provisioning process with your banks. They maintain enough information to enable convenience features whilst ensuring payment credentials remain hardware-bound.</p>
+
+        <p>This three-layer approach means that compromise of any single layer doesn't expose the entire system. It's defence in depth, but architected for usability rather than paranoia.</p>
+
+        <h2>The Transaction Journey: From Tap to Settlement</h2>
+
+        <p>Understanding Apple Pay means following a payment from the moment you tap your phone to when money moves between accounts. The elegance lies in how much happens without anyone waiting.</p>
+
+        <p><strong>Step 1: User Initiates Payment</strong><br>
+        You double-click the side button and authenticate with Face ID or Touch ID. This unlocks the Secure Element and tells iOS you intend to make a payment. The biometric authentication happens locally—your fingerprint or face scan never leaves the device.</p>
+
+        <p><strong>Step 2: Near Field Communication Handshake</strong><br>
+        The merchant's terminal broadcasts payment parameters: transaction amount, merchant identifier, and supported payment networks. Your iPhone responds with its payment capabilities. This NFC dialogue takes milliseconds, but it's establishing the terms of the transaction before any sensitive data moves.</p>
+
+        <p><strong>Step 3: Token Generation and Cryptographic Signing</strong><br>
+        Here's where the Secure Element earns its keep. Instead of transmitting your actual card number, the SE generates a unique token for this specific transaction. It combines the transaction details with cryptographic keys that only your bank can validate. The token looks like a regular card number to the merchant's systems, but it's useless for any other transaction.</p>
+
+        <p>The mathematical elegance here is worth appreciating. The SE creates a payment credential that proves you own a valid card without revealing what that card is. Even if someone intercepts this data, they can't reverse-engineer your actual account details.</p>
+
+        <p><strong>Step 4: Authorisation Through Existing Rails</strong><br>
+        The tokenised payment flows through established networks—Visa, Mastercard, or American Express—just like a traditional card transaction. The merchant's acquirer routes it to your bank, where specialised token vault systems translate the token back to your actual account and make the authorisation decision.</p>
+
+        <p>Your bank either approves or declines based on account status, available credit, and fraud models. The beautiful part: they're applying existing risk management to the familiar account, whilst the merchant never sees that account number.</p>
+
+        <p><strong>Step 5: Settlement and Reconciliation</strong><br>
+        Money moves through the same settlement networks that handle regular card transactions. The merchant receives funds just as they would for any Visa or Mastercard payment. From their perspective, Apple Pay is simply another card brand—the complexity is entirely hidden.</p>
+
+        <p>This architectural choice was crucial for adoption. Merchants didn't need new terminals or settlement relationships. Banks didn't need new money movement systems. Apple Pay succeeded partly because it innovated on the authentication and tokenisation layers whilst leaving the financial plumbing untouched.</p>
+
+        <h2>The Business Model Behind the 'Free' Wallet</h2>
+
+        <p>Apple Pay appears free to users, but that's because the economic model runs on different rails. Understanding the revenue streams reveals why Apple chose this architecture over alternatives.</p>
+
+        <p><strong>Revenue from Card Networks and Banks</strong><br>
+        According to industry estimates, Apple collects approximately 0.15% of every Apple Pay transaction from card networks, with banks absorbing most of this cost. For a £100 purchase, Apple earns about 15 pence. This might seem modest, but consider the scale: Apple Pay processed over $6 trillion in transactions in 2023, according to company reports. Even tiny percentages become substantial revenue streams.</p>
+
+        <p>The strategic insight: Apple chose recurring, usage-based revenue over higher-margin but lower-volume alternatives. They could have built their own payment network or charged merchants directly, but both approaches would have required building new financial infrastructure and convincing new stakeholders. Instead, they inserted themselves into existing value chains and extracted ongoing fees from willing partners.</p>
+
+        <p><strong>Platform Lock-in and Services Revenue</strong><br>
+        The deeper play isn't the transaction fees—it's strengthening iOS ecosystem stickiness. Once you've configured Apple Pay with multiple cards, switching to Android means rebuilding your entire digital wallet. The switching cost isn't financial; it's operational friction.</p>
+
+        <p>This explains why Apple hasn't aggressively monetised Apple Pay features that could generate higher short-term revenue. They're optimising for long-term platform retention rather than immediate wallet profitability.</p>
+
+        <p><strong>Strategic Positioning vs. Competitive Threats</strong><br>
+        By 2014, Google Wallet and PayPal were positioning themselves as intermediaries between consumers and their banks. Apple chose the opposite strategy: disappear from the financial relationship whilst controlling the user experience. Banks preferred this approach because Apple didn't threaten their customer relationships or try to own the billing relationship.</p>
+
+        <h2>What's Changed Since Wells Fargo's 2014 Launch</h2>
+
+        <p>The core architecture remains remarkably stable, but the platform has evolved in ways that reveal Apple's broader ambitions.</p>
+
+        <p><strong>Beyond Payments: Identity and Access</strong><br>
+        Apple Pay now stores driver's licences, student IDs, and transit cards alongside payment credentials. The same Secure Element architecture that protects financial data now manages broader identity credentials. This expansion transforms Apple Pay from a payment method into a comprehensive digital identity platform.</p>
+
+        <p>The technical infrastructure was always capable of this—it just took time to negotiate with institutions that issue identity credentials. The payment partnerships created the trust foundation that enabled these broader use cases.</p>
+
+        <p><strong>Enhanced Security and Privacy Features</strong><br>
+        Apple introduced features like transaction-specific dynamic security codes and enhanced fraud detection that weren't possible in 2014. The Secure Element's computing power has increased, enabling more sophisticated cryptographic operations whilst maintaining the same security boundaries.</p>
+
+        <p>More importantly, Apple has used their scale to push privacy standards across the industry. The success of Apple Pay's privacy model influenced how other platforms approach financial data custody.</p>
+
+        <p><strong>Ecosystem Expansion</strong><br>
+        Apple Pay now works across Apple Watch, iPad, and Mac, with each device requiring separate security provisioning. The cloud layer manages this multi-device complexity whilst maintaining the principle that payment credentials stay hardware-bound.</p>
+
+        <p>The infrastructure built for simple iPhone payments now supports a comprehensive ecosystem of connected devices, each with different interaction models but consistent security standards.</p>
+
+        <h2>The Strategic Questions Every Payments PM Should Ask</h2>
+
+        <p>Apple Pay's architecture reveals five principles that apply beyond iOS wallets:</p>
+
+        <p><strong>Can you distribute complexity instead of centralising control?</strong> The most secure systems often fragment responsibility across multiple layers that can't compromise each other.</p>
+
+        <p><strong>Are you building on existing rails or creating new ones?</strong> Apple succeeded partly because they innovated selectively—enhancing user experience and security whilst leveraging existing financial infrastructure.</p>
+
+        <p><strong>What's your stance on data custody?</strong> Apple's "we can't see your data" positioning became a competitive advantage. Sometimes the most powerful architecture choice is deliberate blindness.</p>
+
+        <p><strong>How do you balance platform control with partner trust?</strong> Apple maintained strict control over user experience whilst reassuring banks they wouldn't be disintermediated.</p>
+
+        <p><strong>What switching costs are you creating?</strong> The most durable platforms create operational friction for leaving, not financial penalties.</p>
+
+        <p>That 2014 launch day complexity has become invisible infrastructure that processes trillions annually. The real lesson isn't about the technology—it's about architecting complexity in service of simplicity. The best payment experiences feel inevitable in retrospect, but they require deliberate choices about where to hide the machinery.</p>
+
+        <p>For payments PMs, understanding these architectural decisions isn't about copying Apple's approach. It's about recognising the principles behind choices that seem obvious now but were genuinely uncertain when they mattered most.</p>
+
+        <div class="article-sources">
+            <h2>Sources</h2>
+            <ol>
+                <li>Apple Inc. Security White Paper and Platform Security Guide (2024)</li>
+                <li>EMVCo Payment Tokenisation Specification and Contactless Payment Standards</li>
+                <li>Apple Inc. Quarterly Earnings Reports and Investor Relations Statements (2023-2024)</li>
+                <li>Visa, Mastercard, and American Express Technical Documentation</li>
+                <li>Industry fee structure analysis from Wall Street Journal, Reuters, and Financial Times (2014-2024)</li>
+                <li>Wells Fargo and Apple Press Releases (October 2014)</li>
+                <li>NFC Forum Technical Specifications</li>
+                <li>iOS Developer Documentation and Security Guides</li>
+                <li>Common Criteria security evaluations</li>
+                <li>Payment Card Industry (PCI) compliance documentation</li>
+            </ol>
+        </div>
+    </article>
+
+    <!-- Back to Blog -->
+    <div class="back-link-wrapper">
+        <a href="../blog-podcast.html" class="back-link">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Blog & Podcast
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-social">
+            <div class="social-links">
+                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+                </a>
+                <a href="https://github.com/iamkiranrao" class="social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                </a>
+                <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                </a>
+                <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg>
+                </a>
+                <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg>
+                </a>
+                <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-site-info">
+            <img src="../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
+            <div class="footer-meta">
+                <span class="version-number">v1.0.24</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <span class="last-updated">Updated Feb 28, 2026</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <a href="../rss.xml" class="rss-badge" title="Subscribe to RSS feed" target="_blank" rel="noopener noreferrer">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+                    RSS
+                </a>
+            </div>
+        </div>
+        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // MOBILE MENU
+        const menuButton = document.getElementById('menuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // THEME TOGGLE
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.querySelector('.moon-icon').style.display = 'none';
+            document.querySelector('.sun-icon').style.display = 'block';
+        }
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            document.documentElement.setAttribute('data-theme', isLight ? '' : 'light');
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
+            document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+        });
+
+        // MISC
+        window.addEventListener('load', () => {
+            document.body.classList.remove('preload');
+        });
+        document.querySelector('.footer-logo')?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
