@@ -17,8 +17,8 @@ That's all the context needed. Don't paste previous conversations — just point
 
 ## Current Status
 
-**Active Phase:** Phase 0 — Hosting Migration (Netlify → Cloudflare Pages)
-**Active Step:** Step 0.6 — Decommission Netlify site
+**Active Phase:** Phase 1 — Backend Infrastructure (Vercel + Supabase)
+**Active Step:** Step 1.1 — Create Vercel Account + Project
 **Blocked on:** Nothing — ready to proceed
 
 ---
@@ -27,8 +27,8 @@ That's all the context needed. Don't paste previous conversations — just point
 
 | Phase | Description | Status | Notes |
 |-------|------------|--------|-------|
-| **Phase 0** | Hosting Migration (Netlify → Cloudflare Pages) | **IN PROGRESS** | Waiting on Cloudflare account creation |
-| **Phase 1** | Backend Infrastructure (Vercel + Supabase) | Not started | |
+| **Phase 0** | Hosting Migration (Netlify → Cloudflare Pages) | **COMPLETE** | All steps done, Netlify decommissioned |
+| **Phase 1** | Backend Infrastructure (Vercel + Supabase) | **UP NEXT** | |
 | **Phase 2** | Backend Scaffolding + Health Check | Not started | |
 | **Phase 3** | Forms + Auth + Command Center Migration | Not started | |
 | **Phase 4** | Content Pipeline + RAG + OG Cards | Not started | |
@@ -142,3 +142,19 @@ That's all the context needed. Don't paste previous conversations — just point
 - Updated PROGRESS.md with session log and fixed known issues
 - **DNS state:** 2 records — Worker (`kirangorapalli.com` → `kiran-site`) + CNAME (`www` → `kirangorapalli.com`)
 - **Next:** Decommission Netlify site, commit all changes, begin Phase 1
+
+### Session 5 — March 2, 2026
+**Duration:** ~1 session
+**What happened:**
+- Decommissioned Netlify: deleted `kirangorapalli` project from Netlify dashboard
+- Committed all Phase 0 changes (49 files) and pushed to GitHub
+- Reconfigured fenixconsulting.ai DNS to redirect to kirangorapalli.com:
+  - Updated `www` CNAME from Squarespace (`ext-sq.squarespace.com`) → `kirangorapalli.com`
+  - Changed root A record to `192.0.2.1` (RFC 5737 placeholder for proxied redirect)
+  - Deleted 3 old Squarespace A records (`198.185.159.144`, `198.185.159.145`, `198.49.23.144`)
+  - Deleted `_domainconnect` CNAME (Squarespace verification record)
+  - Kept TXT records for email (DMARC, DKIM, SPF)
+- Deployed Cloudflare Redirect Rule for fenixconsulting.ai: "Redirect fenixconsulting.ai to kirangorapalli.com" — 301 redirect, all incoming requests → `concat("https://kirangorapalli.com", http.request.uri.path)`
+- Verified both `fenixconsulting.ai` and `www.fenixconsulting.ai` redirect to `https://kirangorapalli.com`
+- **Phase 0 is COMPLETE** — all steps done
+- **Next:** Phase 1 — Create Vercel account, set up fenix-backend repo, create Supabase project
