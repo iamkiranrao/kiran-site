@@ -18,7 +18,7 @@ That's all the context needed. Don't paste previous conversations — just point
 ## Current Status
 
 **Active Phase:** Phase 3 — Forms + Auth + Command Center Migration
-**Active Step:** Step 3.4 — Port Command Center Services
+**Active Step:** Step 3.5 — Integration Testing
 **Active Step:** Step 3.1 — Form Submission API
 **Blocked on:** Nothing — ready to proceed
 
@@ -320,4 +320,28 @@ That's all the context needed. Don't paste previous conversations — just point
     - **Free account (login required):** Career highlights detail, teardown hub
     - **Premium (future):** Full teardown case studies, store discounts
 - **Step 3.3 is COMPLETE** — auth gates live on both gated pages
-- **Next:** Step 3.4 — Port Command Center Services
+- Completed **Step 3.4 — Port Command Center Services:**
+  - Created shared utilities:
+    - `core/claude_client.py` — Claude API wrapper with streaming, retry, JSON parsing
+    - `services/session_store.py` — Supabase-backed session + collection store (replaces /tmp/ file I/O)
+    - `migrations/001_sessions_and_kv.sql` — Supabase table definitions (sessions + kv_store)
+  - Ported 6 routers to `api/v1/admin/`:
+    - `teardown.py` — 8-step product teardown workflow (SSE streaming)
+    - `wordweaver.py` — Blog/social content creation (12-step + 5-step workflows)
+    - `job_central.py` — Application tracking, interviews, checklists, weekly plans, stories, contacts
+    - `resume.py` — Resume customization pipeline (stub — services pending full migration)
+    - `content_audit.py` — Content rules enforcement via Claude
+    - `visual_audit.py` — Code-based visual rule checking
+  - Ported services (fully migrated):
+    - `teardown_service.py` — session_store + claude_client integration
+    - `wordweaver_service.py` — session_store + kv_store config + claude_client
+    - `job_central_service.py` — collection-based storage via kv_store
+    - `content_audit_service.py` — Claude calls via core/claude_client
+    - `visual_audit_service.py` — no storage changes needed
+  - Stubs created (need full implementation):
+    - `resume_pipeline.py`, `resume_editor.py`, `doc_creator.py`
+  - All routers wired into `api/index.py` with original path prefixes
+  - Admin auth (`require_admin`) added to all Command Center endpoints
+  - **ACTION REQUIRED:** Run `migrations/001_sessions_and_kv.sql` in Supabase SQL Editor
+- **Step 3.4 is COMPLETE** — Command Center services ported to Vercel
+- **Next:** Step 3.5 — Integration Testing
