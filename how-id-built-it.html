@@ -335,6 +335,157 @@
             .companies-section { padding: 1.25rem 1rem 2rem; }
             footer { padding: 2rem 1rem 1.5rem; }
         }
+
+        /* ============================================
+           GATED CONTENT
+           ============================================ */
+        .gated-section-wrapper {
+            position: relative;
+        }
+        .gated-content {
+            position: relative;
+        }
+        .gated-content.locked {
+            max-height: 400px;
+            overflow: hidden;
+        }
+
+        /* Blur + fade overlay when locked */
+        .gate-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+            background: linear-gradient(
+                to bottom,
+                rgba(10, 10, 10, 0.3) 0%,
+                rgba(10, 10, 10, 0.5) 40%,
+                rgba(10, 10, 10, 0.8) 70%,
+                var(--bg-primary) 100%
+            );
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        [data-theme="light"] .gate-overlay {
+            background: linear-gradient(
+                to bottom,
+                rgba(245, 243, 240, 0.3) 0%,
+                rgba(245, 243, 240, 0.5) 40%,
+                rgba(245, 243, 240, 0.8) 70%,
+                var(--bg-primary) 100%
+            );
+        }
+        .gated-content.locked .gate-overlay {
+            display: block;
+        }
+
+        /* Access prompt card */
+        .gate-prompt {
+            display: none;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            z-index: 11;
+            padding: 4rem 4rem 0;
+        }
+        .gated-content.locked ~ .gate-prompt {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .gate-prompt-inner {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-primary);
+        }
+        .gate-lock-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
+            opacity: 0.4;
+        }
+        .gate-lock-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--text-primary);
+            stroke-width: 1.5;
+            fill: none;
+        }
+        .gate-prompt h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem;
+            color: var(--text-primary);
+        }
+        .gate-prompt p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin: 0 0 1.5rem;
+            line-height: 1.6;
+        }
+        .gate-input-row {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .gate-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary, rgba(255,255,255,0.05));
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .gate-input:focus {
+            border-color: var(--text-muted);
+        }
+        .gate-input.error {
+            border-color: #e74c3c;
+            animation: shake 0.3s ease;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+        .gate-submit {
+            padding: 0.75rem 1.25rem;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: opacity 0.2s;
+        }
+        .gate-submit:hover { opacity: 0.85; }
+        .gate-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+        .gate-error-msg {
+            min-height: 1.5em;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #e74c3c;
+            text-align: center;
+        }
+
+        /* Unlocked state */
+        .gated-content.unlocked .gate-overlay { display: none; }
+        .gated-content.unlocked ~ .gate-prompt { display: none; }
     </style>
 
     <!-- Structured Data for Fenix + SEO -->
@@ -422,6 +573,13 @@
     <div class="section-intro">
         <p>I pick apart products I use daily - what works, what doesn't, and what I'd do differently. Each teardown walks through user research, a keep/kill/build analysis, redesign proposals, and a business case. Not armchair quarterbacking - real product thinking with real constraints.</p>
     </div>
+
+    <!-- Gated section wrapper -->
+    <div class="gated-section-wrapper">
+
+    <!-- Gated content wrapper -->
+    <div class="gated-content locked" id="gatedContent">
+        <div class="gate-overlay"></div>
 
     <!-- Company Grid -->
     <div class="companies-section" id="companies">
@@ -532,6 +690,29 @@
         </div>
     </div>
 
+    </div><!-- end .gated-content -->
+
+    <!-- Access Prompt (visible only when locked) -->
+    <div class="gate-prompt" id="gatePrompt">
+        <div class="gate-prompt-inner">
+            <div class="gate-lock-icon">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+            </div>
+            <h3>Sign in to view teardowns</h3>
+            <p>Enter your email and we'll send you a magic login link. No password needed.</p>
+            <div class="gate-input-row">
+                <input type="email" class="gate-input" id="gateInput" placeholder="Enter your email" autocomplete="email" spellcheck="false">
+                <button class="gate-submit" id="gateSubmit">Send Login Link</button>
+            </div>
+            <div class="gate-error-msg" id="gateError"></div>
+        </div>
+    </div>
+
+    </div><!-- end .gated-section-wrapper -->
+
     <!-- Footer -->
     <footer>
         <div class="footer-social">
@@ -632,5 +813,9 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
+
+    <!-- Supabase JS SDK + Auth Gate -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="js/auth-gate.js"></script>
 </body>
 </html>

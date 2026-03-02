@@ -3812,125 +3812,10 @@
         }
 
         // ============================================
-        // ACCESS GATE
+        // ACCESS GATE — handled by auth-gate.js (Supabase Auth)
+        // Legacy Netlify access code validation removed.
+        // See js/auth-gate.js for the new Supabase-powered gate.
         // ============================================
-        const gatedContent = document.getElementById('gatedContent');
-        const gateInput = document.getElementById('gateInput');
-        const gateSubmit = document.getElementById('gateSubmit');
-        const gateError = document.getElementById('gateError');
-
-        // Check for existing valid session on load
-        function checkAccess() {
-            const stored = localStorage.getItem('career_access');
-            if (!stored) return false;
-
-            try {
-                const { token, expires } = JSON.parse(stored);
-                if (!token || !expires) return false;
-
-                // Check if expired
-                if (new Date(expires) < new Date()) {
-                    localStorage.removeItem('career_access');
-                    return false;
-                }
-                return true;
-            } catch (e) {
-                localStorage.removeItem('career_access');
-                return false;
-            }
-        }
-
-        function unlockContent() {
-            gatedContent.classList.remove('locked');
-            gatedContent.classList.add('unlocked');
-            // Remove max-height constraint smoothly
-            gatedContent.style.maxHeight = 'none';
-            gatedContent.style.overflow = 'visible';
-        }
-
-        // On page load: check existing access
-        if (checkAccess()) {
-            unlockContent();
-        }
-
-        // Also check URL params (e.g., ?code=ABC123 for direct links)
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlCode = urlParams.get('code');
-        if (urlCode && !checkAccess()) {
-            gateInput.value = urlCode;
-            // Auto-submit after a short delay
-            setTimeout(() => gateSubmit.click(), 500);
-        }
-
-        // Validate code against Netlify function
-        async function validateCode(code) {
-            gateSubmit.disabled = true;
-            gateSubmit.textContent = '...';
-            gateError.textContent = '';
-            gateInput.classList.remove('error');
-
-            try {
-                const response = await fetch('/.netlify/functions/validate-code', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ code: code.trim() })
-                });
-
-                const data = await response.json();
-
-                if (data.valid) {
-                    // Store access token
-                    localStorage.setItem('career_access', JSON.stringify({
-                        token: data.token,
-                        expires: data.expires,
-                        name: data.name
-                    }));
-
-                    // Unlock with a nice transition
-                    showToast('Access granted. Welcome.');
-                    unlockContent();
-
-                    // Clean up URL if code was in params
-                    if (urlCode) {
-                        window.history.replaceState({}, '', window.location.pathname);
-                    }
-                } else {
-                    gateError.textContent = data.error || 'Invalid code. Please try again.';
-                    gateInput.classList.add('error');
-                    setTimeout(() => gateInput.classList.remove('error'), 600);
-                }
-            } catch (e) {
-                gateError.textContent = 'Could not verify code. Please try again.';
-                console.error('Gate validation error:', e);
-            } finally {
-                gateSubmit.disabled = false;
-                gateSubmit.textContent = 'Unlock';
-            }
-        }
-
-        // Submit button click
-        gateSubmit.addEventListener('click', () => {
-            const code = gateInput.value.trim();
-            if (!code) {
-                gateInput.classList.add('error');
-                setTimeout(() => gateInput.classList.remove('error'), 600);
-                return;
-            }
-            validateCode(code);
-        });
-
-        // Enter key in input
-        gateInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                gateSubmit.click();
-            }
-        });
-
-        // Clear error on new input
-        gateInput.addEventListener('input', () => {
-            gateError.textContent = '';
-            gateInput.classList.remove('error');
-        });
 
 
         // ============================================
@@ -3974,5 +3859,9 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
+
+    <!-- Supabase JS SDK + Auth Gate -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="js/auth-gate.js"></script>
 </body>
 </html>
