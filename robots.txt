@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kirangorapalli.netlify.app/sitemap.xml
+Sitemap: https://kirangorapalli.com/sitemap.xml
