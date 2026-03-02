@@ -17,8 +17,9 @@ That's all the context needed. Don't paste previous conversations — just point
 
 ## Current Status
 
-**Active Phase:** Phase 1 — Backend Infrastructure (Vercel + Supabase)
-**Active Step:** Step 1.1 — Create Vercel Account + Project
+**Active Phase:** Phase 3 — Forms + Auth + Command Center Migration
+**Active Step:** Step 3.4 — Port Command Center Services
+**Active Step:** Step 3.1 — Form Submission API
 **Blocked on:** Nothing — ready to proceed
 
 ---
@@ -28,9 +29,9 @@ That's all the context needed. Don't paste previous conversations — just point
 | Phase | Description | Status | Notes |
 |-------|------------|--------|-------|
 | **Phase 0** | Hosting Migration (Netlify → Cloudflare Pages) | **COMPLETE** | All steps done, Netlify decommissioned |
-| **Phase 1** | Backend Infrastructure (Vercel + Supabase) | **UP NEXT** | |
-| **Phase 2** | Backend Scaffolding + Health Check | Not started | |
-| **Phase 3** | Forms + Auth + Command Center Migration | Not started | |
+| **Phase 1** | Backend Infrastructure (Vercel + Supabase) | **COMPLETE** | All steps done — Vercel + Supabase + DNS + Schema |
+| **Phase 2** | Backend Scaffolding + Health Check | **COMPLETE** | Done during Sessions 6-8 (structure, core utils, health check, Vercel config) |
+| **Phase 3** | Forms + Auth + Command Center Migration | **IN PROGRESS** | Starting Step 3.1 |
 | **Phase 4** | Content Pipeline + RAG + OG Cards | Not started | |
 | **Phase 5** | Fenix MVP (Chat + Persona + Widget) | Not started | |
 | **Phase 6** | Store + Agentic Features + Public APIs | Not started | |
@@ -64,8 +65,8 @@ That's all the context needed. Don't paste previous conversations — just point
 - [x] Create Cloudflare account at cloudflare.com — **DONE**
 - [x] Add domain kirangorapalli.com to Cloudflare — **ACTIVE** on Cloudflare
 - [x] Add domain fenixconsulting.ai to Cloudflare — nameservers propagating
-- [ ] Create Vercel account via GitHub OAuth (Phase 1)
-- [ ] Create Supabase account (Phase 1)
+- [x] Create Vercel account via GitHub OAuth (Phase 1) — **DONE** (Hobby tier, connected to iamkiranrao GitHub)
+- [x] Create Supabase account (Phase 1) — **DONE** (Free tier, project: fenix-backend, us-west-2)
 - [ ] Provide Anthropic API key for production (Phase 1)
 - [ ] Create Stripe account (Phase 6)
 - [ ] Set up Calendly account + API key (Phase 6)
@@ -158,3 +159,165 @@ That's all the context needed. Don't paste previous conversations — just point
 - Verified both `fenixconsulting.ai` and `www.fenixconsulting.ai` redirect to `https://kirangorapalli.com`
 - **Phase 0 is COMPLETE** — all steps done
 - **Next:** Phase 1 — Create Vercel account, set up fenix-backend repo, create Supabase project
+
+### Session 6 — March 2, 2026
+**Duration:** ~1 session
+**What happened:**
+- Completed Step 1.1 — Create Vercel Account + Project
+- Verified Kiran's Vercel account (Hobby tier, connected to `iamkiranrao` GitHub)
+- Scaffolded `fenix-backend` repo (22 files, 744 lines):
+  - `api/index.py` — FastAPI app with CORS (locked to `kirangorapalli.com`), structured error handlers
+  - `api/health.py` — Health check endpoint (API, database, pgvector, Claude API key checks)
+  - `core/config.py` — Pydantic Settings with environment validation
+  - `core/database.py` — Supabase client with connection reuse for serverless
+  - `core/errors.py` — Consistent `{"error", "code", "details"}` error responses
+  - `core/streaming.py` — SSE utilities (chunks, citations, heartbeats, error events)
+  - `core/auth.py` — Auth stubs for Phase 3
+  - `vercel.json` — Routes all `/api/*` to FastAPI
+  - API v1 module placeholders: fenix, forms, auth, store, admin, madlab
+- Created private GitHub repo: `iamkiranrao/fenix-backend`
+- Pushed scaffold to GitHub
+- Imported repo into Vercel — auto-detected FastAPI preset
+- First deploy failed: `resend==2.5.0` doesn't exist — fixed with flexible version pins (`>=`)
+- Second deploy succeeded — **Status: Ready**
+- **Health check verified live:** `https://fenix-backend-omega.vercel.app/api/health?quick=1` returns `{"status": "healthy"}`
+- Vercel production URL: `fenix-backend-omega.vercel.app`
+- **Step 1.1 is COMPLETE**
+- **Next:** Step 1.2 — Create Supabase project, enable pgvector, note connection credentials
+
+### Session 7 — March 2, 2026
+**Duration:** ~1 session
+**What happened:**
+- Completed Step 1.2 — Create Supabase Project
+  - Created Supabase account and project (free tier, us-west-2 Oregon — closest to SF)
+  - Enabled pgvector extension via SQL Editor
+  - Captured credentials (URL, anon key, service role key)
+- Completed Step 1.3 — Configure Environment Variables
+  - Added 5 environment variables to Vercel (SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_KEY, CORS_ORIGINS, ENVIRONMENT)
+  - Used JavaScript clipboard paste workaround for Vercel's bulk import
+  - Triggered redeploy
+- Fixed `anthropic_api_key` — was required, causing validation error; made it Optional with `default=None`
+  - Committed fix and pushed to GitHub with new PAT
+- Verified Supabase connectivity from Vercel — health check reaches database (PostgREST error about missing tables = expected before schema setup)
+- Renamed Supabase project from "iamkiranrao's first project" to "fenix-backend"
+- Discussed learning path: full-stack skills needed to build this independently
+- Evaluated IBM Full Stack Software Developer Professional Certificate
+- Started Step 1.4 — DNS/Domain Planning
+  - Added `api.kirangorapalli.com` as custom domain on Vercel
+  - Got CNAME target: `7201a113112aaf00.vercel-dns-017.com`
+  - Began filling Cloudflare DNS CNAME record (struggled with react-select dropdown and proxy toggle)
+- **Next:** Complete CNAME record in Cloudflare, verify domain, continue to Step 1.5
+
+### Session 8 — March 2, 2026
+**Duration:** ~1 session
+**What happened:**
+- Completed Step 1.4 — DNS/Domain Planning
+  - Toggled Cloudflare proxy from "Proxied" to "DNS only" (via JavaScript checkbox click)
+  - Saved CNAME record: `api` → `7201a113112aaf00.vercel-dns-017.com` (DNS only, Auto TTL)
+  - DNS propagated instantly — Vercel verified domain with blue checkmark
+  - SSL certificate generated automatically by Vercel
+  - **Verified live:** `https://api.kirangorapalli.com/api/health?quick=1` returns `{"status": "healthy"}`
+- Completed Step 1.5 — Database Schema Setup
+  - Created all 11 PostgreSQL tables via Supabase SQL Editor:
+    - `conversations` (9 cols) — Fenix chat sessions
+    - `messages` (8 cols) — Individual messages with citations
+    - `training_queue` (9 cols) — Unanswered questions pipeline
+    - `content_registry` (11 cols) — RAG content index
+    - `content_embeddings` (7 cols) — pgvector embeddings for RAG
+    - `form_submissions` (8 cols) — Feedback, testimonials, contact
+    - `products` (11 cols) — Store catalog
+    - `orders` (10 cols) — Purchase records
+    - `users` (7 cols) — Extended profiles linked to Supabase Auth
+    - `api_keys` (9 cols) — MadLab public API access
+    - `analytics` (5 cols) — Event tracking
+  - Created `update_updated_at_column()` trigger function + applied to 7 tables
+  - Enabled Row Level Security (RLS) on all 11 tables
+  - Created RLS policies: service role full access, public product reads, public content reads, anonymous form submissions
+  - Created IVFFlat index on content_embeddings for vector similarity search
+  - Created `_health_check` table and `check_pgvector()` function for health endpoint
+  - **Full health check now passes:** API healthy, database healthy, vector_store healthy, LLM unconfigured (expected — no Anthropic key yet)
+- **Phase 1 is COMPLETE** — all infrastructure is live and verified
+- **Infrastructure summary:**
+  - **Vercel:** `fenix-backend-omega.vercel.app` + `api.kirangorapalli.com`
+  - **Supabase:** `gndzmmywtxvlukoavadj` (us-west-2, pgvector enabled, 11 tables + RLS)
+  - **Cloudflare DNS:** CNAME `api` → Vercel (DNS only)
+  - **GitHub:** `iamkiranrao/fenix-backend` (private)
+- **Next:** Phase 2 — Backend Scaffolding (already partially done in Session 6 — project structure, core utilities, health check all exist)
+
+### Session 9 — March 2, 2026
+**Duration:** ~1 session
+**What happened:**
+- Assessed Phase 2 status — all 4 steps (project structure, Vercel config, core utilities, health check) were completed during Sessions 6-8
+- **Marked Phase 2 as COMPLETE** in progress tracker
+- Started **Phase 3: Forms + Auth + Command Center Migration**
+- Completed **Step 3.1 — Form Submission API:**
+  - Built `services/form_service.py`:
+    - Pydantic validation models for 3 form types (feedback, testimonial, contact)
+    - Text sanitization (HTML stripping, XSS prevention)
+    - IP hashing for spam detection (SHA-256, 16-char truncated — no plaintext IPs stored)
+    - Supabase storage integration (form_submissions table)
+    - Email notification via Resend (non-blocking, fails silently)
+  - Built `core/rate_limit.py`:
+    - Sliding window rate limiter (per-IP, in-memory)
+    - Configurable limit + window (default: 5 submissions/60s)
+    - X-Forwarded-For aware (works behind Vercel/Cloudflare)
+  - Built `api/v1/forms/submit.py`:
+    - `POST /api/v1/forms/submit` endpoint
+    - Honeypot field for bot detection (silently discards spam)
+    - Rate limiting applied before processing
+    - Structured JSON response with submission ID
+  - Wired forms router into main FastAPI app (`api/index.py`)
+  - Committed (4 files, 413 lines) and pushed to GitHub
+  - **Vercel auto-deployed successfully** — Status: Ready, 0% error rate
+  - **Verified end-to-end via Swagger UI:**
+    - Sent test feedback submission from `api.kirangorapalli.com/api/docs`
+    - Got 200 response with UUID `65813661-82d2-404f-a98b-56009e4a0cfc`
+    - Confirmed record in Supabase `form_submissions` table with correct data, hashed IP, status "new"
+- **Step 3.1 is COMPLETE** — form submission API is live
+- **Files added:**
+  - `services/form_service.py` — validation, sanitization, storage, notification
+  - `core/rate_limit.py` — per-IP sliding window rate limiter
+  - `api/v1/forms/submit.py` — POST endpoint with honeypot + rate limiting
+  - `api/index.py` — updated with forms router registration
+- Completed **Step 3.2 — Supabase Auth Integration:**
+  - Configured Supabase Auth:
+    - Site URL updated to `https://kirangorapalli.com`
+    - Redirect URLs: `https://kirangorapalli.com/**` + `http://localhost:3000/**`
+    - Email magic link enabled (OTP expiration: 1 hour)
+  - Built `core/auth.py` — real Supabase token verification:
+    - Extracts Bearer token from Authorization header
+    - Verifies JWT via `db.auth.get_user(token)`
+    - Auto-syncs public.users table on first login
+    - `kiranrao@gmail.com` auto-assigned admin role
+    - `require_auth` / `require_admin` FastAPI dependencies
+  - Built `api/v1/auth/check.py`:
+    - `GET /api/v1/auth/check` — returns `{authenticated: bool, user: {...}}`
+    - `POST /api/v1/auth/magic-link` — sends passwordless login email (rate limited 3/min)
+    - `GET /api/v1/auth/me` — returns authenticated user's full profile
+    - Open redirect prevention on magic link redirect_to parameter
+  - Wired auth router into main app, committed and pushed
+  - **Verified end-to-end:** Swagger test of `/auth/check` returns `{authenticated: false, user: null}` without token (correct)
+- **Step 3.2 is COMPLETE** — auth system is live
+- Completed **Step 3.3 — Access Control for Gated Pages:**
+  - Added `GET /api/v1/auth/config` endpoint — serves public Supabase URL + anon key for client-side init
+  - Created `js/auth-gate.js` — reusable client-side auth gate script:
+    - Fetches Supabase config from API, initializes Supabase JS SDK
+    - Checks for existing session or magic link callback (hash fragment)
+    - Toggles `.locked` / `.unlocked` CSS classes on `#gatedContent`
+    - Replaces old access code input with email magic link login prompt
+    - Handles resend flow, auth state change listener, legacy access code bridge
+  - Updated `career-highlights.html`:
+    - Removed old Netlify `/.netlify/functions/validate-code` JS block
+    - Added Supabase JS CDN + `auth-gate.js` script tags
+    - Existing gate CSS + HTML structure reused as-is (no CSS changes needed)
+  - Updated `how-id-built-it.html`:
+    - Added full gated content CSS (overlay, prompt, input, animations)
+    - Wrapped companies grid in `.gated-section-wrapper` > `.gated-content.locked`
+    - Added gate prompt with email login UI
+    - Added Supabase JS CDN + `auth-gate.js` script tags
+  - Access tiers defined:
+    - **Free (no login):** Landing page, about, blog, causes, MadLab hub
+    - **Free account (login required):** Career highlights detail, teardown hub
+    - **Premium (future):** Full teardown case studies, store discounts
+- **Step 3.3 is COMPLETE** — auth gates live on both gated pages
+- **Next:** Step 3.4 — Port Command Center Services
