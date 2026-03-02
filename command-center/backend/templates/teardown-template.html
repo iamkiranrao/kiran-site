@@ -19,43 +19,28 @@
       })(window, document, "clarity", "script", "vpgxcc8q5n");
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Maya Chen has booked 15+ Airbnbs over three years. She understands how the platform works - but recent friction with host cancellations, listing accuracy, and search filters that don't surface what she needs are pushing her toward hotels. This teardown examines how Airbnb's mobile experience could better serve its most valuable users.">
-    <title>Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli</title>
+    <meta name="description" content="{{OG_DESCRIPTION}}">
+    <title>{{TITLE}} - Kiran Gorapalli</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
-    <link rel="canonical" href="https://kirangorapalli.com/teardowns/airbnb-mobile.html">
+    <link rel="canonical" href="{{CANONICAL_URL}}">
     <meta name="theme-color" content="#0a0a0a">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli">
-    <meta property="og:description" content="Maya Chen has booked 15+ Airbnbs over three years. She understands how the platform works - but recent friction with host cancellations, listing accuracy, and search filters that don't surface what she needs are pushing her toward hotels. This teardown examines how Airbnb's mobile experience could better serve its most valuable users.">
-    <meta property="og:url" content="https://kirangorapalli.com/teardowns/airbnb-mobile.html">
-    <meta property="og:image" content="https://kirangorapalli.com/images/og/teardown-airbnb-mobile.png">
+    <meta property="og:title" content="{{TITLE}} - Kiran Gorapalli">
+    <meta property="og:description" content="{{OG_DESCRIPTION}}">
+    <meta property="og:url" content="{{CANONICAL_URL}}">
+    <meta property="og:image" content="https://kirangorapalli.com/images/og-image.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli">
-    <meta name="twitter:description" content="Maya Chen has booked 15+ Airbnbs over three years. She understands how the platform works - but recent friction with host cancellations, listing accuracy, and search filters that don't surface what she needs are pushing her toward hotels. This teardown examines how Airbnb's mobile experience could better serve its most valuable users.">
-    <meta name="twitter:image" content="https://kirangorapalli.com/images/og/teardown-airbnb-mobile.png">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Airbnb Mobile Teardown - How I'd've Built It",
-        "description": "A product teardown and redesign of the Airbnb mobile experience, focused on trust signals, search accuracy, and pricing transparency.",
-        "url": "https://kirangorapalli.com/teardowns/airbnb-mobile.html",
-        "author": {
-            "@type": "Person",
-            "name": "Kiran Gorapalli",
-            "url": "https://kirangorapalli.com"
-        }
-    }
-    </script>
+    <meta name="twitter:title" content="{{TITLE}} - Kiran Gorapalli">
+    <meta name="twitter:description" content="{{OG_DESCRIPTION}}">
+    <meta name="twitter:image" content="https://kirangorapalli.com/images/og-image.png">
 
     <style>
         /* ============================================
@@ -269,7 +254,8 @@
         }
         .journey-stages {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            /* JOURNEY_STAGES: Repeat .journey-stage-card for each stage -->
         }
         .journey-stage-card {
             padding: 1rem;
@@ -410,7 +396,7 @@
             margin-top: 0.75rem;
         }
 
-        /* Annotation markers in SVGs */
+        /* Annotation markers in SVGs - all classes must use wf- prefix per CONTENT-RULES */
         .wf-annotation-dot {
             fill: #c47474;
         }
@@ -460,7 +446,7 @@
 
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 1rem;
             margin: 1.5rem 0;
         }
@@ -751,6 +737,9 @@
             letter-spacing: 0.02em;
         }
 
+        /* NOTE: nav, theme-toggle, share-button, menu-button, and mobile-menu
+           styles are inherited from ../styles.css — do NOT override them here */
+
         /* Toast notification */
         .toast {
             position: fixed;
@@ -878,18 +867,18 @@
     <!-- Hero -->
     <div class="subpage-hero">
         <div class="hero-title-area">
-            <h1 class="subpage-hero-title">Airbnb Mobile</h1>
-            <p class="subpage-hero-tagline">A product analysis of why experienced users are losing faith in the platform</p>
+            <h1 class="subpage-hero-title">{{PRODUCT}}</h1>
+            <p class="subpage-hero-tagline">{{TAGLINE}}</p>
         </div>
     </div>
 
     <!-- Breadcrumb -->
     <div class="breadcrumb">
-        <a href="../how-id-built-it.html">How I'd've Built It</a>
+        <a href="{{BREADCRUMB_HOME_LINK}}">How I'd've Built It</a>
         <span>/</span>
-        <a href="airbnb.html">Airbnb</a>
+        <a href="{{BREADCRUMB_CATEGORY_LINK}}">{{CATEGORY}}</a>
         <span>/</span>
-        <span class="current">Mobile</span>
+        <span class="current">{{PRODUCT}}</span>
     </div>
 
     <!-- Glossary -->
@@ -898,24 +887,8 @@
             <span class="arrow">&#9654;</span> Quick reference
         </button>
         <div class="glossary-terms" role="region" aria-label="Glossary">
-            <div class="glossary-term">
-                <strong>Instant Book:</strong> Listings bookable immediately without host approval, reducing booking friction but potentially lowering host control over guests.
-            </div>
-            <div class="glossary-term">
-                <strong>Host Reliability Score:</strong> Proposed metric combining response time, cancellation history, and guest feedback to predict booking confidence.
-            </div>
-            <div class="glossary-term">
-                <strong>Progressive Price Revelation:</strong> UX pattern where true costs appear only at checkout, common in travel booking to improve funnel conversion.
-            </div>
-            <div class="glossary-term">
-                <strong>Search-to-Book Conversion:</strong> Percentage of search sessions that result in completed bookings, key metric for marketplace efficiency.
-            </div>
-            <div class="glossary-term">
-                <strong>Jobs-to-be-Done (JTBD):</strong> Product framework focusing on the underlying job users hire a product to accomplish, beyond surface-level features.
-            </div>
-            <div class="glossary-term">
-                <strong>Amenity Verification:</strong> Process of confirming listed features actually exist and work, currently relies on guest reviews rather than real-time validation.
-            </div>
+            <!-- GLOSSARY_TERMS: Repeat .glossary-term for each definition -->
+            {{GLOSSARY_ITEMS}}
         </div>
     </div>
 
@@ -926,42 +899,24 @@
         <div class="product-glance">
             <div class="product-glance-header">Product at a Glance</div>
             <div class="product-glance-body">
-                <div class="glance-description">Maya Chen has booked 15+ Airbnbs over three years. She understands how the platform works - but recent friction with host cancellations, listing accuracy, and search filters that don't surface what she needs are pushing her toward hotels. This teardown examines how Airbnb's mobile experience could better serve its most valuable users.</div>
+                <div class="glance-description">{{PRODUCT_DESCRIPTION}}</div>
                 <div class="glance-stats">
-                    <div>
-                        <div class="glance-stat-label">Platform Focus</div>
-                        <div class="glance-stat-value">iOS Mobile App</div>
-                    </div>
-                    <div>
-                        <div class="glance-stat-label">Analysis Date</div>
-                        <div class="glance-stat-value">November 2023</div>
-                    </div>
-                    <div>
-                        <div class="glance-stat-label">User Type</div>
-                        <div class="glance-stat-value">Experienced Repeat</div>
-                    </div>
-                    <div>
-                        <div class="glance-stat-label">Core Issues</div>
-                        <div class="glance-stat-value">Trust & Search</div>
-                    </div>
+                    {{GLANCE_STATS}}
                 </div>
                 <div class="glance-competitors">
                     <div class="glance-row-label">Key Competitors</div>
                     <div class="glance-competitor-tags">
-                        <span class="glance-competitor-tag">Vrbo</span>
-                        <span class="glance-competitor-tag">Hotels.com</span>
-                        <span class="glance-competitor-tag">Booking.com</span>
-                        <span class="glance-competitor-tag">Google Travel</span>
+                        {{COMPETITOR_TAGS}}
                     </div>
                 </div>
                 <div class="glance-position">
                     <div class="glance-leads">
                         <div class="glance-row-label">Where It Leads</div>
-                        Photo quality standards and authentic review detection create better property evaluation compared to competitors. Instant Book functionality provides booking certainty when it works.
+                        {{LEADS_TEXT}}
                     </div>
                     <div class="glance-lags">
                         <div class="glance-row-label">Where It Lags</div>
-                        Hidden pricing until checkout and unreliable search filters create friction. No systematic host reliability scoring leaves users to assess cancellation risk manually.
+                        {{LAGS_TEXT}}
                     </div>
                 </div>
             </div>
@@ -977,122 +932,31 @@
             <div class="persona-wrap">
                 <div class="persona-wrap-header">Persona</div>
                 <div class="persona-card">
-                    <div class="persona-avatar">MC</div>
+                    <div class="persona-avatar"><img src="{{PERSONA_IMAGE}}" alt="{{PERSONA_NAME}}"></div>
                     <div class="persona-info">
-                        <div class="persona-name">Maya Chen</div>
-                        <div class="persona-demo">34, Marketing Director, Austin</div>
-                        <div class="persona-bio">Experienced Airbnb user with 15+ bookings who travels 4-5 times yearly. Recently experiencing growing friction with host cancellations, inaccurate listing details, and search filters that don't surface relevant results. Starting to hedge bets with hotel backup reservations.</div>
+                        <div class="persona-name">{{PERSONA_NAME}}</div>
+                        <div class="persona-demo">{{PERSONA_DEMOGRAPHICS}}</div>
+                        <div class="persona-bio">{{PERSONA_BIO}}</div>
                     </div>
                 </div>
             </div>
 
-            <p>Maya's a marketing director at a mid-sized tech company in Austin. She travels 4-5 times a year for work and personal trips, usually staying in Airbnbs because hotels feel sterile and she likes cooking her own meals. Over the past two years, she's had increasingly frustrating experiences with the platform.</p>
-
-            <p>Last spring, a host in Portland canceled on her 48 hours before a girls' weekend, forcing her to book a $300/night hotel room. Six months ago in Barcelona, she spent three hours filtering through listings only to find half the "pet-friendly" places actually weren't. Most recently, she arrived at a Chicago rental to find it was in a sketchy neighborhood nothing like the photos, with a host who seemed irritated by basic questions about check-in.</p>
-
-            <p><strong>How I identified this persona:</strong> I spent about an hour reading through recent App Store reviews and Reddit threads about Airbnb problems. Maya represents the "experienced but increasingly frustrated" user segment - people who understand the platform but are hitting repeated pain points that compound over time. She's not a first-time user making rookie mistakes, which makes her feedback more credible for product improvement opportunities.</p>
+            {{DISCOVERY_PARAGRAPHS}}
 
             <div class="journey-visual">
                 <div class="journey-visual-header">Customer Journey - Sentiment Map</div>
                 <div class="journey-sentiment-wrap">
-                    <svg viewBox="0 0 500 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Customer sentiment map showing declining mood from hopeful to disappointed across 6 journey stages">
-                        <title>Customer Journey Sentiment Map - Airbnb Mobile</title>
-                        <!-- Reference lines at three tiers -->
-                        <line x1="50" y1="20" x2="460" y2="20" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
-                        <line x1="50" y1="55" x2="460" y2="55" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
-                        <line x1="50" y1="90" x2="460" y2="90" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
-                        <!-- Y-axis labels -->
-                        <text x="8" y="23" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Optimistic</text>
-                        <text x="8" y="58" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Neutral</text>
-                        <text x="8" y="93" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Frustrated</text>
-                        <!-- Smooth sentiment curve using cubic beziers through every point -->
-                        <path d="M 50,30 C 80,30 100,65 130,65 C 160,65 190,72 210,72 C 240,72 270,60 290,60 C 320,60 350,75 370,75 C 400,75 430,85 450,85" stroke="var(--text-secondary)" stroke-width="2" fill="none" opacity="0.4"/>
-                        <!-- Area fill under curve -->
-                        <path d="M 50,30 C 80,30 100,65 130,65 C 160,65 190,72 210,72 C 240,72 270,60 290,60 C 320,60 350,75 370,75 C 400,75 430,85 450,85 L 450,105 L 50,105 Z" fill="var(--text-secondary)" opacity="0.04"/>
-                        <!-- Data points -->
-                        <circle cx="50" cy="30" r="6" fill="#6b9e6b" opacity="0.9"/>
-                        <circle cx="130" cy="65" r="6" fill="#c47474" opacity="0.9"/>
-                        <circle cx="210" cy="72" r="6" fill="#c47474" opacity="0.9"/>
-                        <circle cx="290" cy="60" r="6" fill="#d4a74a" opacity="0.9"/>
-                        <circle cx="370" cy="75" r="6" fill="#c47474" opacity="0.9"/>
-                        <circle cx="450" cy="85" r="6" fill="#c47474" opacity="0.9"/>
-                        <!-- Sentiment labels positioned above dots with clearance -->
-                        <text x="50" y="18" font-family="Inter, sans-serif" font-size="7" fill="#6b9e6b" text-anchor="middle" font-weight="500">Hopeful</text>
-                        <text x="130" y="53" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Frustrated</text>
-                        <text x="210" y="60" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Suspicious</text>
-                        <text x="290" y="48" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Cautious</text>
-                        <text x="370" y="63" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Anxious</text>
-                        <text x="450" y="73" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Disappointed</text>
-                        <!-- Stage labels at bottom -->
-                        <text x="50" y="120" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">SEARCH</text>
-                        <text x="130" y="120" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">FILTER</text>
-                        <text x="210" y="120" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">RESEARCH</text>
-                        <text x="290" y="120" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">BOOK</text>
-                        <text x="370" y="120" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">WAIT</text>
-                        <text x="450" y="120" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">ARRIVE</text>
-                    </svg>
+                    {{JOURNEY_SENTIMENT_SVG}}
                 </div>
                 <div class="journey-stages">
-                    <div class="journey-stage-card">
-                        <div class="stage-label">Stage 1</div>
-                        <div class="stage-action">Opens Airbnb app, enters "Denver" + dates for ski weekend</div>
-                        <div class="stage-thought">"Please let there be something good under $150/night"</div>
-                        <div class="stage-pain">
-                            <span class="stage-pain-label">Pain Point</span>
-                            Results show 200+ listings with unclear sorting logic
-                        </div>
-                    </div>
-                    <div class="journey-stage-card">
-                        <div class="stage-label">Stage 2</div>
-                        <div class="stage-action">Tries to narrow down with filters - ski access, parking, hot tub</div>
-                        <div class="stage-thought">"Why is everything either a studio or $400/night? And what does 'ski access' even mean here?"</div>
-                        <div class="stage-pain">
-                            <span class="stage-pain-label">Pain Point</span>
-                            Filters don't work intuitively; "amenities" section is overwhelming with 30+ options. Can't save searches or filter combinations.
-                        </div>
-                    </div>
-                    <div class="journey-stage-card">
-                        <div class="stage-label">Stage 3</div>
-                        <div class="stage-action">Opens 8-10 listings in detail, cross-references reviews with photos</div>
-                        <div class="stage-thought">"These photos are definitely from 2019, and why are all the bad reviews from the past 3 months?"</div>
-                        <div class="stage-pain">
-                            <span class="stage-pain-label">Pain Point</span>
-                            Photos don't match recent review descriptions; can't tell what's current
-                        </div>
-                    </div>
-                    <div class="journey-stage-card">
-                        <div class="stage-label">Stage 4</div>
-                        <div class="stage-action">Settles on a place, starts booking process</div>
-                        <div class="stage-thought">"$89/night looks good until you add the cleaning fee, service fee, taxes..."</div>
-                        <div class="stage-pain">
-                            <span class="stage-pain-label">Pain Point</span>
-                            True cost hidden until final checkout screen
-                        </div>
-                    </div>
-                    <div class="journey-stage-card">
-                        <div class="stage-label">Stage 5</div>
-                        <div class="stage-action">Messages host about parking, checks reviews again closer to trip</div>
-                        <div class="stage-thought">"Really hoping this person doesn't cancel last minute like Portland"</div>
-                        <div class="stage-pain">
-                            <span class="stage-pain-label">Pain Point</span>
-                            No confidence in booking stability; considers backup options
-                        </div>
-                    </div>
-                    <div class="journey-stage-card">
-                        <div class="stage-label">Stage 6</div>
-                        <div class="stage-action">Arrives at property, compares reality to expectations</div>
-                        <div class="stage-thought">"The neighborhood feels sketchy and that hot tub is definitely not working"</div>
-                        <div class="stage-pain">
-                            <span class="stage-pain-label">Pain Point</span>
-                            Property condition doesn't match listing; host unresponsive to issues
-                        </div>
-                    </div>
+                    <!-- JOURNEY_STAGES: Repeat .journey-stage-card for each stage -->
+                    {{JOURNEY_STAGES}}
                 </div>
             </div>
 
             <div class="jtbd-callout">
                 <div class="jtbd-label">Jobs to Be Done</div>
-                <div class="jtbd-text">Find and book trustworthy accommodations that match my actual needs without spending hours researching or worrying about last-minute disasters.</div>
+                <div class="jtbd-text">{{JTBD_TEXT}}</div>
             </div>
         </div>
 
@@ -1105,65 +969,30 @@
             <div class="section-number">Section 02</div>
             <div class="section-title">Keep / Kill / Build</div>
 
-            <p>The core insight from our analysis: Maya needs confidence more than choice. Instead of overwhelming her with 200+ listings, let's help her find 10-15 options she can actually trust.</p>
+            {{KKB_INTRO_PARAGRAPHS}}
 
             <div class="kkb-grid">
                 <div class="kkb-column kkb-keep">
                     <div class="kkb-header">Keep</div>
                     <div class="kkb-items">
-                        <div class="kkb-item">
-                            <div class="kkb-item-title">Instant Book Toggle</div>
-                            <div class="kkb-item-detail">The ability to filter for places you can book immediately without host approval is genuinely useful. Maya uses this religiously after getting burned by hosts who took 48 hours to respond, then said no. When you need certainty, this filter delivers it.</div>
-                        </div>
-                        <div class="kkb-item">
-                            <div class="kkb-item-title">Photo Quality Standards</div>
-                            <div class="kkb-item-detail">Whatever Airbnb is doing to enforce photo quality works. Even mediocre listings have decent photography that gives you a real sense of the space. This isn't faint praise - I compared side-by-side with Vrbo listings and the difference is stark.</div>
-                        </div>
-                        <div class="kkb-item">
-                            <div class="kkb-item-title">Neighborhood Safety Ratings</div>
-                            <div class="kkb-item-detail">The little safety score that appears on listings actually correlates with Maya's on-ground experience. She mentioned this specifically after her sketchy Chicago stay had a low safety rating she initially ignored. It's subtle but useful contextual information.</div>
-                        </div>
-                        <div class="kkb-item">
-                            <div class="kkb-item-title">Review Authenticity Detection</div>
-                            <div class="kkb-item-detail">This is speculative, but Maya mentioned trusting Airbnb reviews more than Vrbo's, and the reviews I read felt more authentic than typical e-commerce. Whether this reflects better fraud detection or just different user behavior, I can't verify. Either way, the review quality feels relatively high for a platform this size.</div>
-                        </div>
+                        {{KKB_KEEP_ITEMS}}
                     </div>
                 </div>
 
                 <div class="kkb-column kkb-kill">
                     <div class="kkb-header">Kill</div>
                     <div class="kkb-items">
-                        <div class="kkb-item">
-                            <div class="kkb-item-title">"Ski Access" and Vague Amenity Labels</div>
-                            <div class="kkb-item-detail">Maya's Denver search perfectly illustrates this. "Ski access" ranges from "drive 2 hours to Vail" to "walk to lift." The amenity categories leave room for interpretation because hosts define them differently and there's no standardized verification. Either define these terms specifically or replace the ambiguous ones with clearer labels.</div>
-                        </div>
-                        <div class="kkb-item">
-                            <div class="kkb-item-title">Progressive Price Revelation</div>
-                            <div class="kkb-item-detail">Cleaning fees, service fees, and taxes that only surface at checkout create significant price shock. Maya budgets $150/night and discovers it's actually $220/night after fees. This gap between expected and actual price erodes trust at the exact moment users are most committed to booking.</div>
-                        </div>
+                        {{KKB_KILL_ITEMS}}
                     </div>
                 </div>
 
                 <div class="kkb-column kkb-build">
                     <div class="kkb-header">Build</div>
                     <div class="kkb-items">
-                        <div class="kkb-item">
-                            <div class="kkb-item-title">Host Response Time Predictions</div>
-                            <div class="kkb-item-detail">Maya needs to know if a host typically responds in 2 hours or 2 days before she invests time crafting the perfect booking request. Show average response times prominently on listings, updated monthly. This is just basic marketplace transparency.</div>
-                        </div>
-                        <div class="kkb-item">
-                            <div class="kkb-item-title">Cancellation Insurance Score</div>
-                            <div class="kkb-item-detail">Create a visible metric showing host cancellation history over the past 24 months. Hosts with multiple cancellations get flagged. Maya would pay extra for a "reliable host" badge because the alternative - scrambling for backup accommodations - is so painful.</div>
-                        </div>
-                        <div class="kkb-item">
-                            <div class="kkb-item-title">Real-Time Amenity Verification</div>
-                            <div class="kkb-item-detail">I spent time thinking about how to solve Maya's hot tub problem in Chicago. What if recent guests could flag amenity status through the app during their stay? Not full reviews, just quick "hot tub working: yes/no" updates. Display amenity status from the last guest's check-out so new bookers see current reality.</div>
-                        </div>
+                        {{KKB_BUILD_ITEMS}}
                     </div>
                 </div>
             </div>
-
-            <p><strong>Competitive Reality Check:</strong> I looked at how Vrbo and Hotels.com handle Maya's core pain points to reality-check our solutions. Hotels.com shows total prices upfront, including taxes and fees. Vrbo still uses the hidden fee model like Airbnb. This suggests transparent pricing is feasible but not industry standard - potential differentiation opportunity. Neither competitor has systematic reliability scoring, which feels like open territory for Airbnb to lead.</p>
         </div>
 
         <hr class="section-divider">
@@ -1175,184 +1004,11 @@
             <div class="section-number">Section 03</div>
             <div class="section-title">The Redesign</div>
 
-            <p>Here are three wireframe concepts that address our Kill/Build priorities:</p>
+            {{REDESIGN_INTRO_PARAGRAPHS}}
 
-            <div class="wireframe-pair">
-                <div class="wireframe-label">Wireframe 1: Honest Pricing Search Results</div>
-                
-                <div class="wireframe-box">
-                    <div class="wireframe-box-label">Before (Current State)</div>
-                    <svg viewBox="0 0 300 400" width="300" height="400" aria-label="Current Airbnb search results showing nightly price without total cost breakdown">
-                        <title>Before: Search results with hidden fees</title>
-                        <!-- Phone frame -->
-                        <rect x="0" y="0" width="300" height="400" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
-                        <!-- Header -->
-                        <rect x="0" y="0" width="300" height="60" fill="var(--bg-dark)" stroke="var(--border)" stroke-width="1"/>
-                        <text x="150" y="35" text-anchor="middle" font-size="14" fill="var(--text-primary)">Search Results - Denver</text>
-                        <!-- Listing 1 -->
-                        <rect x="20" y="80" width="260" height="80" fill="var(--bg-dark)" stroke="var(--border)" stroke-width="1" rx="4"/>
-                        <rect x="30" y="90" width="60" height="60" fill="#666" rx="4"/>
-                        <text x="100" y="105" font-size="12" fill="var(--text-primary)">Cozy Mountain Cabin</text>
-                        <text x="100" y="120" font-size="10" fill="var(--text-secondary)">★ 4.8 • 2 beds • Ski access</text>
-                        <text x="240" y="145" text-anchor="end" font-size="14" font-weight="bold" fill="var(--text-primary)">$89</text>
-                        <text x="240" y="155" text-anchor="end" font-size="10" fill="var(--text-muted)">/night</text>
-                        <!-- Listing 2 -->
-                        <rect x="20" y="170" width="260" height="80" fill="var(--bg-dark)" stroke="var(--border)" stroke-width="1" rx="4"/>
-                        <rect x="30" y="180" width="60" height="60" fill="#666" rx="4"/>
-                        <text x="100" y="195" font-size="12" fill="var(--text-primary)">Modern Ski Lodge</text>
-                        <text x="100" y="210" font-size="10" fill="var(--text-secondary)">★ 4.6 • 1 bed • Hot tub</text>
-                        <text x="240" y="235" text-anchor="end" font-size="14" font-weight="bold" fill="var(--text-primary)">$125</text>
-                        <text x="240" y="245" text-anchor="end" font-size="10" fill="var(--text-muted)">/night</text>
-                        <!-- Problem annotation -->
-                        <circle cx="240" cy="145" r="8" class="wf-annotation-dot"/>
-                        <line x1="248" y1="145" x2="265" y2="125" class="wf-annotation-line"/>
-                        <rect x="195" y="105" width="95" height="18" class="wf-annotation-box" rx="3"/>
-                        <text x="242" y="117" text-anchor="middle" font-size="9" fill="#c47474">Hidden fees!</text>
-                    </svg>
-                </div>
+            <!-- Wireframes -->
+            {{WIREFRAME_PAIRS}}
 
-                <div class="wireframe-box">
-                    <div class="wireframe-box-label">After (Redesigned)</div>
-                    <svg viewBox="0 0 300 400" width="300" height="400" aria-label="Redesigned search results with upfront total pricing toggle">
-                        <title>After: Search results with honest total pricing</title>
-                        <!-- Phone frame -->
-                        <rect x="0" y="0" width="300" height="400" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
-                        <!-- Header with toggle -->
-                        <rect x="0" y="0" width="300" height="80" fill="var(--bg-dark)" stroke="var(--border)" stroke-width="1"/>
-                        <text x="150" y="25" text-anchor="middle" font-size="14" fill="var(--text-primary)">Search Results - Denver</text>
-                        <rect x="50" y="40" width="200" height="25" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1" rx="12"/>
-                        <rect x="130" y="42" width="115" height="21" fill="#6b9e6b" rx="10"/>
-                        <text x="187" y="55" text-anchor="middle" font-size="9" fill="white">Show total cost</text>
-                        <text x="90" y="55" text-anchor="middle" font-size="9" fill="var(--text-muted)">Nightly rates</text>
-                        <!-- Listing 1 -->
-                        <rect x="20" y="100" width="260" height="95" fill="var(--bg-dark)" stroke="var(--border)" stroke-width="1" rx="4"/>
-                        <rect x="30" y="110" width="60" height="60" fill="#666" rx="4"/>
-                        <text x="100" y="125" font-size="12" fill="var(--text-primary)">Cozy Mountain Cabin</text>
-                        <text x="100" y="140" font-size="10" fill="var(--text-secondary)">★ 4.8 • 2 beds • Ski access</text>
-                        <text x="240" y="155" text-anchor="end" font-size="14" font-weight="bold" fill="var(--text-primary)">$220</text>
-                        <text x="240" y="170" text-anchor="end" font-size="9" fill="var(--text-muted)">total (3 nights)</text>
-                        <text x="240" y="183" text-anchor="end" font-size="8" fill="var(--text-muted)">Base $89 + $65 cleaning + fees</text>
-                        <!-- Improvement annotation -->
-                        <circle cx="200" cy="155" r="6" fill="#6b9e6b"/>
-                        <rect x="108" y="203" width="155" height="18" class="wf-annotation-box-green" rx="3"/>
-                        <text x="185" y="215" text-anchor="middle" font-size="9" fill="#6b9e6b">Honest upfront pricing</text>
-                    </svg>
-                </div>
-                
-                <div class="wireframe-caption">
-                    <strong>Key change:</strong> Toggle lets users choose their pricing view, but defaults to honest totals. Quick math without clicking through to checkout. Precedent: Southwest Airlines shows total airfare upfront vs. competitors' base + fees model.
-                </div>
-            </div>
-
-            <div class="wireframe-pair">
-                <div class="wireframe-label">Wireframe 2: Host Reliability Dashboard</div>
-                
-                <div class="wireframe-box">
-                    <div class="wireframe-box-label">New Screen Concept</div>
-                    <svg viewBox="0 0 300 400" width="300" height="400" aria-label="Host reliability dashboard showing score of 8.7 out of 10 with response time, cancellation rate, and booking history">
-                        <title>Host Reliability Dashboard concept</title>
-                        <!-- Phone frame -->
-                        <rect x="0" y="0" width="300" height="400" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
-                        <!-- Header -->
-                        <rect x="0" y="0" width="300" height="50" fill="var(--bg-dark)" stroke="var(--border)" stroke-width="1"/>
-                        <text x="150" y="30" text-anchor="middle" font-size="14" fill="var(--text-primary)">Host Reliability</text>
-                        <circle cx="270" cy="25" r="15" fill="none" stroke="var(--border)" stroke-width="1"/>
-                        <text x="270" y="30" text-anchor="middle" font-size="12" fill="var(--text-primary)">×</text>
-
-                        <!-- Main reliability score -->
-                        <circle cx="150" cy="120" r="50" fill="none" stroke="#6b9e6b" stroke-width="8"/>
-                        <circle cx="150" cy="120" r="50" fill="none" stroke="var(--border)" stroke-width="2"/>
-                        <text x="150" y="110" text-anchor="middle" font-size="20" font-weight="bold" fill="var(--text-primary)">8.7</text>
-                        <text x="150" y="125" text-anchor="middle" font-size="12" fill="var(--text-muted)">/10</text>
-                        <text x="150" y="140" text-anchor="middle" font-size="10" fill="var(--text-muted)">Reliability Score</text>
-
-                        <!-- Metrics grid -->
-                        <rect x="20" y="190" width="80" height="60" fill="var(--bg-dark)" stroke="var(--border)" stroke-width="1" rx="4"/>
-                        <text x="60" y="208" text-anchor="middle" font-size="9" fill="var(--text-muted)">RESPONSE TIME</text>
-                        <text x="60" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-primary)">Usually</text>
-                        <text x="60" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-primary)">3hrs</text>
-
-                        <rect x="110" y="190" width="80" height="60" fill="var(--bg-dark)" stroke="var(--border)" stroke-width="1" rx="4"/>
-                        <text x="150" y="208" text-anchor="middle" font-size="9" fill="var(--text-muted)">CANCELLATION</text>
-                        <text x="150" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b9e6b">2%</text>
-                        <text x="150" y="240" text-anchor="middle" font-size="8" fill="var(--text-muted)">(avg: 7%)</text>
-
-                        <rect x="200" y="190" width="80" height="60" fill="var(--bg-dark)" stroke="var(--border)" stroke-width="1" rx="4"/>
-                        <text x="240" y="208" text-anchor="middle" font-size="9" fill="var(--text-muted)">LAST CANCELLED</text>
-                        <text x="240" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b9e6b">Never</text>
-
-                        <!-- Footer info -->
-                        <text x="150" y="280" text-anchor="middle" font-size="10" fill="var(--text-muted)">Based on 47 bookings over 18 months</text>
-
-                        <!-- Annotation with callout box -->
-                        <circle cx="150" cy="120" r="8" class="wf-annotation-dot"/>
-                        <rect x="40" y="306" width="195" height="20" class="wf-annotation-box" rx="3"/>
-                        <text x="137" y="319" text-anchor="middle" font-size="9" fill="#c47474">Like a credit score for hosts</text>
-                    </svg>
-                </div>
-                
-                <div class="wireframe-caption">
-                    <strong>Key innovation:</strong> Single number Maya can quickly evaluate - like a credit score for hosts. Sets expectations before she messages them. This host is way better than average - worth the premium. Precedent: Uber driver ratings, but more specific to booking anxiety.
-                </div>
-            </div>
-
-            <div class="wireframe-pair">
-                <div class="wireframe-label">Wireframe 3: Smart Amenity Filters</div>
-                
-                <div class="wireframe-box">
-                    <div class="wireframe-box-label">Redesigned Filter Screen</div>
-                    <svg viewBox="0 0 300 400" width="300" height="400" aria-label="Redesigned amenity filter screen separating verified amenities from unverified host claims">
-                        <title>Smart Amenity Filters with verification status</title>
-                        <!-- Phone frame -->
-                        <rect x="0" y="0" width="300" height="400" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
-                        <!-- Header -->
-                        <rect x="0" y="0" width="300" height="60" fill="var(--bg-dark)" stroke="var(--border)" stroke-width="1"/>
-                        <text x="150" y="25" text-anchor="middle" font-size="12" fill="var(--text-muted)">Denver, Feb 14-16</text>
-                        <text x="150" y="45" text-anchor="middle" font-size="14" fill="var(--text-primary)">Filters</text>
-
-                        <!-- Verified section -->
-                        <text x="20" y="85" font-size="12" font-weight="bold" fill="#6b9e6b">Verified Recently</text>
-
-                        <rect x="20" y="95" width="20" height="20" fill="#6b9e6b" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <text x="27" y="110" font-size="11" fill="white" font-weight="bold">✓</text>
-                        <text x="50" y="110" font-size="10" fill="var(--text-primary)">Hot tub (confirmed by last guest)</text>
-
-                        <rect x="20" y="125" width="20" height="20" fill="none" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <text x="50" y="140" font-size="10" fill="var(--text-primary)">Parking spot (available Feb 14)</text>
-
-                        <rect x="20" y="155" width="20" height="20" fill="#6b9e6b" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <text x="27" y="170" font-size="11" fill="white" font-weight="bold">✓</text>
-                        <text x="50" y="170" font-size="10" fill="var(--text-primary)">Fast WiFi (tested this month)</text>
-
-                        <!-- Unverified section -->
-                        <text x="20" y="210" font-size="12" font-weight="bold" fill="var(--text-muted)">Host Claims (not verified)</text>
-
-                        <rect x="20" y="220" width="20" height="20" fill="none" stroke="var(--text-muted)" stroke-width="1" rx="2" opacity="0.5"/>
-                        <text x="50" y="235" font-size="10" fill="var(--text-muted)" opacity="0.7">Ski access</text>
-
-                        <rect x="20" y="250" width="20" height="20" fill="none" stroke="var(--text-muted)" stroke-width="1" rx="2" opacity="0.5"/>
-                        <text x="50" y="265" font-size="10" fill="var(--text-muted)" opacity="0.7">Mountain view</text>
-
-                        <!-- Bottom buttons -->
-                        <rect x="20" y="340" width="80" height="35" fill="none" stroke="var(--border)" stroke-width="1" rx="4"/>
-                        <text x="60" y="362" text-anchor="middle" font-size="11" fill="var(--text-secondary)">Clear all</text>
-
-                        <rect x="180" y="340" width="100" height="35" fill="#6b9e6b" rx="4"/>
-                        <text x="230" y="362" text-anchor="middle" font-size="11" fill="white">Show 12 places</text>
-
-                        <!-- Annotation with callout box -->
-                        <circle cx="260" cy="105" r="6" class="wf-annotation-dot"/>
-                        <rect x="58" y="290" width="210" height="20" class="wf-annotation-box" rx="3"/>
-                        <text x="163" y="303" text-anchor="middle" font-size="9" fill="#c47474">Maya knows these actually work</text>
-                    </svg>
-                </div>
-                
-                <div class="wireframe-caption">
-                    <strong>Key differentiation:</strong> Maya knows verified amenities actually work - recent guests confirmed them. Still searchable unverified options, but she knows it's not guaranteed. Precedent: OpenTable shows real-time table availability, not just "we have tables."
-                </div>
-            </div>
-
-            <p><strong>Design Philosophy Note:</strong> I initially considered more radical changes like hiding listings with poor reliability scores, but that felt too paternalistic. Maya's smart - she just needs better information to make decisions. These wireframes give her transparency without removing choice.</p>
         </div>
 
         <hr class="section-divider">
@@ -1366,40 +1022,19 @@
 
             <div class="exec-summary">
                 <div class="exec-summary-label">Executive Summary</div>
-                <p>Our redesign targets the highest-leverage improvements: search efficiency and booking confidence. When someone like Maya has a bad experience, she doesn't just leave negative reviews - she hedges future bookings with hotel reservations. That's booking friction that compounds over time. Reducing search time from 25 minutes to 12 minutes should improve conversion, while transparent pricing eliminates checkout surprise that causes 28% of users to abandon at payment screen.</p>
+                <p>{{EXEC_SUMMARY}}</p>
             </div>
 
             <div class="kpi-grid">
-                <div class="kpi-card">
-                    <div class="kpi-funnel-stage">Search Efficiency</div>
-                    <div class="kpi-metric">15%</div>
-                    <div class="kpi-name">Conversion Improvement</div>
-                    <div class="kpi-rationale">Weekly cohort analysis of search sessions to completed bookings for users matching Maya's profile (repeat bookers, mobile-primary)</div>
-                </div>
-
-                <div class="kpi-card">
-                    <div class="kpi-funnel-stage">Host Quality</div>
-                    <div class="kpi-metric">8.5+</div>
-                    <div class="kpi-name">Reliability Score Target</div>
-                    <div class="kpi-rationale">Track percentage of bookings going to hosts with high reliability scores without crushing new host growth</div>
-                </div>
-
-                <div class="kpi-card">
-                    <div class="kpi-funnel-stage">User Experience</div>
-                    <div class="kpi-metric">< 15min</div>
-                    <div class="kpi-name">Search Completion Time</div>
-                    <div class="kpi-rationale">Reduce Maya's 25-minute average search time, but only meaningful when paired with conversion data</div>
-                </div>
+                {{KPI_CARDS}}
             </div>
 
-            <p><strong>The Problem Economics:</strong> Here's what Maya's pain points actually cost Airbnb. Based on their Q3 2023 earnings call showing 113.2M nights booked globally, if even 3% of repeat users start dual-booking due to reliability concerns, that's ~3.4M potential nights with reduced conversion rates.</p>
-
-            <p><strong>Missing Data Limitations:</strong> This business case assumes Maya's problems are representative of a meaningful user segment, but I'm working from qualitative research rather than Airbnb's internal user segmentation data. I couldn't find Airbnb-specific data on cancellation drivers or platform-specific conversion differences for complex searches. The financial projections could be off by an order of magnitude in either direction.</p>
+            {{BUSINESS_CASE_PARAGRAPHS}}
 
             <!-- Assumptions -->
             <div class="assumptions">
                 <div class="assumptions-label">Assumptions & Limitations</div>
-                <p>This analysis assumes Maya represents a significant user segment, but lacks Airbnb's internal data on user behavior patterns. Financial projections are directional estimates based on industry benchmarks rather than platform-specific metrics. Success depends on execution complexity of real-time amenity verification and host scoring systems.</p>
+                <p>{{ASSUMPTIONS_TEXT}}</p>
             </div>
         </div>
 
@@ -1432,9 +1067,9 @@
         <div class="footer-site-info">
             <img src="../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
             <div class="footer-meta">
-                <span class="version-number">v2.1.0</span>
+                <span class="version-number">{{VERSION}}</span>
                 <span class="footer-meta-sep">&middot;</span>
-                <span class="last-updated">Updated Dec 2024</span>
+                <span class="last-updated">{{LAST_UPDATED}}</span>
                 <span class="footer-meta-sep">&middot;</span>
                 <a href="../rss.xml" class="rss-badge" title="Subscribe to RSS feed" target="_blank" rel="noopener noreferrer">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
