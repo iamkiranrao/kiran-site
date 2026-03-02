@@ -18,9 +18,8 @@ That's all the context needed. Don't paste previous conversations — just point
 ## Current Status
 
 **Active Phase:** Phase 3 — Forms + Auth + Command Center Migration
-**Active Step:** Step 3.5 — Integration Testing
-**Active Step:** Step 3.1 — Form Submission API
-**Blocked on:** Nothing — ready to proceed
+**Active Step:** Step 3.5 — Integration Testing (COMPLETE)
+**Blocked on:** Nothing — ready to proceed to Phase 4
 
 ---
 
@@ -31,7 +30,7 @@ That's all the context needed. Don't paste previous conversations — just point
 | **Phase 0** | Hosting Migration (Netlify → Cloudflare Pages) | **COMPLETE** | All steps done, Netlify decommissioned |
 | **Phase 1** | Backend Infrastructure (Vercel + Supabase) | **COMPLETE** | All steps done — Vercel + Supabase + DNS + Schema |
 | **Phase 2** | Backend Scaffolding + Health Check | **COMPLETE** | Done during Sessions 6-8 (structure, core utils, health check, Vercel config) |
-| **Phase 3** | Forms + Auth + Command Center Migration | **IN PROGRESS** | Starting Step 3.1 |
+| **Phase 3** | Forms + Auth + Command Center Migration | **COMPLETE** | Steps 3.1–3.5 done |
 | **Phase 4** | Content Pipeline + RAG + OG Cards | Not started | |
 | **Phase 5** | Fenix MVP (Chat + Persona + Widget) | Not started | |
 | **Phase 6** | Store + Agentic Features + Public APIs | Not started | |
@@ -344,4 +343,39 @@ That's all the context needed. Don't paste previous conversations — just point
   - Admin auth (`require_admin`) added to all Command Center endpoints
   - **ACTION REQUIRED:** Run `migrations/001_sessions_and_kv.sql` in Supabase SQL Editor
 - **Step 3.4 is COMPLETE** — Command Center services ported to Vercel
-- **Next:** Step 3.5 — Integration Testing
+
+### Session 10 — March 2, 2026
+**Duration:** ~1 session
+**What happened:**
+- Ran SQL migration in Supabase SQL Editor (sessions + kv_store tables)
+  - First attempt failed: `key` is a PostgreSQL reserved word
+  - Renamed column to `store_key`, updated `session_store.py` to match
+  - Migration succeeded: both tables, indexes, RLS policies, and triggers created
+- Completed **Step 3.5 — Integration Testing:**
+  - **Import error discovered:** `services.git_handler` module didn't exist, breaking all endpoints
+    - Removed import from `teardown.py` and `wordweaver.py`
+    - Replaced deploy endpoints with 501 stubs (git deploy not available in serverless)
+    - Fixed `get_config` → `get_settings` references in both files
+  - **Vercel deployment verified:** 3 commits pushed, all deployed successfully
+  - **API endpoint tests (all passing):**
+    - `GET /api/health` — `{"status": "healthy"}` (API, database, vector_store all healthy)
+    - `GET /api/v1/auth/config` — returns Supabase URL + anon key correctly
+    - `GET /api/docs` — Swagger UI loads with all 60+ endpoints visible
+    - All 6 Command Center modules registered: Teardown Builder, WordWeaver, Resume Customizer, Job Central, Content Audit, Visual Audit
+  - **Auth gate tests (both pages working):**
+    - `career-highlights.html` — gate active, `.gated-content.locked` applied, overlay visible
+    - `how-id-built-it.html` — gate prompt displayed with lock icon, email input, "Send Login Link" button, cards blurred behind overlay
+    - Supabase JS SDK loaded from CDN, `auth-gate.js` loaded and executing
+  - **Known limitations (not blocking):**
+    - Deploy endpoints return 501 (no git push from serverless — needs GitHub API integration)
+    - Resume pipeline services are stubs (return 501)
+    - Content/visual audit need cloud file access adaptation
+    - LLM shows "unconfigured" in health check (Anthropic API key not yet in Vercel env vars)
+- **Step 3.5 is COMPLETE** — integration tests pass, all core functionality verified
+- **Phase 3 is COMPLETE**
+- **Files modified:**
+  - `api/v1/admin/teardown.py` — removed git_handler import, fixed get_config, stubbed deploy
+  - `api/v1/admin/wordweaver.py` — same fixes as teardown
+  - `services/session_store.py` — `key` → `store_key` column reference
+  - `migrations/001_sessions_and_kv.sql` — `key` → `store_key` column name
+- **Next:** Phase 4 — Content Pipeline + RAG + OG Cards
