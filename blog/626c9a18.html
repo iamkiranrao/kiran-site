@@ -448,7 +448,7 @@
                 <span class="article-tag">Digital Wallets</span>
                 <span class="article-tag">Paze</span>
                 <span class="article-tag">Payment Architecture</span>
-                <span class="article-tag">Tokenisation</span>
+                <span class="article-tag">Tokenization</span>
                 <span class="article-tag">Fintech</span>
                 <span class="article-tag">Product Strategy</span>
             </div>
@@ -461,7 +461,7 @@
 
         <p>That's the thing about great payment experiences - the harder they are to build, the more invisible they should be. Nearly a decade later, Apple Pay has become so seamless that most payments product managers take its architecture for granted. But for anyone deploying payment experiences, the architecture beneath the magic is the difference between shipping with confidence and shipping with crossed fingers.</p>
 
-        <p>This isn't about appreciating Apple's engineering prowess. It's about recognising how they solved problems that every payments PM faces: security without friction, platform control without custody risk, and ecosystem growth without compromising user trust. The solutions they chose reveal principles that apply far beyond iOS wallets.</p>
+        <p>This isn't about appreciating Apple's engineering prowess. It's about recognizing how they solved problems that every payments PM faces: security without friction, platform control without custody risk, and ecosystem growth without compromising user trust. The solutions they chose reveal principles that apply far beyond iOS wallets.</p>
 
         <h2>The Architecture That Makes It Work</h2>
 
@@ -469,7 +469,7 @@
 
         <!-- Architecture Diagram -->
         <div style="margin: 2.5rem -1rem; padding: 1.5rem 0;">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1080" style="width:100%;max-width:720px;height:auto;" role="img" aria-label="Apple Pay system architecture diagram showing the 5-step payment flow: user authentication on iPhone, NFC tap to merchant terminal, routing through card network, authorisation by issuing bank, and approval response back to the device.">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1080" style="width:100%;max-width:720px;height:auto;" role="img" aria-label="Apple Pay system architecture diagram showing the 5-step payment flow: user authentication on iPhone, NFC tap to merchant terminal, routing through card network, authorization by issuing bank, and approval response back to the device.">
           <defs>
             <style>
               .dg-lp { fill: var(--text-primary, #f0e6d3); font-family: 'Inter', system-ui, sans-serif; }
@@ -577,7 +577,7 @@
 
           <rect x="160" y="464" width="250" height="50" rx="6" class="dg-bi"/>
           <text x="285" y="487" text-anchor="middle" class="dg-lp" font-size="12" font-weight="600">POS Terminal</text>
-          <text x="285" y="504" text-anchor="middle" class="dg-lm" font-size="9">Receives tokenised payment</text>
+          <text x="285" y="504" text-anchor="middle" class="dg-lm" font-size="9">Receives tokenized payment</text>
 
           <rect x="432" y="464" width="234" height="50" rx="6" class="dg-callout"/>
           <text x="549" y="487" text-anchor="middle" class="dg-lm" font-size="9" font-weight="600">Merchant sees only:</text>
@@ -684,22 +684,22 @@
         <p><strong>Device Layer: Where the Security Lives</strong><br>
         Start at the top of the diagram. The iPhone contains three components that matter: the Secure Element (SE), a tamper-resistant chip isolated from iOS that stores payment tokens and cryptographic keys; the Wallet app and iOS framework that orchestrate the user experience and biometric authentication; and the NFC controller that handles the contactless data exchange.</p>
 
-        <p>From a bank's perspective, the SE is the critical piece. It's a tiny, isolated computer that can perform calculations but never reveals its contents. Even if someone compromises the phone's operating system, they can't access the payment data. For us at Wells Fargo, this meant we could trust the device with tokenised credentials without worrying about a software vulnerability exposing real card numbers. Apple deliberately can't see them either - which is what convinced our security team.</p>
+        <p>From a bank's perspective, the SE is the critical piece. It's a tiny, isolated computer that can perform calculations but never reveals its contents. Even if someone compromises the phone's operating system, they can't access the payment data. For us at Wells Fargo, this meant we could trust the device with tokenized credentials without worrying about a software vulnerability exposing real card numbers. Apple deliberately can't see them either - which is what convinced our security team.</p>
 
         <p>The dashed callout box on the right side of the diagram matters: the device stores a Device Account Number (a token that maps to the real card), cryptographic keys (locked inside the SE), and biometric data. What it never stores is the actual card number. That separation is what makes the whole system work.</p>
 
         <p><strong>Merchant Layer: What Changes (and What Doesn't) at the Terminal</strong><br>
-        Step 2 in the diagram - the NFC tap. When a customer holds their phone to a terminal, the merchant's POS system receives a tokenised payment. From the merchant's perspective, it looks like a regular card transaction. They see only a token and a one-time cryptogram, both useless if intercepted.</p>
+        Step 2 in the diagram - the NFC tap. When a customer holds their phone to a terminal, the merchant's POS system receives a tokenized payment. From the merchant's perspective, it looks like a regular card transaction. They see only a token and a one-time cryptogram, both useless if intercepted.</p>
 
         <p>This was Apple's smartest architectural decision for adoption. Merchants didn't need new terminals, new settlement relationships, or new software. If their terminal already accepted contactless cards, it accepted Apple Pay. For a bank PM evaluating the integration, this meant we didn't need to coordinate with merchant acquirers or convince retailers to upgrade. The merchant layer was essentially invisible to our implementation.</p>
 
         <p><strong>Network Layer: Riding Existing Rails</strong><br>
-        Step 3 follows established card network infrastructure. The tokenised payment flows from the merchant's acquirer through Visa, Mastercard, or Amex - the same rails that handle every other card transaction. The Token Service Provider (usually operated by the card network itself) sits alongside and maintains the mapping between tokens and real card numbers.</p>
+        Step 3 follows established card network infrastructure. The tokenized payment flows from the merchant's acquirer through Visa, Mastercard, or Amex - the same rails that handle every other card transaction. The Token Service Provider (usually operated by the card network itself) sits alongside and maintains the mapping between tokens and real card numbers.</p>
 
         <p>For a bank considering Apple Pay deployment, this is the layer that keeps the integration manageable. You're not building new connections to a novel payment network. You're plugging into the same Visa and Mastercard infrastructure your bank already uses. The incremental work is in token provisioning and de-tokenisation - not in rearchitecting your payment flows.</p>
 
         <p><strong>Issuing Bank Layer: Where the Bank Does Its Real Work</strong><br>
-        Step 4 is where the transaction lands on the bank's side. The issuing bank's token vault translates the token back to the real card number, verifies the cryptographic signature, and passes it to the authorisation and fraud engine. This is the layer where I spent most of my time in 2014 - the balance checks, risk scoring, and fraud models that decide approve or decline.</p>
+        Step 4 is where the transaction lands on the bank's side. The issuing bank's token vault translates the token back to the real card number, verifies the cryptographic signature, and passes it to the authorization and fraud engine. This is the layer where I spent most of my time in 2014 - the balance checks, risk scoring, and fraud models that decide approve or decline.</p>
 
         <p>The return path (Step 5 on the diagram's right edge) sends that decision back through the same card network rails to the merchant terminal and ultimately back to the customer's device. The entire round trip takes under a second, but every layer has done its job.</p>
 
@@ -710,13 +710,13 @@
 
         <p>For a bank deploying Apple Pay, this is where the initial partnership friction lives. Your bank needs to integrate with Apple's provisioning service to verify cardholders, approve token creation, and manage the lifecycle. Once that's running, the payment flow itself rides entirely on existing infrastructure - the cloud layer steps aside.</p>
 
-        <p>This architecture means compromise of any single layer doesn't expose the entire system. It's defence in depth, but architected for usability rather than paranoia. And for a bank PM scoping the integration, it means the work is concentrated in two places: the token vault (new) and the provisioning integration with Apple's cloud (new). Everything else - your terminals, your card networks, your auth engines - keeps working as before.</p>
+        <p>This architecture means compromise of any single layer doesn't expose the entire system. It's defense in depth, but architected for usability rather than paranoia. And for a bank PM scoping the integration, it means the work is concentrated in two places: the token vault (new) and the provisioning integration with Apple's cloud (new). Everything else - your terminals, your card networks, your auth engines - keeps working as before.</p>
 
         <h2>What Happens in Under a Second</h2>
 
         <p>The diagram shows the layers. Here's what the timing actually looks like when a customer taps their phone.</p>
 
-        <p>Double-click, Face ID, tap. In that gesture, the Secure Element unlocks, the NFC controller negotiates with the terminal, and a one-time token with a dynamic cryptogram is generated and transmitted - all before the customer's thumb leaves the phone. The terminal forwards the tokenised payment through the card network's existing rails. The issuing bank's token vault translates it back to a real account, the fraud engine scores it, and an approve or decline decision travels back through the same path. The entire round trip - device to bank and back - completes in under a second.</p>
+        <p>Double-click, Face ID, tap. In that gesture, the Secure Element unlocks, the NFC controller negotiates with the terminal, and a one-time token with a dynamic cryptogram is generated and transmitted - all before the customer's thumb leaves the phone. The terminal forwards the tokenized payment through the card network's existing rails. The issuing bank's token vault translates it back to a real account, the fraud engine scores it, and an approve or decline decision travels back through the same path. The entire round trip - device to bank and back - completes in under a second.</p>
 
         <p>The thing worth appreciating is what doesn't happen. The merchant never sees the real card number. The SE creates a payment credential that proves the customer owns a valid card without revealing what that card is. Even if someone intercepts the data mid-flight, they can't reverse-engineer the actual account details or reuse the cryptogram for another transaction.</p>
 
@@ -785,13 +785,13 @@
 
         <p>That 2014 launch day complexity has become invisible infrastructure that processes trillions annually. The real lesson isn't about the technology - it's about architecting complexity in service of simplicity. The best payment experiences feel inevitable in retrospect, but they require deliberate choices about where to hide the machinery.</p>
 
-        <p>For payments PMs, understanding these architectural decisions isn't about copying Apple's approach. It's about recognising the principles behind choices that seem obvious now but were genuinely uncertain when they mattered most.</p>
+        <p>For payments PMs, understanding these architectural decisions isn't about copying Apple's approach. It's about recognizing the principles behind choices that seem obvious now but were genuinely uncertain when they mattered most.</p>
 
         <div class="article-sources">
             <h2>Sources</h2>
             <ol>
                 <li>Apple Inc. Security White Paper and Platform Security Guide (2024)</li>
-                <li>EMVCo Payment Tokenisation Specification and Contactless Payment Standards</li>
+                <li>EMVCo Payment Tokenization Specification and Contactless Payment Standards</li>
                 <li>Apple Inc. Quarterly Earnings Reports and Investor Relations Statements (2023-2024)</li>
                 <li>Visa, Mastercard, and American Express Technical Documentation</li>
                 <li>Industry fee structure analysis from Wall Street Journal, Reuters, and Financial Times (2014-2024)</li>
