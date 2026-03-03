@@ -319,22 +319,29 @@ function showToast(message, duration = 3000) {
 // AI ASSISTANT
 // ==========================================
 
+// launchFenix is overridden by fenix-widget.js when loaded.
+// This fallback exists in case the widget hasn't loaded yet.
 function launchFenix() {
-    showToast('Fenix is coming soon.');
+    showToast('Loading Fenix...');
 }
 
-document.querySelector('.ai-assistant').addEventListener('click', launchFenix);
+document.querySelector('.ai-assistant').addEventListener('click', () => launchFenix());
 
 const workIntroLogo = document.querySelector('.work-intro-logo');
 if (workIntroLogo) {
-    workIntroLogo.addEventListener('click', launchFenix);
+    workIntroLogo.addEventListener('click', () => launchFenix());
 }
 
-// Explore pills
+// Explore pills — trigger Fenix with pre-filled message or scroll to section
 document.querySelectorAll('.explore-pill').forEach(pill => {
     pill.addEventListener('click', () => {
         if (pill.dataset.fenix === 'true') {
-            launchFenix();
+            const message = pill.textContent.trim();
+            if (typeof window.launchFenixWithMessage === 'function') {
+                window.launchFenixWithMessage(message);
+            } else {
+                launchFenix();
+            }
             return;
         }
         const sectionId = pill.dataset.section;
