@@ -30,6 +30,24 @@
         "What technologies does Kiran work with?",
     ];
 
+    // Contextual tooltip prompts — matched by URL path
+    const TOOLTIP_PROMPTS = [
+        { match: /\/teardowns\/geico/i,        text: "Curious about this GEICO teardown?" },
+        { match: /\/teardowns\/airbnb/i,        text: "Questions about this Airbnb teardown?" },
+        { match: /\/teardowns\/meta|instagram/i, text: "Curious about this Meta teardown?" },
+        { match: /\/teardowns\//i,              text: "Have questions about this teardown?" },
+        { match: /\/career-highlights/i,        text: "Want to know more about Kiran's career?" },
+        { match: /\/studio/i,                   text: "Curious about Kiran's AI work?" },
+        { match: /\/madlab/i,                   text: "Want to explore these prototypes?" },
+        { match: /\/blog/i,                     text: "Have thoughts on this?" },
+        { match: /\/learning/i,                 text: "Curious about Kiran's learning journey?" },
+        { match: /\/how-id-built-it/i,          text: "Questions about how this was built?" },
+        { match: /\/$|\/index/i,                text: "Ask me anything about Kiran's work" },
+    ];
+    const TOOLTIP_DELAY_MS = 1500;   // Show after page settles
+    const TOOLTIP_DURATION_MS = 5000; // Visible for 5s
+    const TOOLTIP_SEEN_KEY = 'fenix_tooltip_seen';
+
     // ──────────────────────────────────────────────
     // State
     // ──────────────────────────────────────────────
@@ -52,6 +70,7 @@
         injectHTML();
         cacheDOM();
         bindEvents();
+        scheduleTooltip();
     }
 
     function injectHTML() {
@@ -183,7 +202,7 @@
 
         // Hide tooltip and auto-FAB while widget is open
         const tooltip = document.querySelector('.fenix-tooltip');
-        if (tooltip) tooltip.style.opacity = '0';
+        if (tooltip) tooltip.remove();
         const autoFab = document.getElementById('fenix-fab-auto');
         if (autoFab) autoFab.style.display = 'none';
     }
@@ -206,11 +225,54 @@
             overlay.classList.remove('closing');
         }, 300);
 
-        // Restore tooltip and auto-FAB
-        const tooltip = document.querySelector('.fenix-tooltip');
-        if (tooltip) tooltip.style.opacity = '1';
+        // Restore auto-FAB (tooltip is one-shot, doesn't come back)
         const autoFab = document.getElementById('fenix-fab-auto');
         if (autoFab) autoFab.style.display = 'flex';
+    }
+
+    // ──────────────────────────────────────────────
+    // Contextual Tooltip
+    // ──────────────────────────────────────────────
+
+    function scheduleTooltip() {
+        // Don't show if widget is already open or if already seen this session for this path
+        const path = window.location.pathname;
+        const seenPaths = JSON.parse(sessionStorage.getItem(TOOLTIP_SEEN_KEY) || '[]');
+        if (seenPaths.includes(path)) return;
+
+        // Find matching prompt for this page
+        const prompt = TOOLTIP_PROMPTS.find(p => p.match.test(path));
+        if (!prompt) return;
+
+        setTimeout(() => {
+            if (isOpen) return; // Widget opened before tooltip fired
+
+            // Mark as seen for this session
+            seenPaths.push(path);
+            sessionStorage.setItem(TOOLTIP_SEEN_KEY, JSON.stringify(seenPaths));
+
+            // Create tooltip element
+            const tip = document.createElement('div');
+            tip.className = 'fenix-tooltip';
+            tip.textContent = prompt.text;
+            tip.addEventListener('click', () => {
+                tip.remove();
+                window.launchFenix();
+            });
+            document.body.appendChild(tip);
+
+            // Fade in
+            requestAnimationFrame(() => {
+                tip.classList.add('fenix-tooltip-visible');
+            });
+
+            // Auto-dismiss after duration
+            setTimeout(() => {
+                tip.classList.remove('fenix-tooltip-visible');
+                tip.classList.add('fenix-tooltip-hiding');
+                setTimeout(() => tip.remove(), 400);
+            }, TOOLTIP_DURATION_MS);
+        }, TOOLTIP_DELAY_MS);
     }
 
     // ──────────────────────────────────────────────
