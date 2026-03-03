@@ -95,6 +95,21 @@
         `;
         document.body.appendChild(widget);
 
+        // Create FAB if one doesn't already exist on the page
+        if (!document.getElementById('fenix-fab') && !document.querySelector('.fenix-fab')) {
+            const fab = document.createElement('button');
+            fab.id = 'fenix-fab-auto';
+            fab.className = 'fenix-fab-auto';
+            fab.setAttribute('aria-label', 'Chat with Fenix');
+            fab.title = 'Chat with Fenix';
+            fab.innerHTML = '<img src="' + (document.querySelector('link[rel="icon"]')?.href || '/images/logo.png') + '" alt="Fenix" style="width:32px;height:32px;border-radius:50%;">';
+            fab.style.cssText = 'position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;z-index:9998;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.2);background:var(--bg-secondary, #1a1a1a);transition:transform 0.2s,box-shadow 0.2s;';
+            fab.addEventListener('mouseenter', () => { fab.style.transform = 'scale(1.1)'; });
+            fab.addEventListener('mouseleave', () => { fab.style.transform = 'scale(1)'; });
+            fab.addEventListener('click', () => window.launchFenix());
+            document.body.appendChild(fab);
+        }
+
         // Populate suggestions
         const suggestionsEl = document.getElementById('fenix-suggestions');
         SUGGESTIONS.forEach(text => {
@@ -166,9 +181,11 @@
         overlay.classList.remove('closing');
         inputField.focus();
 
-        // Hide tooltip while widget is open
+        // Hide tooltip and auto-FAB while widget is open
         const tooltip = document.querySelector('.fenix-tooltip');
         if (tooltip) tooltip.style.opacity = '0';
+        const autoFab = document.getElementById('fenix-fab-auto');
+        if (autoFab) autoFab.style.display = 'none';
     }
 
     function closeWidget() {
@@ -189,9 +206,11 @@
             overlay.classList.remove('closing');
         }, 300);
 
-        // Restore tooltip
+        // Restore tooltip and auto-FAB
         const tooltip = document.querySelector('.fenix-tooltip');
         if (tooltip) tooltip.style.opacity = '1';
+        const autoFab = document.getElementById('fenix-fab-auto');
+        if (autoFab) autoFab.style.display = 'flex';
     }
 
     // ──────────────────────────────────────────────
