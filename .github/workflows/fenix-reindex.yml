@@ -1,0 +1,66 @@
+name: Fenix Re-Index
+
+# Runs whenever content is pushed to main — keeps Fenix’s knowledge base in sync.
+# Triggers on changes to HTML files, blog posts, teardowns, or the fenix-index.json.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - 'blog/**'
+      - 'teardowns/**'
+      - 'fenix-index.json'
+  workflow_dispatch: # Manual trigger from GitHub Actions UI
+
+jobs:
+  reindex:
+    name: Re-index content for Fenix
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout site content
+        uses: actions/checkout@v4
+
+      - name: Checkout fenix-backend scripts
+        uses: actions/checkout@v4
+        with:
+          repository: iamkiranrao/fenix-backend
+          token: ${{ secrets.FENIX_BACKEND_PAT }}
+          path: fenix-backend
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install httpx
+
+      - name: Extract content
+        run: |
+          python fenix-backend/scripts/content_extractor.py \
+            --site-dir . \
+            --index fenix-index.json \
+            --output extracted_content.json
+
+      - name: Chunk, embed, and store
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
+        run: |
+          python fenix-backend/scripts/chunk_and_embed.py \
+            --input extracted_content.json \
+            --supabase-url "$SUPABASE_URL" \
+            --supabase-key "$SUPABASE_SERVICE_KEY" \
+            --voyage-key "$VOYAGE_API_KEY"
+
+      - name: Summary
+        run: |
+          echo "## Fenix Re-Index Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Content has been re-indexed into Fenix's knowledge base." >> $GITHUB_STEP_SUMMARY
+          echo "Fenix will now be able to answer questions about any new or updated pages." >> $GITHUB_STEP_SUMMARY
+
