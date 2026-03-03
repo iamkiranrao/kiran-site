@@ -1,0 +1,495 @@
+/* ═══════════════════════════════════════════════
+   Fenix Chat Widget — kirangorapalli.com
+   Floating overlay with SSE streaming, markdown
+   rendering, citations, and responsive design.
+   ═══════════════════════════════════════════════ */
+
+/* ─── Widget Container ─── */
+.fenix-overlay {
+    position: fixed;
+    bottom: 7rem;
+    right: 2rem;
+    width: 400px;
+    max-height: 560px;
+    background: var(--bg-primary, #0a0a0a);
+    border: 1px solid var(--border, #222222);
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.fenix-overlay.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.fenix-overlay.closing {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+}
+
+/* ─── Header ─── */
+.fenix-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border, #222222);
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    flex-shrink: 0;
+}
+
+.fenix-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.fenix-header-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #00293C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #003a54;
+}
+
+.fenix-header-avatar img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.fenix-header-info h3 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary, #f0e6d3);
+}
+
+.fenix-header-info span {
+    font-size: 0.7rem;
+    color: var(--text-secondary, #8a8278);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.fenix-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    display: inline-block;
+}
+
+.fenix-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary, #8a8278);
+    cursor: pointer;
+    padding: 0.35rem;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fenix-close-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary, #f0e6d3);
+}
+
+/* ─── Messages Area ─── */
+.fenix-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 200px;
+    max-height: 380px;
+    scroll-behavior: smooth;
+}
+
+.fenix-messages::-webkit-scrollbar {
+    width: 4px;
+}
+
+.fenix-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.fenix-messages::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* ─── Message Bubbles ─── */
+.fenix-msg {
+    max-width: 88%;
+    padding: 0.75rem 1rem;
+    border-radius: 16px;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    word-wrap: break-word;
+    animation: fenixMsgIn 0.25s ease;
+}
+
+@keyframes fenixMsgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fenix-msg.user {
+    align-self: flex-end;
+    background: #1a3a4a;
+    color: #e0dcd6;
+    border-bottom-right-radius: 4px;
+}
+
+.fenix-msg.assistant {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary, #f0e6d3);
+    border-bottom-left-radius: 4px;
+}
+
+/* Markdown-rendered content */
+.fenix-msg.assistant p {
+    margin: 0 0 0.5rem 0;
+}
+
+.fenix-msg.assistant p:last-child {
+    margin-bottom: 0;
+}
+
+.fenix-msg.assistant a {
+    color: #7cb5d4;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(124, 181, 212, 0.3);
+    transition: border-color 0.2s;
+}
+
+.fenix-msg.assistant a:hover {
+    border-color: #7cb5d4;
+}
+
+.fenix-msg.assistant strong {
+    color: #f0e6d3;
+    font-weight: 600;
+}
+
+.fenix-msg.assistant ul,
+.fenix-msg.assistant ol {
+    margin: 0.35rem 0;
+    padding-left: 1.25rem;
+}
+
+.fenix-msg.assistant li {
+    margin-bottom: 0.2rem;
+}
+
+.fenix-msg.assistant code {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ─── Typing Indicator ─── */
+.fenix-typing {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    align-self: flex-start;
+    color: var(--text-secondary, #8a8278);
+    font-size: 0.8rem;
+}
+
+.fenix-typing-dots {
+    display: flex;
+    gap: 3px;
+}
+
+.fenix-typing-dots span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-secondary, #8a8278);
+    animation: fenixDotBounce 1.4s ease-in-out infinite;
+}
+
+.fenix-typing-dots span:nth-child(2) { animation-delay: 0.16s; }
+.fenix-typing-dots span:nth-child(3) { animation-delay: 0.32s; }
+
+@keyframes fenixDotBounce {
+    0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+/* ─── Welcome State ─── */
+.fenix-welcome {
+    text-align: center;
+    padding: 1.5rem 1rem;
+}
+
+.fenix-welcome h4 {
+    margin: 0 0 0.35rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary, #f0e6d3);
+}
+
+.fenix-welcome p {
+    margin: 0 0 1rem 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary, #8a8278);
+    line-height: 1.5;
+}
+
+.fenix-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.fenix-suggestion {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border, #222222);
+    color: var(--text-primary, #f0e6d3);
+    padding: 0.6rem 0.85rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s, border-color 0.2s;
+    font-family: inherit;
+}
+
+.fenix-suggestion:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ─── Input Area ─── */
+.fenix-input-area {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--border, #222222);
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    flex-shrink: 0;
+}
+
+.fenix-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, #222222);
+    border-radius: 12px;
+    padding: 0.65rem 0.85rem;
+    color: var(--text-primary, #f0e6d3);
+    font-size: 0.85rem;
+    font-family: inherit;
+    resize: none;
+    min-height: 20px;
+    max-height: 100px;
+    line-height: 1.4;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.fenix-input::placeholder {
+    color: var(--text-secondary, #8a8278);
+}
+
+.fenix-input:focus {
+    border-color: rgba(124, 181, 212, 0.5);
+}
+
+.fenix-send-btn {
+    background: #00293C;
+    border: 1.5px solid #003a54;
+    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #f0e6d3;
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+}
+
+.fenix-send-btn:hover {
+    background: #003a54;
+}
+
+.fenix-send-btn:active {
+    transform: scale(0.95);
+}
+
+.fenix-send-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.fenix-send-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ─── Citations Bar ─── */
+.fenix-citations {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    padding: 0.35rem 0 0;
+    margin-top: 0.35rem;
+}
+
+.fenix-citation-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(124, 181, 212, 0.1);
+    border: 1px solid rgba(124, 181, 212, 0.2);
+    color: #7cb5d4;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.fenix-citation-chip:hover {
+    background: rgba(124, 181, 212, 0.2);
+}
+
+/* ─── Nudge Banner ─── */
+.fenix-nudge {
+    background: linear-gradient(135deg, rgba(0, 41, 60, 0.3), rgba(139, 30, 30, 0.15));
+    border: 1px solid rgba(124, 181, 212, 0.15);
+    border-radius: 12px;
+    padding: 0.65rem 0.85rem;
+    margin: 0.5rem 0;
+    font-size: 0.78rem;
+    color: var(--text-primary, #f0e6d3);
+    text-align: center;
+    animation: fenixMsgIn 0.3s ease;
+}
+
+.fenix-nudge a {
+    color: #7cb5d4;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* ─── Error State ─── */
+.fenix-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    text-align: center;
+    animation: fenixMsgIn 0.25s ease;
+}
+
+/* ─── Light Theme Overrides ─── */
+[data-theme="light"] .fenix-overlay {
+    background: #f5f3f0;
+    border-color: #c5c0b8;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .fenix-header {
+    background: rgba(245, 243, 240, 0.95);
+}
+
+[data-theme="light"] .fenix-msg.user {
+    background: #d4e8f0;
+    color: #1a3a4a;
+}
+
+[data-theme="light"] .fenix-msg.assistant {
+    background: rgba(0, 0, 0, 0.04);
+    color: #3a3632;
+}
+
+[data-theme="light"] .fenix-msg.assistant a {
+    color: #1a6b8a;
+    border-bottom-color: rgba(26, 107, 138, 0.3);
+}
+
+[data-theme="light"] .fenix-input-area {
+    background: rgba(245, 243, 240, 0.95);
+}
+
+[data-theme="light"] .fenix-input {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: #c5c0b8;
+    color: #3a3632;
+}
+
+[data-theme="light"] .fenix-suggestion {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: #c5c0b8;
+    color: #3a3632;
+}
+
+[data-theme="light"] .fenix-suggestion:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .fenix-overlay {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        max-height: 85vh;
+        border-radius: 20px 20px 0 0;
+        transform: translateY(100%);
+    }
+
+    .fenix-overlay.active {
+        transform: translateY(0);
+    }
+
+    .fenix-overlay.closing {
+        transform: translateY(100%);
+    }
+
+    .fenix-messages {
+        max-height: calc(85vh - 140px);
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .fenix-overlay {
+        width: 360px;
+        right: 1rem;
+        bottom: 6rem;
+    }
+}
