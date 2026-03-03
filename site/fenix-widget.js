@@ -23,12 +23,18 @@
     const SESSION_KEY = 'fenix_session_id';
     const MAX_MESSAGE_LENGTH = 2000;
 
-    const SUGGESTIONS = [
-        "What has Kiran built with AI?",
-        "Tell me about Kiran's product teardowns",
-        "What's Kiran's approach to product management?",
-        "What technologies does Kiran work with?",
+    const SUGGESTION_POOL = [
+        "What's something most visitors miss?",
+        "What's Kiran's boldest product bet?",
+        "How did Kiran build this AI assistant?",
+        "What's Kiran like to work with?",
+        "What would Kiran change about insurance tech?",
+        "Show me the wildest prototype",
+        "What has Kiran shipped recently?",
+        "What's Kiran's hot take on AI in product?",
     ];
+    // Show 4 random picks on each load
+    const SUGGESTIONS = SUGGESTION_POOL.sort(() => 0.5 - Math.random()).slice(0, 4);
 
     // Contextual tooltip prompts — matched by URL path
     const TOOLTIP_PROMPTS = [
