@@ -97,7 +97,7 @@
                 <div class="fenix-messages" id="fenix-messages">
                     <div class="fenix-welcome" id="fenix-welcome">
                         <h4>Hey! I'm Fenix.</h4>
-                        <p>I know everything on Kiran's site. Ask me about his work, teardowns, career, or anything you're curious about.</p>
+                        <p>I'm Kiran's AI assistant, here to help you navigate this site and experience it in a way that's right for you.</p>
                         <div class="fenix-suggestions" id="fenix-suggestions"></div>
                     </div>
                 </div>
