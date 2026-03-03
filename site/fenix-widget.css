@@ -63,11 +63,13 @@
     align-items: center;
     justify-content: center;
     border: 1.5px solid #003a54;
+    overflow: hidden;
+    padding: 0;
 }
 
 .fenix-header-avatar img {
-    width: 22px;
-    height: 22px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
 }
 

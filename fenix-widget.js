@@ -80,7 +80,7 @@
                 <div class="fenix-header">
                     <div class="fenix-header-left">
                         <div class="fenix-header-avatar">
-                            <img src="images/logo.png" alt="Fenix">
+                            <img src="/images/logo.png" alt="Fenix">
                         </div>
                         <div class="fenix-header-info">
                             <h3>Fenix</h3>
