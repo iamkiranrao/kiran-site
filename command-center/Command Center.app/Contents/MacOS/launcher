@@ -1,0 +1,42 @@
+#!/bin/bash
+# Command Center Launcher
+
+# Get the project directory (3 levels up from this script)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+
+# Write temporary starter scripts to avoid quoting issues
+BACKEND_SCRIPT="/tmp/cc_start_backend.sh"
+FRONTEND_SCRIPT="/tmp/cc_start_frontend.sh"
+
+cat > "$BACKEND_SCRIPT" << INNEREOF
+#!/bin/bash
+cd "$PROJECT_DIR/backend"
+source venv/bin/activate
+echo "Starting Command Center Backend..."
+python -m uvicorn main:app --reload --port 8000
+INNEREOF
+chmod +x "$BACKEND_SCRIPT"
+
+cat > "$FRONTEND_SCRIPT" << INNEREOF
+#!/bin/bash
+cd "$PROJECT_DIR/frontend"
+echo "Starting Command Center Frontend..."
+npm run dev
+INNEREOF
+chmod +x "$FRONTEND_SCRIPT"
+
+# Launch backend in a new Terminal window
+open -a Terminal "$BACKEND_SCRIPT"
+
+# Wait for backend to start
+sleep 4
+
+# Launch frontend in a new Terminal window
+open -a Terminal "$FRONTEND_SCRIPT"
+
+# Wait for frontend to be ready
+sleep 5
+
+# Open the browser
+open http://localhost:3000
