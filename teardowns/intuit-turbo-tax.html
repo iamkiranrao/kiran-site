@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurboTax Product Teardown | How I'd've Built It | Kiran Gorapalli</title>
+    <meta name="description" content="Product teardown of TurboTax's customer service desert problem, with redesign concepts for in-context help and community support.">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="TurboTax Product Teardown | Kiran Gorapalli">
+    <meta property="og:description" content="Product teardown analyzing TurboTax's customer service challenges and redesign solutions.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kirangorapalli.com/how-id-have-built-it/intuit/turbotax">
+    <meta property="og:site_name" content="Kiran Gorapalli">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TurboTax Product Teardown | Kiran Gorapalli">
+    <meta name="twitter:description" content="Product teardown analyzing TurboTax's customer service challenges and redesign solutions.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../../styles.css">
+    
+    <style>
+        .subpage-hero {
+            background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+        
+        .hero-title-area {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+        
+        .breadcrumb a {
+            color: #a0c4ff;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .subpage-hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero-tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+        
+        .teardown-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-block {
+            margin: 4rem 0;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1a365d;
+        }
+        
+        .glossary-section {
+            background: #f8fafc;
+            border-radius: 8px;
+            margin: 2rem 0 4rem 0;
+            overflow: hidden;
+        }
+        
+        .glossary-toggle {
+            background: #e2e8f0;
+            border: none;
+            padding: 1rem 1.5rem;
+            width: 100%;
+            text-align: left;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .glossary-toggle:hover {
+            background: #cbd5e0;
+        }
+        
+        .glossary-content {
+            padding: 1.5rem;
+            display: none;
+        }
+        
+        .glossary-content.open {
+            display: block;
+        }
+        
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .glossary-term {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #4299e1;
+        }
+        
+        .glossary-term-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .glossary-term-def {
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        
+        .journey-stage {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #4299e1;
+        }
+        
+        .journey-stage.highlight {
+            background: #fff5f5;
+            border-left-color: #f56565;
+        }
+        
+        .stage-header {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+        
+        .stage-detail {
+            margin: 0.5rem 0;
+        }
+        
+        .stage-label {
+            font-weight: 500;
+            color: #4a5568;
+        }
+        
+        .kkb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .kkb-column {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .kkb-column.keep {
+            border-top: 4px solid #48bb78;
+        }
+        
+        .kkb-column.kill {
+            border-top: 4px solid #f56565;
+        }
+        
+        .kkb-column.build {
+            border-top: 4px solid #4299e1;
+        }
+        
+        .kkb-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .kkb-item {
+            margin: 1.5rem 0;
+        }
+        
+        .kkb-item-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .wireframe-container {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .wireframe-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+        
+        .wireframe-mockup {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .mockup-element {
+            background: #edf2f7;
+            height: 40px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        
+        .mockup-element.header {
+            background: #4299e1;
+            color: white;
+            height: 50px;
+            font-weight: 500;
+        }
+        
+        .mockup-element.form-field {
+            height: 35px;
+            border: 1px solid #cbd5e0;
+            background: white;
+        }
+        
+        .mockup-element.help-panel {
+            background: #fff5f0;
+            border: 1px solid #fed7d7;
+            height: 80px;
+            align-items: flex-start;
+            padding-top: 1rem;
+        }
+        
+        .annotation {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+        
+        .score-box {
+            background: #fff5f0;
+            border: 1px solid #feb2b2;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .score-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #c53030;
+            margin-bottom: 0.5rem;
+        }
+        
+        .risk-item {
+            background: white;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #f56565;
+        }
+        
+        .risk-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .subpage-hero-title {
+                font-size: 2rem;
+            }
+            
+            .kkb-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .glossary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="subpage-hero">
+        <div class="hero-title-area">
+            <nav class="breadcrumb">
+                <a href="/">Home</a> > <a href="/how-id-have-built-it">How I'd've Built It</a> > <a href="/how-id-have-built-it/intuit">Intuit</a> > TurboTax
+            </nav>
+            <h1 class="subpage-hero-title">TurboTax Product Teardown</h1>
+            <p class="hero-tagline">When customer service becomes the product gap that breaks user trust</p>
+        </div>
+    </header>
+
+    <main class="teardown-content">
+        <div class="glossary-section">
+            <button class="glossary-toggle" onclick="toggleGlossary()">
+                Quick Reference <span id="glossary-arrow">▼</span>
+            </button>
+            <div class="glossary-content" id="glossary-content">
+                <div class="glossary-grid">
+                    <div class="glossary-term">
+                        <div class="glossary-term-title">Customer Service Desert</div>
+                        <div class="glossary-term-def">When a product deliberately makes human support hard to find or access, leaving users stranded when software fails or situations get complex.</div>
+                    </div>
+                    <div class="glossary-term">
+                        <div class="glossary-term-title">Progressive Complexity Interface</div>
+                        <div class="glossary-term-def">UI design where advanced features appear only as users need them, rather than overwhelming everyone with all options upfront.</div>
+                    </div>
+                    <div class="glossary-term">
+                        <div class="glossary-term-title">In-Context Help</div>
+                        <div class="glossary-term-def">Support information that appears exactly when and where users encounter problems, instead of requiring them to search separate help centers.</div>
+                    </div>
+                    <div class="glossary-term">
+                        <div class="glossary-term-title">ACSI (American Customer Satisfaction Index)</div>
+                        <div class="glossary-term-def">Industry-standard measurement of customer satisfaction across different sectors, allowing comparison between companies and tracking over time.</div>
+                    </div>
+                    <div class="glossary-term">
+                        <div class="glossary-term-title">Support Escalation Reduction</div>
+                        <div class="glossary-term-def">Measuring how well self-service features prevent users from needing to contact human support, typically tracked as year-over-year ticket volume decrease.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="section-block">
+            <h2 class="section-title">Meet Sarah Chen</h2>
+            <p>Sarah's a 34-year-old marketing manager at a mid-sized tech company in Austin. She's been using TurboTax for about 8 years because "it's what everyone uses" and switching feels like too much work. She's reasonably tech-savvy but doesn't want to think about taxes more than absolutely necessary.</p>
+            
+            <p>This year she's got some complications - stock options vested, she did some freelance consulting work, and moved apartments mid-year. Nothing crazy complex, but more than the basic W-2 situation she's used to.</p>
+            
+            <p>I kept seeing the same user profile in complaints across Reddit and App Store reviews - established TurboTax users who hit problems during filing and discovered customer support was essentially non-existent. They're not tax experts but they're not complete beginners either. They expect basic help when software fails or situations get confusing.</p>
+        </section>
+
+        <section class="section-block">
+            <h2 class="section-title">Sarah's Tax Filing Journey</h2>
+            
+            <div class="journey-stage">
+                <div class="stage-header">Stage 1: Getting Started</div>
+                <div class="stage-detail"><span class="stage-label">Action:</span> Opens TurboTax, begins entering W-2 information</div>
+                <div class="stage-detail"><span class="stage-label">Inner thought:</span> "Same drill as every year
