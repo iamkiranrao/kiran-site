@@ -1503,29 +1503,7 @@ footer {
     object-fit: contain;
 }
 
-/* Tooltip label */
-.fenix-tooltip {
-    background: #2a2420;
-    color: #f0e6d3;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    border: 1px solid #3d3530;
-    opacity: 1;
-    animation: fenix-tooltip-fade 8s ease-in-out forwards;
-    pointer-events: none;
-    letter-spacing: 0.01em;
-}
-
-[data-theme="light"] .fenix-tooltip {
-    background: #2a2420;
-    color: #f0e6d3;
-    border-color: #3d3530;
-}
+/* Tooltip styles are in fenix-widget.css */
 
 .ai-assistant:hover {
     transform: scale(1.1);
@@ -1547,11 +1525,6 @@ footer {
     90% { transform: translateY(-8px); }
     95% { transform: translateY(0); }
     97% { transform: translateY(-4px); }
-}
-
-@keyframes fenix-tooltip-fade {
-    0%, 60% { opacity: 1; }
-    100% { opacity: 0; }
 }
 
 
@@ -1641,7 +1614,6 @@ footer {
 
     .ai-assistant-wrapper { bottom: 1.5rem; right: 1.5rem; }
     .ai-assistant { width: 58px; height: 58px; padding: 3px; }
-    .fenix-tooltip { font-size: 0.75rem; padding: 0.4rem 0.75rem; }
     .fenix-section-logo { width: 100px; height: 100px; }
     .social-links { flex-wrap: wrap; }
     .social-icon { width: 40px; height: 40px; }
