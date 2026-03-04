@@ -985,23 +985,38 @@
             <div class="journey-visual">
                 <div class="journey-visual-header">Customer Journey & Sentiment Curve</div>
                 <div class="journey-sentiment-wrap">
-                    <svg viewBox="0 0 500 100" preserveAspectRatio="xMidYMid meet">
-                        <defs>
-                            <linearGradient id="sentimentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#7a9ec4;stop-opacity:0.3" />
-                                <stop offset="50%" style="stop-color:#c47474;stop-opacity:0.3" />
-                                <stop offset="100%" style="stop-color:#c47474;stop-opacity:0.3" />
-                            </linearGradient>
-                        </defs>
-                        <polyline points="10,55 75,35 150,50 225,75 300,85 375,95 490,95" fill="none" stroke="var(--text-secondary)" stroke-width="2" vector-effect="non-scaling-stroke"/>
-                        <polygon points="10,55 75,35 150,50 225,75 300,85 375,95 490,95 490,100 10,100" fill="url(#sentimentGradient)" opacity="0.6"/>
-                        <circle cx="10" cy="55" r="3" fill="var(--text-secondary)"/>
-                        <circle cx="75" cy="35" r="3" fill="var(--text-secondary)"/>
-                        <circle cx="150" cy="50" r="3" fill="var(--text-secondary)"/>
-                        <circle cx="225" cy="75" r="3" fill="#c47474"/>
-                        <circle cx="300" cy="85" r="3" fill="#c47474"/>
-                        <circle cx="375" cy="95" r="3" fill="#c47474"/>
-                        <circle cx="490" cy="95" r="3" fill="#c47474"/>
+                    <svg viewBox="0 0 500 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <title>Sentiment Curve for Sarah's Tax Filing Journey</title>
+                        <!-- Reference lines -->
+                        <line x1="50" y1="20" x2="450" y2="20" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
+                        <line x1="50" y1="55" x2="450" y2="55" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
+                        <line x1="50" y1="90" x2="450" y2="90" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
+                        <!-- Y-axis labels -->
+                        <text x="8" y="23" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Positive</text>
+                        <text x="8" y="58" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Neutral</text>
+                        <text x="8" y="93" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Negative</text>
+                        <!-- Smooth sentiment curve using cubic bezier through data points -->
+                        <path d="M 50,35 C 80,35 120,50 150,55 C 180,60 220,75 250,80 C 280,85 320,87 350,90 C 380,92 420,93 450,95" stroke="var(--text-secondary)" stroke-width="2" fill="none" opacity="0.4"/>
+                        <!-- Area fill under curve -->
+                        <path d="M 50,35 C 80,35 120,50 150,55 C 180,60 220,75 250,80 C 280,85 320,87 350,90 C 380,92 420,93 450,95 L 450,105 L 50,105 Z" fill="var(--text-secondary)" opacity="0.04"/>
+                        <!-- Data points with sentiment colors -->
+                        <circle cx="50" cy="35" r="6" fill="#d4a74a" opacity="0.9"/>
+                        <circle cx="150" cy="55" r="6" fill="#d4a74a" opacity="0.9"/>
+                        <circle cx="250" cy="80" r="6" fill="#c47474" opacity="0.9"/>
+                        <circle cx="350" cy="90" r="6" fill="#c47474" opacity="0.9"/>
+                        <circle cx="450" cy="95" r="6" fill="#c47474" opacity="0.9"/>
+                        <!-- Sentiment labels - positioned above dots with clearance -->
+                        <text x="50" y="25" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Confident</text>
+                        <text x="150" y="43" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Annoyed</text>
+                        <text x="250" y="68" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Frustrated</text>
+                        <text x="350" y="78" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Angry</text>
+                        <text x="450" y="83" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Defeated</text>
+                        <!-- Stage labels at bottom -->
+                        <text x="50" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">START</text>
+                        <text x="150" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">COMPLICATE</text>
+                        <text x="250" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">ERROR</text>
+                        <text x="350" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">SUPPORT</text>
+                        <text x="450" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">ABANDON</text>
                     </svg>
                 </div>
                 <div class="journey-stages">
@@ -1122,23 +1137,177 @@
                 <div class="wireframe-label">Proposal 1 — In-Context Help Panel</div>
                 <div class="wireframe-box">
                     <div class="wireframe-box-label">Wireframe: Help Panel on Error</div>
-                    <svg viewBox="0 0 300 200" style="padding: 1rem;">
-                        <rect x="10" y="10" width="280" height="180" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1" rx="4"/>
-                        <rect x="20" y="20" width="120" height="30" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <text x="25" y="40" font-size="10" fill="var(--text-secondary)">Stock Options Form</text>
-                        <rect x="20" y="60" width="120" height="20" fill="white" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <text x="25" y="73" font-size="8" fill="var(--text-muted)">Grant Date</text>
-                        <rect x="20" y="90" width="120" height="20" fill="#fff5f0" stroke="#fed7d7" stroke-width="1" rx="2"/>
-                        <text x="25" y="103" font-size="8" fill="#c47474">Error: Invalid date</text>
-                        <rect x="150" y="20" width="130" height="160" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <text x="160" y="35" font-size="9" font-weight="600" fill="var(--text-primary)">Help</text>
-                        <rect x="160" y="45" width="110" height="50" fill="white" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <text x="165" y="58" font-size="8" fill="var(--text-primary)" font-weight="500">Common mistakes:</text>
-                        <text x="165" y="70" font-size="7" fill="var(--text-secondary)">• Date format must be MM/DD/YYYY</text>
-                        <text x="165" y="80" font-size="7" fill="var(--text-secondary)">• Can't be before 2020</text>
-                        <rect x="160" y="100" width="110" height="30" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <text x="165" y="115" font-size="8" fill="var(--text-primary)" font-weight="500">Talk to an expert</text>
-                        <text x="165" y="127" font-size="7" fill="var(--text-muted)">Real agent, $0 additional</text>
+                    <svg viewBox="0 0 280 500" xmlns="http://www.w3.org/2000/svg">
+                      <title>In-Context Help Panel Wireframe</title>
+                      <defs>
+                        <style>
+                          .wf-phone-frame {
+                            stroke: var(--border);
+                            stroke-width: 2;
+                            fill: var(--bg-primary);
+                          }
+
+                          .wf-status-bar {
+                            fill: var(--bg-dark);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-form-section {
+                            fill: var(--bg-secondary);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-form-label {
+                            fill: var(--text-secondary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 10px;
+                            font-weight: 500;
+                          }
+
+                          .wf-form-field {
+                            fill: white;
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-form-field-error {
+                            fill: #fff5f0;
+                            stroke: #c47474;
+                            stroke-width: 1;
+                          }
+
+                          .wf-error-text {
+                            fill: #c47474;
+                            font-family: system-ui, sans-serif;
+                            font-size: 8px;
+                          }
+
+                          .wf-help-panel {
+                            fill: var(--bg-secondary);
+                            stroke: #6b9e6b;
+                            stroke-width: 1.5;
+                          }
+
+                          .wf-help-title {
+                            fill: var(--text-primary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 11px;
+                            font-weight: 600;
+                          }
+
+                          .wf-help-text {
+                            fill: var(--text-secondary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 8px;
+                          }
+
+                          .wf-button {
+                            fill: var(--bg-primary);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-button-text {
+                            fill: var(--text-primary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 9px;
+                            font-weight: 600;
+                          }
+
+                          .wf-annotation-dot {
+                            fill: #c47474;
+                          }
+
+                          .wf-annotation-line {
+                            stroke: #c47474;
+                            stroke-width: 1.5;
+                          }
+
+                          .wf-annotation-box {
+                            fill: var(--bg-dark);
+                            stroke: #c47474;
+                            stroke-width: 1;
+                          }
+
+                          .wf-annotation-text {
+                            fill: #c47474;
+                            font-family: system-ui, sans-serif;
+                            font-size: 9px;
+                          }
+
+                          .wf-new-element-border {
+                            stroke: #6b9e6b;
+                            stroke-width: 1.5;
+                            stroke-dasharray: 3,3;
+                            fill: none;
+                          }
+
+                          .wf-new-element-text {
+                            fill: #6b9e6b;
+                            font-family: system-ui, sans-serif;
+                            font-size: 9px;
+                          }
+                        </style>
+                      </defs>
+
+                      <!-- Phone frame (mobile viewport) -->
+                      <rect class="wf-phone-frame" x="15" y="10" width="250" height="480" rx="8"/>
+
+                      <!-- Status bar -->
+                      <rect class="wf-status-bar" x="15" y="10" width="250" height="20"/>
+                      <text x="25" y="22" font-size="8" fill="var(--text-muted)">9:41</text>
+
+                      <!-- Form section header -->
+                      <rect class="wf-form-section" x="25" y="35" width="230" height="25" rx="2"/>
+                      <text x="35" y="52" class="wf-form-label">Stock Options</text>
+
+                      <!-- Grant Date field (left side) -->
+                      <text x="35" y="75" class="wf-form-label">Grant Date</text>
+                      <rect class="wf-form-field" x="25" y="80" width="100" height="25" rx="2"/>
+                      <text x="35" y="98" font-size="9" fill="var(--text-muted)">MM/DD/YYYY</text>
+
+                      <!-- Exercise Price field (left side) -->
+                      <text x="35" y="125" class="wf-form-label">Exercise Price</text>
+                      <rect class="wf-form-field" x="25" y="130" width="100" height="25" rx="2"/>
+                      <text x="35" y="148" font-size="9" fill="var(--text-muted)">$0.00</text>
+
+                      <!-- Error field (with red highlight) -->
+                      <text x="35" y="175" class="wf-form-label">Vesting Date</text>
+                      <rect class="wf-form-field-error" x="25" y="180" width="100" height="25" rx="2"/>
+                      <text x="35" y="198" class="wf-error-text">Invalid date</text>
+
+                      <!-- Help Panel sliding in (right side) -->
+                      <rect class="wf-help-panel" x="135" y="35" width="110" height="220" rx="2"/>
+                      <text x="145" y="52" class="wf-help-title">Help</text>
+
+                      <!-- Common mistakes section -->
+                      <rect x="145" y="60" width="95" height="65" fill="white" stroke="var(--border)" stroke-width="1" rx="2"/>
+                      <text x="150" y="75" class="wf-help-title" style="font-weight: 500;">Mistakes:</text>
+                      <text x="150" y="88" class="wf-help-text">Must use MM/DD/YYYY</text>
+                      <text x="150" y="100" class="wf-help-text">Date must be ≥ grant</text>
+                      <text x="150" y="112" class="wf-help-text">No future dates</text>
+
+                      <!-- Expert button -->
+                      <rect class="wf-button" x="145" y="135" width="95" height="35" rx="2"/>
+                      <text x="195" y="152" class="wf-button-text" text-anchor="middle">Talk to Expert</text>
+                      <text x="195" y="164" font-size="7" fill="var(--text-muted)" text-anchor="middle">$0 additional</text>
+
+                      <!-- Close button area -->
+                      <text x="240" y="48" font-size="16" fill="var(--text-muted)">×</text>
+
+                      <!-- ANNOTATION: Red dot and label on error field -->
+                      <circle class="wf-annotation-dot" cx="130" cy="192" r="4"/>
+                      <line class="wf-annotation-line" x1="130" y1="188" x2="105" y2="155"/>
+                      <rect class="wf-annotation-box" x="50" y="142" width="80" height="22" rx="3"/>
+                      <text class="wf-annotation-text" x="90" y="156" text-anchor="middle" font-weight="500">Problem field</text>
+
+                      <!-- ANNOTATION: Green dashed border around help panel -->
+                      <rect class="wf-new-element-border" x="130" y="30" width="120" height="230" rx="2"/>
+                      <line class="wf-annotation-line-new" x1="190" y1="265" x2="190" y2="285"/>
+                      <rect class="wf-annotation-box" x="145" y="285" width="90" height="22" rx="3" fill="var(--bg-dark)" stroke="#6b9e6b" stroke-width="1"/>
+                      <text class="wf-new-element-text" x="190" y="299" text-anchor="middle" font-weight="500">Contextual help</text>
                     </svg>
                 </div>
                 <div class="wireframe-caption">When a user gets stuck, the help comes to them. Not a chatbot popup — a contextual panel that understands what field they're on, what common mistakes look like, and offers a real escalation path. The key insight: help should be part of the tax interview flow, not a separate destination.</div>
@@ -1148,22 +1317,156 @@
                 <div class="wireframe-label">Proposal 2 — Community Answers Layer</div>
                 <div class="wireframe-box">
                     <div class="wireframe-box-label">Wireframe: Verified Answers Below Field</div>
-                    <svg viewBox="0 0 300 200" style="padding: 1rem;">
-                        <rect x="10" y="10" width="280" height="180" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1" rx="4"/>
-                        <rect x="20" y="20" width="260" height="20" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <text x="25" y="33" font-size="9" fill="var(--text-secondary)">How do I report stock option income?</text>
-                        <rect x="20" y="50" width="260" height="120" fill="white" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <circle cx="30" cy="62" r="6" fill="var(--border-light)"/>
-                        <text x="42" y="65" font-size="8" fill="var(--text-primary)" font-weight="500">Sarah M.</text>
-                        <text x="42" y="73" font-size="7" fill="var(--text-muted)">Filed 847 returns</text>
-                        <text x="42" y="85" font-size="8" fill="var(--text-secondary)">Report the fair market value on Form 3921. Use your grant price, not the current price.</text>
-                        <rect x="42" y="95" width="30" height="14" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1" rx="2"/>
-                        <text x="47" y="105" font-size="6" fill="var(--text-muted)">✓ Verified</text>
-                        <line x1="20" y1="115" x2="280" y2="115" stroke="var(--border)" stroke-width="1"/>
-                        <circle cx="30" cy="127" r="6" fill="var(--border-light)"/>
-                        <text x="42" y="130" font-size="8" fill="var(--text-primary)" font-weight="500">James T.</text>
-                        <text x="42" y="138" font-size="7" fill="var(--text-muted)">CPA, Intuit Expert</text>
-                        <text x="42" y="150" font-size="8" fill="var(--text-secondary)">Form 3921 (ISO) or Form 6765 (NSO). They're different.</text>
+                    <svg viewBox="0 0 280 500" xmlns="http://www.w3.org/2000/svg">
+                      <title>Community Answers Layer Wireframe</title>
+                      <defs>
+                        <style>
+                          .wf-phone-frame {
+                            stroke: var(--border);
+                            stroke-width: 2;
+                            fill: var(--bg-primary);
+                          }
+
+                          .wf-status-bar {
+                            fill: var(--bg-dark);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-form-header {
+                            fill: var(--bg-secondary);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-form-text {
+                            fill: var(--text-secondary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 10px;
+                            font-weight: 500;
+                          }
+
+                          .wf-answers-section {
+                            fill: white;
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-answer-item {
+                            fill: white;
+                          }
+
+                          .wf-avatar {
+                            fill: var(--bg-dark);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-username {
+                            fill: var(--text-primary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 10px;
+                            font-weight: 600;
+                          }
+
+                          .wf-meta-text {
+                            fill: var(--text-muted);
+                            font-family: system-ui, sans-serif;
+                            font-size: 8px;
+                          }
+
+                          .wf-answer-text {
+                            fill: var(--text-secondary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 9px;
+                          }
+
+                          .wf-verified-badge {
+                            fill: var(--bg-secondary);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-badge-text {
+                            fill: var(--text-muted);
+                            font-family: system-ui, sans-serif;
+                            font-size: 7px;
+                            font-weight: 500;
+                          }
+
+                          .wf-divider {
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-new-element-border {
+                            stroke: #6b9e6b;
+                            stroke-width: 1.5;
+                            stroke-dasharray: 3,3;
+                            fill: none;
+                          }
+
+                          .wf-annotation-text {
+                            fill: #6b9e6b;
+                            font-family: system-ui, sans-serif;
+                            font-size: 9px;
+                            font-weight: 500;
+                          }
+                        </style>
+                      </defs>
+
+                      <!-- Phone frame (mobile viewport) -->
+                      <rect class="wf-phone-frame" x="15" y="10" width="250" height="480" rx="8"/>
+
+                      <!-- Status bar -->
+                      <rect class="wf-status-bar" x="15" y="10" width="250" height="20"/>
+                      <text x="25" y="22" font-size="8" fill="var(--text-muted)">9:41</text>
+
+                      <!-- Form field header -->
+                      <rect class="wf-form-header" x="25" y="35" width="230" height="30" rx="2"/>
+                      <text x="35" y="54" class="wf-form-text">Stock option income</text>
+
+                      <!-- Answers section with multiple answers -->
+                      <rect class="wf-answers-section" x="25" y="70" width="230" height="310" rx="2"/>
+
+                      <!-- Answer 1: Sarah M. -->
+                      <circle class="wf-avatar" cx="40" cy="90" r="8"/>
+                      <text x="55" y="93" class="wf-username">Sarah M.</text>
+                      <text x="55" y="104" class="wf-meta-text">Filed 847 returns</text>
+                      <text x="55" y="118" class="wf-answer-text">Use Form 3921 (ISOs).</text>
+                      <text x="55" y="129" class="wf-answer-text">Grant price, not current.</text>
+                      <rect class="wf-verified-badge" x="55" y="135" width="45" height="14" rx="2"/>
+                      <text x="78" y="144" class="wf-badge-text" text-anchor="middle">✓ Verified</text>
+
+                      <!-- Divider -->
+                      <line class="wf-divider" x1="30" y1="160" x2="250" y2="160"/>
+
+                      <!-- Answer 2: James T. -->
+                      <circle class="wf-avatar" cx="40" cy="180" r="8"/>
+                      <text x="55" y="183" class="wf-username">James T.</text>
+                      <text x="55" y="194" class="wf-meta-text">CPA, Intuit Expert</text>
+                      <text x="55" y="208" class="wf-answer-text">Form 3921 (ISO) or</text>
+                      <text x="55" y="219" class="wf-answer-text">Form 6765 (NSO).</text>
+                      <text x="55" y="230" class="wf-answer-text">They differ on taxes.</text>
+                      <rect class="wf-verified-badge" x="55" y="236" width="45" height="14" rx="2"/>
+                      <text x="78" y="245" class="wf-badge-text" text-anchor="middle">✓ Expert</text>
+
+                      <!-- Divider -->
+                      <line class="wf-divider" x1="30" y1="260" x2="250" y2="260"/>
+
+                      <!-- Answer 3: Mike R. -->
+                      <circle class="wf-avatar" cx="40" cy="280" r="8"/>
+                      <text x="55" y="283" class="wf-username">Mike R.</text>
+                      <text x="55" y="294" class="wf-meta-text">Tax prep specialist</text>
+                      <text x="55" y="308" class="wf-answer-text">Consult your grant</text>
+                      <text x="55" y="319" class="wf-answer-text">documents. They'll</text>
+                      <text x="55" y="330" class="wf-answer-text">clarify ISO vs NSO.</text>
+
+                      <!-- ANNOTATION: Green dashed border around answers section -->
+                      <rect class="wf-new-element-border" x="18" y="65" width="250" height="320" rx="2"/>
+                      <line class="wf-new-element-border" x1="145" y1="390" x2="145" y2="410"/>
+                      <rect x="85" y="410" width="120" height="22" rx="3" fill="var(--bg-dark)" stroke="#6b9e6b" stroke-width="1"/>
+                      <text class="wf-annotation-text" x="145" y="424" text-anchor="middle">Community answers</text>
                     </svg>
                 </div>
                 <div class="wireframe-caption">Stack Overflow for tax questions, embedded where users are stuck. TurboTax has 40 million users — thousands have solved the exact problem you're facing. Surface verified community answers inline, with expert-reviewed badges for accuracy. This isn't a forum — it's targeted answers attached to specific fields and error states.</div>
