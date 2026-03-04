@@ -394,6 +394,31 @@ def list_sessions() -> List[Dict]:
     return sorted(sessions, key=lambda s: s["updated_at"], reverse=True)
 
 
+# ── Seed sessions ─────────────────────────────────────────────────
+
+# Pre-seeded teardowns that should always appear in the "In Progress"
+# list so Kiran can pick them up. Each entry creates a session at Step 1
+# if no matching session already exists. Remove entries once published.
+_SEED_SESSIONS = [
+    {"company": "Spotify", "product": "Playlist Discovery"},
+]
+
+
+def seed_sessions():
+    """Create seed sessions if they don't already exist."""
+    os.makedirs(SESSIONS_DIR, exist_ok=True)
+    existing = list_sessions()
+    existing_keys = {(s["company"], s["product"]) for s in existing}
+
+    for seed in _SEED_SESSIONS:
+        if (seed["company"], seed["product"]) not in existing_keys:
+            create_session(seed["company"], seed["product"])
+
+
+# Auto-seed on startup
+seed_sessions()
+
+
 # ── Claude interaction ─────────────────────────────────────────────
 
 def build_step_messages(state: dict, step: int, user_input: Optional[str] = None) -> List[Dict]:
