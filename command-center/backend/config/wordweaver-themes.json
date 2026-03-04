@@ -1,0 +1,215 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-02-17T22:10:00.000000+00:00",
+  "cross_cutting_angles": [
+    "Innovation",
+    "Success Stories",
+    "Failure Stories",
+    "Surprising Strategies",
+    "Latest Trends",
+    "Opportunities",
+    "Threats",
+    "Explainers",
+    "Breakdowns",
+    "Implications",
+    "Tactics",
+    "Strategies",
+    "Case Studies",
+    "Use Cases",
+    "Cultural Implications"
+  ],
+  "themes": [
+    {
+      "name": "AR/VR",
+      "description": "Augmented and virtual reality — hardware, platforms, spatial computing, and the evolving interface between digital and physical worlds.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Auth and Identity",
+      "description": "Authentication, identity verification, access management — from passwordless to biometrics to decentralised identity.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Mobile Capabilities",
+      "description": "What mobile platforms can do and where they're headed — device APIs, platform features, cross-platform strategies.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Product Leadership",
+      "description": "Leading product organisations — vision-setting, roadmap ownership, stakeholder management, and the craft of senior product roles.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Team Leadership",
+      "description": "Building, scaling, and nurturing high-performing teams — culture, hiring, psychological safety, and cross-functional dynamics.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "AI Tools",
+      "description": "The landscape of AI-powered tools — developer tooling, productivity suites, creative tools, and how they're reshaping workflows.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "AI Change Management",
+      "description": "How organisations navigate the human side of AI adoption — resistance, upskilling, role evolution, and cultural transformation.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "AI Product Leadership",
+      "description": "Leading product in the age of AI — how AI changes the PM role, AI-native product thinking, and building with LLMs.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "AI Products",
+      "description": "Products built on or around AI — what works, what doesn't, and what separates AI features from AI-native products.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Product Operations",
+      "description": "The systems, processes, and infrastructure that make product teams run — tooling, rituals, data pipelines, and operational excellence.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Product Discovery",
+      "description": "How teams find the right thing to build — research methods, experimentation, customer interviews, opportunity mapping.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Product Strategy",
+      "description": "The big bets — positioning, competitive moats, platform vs. feature decisions, and long-term product vision.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Product Successes",
+      "description": "Products that won — what they got right, the decisions that mattered, and the lessons worth stealing.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Product Fails",
+      "description": "Products that stumbled or died — post-mortems, misread markets, execution gaps, and what we can learn from them.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Product Underdog Stories",
+      "description": "Small teams, scrappy products, and unlikely winners — how constraints bred creativity and underdogs beat incumbents.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Storytelling Through Product",
+      "description": "How great products tell stories — narrative design, onboarding as storytelling, brand-product alignment, and emotional UX.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Brilliant Ideas with Product Marketing",
+      "description": "The intersection of product and marketing — launches that landed, positioning that stuck, and creative GTM plays.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Android and iOS Launches",
+      "description": "Mobile app launches — platform-specific strategies, App Store dynamics, launch playbooks, and what separates a splash from a fizzle.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Apple and Big Tech Launches",
+      "description": "How Apple, Google, Microsoft, and others launch products — keynote strategy, ecosystem plays, and what smaller companies can learn.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Human Computer Interaction",
+      "description": "The evolving relationship between people and technology — interaction paradigms, accessibility, cognitive load, and interface futures.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Customer Behavior",
+      "description": "Why customers do what they do — behavioral economics, decision patterns, habit formation, and the psychology behind adoption.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Customer Experience",
+      "description": "End-to-end CX — journey mapping, friction reduction, moments of delight, and building experiences people talk about.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Product Design",
+      "description": "Design as a product discipline — systems thinking, design-engineering collaboration, prototyping culture, and design leadership.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Payment Rails",
+      "description": "The infrastructure beneath payments — card networks, real-time rails, open banking, and how money actually moves.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Payments",
+      "description": "The payments ecosystem — processors, gateways, checkout flows, fraud, compliance, and the product challenges of moving money.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Global Payments",
+      "description": "Payments across borders — FX, local methods, regulatory complexity, and building for a fragmented global market.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "AI Integration",
+      "description": "Embedding AI into existing products and workflows — where it adds value, where it creates friction, and how to get the seams right.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Digital Transformation",
+      "description": "Organisations modernising at scale — legacy migration, cultural shifts, technology adoption, and why most transformations stall.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Growth Strategy",
+      "description": "Scaling products and businesses — growth loops, retention mechanics, network effects, and sustainable vs. extractive growth.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Adoption Strategy",
+      "description": "Getting users to stick — onboarding funnels, activation metrics, behavior change, and the science of making products habitual.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Customer Onboarding",
+      "description": "The critical first experience — time-to-value, progressive disclosure, self-serve vs. guided flows, and reducing early churn.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    },
+    {
+      "name": "Go-to-Market Strategy",
+      "description": "Bringing products to market — positioning, channel strategy, pricing, launch sequencing, and the art of the GTM plan.",
+      "subcategories": [],
+      "added_on": "2026-02-17T22:10:00.000000+00:00"
+    }
+  ]
+}

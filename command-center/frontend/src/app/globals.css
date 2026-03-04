@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* === Command Center Theme === */
+/* Dark mode is default, matching portfolio site */
+
+:root,
+[data-theme="dark"] {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --bg-card: #111111;
+  --text-primary: #f0e6d3;
+  --text-secondary: #a09888;
+  --text-muted: #5a5347;
+  --border: #222222;
+  --border-light: #2a2a2a;
+  --accent-green: #6b9e6b;
+  --accent-red: #c47474;
+  --accent-blue: #7a9ec4;
+  --accent-amber: #d4a74a;
+  --shadow: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f5f3f0;
+  --bg-secondary: #edeae6;
+  --bg-card: #ffffff;
+  --text-primary: #3a3632;
+  --text-secondary: #6b6560;
+  --text-muted: #9a948e;
+  --border: #c5c0b8;
+  --border-light: #d5d0c9;
+  --accent-green: #5a8a5a;
+  --accent-red: #b35e5e;
+  --accent-blue: #6889ad;
+  --accent-amber: #c49639;
+  --shadow: rgba(0, 0, 0, 0.08);
+}
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}

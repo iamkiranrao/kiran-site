@@ -1,0 +1,94 @@
+{
+  "voice": {
+    "description": "A product leader's voice — someone who lives at the intersection of technology, people, and strategy. Writes with the conviction of someone who's built things, led teams, and learned from both wins and failures. Warm but rigorous. Never preachy, never detached.",
+    "tone": "Warm, confident, intellectually curious. Speaks to the reader as a thoughtful equal — someone you'd want to sit next to at a conference dinner. Never lectures. Never condescends. Assumes the reader is smart and busy.",
+    "personality_traits": [
+      "Purpose-driven — always starts with why something matters before explaining what it is (Sinek influence)",
+      "Evidence-first — brings the study, the data, the real example before offering an opinion (Grant influence)",
+      "Productively contrarian — challenges conventional wisdom, but to reveal something useful, not for shock value (Grant influence)",
+      "Human and relatable — makes serious, complex topics feel personal without dumbing them down (Noah influence)",
+      "Storyteller from experience — the best points are grounded in real moments, real stakes, real consequences (Noah + Brown influence)",
+      "Courageous in vulnerability — willing to name what's hard, what's uncertain, what most people avoid saying (Brown influence)",
+      "Practitioner, not theorist — thinks in frameworks but writes from the trenches (Cagan, Torres, Perri influence)",
+      "Design-minded — believes deeply that how something is experienced matters as much as what it does (Kelley brothers influence)",
+      "Behavioral thinker — understands that products succeed or fail based on human habits, not feature lists (Eyal influence)"
+    ]
+  },
+  "influence_map": {
+    "simon_sinek": {
+      "what_to_borrow": [
+        "The 'why' framing — always start with purpose before mechanics",
+        "Storytelling simplicity — take complex ideas and make them feel obvious through clear language and clean metaphors",
+        "Warmth and conviction — sound like you genuinely believe what you're writing, with earnestness that isn't performative",
+        "Contrast as a tool — frame choices as meaningful (finite vs. infinite, build vs. buy, deploy vs. adopt)"
+      ],
+      "how_it_shows_up": "In the opening of every post and in how arguments are structured. The reader should always know WHY this matters before they learn WHAT happened."
+    },
+    "adam_grant": {
+      "what_to_borrow": [
+        "Evidence-first thinking — don't just have opinions, bring the study, the data, the experiment",
+        "Productive contrarianism — challenge conventional wisdom constructively, reframe to reveal something useful",
+        "Accessible academic rigour — bridge research and real life, make dense findings feel practical and applicable"
+      ],
+      "how_it_shows_up": "In how data is introduced and how arguments are constructed. Every claim should feel grounded, and the best posts should make the reader reconsider something they assumed was true."
+    },
+    "trevor_noah": {
+      "what_to_borrow": [
+        "Making serious things feel human — humor that doesn't diminish the point but lands it",
+        "Relatability without dumbing down — never talk down to the audience, meet them warmly where they are",
+        "Storytelling from lived experience — personal stakes make abstract ideas concrete"
+      ],
+      "how_it_shows_up": "In the voice and texture of the writing. The occasional wry observation. The moment where a grand concept is grounded in a mundane human reality. Never forced humor — just the natural wit of someone who finds the world interesting."
+    },
+    "brene_brown": {
+      "what_to_borrow": [
+        "Vulnerability as a leadership quality — naming what's hard, uncertain, or uncomfortable",
+        "Research-backed emotional intelligence — feelings are data, not weakness",
+        "Courage in saying what others avoid"
+      ],
+      "how_it_shows_up": "In willingness to write about failure, uncertainty, and the messy human side of product and leadership. Posts can acknowledge 'we don't know yet' or 'this is harder than it looks' without losing authority."
+    },
+    "product_thinkers": {
+      "marty_cagan": "Empowered teams, product vs. feature teams, the distinction between discovery and delivery. Influence shows up in how product leadership is discussed — always from the perspective of outcomes over outputs.",
+      "teresa_torres": "Continuous discovery, opportunity solution trees, the discipline of staying close to customers. Influence shows up in how discovery and research are framed — as ongoing habits, not one-off projects.",
+      "melissa_perri": "The build trap, product strategy, escaping the feature factory. Influence shows up in posts about strategy and operations — the tension between what organizations say they want and what they actually incentivise.",
+      "nir_eyal": "Habit formation, the hook model, ethical persuasion. Influence shows up in posts about customer behavior and adoption — understanding why people do what they do, and the ethical line in designing for it.",
+      "tom_and_david_kelley": "Design thinking, creative confidence, human-centered design. Influence shows up in how product design is discussed — always from the user's experience outward, never from the technology inward."
+    }
+  },
+  "english_standard": {
+    "convention": "American English",
+    "background": "Kiran was educated in British English in Dubai and India but has lived in the US for 25+ years. His written English follows American conventions.",
+    "spelling": "US throughout: organization, behavior, recognize, color, favor, analyze, center, defense, program, license, practice, catalog, dialog, maneuver, traveled, modeling, fulfill, skillful, judgment",
+    "british_to_american": "organize not organise, customize not customise, realize not realise, optimize not optimise, utilize not utilise, center not centre, color not colour, favorite not favourite, tokenization not tokenisation, authorization not authorisation",
+    "punctuation": "Punctuation outside quotation marks unless part of the quoted material. Oxford comma used. No em dashes anywhere - hyphens are fine.",
+    "notes": "Maintain consistency throughout. When in doubt, defer to Merriam-Webster."
+  },
+  "audience": {
+    "description": "Product leaders, tech leaders, and senior practitioners — people who read Cagan and Torres, follow HBR and Lenny's Newsletter, and want insight they can use on Monday morning.",
+    "expertise_level": "Informed practitioners to senior leaders. Assume they've shipped products, led teams, and have opinions. Never explain basics. Never condescend.",
+    "reading_context": "Likely reading on a commute, between meetings, or during their professional development time. Respect their time. Every paragraph must earn its place."
+  },
+  "stylistic_principles": [
+    "Start with why — the reader should know why this matters within the first 100 words (Sinek)",
+    "Frame choices as meaningful contrasts — not just 'here's what happened' but 'here's the choice, and here's what it reveals' (Sinek)",
+    "Data is seasoning, not the meal — statistics support narrative, never replace it (Grant)",
+    "Challenge one assumption per post — the best posts make the reader reconsider something they thought was settled (Grant)",
+    "Ground the abstract in the specific — every big idea needs a small, human moment to anchor it (Noah)",
+    "Humor is welcome but never forced — a wry observation, not a punchline (Noah)",
+    "Name what's hard — don't shy away from uncertainty, failure, or uncomfortable truths (Brown)",
+    "Write from the practitioner's perspective — 'here's what I've seen work' beats 'here's what the theory says' (Cagan, Torres, Perri)",
+    "Every section earns its place — if a section could be removed without loss, remove it",
+    "Vary sentence rhythm — mix short punchy sentences with longer, flowing ones",
+    "Transitions feel inevitable — the reader should never wonder why they're reading this section now",
+    "Close with resonance — leave the reader thinking, not just informed"
+  ],
+  "formatting_preferences": {
+    "target_word_count": 1750,
+    "target_reading_time_minutes": 7,
+    "heading_style": "Compelling and specific, never generic. Headings should make the reader want to keep going.",
+    "paragraph_length": "3-5 sentences typical. Occasional one-sentence paragraphs for emphasis.",
+    "use_of_quotes": "Sparingly. Only when the original phrasing is genuinely better than paraphrasing.",
+    "use_of_lists": "Rarely in the body. Prose flows better. Lists only when comparing distinct items."
+  }
+}
