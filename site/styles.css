@@ -1511,7 +1511,9 @@ footer {
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
-    white-space: nowrap;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     border: 1px solid #3d3530;
     opacity: 1;
     animation: fenix-tooltip-fade 8s ease-in-out forwards;

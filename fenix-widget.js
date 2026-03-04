@@ -36,20 +36,8 @@
     // Show 4 random picks on each load
     const SUGGESTIONS = SUGGESTION_POOL.sort(() => 0.5 - Math.random()).slice(0, 4);
 
-    // Contextual tooltip prompts — matched by URL path
-    const TOOLTIP_PROMPTS = [
-        { match: /\/teardowns\/geico/i,        text: "Curious about this GEICO teardown?" },
-        { match: /\/teardowns\/airbnb/i,        text: "Questions about this Airbnb teardown?" },
-        { match: /\/teardowns\/meta|instagram/i, text: "Curious about this Meta teardown?" },
-        { match: /\/teardowns\//i,              text: "Have questions about this teardown?" },
-        { match: /\/career-highlights/i,        text: "Want to know more about Kiran's career?" },
-        { match: /\/studio/i,                   text: "Curious about Kiran's AI work?" },
-        { match: /\/madlab/i,                   text: "Want to explore these prototypes?" },
-        { match: /\/blog/i,                     text: "Have thoughts on this?" },
-        { match: /\/learning/i,                 text: "Curious about Kiran's learning journey?" },
-        { match: /\/how-id-built-it/i,          text: "Questions about how this was built?" },
-        { match: /\/$|\/index/i,                text: "Ask me anything about Kiran's work" },
-    ];
+    // Universal tooltip text — shown on every page
+    const TOOLTIP_TEXT = "Start here — I'll tailor this to what you care about";
     const TOOLTIP_DELAY_MS = 1500;   // Show after page settles
     const TOOLTIP_DURATION_MS = 5000; // Visible for 5s
     const TOOLTIP_SEEN_KEY = 'fenix_tooltip_seen';
@@ -128,8 +116,7 @@
             fab.id = 'fenix-fab-auto';
             fab.className = 'ai-assistant-wrapper';
             fab.setAttribute('aria-label', 'Chat with Fenix');
-            fab.title = 'Chat with Fenix';
-            fab.innerHTML = '<div class="ai-assistant" title="Chat with Fenix"><img src="/images/logo.png" alt="Fenix AI" class="fenix-fab-logo"></div>';
+            fab.innerHTML = '<div class="ai-assistant"><img src="/images/logo.png" alt="Fenix AI" class="fenix-fab-logo"></div>';
             fab.querySelector('.ai-assistant').addEventListener('click', () => window.launchFenix());
             document.body.appendChild(fab);
         }
@@ -245,10 +232,6 @@
         const seenPaths = JSON.parse(sessionStorage.getItem(TOOLTIP_SEEN_KEY) || '[]');
         if (seenPaths.includes(path)) return;
 
-        // Find matching prompt for this page
-        const prompt = TOOLTIP_PROMPTS.find(p => p.match.test(path));
-        if (!prompt) return;
-
         setTimeout(() => {
             if (isOpen) return; // Widget opened before tooltip fired
 
@@ -259,7 +242,7 @@
             // Create tooltip element
             const tip = document.createElement('div');
             tip.className = 'fenix-tooltip';
-            tip.textContent = prompt.text;
+            tip.textContent = TOOLTIP_TEXT;
             tip.addEventListener('click', () => {
                 tip.remove();
                 window.launchFenix();
