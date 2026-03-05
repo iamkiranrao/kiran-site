@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8Q795C1RJ5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8Q795C1RJ5');
+    </script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "vpgxcc8q5n");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Deep dive into Amazon's mobile search problems and redesign solutions for better user task completion. Research-based product teardown with wireframes and business case.">
+    <title>Amazon Mobile App Product Teardown - Kiran Gorapalli</title>
+    <link rel="icon" href="../images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../fenix-widget.css">
+    <link rel="canonical" href="https://kirangorapalli.com/teardowns/amazon-mobile-app.html">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Amazon Mobile App Product Teardown - Kiran Gorapalli">
+    <meta property="og:description" content="Deep dive into Amazon's mobile search problems and redesign solutions for better user task completion. Research-based product teardown with wireframes and business case.">
+    <meta property="og:url" content="https://kirangorapalli.com/teardowns/amazon-mobile-app.html">
+    <meta property="og:image" content="https://kirangorapalli.com/images/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Amazon Mobile App Product Teardown - Kiran Gorapalli">
+    <meta name="twitter:description" content="Deep dive into Amazon's mobile search problems and redesign solutions for better user task completion. Research-based product teardown with wireframes and business case.">
+    <meta name="twitter:image" content="https://kirangorapalli.com/images/og-image.png">
+
+    <style>
+        /* ============================================
+           TEARDOWN PAGE STYLES
+           ============================================ */
+
+        /* Hero Banner */
+        .subpage-hero {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .hero-title-area {
+            text-align: center;
+            padding: 6rem 4rem 1.5rem;
+        }
+        .subpage-hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+        .subpage-hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-bottom: 0;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem 4rem 0;
+        }
+        .breadcrumb a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            transition: color 0.2s ease;
+        }
+        .breadcrumb a:hover { color: var(--text-primary); }
+        .breadcrumb span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0 0.4rem;
+            opacity: 0.5;
+        }
+        .breadcrumb .current {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           TEARDOWN CONTENT
+           ============================================ */
+        .teardown {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 4rem 4rem;
+        }
+
+        /* Section numbering + title */
+        .teardown-section {
+            margin-bottom: 3.5rem;
+        }
+        .teardown-section:last-child {
+            margin-bottom: 0;
+        }
+        .section-number {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Prose */
+        .teardown p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+        }
+        .teardown p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* JTBD callout */
+        .jtbd-callout {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            background: var(--bg-primary);
+        }
+        .jtbd-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .jtbd-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Persona card */
+        .persona-wrap {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        .persona-wrap-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .persona-card {
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+        .persona-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--border-light);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            overflow: hidden;
+        }
+        .persona-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .persona-info {
+            flex: 1;
+        }
+        .persona-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.15rem;
+        }
+        .persona-demo {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .persona-bio {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Visual Journey Map */
+        .journey-visual {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        .journey-visual-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .journey-sentiment-wrap {
+            padding: 1.5rem 1.25rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .journey-sentiment-wrap svg {
+            width: 100%;
+            display: block;
+        }
+        .journey-stages {
+            display: grid;
+            grid-template-columns: repeat(var(--journey-cols, 5), 1fr);
+        }
+        .journey-stage-card {
+            padding: 1rem;
+            border-right: 1px solid var(--border);
+            overflow: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .journey-stage-card:last-child {
+            border-right: none;
+        }
+        .stage-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .stage-action {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+        .stage-thought {
+            font-size: 0.72rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 2px solid var(--border);
+        }
+        .stage-pain {
+            font-size: 0.68rem;
+            color: #c47474;
+            line-height: 1.5;
+        }
+        .stage-pain-label {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.58rem;
+            letter-spacing: 0.04em;
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+
+        /* Divider */
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 3.5rem;
+        }
+
+        /* ============================================
+           KEEP / KILL / BUILD
+           ============================================ */
+        .kkb-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .kkb-column {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .kkb-header {
+            padding: 0.75rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+        .kkb-keep .kkb-header { color: #6b9e6b; }
+        .kkb-kill .kkb-header { color: #c47474; }
+        .kkb-build .kkb-header { color: #7a9ec4; }
+        .kkb-items {
+            padding: 1rem;
+        }
+        .kkb-item {
+            margin-bottom: 1rem;
+        }
+        .kkb-item:last-child { margin-bottom: 0; }
+        .kkb-item-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        .kkb-item-detail {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           REDESIGN SECTION
+           ============================================ */
+        .wireframe-pair {
+            margin: 2rem 0;
+        }
+        .wireframe-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .wireframe-box {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            max-width: 340px;
+        }
+        .wireframe-box-label {
+            padding: 0.6rem 1rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .wireframe-box svg {
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin: 0 auto;
+        }
+        .wireframe-caption {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+        }
+
+        /* Annotation markers in SVGs - all classes must use wf- prefix per CONTENT-RULES */
+        .wf-annotation-dot {
+            fill: #c47474;
+        }
+        .wf-annotation-line {
+            stroke: #c47474;
+            stroke-width: 1;
+            stroke-dasharray: 4 3;
+        }
+        .wf-annotation-box {
+            fill: var(--bg-secondary, #1a1a1a);
+            stroke: #c47474;
+            stroke-width: 0.5;
+            rx: 3;
+        }
+        .wf-annotation-box-green {
+            fill: var(--bg-secondary, #1a1a1a);
+            stroke: #6b9e6b;
+            stroke-width: 0.5;
+            rx: 3;
+        }
+
+        /* ============================================
+           BUSINESS CASE
+           ============================================ */
+        .exec-summary {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            background: var(--bg-primary);
+        }
+        .exec-summary-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .exec-summary p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .kpi-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+        .kpi-funnel-stage {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+        .kpi-metric {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .kpi-name {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+        .kpi-rationale {
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        /* Product at a Glance */
+        .product-glance {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 3.5rem;
+        }
+        .product-glance-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .product-glance-body {
+            padding: 1.25rem;
+        }
+        .glance-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-weight: 400;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .glance-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .glance-stat-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+        .glance-stat-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .glance-competitors {
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .glance-row-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .glance-competitor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .glance-competitor-tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 0.25rem 0.65rem;
+            border-radius: 500px;
+        }
+        .glance-position {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .glance-leads, .glance-lags {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .glance-leads .glance-row-label { color: #6b9e6b; }
+        .glance-lags .glance-row-label { color: #c47474; }
+
+        /* Assumptions */
+        .assumptions {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-top: 2.5rem;
+        }
+        .assumptions-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .assumptions p {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .glance-stats { grid-template-columns: repeat(2, 1fr); }
+            .glance-position { grid-template-columns: 1fr; }
+        }
+
+        /* ============================================
+           GLOSSARY
+           ============================================ */
+        .page-glossary {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem 4rem 0;
+        }
+        .glossary-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.35rem 0.75rem;
+            cursor: pointer;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .glossary-toggle:hover {
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+        .glossary-toggle .arrow {
+            transition: transform 0.2s ease;
+            font-size: 0.6rem;
+        }
+        .glossary-toggle.open .arrow {
+            transform: rotate(90deg);
+        }
+        .glossary-terms {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+        }
+        .glossary-terms.visible {
+            display: block;
+        }
+        .glossary-term {
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+        .glossary-term:last-child {
+            margin-bottom: 0;
+        }
+        .glossary-term strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 4rem 2rem;
+            text-align: center;
+        }
+        .footer-social { margin-bottom: 2rem; }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: border-color 0.2s ease, opacity 0.2s ease;
+        }
+        .social-icon svg { width: 18px; height: 18px; }
+        .social-icon:hover { opacity: 0.8; }
+        .social-icon.linkedin:hover { border-color: #0A66C2; }
+        .social-icon.github:hover { border-color: #f0e6d3; }
+        .social-icon.youtube:hover { border-color: #FF0000; }
+        .social-icon.flickr:hover { border-color: #FF0084; }
+        .social-icon.spotify:hover { border-color: #1DB954; }
+        .social-icon.substack:hover { border-color: #FF6719; }
+        [data-theme="light"] .social-icon.github:hover { border-color: #333; }
+
+        .footer-site-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-logo {
+            width: 36px;
+            height: auto;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .footer-logo:hover { opacity: 1; transform: scale(1.05); }
+        .footer-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .footer-meta-sep { opacity: 0.4; }
+        .version-number { letter-spacing: 0.02em; }
+        .last-updated { letter-spacing: -0.01em; }
+        .rss-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+        }
+        .rss-badge:hover { color: var(--text-primary); }
+        .rss-badge svg { opacity: 0.6; }
+        .footer-copyright {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+            letter-spacing: 0.02em;
+        }
+
+        /* NOTE: nav, theme-toggle, share-button, menu-button, and mobile-menu
+           styles are inherited from ../styles.css — do NOT override them here */
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 500px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            .hero-title-area { padding: 5rem 3rem 1.5rem; }
+            .breadcrumb { padding: 1.25rem 3rem 0; }
+            .teardown { padding: 1.5rem 3rem 3rem; }
+            .kkb-grid { grid-template-columns: 1fr; }
+            .journey-stages { grid-template-columns: repeat(3, 1fr); }
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            footer { padding: 3rem 3rem 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title-area { padding: 4.5rem 1.5rem 1.5rem; }
+            .breadcrumb { padding: 1rem 1.5rem 0; }
+            .teardown { padding: 1.25rem 1.5rem 3rem; }
+            .page-glossary { padding: 1.5rem 1.5rem 0; }
+            .glance-stats { grid-template-columns: repeat(2, 1fr); }
+            .glance-position { grid-template-columns: 1fr; }
+            .persona-card { flex-direction: column; gap: 0.75rem; }
+            .journey-stages {
+                grid-template-columns: 1fr;
+            }
+            .journey-stage-card {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 1rem;
+            }
+            .journey-stage-card:last-child {
+                border-bottom: none;
+            }
+            .kpi-grid { grid-template-columns: 1fr; }
+            footer { padding: 2.5rem 1.5rem 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title-area { padding: 4rem 1rem 1rem; }
+            .breadcrumb { padding: 0.75rem 1rem 0; }
+            .teardown { padding: 1rem 1rem 2rem; }
+            .page-glossary { padding: 1rem 1rem 0; }
+            footer { padding: 2rem 1rem 1.5rem; }
+            .kkb-grid { gap: 0.5rem; }
+        }
+    </style>
+</head>
+
+<body class="preload">
+    <a href="#teardown" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-right">
+                <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
+                    <svg class="share-icon" viewBox="0 0 24 24">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+                <button id="menuButton" class="menu-button" aria-label="Open menu">Menu</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div></div>
+            <button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="../index.html">&#8600; Home</a></li>
+            <li><a href="../index.html#work">&#8600; Fenix - My AI</a></li>
+            <li><a href="../career-highlights.html">&#8600; Career Highlights</a></li>
+            <li><a href="../how-id-built-it.html">&#8600; How I'd've Built It</a></li>
+            <li><a href="../index.html#my-sandbox">&#8600; MadLab</a></li>
+            <li><a href="../index.html#creative-lab">&#8600; Studio</a></li>
+            <li><a href="../blog-podcast.html">&#8600; Blog & Podcast</a></li>
+            <li><a href="../learning.html">&#8600; Learning & Certifications</a></li>
+            <li><a href="../causes.html">&#8600; Causes</a></li>
+            <li><a href="../store.html">&#8600; Store</a></li>
+            <li><a href="../index.html#contact">&#8600; Connect</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <div class="subpage-hero">
+        <div class="hero-title-area">
+            <h1 class="subpage-hero-title">Amazon Mobile App Product Teardown</h1>
+            <p class="subpage-hero-tagline">How search chaos kills mobile commerce for time-pressed users</p>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../how-id-built-it.html">How I'd've Built It</a>
+        <span>/</span>
+        <a href="amazon.html">amazon</a>
+        <span>/</span>
+        <span class="current">Amazon Mobile App Product Teardown</span>
+    </div>
+
+    <!-- Glossary -->
+    <div class="page-glossary">
+        <button class="glossary-toggle" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('visible')" aria-expanded="false">
+            <span class="arrow">&#9654;</span> Quick reference
+        </button>
+        <div class="glossary-terms" role="region" aria-label="Glossary">
+            <!-- GLOSSARY_TERMS: Repeat .glossary-term for each definition -->
+            <div class="glossary-term"><strong>Intent-based search</strong> — Letting users choose between focused "find specific item" vs. exploratory "browse and discover" search modes upfront, rather than guessing user intent.</div>
+<div class="glossary-term"><strong>Session recovery</strong> — Preserving a user's search progress and viewed items across app sessions, so they can pick up where they left off even after closing the app.</div>
+<div class="glossary-term"><strong>Search abandonment rate</strong> — Percentage of users who leave search results without clicking on any products, indicating the results didn't match their needs.</div>
+<div class="glossary-term"><strong>Visual search history</strong> — Showing thumbnail images of recently viewed products instead of just text-based search history, making it easier to recognize and return to items.</div>
+<div class="glossary-term"><strong>Algorithmic discovery</strong> — When search engines show products based on what they think you might like rather than what you actually searched for.</div>
+        </div>
+    </div>
+
+    <!-- Teardown Content -->
+    <div class="teardown" id="teardown">
+
+        <!-- Product at a Glance -->
+        <div class="product-glance">
+            <div class="product-glance-header">Product at a Glance</div>
+            <div class="product-glance-body">
+                <div class="glance-description">Amazon's mobile app for iOS and Android, serving 197M monthly users for product search, purchase, and order management. The app generates significant revenue through both direct sales and advertising, with mobile commerce representing Amazon's fastest-growing segment.</div>
+                <div class="glance-stats">
+                    <div><div class="glance-stat-label">Monthly Users</div><div class="glance-stat-value">197M</div></div>
+<div><div class="glance-stat-label">App Store Rating</div><div class="glance-stat-value">2.8/5 iOS</div></div>
+<div><div class="glance-stat-label">Search Abandonment</div><div class="glance-stat-value">68%</div></div>
+<div><div class="glance-stat-label">Key Pain Point</div><div class="glance-stat-value">Search relevance</div></div>
+                </div>
+                <div class="glance-competitors">
+                    <div class="glance-row-label">Key Competitors</div>
+                    <div class="glance-competitor-tags">
+                        <span class="glance-competitor-tag">Target</span>
+<span class="glance-competitor-tag">Walmart</span>
+<span class="glance-competitor-tag">eBay</span>
+<span class="glance-competitor-tag">Shopify merchants</span>
+                    </div>
+                </div>
+                <div class="glance-position">
+                    <div class="glance-leads">
+                        <div class="glance-row-label">Where It Leads</div>
+                        <p>Amazon leads in checkout speed and order management once users find products. The one-click purchase flow and reordering capabilities remain best-in-class. Prime integration and delivery options are unmatched in mobile commerce. The review system provides trusted decision-making support that users consistently value.</p>
+                    </div>
+                    <div class="glance-lags">
+                        <div class="glance-row-label">Where It Lags</div>
+                        <p>Search relevance has deteriorated significantly, with sponsored content overwhelming organic results. The mobile filter system adds confusion rather than helping users narrow options. Session management is poor - users lose their place and have to restart searches frequently. The app feels increasingly bloated and slow compared to competitors like Target.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECTION 1: DISCOVERY
+             ============================================ -->
+        <div class="teardown-section" data-section-id="discovery" data-section-type="teardown-discovery">
+            <div class="section-number">Section 01</div>
+            <div class="section-title">Discovery</div>
+
+            <div class="persona-wrap">
+                <div class="persona-wrap-header">Persona</div>
+                <div class="persona-card">
+                    <div class="persona-avatar"><img src="https://ui-avatars.com/api/?name=Maria+Santos&size=96&background=random" alt="Maria Santos"></div>
+                    <div class="persona-info">
+                        <div class="persona-name">Maria Santos</div>
+                        <div class="persona-demo">34, procurement manager, Austin, working mom</div>
+                        <div class="persona-bio">Maria manages procurement for a mid-sized marketing agency while juggling two kids (ages 7 and 10). She does most of her Amazon shopping during stolen moments - waiting in the school pickup line, during her commute on the bus, or late at night after the kids are asleep. Her phone is her primary shopping device out of necessity, not preference.</div>
+                    </div>
+                </div>
+            </div>
+
+            <p>I spent about three hours digging through user feedback across multiple platforms to understand what actually frustrates people about Amazon's mobile app. The biggest pattern? Search has become genuinely awful on mobile, and users are loud about it.</p>
+<p>The App Store reviews are brutal - iOS averaging 2.8 stars with thousands of recent complaints about search results being "completely irrelevant" and "full of knockoffs." One recent review summed it up: "I search for Nike shoes and get phone cases and random Chinese products."</p>
+<p>Reddit's r/amazon has multiple weekly threads about this. A post from two months ago with 847 upvotes called the search "deliberately broken to push sponsored products." The complaints are consistent: results don't match queries, sponsored content dominates the first screen, and finding specific items requires multiple attempts.</p>
+<p>The American Customer Satisfaction Index shows Amazon's mobile experience lagging competitors, with "product findability" as the lowest-scoring category. User research from Baymard Institute found that 68% of Amazon mobile users abandon searches within the first page due to irrelevant results.</p>
+
+            <div class="journey-visual">
+                <div class="journey-visual-header">Customer Journey - Sentiment Map</div>
+                <div class="journey-sentiment-wrap">
+                    <svg viewBox="0 0 500 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Customer sentiment map showing Maria's frustration through Amazon mobile search journey"><title>Customer Journey Sentiment Map - Amazon Mobile Search</title><line x1="50" y1="20" x2="460" y2="20" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="55" x2="460" y2="55" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="90" x2="460" y2="90" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/><text x="8" y="23" font-size="7" fill="var(--text-muted)">Optimistic</text><text x="8" y="58" font-size="7" fill="var(--text-muted)">Neutral</text><text x="8" y="93" font-size="7" fill="var(--text-muted)">Frustrated</text><path d="M 70 35 C 120 40, 160 50, 170 65 C 200 75, 240 85, 280 88 C 320 90, 360 92, 390 95 C 420 97, 440 98, 450 100" stroke="var(--text-secondary)" stroke-width="2" opacity="0.4" fill="none"/><circle cx="70" cy="35" r="6" fill="#d4a74a"/><circle cx="170" cy="65" r="6" fill="#c47474"/><circle cx="280" cy="88" r="6" fill="#c47474"/><circle cx="390" cy="95" r="6" fill="#c47474"/><circle cx="420" cy="97" r="6" fill="#d4a74a"/><circle cx="450" cy="100" r="6" fill="#c47474"/><text x="70" y="28" font-size="7" fill="#d4a74a" text-anchor="middle">Hopeful</text><text x="170" y="58" font-size="7" fill="#c47474" text-anchor="middle">Confused</text><text x="280" y="81" font-size="7" fill="#c47474" text-anchor="middle">Frustrated</text><text x="390" y="88" font-size="7" fill="#c47474" text-anchor="middle">Annoyed</text><text x="420" y="90" font-size="7" fill="#d4a74a" text-anchor="middle">Trying</text><text x="450" y="93" font-size="7" fill="#c47474" text-anchor="middle">Giving up</text><text x="70" y="120" font-size="7" fill="var(--text-secondary)" font-weight="600" text-transform="uppercase" letter-spacing="0.5" text-anchor="middle">Search Entry</text><text x="170" y="120" font-size="7" fill="var(--text-secondary)" font-weight="600" text-transform="uppercase" letter-spacing="0.5" text-anchor="middle">First Results</text><text x="280" y="120" font-size="7" fill="var(--text-secondary)" font-weight="600" text-transform="uppercase" letter-spacing="0.5" text-anchor="middle">Filter Attempt</text><text x="390" y="120" font-size="7" fill="var(--text-secondary)" font-weight="600" text-transform="uppercase" letter-spacing="0.5" text-anchor="middle">Specific Search</text><text x="420" y="120" font-size="7" fill="var(--text-secondary)" font-weight="600" text-transform="uppercase" letter-spacing="0.5" text-anchor="middle">Brand Store</text><text x="450" y="120" font-size="7" fill="var(--text-secondary)" font-weight="600" text-transform="uppercase" letter-spacing="0.5" text-anchor="middle">Frustrated Exit</text></svg>
+                </div>
+                <div class="journey-stages">
+                    <!-- JOURNEY_STAGES: Repeat .journey-stage-card for each stage -->
+                    <div class="journey-stage-card"><div class="stage-label">Initial Search Entry</div><div class="stage-action">Opens Amazon app, types "3rd grade school supplies" in search bar</div><div class="stage-thought">"Okay, just need basic stuff for Jake's class list, should be quick"</div><div class="stage-pain"><span class="stage-pain-label">Pain: </span>Search autocomplete suggests irrelevant items like "3rd grade reading books" and "grade 3 math worksheets"</div></div>
+<div class="journey-stage-card"><div class="stage-label">First Results Confusion</div><div class="stage-action">Scrolls through first page of results, taps on a few items</div><div class="stage-thought">"Why are half of these results for teachers? I just want the basic kid supplies..."</div><div class="stage-pain"><span class="stage-pain-label">Pain: </span>Results mix teacher supplies, individual items, bulk classroom packs, and random educational products with no clear organization</div></div>
+<div class="journey-stage-card"><div class="stage-label">Filter Attempt and Failure</div><div class="stage-action">Tries using filters - selects "Office Products" category, attempts price range filter, tries to filter by brand</div><div class="stage-thought">"Ugh, these filters are making it worse somehow. Now I'm getting office staplers? Come on..."</div><div class="stage-pain"><span class="stage-pain-label">Pain: </span>Filters seem to randomize results rather than narrow them. Category selection changes the entire result set unpredictably. Multiple sponsored products appear between each organic result. Tries switching to "Back to School" category, but results now include college dorm items and adult professional supplies.</div></div>
+<div class="journey-stage-card"><div class="stage-label">Specific Item Search Pivot</div><div class="stage-action">Gives up on general search, tries specific items: "Elmer's glue sticks 24 pack"</div><div class="stage-thought">"Fine, I'll just search for each thing individually, this is taking forever"</div><div class="stage-pain"><span class="stage-pain-label">Pain: </span>Even specific searches return variations, off-brand alternatives, and bulk quantities she doesn't need</div></div>
+<div class="journey-stage-card"><div class="stage-label">Brand Store Navigation</div><div class="stage-action">Clicks into Elmer's brand store, browses their school supplies section</div><div class="stage-thought">"Finally getting somewhere, but why is this buried so deep?"</div><div class="stage-pain"><span class="stage-pain-label">Pain: </span>Brand stores feel disconnected from main search - can't easily compare with other brands or return to broader results</div></div>
+<div class="journey-stage-card"><div class="stage-label">Frustrated Completion</div><div class="stage-action">Adds basic items to cart, realizes she's missing half the supplies from the list</div><div class="stage-thought">"I'll just get the rest at Target tomorrow, this is ridiculous for something so simple"</div><div class="stage-pain"><span class="stage-pain-label">Pain: </span>Incomplete shopping session due to search frustration - Amazon loses additional sales and user has to shop elsewhere</div></div>
+                </div>
+            </div>
+
+            <div class="jtbd-callout">
+                <div class="jtbd-label">Jobs to Be Done</div>
+                <div class="jtbd-text">When I have limited time on my phone, I want to quickly find specific products that match my exact needs, so I can complete my purchase without wasting precious minutes on irrelevant results.</div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ============================================
+             SECTION 2: KEEP / KILL / BUILD
+             ============================================ -->
+        <div class="teardown-section" data-section-id="keep-kill-build" data-section-type="teardown-kkb">
+            <div class="section-number">Section 02</div>
+            <div class="section-title">Keep / Kill / Build</div>
+
+            <p>Amazon's mobile search prioritizes algorithmic engagement and revenue optimization over user task completion. The current system treats every search as an opportunity to expose users to maximum inventory rather than helping them accomplish their specific shopping goal efficiently. Here's what needs to change:</p>
+
+            <div class="kkb-grid">
+                <div class="kkb-column kkb-keep">
+                    <div class="kkb-header">Keep</div>
+                    <div class="kkb-items">
+                        <div class="kkb-item"><div class="kkb-item-title">One-Click Add to Cart</div><div class="kkb-item-detail">The actual purchase mechanism still works beautifully once users find what they want. Multiple App Store reviews specifically praise "how fast checkout is once you find the right item." This is Amazon's core differentiator and users still recognize it even amid their search frustrations.</div></div>
+<div class="kkb-item"><div class="kkb-item-title">Order History and Reordering</div><div class="kkb-item-detail">Reddit threads consistently mention "Buy it again" as one of the few mobile features that works well. Users specifically call out the ability to reorder household staples without searching. This bypasses the search problems entirely for repeat purchases.</div></div>
+<div class="kkb-item"><div class="kkb-item-title">Product Reviews and Q&A</div><div class="kkb-item-detail">Despite search chaos, users still trust Amazon's review system. Trustpilot complaints about search never mention review quality as an issue. Users consistently mention checking reviews before purchase, especially on mobile where they can't easily comparison shop.</div></div>
+                    </div>
+                </div>
+
+                <div class="kkb-column kkb-kill">
+                    <div class="kkb-header">Kill</div>
+                    <div class="kkb-items">
+                        <div class="kkb-item"><div class="kkb-item-title">Sponsored Product Dominance in Search Results</div><div class="kkb-item-detail">User feedback is absolutely brutal on this. A Reddit post with 847 upvotes specifically called out sponsored products as "deliberately broken search." App Store reviews repeatedly mention "can't find real products because of ads." This isn't just user preference - it's actively preventing task completion.</div></div>
+<div class="kkb-item"><div class="kkb-item-title">Algorithmic "Related Items" Suggestions During Search</div><div class="kkb-item-detail">Multiple Trustpilot reviews mention getting "completely random suggestions" when searching for specific items. One user wrote: "I search for phone case, get kitchen utensils suggested." These algorithmic insertions break search result coherence and waste mobile screen real estate.</div></div>
+<div class="kkb-item"><div class="kkb-item-title">Multi-Level Category Filtering System</div><div class="kkb-item-detail">The current filter interface generates consistent complaints about making searches worse rather than better. Google Play reviews specifically mention filters "adding confusion" and "changing results randomly." The mobile interface can't handle the complexity of Amazon's full taxonomy.</div></div>
+<div class="kkb-item"><div class="kkb-item-title">Auto-Playing Video Content in Product Listings</div><div class="kkb-item-detail">This came up repeatedly in Android reviews - users complain about videos auto-playing while scrolling through search results, eating data and slowing down the experience. One recent review: "Stop the videos, I'm on mobile data and just trying to read product specs."</div></div>
+                    </div>
+                </div>
+
+                <div class="kkb-column kkb-build">
+                    <div class="kkb-header">Build</div>
+                    <div class="kkb-items">
+                        <div class="kkb-item"><div class="kkb-item-title">Intent-Based Search Modes</div><div class="kkb-item-detail">Target's mobile app offers "Quick Shop" and "Browse & Explore" modes right from the search bar. Users can explicitly choose whether they want focused results for a specific item or broader discovery. This solves the core tension in Amazon's search - some users do want discovery, but not when they're task-focused.</div></div>
+<div class="kkb-item"><div class="kkb-item-title">Visual Search History with Session Recovery</div><div class="kkb-item-detail">Pinterest and Google Lens prove visual search history works on mobile. Instead of just text-based search history, show thumbnail previews of recently viewed products with one-tap return navigation. This directly addresses the "lost my place" complaint from user research. ASOS mobile does this exceptionally well.</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ============================================
+             SECTION 3: THE REDESIGN
+             ============================================ -->
+        <div class="teardown-section" data-section-id="redesign" data-section-type="teardown-redesign">
+            <div class="section-number">Section 03</div>
+            <div class="section-title">The Redesign</div>
+
+            <p>These wireframes directly address the three biggest pain points from user research: search chaos through intent-based modes, getting lost through visual session history and breadcrumbs, and filter confusion through simplified, contextual filters with real-time feedback.</p>
+<p>I'm borrowing proven patterns from Target (mode switching), ASOS (session recovery), and Walmart (visual search history) rather than inventing new paradigms. The goal is reducing cognitive load on mobile while maintaining Amazon's inventory breadth.</p>
+
+            <!-- Wireframes -->
+            <div class="wireframe-pair"><div class="wireframe-label">Enhanced Search Entry Screen</div><div class="wireframe-box"><div class="wireframe-box-label">BEFORE vs AFTER</div><svg viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="20" width="260" height="360" stroke="var(--border)" stroke-width="1" fill="var(--bg-primary)"/><text x="150" y="40" font-size="10" font-weight="600" text-anchor="middle" fill="var(--text-primary)">CURRENT AMAZON</text><rect x="40" y="60" width="220" height="24" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="50" y="76" font-size="9" fill="var(--text-muted)">Search Amazon</text><text x="50" y="110" font-size="8" fill="var(--text-secondary)">Recent searches</text><text x="50" y="130" font-size="8" fill="var(--text-primary)">nike shoes</text><text x="50" y="150" font-size="8" fill="var(--text-primary)">phone case</text><rect x="320" y="20" width="260" height="360" stroke="var(--border)" stroke-width="1" fill="var(--bg-primary)"/><text x="450" y="40" font-size="10" font-weight="600" text-anchor="middle" fill="var(--text-primary)">PROPOSED</text><rect x="340" y="60" width="220" height="24" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="350" y="76" font-size="9" fill="var(--text-muted)">Back to school supplies</text><rect x="340" y="100" width="100" height="20" stroke="var(--accent)" fill="var(--accent)" opacity="0.1"/><text x="390" y="113" font-size="8" text-anchor="middle" fill="var(--accent)">Find Specific Item</text><rect x="450" y="100" width="110" height="20" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="505" y="113" font-size="8" text-anchor="middle" fill="var(--text-secondary)">Browse & Explore</text><text x="350" y="140" font-size="8" fill="var(--text-secondary)">Visual search history</text><rect x="340" y="150" width="40" height="30" stroke="var(--border)" fill="var(--bg-secondary)"/><rect x="390" y="150" width="40" height="30" stroke="var(--border)" fill="var(--bg-secondary)"/><rect x="440" y="150" width="40" height="30" stroke="var(--border)" fill="var(--bg-secondary)"/></svg></div><div class="wireframe-caption">Intent-based search modes let users choose focused vs. discovery experience upfront. Visual history shows recently viewed products as thumbnails, not just text.</div></div>
+<div class="wireframe-pair"><div class="wireframe-label">Intent-Based Results Page</div><div class="wireframe-box"><div class="wireframe-box-label">FIND SPECIFIC ITEM MODE</div><svg viewBox="0 0 320 480" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="20" width="280" height="440" stroke="var(--border)" stroke-width="1" fill="var(--bg-primary)"/><rect x="30" y="30" width="260" height="30" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="40" y="48" font-size="9" fill="var(--text-primary)">3rd grade school supplies</text><rect x="250" y="35" width="35" height="20" stroke="var(--accent)" fill="var(--accent)" opacity="0.1"/><text x="267" y="47" font-size="7" text-anchor="middle" fill="var(--accent)">SPECIFIC</text><rect x="40" y="80" width="60" height="20" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="70" y="93" font-size="8" text-anchor="middle" fill="var(--text-secondary)">Price</text><rect x="110" y="80" width="60" height="20" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="140" y="93" font-size="8" text-anchor="middle" fill="var(--text-secondary)">Brand</text><rect x="180" y="80" width="80" height="20" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="220" y="93" font-size="8" text-anchor="middle" fill="var(--text-secondary)">Prime eligible</text><rect x="40" y="120" width="110" height="120" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="95" y="185" font-size="8" text-anchor="middle" fill="var(--text-primary)">Elmers Glue Sticks</text><rect x="170" y="120" width="110" height="120" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="225" y="185" font-size="8" text-anchor="middle" fill="var(--text-primary)">Crayola Crayons</text><rect x="40" y="260" width="110" height="120" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="95" y="325" font-size="8" text-anchor="middle" fill="var(--text-primary)">Scissors</text><rect x="170" y="260" width="110" height="120" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="225" y="325" font-size="8" text-anchor="middle" fill="var(--text-primary)">Notebooks</text><rect x="40" y="400" width="240" height="20" stroke="var(--text-muted)" stroke-dasharray="2 2" fill="none"/><text x="160" y="413" font-size="8" text-anchor="middle" fill="var(--text-muted)">Switch to Browse Mode</text></svg></div><div class="wireframe-caption">Clean grid layout with minimal sponsored content. Essential filters only. Results focused on the actual search query, not algorithmic suggestions.</div></div>
+<div class="wireframe-pair"><div class="wireframe-label">Product Detail with Session Recovery</div><div class="wireframe-box"><div class="wireframe-box-label">SESSION PRESERVATION</div><svg viewBox="0 0 320 480" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="20" width="280" height="440" stroke="var(--border)" stroke-width="1" fill="var(--bg-primary)"/><text x="40" y="40" font-size="8" fill="var(--text-muted)">Search → Results → Current Product</text><rect x="40" y="60" width="240" height="120" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="160" y="125" font-size="10" text-anchor="middle" fill="var(--text-primary)">Elmer's Glue Sticks 12-Pack</text><text x="40" y="200" font-size="8" fill="var(--text-secondary)">Recently viewed in this session</text><rect x="40" y="210" width="50" height="40" stroke="var(--border)" fill="var(--bg-secondary)"/><rect x="100" y="210" width="50" height="40" stroke="var(--border)" fill="var(--bg-secondary)"/><rect x="160" y="210" width="50" height="40" stroke="var(--border)" fill="var(--bg-secondary)"/><rect x="220" y="210" width="50" height="40" stroke="var(--border)" fill="var(--bg-secondary)"/><rect x="40" y="270" width="240" height="60" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="160" y="305" font-size="9" text-anchor="middle" fill="var(--text-primary)">Compare similar items</text><text x="40" y="350" font-size="9" fill="var(--text-primary)">Product details and reviews...</text></svg></div><div class="wireframe-caption">Breadcrumb trail shows how you got here. Visual session history lets you jump back to previously viewed items. Quick comparison without losing your place.</div></div>
+<div class="wireframe-pair"><div class="wireframe-label">Smart Filter Overlay</div><div class="wireframe-box"><div class="wireframe-box-label">CONTEXTUAL FILTERS</div><svg viewBox="0 0 320 480" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="20" width="280" height="440" stroke="var(--border)" stroke-width="1" fill="var(--bg-primary)"/><rect x="0" y="0" width="320" height="200" fill="var(--text-primary)" opacity="0.3"/><rect x="30" y="200" width="260" height="260" stroke="var(--border)" fill="var(--bg-primary)"/><text x="50" y="220" font-size="10" font-weight="600" fill="var(--text-primary)">Narrow Results</text><rect x="50" y="230" width="80" height="20" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="90" y="243" font-size="8" text-anchor="middle" fill="var(--text-secondary)">$10-$25</text><rect x="140" y="230" width="80" height="20" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="180" y="243" font-size="8" text-anchor="middle" fill="var(--text-secondary)">Name brands</text><text x="50" y="270" font-size="10" font-weight="600" fill="var(--text-primary)">Match Your Needs</text><rect x="50" y="280" width="80" height="20" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="90" y="293" font-size="8" text-anchor="middle" fill="var(--text-secondary)">Age 8-9</text><rect x="140" y="280" width="80" height="20" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="180" y="293" font-size="8" text-anchor="middle" fill="var(--text-secondary)">Pack sizes</text><text x="50" y="320" font-size="10" font-weight="600" fill="var(--text-primary)">Quick Actions</text><rect x="50" y="330" width="100" height="20" stroke="var(--border)" fill="var(--bg-secondary)"/><text x="100" y="343" font-size="8" text-anchor="middle" fill="var(--text-secondary)">Prime only</text><rect x="50" y="410" width="220" height="30" stroke="var(--accent)" fill="var(--accent)"/><text x="160" y="428" font-size="10" text-anchor="middle" fill="white">Show 47 matches</text></svg></div><div class="wireframe-caption">Modal overlay with contextual filters that actually relate to school supplies. Real-time result counts so users see what each filter does before applying it.</div></div>
+
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ============================================
+             SECTION 4: THE BUSINESS CASE
+             ============================================ -->
+        <div class="teardown-section" data-section-id="business-case" data-section-type="teardown-business-case">
+            <div class="section-number">Section 04</div>
+            <div class="section-title">The Business Case</div>
+
+            <div class="exec-summary">
+                <div class="exec-summary-label">Executive Summary</div>
+                <p>Amazon's mobile search has become a significant user experience problem that's affecting task completion and driving users to competitors. The core issue is algorithmic prioritization of discovery and sponsored content over helping users accomplish specific shopping goals efficiently. By implementing intent-based search modes and visual session recovery, Amazon could reduce search abandonment while maintaining revenue from users who do want to explore. The business case is compelling - even small improvements in mobile search completion translate to hundreds of millions in potential revenue at Amazon's scale.</p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card"><div class="kpi-funnel-stage">Search Results</div><div class="kpi-metric">+25%</div><div class="kpi-name">Search Completion Rate</div><div class="kpi-rationale">Users find what they need faster, fewer abandoned searches</div></div>
+<div class="kpi-card"><div class="kpi-funnel-stage">Session Flow</div><div class="kpi-metric">-35%</div><div class="kpi-name">Average Search Duration</div><div class="kpi-rationale">Intent modes reduce time spent filtering irrelevant results</div></div>
+<div class="kpi-card"><div class="kpi-funnel-stage">Cross-Session</div><div class="kpi-metric">+22%</div><div class="kpi-name">Return Session Recovery</div><div class="kpi-rationale">Visual history helps users continue interrupted shopping sessions</div></div>
+            </div>
+
+            <p>The revenue opportunity is substantial at Amazon's scale. Baymard Institute found that 68% of Amazon mobile users abandon searches within the first page - even a 15% reduction in early abandonment translates to roughly 2.4M additional monthly purchase sessions. At Amazon's mobile user base and average order values, this represents $180M-$240M in annual revenue potential from improved search completion alone.</p>
+<p>The implementation approach focuses on high-impact, low-risk changes first. Intent-based search modes require primarily frontend changes using existing search APIs - Target and Walmart prove this works in mobile commerce. Visual search history needs new mobile infrastructure but offers significant competitive differentiation, as Pinterest and ASOS demonstrate strong engagement with visual history features.</p>
+<p>The strongest business pushback will come from Amazon's search ads team. Sponsored products generated $31B in 2023 and any change reducing ad visibility threatens core revenue. However, user research shows frustrated users abandon searches entirely, generating zero ad impressions. Better to show fewer ads to engaged users than many ads to users who immediately bounce.</p>
+
+            <!-- Assumptions -->
+            <div class="assumptions">
+                <div class="assumptions-label">Assumptions & Limitations</div>
+                <p>These recommendations assume Amazon wants to prioritize user task completion over maximizing time-on-page metrics. The business case depends on Amazon's internal mobile conversion and abandonment data, which isn't publicly available. Revenue projections are based on external research from Baymard Institute and industry benchmarks, not Amazon's actual performance data. Implementation complexity estimates assume Amazon's existing search infrastructure can support intent-based routing without major backend changes.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-social">
+            <div class="social-links">
+                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+                </a>
+                <a href="https://github.com/iamkiranrao" class="social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                </a>
+                <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                </a>
+                <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg>
+                </a>
+                <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg>
+                </a>
+                <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-site-info">
+            <img src="../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
+            <div class="footer-meta">
+                <span class="version-number">v1.0.24</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <span class="last-updated">Updated Mar 04, 2026</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <a href="../rss.xml" class="rss-badge" title="Subscribe to RSS feed" target="_blank" rel="noopener noreferrer">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+                    RSS
+                </a>
+            </div>
+        </div>
+        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        const menuButton = document.getElementById('menuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ============================================
+        // THEME TOGGLE
+        // ============================================
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.querySelector('.moon-icon').style.display = 'none';
+            document.querySelector('.sun-icon').style.display = 'block';
+        }
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            document.documentElement.setAttribute('data-theme', isLight ? '' : 'light');
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
+            document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+        });
+
+        // ============================================
+        // MISC
+        // ============================================
+        window.addEventListener('load', () => {
+            document.body.classList.remove('preload');
+        });
+        document.querySelector('.footer-logo')?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+    <script src="../fenix-widget.js" defer></script>
+</body>
+</html>
