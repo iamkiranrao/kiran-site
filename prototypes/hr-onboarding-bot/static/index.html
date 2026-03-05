@@ -767,7 +767,13 @@
                 if (typing) typing.remove();
 
                 // Add bot response with sources
-                addMessage(responseData.text || "I'm not sure how to answer that. Please try another question.", 'bot', responseData.sources || []);
+                // API returns 'response' and sources with 'file'; mock uses 'text' and 'doc'
+                const botText = responseData.response || responseData.text || "I'm not sure how to answer that. Please try another question.";
+                const botSources = (responseData.sources || []).map(s => ({
+                    doc: s.doc || s.file || 'Unknown',
+                    snippet: s.snippet || ''
+                }));
+                addMessage(botText, 'bot', botSources);
 
             } catch (error) {
                 console.error('Chat error:', error);
