@@ -246,6 +246,16 @@ Every shareable page must have its own OG image. No page should fall back to the
 - All SVG class names MUST be prefixed with `wf-` (e.g., `.wf-phone-frame`, `.wf-nav-bar`). Unprefixed class names conflict with page-level CSS.
 - No text overlap anywhere in any SVG. Minimum 12-15px vertical spacing between text lines. Every container rect must be tall enough for its text content plus padding.
 
+### SVG Text Containment Rules (MANDATORY - prevents text spill)
+These rules apply to EVERY `<text>` element inside EVERY SVG on the site. Violations cause visible text overflow.
+
+1. **Width check before placing text**: Calculate text pixel width = (character count) × (font-size × 0.6). If the result exceeds the container rect width minus 20px padding, EITHER reduce font-size, split into multiple `<text>` lines, shorten the string, or widen the container.
+2. **Right-aligned text near edges**: Any text positioned in the right third of a container MUST use `text-anchor="end"` and x must be at least 10px inside the container's right edge.
+3. **Centered text**: For `text-anchor="middle"`, verify that (x - half_text_width) >= container_left + 10 AND (x + half_text_width) <= container_right - 10. If not, reduce font-size or split the text.
+4. **Button text**: Button text width must be ≤ button rect width minus 20px. If "Update my discovery" (19 chars × 7.2px = 137px at font-size 12) doesn't fit in a 100px button, widen the button to at least 160px.
+5. **Header text in wireframes**: Max font-size for single-line headers inside a 300px-wide screen is 13px for text longer than 25 characters. For longer headers, split across two `<text>` elements with 15px vertical spacing.
+6. **No label collision with axis labels**: In sentiment charts, sentiment dot labels (e.g., "Hopeful") must not share the same y-coordinate as Y-axis tier labels ("Optimistic", "Neutral", "Frustrated"). Minimum 5px vertical clearance between any sentiment label and any axis label.
+
 ### Wireframe Rules
 - SVGs constrained: `.wireframe-box { max-width: 340px; }` and `.wireframe-box svg { max-width: 300px; display: block; margin: 0 auto; }`
 - Annotation callout boxes must be properly sized around text. Calculate text width (chars x ~6px at 10px font), add 20px horizontal padding (10px each side), 16px vertical padding (8px top/bottom). No text should touch or overflow box edges.
