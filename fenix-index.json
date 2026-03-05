@@ -230,6 +230,50 @@
       "status": "published",
       "connections": [],
       "summary": "Case study of Bank of America's AI adoption strategy. BofA got 90% of 213,000 employees using AI not through mandates but by solving real problems like password resets. The article argues that successful AI adoption starts with unglamorous problems, not flashy demos."
+    },
+    {
+      "id": "spotify-playlist-discovery-teardown",
+      "type": "teardown",
+      "title": "Spotify Playlist Discovery Teardown",
+      "url": "/teardowns/spotify-playlist-discovery.html",
+      "company": "Spotify",
+      "industry": "music-streaming",
+      "focusArea": "Playlist discovery and music recommendation for long-term users",
+      "persona": {
+        "name": "Alex M.",
+        "context": "Long-term Spotify user trying to evolve musical taste beyond established patterns"
+      },
+      "sections": [
+        {
+          "id": "discovery",
+          "title": "Discovery",
+          "number": "01",
+          "components": ["persona", "journey-sentiment-map", "jtbd-callout"]
+        },
+        {
+          "id": "keep-kill-build",
+          "title": "Keep / Kill / Build",
+          "number": "02",
+          "components": ["kkb-grid"]
+        },
+        {
+          "id": "redesign",
+          "title": "The Redesign",
+          "number": "03",
+          "components": ["wireframe-discovery-intent", "wireframe-context-aware-listening"]
+        },
+        {
+          "id": "business-case",
+          "title": "The Business Case",
+          "number": "04",
+          "components": ["kpi-grid"]
+        }
+      ],
+      "skills": ["customer-research", "journey-mapping", "persona-development", "keep-kill-build-analysis", "wireframing", "business-case-development", "recommendation-systems", "competitive-analysis"],
+      "themes": ["music-streaming", "recommendation-algorithms", "playlist-discovery", "customer-experience", "personalization"],
+      "status": "published",
+      "connections": [],
+      "summary": "Analysis of Spotify's playlist discovery experience for long-term users. Examines how the recommendation algorithm reinforces existing listening patterns instead of helping users evolve their taste. Proposes a redesign with discovery intent settings and context-aware listening to give users more control over music exploration."
     }
   ],
   "hubPages": [
