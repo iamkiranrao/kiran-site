@@ -8,8 +8,9 @@ Publishing checklist (for teardowns):
 4. Copy updated how-id-built-it.html to site/
 5. If new company: create teardowns/[company].html (Tier 2 page)
 6. Copy Tier 2 page to site/teardowns/[company].html
-7. Update sitemap.xml and site/sitemap.xml
-8. git add, commit, push
+7. Update sitemap.xml and site/sitemap.xml (teardown + hub page)
+8. Update fenix-index.json (teardown entry + hub entry)
+9. git add, commit, push
 
 Publishing checklist (for blog posts):
 1. Save post to blog/[slug].html
@@ -20,6 +21,7 @@ Publishing checklist (for blog posts):
 6. git add, commit, push
 """
 
+import json
 import os
 import re
 import shutil
@@ -816,19 +818,31 @@ class GitHandler:
             if tier2_site_path not in changed_files:
                 changed_files.append(tier2_site_path)
 
-        # 5. Update sitemap
+        # 5. Update sitemap (teardown + hub page)
         sitemap_entry = self._make_sitemap_entry(f"teardowns/{filename}")
+        hub_sitemap_entry = self._make_sitemap_entry(f"teardowns/{company_slug}.html")
         for sitemap_path in [
             os.path.join(self.local_path, "sitemap.xml"),
             os.path.join(self.local_path, "site", "sitemap.xml"),
         ]:
             if os.path.exists(sitemap_path):
                 self._add_to_sitemap(sitemap_path, sitemap_entry)
+                self._add_to_sitemap(sitemap_path, hub_sitemap_entry)
                 rel = os.path.relpath(sitemap_path, self.local_path)
                 if rel not in changed_files:
                     changed_files.append(rel)
 
-        # 6. Commit and push
+        # 6. Update fenix-index.json (teardown + hub entries)
+        fenix_changed = self._update_fenix_index(
+            company=company,
+            company_slug=company_slug,
+            product=product,
+            product_slug=product_slug,
+            filename=filename,
+        )
+        changed_files.extend(fenix_changed)
+
+        # 7. Commit and push
         commit_msg = f"Add {product} teardown for {company}"
         result = await self.commit_and_push(commit_msg, changed_files)
 
@@ -958,3 +972,89 @@ class GitHandler:
 
         with open(sitemap_path, "w", encoding="utf-8") as f:
             f.write(content)
+
+    def _update_fenix_index(
+        self,
+        company: str,
+        company_slug: str,
+        product: str,
+        product_slug: str,
+        filename: str,
+    ) -> list:
+        """Add teardown and hub entries to fenix-index.json. Returns list of changed files."""
+        changed = []
+        index_path = os.path.join(self.local_path, "fenix-index.json")
+        if not os.path.exists(index_path):
+            return changed
+
+        with open(index_path, "r", encoding="utf-8") as f:
+            index_data = json.load(f)
+
+        content_list = index_data.get("content", [])
+        teardown_id = f"{company_slug}-{product_slug}-teardown"
+        hub_id = f"{company_slug}-hub"
+
+        # Check if teardown entry already exists
+        teardown_exists = any(c["id"] == teardown_id for c in content_list)
+        hub_exists = any(c["id"] == hub_id for c in content_list)
+
+        if not teardown_exists:
+            teardown_entry = {
+                "id": teardown_id,
+                "type": "teardown",
+                "title": f"{company} {product} Teardown",
+                "url": f"/teardowns/{filename}",
+                "company": company,
+                "industry": "",
+                "focusArea": f"{product} experience analysis",
+                "persona": {"name": "", "context": ""},
+                "sections": [
+                    {"id": "discovery", "title": "Discovery", "number": "01", "components": ["persona", "journey-sentiment-map", "jtbd-callout"]},
+                    {"id": "keep-kill-build", "title": "Keep / Kill / Build", "number": "02", "components": ["kkb-grid"]},
+                    {"id": "redesign", "title": "The Redesign", "number": "03", "components": ["wireframes"]},
+                    {"id": "business-case", "title": "The Business Case", "number": "04", "components": ["kpi-grid"]},
+                ],
+                "skills": ["customer-research", "journey-mapping", "persona-development", "keep-kill-build-analysis", "wireframing", "business-case-development", "competitive-analysis"],
+                "themes": [],
+                "status": "published",
+                "connections": [
+                    {"id": hub_id, "relationship": "parent-hub", "description": f"Listed on the {company} company hub page"}
+                ],
+                "summary": f"Product teardown of {company}'s {product}. Covers persona research, customer journey mapping, keep/kill/build analysis, wireframe redesign proposals, and business case with projected KPIs.",
+            }
+            content_list.append(teardown_entry)
+
+        if not hub_exists:
+            hub_entry = {
+                "id": hub_id,
+                "type": "teardown-hub",
+                "title": f"{company} Teardowns",
+                "url": f"/teardowns/{company_slug}.html",
+                "company": company,
+                "industry": "",
+                "status": "published",
+                "connections": [
+                    {"id": teardown_id, "relationship": "child-teardown", "description": f"{company} {product} teardown"}
+                ],
+                "summary": f"Company hub page for {company} product teardowns. Currently features the {product} teardown.",
+            }
+            content_list.append(hub_entry)
+        elif not teardown_exists:
+            # Hub exists but this is a new teardown — add connection
+            for entry in content_list:
+                if entry["id"] == hub_id:
+                    connections = entry.get("connections", [])
+                    if not any(c["id"] == teardown_id for c in connections):
+                        connections.append({"id": teardown_id, "relationship": "child-teardown", "description": f"{company} {product} teardown"})
+                        entry["connections"] = connections
+                    break
+
+        if not teardown_exists or not hub_exists:
+            index_data["content"] = content_list
+            index_data["lastUpdated"] = datetime.now().strftime("%Y-%m-%d")
+            with open(index_path, "w", encoding="utf-8") as f:
+                json.dump(index_data, f, indent=2, ensure_ascii=False)
+                f.write("\n")
+            changed.append("fenix-index.json")
+
+        return changed
