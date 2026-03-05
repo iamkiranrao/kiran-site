@@ -400,7 +400,7 @@ def list_sessions() -> List[Dict]:
 # list so Kiran can pick them up. Each entry creates a session at Step 1
 # if no matching session already exists. Remove entries once published.
 _SEED_SESSIONS = [
-    {"company": "Spotify", "product": "Playlist Discovery"},
+    # Spotify / Playlist Discovery - published, moved to hardcoded published list
 ]
 
 
