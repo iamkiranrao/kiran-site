@@ -255,11 +255,14 @@
         }
         .journey-stages {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
         }
         .journey-stage-card {
             padding: 1rem;
             border-right: 1px solid var(--border);
+            overflow: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .journey-stage-card:last-child {
             border-right: none;
@@ -771,6 +774,7 @@
             .breadcrumb { padding: 1.25rem 3rem 0; }
             .teardown { padding: 1.5rem 3rem 3rem; }
             .kkb-grid { grid-template-columns: 1fr; }
+            .journey-stages { grid-template-columns: repeat(3, 1fr); }
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
             footer { padding: 3rem 3rem 2rem; }
         }
@@ -962,7 +966,7 @@
             <div class="journey-visual">
                 <div class="journey-visual-header">Customer Journey - Sentiment Map</div>
                 <div class="journey-sentiment-wrap">
-                    <svg viewBox="0 0 800 200" class="sentiment-curve"><defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1DB954"/><stop offset="50%" stop-color="#FFA500"/><stop offset="100%" stop-color="#FF6B6B"/></linearGradient></defs><path d="M50 120 C 150 100, 200 110, 280 140 C 350 170, 400 165, 480 140 C 550 115, 600 125, 750 160" stroke="url(#gradient)" stroke-width="3" fill="none"/><line x1="50" y1="60" x2="750" y2="60" stroke="#28a745" stroke-width="1" opacity="0.3"/><text x="760" y="65" fill="#28a745" font-size="12">Optimistic</text><line x1="50" y1="120" x2="750" y2="120" stroke="#6c757d" stroke-width="1" opacity="0.5"/><text x="760" y="125" fill="#6c757d" font-size="12">Neutral</text><line x1="50" y1="180" x2="750" y2="180" stroke="#dc3545" stroke-width="1" opacity="0.3"/><text x="760" y="185" fill="#dc3545" font-size="12">Frustrated</text></svg>
+                    <svg viewBox="0 0 860 200" class="sentiment-curve"><defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1DB954"/><stop offset="50%" stop-color="#FFA500"/><stop offset="100%" stop-color="#FF6B6B"/></linearGradient></defs><path d="M50 120 C 150 100, 200 110, 280 140 C 350 170, 400 165, 480 140 C 550 115, 600 125, 750 160" stroke="url(#gradient)" stroke-width="3" fill="none"/><line x1="50" y1="60" x2="750" y2="60" stroke="#28a745" stroke-width="1" opacity="0.3"/><text x="760" y="65" fill="#28a745" font-size="12">Optimistic</text><line x1="50" y1="120" x2="750" y2="120" stroke="#6c757d" stroke-width="1" opacity="0.5"/><text x="760" y="125" fill="#6c757d" font-size="12">Neutral</text><line x1="50" y1="180" x2="750" y2="180" stroke="#dc3545" stroke-width="1" opacity="0.3"/><text x="760" y="185" fill="#dc3545" font-size="12">Frustrated</text></svg>
                 </div>
                 <div class="journey-stages">
                     <!-- JOURNEY_STAGES: Repeat .journey-stage-card for each stage -->
