@@ -188,6 +188,19 @@
       "summary": "Company hub page for Meta product teardowns. Currently features the Instagram teardown with WhatsApp, Facebook, and Threads planned."
     },
     {
+      "id": "spotify-hub",
+      "type": "teardown-hub",
+      "title": "Spotify Teardowns",
+      "url": "/teardowns/spotify.html",
+      "company": "Spotify",
+      "industry": "music-streaming",
+      "status": "published",
+      "connections": [
+        { "id": "spotify-playlist-discovery-teardown", "relationship": "child-teardown", "description": "Spotify Playlist Discovery teardown" }
+      ],
+      "summary": "Company hub page for Spotify product teardowns. Currently features the Playlist Discovery teardown with Wrapped and Podcasts planned."
+    },
+    {
       "id": "insurance-chatbot",
       "type": "prototype",
       "title": "Insurance AI Assistant",
@@ -272,7 +285,9 @@
       "skills": ["customer-research", "journey-mapping", "persona-development", "keep-kill-build-analysis", "wireframing", "business-case-development", "recommendation-systems", "competitive-analysis"],
       "themes": ["music-streaming", "recommendation-algorithms", "playlist-discovery", "customer-experience", "personalization"],
       "status": "published",
-      "connections": [],
+      "connections": [
+        { "id": "spotify-hub", "relationship": "parent-hub", "description": "Listed on the Spotify company hub page" }
+      ],
       "summary": "Analysis of Spotify's playlist discovery experience for long-term users. Examines how the recommendation algorithm reinforces existing listening patterns instead of helping users evolve their taste. Proposes a redesign with discovery intent settings and context-aware listening to give users more control over music exploration."
     }
   ],
