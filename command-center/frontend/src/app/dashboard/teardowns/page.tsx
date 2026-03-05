@@ -397,11 +397,10 @@ export default function TeardownsPage() {
       } else {
         const data = await res.json();
         setDeployResult(data.url ? `Live at: ${data.url}` : "Deployed to production!");
-        const sessRes = await fetch(
-          `${API_URL}/api/teardown/sessions/${activeSession.session_id}`
-        );
-        setActiveSession(await sessRes.json());
-        fetchSessions();
+        await fetchSessions();
+        // Return to list view so the user sees the teardown under Published
+        setActiveSession(null);
+        setView("list");
       }
     } catch (e) {
       console.error("Deploy failed:", e);
@@ -475,13 +474,14 @@ export default function TeardownsPage() {
             Published
           </h3>
           <div className="space-y-2.5">
+            {/* Hardcoded legacy teardowns */}
             {[
               { name: "Meta / Instagram", url: "https://kirangorapalli.com/teardowns/meta-instagram.html" },
               { name: "GEICO / Mobile App", url: "https://kirangorapalli.com/teardowns/geico-mobile-app.html" },
               { name: "Intuit / TurboTax", url: "https://kirangorapalli.com/teardowns/intuit-turbo-tax.html" },
               { name: "Airbnb / Mobile App", url: "https://kirangorapalli.com/teardowns/airbnb-mobile.html" },
             ].map((td, i) => (
-              <div key={i} className="flex items-center justify-between py-1.5">
+              <div key={`legacy-${i}`} className="flex items-center justify-between py-1.5">
                 <span className="text-sm text-[var(--text-primary)]">{td.name}</span>
                 <a
                   href={td.url}
@@ -493,11 +493,33 @@ export default function TeardownsPage() {
                 </a>
               </div>
             ))}
+            {/* Dynamically deployed teardowns from Command Center */}
+            {sessions
+              .filter((s) => s.status === "published")
+              .map((s) => {
+                const slug = `${s.company.toLowerCase().replace(/\s+/g, "-")}-${s.product.toLowerCase().replace(/\s+/g, "-")}`;
+                const url = `https://kirangorapalli.com/teardowns/${slug}.html`;
+                return (
+                  <div key={s.session_id} className="flex items-center justify-between py-1.5">
+                    <span className="text-sm text-[var(--text-primary)]">
+                      {s.company} / {s.product}
+                    </span>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-[var(--accent-blue)] flex items-center gap-1 hover:underline"
+                    >
+                      View <ExternalLink size={10} />
+                    </a>
+                  </div>
+                );
+              })}
           </div>
         </div>
 
-        {/* In-progress sessions */}
-        {sessions.length > 0 && (
+        {/* In-progress sessions (exclude published) */}
+        {sessions.filter((s) => s.status !== "published").length > 0 && (
           <div
             className="rounded-lg p-5"
             style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}
@@ -506,7 +528,9 @@ export default function TeardownsPage() {
               In Progress
             </h3>
             <div className="space-y-2">
-              {sessions.map((s) => (
+              {sessions
+                .filter((s) => s.status !== "published")
+                .map((s) => (
                 <div
                   key={s.session_id}
                   className="flex items-center gap-2"
