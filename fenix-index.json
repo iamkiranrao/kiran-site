@@ -281,6 +281,27 @@
       "summary": "Working chatbot prototype that handles multi-step insurance claims. Uses LangGraph for stateful conversation management so the bot remembers context across turns. Includes real-time state visualisation showing the graph traversal."
     },
     {
+      "id": "jurassic-bites",
+      "type": "prototype",
+      "title": "Jurassic Bites",
+      "url": "/prototypes/jurassic-bites/overview.html",
+      "launchUrl": "https://console.dialogflow.com/api-client/demo/embedded/790d592c-9da4-4180-af19-c6edf09028c9",
+      "category": "chatbots-ai-assistants",
+      "status": "live",
+      "techStack": ["Dialogflow", "Google Cloud", "NLP", "Intent Matching", "Entity Extraction", "Context Management"],
+      "sections": [
+        { "id": "the-details", "title": "Details" },
+        { "id": "system-architecture", "title": "System Architecture" },
+        { "id": "try-it-yourself", "title": "Try It Yourself" }
+      ],
+      "skills": ["conversational-AI", "intent-matching", "entity-extraction", "chatbot-design"],
+      "themes": ["dialogflow", "NLP", "chatbot-design", "restaurant-tech"],
+      "connections": [
+        { "id": "insurance-chatbot", "relationship": "companion-prototype", "description": "Companion prototype showing intent-based NLP (Dialogflow) vs stateful AI (LangGraph) for chatbot design" }
+      ],
+      "summary": "Restaurant reservation chatbot built on Google Dialogflow ES with 17 intents, 4 custom entities, and context-managed booking flows. A case study in what intent-based NLP does well (entity extraction, structured Q&A) and where it falls short (multi-turn memory, dynamic responses)."
+    },
+    {
       "id": "blog-demystifying-ach",
       "type": "blog",
       "title": "Demystifying ACH Payments",
