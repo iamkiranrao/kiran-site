@@ -1,0 +1,292 @@
+EXPENSE REIMBURSEMENT POLICY
+NovaTech Corporation Finance & Expense Management
+
+OVERVIEW
+
+This policy outlines the process for submitting, approving, and reimbursing business expenses incurred by NovaTech employees. The policy is designed to support employee needs while maintaining fiscal responsibility and compliance.
+
+REIMBURSABLE EXPENSE CATEGORIES
+
+The following business expenses are generally reimbursable when incurred in the course of NovaTech business:
+
+Travel Expenses:
+- Flights, trains, and car rentals for business travel
+- Accommodation for business trips
+- Transportation to/from airports (taxi, rideshare, parking)
+- Visa fees for international business travel
+- Travel insurance for business trips
+
+Meals & Entertainment:
+- Meals while traveling on business (see meal limits section)
+- Client entertainment and meals
+- Team meals and working lunches
+- Catering for internal meetings or events
+
+Client & Business Development:
+- Client entertainment and hospitality
+- Conference and event registration fees
+- Trade show and networking event costs
+- Gifts for clients or business partners (non-monetary value; max $100 per gift)
+
+Equipment & Software:
+- Business books or software subscriptions
+- Office supplies
+- Technology equipment approved as part of onboarding
+- Professional certifications or exam fees (if learning budget not available)
+
+Other Approved Expenses:
+- Professional development and training course fees
+- International business travel documents and permits
+- Courier and shipping costs for business items
+- Utilities or internet overage for approved home office
+
+NON-REIMBURSABLE EXPENSES
+
+The following expenses will not be reimbursed:
+
+Personal Expenses:
+- Meals for personal travel or leisure
+- Commute from home to office
+- Personal grooming or clothing
+- Gym memberships (covered under benefits)
+- Medical expenses (covered under health insurance)
+- Parking for personal vehicles at home office
+
+Discretionary:
+- Alcohol (except with client entertainment, subject to review)
+- Traffic violations, parking fines, or other penalties
+- Entertainment not related to business purposes
+- Pet care or childcare
+- Political or religious organization donations
+
+Unclear Situations:
+- If an expense does not fall clearly into a reimbursable category, submit an inquiry to finance@novatech.com before incurring the expense to verify eligibility
+
+MEAL REIMBURSEMENT LIMITS
+
+NovaTech reimburses reasonable meal expenses incurred during business activities. The following limits apply:
+
+Lunch: Maximum $30 per meal, per person
+- Applies to business meals during the work day
+- Includes lunch meetings with clients or colleagues
+- Budget should be reasonable and proportionate to location and attendees
+
+Dinner: Maximum $60 per meal, per person
+- Applies to business dinners (client entertainment, team dinners during travel, business events)
+- Higher limit due to typical cost of evening dining
+
+Breakfast: Maximum $20 per meal, per person
+- Applies to breakfast during business travel or early business meetings
+
+Daily Meal Limit: Employees should not exceed $100 in total meal expenses per day without special approval (e.g., client dinner above the standard limit requires manager approval).
+
+Alcohol: Included in meal limits above; ensure alcohol is modest and appropriate for context. Large alcohol expenses (e.g., bottles of wine) require specific manager approval.
+
+Exception Process: Meal expenses exceeding these limits require manager approval before submission. Submit requests via email to your manager with business justification. Expenses without prior approval may be rejected.
+
+Travel Meal Advance: Employees traveling for extended periods may request a per-diem advance to cover estimated meal expenses. Per diem rates are:
+- Australia (metropolitan areas): $80 AUD per day
+- Australia (regional areas): $60 AUD per day
+- Singapore: $50 SGD per day
+- Other countries: Varies by destination; contact Finance for rates
+
+TRAVEL BOOKING & PROCEDURES
+
+All business travel should be booked through NovaTech's designated travel booking platform, TravelPerk, to receive negotiated rates and maintain compliance.
+
+Booking Process:
+1. Log in to TravelPerk using your NovaTech credentials
+2. Search for flights, accommodation, or car rentals
+3. Book through the platform to ensure company rates and compliance
+4. TravelPerk will process the payment; most expenses are auto-approved in Expensify
+
+Approved Travel Booking Vendors:
+- Flights: TravelPerk (consolidates major airlines), can also use airline websites directly
+- Accommodation: TravelPerk booking engine, Hotels.com, Booking.com (pre-approved vendors)
+- Car Rental: Hertz, Avis, Europcar (via TravelPerk for best rates)
+- Trains: TravelPerk or direct booking with Amtrak, National Rail
+
+Booking Outside TravelPerk: If unavoidable circumstances require booking outside TravelPerk, save your receipt and submit through Expensify within 3 business days with explanation. Reimbursement may take longer for non-standard bookings.
+
+Travel Approval: Flights and accommodations exceeding $2,000 require prior manager approval before booking. For international travel, also notify HR of dates and location.
+
+EXPENSIFY REIMBURSEMENT PROCESS
+
+All expense reimbursements are submitted and tracked through Expensify, our expense management platform.
+
+Step-by-Step Submission Process:
+
+1. Gather Receipts: Collect all receipts for expenses. Digital receipts (email confirmations) are acceptable if clearly showing amount, merchant, and date.
+
+2. Create Report in Expensify:
+   - Log in to Expensify via Okta SSO (https://expensify.com)
+   - Click "New Report" and select appropriate category
+   - Enter report dates, project/client codes if applicable
+
+3. Add Expenses:
+   - Click "Add Expense" for each receipt
+   - Select expense category (Meals, Travel, Equipment, etc.)
+   - Input amount, merchant name, date, and business purpose
+   - Attach receipt photo or digital copy
+   - Ensure amounts match receipt exactly
+
+4. Submit for Approval:
+   - Once all expenses are entered, click "Submit"
+   - Select your direct manager or designated approver
+   - Add notes explaining any unusual or exceptional expenses
+   - Submit report
+
+5. Manager Review & Approval:
+   - Manager receives notification to review expenses within 24 hours
+   - Manager examines receipts and amounts for policy compliance
+   - Approval is given, or manager requests clarification/changes
+   - Typical approval time: 1-2 business days
+
+6. Finance Team Processing:
+   - Finance team processes approved expenses (typically within 3 business days)
+   - Reimbursement is processed to employee's bank account or payroll deduction
+   - Employee receives notification when reimbursement is initiated
+
+Total Reimbursement Timeline: Typically 5-10 business days from submission to receipt of reimbursement, depending on approval complexity.
+
+RECEIPT REQUIREMENTS
+
+All expenses must be supported by itemized receipts. The following information must be visible:
+
+- Merchant or vendor name
+- Transaction date
+- Itemized list of purchased items/services (not just a total)
+- Total amount, including any taxes
+- Currency (if international)
+- Proof of payment (credit card, receipt number, or confirmation code)
+
+Acceptable Receipt Formats:
+- Original printed receipts
+- Email confirmations with transaction details
+- Credit card statements (only if detail insufficient; prefer itemized receipt)
+- Digital photos of receipts (must be legible and clear)
+- Online order confirmations with itemization
+
+Unacceptable Submissions:
+- Receipts with illegible amounts or merchant names
+- Missing merchant name or date
+- Generic credit card statements without itemization
+- Receipts older than 90 days without special approval
+
+Missing Receipts: Expenses without receipts will not be reimbursed. If a receipt was lost or not provided at time of purchase, contact Finance immediately to explore options (e.g., requesting duplicate from vendor). Missing receipt affidavits may be accepted in limited circumstances with manager and finance approval.
+
+APPROVAL THRESHOLDS
+
+Different approval levels apply based on expense amount:
+
+Under $500:
+- Approved by direct manager
+- Typical approval time: 1-2 business days
+- Most routine expenses fall into this category
+
+$500 - $2,000:
+- Approved by direct manager
+- Finance review and countersignature required
+- Typical approval time: 2-3 business days
+
+Over $2,000:
+- Approved by department director or CFO
+- Finance review and countersignature required
+- May require business justification and ROI analysis
+- Typical approval time: 3-5 business days
+
+Projects/Cost Centers: Expenses attributed to client projects or cost centers may have additional approval thresholds if project budget limits apply. Confirm project code and limits with Finance before submitting large project expenses.
+
+Repeated Excessive Submissions: Employees who repeatedly submit expenses at the threshold of approval categories or who frequently exceed meal limits may be required to attend expense policy training or have expenses pre-approved before submission.
+
+CORPORATE CREDIT CARD
+
+Select employees may receive a corporate credit card for frequent business travel and entertainment expenses. Corporate card holders:
+
+- Must maintain appropriate audit trail and documentation
+- Are responsible for all transactions on their card
+- Must reconcile statements monthly with Expensify
+- Are subject to spending limits set by Finance
+- May have suspension of card for policy violations or excessive misuse
+- Must return card upon termination
+
+Corporate card expenses are still tracked in Expensify and subject to the same approval thresholds and policy requirements. Corporate card statements serve as receipts if itemized detail is available.
+
+MILEAGE & VEHICLE REIMBURSEMENT
+
+Employees using personal vehicles for business travel are reimbursed at the Australian Taxation Office (ATO) prescribed mileage rate. Current rate (2026): AUD 0.78 per kilometer.
+
+To Claim Mileage:
+1. Keep a log of business trip odometer readings and business purpose
+2. Calculate total kilometers driven for business
+3. Submit in Expensify with "Mileage" category and detailed log
+4. Manager approval required
+5. Reimbursement calculated at ATO rate
+
+Parking and Tolls: Actual parking and toll charges incurred for business travel are reimbursed separately from mileage if receipts are provided.
+
+Vehicle Insurance: Employees using personal vehicles for business should ensure their insurance policy covers business use. NovaTech does not cover personal vehicle insurance.
+
+HOME OFFICE EXPENSES
+
+For employees approved to work from home, certain home office expenses are eligible for reimbursement:
+
+Home Office Equipment Allowance: $500 one-time allowance during onboarding (see IT Setup Policy)
+
+Ongoing Expenses: After initial allowance is exhausted, additional home office furniture or equipment may be claimed as reimbursable if:
+- Directly related to home office setup (desk, chair, shelving, etc.)
+- Cost exceeds $100 per item
+- Pre-approved by manager
+- Not routinely replaced items
+
+Utilities: Partial reimbursement for internet overage (actual overage beyond standard home plan) may be approved. Electricity and heating not reimbursed as employee's home costs are already subsidized through remote work allowance.
+
+TEAM ENTERTAINMENT & CLIENT MEALS
+
+NovaTech supports team-building and client entertainment within reasonable limits.
+
+Team Meals & Outings:
+- Team lunches or dinners (working or celebratory) are reimbursable
+- Budget of up to $50 per person for team meals (can be higher for special celebrations with approval)
+- Alcohol included; use judgment based on context and audience
+
+Client Entertainment:
+- Client meals (breakfast, lunch, dinner) are reimbursable
+- Higher budgets ($60-100 per person) are acceptable for client entertainment
+- Alcohol appropriate for business entertainment is reimbursable
+- Host or primary employee claims entire meal cost in Expensify
+
+Business Development: Meals or entertainment related to business development, networking, or client cultivation are reimbursable within meal limits.
+
+INTERNATIONAL EXPENSE CONSIDERATIONS
+
+Currency: Expenses in foreign currencies are converted to AUD at the exchange rate on the transaction date (credit card rate or xe.com rate if using cash).
+
+GST/VAT: NovaTech may recover GST/VAT on certain international expenses. Include any GST/VAT amounts in reimbursement requests; Finance will process GST recovery if eligible.
+
+Travel Advances: Employees traveling internationally may request a travel advance to cover estimated expenses. Contact Finance at least 2 weeks before travel to arrange advance.
+
+Visa/Permit Costs: Visa and travel document costs are reimbursable. Submit in Expensify with receipts.
+
+POLICY COMPLIANCE & AUDITS
+
+Finance conducts periodic audits of expense submissions to ensure policy compliance. Employees found to have submitted fraudulent or intentionally misleading expense reports will face disciplinary action up to and including termination.
+
+Common Audit Issues:
+- Expenses exceeding approved limits without justification
+- Personal expenses submitted as business expenses
+- Duplicate submissions of the same receipt
+- Receipts that don't match submitted amounts
+- Insufficient documentation or missing receipts
+
+If you have questions about whether an expense is reimbursable, ask Finance in advance rather than submitting questionable expenses. The Finance team is happy to provide guidance.
+
+CONTACT & SUPPORT
+
+For questions about the expense policy or help with Expensify submissions, contact:
+
+Finance Department: finance@novatech.com
+Phone: Extension 5200 (Sydney)
+Hours: Monday-Friday, 9:00 AM - 5:00 PM AEST
+
+Document Version: 2.0 | Last Updated: March 2026

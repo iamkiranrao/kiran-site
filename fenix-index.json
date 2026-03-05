@@ -302,6 +302,28 @@
       "summary": "Restaurant reservation chatbot built on Google Dialogflow ES with 17 intents, 4 custom entities, and context-managed booking flows. A case study in what intent-based NLP does well (entity extraction, structured Q&A) and where it falls short (multi-turn memory, dynamic responses)."
     },
     {
+      "id": "hr-onboarding-bot",
+      "type": "prototype",
+      "title": "Onboardly",
+      "url": "/prototypes/hr-onboarding-bot/overview.html",
+      "launchUrl": "/prototypes/hr-onboarding-bot/static/index.html",
+      "category": "chatbots-ai-assistants",
+      "status": "live",
+      "techStack": ["RAG", "Claude API", "TF-IDF", "Python", "Flask", "scikit-learn", "Vector Search"],
+      "sections": [
+        { "id": "the-details", "title": "Details" },
+        { "id": "system-architecture", "title": "System Architecture" },
+        { "id": "try-it-yourself", "title": "Try It Yourself" }
+      ],
+      "skills": ["conversational-AI", "RAG", "retrieval-augmented-generation", "document-search"],
+      "themes": ["HR-tech", "knowledge-management", "grounded-AI"],
+      "connections": [
+        { "id": "jurassic-bites", "relationship": "companion-prototype", "description": "Companion prototype — Jurassic Bites uses pre-written responses, Onboardly generates answers from documents" },
+        { "id": "insurance-chatbot", "relationship": "companion-prototype", "description": "Companion prototype — Insurance AI uses stateful conversation graphs, Onboardly uses retrieval-augmented generation" }
+      ],
+      "summary": "RAG-powered HR onboarding assistant that answers employee questions by searching a corpus of 8 policy documents. Uses TF-IDF retrieval with cosine similarity to find relevant chunks, then sends them to Claude for grounded generation. Demonstrates how RAG keeps AI honest — it only says what it can back up."
+    },
+    {
       "id": "blog-demystifying-ach",
       "type": "blog",
       "title": "Demystifying ACH Payments",
