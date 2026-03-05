@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: onboardly
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.11.6"
+    rootDir: prototypes/hr-onboarding-bot
+    plan: free

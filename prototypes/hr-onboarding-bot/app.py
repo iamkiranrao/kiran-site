@@ -245,12 +245,7 @@ def serve_static(path):
     return send_from_directory('static', 'index.html')
 
 def main():
-    """Main entry point."""
-    print("Initializing HR Onboarding Bot...")
-
-    # Load documents and build RAG system
-    rag_system.load_documents()
-
+    """Main entry point (local development only)."""
     print(f"Starting Flask server on port {PORT}...")
     app.run(debug=False, host='0.0.0.0', port=PORT)
 
