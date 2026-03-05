@@ -494,9 +494,10 @@ Output a JSON object with these keys (all values are HTML fragment strings using
 RULES:
 - NO em dashes. Use " - " (space-hyphen-space).
 - SVG wireframe classes MUST use wf- prefix only.
-- Journey sentiment SVG MUST use viewBox="0 0 500 130", cubic bezier C commands, 3 reference lines at y=20/55/90, Y-axis labels at x=8 (Optimistic/Neutral/Frustrated) font-size=7, colored circle data points r=6 (#6b9e6b green positive, #c47474 red negative, #d4a74a amber neutral), sentiment labels above each dot, and X-axis UPPERCASE stage labels at y=120. Use var(--text-muted), var(--border), var(--text-secondary) for theme compatibility. Include <title> and aria-label.
+- Journey sentiment SVG MUST use viewBox="0 0 500 130", cubic bezier C commands, 3 reference lines at y=20/55/90, Y-axis labels at x=8 (Optimistic/Neutral/Frustrated) font-size=7, colored circle data points r=6 (#6b9e6b green positive, #c47474 red negative, #d4a74a amber neutral), sentiment labels above each dot, and X-axis UPPERCASE stage labels at y=120. Use var(--text-muted), var(--border), var(--text-secondary) for theme compatibility. Include <title> and aria-label. Sentiment dot labels must NOT share the same y-coordinate as Y-axis tier labels - minimum 5px clearance.
 - All content from all 8 steps must be represented.
 - Journey stage grid columns: set --journey-cols CSS variable on .journey-stages to match the actual number of stages.
+- SVG TEXT CONTAINMENT (critical): Before placing any <text>, calculate width = chars × font-size × 0.6. Text must fit inside its parent rect with 10px padding on each side. If text is too long: reduce font-size, split into 2 lines, or widen container. Right-side text near edges MUST use text-anchor="end". Button text must fit within button width minus 20px. Max single-line header font-size inside 300px wireframe screen is 13px for text > 25 chars - split longer headers into 2 <text> elements.
 
 Output ONLY valid JSON. No explanation, no markdown fences."""
         }],
