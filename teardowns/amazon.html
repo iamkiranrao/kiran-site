@@ -2,28 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8Q795C1RJ5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8Q795C1RJ5');
+    </script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "vpgxcc8q5n");
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kiran Gorapalli - amazon product teardowns. Product analysis and redesign proposals for amazon products.">
-    <title>amazon Teardowns - Kiran Gorapalli</title>
+    <meta name="description" content="Kiran Gorapalli - Amazon product teardowns. Product analysis and redesign proposals for Amazon's mobile shopping experience.">
+    <title>Amazon Teardowns - Kiran Gorapalli</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../fenix-widget.css">
     <link rel="canonical" href="https://kirangorapalli.com/teardowns/amazon.html">
     <meta name="theme-color" content="#0a0a0a">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="amazon Teardowns - Kiran Gorapalli">
-    <meta property="og:description" content="Product analysis and redesign proposals for amazon products.">
+    <meta property="og:title" content="Amazon Teardowns - Kiran Gorapalli">
+    <meta property="og:description" content="Product analysis and redesign proposals for Amazon products.">
     <meta property="og:url" content="https://kirangorapalli.com/teardowns/amazon.html">
     <meta property="og:image" content="https://kirangorapalli.com/images/og-image.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="amazon Teardowns - Kiran Gorapalli">
-    <meta name="twitter:description" content="Product analysis and redesign proposals for amazon products.">
+    <meta name="twitter:title" content="Amazon Teardowns - Kiran Gorapalli">
+    <meta name="twitter:description" content="Product analysis and redesign proposals for Amazon products.">
     <meta name="twitter:image" content="https://kirangorapalli.com/images/og-image.png">
 
     <style>
@@ -392,8 +409,8 @@
     <!-- Hero -->
     <div class="subpage-hero">
         <div class="hero-title-area">
-            <h1 class="subpage-hero-title">amazon</h1>
-            <p class="subpage-hero-tagline">Product teardowns and redesign proposals</p>
+            <h1 class="subpage-hero-title">Amazon</h1>
+            <p class="subpage-hero-tagline">Product teardowns for the world's largest e-commerce platform</p>
         </div>
     </div>
 
@@ -401,26 +418,29 @@
     <div class="breadcrumb">
         <a href="../how-id-built-it.html">How I'd've Built It</a>
         <span>/</span>
-        <span class="current">amazon</span>
+        <span class="current">Amazon</span>
     </div>
 
     <!-- Products Grid -->
     <div class="products-section" id="products">
         <div class="products-grid">
 
-            <!-- mobile app -->
+            <!-- Mobile App -->
             <a href="amazon-mobile-app.html" class="product-card">
                 <div class="product-icon">
                     <svg viewBox="0 0 48 48" fill="none">
-                        <path d="M8 4h32c2.21 0 4 1.79 4 4v32c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4V8c0-2.21 1.79-4 4-4z" stroke="var(--text-primary)" stroke-width="2.5" fill="none"/>
+                        <rect x="12" y="4" width="24" height="40" rx="4" stroke="var(--text-primary)" stroke-width="2.5" fill="none"/>
                         <line x1="12" y1="12" x2="36" y2="12" stroke="var(--text-primary)" stroke-width="1.5"/>
-                        <line x1="12" y1="20" x2="36" y2="20" stroke="var(--text-primary)" stroke-width="1.5"/>
-                        <line x1="12" y1="28" x2="28" y2="28" stroke="var(--text-primary)" stroke-width="1.5"/>
+                        <line x1="12" y1="36" x2="36" y2="36" stroke="var(--text-primary)" stroke-width="1.5"/>
+                        <circle cx="24" cy="40" r="1.5" fill="var(--text-primary)"/>
+                        <rect x="17" y="17" width="14" height="3" rx="1.5" stroke="var(--text-primary)" stroke-width="1" fill="none"/>
+                        <rect x="17" y="23" width="14" height="3" rx="1.5" stroke="var(--text-primary)" stroke-width="1" fill="none"/>
+                        <rect x="17" y="29" width="8" height="3" rx="1.5" stroke="var(--text-primary)" stroke-width="1" fill="none"/>
                     </svg>
                 </div>
                 <div class="product-body">
-                    <div class="product-name">mobile app</div>
-                    <div class="product-tagline">A full teardown of amazon's mobile app - what works, what doesn't, and how I'd rebuild it.</div>
+                    <div class="product-name">Mobile App</div>
+                    <div class="product-tagline">How search chaos kills mobile commerce for time-pressed users - and how intent-based modes could fix it.</div>
                     <div class="product-sections">
                         <span class="product-section-tag">Discovery</span>
                         <span class="product-section-tag">Keep / Kill / Build</span>
@@ -434,7 +454,34 @@
                 </div>
             </a>
 
-            <!-- NEW-PRODUCT-CARD -->
+            <!-- Prime Video - coming soon -->
+            <div class="product-card coming-soon">
+                <div class="product-icon">
+                    <svg viewBox="0 0 48 48" fill="none">
+                        <rect x="4" y="10" width="40" height="28" rx="3" stroke="var(--text-muted)" stroke-width="2.5" fill="none"/>
+                        <polygon points="20,18 20,30 32,24" stroke="var(--text-muted)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="product-body">
+                    <div class="product-name">Prime Video</div>
+                    <div class="product-tagline">Coming soon</div>
+                </div>
+            </div>
+
+            <!-- Alexa - coming soon -->
+            <div class="product-card coming-soon">
+                <div class="product-icon">
+                    <svg viewBox="0 0 48 48" fill="none">
+                        <ellipse cx="24" cy="36" rx="12" ry="4" stroke="var(--text-muted)" stroke-width="2" fill="none"/>
+                        <rect x="18" y="8" width="12" height="28" rx="6" stroke="var(--text-muted)" stroke-width="2.5" fill="none"/>
+                        <circle cx="24" cy="18" r="2" fill="var(--text-muted)" opacity="0.5"/>
+                    </svg>
+                </div>
+                <div class="product-body">
+                    <div class="product-name">Alexa</div>
+                    <div class="product-tagline">Coming soon</div>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -466,9 +513,9 @@
         <div class="footer-site-info">
             <img src="../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
             <div class="footer-meta">
-                <span class="version-number">v1.0.23</span>
+                <span class="version-number">v1.0.24</span>
                 <span class="footer-meta-sep">&middot;</span>
-                <span class="last-updated">Updated Feb 2026</span>
+                <span class="last-updated">Updated Mar 4, 2026</span>
                 <span class="footer-meta-sep">&middot;</span>
                 <a href="../rss.xml" class="rss-badge" title="Subscribe to RSS feed" target="_blank" rel="noopener noreferrer">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
@@ -530,5 +577,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
+    <script src="../fenix-widget.js" defer></script>
 </body>
 </html>
