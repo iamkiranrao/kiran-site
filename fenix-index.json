@@ -281,6 +281,30 @@
       "summary": "Working chatbot prototype that handles multi-step insurance claims. Uses LangGraph for stateful conversation management so the bot remembers context across turns. Includes real-time state visualisation showing the graph traversal."
     },
     {
+      "id": "blog-demystifying-ach",
+      "type": "blog",
+      "title": "Demystifying ACH Payments",
+      "url": "/blog/demystifying-ach.html",
+      "datePublished": "2026-03-05",
+      "readTime": "7 min",
+      "tags": ["demystified", "ACH", "payments", "fintech", "banking"],
+      "sections": [
+        "The $7 Morning That Reveals Everything",
+        "Your Daily ACH Footprint",
+        "The Network Behind the Networks",
+        "How ACH Actually Works",
+        "The Settlement Problem",
+        "Same-Day ACH and the Speed Race",
+        "Why This Matters for Product Managers",
+        "Building on ACH Rails"
+      ],
+      "skills": ["payments-infrastructure", "product-architecture"],
+      "themes": ["payments", "fintech-infrastructure"],
+      "status": "published",
+      "connections": ["blog-demystifying-apple-pay"],
+      "summary": "A payments PM's guide to the ACH network that quietly moves $80 trillion a year. Explains how ACH works from the ground up - the batch processing model, settlement windows, same-day ACH, and why understanding these rails matters when building payment products. Includes a personal anecdote from Wells Fargo about the gap between instant UI and T+2 settlement."
+    },
+    {
       "id": "blog-bank-ai-adoption",
       "type": "blog",
       "title": "The Bank That Got 213,000 Employees to Actually Use AI",

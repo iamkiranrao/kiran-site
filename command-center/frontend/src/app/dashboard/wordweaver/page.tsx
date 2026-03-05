@@ -7,6 +7,7 @@ import {
   CheckCircle2,
   Loader2,
   ChevronRight,
+  ChevronLeft,
   Plus,
   ArrowLeft,
   Send,
@@ -18,6 +19,7 @@ import {
   Share2,
   Hash,
   HelpCircle,
+  Trash2,
 } from "lucide-react";
 import Link from "next/link";
 import { useApiKey } from "@/context/ApiKeyContext";
@@ -144,6 +146,16 @@ export default function WordWeaverPage() {
     setLoading(false);
   };
 
+  const deleteSession = async (id: string) => {
+    if (!confirm("Delete this session? This cannot be undone.")) return;
+    try {
+      await fetch(`${API_URL}/api/wordweaver/sessions/${id}`, { method: "DELETE" });
+      setSessions((prev) => prev.filter((s) => s.session_id !== id));
+    } catch (e) {
+      console.error("Failed to delete session:", e);
+    }
+  };
+
   const runStep = async () => {
     if (!activeSession || !apiKey || streaming) return;
     setStreaming(true);
@@ -262,11 +274,52 @@ export default function WordWeaverPage() {
     setUserInput("");
   };
 
+  const goToStep = async (target: number) => {
+    if (!activeSession || streaming) return;
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `${API_URL}/api/wordweaver/sessions/${activeSession.session_id}/goto-step`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ step: target }),
+        }
+      );
+      if (res.ok) {
+        const sessRes = await fetch(`${API_URL}/api/wordweaver/sessions/${activeSession.session_id}`);
+        const updated = await sessRes.json();
+        setActiveSession(updated);
+        const stepData = updated.steps?.[String(target)];
+        setStreamText(stepData?.content || "");
+        setUserInput("");
+      }
+    } catch (e) {
+      console.error("Go to step failed:", e);
+    }
+    setLoading(false);
+  };
+
   const stepLabels = activeSession?.mode === "social" ? SOCIAL_LABELS : BLOG_LABELS;
   const totalSteps = activeSession?.total_steps || stepLabels.length;
   const currentStepData = activeSession?.steps?.[String(activeSession.current_step)];
   const hasDraft = currentStepData?.status === "draft";
+  const isReviewing = activeSession?.status === "reviewing";
+  const isRevalidating = activeSession?.status === "revalidating";
   const isComplete = activeSession?.status === "ready_to_publish" || activeSession?.status === "published" || activeSession?.status === "previewing";
+
+  // Navigation: find highest approved step so we know which steps are reachable
+  const maxApproved = (() => {
+    if (!activeSession) return 0;
+    let max = 0;
+    for (let s = 1; s <= totalSteps; s++) {
+      if (activeSession.steps?.[String(s)]?.status === "approved") max = s;
+    }
+    return max;
+  })();
+  const currentStep = activeSession?.current_step || 1;
+  const canGoBack = currentStep > 1;
+  const canGoForward = currentStep < maxApproved + 1 && currentStep < totalSteps;
 
   // ── Publish state (two-step: preview → deploy) ──────────
   const [previewing, setPreviewing] = useState(false);
@@ -298,7 +351,7 @@ export default function WordWeaverPage() {
       const data = await res.json();
       if (res.ok) {
         setCrossPostResult(
-          `Cross-post ready: ${data.markdown_file}. ${data.diagram_images?.length ? `Diagram PNGs: ${data.diagram_images.join(", ")}` : ""}`
+          `Cross-post ready!\n📄 File: ${data.markdown_path || data.markdown_file}\n${data.diagram_images?.length ? `🖼️ Diagrams: ${data.diagram_images.join(", ")}` : ""}\n📋 Medium: ${data.instructions?.medium || ""}\n📋 Substack: ${data.instructions?.substack || ""}`
         );
       } else {
         setCrossPostResult(`Error: ${data.detail || "Failed to generate cross-post"}`);
@@ -307,6 +360,135 @@ export default function WordWeaverPage() {
       setCrossPostResult(`Error: ${e}`);
     }
     setCrossPosting(false);
+  };
+
+  // ── Review phase: edit, preview, revalidate ──────────
+  const [reviewEdit, setReviewEdit] = useState("");
+  const [revalidating, setRevalidating] = useState(false);
+  const [revalidationStep, setRevalidationStep] = useState<string | null>(null);
+  const [previewFile, setPreviewFile] = useState<string | null>(null);
+  const [generatingPreview, setGeneratingPreview] = useState(false);
+
+  const generatePreview = async () => {
+    if (!activeSession) return;
+    setGeneratingPreview(true);
+    setPreviewFile(null);
+    try {
+      const res = await fetch(
+        `${API_URL}/api/wordweaver/sessions/${activeSession.session_id}/preview-content`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...(apiKey && apiKey !== "__backend__" ? { "X-Claude-Key": apiKey } : {}) },
+        }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setPreviewFile(data.local_file);
+      }
+    } catch (e) {
+      console.error("Preview generation failed:", e);
+    }
+    setGeneratingPreview(false);
+  };
+
+  const editFinal = async () => {
+    if (!activeSession || !apiKey || !reviewEdit.trim() || streaming) return;
+    setStreaming(true);
+    setStreamText("");
+
+    try {
+      const res = await fetch(
+        `${API_URL}/api/wordweaver/sessions/${activeSession.session_id}/edit-final`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...(apiKey && apiKey !== "__backend__" ? { "X-Claude-Key": apiKey } : {}) },
+          body: JSON.stringify({ feedback: reviewEdit }),
+        }
+      );
+      const reader = res.body?.getReader();
+      if (!reader) throw new Error("No body");
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let fullText = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed.startsWith("data: ")) continue;
+          try {
+            const event = JSON.parse(trimmed.slice(6));
+            if (event.type === "text_delta") {
+              fullText += event.delta;
+              setStreamText(fullText);
+            }
+          } catch { /* skip */ }
+        }
+      }
+      // Refresh session
+      const sessRes = await fetch(`${API_URL}/api/wordweaver/sessions/${activeSession.session_id}`);
+      setActiveSession(await sessRes.json());
+      setPreviewFile(null); // preview is stale after edits
+    } catch (e) {
+      console.error("Edit failed:", e);
+    }
+    setStreaming(false);
+    setReviewEdit("");
+  };
+
+  const approveFinal = async () => {
+    if (!activeSession || !apiKey || streaming) return;
+    setRevalidating(true);
+    setStreamText("");
+    setRevalidationStep("Starting revalidation...");
+
+    try {
+      const res = await fetch(
+        `${API_URL}/api/wordweaver/sessions/${activeSession.session_id}/approve-final`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...(apiKey && apiKey !== "__backend__" ? { "X-Claude-Key": apiKey } : {}) },
+        }
+      );
+      const reader = res.body?.getReader();
+      if (!reader) throw new Error("No body");
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let fullText = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed.startsWith("data: ")) continue;
+          try {
+            const event = JSON.parse(trimmed.slice(6));
+            if (event.type === "revalidation_start") {
+              setRevalidationStep(`Running Step ${event.step}: ${event.label}...`);
+              fullText += `\n\n── Step ${event.step}: ${event.label} ──\n`;
+              setStreamText(fullText);
+            } else if (event.type === "text_delta") {
+              fullText += event.delta;
+              setStreamText(fullText);
+            } else if (event.type === "revalidation_complete") {
+              setRevalidationStep(null);
+            }
+          } catch { /* skip */ }
+        }
+      }
+      // Refresh session — should now be ready_to_publish
+      const sessRes = await fetch(`${API_URL}/api/wordweaver/sessions/${activeSession.session_id}`);
+      setActiveSession(await sessRes.json());
+    } catch (e) {
+      console.error("Approve final failed:", e);
+    }
+    setRevalidating(false);
   };
 
   const savePreview = async () => {
@@ -465,21 +647,29 @@ export default function WordWeaverPage() {
             <h3 className="text-sm font-medium text-[var(--text-primary)] mb-3">In Progress</h3>
             <div className="space-y-2">
               {sessions.map((s) => (
-                <button key={s.session_id} onClick={() => openSession(s.session_id)}
-                  className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left transition-colors hover:opacity-80"
-                  style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
-                  <div>
-                    <p className="text-sm text-[var(--text-primary)] font-medium flex items-center gap-2">
-                      {s.mode === "blog" ? <BookOpen size={14} /> : <Share2 size={14} />}
-                      {s.mode === "blog" ? "Blog Post" : "Social Post"}
-                      {s.config?.theme && <span className="text-xs text-[var(--text-muted)]">&middot; {s.config.theme}</span>}
-                    </p>
-                    <p className="text-xs text-[var(--text-muted)] mt-0.5">
-                      Step {s.current_step}/{s.total_steps} &middot; {s.status}
-                    </p>
-                  </div>
-                  <ChevronRight size={16} className="text-[var(--text-muted)]" />
-                </button>
+                <div key={s.session_id} className="flex items-center gap-2">
+                  <button onClick={() => openSession(s.session_id)}
+                    className="flex-1 flex items-center justify-between px-3 py-2.5 rounded-lg text-left transition-colors hover:opacity-80"
+                    style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
+                    <div>
+                      <p className="text-sm text-[var(--text-primary)] font-medium flex items-center gap-2">
+                        {s.mode === "blog" ? <BookOpen size={14} /> : <Share2 size={14} />}
+                        {s.mode === "blog" ? "Blog Post" : "Social Post"}
+                        {s.config?.theme && <span className="text-xs text-[var(--text-muted)]">&middot; {s.config.theme}</span>}
+                      </p>
+                      <p className="text-xs text-[var(--text-muted)] mt-0.5">
+                        Step {s.current_step}/{s.total_steps} &middot; {s.status}
+                      </p>
+                    </div>
+                    <ChevronRight size={16} className="text-[var(--text-muted)]" />
+                  </button>
+                  <button onClick={() => deleteSession(s.session_id)}
+                    className="p-2 rounded-lg transition-colors hover:opacity-80"
+                    style={{ color: "var(--text-muted)", border: "1px solid var(--border)" }}
+                    title="Delete session">
+                    <Trash2 size={14} />
+                  </button>
+                </div>
               ))}
             </div>
           </div>
@@ -550,72 +740,209 @@ export default function WordWeaverPage() {
   // ── Workflow View ──────────────────────────────────────────
 
   return (
-    <div className="h-full flex flex-col" style={{ maxHeight: "calc(100vh - 2rem)" }}>
-      {/* Top bar */}
-      <div className="shrink-0 px-6 py-4 border-b" style={{ borderColor: "var(--border)" }}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+    <div className="h-full flex" style={{ maxHeight: "calc(100vh - 2rem)" }}>
+      {/* Left sidebar: vertical step list */}
+      <div className="shrink-0 overflow-y-auto border-r flex flex-col"
+        style={{ width: "220px", borderColor: "var(--border)", backgroundColor: "var(--bg-secondary)" }}>
+        {/* Header */}
+        <div className="shrink-0 px-4 py-4 border-b" style={{ borderColor: "var(--border)" }}>
+          <div className="flex items-center gap-2 mb-1">
             <button onClick={() => { setView("list"); setStreamText(""); setActiveSession(null); }}
               className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors">
-              <ArrowLeft size={18} />
+              <ArrowLeft size={16} />
             </button>
-            <div>
-              <h2 className="text-base font-semibold text-[var(--text-primary)] flex items-center gap-2">
-                {activeSession?.mode === "blog" ? <BookOpen size={16} /> : <Share2 size={16} />}
-                {activeSession?.mode === "blog" ? "Blog Post" : "Social Post"}
-                {activeSession?.config?.theme && (
-                  <span className="text-xs font-normal text-[var(--text-muted)] flex items-center gap-1">
-                    <Hash size={10} /> {activeSession.config.theme}
-                  </span>
-                )}
-              </h2>
-              <p className="text-xs text-[var(--text-muted)]">
-                {isComplete ? "All steps complete" : `Step ${activeSession?.current_step}/${totalSteps} — ${stepLabels[(activeSession?.current_step || 1) - 1]}`}
-              </p>
-            </div>
+            <h2 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-1.5">
+              {activeSession?.mode === "blog" ? <BookOpen size={14} /> : <Share2 size={14} />}
+              {activeSession?.mode === "blog" ? "Blog" : "Social"}
+            </h2>
           </div>
+          {activeSession?.config?.theme && (
+            <p className="text-[10px] text-[var(--text-muted)] flex items-center gap-1 ml-6">
+              <Hash size={9} /> {activeSession.config.theme}
+            </p>
+          )}
+          {(isReviewing || isRevalidating) && (
+            <span className="inline-block text-[10px] px-2 py-0.5 rounded-full font-medium mt-2 ml-6"
+              style={{ backgroundColor: "rgba(122, 158, 196, 0.15)", color: "var(--accent-blue)" }}>
+              {isRevalidating ? "Revalidating" : "Reviewing"}
+            </span>
+          )}
           {isComplete && (
-            <span className="text-xs px-2.5 py-1 rounded-full font-medium"
+            <span className="inline-block text-[10px] px-2 py-0.5 rounded-full font-medium mt-2 ml-6"
               style={{ backgroundColor: "rgba(107, 158, 107, 0.15)", color: "var(--accent-green)" }}>
               {isPublished ? "Published" : isPreviewed ? "Previewing" : "Ready to Publish"}
             </span>
           )}
         </div>
 
-        {/* Step indicators */}
-        <div className="flex gap-1 mt-3">
+        {/* Step list */}
+        <div className="flex-1 overflow-y-auto py-2">
           {stepLabels.map((label, idx) => {
             const stepNum = idx + 1;
             const stepData = activeSession?.steps?.[String(stepNum)];
-            const isCurrent = stepNum === activeSession?.current_step;
+            const isCurrent = stepNum === currentStep;
             const isApproved = stepData?.status === "approved";
+            const hasDraftContent = stepData?.status === "draft";
+            const isReachable = stepNum <= maxApproved + 1;
+
             return (
-              <div key={stepNum} className="flex-1 group relative" title={`${stepNum}. ${label}`}>
-                <div className="h-1.5 rounded-full transition-all"
+              <button
+                key={stepNum}
+                onClick={() => isReachable && !streaming && goToStep(stepNum)}
+                disabled={!isReachable || streaming}
+                className="w-full flex items-start gap-2.5 px-4 py-2 text-left transition-colors"
+                style={{
+                  backgroundColor: isCurrent ? "var(--bg-card)" : "transparent",
+                  borderLeft: isCurrent ? "2px solid var(--accent-blue)" : "2px solid transparent",
+                  opacity: !isReachable ? 0.4 : 1,
+                  cursor: isReachable && !streaming ? "pointer" : "default",
+                }}
+              >
+                {/* Step number circle */}
+                <span className="shrink-0 flex items-center justify-center rounded-full text-[10px] font-bold"
                   style={{
-                    backgroundColor: isApproved ? "var(--accent-green)" : isCurrent ? "var(--accent-blue)" : "var(--border)",
+                    width: "20px",
+                    height: "20px",
+                    marginTop: "1px",
+                    backgroundColor: isApproved
+                      ? "var(--accent-green)"
+                      : isCurrent
+                      ? "var(--accent-blue)"
+                      : hasDraftContent
+                      ? "var(--accent-amber)"
+                      : "transparent",
+                    color: isApproved || isCurrent || hasDraftContent ? "#fff" : "var(--text-muted)",
+                    border: isApproved || isCurrent || hasDraftContent ? "none" : "1.5px solid var(--border)",
                   }}
-                />
-                <span className="absolute -bottom-5 left-0 text-[9px] text-[var(--text-muted)] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                  {stepNum}. {label}
+                >
+                  {isApproved ? <CheckCircle2 size={12} /> : stepNum}
                 </span>
-              </div>
+                {/* Label */}
+                <span className="text-xs leading-tight"
+                  style={{
+                    color: isCurrent ? "var(--text-primary)" : isApproved ? "var(--accent-green)" : "var(--text-secondary)",
+                    fontWeight: isCurrent ? 600 : 400,
+                  }}
+                >
+                  {label}
+                </span>
+              </button>
             );
           })}
         </div>
+
+        {/* Progress footer */}
+        <div className="shrink-0 px-4 py-3 border-t text-center" style={{ borderColor: "var(--border)" }}>
+          <p className="text-[10px] text-[var(--text-muted)]">
+            {maxApproved}/{totalSteps} steps complete
+          </p>
+          <div className="w-full h-1 rounded-full mt-1.5" style={{ backgroundColor: "var(--border)" }}>
+            <div className="h-1 rounded-full transition-all" style={{
+              width: `${(maxApproved / totalSteps) * 100}%`,
+              backgroundColor: "var(--accent-green)",
+            }} />
+          </div>
+        </div>
       </div>
 
-      {/* Output area */}
-      <div className="flex-1 overflow-hidden flex flex-col px-6 py-4 min-h-0">
+      {/* Right side: output + input */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Compact top bar for current step context */}
+        <div className="shrink-0 px-6 py-3 border-b flex items-center justify-between" style={{ borderColor: "var(--border)" }}>
+          {(isReviewing || isRevalidating) ? (
+            <>
+              <p className="text-sm font-medium text-[var(--text-primary)] flex items-center gap-2">
+                <PenTool size={14} className="text-[var(--accent-blue)]" />
+                {isRevalidating ? "Revalidating..." : "Review & Edit"}
+              </p>
+              <span className="text-xs text-[var(--text-muted)]">
+                {isRevalidating ? revalidationStep : "All steps complete — review before publishing"}
+              </span>
+            </>
+          ) : isComplete ? (
+            <>
+              <p className="text-sm font-medium text-[var(--text-primary)] flex items-center gap-2">
+                <CheckCircle2 size={14} className="text-[var(--accent-green)]" />
+                {isPublished ? "Published" : "Ready to Publish"}
+              </p>
+              <span className="text-xs text-[var(--text-muted)]">Checks passed</span>
+            </>
+          ) : (
+            <>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => canGoBack && goToStep(currentStep - 1)}
+                  disabled={!canGoBack || streaming}
+                  className="p-1 rounded transition-colors"
+                  style={{
+                    color: canGoBack && !streaming ? "var(--text-primary)" : "var(--border)",
+                    cursor: canGoBack && !streaming ? "pointer" : "default",
+                  }}
+                  title={canGoBack ? `Back to ${currentStep - 1}. ${stepLabels[currentStep - 2]}` : ""}
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <p className="text-sm font-medium text-[var(--text-primary)]">
+                  Step {currentStep}: {stepLabels[currentStep - 1]}
+                </p>
+                <button
+                  onClick={() => canGoForward && goToStep(currentStep + 1)}
+                  disabled={!canGoForward || streaming}
+                  className="p-1 rounded transition-colors"
+                  style={{
+                    color: canGoForward && !streaming ? "var(--text-primary)" : "var(--border)",
+                    cursor: canGoForward && !streaming ? "pointer" : "default",
+                  }}
+                  title={canGoForward ? `Next: ${currentStep + 1}. ${stepLabels[currentStep]}` : ""}
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+              <span className="text-xs text-[var(--text-muted)]">{currentStep} of {totalSteps}</span>
+            </>
+          )}
+        </div>
+
+        {/* Output area */}
+        <div className="flex-1 overflow-hidden flex flex-col px-6 py-4 min-h-0">
         <div ref={outputRef}
           className="flex-1 overflow-y-auto rounded-lg p-5 mb-4 text-sm leading-relaxed whitespace-pre-wrap"
           style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)", color: "var(--text-secondary)", minHeight: 0 }}>
-          {isComplete ? (
+
+          {/* ── Review phase: iterate on final content ── */}
+          {(isReviewing || isRevalidating) ? (
+            streamText ? streamText : revalidating ? (
+              <div className="flex items-center gap-2 text-[var(--text-muted)]">
+                <Loader2 size={14} className="animate-spin" /> {revalidationStep || "Revalidating..."}
+              </div>
+            ) : (
+              <div>
+                {/* Show preview link if available */}
+                {previewFile && (
+                  <div className="mb-4 p-3 rounded-lg" style={{ backgroundColor: "rgba(122, 158, 196, 0.08)", border: "1px solid var(--accent-blue)" }}>
+                    <p className="text-xs text-[var(--accent-blue)] font-medium mb-1">Preview ready</p>
+                    <p className="text-xs text-[var(--text-secondary)]">
+                      Open <span className="font-mono text-[var(--text-primary)]">{previewFile}</span> in your browser to see the styled page.
+                    </p>
+                  </div>
+                )}
+                {/* Show current step 7 (Write the Post) content for review */}
+                {activeSession?.steps?.["7"]?.content ? (
+                  <div>
+                    <p className="text-xs text-[var(--text-muted)] mb-3 font-medium uppercase tracking-wide">Review your post</p>
+                    {activeSession.steps["7"].content}
+                  </div>
+                ) : (
+                  <p className="text-[var(--text-muted)] text-center py-8">No post content found. Something went wrong.</p>
+                )}
+              </div>
+            )
+          ) : isComplete ? (
             <div className="text-[var(--text-muted)] text-center py-8">
               <div className="max-w-md mx-auto">
                 <CheckCircle2 size={28} className="mx-auto mb-3 text-[var(--accent-green)]" />
                 <p className="mb-5">
-                  {isPublished ? "Post deployed to production!" : isPreviewed ? "Preview saved locally. Review it, then deploy when ready." : "All steps complete. Save a preview first."}
+                  {isPublished ? "Post deployed to production!" : isPreviewed ? "Preview saved locally. Review it, then deploy when ready." : "Checks passed. Ready to publish."}
                 </p>
 
                 {!isPublished && (
@@ -635,7 +962,7 @@ export default function WordWeaverPage() {
                       </div>
                     )}
 
-                    {/* Step 1: Save Preview */}
+                    {/* Save Preview */}
                     <button
                       onClick={savePreview}
                       disabled={previewing || isPreviewed}
@@ -650,7 +977,7 @@ export default function WordWeaverPage() {
                       {previewing ? "Saving preview..." : isPreviewed ? "Preview saved" : "Save Preview"}
                     </button>
 
-                    {/* Step 2: Deploy to Production */}
+                    {/* Deploy to Production */}
                     <button
                       onClick={deployPost}
                       disabled={deploying || !isPreviewed}
@@ -671,7 +998,7 @@ export default function WordWeaverPage() {
                   </div>
                 )}
 
-                {/* Step 3: Generate Cross-Post (Medium / Substack) */}
+                {/* Generate Cross-Post (Medium / Substack) */}
                 {isPublished && (
                   <div className="mt-3 pt-3" style={{ borderTop: "1px solid var(--border)" }}>
                     <p className="text-[10px] text-[var(--text-muted)] mb-2 text-center">Cross-post to other platforms</p>
@@ -717,11 +1044,66 @@ export default function WordWeaverPage() {
           )}
         </div>
 
-        {/* Input + actions */}
-        {!isComplete && (
+        {/* ── Input + actions: review phase ── */}
+        {(isReviewing || isRevalidating) && !revalidating && (
           <div className="shrink-0">
-            <div className="flex gap-2 mb-3">
-              <input value={userInput} onChange={(e) => setUserInput(e.target.value)}
+            {/* Generate preview button */}
+            {!previewFile && !streaming && (
+              <button
+                onClick={generatePreview}
+                disabled={generatingPreview}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-medium mb-3 transition-colors"
+                style={{ backgroundColor: "rgba(122, 158, 196, 0.1)", color: "var(--accent-blue)", border: "1px solid var(--accent-blue)" }}
+              >
+                {generatingPreview ? <Loader2 size={12} className="animate-spin" /> : <ExternalLink size={12} />}
+                {generatingPreview ? "Generating preview..." : "Generate HTML Preview"}
+              </button>
+            )}
+
+            <div className="mb-3">
+              <textarea value={reviewEdit} onChange={(e) => setReviewEdit(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey && !streaming && reviewEdit.trim()) {
+                    e.preventDefault();
+                    editFinal();
+                  }
+                }}
+                rows={3}
+                placeholder="Describe what to change..."
+                disabled={streaming}
+                className="w-full rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)] resize-y mb-2"
+                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)", color: "var(--text-primary)", minHeight: "60px" }}
+              />
+              <div className="flex gap-2">
+                <button onClick={editFinal} disabled={streaming || !reviewEdit.trim()}
+                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium"
+                  style={{
+                    backgroundColor: reviewEdit.trim() ? "var(--accent-blue)" : "var(--border)",
+                    color: reviewEdit.trim() ? "#fff" : "var(--text-muted)",
+                  }}>
+                  <RotateCcw size={14} /> Edit
+                </button>
+                <button onClick={approveFinal} disabled={streaming || revalidating}
+                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium"
+                  style={{ backgroundColor: "var(--accent-green)", color: "#fff" }}>
+                  <ThumbsUp size={14} /> Approve &amp; Revalidate
+                </button>
+              </div>
+            </div>
+            <div className="flex items-center justify-between text-xs text-[var(--text-muted)]">
+              <span>
+                {streaming ? "Editing..." : "Review the post. Request edits or approve to run Fact-Check & Originality Check."}
+              </span>
+              {activeSession && <span>Session: {activeSession.session_id}</span>}
+            </div>
+          </div>
+        )}
+
+        {/* ── Input + actions: normal step workflow ── */}
+        {!isComplete && !isReviewing && !isRevalidating && (
+          <div className="shrink-0">
+            <div className="mb-3">
+              <textarea value={userInput} onChange={(e) => setUserInput(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey && !streaming) {
                     e.preventDefault();
@@ -729,38 +1111,41 @@ export default function WordWeaverPage() {
                     else runStep();
                   }
                 }}
+                rows={3}
                 placeholder={hasDraft ? "Feedback to revise, or press approve..." : "Add context (optional)..."}
                 disabled={streaming}
-                className="flex-1 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)]"
-                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)", color: "var(--text-primary)" }}
+                className="w-full rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)] resize-y mb-2"
+                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)", color: "var(--text-primary)", minHeight: "60px" }}
               />
-              {hasDraft ? (
-                <>
-                  <button onClick={approveStep} disabled={streaming || loading}
-                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium"
-                    style={{ backgroundColor: "var(--accent-green)", color: "#fff" }}>
-                    <ThumbsUp size={14} /> Approve
-                  </button>
-                  <button onClick={reviseStep} disabled={streaming || !userInput.trim()}
+              <div className="flex gap-2">
+                {hasDraft ? (
+                  <>
+                    <button onClick={approveStep} disabled={streaming || loading}
+                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium"
+                      style={{ backgroundColor: "var(--accent-green)", color: "#fff" }}>
+                      <ThumbsUp size={14} /> Approve
+                    </button>
+                    <button onClick={reviseStep} disabled={streaming || !userInput.trim()}
+                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium"
+                      style={{
+                        backgroundColor: userInput.trim() ? "var(--accent-blue)" : "var(--border)",
+                        color: userInput.trim() ? "#fff" : "var(--text-muted)",
+                      }}>
+                      <RotateCcw size={14} /> Revise
+                    </button>
+                  </>
+                ) : (
+                  <button onClick={runStep} disabled={streaming || !isKeySet}
                     className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium"
                     style={{
-                      backgroundColor: userInput.trim() ? "var(--accent-blue)" : "var(--border)",
-                      color: userInput.trim() ? "#fff" : "var(--text-muted)",
+                      backgroundColor: isKeySet ? "var(--accent-blue)" : "var(--border)",
+                      color: isKeySet ? "#fff" : "var(--text-muted)",
                     }}>
-                    <RotateCcw size={14} /> Revise
+                    {streaming ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
+                    Run Step
                   </button>
-                </>
-              ) : (
-                <button onClick={runStep} disabled={streaming || !isKeySet}
-                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium"
-                  style={{
-                    backgroundColor: isKeySet ? "var(--accent-blue)" : "var(--border)",
-                    color: isKeySet ? "#fff" : "var(--text-muted)",
-                  }}>
-                  {streaming ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
-                  Run Step
-                </button>
-              )}
+                )}
+              </div>
             </div>
             <div className="flex items-center justify-between text-xs text-[var(--text-muted)]">
               <span>
@@ -773,6 +1158,7 @@ export default function WordWeaverPage() {
           </div>
         )}
       </div>
+      </div>{/* end right-side column */}
     </div>
   );
 }
