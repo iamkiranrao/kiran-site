@@ -201,6 +201,65 @@
       "summary": "Company hub page for Spotify product teardowns. Currently features the Playlist Discovery teardown with Wrapped and Podcasts planned."
     },
     {
+      "id": "amazon-mobile-app-teardown",
+      "type": "teardown",
+      "title": "Amazon Mobile App Teardown",
+      "url": "/teardowns/amazon-mobile-app.html",
+      "company": "Amazon",
+      "industry": "e-commerce",
+      "focusArea": "Mobile search and product discovery for time-pressed users",
+      "persona": {
+        "name": "Maria Santos",
+        "context": "34, procurement manager, Austin, working mom navigating Amazon mobile search"
+      },
+      "sections": [
+        {
+          "id": "discovery",
+          "title": "Discovery",
+          "number": "01",
+          "components": ["persona", "journey-sentiment-map", "jtbd-callout"]
+        },
+        {
+          "id": "keep-kill-build",
+          "title": "Keep / Kill / Build",
+          "number": "02",
+          "components": ["kkb-grid"]
+        },
+        {
+          "id": "redesign",
+          "title": "The Redesign",
+          "number": "03",
+          "components": ["wireframe-enhanced-search", "wireframe-intent-results", "wireframe-session-recovery", "wireframe-smart-filter"]
+        },
+        {
+          "id": "business-case",
+          "title": "The Business Case",
+          "number": "04",
+          "components": ["kpi-grid"]
+        }
+      ],
+      "skills": ["customer-research", "journey-mapping", "persona-development", "keep-kill-build-analysis", "wireframing", "business-case-development", "mobile-ux", "search-design", "competitive-analysis"],
+      "themes": ["e-commerce", "mobile-search", "product-discovery", "customer-experience", "intent-based-design"],
+      "status": "published",
+      "connections": [
+        { "id": "amazon-hub", "relationship": "parent-hub", "description": "Listed on the Amazon company hub page" }
+      ],
+      "summary": "Analysis of Amazon's mobile app search experience. Examines how search chaos, filter overload, and lack of session persistence kill task completion for time-pressed users. Proposes intent-based search modes, visual session history, and contextual smart filters."
+    },
+    {
+      "id": "amazon-hub",
+      "type": "teardown-hub",
+      "title": "Amazon Teardowns",
+      "url": "/teardowns/amazon.html",
+      "company": "Amazon",
+      "industry": "e-commerce",
+      "status": "published",
+      "connections": [
+        { "id": "amazon-mobile-app-teardown", "relationship": "child-teardown", "description": "Amazon Mobile App teardown" }
+      ],
+      "summary": "Company hub page for Amazon product teardowns. Currently features the Mobile App teardown with Prime Video and Alexa planned."
+    },
+    {
       "id": "insurance-chatbot",
       "type": "prototype",
       "title": "Insurance AI Assistant",
