@@ -85,6 +85,14 @@ class ReviseRequest(BaseModel):
     feedback: str
 
 
+class GoToStepRequest(BaseModel):
+    step: int
+
+
+class EditFinalRequest(BaseModel):
+    feedback: str
+
+
 class ThemeRequest(BaseModel):
     name: str
     description: str
@@ -189,6 +197,20 @@ async def get_session_detail(session_id: str):
     return state
 
 
+@router.delete("/sessions/{session_id}")
+async def delete_session(session_id: str):
+    """Delete a WordWeaver session and its data."""
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+
+    session_dir = os.path.join("/tmp/command-center/wordweaver", session_id)
+    if os.path.isdir(session_dir):
+        shutil.rmtree(session_dir)
+
+    return {"deleted": session_id}
+
+
 @router.post("/sessions/{session_id}/step")
 async def execute_step(
     session_id: str,
@@ -245,9 +267,9 @@ async def approve_step(session_id: str, request: ApproveRequest):
 
     updated = get_session(session_id)
 
-    # Mark complete if final step
+    # Mark complete if final step — enter review mode (not straight to publish)
     if step == updated["total_steps"]:
-        update_session(session_id, {"status": "ready_to_publish"})
+        update_session(session_id, {"status": "reviewing"})
         updated = get_session(session_id)
 
     return {
@@ -292,6 +314,232 @@ async def revise_step(
     )
 
 
+@router.post("/sessions/{session_id}/goto-step")
+async def goto_step(session_id: str, request: GoToStepRequest):
+    """Navigate to a specific step (back or forward) to review or re-run it."""
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+
+    target = request.step
+    total = state["total_steps"]
+    if target < 1 or target > total:
+        raise HTTPException(status_code=400, detail=f"Step must be between 1 and {total}")
+
+    # Find the highest approved step
+    max_approved = 0
+    for s in range(1, total + 1):
+        sd = state["steps"].get(str(s))
+        if sd and sd.get("status") == "approved":
+            max_approved = s
+
+    # Can navigate to any step up to max_approved + 1
+    if target > max_approved + 1:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Cannot jump to step {target}. Latest approved step is {max_approved}.",
+        )
+
+    update_session(session_id, {"current_step": target})
+    updated = get_session(session_id)
+
+    return {
+        "current_step": target,
+        "status": updated["status"],
+    }
+
+
+# ── Review Phase: Edit, Preview, Revalidate ─────────────────────
+
+@router.post("/sessions/{session_id}/preview-content")
+async def preview_content(
+    session_id: str,
+    x_claude_key: str = Header(None, alias="X-Claude-Key"),
+):
+    """Assemble the blog HTML from all steps and save it for preview.
+
+    Works in 'reviewing', 'revalidating', or 'ready_to_publish' status.
+    Returns the path to the saved file so the user can read it.
+    """
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+
+    if state["status"] not in ("reviewing", "revalidating", "ready_to_publish", "previewing", "published"):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Cannot preview in status '{state['status']}'. Complete all steps first.",
+        )
+
+    api_key = _resolve_api_key(x_claude_key)
+
+    try:
+        html_content = await _assemble_blog_html(state, api_key)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to assemble preview: {str(e)}")
+
+    # Determine slug
+    slug = state.get("slug", "")
+    if not slug:
+        slug = state.get("session_id", "draft")
+    filename = f"{slug}.html"
+
+    # Save to blog/ folder
+    blog_dir = os.path.join(SITE_ROOT, "blog")
+    os.makedirs(blog_dir, exist_ok=True)
+    blog_path = os.path.join(blog_dir, filename)
+    with open(blog_path, "w", encoding="utf-8") as f:
+        f.write(html_content)
+
+    # Also mirror to site/blog/
+    site_blog_dir = os.path.join(SITE_ROOT, "site", "blog")
+    os.makedirs(site_blog_dir, exist_ok=True)
+    shutil.copy2(blog_path, os.path.join(site_blog_dir, filename))
+
+    update_session(session_id, {"local_file": f"blog/{filename}", "slug": slug})
+
+    return {
+        "status": "preview_ready",
+        "local_file": f"blog/{filename}",
+        "preview_url": f"file://{blog_path}",
+    }
+
+
+@router.post("/sessions/{session_id}/edit-final")
+async def edit_final(
+    session_id: str,
+    request: EditFinalRequest,
+    x_claude_key: str = Header(None, alias="X-Claude-Key"),
+):
+    """Revise the written post (step 7) based on user feedback during review.
+
+    Streams the revised content back via SSE. The revised text replaces step 7
+    as a new draft so the user can approve or request more edits.
+    """
+    api_key = _resolve_api_key(x_claude_key)
+
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+
+    if state["status"] not in ("reviewing",):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Edit is only available during review phase (current status: {state['status']})",
+        )
+
+    # Temporarily set current_step to 7 so the service targets step 7
+    original_step = state["current_step"]
+    update_session(session_id, {"current_step": 7})
+
+    async def event_stream():
+        try:
+            async for event_json in run_step_stream(
+                session_id=session_id,
+                step=7,
+                api_key=api_key,
+                user_input=f"REVISION REQUESTED (during final review): {request.feedback}",
+            ):
+                yield f"data: {event_json}\n\n"
+        finally:
+            # Restore current_step to the original (final step)
+            update_session(session_id, {"current_step": original_step})
+
+    return StreamingResponse(
+        event_stream(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
+@router.post("/sessions/{session_id}/approve-final")
+async def approve_final(
+    session_id: str,
+    x_claude_key: str = Header(None, alias="X-Claude-Key"),
+):
+    """Approve the reviewed content and rerun validation steps (10: Fact-Check, 11: Originality).
+
+    Streams both revalidation steps sequentially via SSE, then auto-generates
+    a fresh preview. At the end, status becomes 'ready_to_publish'.
+    """
+    api_key = _resolve_api_key(x_claude_key)
+
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+
+    if state["status"] not in ("reviewing",):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Approve-final is only available during review phase (current status: {state['status']})",
+        )
+
+    update_session(session_id, {"status": "revalidating"})
+
+    # Make sure step 7 is marked approved if it was edited (draft from edit-final)
+    step7 = state["steps"].get("7")
+    if step7 and step7.get("status") == "draft":
+        save_step_result(session_id, 7, step7["content"], status="approved")
+        save_decision(session_id, 7, "Approved (final review)")
+
+    async def event_stream():
+        # Rerun step 10 (Fact-Check)
+        yield f'data: {json.dumps({"type": "revalidation_start", "step": 10, "label": "Fact-Check"})}\n\n'
+        update_session(session_id, {"current_step": 10})
+        async for event_json in run_step_stream(
+            session_id=session_id,
+            step=10,
+            api_key=api_key,
+            user_input="REVALIDATION: The post was edited during final review. Re-run fact-check on the updated content.",
+        ):
+            yield f"data: {event_json}\n\n"
+
+        # Auto-approve step 10
+        refreshed = get_session(session_id)
+        step10 = refreshed["steps"].get("10")
+        if step10 and step10.get("content"):
+            save_step_result(session_id, 10, step10["content"], status="approved")
+            save_decision(session_id, 10, "Auto-approved (revalidation)")
+
+        # Rerun step 11 (Originality Check)
+        yield f'data: {json.dumps({"type": "revalidation_start", "step": 11, "label": "Originality Check"})}\n\n'
+        update_session(session_id, {"current_step": 11})
+        async for event_json in run_step_stream(
+            session_id=session_id,
+            step=11,
+            api_key=api_key,
+            user_input="REVALIDATION: The post was edited during final review. Re-run originality check on the updated content.",
+        ):
+            yield f"data: {event_json}\n\n"
+
+        # Auto-approve step 11
+        refreshed = get_session(session_id)
+        step11 = refreshed["steps"].get("11")
+        if step11 and step11.get("content"):
+            save_step_result(session_id, 11, step11["content"], status="approved")
+            save_decision(session_id, 11, "Auto-approved (revalidation)")
+
+        # Restore current_step to final and set ready_to_publish
+        total = refreshed["total_steps"]
+        update_session(session_id, {"current_step": total, "status": "ready_to_publish"})
+
+        yield f'data: {json.dumps({"type": "revalidation_complete"})}\n\n'
+
+    return StreamingResponse(
+        event_stream(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
 # ── HTML Assembly ──────────────────────────────────────────────
 
 def _load_blog_template() -> str:
@@ -318,18 +566,18 @@ async def _assemble_blog_html(state: dict, api_key: str) -> str:
     # Gather all step content from steps 1-12
     all_content = []
     step_labels = {
-        1: "Define the Theme",
-        2: "Brainstorm Angles",
-        3: "Choose & Outline",
-        4: "Research",
-        5: "Draft the Post",
-        6: "Revise & Edit",
+        1: "Format, Theme & Angle",
+        2: "Live Web Research",
+        3: "Topic Options",
+        4: "Refinement Questions",
+        5: "Structure & Format",
+        6: "Anecdote Workshop",
         7: "Write the Post",
-        8: "Create Social Card",
-        9: "Final Polish",
+        8: "Editorial Filter",
+        9: "Visual Assets",
         10: "Fact-Check",
-        11: "SEO & Metadata",
-        12: "Final Review",
+        11: "Originality Check",
+        12: "Output & Package",
     }
 
     for i in range(1, 13):
@@ -393,6 +641,15 @@ STYLE RULES (from CONTENT-RULES.md):
 - All typography must match the template's CSS exactly.
 - Canonical domain is kirangorapalli.com in all URLs (canonical, og:url, og:image, twitter:image, JSON-LD).
 - Every page needs its own per-post OG image (not the generic site card). The og:image URL must point to a page-specific image.
+
+VISUAL ASSETS (from step 9):
+- If step 9 contains approved visual asset descriptions, you MUST build complete inline SVG elements for each approved visual.
+- Each SVG must use role="img" and aria-label for accessibility.
+- Use CSS variables for ALL colors so diagrams adapt to light/dark theme: var(--text-primary), var(--bg-primary), var(--border), var(--text-muted), var(--text-secondary), var(--accent-blue).
+- Wrap each SVG in: <div style="margin: 2.5rem -1rem; padding: 1.5rem 0;"> ... </div>
+- Place each diagram at the most relevant location in the article body (near the section it illustrates).
+- SVGs should be professional, clean, and use viewBox for responsive scaling (max-width: 720px).
+- Include descriptive elements: labels, arrows, boxes with rounded corners, step numbers.
 
 MARKDOWN TO HTML CONVERSION (for article body):
 - # Heading 1 → SKIP (no h1 in article body)
@@ -491,6 +748,9 @@ async def preview_post(
 @router.post("/sessions/{session_id}/deploy")
 async def deploy_post(session_id: str):
     """Push a locally-previewed blog post to production via git."""
+    import re as _re
+    from datetime import datetime as _dt
+
     state = get_session(session_id)
     if not state:
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
@@ -515,13 +775,21 @@ async def deploy_post(session_id: str):
     with open(blog_path, "r", encoding="utf-8") as f:
         html_content = f.read()
 
+    # ── Auto-generate card HTML for blog-podcast.html ──
+    card_html = state.get("card_html")
+    if not card_html:
+        card_html = _generate_blog_card(html_content, slug)
+
+    # ── Auto-update fenix-index.json ──
+    _update_fenix_index_for_blog(html_content, slug)
+
     git = GitHandler()
 
     try:
         result = await git.publish_blog_post(
             slug=slug,
             html_content=html_content,
-            card_html=state.get("card_html"),
+            card_html=card_html,
         )
 
         update_session(session_id, {"status": "published"})
@@ -529,6 +797,124 @@ async def deploy_post(session_id: str):
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Deploy failed: {str(e)}")
+
+
+def _generate_blog_card(html_content: str, slug: str) -> str:
+    """Auto-generate a blog-podcast.html card from the published blog HTML."""
+    import re as _re
+    from datetime import datetime as _dt
+
+    # Extract title
+    title_match = _re.search(r'<h1[^>]*>(.*?)</h1>', html_content, _re.DOTALL)
+    title = _re.sub(r'<[^>]+>', '', title_match.group(1)).strip() if title_match else slug.replace("-", " ").title()
+
+    # Extract description
+    desc_match = _re.search(r'<meta\s+name="description"\s+content="([^"]*)"', html_content)
+    description = desc_match.group(1) if desc_match else ""
+
+    # Extract tags from article-tag spans
+    tags = _re.findall(r'<span class="article-tag">(.*?)</span>', html_content)
+
+    # Extract date
+    date_match = _re.search(r'<meta\s+property="article:published_time"\s+content="([^"]*)"', html_content)
+    if date_match:
+        try:
+            dt = _dt.strptime(date_match.group(1), "%Y-%m-%d")
+            display_date = dt.strftime("%-d %b %Y")
+        except ValueError:
+            display_date = _dt.now().strftime("%-d %b %Y")
+    else:
+        display_date = _dt.now().strftime("%-d %b %Y")
+
+    # Determine badge from tags
+    badge = "Deep Dive"
+    tag_lower = [t.lower() for t in tags]
+    if "demystified" in tag_lower:
+        badge = "Demystified"
+    elif "case study" in tag_lower or "case-study" in tag_lower:
+        badge = "Case Study"
+    elif "essay" in tag_lower:
+        badge = "Essay"
+
+    tags_html = "\n".join(f'                        <span class="card-tag">{t}</span>' for t in tags[:4])
+
+    return f"""
+                <article class="content-card">
+                    <div class="card-meta">
+                        <span class="card-date">{display_date}</span>
+                        <span class="card-badge">{badge}</span>
+                    </div>
+                    <h2 class="card-title">{title}</h2>
+                    <p class="card-excerpt">{description}</p>
+                    <div class="card-tags">
+{tags_html}
+                    </div>
+                    <a href="blog/{slug}.html" class="card-link">Read <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </article>
+"""
+
+
+def _update_fenix_index_for_blog(html_content: str, slug: str):
+    """Auto-add/update a blog entry in fenix-index.json when deploying."""
+    import re as _re
+    from datetime import datetime as _dt
+
+    index_path = os.path.join(SITE_ROOT, "fenix-index.json")
+    if not os.path.exists(index_path):
+        return
+
+    with open(index_path, "r", encoding="utf-8") as f:
+        index = json.load(f)
+
+    entry_id = f"blog-{slug}"
+
+    # Check if already exists
+    pages = index.get("pages", [])
+    for p in pages:
+        if p.get("id") == entry_id:
+            return  # Already indexed
+
+    # Extract metadata from HTML
+    title_match = _re.search(r'<h1[^>]*>(.*?)</h1>', html_content, _re.DOTALL)
+    title = _re.sub(r'<[^>]+>', '', title_match.group(1)).strip() if title_match else slug.replace("-", " ").title()
+
+    desc_match = _re.search(r'<meta\s+name="description"\s+content="([^"]*)"', html_content)
+    description = desc_match.group(1) if desc_match else ""
+
+    tags = _re.findall(r'<span class="article-tag">(.*?)</span>', html_content)
+    sections = _re.findall(r'<h2>(.*?)</h2>', html_content)
+    # Filter out "Sources" from sections
+    sections = [s for s in sections if s.lower() != "sources"]
+
+    date_match = _re.search(r'<meta\s+property="article:published_time"\s+content="([^"]*)"', html_content)
+    pub_date = date_match.group(1) if date_match else _dt.now().strftime("%Y-%m-%d")
+
+    read_match = _re.search(r'<span class="article-meta-item">(\d+ min read)</span>', html_content)
+    read_time = read_match.group(1) if read_match else "7 min"
+
+    new_entry = {
+        "id": entry_id,
+        "type": "blog",
+        "title": title,
+        "url": f"/blog/{slug}.html",
+        "datePublished": pub_date,
+        "readTime": read_time,
+        "tags": [t.lower().replace(" ", "-") for t in tags],
+        "sections": sections,
+        "skills": [],
+        "themes": [t.lower().replace(" ", "-") for t in tags[:2]],
+        "status": "published",
+        "connections": [],
+        "summary": description,
+    }
+
+    pages.append(new_entry)
+    index["pages"] = pages
+    index["lastUpdated"] = _dt.now().strftime("%Y-%m-%d")
+
+    with open(index_path, "w", encoding="utf-8") as f:
+        json.dump(index, f, indent=2, ensure_ascii=False)
+        f.write("\n")
 
 
 # ── Cross-Post (Medium / Substack) ────────────────────────────────
@@ -581,6 +967,7 @@ async def generate_crosspost(
         return {
             "status": "ready",
             "markdown_file": f"{slug}-crosspost.md",
+            "markdown_path": md_path,
             "diagram_images": result.get("diagram_images", []),
             "instructions": {
                 "medium": "Import the Markdown. Set canonical URL to the original post URL under Story Settings.",
