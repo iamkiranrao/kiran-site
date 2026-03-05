@@ -494,8 +494,9 @@ Output a JSON object with these keys (all values are HTML fragment strings using
 RULES:
 - NO em dashes. Use " - " (space-hyphen-space).
 - SVG wireframe classes MUST use wf- prefix only.
-- Journey sentiment SVG MUST use cubic bezier C commands with 3 reference lines.
+- Journey sentiment SVG MUST use viewBox="0 0 500 130", cubic bezier C commands, 3 reference lines at y=20/55/90, Y-axis labels at x=8 (Optimistic/Neutral/Frustrated) font-size=7, colored circle data points r=6 (#6b9e6b green positive, #c47474 red negative, #d4a74a amber neutral), sentiment labels above each dot, and X-axis UPPERCASE stage labels at y=120. Use var(--text-muted), var(--border), var(--text-secondary) for theme compatibility. Include <title> and aria-label.
 - All content from all 8 steps must be represented.
+- Journey stage grid columns: set --journey-cols CSS variable on .journey-stages to match the actual number of stages.
 
 Output ONLY valid JSON. No explanation, no markdown fences."""
         }],
