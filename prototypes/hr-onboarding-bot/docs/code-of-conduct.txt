@@ -1,0 +1,168 @@
+CODE OF CONDUCT & WORKPLACE STANDARDS
+NovaTech Corporation Employee Code of Conduct
+
+OVERVIEW
+
+NovaTech Corporation is committed to maintaining a professional, inclusive, and respectful workplace. This Code of Conduct outlines the standards of behavior expected of all employees, contractors, and representatives of NovaTech. Adherence to these standards is a condition of employment.
+
+ANTI-HARASSMENT & DISCRIMINATION POLICY
+
+NovaTech is committed to providing a workplace free from harassment, discrimination, and bullying. We do not tolerate any conduct that:
+
+- Demeans, intimidates, or humiliates colleagues based on protected attributes
+- Creates an offensive or hostile work environment
+- Subjects employees to unwanted contact of a sexual nature
+- Includes verbal abuse, shouting, or aggressive behavior
+- Involves retaliation against employees who raise concerns
+
+Protected Attributes:
+Discrimination based on the following is strictly prohibited: age, disability, gender identity, marital status, parental status, political belief, race, religion, sexual orientation, or any other protected characteristic under Australian law.
+
+Harassment may be perpetrated by colleagues, managers, clients, or third parties, and may occur in person, via email, Slack, social media, or any other medium. All reports of harassment will be investigated promptly and confidentially. Employees found to have engaged in harassment may face disciplinary action up to and including termination.
+
+DIVERSITY & INCLUSION COMMITMENT
+
+NovaTech believes that diverse teams drive better outcomes and innovation. We are committed to:
+
+- Actively recruiting and retaining employees from diverse backgrounds
+- Ensuring equal opportunities for advancement regardless of background
+- Creating an inclusive culture where different perspectives are valued
+- Providing reasonable accommodations for employees with disabilities
+- Supporting employee resource groups and affinity networks
+- Regular diversity and inclusion training for all employees
+- Transparent reporting on diversity metrics and progress
+
+All employees are responsible for contributing to an inclusive workplace. Discriminatory language, microaggressions, and exclusionary behavior are not tolerated. If you witness exclusionary or discriminatory conduct, you are encouraged to address it directly (if safe to do so) or report it through formal channels.
+
+WORKPLACE CONDUCT EXPECTATIONS
+
+Professional Behavior:
+- Treat colleagues with respect and courtesy at all times
+- Communicate professionally in all interactions (in-person, email, Slack, video)
+- Respect boundaries and personal space
+- Avoid offensive language or jokes that demean others
+- Focus on work-related issues, not personal attacks
+- Participate in team collaboration in good faith
+
+Alcohol & Drug Policy:
+- NovaTech prohibits the use, possession, or distribution of illegal drugs on company premises or during work hours
+- Alcohol is permitted at approved company events in moderation; intoxication that impairs judgment or professionalism is prohibited
+- Employees must report to work in a fit and safe condition, not impaired by alcohol or drugs
+- Violation of this policy may result in disciplinary action or termination
+- Employees struggling with substance abuse are encouraged to seek support through the Employee Assistance Program (EAP)
+
+Workplace Violence & Safety:
+- Any form of violence, threats, or intimidation is strictly prohibited
+- All employees are required to maintain a safe workplace environment
+- Carry any disputes through appropriate channels (manager, HR, mediation)
+- Report safety concerns or threatening behavior immediately
+- Zero-tolerance policy for physical violence or threats of violence
+
+Punctuality & Attendance:
+- Employees are expected to arrive on time and ready to work
+- Excessive absenteeism or tardiness may result in disciplinary action
+- Notify your manager immediately if you cannot attend work
+- Repeated unexplained absences may result in termination for abandonment
+
+CONFLICTS OF INTEREST
+
+A conflict of interest arises when personal relationships or financial interests could impair an employee's ability to work objectively or make decisions in NovaTech's best interest. Conflicts of interest must be disclosed to your manager or HR.
+
+Examples of Conflicts of Interest:
+- Close relatives (spouse, parent, sibling, child) working in the same department
+- Direct financial interest in vendors, competitors, or NovaTech suppliers
+- Outside employment that could affect NovaTech duties or loyalty
+- Gifts or benefits offered by vendors, clients, or competitors (must be disclosed and typically rejected if exceeding $50 value)
+- Using NovaTech property or position for personal gain
+
+Employees are required to avoid situations where personal interests conflict with their professional duties. Undisclosed conflicts of interest may result in disciplinary action. If you have a question about whether something constitutes a conflict of interest, ask your manager or HR before proceeding.
+
+CONFIDENTIALITY & INTELLECTUAL PROPERTY
+
+All employees must maintain the confidentiality of NovaTech business information, including:
+- Client information and proprietary data
+- Product roadmaps and unreleased features
+- Financial information and metrics
+- Security vulnerabilities or exploits
+- Trade secrets and proprietary algorithms
+- Employee personal information and salary data
+
+Confidential information must not be shared externally without explicit authorization. This applies to conversations on public transports, social media, public Wi-Fi, or anywhere information could be overheard or intercepted. Violation of confidentiality agreements may result in legal action in addition to disciplinary action.
+
+All intellectual property created in the course of employment belongs to NovaTech. This includes code, designs, documentation, and inventions. Employees cannot claim ownership of work products created on NovaTech time or using NovaTech resources.
+
+SOCIAL MEDIA & EXTERNAL COMMUNICATION GUIDELINES
+
+While employees are free to express personal opinions on social media, the following guidelines apply:
+
+- Do not identify yourself as a NovaTech employee when posting about controversial or sensitive topics
+- Do not share confidential NovaTech information, client data, or trade secrets on any platform
+- Do not disclose unreleased products or features
+- Do not engage in hostile or disrespectful conversations with clients, competitors, or public figures
+- Do not use company logos, branding, or intellectual property for personal promotion without approval
+- Do not post content that is discriminatory, threatening, or harassing toward any individual or group
+- Be mindful that posts can be permanent and may be viewed by colleagues, clients, or future employers
+
+Employees who violate social media guidelines may face disciplinary action if conduct reflects negatively on NovaTech or violates other policies in this handbook.
+
+REPORTING CHANNELS & INVESTIGATION PROCESS
+
+If you experience or witness conduct that violates this Code of Conduct, you are encouraged to report it through one or more of the following channels:
+
+Direct Manager: In many cases, a conversation with your direct manager can address issues immediately and constructively.
+
+Human Resources Department: Contact hr@novatech.com or visit the HR office. HR maintains confidentiality to the extent possible and will facilitate a prompt investigation.
+
+Confidential Reporting Line: Anonymous reports can be made via our confidential ethics line at 1800 NOVACORP (reporting portal on company intranet). Calls are handled by an independent third party.
+
+Executive Leadership: For serious matters or if you lack confidence in lower-level reporting, contact your Director or Chief People Officer directly.
+
+Anonymous Options: Multiple reporting channels allow for anonymous reporting, though investigations may require follow-up conversations to resolve matters fully.
+
+Investigation Process:
+1. Upon receipt of a report, HR will acknowledge the report and outline next steps within 2 business days
+2. A prompt and impartial investigation will be conducted by HR (or external investigator if needed for serious matters)
+3. Interviews will be conducted confidentially with the complainant, respondent, and relevant witnesses
+4. All parties will be kept informed of the investigation progress (to the extent permitted by confidentiality)
+5. Findings will be documented and appropriate action taken based on evidence
+6. Investigation conclusions will be communicated to relevant parties
+
+Investigation timelines vary based on complexity, typically ranging from 5-30 business days for standard matters. Urgent matters receive expedited attention.
+
+WHISTLEBLOWER PROTECTION
+
+NovaTech is committed to protecting employees who report genuine concerns about conduct that violates laws, regulations, policies, or ethical standards.
+
+Whistleblower Protection Guarantees:
+- Employees will not be retaliated against for making good-faith reports
+- Reports will be treated seriously and investigated promptly
+- Confidentiality will be maintained to the extent possible
+- Multiple reporting channels exist, including anonymous options
+- Retaliation is strictly prohibited and subject to severe disciplinary action
+
+Good-faith reports are protected even if investigation concludes that no policy violation occurred. Protection applies to employees who provide information in internal investigations, external compliance processes, or to regulatory authorities.
+
+Employees who report matters to external bodies (regulators, media, law enforcement) for genuine public interest reasons are also protected. If you believe you have been retaliated against for making a report, contact HR or the confidential reporting line immediately.
+
+DISCIPLINARY PROCESS
+
+Violations of this Code of Conduct are subject to disciplinary action. The severity of discipline depends on the nature and seriousness of the violation, prior conduct history, and investigation findings.
+
+Possible actions include (in increasing order of severity):
+1. Verbal warning with documentation
+2. Written warning with performance improvement plan
+3. Suspension (with or without pay)
+4. Demotion or reassignment
+5. Termination of employment
+
+Serious violations (violence, harassment, discrimination, intentional fraud) may result in immediate termination without prior warning steps.
+
+Employees have the right to respond to allegations, present their perspective, and appeal disciplinary decisions. Appeals should be submitted in writing to HR within 5 business days of the disciplinary decision.
+
+COMPLIANCE & ACKNOWLEDGMENT
+
+All employees must acknowledge receipt and understanding of this Code of Conduct during onboarding. Annual recertification is required. Failure to comply with this Code of Conduct is grounds for disciplinary action up to and including termination.
+
+If you have questions about this Code of Conduct, contact Human Resources at hr@novatech.com.
+
+Document Version: 2.0 | Last Updated: February 2026

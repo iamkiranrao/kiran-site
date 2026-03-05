@@ -1,0 +1,150 @@
+REMOTE & HYBRID WORK POLICY
+NovaTech Corporation Flexible Work Guidelines
+
+OVERVIEW
+
+NovaTech Corporation is committed to flexible work arrangements that support employee wellbeing and productivity. This policy outlines our hybrid work framework, expectations, and guidelines for remote and in-office work.
+
+DEFAULT HYBRID WORK ARRANGEMENT
+
+The standard working arrangement for all NovaTech employees is a hybrid model with the following structure:
+
+Office Days: 3 days per week in the office (typically Monday, Tuesday, Wednesday)
+Remote Days: 2 days per week working from home (typically Thursday, Friday)
+
+This arrangement applies to most roles and teams. Specific teams may have slightly different arrangements to accommodate client needs or collaborative requirements. Your manager will discuss the specific schedule for your role during onboarding.
+
+The hybrid model aims to balance the benefits of in-office collaboration, team connection, and mentoring with the flexibility and productivity gains of remote work. Employees are expected to maintain this schedule consistently unless alternative arrangements are approved.
+
+ALTERNATIVE WORK ARRANGEMENTS
+
+Employees may request alternative arrangements including:
+
+Fully Remote: Working from home full-time (requires manager and director approval; typically available for roles with limited in-office collaboration requirements)
+
+Flexible Hybrid: Adjustable in-office schedule with core office days negotiated (e.g., Tuesday-Thursday instead of Monday-Wednesday) to accommodate childcare, commute, or personal preferences
+
+Part-time Hybrid: Employees working part-time hours maintain their hybrid schedule proportionally (e.g., 3-day part-time: 2 office days, 1 remote day)
+
+Compressed Weeks: Working longer days but fewer total days per week (e.g., 4 x 10-hour days instead of 5 x 8-hour days)
+
+To request an alternative arrangement, discuss with your manager at least 2 weeks in advance. Your manager will assess the feasibility and suitability for your role and team. HR must approve any arrangement that deviates from the standard policy.
+
+CORE HOURS & AVAILABILITY
+
+Regardless of location (office or remote), all employees must be available and responsive during core hours:
+
+Core Hours: 10:00 AM - 3:00 PM AEST, Monday through Friday
+
+During core hours, you are expected to:
+- Attend scheduled meetings and team collaborations
+- Be reachable via Slack and email
+- Respond to urgent messages within 30 minutes
+- Participate in synchronous work and pair programming sessions
+
+Outside of core hours (before 10:00 AM or after 3:00 PM AEST), employees may work asynchronously without expectation of immediate availability, provided core work hours are worked daily.
+
+This scheduling accommodates our three office locations (Sydney HQ, Melbourne, Singapore) and time zone differences with clients and partners.
+
+OFFICE PRESENCE & EXPECTATIONS
+
+When Working in the Office:
+- Arrive by 9:30 AM (or your team's agreed start time) to maximize collaboration time
+- Use designated team spaces and meeting rooms for collaborative work and client calls
+- Contribute to team culture through in-person interactions, mentoring, and informal connections
+- Participate in team lunches, knowledge-sharing sessions, and all-hands meetings held in-office
+
+Office amenities are available for all employees:
+- Collaborative spaces and quiet focus areas
+- Meeting rooms and phone booths for private calls
+- Kitchen with free beverages, tea, coffee, and snacks
+- Wellness facilities including meditation room and standing desk options
+- Parking available (Sydney: company lot; Melbourne: nearby parking validation)
+
+REMOTE WORK ARRANGEMENTS
+
+When Working Remotely:
+- Ensure you have a quiet, professional environment suitable for video calls and focused work
+- Maintain the same level of professionalism and responsiveness as in the office
+- Be fully available during core hours (10:00 AM - 3:00 PM AEST)
+- Keep your workspace ergonomic and comfortable
+- Minimize background distractions during video meetings
+- Use headphones to reduce ambient noise during calls
+
+Remote Work Equipment Allowance: NovaTech provides a one-time home office equipment allowance of $500 per employee to set up a productive home workspace. This allowance can be used for:
+- Ergonomic desk chair
+- Adjustable standing desk or desk extension
+- Monitor or dual monitors
+- Keyboard and mouse
+- Desk lamp
+- Cable management and accessories
+- Shelving and storage
+
+Submit receipts to finance@novatech.com for reimbursement. The allowance is applied once during your tenure at NovaTech and does not refresh. Additional home office equipment may be requested for medical or accessibility reasons.
+
+COMMUNICATION & COLLABORATION WHEN REMOTE
+
+- Use Slack for instant communication and quick questions
+- Join all video calls with camera on (unless exceptional circumstances)
+- Use Zoom, Google Meet, or Teams as specified for meetings
+- Attend all team standups and scheduled syncs, regardless of location
+- Ensure video conferencing setup is tested and working before meetings
+
+INTERNATIONAL REMOTE WORK POLICY
+
+NovaTech recognizes that employees may occasionally need to work from international locations due to travel, relocation, or personal circumstances. The following policy applies:
+
+Maximum Duration: Employees may work remotely from international locations for a maximum of 4 consecutive weeks per calendar year.
+
+Approval Required: Manager approval is required before working internationally. Submit requests at least 4 weeks in advance via email to your manager and HR.
+
+Notification Requirement: Notify HR of your international location, dates, and time zone at least 2 weeks before departure.
+
+Core Hours Expectation: You remain expected to be available during NovaTech core hours (10:00 AM - 3:00 PM AEST), even if this requires non-standard local hours. Time zone accommodations are limited; discuss with your manager if this creates significant hardship.
+
+Internet & Security: You are responsible for ensuring secure internet connection (VPN required) and appropriate workspace. NovaTech is not responsible for connectivity issues that arise from international locations.
+
+Tax & Legal Implications: Working from some countries may trigger tax obligations or visa requirements. It is the employee's responsibility to ensure compliance with local laws. NovaTech does not provide tax or legal advice; consult a professional if unsure.
+
+Not Covered: The international remote work allowance does not extend to:
+- Permanent relocation (discuss with HR separately)
+- Work from multiple countries during the 4-week period
+- Digital Nomad arrangements (not currently supported)
+
+MEETING PROTOCOLS & INCLUSION
+
+To ensure effective collaboration and inclusion for both in-office and remote teams:
+
+- Hybrid Meetings: All team meetings must be conducted as if everyone is remote (camera on, clear audio, use of screen sharing). In-office attendees should still join via Zoom to ensure remote attendees are fully included.
+
+- Recording: Meetings may be recorded with attendee consent for documentation and absent team members. Always announce recordings at meeting start.
+
+- Calendar Etiquette: Block your calendar to reflect your location (office vs. remote) daily. Use calendar labels or status updates in Slack to communicate your location.
+
+EQUIPMENT & TECHNOLOGY
+
+Company-Provided Equipment Applies Everywhere: Your laptop, phone, and other company equipment remain company property regardless of location. Security policies, VPN requirements, and device management apply equally to office and remote work.
+
+VPN & Security: VPN must be used for all remote work sessions. MFA and password requirements apply at all times.
+
+FLEXIBILITY & TRUST
+
+NovaTech's hybrid work policy is built on trust and results. We focus on outcomes and contributions rather than hours at a desk or camera-on status. Managers assess employee performance based on:
+- Quality and timeliness of deliverables
+- Responsiveness and collaboration during core hours
+- Contribution to team goals and initiatives
+- Professional communication and reliability
+
+Excessive micromanagement or surveillance of remote workers is not permitted. Employees are trusted to manage their time and environment responsibly.
+
+HYBRID WORK DISRUPTIONS
+
+In cases of unexpected disruptions (illness, infrastructure failure, etc.), employees may temporarily work from alternative locations with manager notification. Communicate any challenges to your manager as early as possible so alternative arrangements can be made.
+
+POLICY CHANGES & ESCALATION
+
+This policy is subject to change based on business needs and employee feedback. Changes will be communicated with at least 30 days notice.
+
+If you have concerns about your hybrid work arrangement or need to discuss accommodations, contact your manager first. If concerns remain unresolved, escalate to your department director or HR at hr@novatech.com.
+
+Document Version: 1.5 | Last Updated: March 2026
