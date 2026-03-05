@@ -255,11 +255,14 @@
         }
         .journey-stages {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(var(--journey-cols, 5), 1fr);
         }
         .journey-stage-card {
             padding: 1rem;
             border-right: 1px solid var(--border);
+            overflow: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .journey-stage-card:last-child {
             border-right: none;
@@ -771,6 +774,7 @@
             .breadcrumb { padding: 1.25rem 3rem 0; }
             .teardown { padding: 1.5rem 3rem 3rem; }
             .kkb-grid { grid-template-columns: 1fr; }
+            .journey-stages { grid-template-columns: repeat(3, 1fr); }
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
             footer { padding: 3rem 3rem 2rem; }
         }
