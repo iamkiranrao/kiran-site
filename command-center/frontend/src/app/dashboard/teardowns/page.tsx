@@ -480,6 +480,7 @@ export default function TeardownsPage() {
               { name: "GEICO / Mobile App", url: "https://kirangorapalli.com/teardowns/geico-mobile-app.html" },
               { name: "Intuit / TurboTax", url: "https://kirangorapalli.com/teardowns/intuit-turbo-tax.html" },
               { name: "Airbnb / Mobile App", url: "https://kirangorapalli.com/teardowns/airbnb-mobile.html" },
+              { name: "Spotify / Playlist Discovery", url: "https://kirangorapalli.com/teardowns/spotify-playlist-discovery.html" },
             ].map((td, i) => (
               <div key={`legacy-${i}`} className="flex items-center justify-between py-1.5">
                 <span className="text-sm text-[var(--text-primary)]">{td.name}</span>
