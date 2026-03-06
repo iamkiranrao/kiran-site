@@ -183,13 +183,13 @@ Command Center (local FastAPI + Next.js)
 **Goal:** Create a repeatable workflow for publishing MadLab prototypes, matching the teardown/blog pattern.
 
 ### Step 3.1 — Define MadLab content template
-- [ ] Analyze existing prototype pages (e.g., insurance chatbot) for structure
-- [ ] Create `madlab-template.html` in `backend/templates/`
-- [ ] Define sections: The Problem, System Architecture, How It Works, Try It Yourself, Tech Stack
-- [ ] Include Fenix-compatible metadata (skills, themes, connections)
+- [x] Analyze existing prototype pages (e.g., insurance chatbot) for structure
+- [x] Create `madlab-template.html` in `backend/templates/`
+- [x] Define sections: The Problem, System Architecture, How It Works, Try It Yourself, Tech Stack
+- [x] Include Fenix-compatible metadata (skills, themes, connections)
 
 ### Step 3.2 — Build MadLab backend router
-- [ ] Create `backend/routers/madlab.py` with endpoints:
+- [x] Create `backend/routers/madlab.py` with endpoints:
   - `GET /api/madlab/steps` — return workflow step definitions
   - `POST /api/madlab/create` — start new prototype session
   - `GET /api/madlab/sessions` — list sessions
@@ -199,36 +199,36 @@ Command Center (local FastAPI + Next.js)
   - `POST /api/madlab/sessions/{id}/revise` — revise with feedback (SSE)
   - `POST /api/madlab/sessions/{id}/publish` — local preview
   - `POST /api/madlab/sessions/{id}/deploy` — git push to production
-- [ ] Create `backend/services/madlab_service.py`
-- [ ] Register router in `main.py`
+- [x] Create `backend/services/madlab_service.py`
+- [x] Register router in `main.py`
 
 ### Step 3.3 — Define MadLab workflow steps
-- [ ] Step 1: Problem Space & User Pain (research + framing)
-- [ ] Step 2: Solution Architecture (system design + tech choices)
-- [ ] Step 3: User Flow & Interaction Design
-- [ ] Step 4: Build Narrative (how you built it, decisions, tradeoffs)
-- [ ] Step 5: Demo & Screenshots (visual walkthrough)
-- [ ] Step 6: Tech Stack & Lessons Learned
-- [ ] Step 7: Editorial Pass + HTML Generation
+- [x] Step 1: Problem Space & User Pain (research + framing)
+- [x] Step 2: Solution Architecture (system design + tech choices)
+- [x] Step 3: User Flow & Interaction Design
+- [x] Step 4: Build Narrative (how you built it, decisions, tradeoffs)
+- [x] Step 5: Demo & Screenshots (visual walkthrough)
+- [x] Step 6: Tech Stack & Lessons Learned
+- [x] Step 7: Editorial Pass + HTML Generation
 
 ### Step 3.4 — Build MadLab frontend page
-- [ ] Create `frontend/src/app/dashboard/madlab/page.tsx`
-- [ ] Follow teardown page pattern (session list, create flow, step-by-step workflow)
-- [ ] Add to dashboard layout navigation
+- [x] Create `frontend/src/app/dashboard/madlab/page.tsx`
+- [x] Follow teardown page pattern (session list, create flow, step-by-step workflow)
+- [x] Add to dashboard layout navigation
 
 ### Step 3.5 — Update git_handler for MadLab publishing
-- [ ] Add MadLab publish flow to `git_handler.py`:
+- [x] Add MadLab publish flow to `git_handler.py`:
   - Save to `madlab/[slug].html`
   - Update `madlab.html` hub page (add prototype card)
   - Update `sitemap.xml`
   - Update `fenix-index.json` with new prototype metadata
-- [ ] Test deploy flow
+- [x] Test deploy flow
 
 ### Step 3.6 — Test end-to-end
-- [ ] Create a test prototype through the full workflow
-- [ ] Publish and verify it appears on the site
-- [ ] Verify GitHub Action reindexes the new content
-- [ ] Ask Fenix about the prototype and confirm it returns relevant answers
+- [x] Create a test prototype through the full workflow
+- [x] Publish and verify it appears on the site
+- [x] Verify GitHub Action reindexes the new content
+- [x] Ask Fenix about the prototype and confirm it returns relevant answers
 
 **Exit criteria:** MadLab prototypes can be published from Command Center with the same reliability as teardowns and blogs, and Fenix indexes them automatically.
 
