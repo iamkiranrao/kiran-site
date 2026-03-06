@@ -475,11 +475,13 @@ if (feedbackForm) {
         const comment = feedbackForm.querySelector('.feedback-comment').value;
         if (!selectedRating && !comment.trim()) return;
 
-        const formData = new FormData(feedbackForm);
-        fetch('/', {
+        fetch('https://api.kirangorapalli.com/api/feedback/submit', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString()
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                rating: selectedRating,
+                comment: comment.trim() || null
+            })
         })
         .then(response => {
             if (!response.ok) throw new Error('Submit failed');
@@ -502,12 +504,23 @@ const testimonialThanks = document.getElementById('testimonialThanks');
 if (testimonialForm) {
     testimonialForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        const formData = new FormData(testimonialForm);
 
-        fetch('/', {
+        const name = testimonialForm.querySelector('input[name="name"]').value.trim();
+        const role = testimonialForm.querySelector('input[name="role"]').value.trim();
+        const testimonialText = testimonialForm.querySelector('textarea[name="testimonial"]').value.trim();
+        const isPublic = testimonialForm.querySelector('input[name="public"]').checked;
+
+        if (!name || !testimonialText) return;
+
+        fetch('https://api.kirangorapalli.com/api/feedback/testimonial/submit', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString()
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: name,
+                role: role || null,
+                testimonial: testimonialText,
+                is_public: isPublic
+            })
         })
         .then(response => {
             if (!response.ok) throw new Error('Submit failed');

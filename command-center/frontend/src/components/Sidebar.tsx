@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { Wrench, PenTool, FileText, Target, Shield, LogOut, Command } from "lucide-react";
+import { Wrench, PenTool, FileText, Target, Shield, ExternalLink, LogOut, Command, Beaker, Bot, BookOpen, MessageSquare } from "lucide-react";
 import { MODULES, APP_NAME } from "@/lib/constants";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -13,6 +13,11 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   FileText,
   Target,
   Shield,
+  ExternalLink,
+  Beaker,
+  Bot,
+  BookOpen,
+  MessageSquare,
 };
 
 export function Sidebar() {
