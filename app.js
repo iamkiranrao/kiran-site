@@ -475,12 +475,20 @@ if (feedbackForm) {
         const comment = feedbackForm.querySelector('.feedback-comment').value;
         if (!selectedRating && !comment.trim()) return;
 
-        fetch('https://api.kirangorapalli.com/api/feedback/submit', {
+        const SUPABASE_URL = 'https://gndzmmywtxvlukoavadj.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduZHptbXl3dHh2bHVrb2F2YWRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0ODAzOTEsImV4cCI6MjA4ODA1NjM5MX0.WrfvJ9rOvDnn6bAqWRbjk7Hr_wOqmP5It2ixHQjS8yw';
+
+        fetch(`${SUPABASE_URL}/rest/v1/site_feedback`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Prefer': 'return=minimal'
+            },
             body: JSON.stringify({
                 rating: selectedRating,
-                comment: comment.trim() || null
+                comment: comment.trim() || ''
             })
         })
         .then(response => {
@@ -512,12 +520,20 @@ if (testimonialForm) {
 
         if (!name || !testimonialText) return;
 
-        fetch('https://api.kirangorapalli.com/api/feedback/testimonial/submit', {
+        const SB_URL = 'https://gndzmmywtxvlukoavadj.supabase.co';
+        const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduZHptbXl3dHh2bHVrb2F2YWRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0ODAzOTEsImV4cCI6MjA4ODA1NjM5MX0.WrfvJ9rOvDnn6bAqWRbjk7Hr_wOqmP5It2ixHQjS8yw';
+
+        fetch(`${SB_URL}/rest/v1/testimonials`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': SB_KEY,
+                'Authorization': `Bearer ${SB_KEY}`,
+                'Prefer': 'return=minimal'
+            },
             body: JSON.stringify({
                 name: name,
-                role: role || null,
+                role: role || '',
                 testimonial: testimonialText,
                 is_public: isPublic
             })
