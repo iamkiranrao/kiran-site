@@ -4,13 +4,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-from routers import health, teardown, wordweaver, resume, job_central, content_audit, visual_audit
+from routers import health, teardown, wordweaver, resume, job_central, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, feedback
 
 load_dotenv(override=True)
 
 # ── Startup validation ──────────────────────────────────────
 REQUIRED_ENV = ["ANTHROPIC_API_KEY"]
-RECOMMENDED_ENV = ["KIRAN_SITE_REPO", "GITHUB_PAT"]
+RECOMMENDED_ENV = ["KIRAN_SITE_REPO", "GITHUB_PAT", "SUPABASE_URL", "SUPABASE_SERVICE_KEY"]
 
 missing_required = [v for v in REQUIRED_ENV if not os.getenv(v)]
 if missing_required:
@@ -46,6 +46,11 @@ app.include_router(resume.router, prefix="/api/resume", tags=["Resume Customizer
 app.include_router(job_central.router, prefix="/api/jobs", tags=["Job Central"])
 app.include_router(content_audit.router, prefix="/api/audit", tags=["Content Audit"])
 app.include_router(visual_audit.router, prefix="/api/visual-audit", tags=["Visual Audit"])
+app.include_router(madlab.router, prefix="/api/madlab", tags=["MadLab"])
+app.include_router(fenix_dashboard.router, prefix="/api/fenix", tags=["Fenix Dashboard"])
+app.include_router(fenix_training.router, prefix="/api/fenix", tags=["Fenix Training"])
+app.include_router(fenix_journal.router, prefix="/api/journal", tags=["Fenix Journal"])
+app.include_router(feedback.router, prefix="/api/feedback", tags=["Feedback & Testimonials"])
 
 
 if __name__ == "__main__":
