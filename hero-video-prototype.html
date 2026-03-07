@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hero Video Prototype — Builder's Workshop</title>
+<title>Homepage Preview — Hero Animation Integration</title>
 <link rel="icon" href="images/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,6 +92,86 @@ canvas#workshopCanvas {
     color: #918a80;
     font-size: 1.1rem;
     line-height: 1.6;
+}
+
+/* ─── Story Video Section (below fold) ─── */
+.story-video-section {
+    padding: 6rem 4rem;
+    background: #0a0a0a;
+}
+
+.story-video-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.story-video-label {
+    font-size: 0.9rem;
+    color: #918a80;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+}
+
+.story-video-heading {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: #f5f0eb;
+    letter-spacing: -0.03em;
+    margin-bottom: 2.5rem;
+}
+
+.story-video-player {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-video-player:hover {
+    transform: scale(1.01);
+    box-shadow: 0 12px 40px rgba(184, 117, 61, 0.15);
+}
+
+.story-video-placeholder-inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1410 0%, #2a1f17 40%, #1a1410 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid rgba(184, 117, 61, 0.15);
+    border-radius: 12px;
+}
+
+.story-play-button {
+    color: #c9944a;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.story-video-player:hover .story-play-button {
+    color: #f5f0eb;
+    transform: scale(1.1);
+}
+
+.story-video-duration {
+    color: #5a4a3a;
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+    font-weight: 500;
+}
+
+.story-video-caption {
+    color: #918a80;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    font-style: italic;
 }
 
 /* Ensure nav floats above the canvas */
@@ -245,8 +325,35 @@ body {
     </div>
 </section>
 
+<!-- 60-Second Pixar Avatar Video Section (below the fold) -->
+<section class="story-video-section">
+    <div class="story-video-container">
+        <p class="story-video-label">(My Story)</p>
+        <h2 class="story-video-heading">Why this site exists</h2>
+        <div class="story-video-player">
+            <div class="story-video-placeholder-inner">
+                <div class="story-play-button">
+                    <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="11" />
+                        <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none" />
+                    </svg>
+                </div>
+                <p class="story-video-duration">1:00</p>
+            </div>
+        </div>
+        <p class="story-video-caption">A space not shaped by algorithms — built with AI, measured by connection.</p>
+    </div>
+</section>
+
+<!-- Preview notes (won't be on the live site) -->
 <div class="after-hero">
-    <p>↑ This is the prototype of the full-viewport hero with the "Builder's Workshop" animation. The elements represent product building: wireframes assembling, UI components floating into place, connection nodes forming system architectures, and grid patterns evoking design tools. All in your warm earth-tone palette.</p>
+    <p style="border: 1px dashed #5a4a3a; padding: 2rem; border-radius: 8px;">
+        <strong style="color: #c9944a;">PREVIEW NOTE</strong><br><br>
+        This is how your homepage will look with the Builder's Workshop animation integrated:<br><br>
+        <strong>Above the fold:</strong> Full-viewport canvas animation + your name/tagline overlaid.<br>
+        <strong>Below the fold:</strong> "My Story" section with the 60-second Pixar avatar video.<br><br>
+        The "Video coming soon" placeholder and the separate hero-text / hero-image split are gone — replaced by this single immersive hero.
+    </p>
 </div>
 
 <script>
