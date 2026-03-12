@@ -72,6 +72,17 @@ class RetrievedChunk:
 
 
 @dataclass
+class TrainingMatch:
+    """A Q&A pair from training_data matched via semantic or text search."""
+    entry_id: str
+    question: str
+    answer: str
+    category: str
+    source: str
+    similarity: float
+
+
+@dataclass
 class RAGContext:
     """
     The assembled context from RAG retrieval.
@@ -82,6 +93,9 @@ class RAGContext:
     total_tokens_estimate: int
     context_text: str       # Formatted text for LLM injection
     citations: list[dict]   # Citation objects for the response
+    search_type: str = "none"               # "semantic", "keyword", "none"
+    similarity_scores: list[float] = field(default_factory=list)
+    training_matches: list[TrainingMatch] = field(default_factory=list)
 
 
 # ──────────────────────────────────────────────
@@ -168,11 +182,17 @@ def search_similar_chunks(
     supabase_key: str,
     top_k: int = DEFAULT_TOP_K,
     content_type_filter: Optional[str] = None,
+    source_type_filter: Optional[str] = None,
     similarity_threshold: float = SIMILARITY_THRESHOLD,
 ) -> list[RetrievedChunk]:
     """
     Search pgvector for chunks most similar to the query embedding.
     Uses a Supabase RPC function for efficient vector similarity search.
+
+    Args:
+        source_type_filter: 'published' for curated site content,
+                           'flame_on' for working-process data (journal, sessions, guides).
+                           None returns all content.
     """
     headers = {
         "apikey": supabase_key,
@@ -189,6 +209,9 @@ def search_similar_chunks(
 
     if content_type_filter:
         payload["filter_content_type"] = content_type_filter
+
+    if source_type_filter:
+        payload["filter_source_type"] = source_type_filter
 
     logger.info(f"RAG search: dims={len(query_embedding)}, first3={query_embedding[:3]}, thresh={similarity_threshold}")
     response = httpx.post(
@@ -230,6 +253,7 @@ def _keyword_search(
     supabase_key: str,
     top_k: int = DEFAULT_TOP_K,
     content_type_filter: Optional[str] = None,
+    source_type_filter: Optional[str] = None,
 ) -> list[RetrievedChunk]:
     """
     Text-based keyword fallback search via Supabase RPC.
@@ -254,6 +278,8 @@ def _keyword_search(
         }
         if content_type_filter:
             payload["filter_content_type"] = content_type_filter
+        if source_type_filter:
+            payload["filter_source_type"] = source_type_filter
 
         try:
             response = httpx.post(
@@ -362,21 +388,130 @@ def _search_fallback(
 
 
 # ──────────────────────────────────────────────
+# Training Data Search
+# ──────────────────────────────────────────────
+
+def search_training_data(
+    query_embedding: list[float],
+    query: str,
+    supabase_url: str,
+    supabase_key: str,
+    top_k: int = 3,
+) -> list[TrainingMatch]:
+    """
+    Search training_data for personal knowledge relevant to the query.
+    Uses a dual strategy:
+      1. Semantic vector search via match_training_embeddings (if embeddings exist)
+      2. Text similarity fallback via match_training_data (pg_trgm)
+    Results are merged and deduplicated.
+    """
+    headers = {
+        "apikey": supabase_key,
+        "Authorization": f"Bearer {supabase_key}",
+        "Content-Type": "application/json",
+    }
+
+    matches: list[TrainingMatch] = []
+    seen_ids: set[str] = set()
+
+    # Strategy 1: Semantic vector search
+    try:
+        payload = {
+            "query_embedding": str(query_embedding),
+            "match_threshold": 0.3,
+            "match_count": top_k,
+        }
+        response = httpx.post(
+            f"{supabase_url}/rest/v1/rpc/match_training_embeddings",
+            json=payload,
+            headers=headers,
+            timeout=15,
+        )
+        if response.status_code == 200:
+            results = response.json()
+            for r in results:
+                entry_id = r.get("id", "")
+                if entry_id not in seen_ids:
+                    seen_ids.add(entry_id)
+                    matches.append(TrainingMatch(
+                        entry_id=entry_id,
+                        question=r.get("question", ""),
+                        answer=r.get("answer", ""),
+                        category=r.get("category", ""),
+                        source=r.get("source", ""),
+                        similarity=r.get("similarity", 0.0),
+                    ))
+            if matches:
+                logger.info(f"Training semantic search found {len(matches)} matches")
+        else:
+            logger.warning(f"match_training_embeddings RPC failed ({response.status_code})")
+    except Exception as e:
+        logger.warning(f"Training semantic search failed: {e}")
+
+    # Strategy 2: Text similarity fallback (pg_trgm) if semantic found fewer than top_k
+    if len(matches) < top_k:
+        try:
+            payload = {
+                "search_query": query,
+                "match_count": top_k,
+            }
+            response = httpx.post(
+                f"{supabase_url}/rest/v1/rpc/match_training_data",
+                json=payload,
+                headers=headers,
+                timeout=15,
+            )
+            if response.status_code == 200:
+                results = response.json()
+                for r in results:
+                    entry_id = r.get("id", "")
+                    if entry_id not in seen_ids:
+                        seen_ids.add(entry_id)
+                        matches.append(TrainingMatch(
+                            entry_id=entry_id,
+                            question=r.get("question", ""),
+                            answer=r.get("answer", ""),
+                            category=r.get("category", ""),
+                            source=r.get("source", "training"),
+                            similarity=r.get("similarity", 0.0),
+                        ))
+                if len(matches) > len(seen_ids) - len(results):
+                    logger.info(f"Training text search added {len(results)} additional matches")
+            else:
+                logger.debug(f"match_training_data RPC failed ({response.status_code}) — may not be deployed yet")
+        except Exception as e:
+            logger.debug(f"Training text search fallback failed: {e}")
+
+    # Sort by similarity descending, cap at top_k
+    matches.sort(key=lambda m: m.similarity, reverse=True)
+    return matches[:top_k]
+
+
+# ──────────────────────────────────────────────
 # Context Assembly
 # ──────────────────────────────────────────────
 
-def build_rag_context(chunks: list[RetrievedChunk], query: str) -> RAGContext:
+def build_rag_context(
+    chunks: list[RetrievedChunk],
+    query: str,
+    training_matches: Optional[list[TrainingMatch]] = None,
+    search_type: str = "none",
+) -> RAGContext:
     """
-    Assemble retrieved chunks into a formatted context for the LLM.
+    Assemble retrieved chunks and training matches into a formatted context for the LLM.
     Includes citation references.
+    Training matches get a dedicated "Personal Knowledge" section.
     """
-    if not chunks:
+    training_matches = training_matches or []
+
+    if not chunks and not training_matches:
         return RAGContext(
             chunks=[],
             query=query,
             total_tokens_estimate=0,
             context_text="No relevant content found in the knowledge base.",
             citations=[],
+            search_type=search_type,
         )
 
     # Build context text with citation markers
@@ -404,6 +539,21 @@ def build_rag_context(chunks: list[RetrievedChunk], query: str) -> RAGContext:
 
     context_text = "\n---\n".join(context_parts)
 
+    # Append training matches as a separate "Personal Knowledge" section
+    if training_matches:
+        training_parts = []
+        for tm in training_matches:
+            training_parts.append(
+                f"Q: {tm.question}\n"
+                f"A: {tm.answer}\n"
+                f"(Category: {tm.category}, Relevance: {tm.similarity:.2f})"
+            )
+        training_section = (
+            "\n\n--- PERSONAL KNOWLEDGE (from Kiran's training data — prioritize for personal/opinion questions) ---\n\n"
+            + "\n\n".join(training_parts)
+        )
+        context_text = context_text + training_section if context_text else training_section
+
     # Deduplicate citations by URL — keep the highest-similarity one per page
     # Cap at 3 unique citation chips sent to the frontend
     seen_urls = {}
@@ -418,6 +568,9 @@ def build_rag_context(chunks: list[RetrievedChunk], query: str) -> RAGContext:
     for i, c in enumerate(citations):
         c["id"] = f"[{i + 1}]"
 
+    # Collect similarity scores for logging
+    similarity_scores = [round(c.similarity, 3) for c in chunks]
+
     # Estimate tokens
     total_chars = len(context_text)
     token_estimate = total_chars // 4
@@ -428,6 +581,9 @@ def build_rag_context(chunks: list[RetrievedChunk], query: str) -> RAGContext:
         total_tokens_estimate=token_estimate,
         context_text=context_text,
         citations=citations,
+        search_type=search_type,
+        similarity_scores=similarity_scores,
+        training_matches=training_matches,
     )
 
 
@@ -442,6 +598,7 @@ async def retrieve(
     voyage_key: Optional[str] = None,
     top_k: int = DEFAULT_TOP_K,
     content_type_filter: Optional[str] = None,
+    source_type_filter: Optional[str] = None,
 ) -> RAGContext:
     """
     Full RAG retrieval pipeline.
@@ -453,25 +610,30 @@ async def retrieve(
         voyage_key: Voyage AI API key (optional — uses fallback if missing)
         top_k: Number of chunks to retrieve
         content_type_filter: Optional filter (e.g., "teardown", "blog")
+        source_type_filter: 'published' for curated content, 'flame_on' for
+                           working-process data. None returns all. When Flame On
+                           toggle is ON, pass 'flame_on'. When OFF, pass 'published'.
 
     Returns:
         RAGContext with retrieved chunks and formatted context text
     """
     # Step 1: Embed the query
     if voyage_key:
-        logger.info(f"RAG query: '{query[:80]}' — using Voyage AI embeddings")
+        logger.info(f"RAG query: '{query[:80]}' — using Voyage AI embeddings (source_type={source_type_filter or 'all'})")
         query_embedding = embed_query_voyage(query, voyage_key)
     else:
         logger.warning(f"RAG query: '{query[:80]}' — VOYAGE_API_KEY missing, using hash fallback (results will be poor)")
         query_embedding = embed_query_fallback(query)
 
     # Step 2: Search for similar chunks (semantic vector search)
+    search_type = "semantic"
     chunks = search_similar_chunks(
         query_embedding=query_embedding,
         supabase_url=supabase_url,
         supabase_key=supabase_key,
         top_k=top_k,
         content_type_filter=content_type_filter,
+        source_type_filter=source_type_filter,
     )
 
     top_sim = f"{chunks[0].similarity:.3f}" if chunks else "N/A"
@@ -481,18 +643,41 @@ async def retrieve(
     # try a text-based keyword search as a safety net.
     if not chunks:
         logger.info(f"Semantic search returned 0 results for '{query[:80]}' — trying keyword fallback")
+        search_type = "keyword"
         chunks = _keyword_search(
             query=query,
             supabase_url=supabase_url,
             supabase_key=supabase_key,
             top_k=top_k,
             content_type_filter=content_type_filter,
+            source_type_filter=source_type_filter,
         )
         if chunks:
             logger.info(f"Keyword fallback recovered {len(chunks)} chunks")
+        else:
+            search_type = "none"
 
-    # Step 3: Build context
-    context = build_rag_context(chunks, query)
+    # Step 2c: Search training data (personal knowledge Q&A pairs)
+    training_matches = []
+    try:
+        training_matches = search_training_data(
+            query_embedding=query_embedding,
+            query=query,
+            supabase_url=supabase_url,
+            supabase_key=supabase_key,
+            top_k=3,
+        )
+        if training_matches:
+            logger.info(f"Training data search found {len(training_matches)} matches")
+    except Exception as e:
+        logger.warning(f"Training data search failed (non-fatal): {e}")
+
+    # Step 3: Build context (includes both content chunks and training matches)
+    context = build_rag_context(
+        chunks, query,
+        training_matches=training_matches,
+        search_type=search_type,
+    )
 
     return context
 
@@ -505,6 +690,7 @@ def retrieve_sync(
     voyage_key: Optional[str] = None,
     top_k: int = DEFAULT_TOP_K,
     content_type_filter: Optional[str] = None,
+    source_type_filter: Optional[str] = None,
 ) -> RAGContext:
     """Synchronous version of retrieve()."""
     if voyage_key:
@@ -512,25 +698,48 @@ def retrieve_sync(
     else:
         query_embedding = embed_query_fallback(query)
 
+    search_type = "semantic"
     chunks = search_similar_chunks(
         query_embedding=query_embedding,
         supabase_url=supabase_url,
         supabase_key=supabase_key,
         top_k=top_k,
         content_type_filter=content_type_filter,
+        source_type_filter=source_type_filter,
     )
 
     # Keyword fallback for sync version too
     if not chunks:
+        search_type = "keyword"
         chunks = _keyword_search(
             query=query.lower(),
             supabase_url=supabase_url,
             supabase_key=supabase_key,
             top_k=top_k,
             content_type_filter=content_type_filter,
+            source_type_filter=source_type_filter,
         )
+        if not chunks:
+            search_type = "none"
 
-    return build_rag_context(chunks, query)
+    # Search training data
+    training_matches = []
+    try:
+        training_matches = search_training_data(
+            query_embedding=query_embedding,
+            query=query,
+            supabase_url=supabase_url,
+            supabase_key=supabase_key,
+            top_k=3,
+        )
+    except Exception:
+        pass
+
+    return build_rag_context(
+        chunks, query,
+        training_matches=training_matches,
+        search_type=search_type,
+    )
 
 
 # ──────────────────────────────────────────────

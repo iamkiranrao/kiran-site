@@ -114,6 +114,119 @@
     color: var(--text-primary, #f0e6d3);
 }
 
+/* ─── Header Actions ─── */
+.fenix-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ─── Flame On Toggle ─── */
+.fenix-flame-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+}
+.fenix-flame-toggle input {
+    display: none;
+}
+.fenix-flame-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+.fenix-flame-icon {
+    color: var(--text-secondary, #8a8278);
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+.fenix-flame-toggle:hover .fenix-flame-icon {
+    opacity: 0.8;
+}
+.fenix-flame-toggle.active,
+.fenix-flame-toggle:has(input:checked) {
+    background: rgba(249, 115, 22, 0.15);
+    border-color: rgba(249, 115, 22, 0.4);
+}
+.fenix-flame-toggle.active .fenix-flame-icon,
+.fenix-flame-toggle:has(input:checked) .fenix-flame-icon {
+    color: #f97316;
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(249, 115, 22, 0.5));
+}
+
+/* Flame On mode header accent */
+.flame-on-mode .fenix-header {
+    border-bottom-color: rgba(249, 115, 22, 0.3);
+}
+.flame-on-mode .fenix-status-dot {
+    background: #f97316;
+}
+
+/* ─── System Messages ─── */
+.fenix-system-message {
+    text-align: center;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+}
+.fenix-system-text {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: var(--text-secondary, #8a8278);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 1rem;
+    padding: 0.4rem 0.8rem;
+    max-width: 90%;
+}
+
+/* ─── Onboarding Card ─── */
+.fenix-onboarding {
+    padding: 1rem;
+}
+.fenix-onboarding-icon {
+    margin-bottom: 0.5rem;
+}
+.fenix-onboarding h4 {
+    margin: 0 0 0.5rem 0;
+    color: #f97316;
+    font-size: 1rem;
+}
+.fenix-onboarding p {
+    margin: 0.3rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary, #8a8278);
+}
+.fenix-onboarding strong {
+    color: var(--text-primary, #f0e6d3);
+}
+.fenix-onboarding-details {
+    margin: 0.75rem 0;
+    padding: 0.75rem;
+    background: rgba(249, 115, 22, 0.06);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(249, 115, 22, 0.15);
+}
+.fenix-onboarding-hint {
+    font-size: 0.75rem;
+    font-style: italic;
+    opacity: 0.7;
+    margin-top: 0.75rem;
+}
+.fenix-onboarding-msg {
+    border-left: 2px solid #f97316;
+    margin-left: 0;
+}
+
 /* ─── Messages Area ─── */
 .fenix-messages {
     flex: 1;

@@ -21,6 +21,8 @@
     const API_BASE = 'https://api.kirangorapalli.com';
     const CHAT_ENDPOINT = `${API_BASE}/api/v1/fenix/chat`;
     const SESSION_KEY = 'fenix_session_id';
+    const FLAME_ON_KEY = 'fenix_flame_on';
+    const FLAME_ON_ONBOARDED_KEY = 'fenix_flame_on_onboarded';
     const MAX_MESSAGE_LENGTH = 2000;
 
     const SUGGESTION_POOL = [
@@ -52,6 +54,8 @@
     let conversationId = null;
     let messages = [];
     let currentAbortController = null;
+    let flameOn = localStorage.getItem(FLAME_ON_KEY) === 'true';
+    let flameOnOnboarded = localStorage.getItem(FLAME_ON_ONBOARDED_KEY) === 'true';
 
     // DOM references (set in init)
     let overlay, messagesContainer, inputField, sendBtn, welcomeEl;
@@ -81,12 +85,22 @@
                             <span><span class="fenix-status-dot"></span> Kiran's AI assistant</span>
                         </div>
                     </div>
-                    <button class="fenix-close-btn" id="fenix-close" aria-label="Close Fenix">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
+                    <div class="fenix-header-actions">
+                        <label class="fenix-flame-toggle" id="fenix-flame-toggle" title="Flame On: Talk directly to Fenix about Kiran's working process">
+                            <input type="checkbox" id="fenix-flame-checkbox" ${flameOn ? 'checked' : ''}>
+                            <span class="fenix-flame-slider">
+                                <svg class="fenix-flame-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 23c-3.866 0-7-3.134-7-7 0-3.866 4-9 7-13 3 4 7 9.134 7 13 0 3.866-3.134 7-7 7zm0-4c1.657 0 3-1.343 3-3 0-1.657-2-5-3-7-1 2-3 5.343-3 7 0 1.657 1.343 3 3 3z"/>
+                                </svg>
+                            </span>
+                        </label>
+                        <button class="fenix-close-btn" id="fenix-close" aria-label="Close Fenix">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 <div class="fenix-messages" id="fenix-messages">
                     <div class="fenix-welcome" id="fenix-welcome">
@@ -144,6 +158,9 @@
         // Close button
         document.getElementById('fenix-close').addEventListener('click', closeWidget);
 
+        // Flame On toggle
+        document.getElementById('fenix-flame-checkbox').addEventListener('change', handleFlameToggle);
+
         // Send button
         sendBtn.addEventListener('click', handleSend);
 
@@ -192,6 +209,13 @@
         overlay.classList.remove('closing');
         inputField.focus();
 
+        // Sync Flame On visual state
+        if (flameOn) {
+            const toggle = document.getElementById('fenix-flame-toggle');
+            if (toggle) toggle.classList.add('active');
+            overlay.classList.add('flame-on-mode');
+        }
+
         // Hide tooltip and FAB while widget is open
         const tooltip = document.querySelector('.fenix-tooltip');
         if (tooltip) tooltip.remove();
@@ -220,6 +244,75 @@
         // Restore FAB (tooltip is one-shot, doesn't come back)
         const fabWrapper = document.querySelector('.ai-assistant-wrapper');
         if (fabWrapper) fabWrapper.style.display = 'flex';
+    }
+
+    // ──────────────────────────────────────────────
+    // Flame On Toggle
+    // ──────────────────────────────────────────────
+
+    function handleFlameToggle(e) {
+        flameOn = e.target.checked;
+        localStorage.setItem(FLAME_ON_KEY, flameOn);
+
+        // Update header visual
+        const toggle = document.getElementById('fenix-flame-toggle');
+        if (flameOn) {
+            toggle.classList.add('active');
+            overlay.classList.add('flame-on-mode');
+        } else {
+            toggle.classList.remove('active');
+            overlay.classList.remove('flame-on-mode');
+        }
+
+        // Show onboarding on first activation
+        if (flameOn && !flameOnOnboarded) {
+            showFlameOnOnboarding();
+            flameOnOnboarded = true;
+            localStorage.setItem(FLAME_ON_ONBOARDED_KEY, 'true');
+        } else if (flameOn) {
+            // Brief mode-switch confirmation
+            appendSystemMessage('Flame On activated. I\'ll answer from Kiran\'s working process — journal entries, session transcripts, and build notes.');
+        } else {
+            appendSystemMessage('Flame On deactivated. Back to answering from Kiran\'s published portfolio content.');
+        }
+    }
+
+    function showFlameOnOnboarding() {
+        const onboardingHtml = `
+            <div class="fenix-onboarding">
+                <div class="fenix-onboarding-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#f97316">
+                        <path d="M12 23c-3.866 0-7-3.134-7-7 0-3.866 4-9 7-13 3 4 7 9.134 7 13 0 3.866-3.134 7-7 7zm0-4c1.657 0 3-1.343 3-3 0-1.657-2-5-3-7-1 2-3 5.343-3 7 0 1.657 1.343 3 3 3z"/>
+                    </svg>
+                </div>
+                <h4>Flame On Mode</h4>
+                <p>You've unlocked a different side of Fenix. In this mode, I answer from Kiran's <strong>working process</strong> — the real sessions, journal entries, and build notes behind the polished portfolio.</p>
+                <div class="fenix-onboarding-details">
+                    <p><strong>What changes:</strong></p>
+                    <p>• I draw from daily journal entries, session transcripts, and product guides instead of published site content</p>
+                    <p>• You'll hear about how decisions were actually made, what failed, and what Kiran learned</p>
+                    <p>• I'm constantly learning — if I don't have an answer, I'll tell you honestly</p>
+                    <p><strong>What stays the same:</strong></p>
+                    <p>• I'm still Fenix, Kiran's AI assistant</p>
+                    <p>• Everything I say is grounded in real evidence, never fabricated</p>
+                </div>
+                <p class="fenix-onboarding-hint">Toggle the flame icon anytime to switch back to the published portfolio view.</p>
+            </div>
+        `;
+
+        const msgEl = document.createElement('div');
+        msgEl.className = 'fenix-message fenix-message-assistant fenix-onboarding-msg';
+        msgEl.innerHTML = onboardingHtml;
+        messagesContainer.appendChild(msgEl);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function appendSystemMessage(text) {
+        const msgEl = document.createElement('div');
+        msgEl.className = 'fenix-message fenix-system-message';
+        msgEl.innerHTML = `<div class="fenix-system-text">${text}</div>`;
+        messagesContainer.appendChild(msgEl);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
     // ──────────────────────────────────────────────
@@ -322,6 +415,7 @@
                 message: message,
                 session_id: sessionId,
                 page_context: pageContext,
+                flame_on: flameOn,
             }),
             signal: currentAbortController.signal,
         });
