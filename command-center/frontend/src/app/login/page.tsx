@@ -10,9 +10,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm mx-4">
         {/* Logo */}
         <div className="flex flex-col items-center mb-10">
-          <div className="w-14 h-14 rounded-2xl bg-[var(--accent-amber)] flex items-center justify-center mb-4">
-            <Command size={28} className="text-[#0a0a0a]" />
-          </div>
+          <img src="/berner.jpeg" alt="Command Center" className="w-14 h-14 rounded-2xl object-cover mb-4" />
           <h1 className="text-2xl font-semibold text-[var(--text-primary)] tracking-tight">
             {APP_NAME}
           </h1>
