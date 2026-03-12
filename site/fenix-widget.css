@@ -472,6 +472,145 @@
     height: 16px;
 }
 
+/* ─── Disclaimer ─── */
+.fenix-disclaimer {
+    padding: 0.35rem 1rem 0.5rem;
+    text-align: center;
+    font-size: 0.65rem;
+    color: var(--text-secondary, #8a8278);
+    opacity: 0.7;
+    line-height: 1.3;
+    flex-shrink: 0;
+}
+
+.fenix-disclaimer-link {
+    color: #7cb5d4;
+    text-decoration: none;
+}
+
+.fenix-disclaimer-link:hover {
+    text-decoration: underline;
+}
+
+.fenix-feedback-btn {
+    background: none;
+    border: none;
+    color: #7cb5d4;
+    font-size: 0.65rem;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+}
+
+.fenix-feedback-btn:hover {
+    text-decoration: underline;
+}
+
+/* ─── Inline Feedback Form ─── */
+.fenix-feedback-inline {
+    margin: 0.75rem 0.5rem;
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border, #222222);
+    border-radius: 12px;
+}
+
+.fenix-feedback-title {
+    font-size: 0.78rem;
+    color: var(--text-primary, #f0e6d3);
+    margin: 0 0 0.6rem;
+    font-weight: 500;
+}
+
+.fenix-feedback-faces {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+}
+
+.fenix-fb-face {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0.35rem 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.fenix-fb-face:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.fenix-fb-face.selected {
+    border-color: #7cb5d4;
+    background: rgba(124, 181, 212, 0.15);
+    transform: scale(1.1);
+}
+
+.fenix-fb-comment {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, #222222);
+    border-radius: 8px;
+    padding: 0.5rem 0.65rem;
+    color: var(--text-primary, #f0e6d3);
+    font-size: 0.78rem;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
+}
+
+.fenix-fb-comment::placeholder {
+    color: var(--text-secondary, #8a8278);
+}
+
+.fenix-fb-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.fenix-fb-send {
+    background: #00293C;
+    border: 1px solid #003a54;
+    border-radius: 8px;
+    color: #f0e6d3;
+    font-size: 0.75rem;
+    font-family: inherit;
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.fenix-fb-send:hover {
+    background: #003a54;
+}
+
+.fenix-fb-cancel {
+    background: none;
+    border: none;
+    color: var(--text-secondary, #8a8278);
+    font-size: 0.72rem;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 0.4rem 0.5rem;
+}
+
+.fenix-fb-cancel:hover {
+    color: var(--text-primary, #f0e6d3);
+}
+
+.fenix-fb-thanks {
+    font-size: 0.78rem;
+    color: #7cb5d4;
+    text-align: center;
+    margin: 0.3rem 0 0;
+}
+
 /* ─── Citations Bar ─── */
 .fenix-citations {
     display: flex;
