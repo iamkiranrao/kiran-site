@@ -5,6 +5,8 @@
 *.docx
 *.md
 !README.md
+!fenix-journal/**/*.md
+!FENIX-ROADMAP.md
 
 # ChatGPT generated images
 ChatGPT*
