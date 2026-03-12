@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { Wrench, PenTool, FileText, Target, Shield, ExternalLink, LogOut, Command, Beaker, Bot, BookOpen, MessageSquare } from "lucide-react";
+import { Wrench, PenTool, FileText, Target, Shield, ExternalLink, LogOut, Command, Beaker, Bot, BookOpen, BookMarked, MessageSquare, Radar, Lightbulb } from "lucide-react";
 import { MODULES, APP_NAME } from "@/lib/constants";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -17,7 +17,10 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   Beaker,
   Bot,
   BookOpen,
+  BookMarked,
   MessageSquare,
+  Radar,
+  Lightbulb,
 };
 
 export function Sidebar() {
@@ -29,9 +32,7 @@ export function Sidebar() {
       {/* Logo */}
       <div className="px-5 py-6 border-b border-[var(--border)]">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-[var(--accent-amber)] flex items-center justify-center">
-            <Command size={20} className="text-[#0a0a0a]" />
-          </div>
+          <img src="/berner.jpeg" alt="Command Center" className="w-11 h-11 rounded-lg object-cover" />
           <div>
             <h1 className="text-sm font-semibold text-[var(--text-primary)] tracking-tight">
               {APP_NAME}

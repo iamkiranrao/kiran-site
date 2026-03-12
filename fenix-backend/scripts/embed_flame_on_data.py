@@ -480,10 +480,11 @@ def main():
     texts = [c.chunk_text for c in all_chunks]
     all_embeddings = []
 
-    batch_size = 2  # Small batches to stay under Voyage free-tier rate limits
+    batch_size = 4  # Maximize tokens per request to reduce total API calls
+    # Voyage free tier: ~3 RPM. 320 chunks / 4 = 80 requests. At 22s each = ~30 min.
     for i in range(0, len(texts), batch_size):
         batch = texts[i:i + batch_size]
-        max_retries = 5
+        max_retries = 8
         for attempt in range(max_retries):
             try:
                 if args.voyage_key:
@@ -495,7 +496,7 @@ def main():
                 print(f"  Embedded {min(i + batch_size, len(texts))}/{len(texts)}")
                 break
             except Exception as e:
-                wait_time = (attempt + 1) * 10  # 10s, 20s, 30s, 40s, 50s backoff
+                wait_time = 20 + (attempt * 15)  # 20s, 35s, 50s, 65s, 80s...
                 if attempt < max_retries - 1:
                     print(f"  Rate limited, waiting {wait_time}s... (attempt {attempt + 1}/{max_retries})")
                     time.sleep(wait_time)
@@ -503,9 +504,9 @@ def main():
                     print(f"  FATAL after {max_retries} retries: {e}")
                     sys.exit(1)
 
-        # Rate limit courtesy delay — 3s between batches
+        # Rate limit: 30s between batches (~2 RPM, well under 3 RPM limit)
         if args.voyage_key and i + batch_size < len(texts):
-            time.sleep(3)
+            time.sleep(30)
 
     # Step 5: Store embeddings
     print(f"\nStep 5: Storing {len(all_chunks)} embeddings...")

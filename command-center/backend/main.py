@@ -1,12 +1,25 @@
 import os
 import sys
+import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-from routers import health, teardown, wordweaver, resume, job_central, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, feedback
+from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, feedback, ideas
 
 load_dotenv(override=True)
+
+# ── Logging setup ─────────────────────────────────────────────
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    stream=sys.stdout,
+)
+# Quiet noisy third-party loggers
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
+logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
 
 # ── Startup validation ──────────────────────────────────────
 REQUIRED_ENV = ["ANTHROPIC_API_KEY"]
@@ -44,13 +57,17 @@ app.include_router(teardown.router, prefix="/api/teardown", tags=["Teardown Buil
 app.include_router(wordweaver.router, prefix="/api/wordweaver", tags=["WordWeaver"])
 app.include_router(resume.router, prefix="/api/resume", tags=["Resume Customizer"])
 app.include_router(job_central.router, prefix="/api/jobs", tags=["Job Central"])
+app.include_router(job_radar.router, prefix="/api/radar", tags=["Job Radar"])
 app.include_router(content_audit.router, prefix="/api/audit", tags=["Content Audit"])
 app.include_router(visual_audit.router, prefix="/api/visual-audit", tags=["Visual Audit"])
 app.include_router(madlab.router, prefix="/api/madlab", tags=["MadLab"])
 app.include_router(fenix_dashboard.router, prefix="/api/fenix", tags=["Fenix Dashboard"])
 app.include_router(fenix_training.router, prefix="/api/fenix", tags=["Fenix Training"])
 app.include_router(fenix_journal.router, prefix="/api/journal", tags=["Fenix Journal"])
+app.include_router(session_archive.router, prefix="/api/journal/archive", tags=["Session Archive"])
+app.include_router(product_guides.router, prefix="/api/guides", tags=["Product Guides"])
 app.include_router(feedback.router, prefix="/api/feedback", tags=["Feedback & Testimonials"])
+app.include_router(ideas.router, prefix="/api/ideas", tags=["Future Ideas"])
 
 
 if __name__ == "__main__":
