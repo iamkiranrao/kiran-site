@@ -118,6 +118,9 @@
                         </svg>
                     </button>
                 </div>
+                <div class="fenix-disclaimer">
+                    Fenix is AI and can make mistakes. <a href="mailto:kiranrao@gmail.com" class="fenix-disclaimer-link">Reach out to Kiran</a> · <button type="button" class="fenix-feedback-btn" id="fenix-feedback-trigger">Give feedback</button>
+                </div>
             </div>
         `;
         document.body.appendChild(widget);
@@ -183,6 +186,9 @@
             if (e.key === 'Escape' && isOpen) closeWidget();
         });
 
+        // Feedback trigger — scroll to site feedback form or show inline
+        document.getElementById('fenix-feedback-trigger').addEventListener('click', handleFeedbackClick);
+
         // Override the existing launchFenix function
         window.launchFenix = openWidget;
 
@@ -244,6 +250,94 @@
         // Restore FAB (tooltip is one-shot, doesn't come back)
         const fabWrapper = document.querySelector('.ai-assistant-wrapper');
         if (fabWrapper) fabWrapper.style.display = 'flex';
+    }
+
+    // ──────────────────────────────────────────────
+    // Feedback Handler
+    // ──────────────────────────────────────────────
+
+    function handleFeedbackClick() {
+        // Check if the site feedback form exists on this page (index.html)
+        const siteFeedbackForm = document.getElementById('feedbackForm');
+        if (siteFeedbackForm) {
+            // Close the widget and scroll to the existing feedback form
+            closeWidget();
+            setTimeout(() => {
+                siteFeedbackForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Briefly highlight it
+                siteFeedbackForm.style.transition = 'box-shadow 0.3s';
+                siteFeedbackForm.style.boxShadow = '0 0 0 2px rgba(124,181,212,0.6), 0 0 20px rgba(124,181,212,0.15)';
+                siteFeedbackForm.style.borderRadius = '12px';
+                setTimeout(() => { siteFeedbackForm.style.boxShadow = 'none'; }, 2500);
+            }, 350);
+        } else {
+            // On other pages: show inline feedback inside the widget
+            showInlineFeedback();
+        }
+    }
+
+    function showInlineFeedback() {
+        const messagesEl = document.getElementById('fenix-messages');
+        // Remove any existing feedback form
+        const existing = messagesEl.querySelector('.fenix-feedback-inline');
+        if (existing) { existing.remove(); return; }
+
+        const feedbackEl = document.createElement('div');
+        feedbackEl.className = 'fenix-feedback-inline';
+        feedbackEl.innerHTML = `
+            <p class="fenix-feedback-title">How's your experience with Fenix?</p>
+            <div class="fenix-feedback-faces">
+                <button type="button" data-rating="love" title="Love it" class="fenix-fb-face">&#x1F60D;</button>
+                <button type="button" data-rating="like" title="Like it" class="fenix-fb-face">&#x1F60A;</button>
+                <button type="button" data-rating="neutral" title="It's okay" class="fenix-fb-face">&#x1F610;</button>
+                <button type="button" data-rating="dislike" title="Not great" class="fenix-fb-face">&#x1F61E;</button>
+            </div>
+            <textarea class="fenix-fb-comment" placeholder="Optional: tell Kiran what could be better..." rows="2"></textarea>
+            <div class="fenix-fb-actions">
+                <button type="button" class="fenix-fb-send">Send Feedback</button>
+                <button type="button" class="fenix-fb-cancel">Cancel</button>
+            </div>
+            <p class="fenix-fb-thanks" style="display:none;">Thanks for your feedback!</p>
+        `;
+
+        messagesEl.appendChild(feedbackEl);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+
+        let selectedRating = '';
+
+        // Face selection
+        feedbackEl.querySelectorAll('.fenix-fb-face').forEach(btn => {
+            btn.addEventListener('click', () => {
+                feedbackEl.querySelectorAll('.fenix-fb-face').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedRating = btn.dataset.rating;
+            });
+        });
+
+        // Cancel
+        feedbackEl.querySelector('.fenix-fb-cancel').addEventListener('click', () => {
+            feedbackEl.remove();
+        });
+
+        // Send — posts to Netlify form endpoint (same as site feedback)
+        feedbackEl.querySelector('.fenix-fb-send').addEventListener('click', async () => {
+            if (!selectedRating) { return; }
+            const comment = feedbackEl.querySelector('.fenix-fb-comment').value || '';
+            try {
+                const body = new URLSearchParams({
+                    'form-name': 'site-feedback',
+                    'rating': selectedRating,
+                    'comment': `[Fenix Widget] ${comment}`,
+                });
+                await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+            } catch (e) { /* silently fail */ }
+            feedbackEl.querySelector('.fenix-fb-actions').style.display = 'none';
+            feedbackEl.querySelector('.fenix-fb-comment').style.display = 'none';
+            feedbackEl.querySelector('.fenix-feedback-faces').style.display = 'none';
+            feedbackEl.querySelector('.fenix-feedback-title').style.display = 'none';
+            feedbackEl.querySelector('.fenix-fb-thanks').style.display = 'block';
+            setTimeout(() => feedbackEl.remove(), 2000);
+        });
     }
 
     // ──────────────────────────────────────────────
