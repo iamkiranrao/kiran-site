@@ -24,8 +24,25 @@ import {
   Upload,
   Save,
   HelpCircle,
+  Radar,
+  RefreshCw,
+  Clock,
+  Building2,
+  MapPin,
+  ArrowRight,
+  Filter,
+  ChevronUp,
+  Zap,
+  Star,
+  Eye,
+  EyeOff,
+  Send,
+  AlertCircle,
+  Check,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import ModuleHelp from "@/components/ModuleHelp";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -94,7 +111,49 @@ interface WeekPlan {
   created_date: string;
 }
 
-type Tab = "dashboard" | "applications" | "stories" | "prep" | "network" | "weekly";
+interface RadarJob {
+  id: string;
+  company: string;
+  title: string;
+  location: string;
+  location_group: string;
+  posted_at: string;
+  url: string;
+  source: string;
+  ats: string;
+  department: string;
+  freshness: string;
+  freshness_label: string;
+  discovered_at: string;
+  status: string;
+  notes?: string;
+  salary?: { min: number; max: number; raw: string };
+  fit_score?: number;
+  fit_label?: string;
+  rank_score?: number;
+  fit_breakdown?: {
+    seniority: number;
+    domain: number;
+    domain_matches: string[];
+    company_tier: string;
+    company_tier_score: number;
+    location: number;
+    compensation: number;
+    is_bank?: boolean;
+    bank_penalty?: number;
+  };
+}
+
+interface RadarStats {
+  total_jobs: number;
+  by_freshness: Record<string, number>;
+  by_company: Record<string, number>;
+  by_status: Record<string, number>;
+  last_scan: { timestamp: string; companies_scanned: number; new_jobs_found: number } | null;
+  companies_monitored: number;
+}
+
+type Tab = "radar" | "dashboard" | "applications" | "stories" | "prep" | "network" | "weekly";
 
 // ── Constants ────────────────────────────────────────────────────
 
@@ -129,6 +188,43 @@ const CONTACT_STATUS_COLORS: Record<string, string> = {
   referral_requested: "var(--accent-green)",
   completed: "var(--accent-green)",
 };
+
+const FRESHNESS_COLORS: Record<string, string> = {
+  gold: "#f59e0b", strong: "#22c55e", decent: "#3b82f6", stale: "#6b7280",
+};
+const FRESHNESS_BG: Record<string, string> = {
+  gold: "rgba(245,158,11,0.12)", strong: "rgba(34,197,94,0.12)",
+  decent: "rgba(59,130,246,0.12)", stale: "rgba(107,114,128,0.10)",
+};
+const FRESHNESS_ICONS: Record<string, typeof Zap> = {
+  gold: Zap, strong: Star, decent: Clock, stale: Clock,
+};
+
+const FIT_COLORS: Record<string, string> = {
+  "Excellent Fit": "#22c55e",
+  "Strong Fit": "#3b82f6",
+  "Good Fit": "#8b5cf6",
+  "Moderate Fit": "#f59e0b",
+  "Low Fit": "#6b7280",
+};
+const FIT_BG: Record<string, string> = {
+  "Excellent Fit": "rgba(34,197,94,0.10)",
+  "Strong Fit": "rgba(59,130,246,0.10)",
+  "Good Fit": "rgba(139,92,246,0.10)",
+  "Moderate Fit": "rgba(245,158,11,0.10)",
+  "Low Fit": "rgba(107,114,128,0.08)",
+};
+
+function timeAgo(iso: string): string {
+  if (!iso) return "Unknown";
+  const diffMs = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return days === 1 ? "1 day ago" : `${days} days ago`;
+}
 
 const FRAMEWORKS = [
   { name: "CIRCLES", description: "Product Design Framework", steps: ["Comprehend", "Identify", "Report", "Cut", "List", "Evaluate", "Summarize"] },
@@ -211,7 +307,8 @@ function dailyMotivation() {
 // ── Main Component ───────────────────────────────────────────────
 
 export default function JobCentralPage() {
-  const [tab, setTab] = useState<Tab>("dashboard");
+  const router = useRouter();
+  const [tab, setTab] = useState<Tab>("radar");
   const [sprint, setSprint] = useState<SprintData | null>(null);
   const [apps, setApps] = useState<Application[]>([]);
   const [checklist, setChecklist] = useState<{ date: string; items: ChecklistItem[] } | null>(null);
@@ -248,6 +345,36 @@ export default function JobCentralPage() {
 
   // Import ref
   const importRef = useRef<HTMLInputElement>(null);
+
+  // Radar state
+  const [radarJobs, setRadarJobs] = useState<RadarJob[]>([]);
+  const [radarStats, setRadarStats] = useState<RadarStats | null>(null);
+  const [scanning, setScanning] = useState(false);
+  const [scanBanner, setScanBanner] = useState<string | null>(null);
+  const [radarSearch, setRadarSearch] = useState("");
+  const [radarFreshness, setRadarFreshness] = useState("");
+  const [radarCompany, setRadarCompany] = useState("");
+  const [radarLocationGroups, setRadarLocationGroups] = useState<string[]>(["bay_area", "remote", "uk", "australia", "uae"]);
+  const [showRadarFilters, setShowRadarFilters] = useState(false);
+  const [radarFitLabel, setRadarFitLabel] = useState("");
+  const [radarMinFit, setRadarMinFit] = useState("");
+  const [radarCompanyTier, setRadarCompanyTier] = useState("");
+  const [radarSource, setRadarSource] = useState("");
+  const [radarHasSalary, setRadarHasSalary] = useState("");
+  const [radarSeniority, setRadarSeniority] = useState("");
+  const [radarExcludeBanks, setRadarExcludeBanks] = useState(false);
+  const [radarMinSalary, setRadarMinSalary] = useState("");
+  const [radarMaxSalary, setRadarMaxSalary] = useState("");
+  const [radarPage, setRadarPage] = useState(1);
+  const [radarTotalPages, setRadarTotalPages] = useState(1);
+  const [radarTotal, setRadarTotal] = useState(0);
+  const RADAR_PAGE_SIZE = 25;
+  const [savedJobs, setSavedJobs] = useState<RadarJob[]>([]);
+  const [showSavedJobs, setShowSavedJobs] = useState(true);
+  const [pipelineJob, setPipelineJob] = useState<RadarJob | null>(null);
+  const [pipelinePersona, setPipelinePersona] = useState("pm");
+  const [pipelineLength, setPipelineLength] = useState("2pager");
+  const [pipelineTier, setPipelineTier] = useState("high-prob");
 
   // ── Fetch helpers ──────────────────────────────────────────────
 
@@ -319,6 +446,52 @@ export default function JobCentralPage() {
     } catch { /* server offline */ }
   }, []);
 
+  // Radar fetches
+  const fetchRadarJobs = useCallback(async () => {
+    try {
+      const params = new URLSearchParams({
+        status: "new",
+        page: String(radarPage), page_size: String(RADAR_PAGE_SIZE),
+      });
+      if (radarFreshness) params.set("freshness", radarFreshness);
+      if (radarCompany) params.set("company", radarCompany);
+      if (radarFitLabel) params.set("fit_label", radarFitLabel);
+      if (radarMinFit) params.set("min_fit_score", radarMinFit);
+      if (radarCompanyTier) params.set("company_tier", radarCompanyTier);
+      if (radarSource) params.set("source", radarSource);
+      if (radarHasSalary === "yes") params.set("has_salary", "true");
+      if (radarHasSalary === "no") params.set("has_salary", "false");
+      if (radarSeniority) params.set("seniority", radarSeniority);
+      if (radarExcludeBanks) params.set("exclude_banks", "true");
+      if (radarMinSalary) params.set("min_salary", radarMinSalary);
+      if (radarMaxSalary) params.set("max_salary", radarMaxSalary);
+      for (const lg of radarLocationGroups) {
+        params.append("location", lg);
+      }
+      const res = await fetch(`${API_URL}/api/radar/jobs?${params}`);
+      if (res.ok) {
+        const d = await res.json();
+        setRadarJobs(d.jobs || []);
+        setRadarTotal(d.total || 0);
+        setRadarTotalPages(d.total_pages || 1);
+      }
+    } catch { /* offline */ }
+  }, [radarFreshness, radarCompany, radarLocationGroups, radarPage, radarFitLabel, radarMinFit, radarCompanyTier, radarSource, radarHasSalary, radarSeniority, radarExcludeBanks, radarMinSalary, radarMaxSalary]);
+
+  const fetchSavedJobs = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/radar/jobs?status=saved&page_size=0`);
+      if (res.ok) { const d = await res.json(); setSavedJobs(d.jobs || []); }
+    } catch { /* offline */ }
+  }, []);
+
+  const fetchRadarStats = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/radar/stats`);
+      if (res.ok) setRadarStats(await res.json());
+    } catch { /* offline */ }
+  }, []);
+
   useEffect(() => {
     fetchSprint();
     fetchApps();
@@ -327,10 +500,77 @@ export default function JobCentralPage() {
     fetchContacts();
     fetchWeekPlans();
     fetchDailyLog();
-  }, [fetchSprint, fetchApps, fetchChecklist, fetchStories, fetchContacts, fetchWeekPlans, fetchDailyLog]);
+    fetchRadarJobs();
+    fetchSavedJobs();
+    fetchRadarStats();
+  }, [fetchSprint, fetchApps, fetchChecklist, fetchStories, fetchContacts, fetchWeekPlans, fetchDailyLog, fetchRadarJobs, fetchSavedJobs, fetchRadarStats]);
 
   useEffect(() => { fetchApps(); }, [fetchApps]);
   useEffect(() => { fetchStories(); }, [fetchStories]);
+  useEffect(() => { fetchRadarJobs(); }, [fetchRadarJobs]);
+
+  // ── Radar handlers ──────────────────────────────────────────────
+
+  const runScan = async () => {
+    setScanning(true); setScanBanner(null);
+    try {
+      const res = await fetch(`${API_URL}/api/radar/scan`, { method: "POST" });
+      if (res.ok) {
+        const data = await res.json();
+        setScanBanner(`Scanned ${data.companies_scanned} companies — ${data.new_jobs?.length || 0} new jobs found`);
+        fetchRadarJobs(); fetchRadarStats(); fetchSprint();
+      }
+    } catch { /* offline */ }
+    setScanning(false);
+  };
+
+  const updateRadarStatus = async (jobId: string, status: string) => {
+    try {
+      await fetch(`${API_URL}/api/radar/jobs/${jobId}/status`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      fetchRadarJobs();
+      fetchSavedJobs();
+    } catch { /* ignore */ }
+  };
+
+  const pushToPipeline = async () => {
+    if (!pipelineJob) return;
+    try {
+      const res = await fetch(`${API_URL}/api/radar/jobs/${pipelineJob.id}/pipeline`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ persona: pipelinePersona, length: pipelineLength, tier: pipelineTier }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setPipelineJob(null);
+        fetchRadarJobs(); fetchApps(); fetchSprint();
+        // Navigate to Resume Customizer with pre-filled params
+        const jobUrl = pipelineJob.url;
+        if (jobUrl) {
+          const params = new URLSearchParams({
+            jdUrl: jobUrl,
+            persona: pipelinePersona,
+            version: pipelineLength,
+          });
+          router.push(`/dashboard/resume?${params}`);
+        } else {
+          // No URL — just switch to applications tab
+          setTab("applications");
+        }
+      }
+    } catch { /* ignore */ }
+  };
+
+  const filteredRadarJobs = radarSearch
+    ? radarJobs.filter(j =>
+        j.title.toLowerCase().includes(radarSearch.toLowerCase()) ||
+        j.company.toLowerCase().includes(radarSearch.toLowerCase()) ||
+        j.location.toLowerCase().includes(radarSearch.toLowerCase()))
+    : radarJobs;
 
   // ── Application handlers ───────────────────────────────────────
 
@@ -552,6 +792,7 @@ export default function JobCentralPage() {
           <div className="flex items-center gap-3 mb-1">
             <Target size={24} className="text-[var(--accent-red)]" />
             <h1 className="text-2xl font-semibold text-[var(--text-primary)]">Job Search Command Center</h1>
+            <ModuleHelp moduleSlug="job-central" />
             <Link href="/dashboard/help?module=job-central"
               className="text-[var(--text-muted)] hover:text-[var(--accent-red)] transition-colors"
               title="Help & Documentation">
@@ -588,6 +829,7 @@ export default function JobCentralPage() {
       {/* Tabs */}
       <div className="flex gap-1 mb-6 p-1 rounded-lg flex-wrap" style={{ backgroundColor: "var(--bg-secondary)" }}>
         {([
+          { key: "radar" as Tab, label: "Radar", icon: Radar },
           { key: "dashboard" as Tab, label: "Dashboard", icon: BarChart3 },
           { key: "applications" as Tab, label: "Applications", icon: Briefcase },
           { key: "stories" as Tab, label: "Story Bank", icon: BookOpen },
@@ -658,6 +900,500 @@ export default function JobCentralPage() {
         <WeekPlanModal weekNumber={weekPlans.length + 1}
           onSave={handleSaveWeekPlan}
           onClose={() => setShowWeekForm(false)} />
+      )}
+
+      {/* ═══════════════ RADAR TAB ════════════════════════════════ */}
+      {tab === "radar" && (
+        <div>
+          {/* Scan button + stats row */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-4">
+              {radarStats && (
+                <>
+                  <span className="flex items-center gap-1 text-xs" style={{ color: FRESHNESS_COLORS.gold }}>
+                    <Zap size={12} /> {radarStats.by_freshness?.gold || 0} gold
+                  </span>
+                  <span className="flex items-center gap-1 text-xs" style={{ color: FRESHNESS_COLORS.strong }}>
+                    <Star size={12} /> {radarStats.by_freshness?.strong || 0} strong
+                  </span>
+                  <span className="flex items-center gap-1 text-xs" style={{ color: FRESHNESS_COLORS.decent }}>
+                    <Clock size={12} /> {radarStats.by_freshness?.decent || 0} decent
+                  </span>
+                  <span className="text-xs" style={{ color: "var(--text-muted)" }}>
+                    {radarStats.total_jobs} total · Last scan: {radarStats.last_scan ? timeAgo(radarStats.last_scan.timestamp) : "never"}
+                  </span>
+                </>
+              )}
+            </div>
+            <button onClick={runScan} disabled={scanning}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all"
+              style={{ backgroundColor: scanning ? "var(--bg-secondary)" : "var(--accent-green, #22c55e)", color: scanning ? "var(--text-muted)" : "#fff" }}>
+              {scanning ? <><Loader2 size={14} className="animate-spin" /> Scanning…</> : <><RefreshCw size={14} /> Scan Now</>}
+            </button>
+          </div>
+
+          {/* Scan result banner */}
+          {scanBanner && (
+            <div className="rounded-lg p-3 mb-4 flex items-center justify-between"
+              style={{ backgroundColor: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.3)" }}>
+              <span className="flex items-center gap-2 text-sm" style={{ color: "var(--text-primary)" }}>
+                <Check size={16} style={{ color: "var(--accent-green)" }} /> {scanBanner}
+              </span>
+              <button onClick={() => setScanBanner(null)} style={{ color: "var(--text-muted)" }}><X size={14} /></button>
+            </div>
+          )}
+
+          {/* Search + filters */}
+          <div className="flex gap-3 mb-4">
+            <div className="flex-1 relative">
+              <Search size={16} style={{ color: "var(--text-muted)", position: "absolute", left: 12, top: 11 }} />
+              <input value={radarSearch} onChange={e => setRadarSearch(e.target.value)}
+                placeholder="Search by title, company, or location…"
+                className="w-full rounded-lg pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-green)]"
+                style={inputStyle} />
+            </div>
+            <button onClick={() => setShowRadarFilters(!showRadarFilters)}
+              className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors"
+              style={{ ...cardStyle, color: showRadarFilters ? "var(--accent-green)" : "var(--text-secondary)" }}>
+              <Filter size={14} /> {showRadarFilters ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+            </button>
+          </div>
+
+          {showRadarFilters && (
+            <div className="flex flex-col gap-3 mb-4 p-4 rounded-xl" style={{ ...cardStyle }}>
+              {/* Row 1: Location group toggles */}
+              <div>
+                <span className="text-xs font-medium mb-1.5 block" style={{ color: "var(--text-muted)" }}>Location</span>
+                <div className="flex gap-2 flex-wrap">
+                  {([
+                    { key: "bay_area", label: "Bay Area" },
+                    { key: "remote", label: "Remote" },
+                    { key: "other_us", label: "Other US" },
+                    { key: "uk", label: "🇬🇧 UK" },
+                    { key: "australia", label: "🇦🇺 Australia" },
+                    { key: "uae", label: "🇦🇪 UAE" },
+                  ] as const).map(lg => {
+                    const active = radarLocationGroups.includes(lg.key);
+                    return (
+                      <button key={lg.key}
+                        onClick={() => { setRadarLocationGroups(prev =>
+                          active ? prev.filter(g => g !== lg.key) : [...prev, lg.key]
+                        ); setRadarPage(1); }}
+                        className="px-3 py-1.5 rounded-full text-xs font-medium transition-all"
+                        style={{
+                          backgroundColor: active ? "var(--accent-blue, #3b82f6)" : "var(--bg-secondary)",
+                          color: active ? "#fff" : "var(--text-muted)",
+                          border: active ? "1px solid var(--accent-blue, #3b82f6)" : "1px solid var(--border)",
+                        }}>
+                        {lg.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Row 2: Freshness + Fit + Seniority + Company */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div>
+                  <span className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Freshness</span>
+                  <select value={radarFreshness} onChange={e => { setRadarFreshness(e.target.value); setRadarPage(1); }}
+                    className="w-full rounded-lg px-3 py-2 text-sm focus:outline-none" style={inputStyle}>
+                    <option value="">All</option>
+                    <option value="gold">Gold (&lt;6h)</option>
+                    <option value="strong">Strong (6-24h)</option>
+                    <option value="decent">Decent (24-48h)</option>
+                    <option value="stale">Stale (&gt;48h)</option>
+                  </select>
+                </div>
+                <div>
+                  <span className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Fit Level</span>
+                  <select value={radarFitLabel} onChange={e => { setRadarFitLabel(e.target.value); setRadarPage(1); }}
+                    className="w-full rounded-lg px-3 py-2 text-sm focus:outline-none" style={inputStyle}>
+                    <option value="">All Fit</option>
+                    <option value="Excellent">Excellent (80+)</option>
+                    <option value="Strong">Strong (60-79)</option>
+                    <option value="Good">Good (40-59)</option>
+                    <option value="Moderate">Moderate (20-39)</option>
+                    <option value="Low">Low (&lt;20)</option>
+                  </select>
+                </div>
+                <div>
+                  <span className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Seniority</span>
+                  <select value={radarSeniority} onChange={e => { setRadarSeniority(e.target.value); setRadarPage(1); }}
+                    className="w-full rounded-lg px-3 py-2 text-sm focus:outline-none" style={inputStyle}>
+                    <option value="">All Levels</option>
+                    <option value="principal">Principal</option>
+                    <option value="staff">Staff</option>
+                    <option value="group">Group</option>
+                    <option value="senior">Senior</option>
+                    <option value="director">Director</option>
+                    <option value="vp">VP</option>
+                    <option value="head">Head of</option>
+                  </select>
+                </div>
+                <div>
+                  <span className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Company</span>
+                  <input value={radarCompany} onChange={e => { setRadarCompany(e.target.value); setRadarPage(1); }}
+                    placeholder="Type to filter…"
+                    className="w-full rounded-lg px-3 py-2 text-sm focus:outline-none" style={inputStyle} />
+                </div>
+              </div>
+
+              {/* Row 3: Company Tier + Source + Salary + Toggles */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div>
+                  <span className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Company Tier</span>
+                  <select value={radarCompanyTier} onChange={e => { setRadarCompanyTier(e.target.value); setRadarPage(1); }}
+                    className="w-full rounded-lg px-3 py-2 text-sm focus:outline-none" style={inputStyle}>
+                    <option value="">All Tiers</option>
+                    <option value="dream">Dream</option>
+                    <option value="high-prob">High Probability</option>
+                    <option value="practice">Practice</option>
+                  </select>
+                </div>
+                <div>
+                  <span className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Source</span>
+                  <select value={radarSource} onChange={e => { setRadarSource(e.target.value); setRadarPage(1); }}
+                    className="w-full rounded-lg px-3 py-2 text-sm focus:outline-none" style={inputStyle}>
+                    <option value="">All Sources</option>
+                    <optgroup label="Direct ATS">
+                      <option value="greenhouse">Greenhouse</option>
+                      <option value="lever">Lever</option>
+                      <option value="ashby">Ashby</option>
+                    </optgroup>
+                    <optgroup label="Aggregators">
+                      <option value="remotive">Remotive</option>
+                      <option value="themuse">The Muse</option>
+                      <option value="adzuna">Adzuna</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <div>
+                  <span className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Min Salary ($k)</span>
+                  <input type="number" value={radarMinSalary} onChange={e => { setRadarMinSalary(e.target.value); setRadarPage(1); }}
+                    placeholder="e.g. 150000"
+                    className="w-full rounded-lg px-3 py-2 text-sm focus:outline-none" style={inputStyle} />
+                </div>
+                <div>
+                  <span className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Max Salary ($k)</span>
+                  <input type="number" value={radarMaxSalary} onChange={e => { setRadarMaxSalary(e.target.value); setRadarPage(1); }}
+                    placeholder="e.g. 400000"
+                    className="w-full rounded-lg px-3 py-2 text-sm focus:outline-none" style={inputStyle} />
+                </div>
+              </div>
+
+              {/* Row 4: Toggle filters + Min fit score + Reset */}
+              <div className="flex items-end gap-4 flex-wrap">
+                <div>
+                  <span className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Compensation</span>
+                  <select value={radarHasSalary} onChange={e => { setRadarHasSalary(e.target.value); setRadarPage(1); }}
+                    className="rounded-lg px-3 py-2 text-sm focus:outline-none" style={inputStyle}>
+                    <option value="">All</option>
+                    <option value="yes">Has Salary</option>
+                    <option value="no">Unknown Salary</option>
+                  </select>
+                </div>
+                <div>
+                  <span className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Min Fit Score</span>
+                  <input type="number" value={radarMinFit} onChange={e => { setRadarMinFit(e.target.value); setRadarPage(1); }}
+                    placeholder="0-100" min={0} max={100}
+                    className="rounded-lg px-3 py-2 text-sm focus:outline-none w-[100px]" style={inputStyle} />
+                </div>
+                <label className="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer text-sm"
+                  style={{ backgroundColor: radarExcludeBanks ? "rgba(248,113,113,0.12)" : "transparent", color: radarExcludeBanks ? "#f87171" : "var(--text-muted)" }}>
+                  <input type="checkbox" checked={radarExcludeBanks}
+                    onChange={e => { setRadarExcludeBanks(e.target.checked); setRadarPage(1); }}
+                    className="accent-[#f87171]" />
+                  Exclude Banks
+                </label>
+                <div className="flex-1" />
+                <button onClick={() => {
+                  setRadarFreshness(""); setRadarCompany(""); setRadarSearch("");
+                  setRadarLocationGroups(["bay_area", "remote", "uk", "australia", "uae"]);
+                  setRadarFitLabel(""); setRadarMinFit(""); setRadarCompanyTier("");
+                  setRadarSource(""); setRadarHasSalary(""); setRadarSeniority("");
+                  setRadarExcludeBanks(false); setRadarMinSalary(""); setRadarMaxSalary("");
+                  setRadarPage(1);
+                }}
+                  className="text-xs px-4 py-2 rounded-lg border transition-colors"
+                  style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}>
+                  Reset All Filters
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Saved Jobs */}
+          {savedJobs.length > 0 && (
+            <div className="mb-4">
+              <button onClick={() => setShowSavedJobs(!showSavedJobs)}
+                className="flex items-center gap-2 mb-2 text-sm font-medium w-full"
+                style={{ color: "var(--accent-amber)" }}>
+                <Star size={14} />
+                Saved Jobs ({savedJobs.length})
+                <ChevronDown size={14} style={{ transform: showSavedJobs ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
+              </button>
+              {showSavedJobs && (
+                <div className="flex flex-col gap-2">
+                  {savedJobs.map(job => {
+                    const FIcon = FRESHNESS_ICONS[job.freshness] || Clock;
+                    return (
+                      <div key={job.id} className="rounded-lg p-3 transition-all hover:shadow-sm"
+                        style={{ ...cardStyle, borderLeft: "3px solid var(--accent-amber)" }}>
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h3 className="text-sm font-semibold truncate" style={{ color: "var(--text-primary)" }}>{job.title}</h3>
+                              <span className="text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap flex items-center gap-1"
+                                style={{ backgroundColor: FRESHNESS_BG[job.freshness], color: FRESHNESS_COLORS[job.freshness] }}>
+                                <FIcon size={10} /> {job.freshness_label || job.freshness}
+                              </span>
+                              {job.fit_score != null && (
+                                <span className="text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap"
+                                  style={{ backgroundColor: FIT_BG[job.fit_label || "Low Fit"], color: FIT_COLORS[job.fit_label || "Low Fit"] }}>
+                                  {job.fit_label}
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-4 text-xs" style={{ color: "var(--text-secondary)" }}>
+                              <span className="flex items-center gap-1"><Building2 size={12} /> {job.company}</span>
+                              {job.location && <span className="flex items-center gap-1"><MapPin size={12} /> {job.location}</span>}
+                              <span className="flex items-center gap-1"><Clock size={12} /> {timeAgo(job.posted_at)}</span>
+                              {job.salary?.min ? (
+                                <span className="font-medium" style={{ color: job.salary.max >= 250000 ? "var(--accent-green, #22c55e)" : "var(--text-muted)" }}>
+                                  ${(job.salary.min / 1000).toFixed(0)}k–${(job.salary.max / 1000).toFixed(0)}k
+                                </span>
+                              ) : null}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 flex-shrink-0">
+                            <button onClick={() => setPipelineJob(job)}
+                              className="flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all"
+                              style={{ backgroundColor: "rgba(34,197,94,0.08)", color: "var(--accent-green, #22c55e)", border: "1px solid rgba(34,197,94,0.2)" }}
+                              title="Apply — create application & customize resume">
+                              <Send size={12} /> Apply
+                            </button>
+                            <button onClick={() => updateRadarStatus(job.id, "new")}
+                              className="p-1.5 rounded-md transition-colors" style={{ color: "var(--accent-amber)" }} title="Unsave — move back to feed">
+                              <Star size={14} fill="currentColor" /></button>
+                            <button onClick={() => updateRadarStatus(job.id, "dismissed")}
+                              className="p-1.5 rounded-md transition-colors" style={{ color: "var(--text-muted)" }} title="Dismiss"><EyeOff size={14} /></button>
+                            <a href={job.url} target="_blank" rel="noopener noreferrer"
+                              className="p-1.5 rounded-md transition-colors" style={{ color: "var(--text-muted)" }} title="View on career page">
+                              <ExternalLink size={14} /></a>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Job list */}
+          {filteredRadarJobs.length === 0 ? (
+            <div className="text-center py-16" style={{ color: "var(--text-muted)" }}>
+              <Radar size={40} style={{ margin: "0 auto 12px", opacity: 0.3 }} />
+              <p className="text-sm">No jobs found. Hit Scan Now to discover fresh postings.</p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2">
+              {filteredRadarJobs.map(job => {
+                const FIcon = FRESHNESS_ICONS[job.freshness] || Clock;
+                return (
+                  <div key={job.id} className="rounded-lg p-4 transition-all hover:shadow-sm"
+                    style={{ ...cardStyle, borderLeft: `3px solid ${FRESHNESS_COLORS[job.freshness] || "#6b7280"}` }}>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="text-sm font-semibold truncate" style={{ color: "var(--text-primary)" }}>{job.title}</h3>
+                          <span className="text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap flex items-center gap-1"
+                            style={{ backgroundColor: FRESHNESS_BG[job.freshness], color: FRESHNESS_COLORS[job.freshness] }}>
+                            <FIcon size={10} /> {job.freshness_label || job.freshness}
+                          </span>
+                          {job.fit_score != null && (
+                            <span className="text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap"
+                              style={{ backgroundColor: FIT_BG[job.fit_label || "Low Fit"], color: FIT_COLORS[job.fit_label || "Low Fit"] }}
+                              title={job.fit_breakdown ? `Rank ${job.rank_score ?? "?"}/200 · Fit ${job.fit_score}/100 · Seniority ${job.fit_breakdown.seniority}/30 · Domain ${job.fit_breakdown.domain}/25 · Company ${job.fit_breakdown.company_tier_score}/15 · Location ${job.fit_breakdown.location}/10 · Comp ${job.fit_breakdown.compensation}/20${job.fit_breakdown.bank_penalty ? ` · Bank -${job.fit_breakdown.bank_penalty}` : ""}` : ""}>
+                              {job.fit_label}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-4 text-xs" style={{ color: "var(--text-secondary)" }}>
+                          <span className="flex items-center gap-1"><Building2 size={12} /> {job.company}</span>
+                          {job.location && <span className="flex items-center gap-1"><MapPin size={12} /> {job.location}</span>}
+                          <span className="flex items-center gap-1"><Clock size={12} /> {timeAgo(job.posted_at)}</span>
+                          {job.salary?.min ? (
+                            <span className="font-medium" style={{ color: job.salary.max >= 250000 ? "var(--accent-green, #22c55e)" : "var(--text-muted)" }}>
+                              ${(job.salary.min / 1000).toFixed(0)}k–${(job.salary.max / 1000).toFixed(0)}k
+                            </span>
+                          ) : (
+                            !["uk", "australia", "uae"].includes(job.location_group) && (
+                              <span style={{ color: "var(--text-muted)", fontStyle: "italic" }}>Comp unknown</span>
+                            )
+                          )}
+                        </div>
+                        {job.fit_breakdown?.domain_matches && job.fit_breakdown.domain_matches.length > 0 && (
+                          <div className="flex items-center gap-1 mt-1.5">
+                            {job.fit_breakdown.domain_matches.map((d: string) => (
+                              <span key={d} className="text-[10px] px-1.5 py-0.5 rounded" style={{ backgroundColor: "var(--bg-secondary)", color: "var(--text-muted)" }}>{d}</span>
+                            ))}
+                            {job.fit_breakdown.company_tier === "bank" ? (
+                              <span className="text-[10px] px-1.5 py-0.5 rounded font-medium" style={{
+                                backgroundColor: "rgba(239,68,68,0.10)", color: "#ef4444",
+                              }}>Bank</span>
+                            ) : job.fit_breakdown.company_tier && job.fit_breakdown.company_tier !== "practice" && (
+                              <span className="text-[10px] px-1.5 py-0.5 rounded font-medium" style={{
+                                backgroundColor: job.fit_breakdown.company_tier === "dream" ? "rgba(245,158,11,0.12)" : "rgba(59,130,246,0.12)",
+                                color: job.fit_breakdown.company_tier === "dream" ? "#f59e0b" : "#3b82f6",
+                              }}>{job.fit_breakdown.company_tier === "dream" ? "Dream" : "High Prob"}</span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <button onClick={() => setPipelineJob(job)}
+                          className="flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all"
+                          style={{ backgroundColor: "rgba(34,197,94,0.08)", color: "var(--accent-green, #22c55e)", border: "1px solid rgba(34,197,94,0.2)" }}
+                          title="Apply — create application & customize resume">
+                          <Send size={12} /> Apply
+                        </button>
+                        <button onClick={() => updateRadarStatus(job.id, "saved")}
+                          className="p-1.5 rounded-md transition-colors" style={{ color: "var(--text-muted)" }} title="Save"><Star size={14} /></button>
+                        <button onClick={() => updateRadarStatus(job.id, "dismissed")}
+                          className="p-1.5 rounded-md transition-colors" style={{ color: "var(--text-muted)" }} title="Dismiss"><EyeOff size={14} /></button>
+                        <a href={job.url} target="_blank" rel="noopener noreferrer"
+                          className="p-1.5 rounded-md transition-colors" style={{ color: "var(--text-muted)" }} title="View on career page">
+                          <ExternalLink size={14} /></a>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          {/* Pagination */}
+          <div className="mt-4 flex items-center justify-between">
+            <span className="text-xs" style={{ color: "var(--text-muted)" }}>
+              {radarTotal > 0
+                ? `Showing ${((radarPage - 1) * RADAR_PAGE_SIZE) + 1}–${Math.min(radarPage * RADAR_PAGE_SIZE, radarTotal)} of ${radarTotal} jobs`
+                : "No jobs"} · {radarStats?.companies_monitored || 50}+ companies
+            </span>
+            {radarTotalPages > 1 && (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setRadarPage(p => Math.max(1, p - 1))}
+                  disabled={radarPage <= 1}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+                  style={{
+                    backgroundColor: radarPage <= 1 ? "var(--bg-secondary)" : "var(--bg-card)",
+                    color: radarPage <= 1 ? "var(--text-muted)" : "var(--text-primary)",
+                    border: "1px solid var(--border)",
+                    opacity: radarPage <= 1 ? 0.5 : 1,
+                    cursor: radarPage <= 1 ? "not-allowed" : "pointer",
+                  }}>
+                  ← Prev
+                </button>
+                <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>
+                  {radarPage} / {radarTotalPages}
+                </span>
+                <button
+                  onClick={() => setRadarPage(p => Math.min(radarTotalPages, p + 1))}
+                  disabled={radarPage >= radarTotalPages}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+                  style={{
+                    backgroundColor: radarPage >= radarTotalPages ? "var(--bg-secondary)" : "var(--bg-card)",
+                    color: radarPage >= radarTotalPages ? "var(--text-muted)" : "var(--text-primary)",
+                    border: "1px solid var(--border)",
+                    opacity: radarPage >= radarTotalPages ? 0.5 : 1,
+                    cursor: radarPage >= radarTotalPages ? "not-allowed" : "pointer",
+                  }}>
+                  Next →
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Pipeline Modal — Radar → Job Central + Resume Customizer */}
+      {pipelineJob && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+          onClick={e => e.target === e.currentTarget && setPipelineJob(null)}>
+          <div className="w-full max-w-md rounded-xl p-6" style={cardStyle}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>Apply to This Role</h3>
+              <button onClick={() => setPipelineJob(null)} style={{ color: "var(--text-muted)" }}><X size={18} /></button>
+            </div>
+            <div className="rounded-lg p-3 mb-4" style={{ backgroundColor: "var(--bg-secondary)" }}>
+              <div className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{pipelineJob.title}</div>
+              <div className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>
+                {pipelineJob.company} · {pipelineJob.location}
+              </div>
+            </div>
+            <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>
+              This will create an application in your tracker and prepare resume customization.
+            </p>
+            <div className="flex flex-col gap-3 mb-5">
+              <div>
+                <label className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Application Tier</label>
+                <div className="flex gap-2">
+                  {[{ v: "dream", l: "Dream" }, { v: "high-prob", l: "High Prob" }, { v: "practice", l: "Practice" }].map(t => (
+                    <button key={t.v} onClick={() => setPipelineTier(t.v)}
+                      className="flex-1 py-2 rounded-lg text-xs font-medium transition-all"
+                      style={{
+                        backgroundColor: pipelineTier === t.v ? (TIER_COLORS[t.v] || "var(--accent-blue)") : "var(--bg-secondary)",
+                        color: pipelineTier === t.v ? "#fff" : "var(--text-secondary)",
+                        border: pipelineTier === t.v ? `1px solid ${TIER_COLORS[t.v]}` : "1px solid var(--border)",
+                      }}>{t.l}</button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Resume Persona</label>
+                <div className="flex gap-2">
+                  {[{ v: "pm", l: "Product Manager" }, { v: "pjm", l: "Program Manager" }, { v: "pmm", l: "Product Marketing" }].map(p => (
+                    <button key={p.v} onClick={() => setPipelinePersona(p.v)}
+                      className="flex-1 py-2 rounded-lg text-xs font-medium transition-all"
+                      style={{
+                        backgroundColor: pipelinePersona === p.v ? "var(--accent-green, #22c55e)" : "var(--bg-secondary)",
+                        color: pipelinePersona === p.v ? "#fff" : "var(--text-secondary)",
+                        border: pipelinePersona === p.v ? "1px solid var(--accent-green)" : "1px solid var(--border)",
+                      }}>{p.l}</button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label className="text-xs font-medium mb-1 block" style={{ color: "var(--text-muted)" }}>Resume Length</label>
+                <div className="flex gap-2">
+                  {[{ v: "1pager", l: "1-Pager" }, { v: "2pager", l: "2-Pager" }, { v: "detailed", l: "Detailed" }].map(l => (
+                    <button key={l.v} onClick={() => setPipelineLength(l.v)}
+                      className="flex-1 py-2 rounded-lg text-xs font-medium transition-all"
+                      style={{
+                        backgroundColor: pipelineLength === l.v ? "var(--accent-green, #22c55e)" : "var(--bg-secondary)",
+                        color: pipelineLength === l.v ? "#fff" : "var(--text-secondary)",
+                        border: pipelineLength === l.v ? "1px solid var(--accent-green)" : "1px solid var(--border)",
+                      }}>{l.l}</button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => setPipelineJob(null)}
+                className="flex-1 py-2.5 rounded-lg text-sm font-medium"
+                style={{ backgroundColor: "var(--bg-secondary)", color: "var(--text-secondary)", border: "1px solid var(--border)" }}>
+                Cancel
+              </button>
+              <button onClick={pushToPipeline}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium"
+                style={{ backgroundColor: "var(--accent-green, #22c55e)", color: "#fff" }}>
+                <ArrowRight size={14} /> Create App & Customize
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* ═══════════════ DASHBOARD TAB ═══════════════════════════ */}

@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, feedback, ideas
+from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, feedback, ideas, notifications, library
 
 load_dotenv(override=True)
 
@@ -68,6 +68,8 @@ app.include_router(session_archive.router, prefix="/api/journal/archive", tags=[
 app.include_router(product_guides.router, prefix="/api/guides", tags=["Product Guides"])
 app.include_router(feedback.router, prefix="/api/feedback", tags=["Feedback & Testimonials"])
 app.include_router(ideas.router, prefix="/api/ideas", tags=["Future Ideas"])
+app.include_router(notifications.router, prefix="/api/notifications", tags=["Notifications"])
+app.include_router(library.router, prefix="/api/library", tags=["Knowledge Library"])
 
 
 if __name__ == "__main__":

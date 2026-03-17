@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8Q795C1RJ5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8Q795C1RJ5');
+    </script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "vpgxcc8q5n");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiran Gorapalli - TurboTax product teardown. Discovery research, keep/kill/build analysis, redesign wireframes, and business case.">
+    <title>TurboTax Teardown - Kiran Gorapalli</title>
+    <link rel="icon" href="../images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../fenix-widget.css">
+    <link rel="canonical" href="https://kirangorapalli.com/teardowns/intuit-turbo-tax.html">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TurboTax Teardown - Kiran Gorapalli">
+    <meta property="og:description" content="A product teardown of TurboTax - discovery, analysis, redesign, and business case.">
+    <meta property="og:url" content="https://kirangorapalli.com/teardowns/intuit-turbo-tax.html">
+    <meta property="og:image" content="https://kirangorapalli.com/images/og/teardown-intuit-turbotax.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TurboTax Teardown - Kiran Gorapalli">
+    <meta name="twitter:description" content="A product teardown of TurboTax - discovery, analysis, redesign, and business case.">
+    <meta name="twitter:image" content="https://kirangorapalli.com/images/og/teardown-intuit-turbotax.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "TurboTax Teardown - How I'd've Built It",
+        "description": "A product teardown of TurboTax examining the support gap and proposing in-context help and community answers solutions.",
+        "url": "https://kirangorapalli.com/teardowns/intuit-turbo-tax.html",
+        "author": {
+            "@type": "Person",
+            "name": "Kiran Gorapalli",
+            "url": "https://kirangorapalli.com"
+        }
+    }
+    </script>
+
+    <style>
+        /* ============================================
+           TURBOTAX TEARDOWN - PAGE STYLES
+           ============================================ */
+
+        /* Hero Banner */
+        .subpage-hero {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .hero-title-area {
+            text-align: center;
+            padding: 6rem 4rem 1.5rem;
+        }
+        .subpage-hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+        .subpage-hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-bottom: 0;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem 4rem 0;
+        }
+        .breadcrumb a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            transition: color 0.2s ease;
+        }
+        .breadcrumb a:hover { color: var(--text-primary); }
+        .breadcrumb span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0 0.4rem;
+            opacity: 0.5;
+        }
+        .breadcrumb .current {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           TEARDOWN CONTENT
+           ============================================ */
+        .teardown {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 4rem 4rem;
+        }
+
+        /* Section numbering + title */
+        .teardown-section {
+            margin-bottom: 3.5rem;
+        }
+        .teardown-section:last-child {
+            margin-bottom: 0;
+        }
+        .section-number {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Prose */
+        .teardown p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+        }
+        .teardown p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* JTBD callout */
+        .jtbd-callout {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            background: var(--bg-primary);
+        }
+        .jtbd-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .jtbd-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Persona card */
+        .persona-wrap {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        .persona-wrap-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .persona-card {
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+        .persona-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--border-light);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            overflow: hidden;
+        }
+        .persona-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .persona-info {
+            flex: 1;
+        }
+        .persona-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.15rem;
+        }
+        .persona-demo {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .persona-bio {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Visual Journey Map */
+        .journey-visual {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        .journey-visual-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .journey-sentiment-wrap {
+            padding: 1.5rem 1.25rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .journey-sentiment-wrap svg {
+            width: 100%;
+            display: block;
+        }
+        .journey-stages {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+        .journey-stage-card {
+            padding: 1rem;
+            border-right: 1px solid var(--border);
+        }
+        .journey-stage-card:last-child {
+            border-right: none;
+        }
+        .stage-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .stage-action {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+        .stage-thought {
+            font-size: 0.72rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 2px solid var(--border);
+        }
+        .stage-pain {
+            font-size: 0.68rem;
+            color: #c47474;
+            line-height: 1.5;
+        }
+        .stage-pain-label {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.58rem;
+            letter-spacing: 0.04em;
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+
+        /* Divider */
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 3.5rem;
+        }
+
+        /* ============================================
+           KEEP / KILL / BUILD
+           ============================================ */
+        .kkb-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .kkb-column {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .kkb-header {
+            padding: 0.75rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+        .kkb-keep .kkb-header { color: #6b9e6b; }
+        .kkb-kill .kkb-header { color: #c47474; }
+        .kkb-build .kkb-header { color: #7a9ec4; }
+        .kkb-items {
+            padding: 1rem;
+        }
+        .kkb-item {
+            margin-bottom: 1rem;
+        }
+        .kkb-item:last-child { margin-bottom: 0; }
+        .kkb-item-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        .kkb-item-detail {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           REDESIGN SECTION
+           ============================================ */
+        .wireframe-pair {
+            margin: 2rem 0;
+        }
+        .wireframe-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .wireframe-box {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .wireframe-box-label {
+            padding: 0.6rem 1rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .wireframe-box {
+            max-width: 340px;
+        }
+        .wireframe-box svg {
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin: 0 auto;
+        }
+        .wireframe-caption {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+        }
+
+        /* Annotation markers in SVGs */
+        .annotation-dot {
+            fill: #c47474;
+        }
+        .annotation-line {
+            stroke: #c47474;
+            stroke-width: 1;
+            stroke-dasharray: 4 3;
+        }
+
+        /* ============================================
+           BUSINESS CASE
+           ============================================ */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .kpi-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+        .kpi-funnel-stage {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+        .kpi-metric {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .kpi-name {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+        .kpi-rationale {
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        /* Product at a Glance */
+        .product-glance {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 3.5rem;
+        }
+        .product-glance-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .product-glance-body {
+            padding: 1.25rem;
+        }
+        .glance-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-weight: 400;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .glance-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .glance-stat-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+        .glance-stat-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .glance-competitors {
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .glance-row-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .glance-competitor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .glance-competitor-tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 0.25rem 0.65rem;
+            border-radius: 500px;
+        }
+        .glance-position {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .glance-leads, .glance-lags {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .glance-leads .glance-row-label { color: #6b9e6b; }
+        .glance-lags .glance-row-label { color: #c47474; }
+
+        /* Assumptions */
+        .assumptions {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-top: 2.5rem;
+        }
+        .assumptions-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .assumptions p {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .glance-stats { grid-template-columns: repeat(2, 1fr); }
+            .glance-position { grid-template-columns: 1fr; }
+        }
+
+        /* Exec summary box */
+        .exec-summary {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            background: var(--bg-primary);
+        }
+        .exec-summary-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .exec-summary p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 4rem 2rem;
+            text-align: center;
+        }
+        .footer-social { margin-bottom: 2rem; }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: border-color 0.2s ease, opacity 0.2s ease;
+        }
+        .social-icon svg { width: 18px; height: 18px; }
+        .social-icon:hover { opacity: 0.8; }
+        .social-icon.linkedin:hover { border-color: #0A66C2; }
+        .social-icon.github:hover { border-color: #f0e6d3; }
+        .social-icon.youtube:hover { border-color: #FF0000; }
+        .social-icon.flickr:hover { border-color: #FF0084; }
+        .social-icon.spotify:hover { border-color: #1DB954; }
+        .social-icon.substack:hover { border-color: #FF6719; }
+        [data-theme="light"] .social-icon.github:hover { border-color: #333; }
+
+        .footer-site-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-logo {
+            width: 36px;
+            height: auto;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .footer-logo:hover { opacity: 1; transform: scale(1.05); }
+        .footer-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .footer-meta-sep { opacity: 0.4; }
+        .version-number { letter-spacing: 0.02em; }
+        .last-updated { letter-spacing: -0.01em; }
+        .rss-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+        }
+        .rss-badge:hover { color: var(--text-primary); }
+        .rss-badge svg { opacity: 0.6; }
+        .footer-copyright {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+            letter-spacing: 0.02em;
+        }
+
+        /* ============================================
+           TOAST
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 500px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .hero-title-area { padding: 5rem 3rem 1.5rem; }
+            .breadcrumb { padding: 1.25rem 3rem 0; }
+            .teardown { padding: 1.5rem 3rem 3rem; }
+            .kkb-grid { grid-template-columns: 1fr; }
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            footer { padding: 3rem 3rem 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title-area { padding: 4.5rem 1.5rem 1.5rem; }
+            .breadcrumb { padding: 1rem 1.5rem 0; }
+            .teardown { padding: 1.25rem 1.5rem 3rem; }
+            .persona-card { flex-direction: column; gap: 0.75rem; }
+            .journey-stages {
+                grid-template-columns: 1fr;
+            }
+            .journey-stage-card {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .journey-stage-card:last-child {
+                border-bottom: none;
+            }
+            .kpi-grid { grid-template-columns: 1fr; }
+            footer { padding: 2.5rem 1.5rem 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title-area { padding: 4rem 1rem 1rem; }
+            .breadcrumb { padding: 0.75rem 1rem 0; }
+            .teardown { padding: 1rem 1rem 2rem; }
+            footer { padding: 2rem 1rem 1.5rem; }
+        }
+
+        /* Glossary */
+        .page-glossary {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem 4rem 0;
+        }
+        .glossary-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.35rem 0.75rem;
+            cursor: pointer;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .glossary-toggle:hover {
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+        .glossary-toggle .arrow {
+            transition: transform 0.2s ease;
+            font-size: 0.6rem;
+        }
+        .glossary-toggle.open .arrow {
+            transform: rotate(90deg);
+        }
+        .glossary-terms {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+        }
+        .glossary-terms.visible {
+            display: block;
+        }
+        .glossary-term {
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+        .glossary-term:last-child {
+            margin-bottom: 0;
+        }
+        .glossary-term strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+    </style>
+    <!-- Structured Data for Fenix + SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "TurboTax Teardown",
+        "author": {
+            "@type": "Person",
+            "name": "Kiran Gorapalli",
+            "url": "https://kirangorapalli.com"
+        },
+        "description": "Product teardown of TurboTax's customer support gap and proposed solutions for in-context help and community answers.",
+        "url": "https://kirangorapalli.com/teardowns/intuit-turbo-tax.html",
+        "image": "https://kirangorapalli.com/images/og-image.png",
+        "publisher": {
+            "@type": "Person",
+            "name": "Kiran Gorapalli"
+        }
+    }
+    </script>
+</head>
+<body class="preload">
+    <a href="#teardown" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-right">
+                <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
+                    <svg class="share-icon" viewBox="0 0 24 24">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+                <button id="menuButton" class="menu-button" aria-label="Open menu">Menu</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div></div>
+            <button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="../index.html">&#8600; Home</a></li>
+            <li><a href="../career-highlights.html">&#8600; Career Highlights</a></li>
+            <li><a href="../how-id-built-it.html">&#8600; How I'd've Built It</a></li>
+            <li><a href="../index.html#my-sandbox">&#8600; MadLab</a></li>
+            <li><a href="../index.html#creative-lab">&#8600; Studio</a></li>
+            <li><a href="../blog-podcast.html">&#8600; Blog & Podcast</a></li>
+            <li><a href="../learning.html">&#8600; Learning & Certifications</a></li>
+            <li><a href="../causes.html">&#8600; Causes</a></li>
+            <li><a href="../store.html">&#8600; Store</a></li>
+            <li><a href="../index.html#contact">&#8600; Connect</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <div class="subpage-hero">
+        <div class="hero-title-area">
+            <h1 class="subpage-hero-title">TurboTax</h1>
+            <p class="subpage-hero-tagline">When customer service becomes the product gap that breaks user trust</p>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../how-id-built-it.html">How I'd've Built It</a>
+        <span>/</span>
+        <a href="intuit.html">Intuit</a>
+        <span>/</span>
+        <span class="current">TurboTax</span>
+    </div>
+
+    <!-- Glossary -->
+    <div class="page-glossary">
+        <button class="glossary-toggle" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('visible')" aria-expanded="false">
+            <span class="arrow">&#9654;</span> Quick reference
+        </button>
+        <div class="glossary-terms" role="region" aria-label="Glossary">
+            <div class="glossary-term"><strong>Customer Service Desert</strong> — When a product deliberately makes human support hard to find or access, leaving users stranded when software fails or situations get complex.</div>
+            <div class="glossary-term"><strong>Progressive Complexity Interface</strong> — UI design where advanced features appear only as users need them, rather than overwhelming everyone with all options upfront.</div>
+            <div class="glossary-term"><strong>In-Context Help</strong> — Support information that appears exactly when and where users encounter problems, instead of requiring them to search separate help centers.</div>
+            <div class="glossary-term"><strong>ACSI (American Customer Satisfaction Index)</strong> — Industry-standard measurement of customer satisfaction across different sectors, allowing comparison between companies and tracking over time.</div>
+            <div class="glossary-term"><strong>Support Escalation Reduction</strong> — Measuring how well self-service features prevent users from needing to contact human support, typically tracked as year-over-year ticket volume decrease.</div>
+        </div>
+    </div>
+
+    <!-- Teardown Content -->
+    <div class="teardown" id="teardown">
+
+        <!-- Product at a Glance -->
+        <div class="product-glance">
+            <div class="product-glance-header">Product at a Glance</div>
+            <div class="product-glance-body">
+                <div class="glance-description">Tax preparation software and e-filing platform. TurboTax dominates U.S. consumer tax filing with an interview-style approach that guides users through their return. The product excels at making simple returns easy, but when situations get complex or errors occur, users discover a support desert — deliberately gated human help, circular chatbot loops, and a help center that rarely addresses their actual problem.</div>
+                <div class="glance-stats">
+                    <div>
+                        <div class="glance-stat-label">Users</div>
+                        <div class="glance-stat-value">40M+</div>
+                    </div>
+                    <div>
+                        <div class="glance-stat-label">Revenue</div>
+                        <div class="glance-stat-value">$4.2B</div>
+                    </div>
+                    <div>
+                        <div class="glance-stat-label">Market Share</div>
+                        <div class="glance-stat-value">~65%</div>
+                    </div>
+                    <div>
+                        <div class="glance-stat-label">ACSI Score</div>
+                        <div class="glance-stat-value">73/100</div>
+                    </div>
+                </div>
+                <div class="glance-competitors">
+                    <div class="glance-row-label">Competitors</div>
+                    <div class="glance-competitor-tags">
+                        <span class="glance-competitor-tag">H&R Block</span>
+                        <span class="glance-competitor-tag">FreeTaxUSA</span>
+                        <span class="glance-competitor-tag">TaxAct</span>
+                        <span class="glance-competitor-tag">CashApp Taxes</span>
+                    </div>
+                </div>
+                <div class="glance-position">
+                    <div class="glance-leads">
+                        <div class="glance-row-label">Leads</div>
+                        Interview-style UX, import automation, audit defense upsell, brand recognition
+                    </div>
+                    <div class="glance-lags">
+                        <div class="glance-row-label">Lags</div>
+                        Customer support accessibility (ACSI 73 vs industry avg 77), in-product help quality, transparent pricing, error resolution UX
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Discovery -->
+        <div class="teardown-section">
+            <div class="section-number">Section 1</div>
+            <h2 class="section-title">Discovery</h2>
+
+            <div class="persona-wrap">
+                <div class="persona-wrap-header">Meet Sarah Chen</div>
+                <div class="persona-card">
+                    <div class="persona-avatar">👩‍💼</div>
+                    <div class="persona-info">
+                        <div class="persona-name">Sarah Chen</div>
+                        <div class="persona-demo">34, marketing manager in Austin, TurboTax user for 8 years</div>
+                        <div class="persona-bio">Filed simple W-2 returns for years. This year has stock options, freelance consulting income, and a mid-year apartment move. Not a tax expert but not a beginner either. Expects basic help when things get confusing.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin-top: 2rem; margin-bottom: 1rem;">Sarah's Tax Filing Journey</h3>
+
+            <!-- Journey Map -->
+            <div class="journey-visual">
+                <div class="journey-visual-header">Customer Journey & Sentiment Curve</div>
+                <div class="journey-sentiment-wrap">
+                    <svg viewBox="0 0 500 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <title>Sentiment Curve for Sarah's Tax Filing Journey</title>
+                        <!-- Reference lines -->
+                        <line x1="50" y1="20" x2="450" y2="20" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
+                        <line x1="50" y1="55" x2="450" y2="55" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
+                        <line x1="50" y1="90" x2="450" y2="90" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
+                        <!-- Y-axis labels -->
+                        <text x="8" y="23" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Positive</text>
+                        <text x="8" y="58" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Neutral</text>
+                        <text x="8" y="93" font-family="Inter, sans-serif" font-size="7" fill="var(--text-muted)" opacity="0.5">Negative</text>
+                        <!-- Smooth sentiment curve using cubic bezier through data points -->
+                        <path d="M 50,35 C 80,35 120,50 150,55 C 180,60 220,75 250,80 C 280,85 320,87 350,90 C 380,92 420,93 450,95" stroke="var(--text-secondary)" stroke-width="2" fill="none" opacity="0.4"/>
+                        <!-- Area fill under curve -->
+                        <path d="M 50,35 C 80,35 120,50 150,55 C 180,60 220,75 250,80 C 280,85 320,87 350,90 C 380,92 420,93 450,95 L 450,105 L 50,105 Z" fill="var(--text-secondary)" opacity="0.04"/>
+                        <!-- Data points with sentiment colors -->
+                        <circle cx="50" cy="35" r="6" fill="#d4a74a" opacity="0.9"/>
+                        <circle cx="150" cy="55" r="6" fill="#d4a74a" opacity="0.9"/>
+                        <circle cx="250" cy="80" r="6" fill="#c47474" opacity="0.9"/>
+                        <circle cx="350" cy="90" r="6" fill="#c47474" opacity="0.9"/>
+                        <circle cx="450" cy="95" r="6" fill="#c47474" opacity="0.9"/>
+                        <!-- Sentiment labels - positioned above dots with clearance -->
+                        <text x="50" y="25" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Confident</text>
+                        <text x="150" y="43" font-family="Inter, sans-serif" font-size="7" fill="#d4a74a" text-anchor="middle" font-weight="500">Annoyed</text>
+                        <text x="250" y="68" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Frustrated</text>
+                        <text x="350" y="78" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Angry</text>
+                        <text x="450" y="83" font-family="Inter, sans-serif" font-size="7" fill="#c47474" text-anchor="middle" font-weight="500">Defeated</text>
+                        <!-- Stage labels at bottom -->
+                        <text x="50" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">START</text>
+                        <text x="150" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">COMPLICATE</text>
+                        <text x="250" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">ERROR</text>
+                        <text x="350" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">SUPPORT</text>
+                        <text x="450" y="120" font-family="Inter, sans-serif" font-size="8" fill="var(--text-muted)" text-anchor="middle" font-weight="600" letter-spacing="0.5">ABANDON</text>
+                    </svg>
+                </div>
+                <div class="journey-stages">
+                    <div class="journey-stage-card">
+                        <div class="stage-label">START</div>
+                        <div class="stage-action">Opens TurboTax, begins entering W-2 information</div>
+                        <div class="stage-thought">"same drill as every year"</div>
+                        <div class="stage-pain-label">Pain</div>
+                        <div class="stage-pain">Smooth so far. The familiar interview format creates confidence. But the app has already defaulted her to Deluxe ($89) without explaining why.</div>
+                    </div>
+                    <div class="journey-stage-card">
+                        <div class="stage-label">COMPLICATE</div>
+                        <div class="stage-action">Enters stock options and freelance 1099 income. TurboTax says she needs to upgrade to Premier ($139)</div>
+                        <div class="stage-thought">"wait, I have to pay more?"</div>
+                        <div class="stage-pain-label">Pain</div>
+                        <div class="stage-pain">Forced upgrade mid-flow. No option to try entering the data first. The upsell happens before she understands whether she actually needs it.</div>
+                    </div>
+                    <div class="journey-stage-card">
+                        <div class="stage-label">ERROR</div>
+                        <div class="stage-action">Gets a validation error on the stock options section. Error message says "review this section" with no specific guidance</div>
+                        <div class="stage-thought">"what did I do wrong?"</div>
+                        <div class="stage-pain-label">Pain</div>
+                        <div class="stage-pain">This is where the experience breaks. Vague error + no help link + circular chatbot = she's stuck with no path forward.</div>
+                    </div>
+                    <div class="journey-stage-card">
+                        <div class="stage-label">SUPPORT</div>
+                        <div class="stage-action">Tries to find human help. Chatbot loops. Help center articles don't match her error. Live agent requires TurboTax Live upgrade ($199+)</div>
+                        <div class="stage-thought">"I'm paying $139 and can't talk to anyone?"</div>
+                        <div class="stage-pain-label">Pain</div>
+                        <div class="stage-pain">The support desert. She's already committed hours of work and $139. The only way to get real help is to pay more. She's trapped.</div>
+                    </div>
+                    <div class="journey-stage-card">
+                        <div class="stage-label">ABANDON</div>
+                        <div class="stage-action">Considers switching to H&R Block or a CPA. Realizes her data isn't exportable</div>
+                        <div class="stage-thought">"I'll just guess and hope for the best"</div>
+                        <div class="stage-pain-label">Pain</div>
+                        <div class="stage-pain">Lock-in by default. No data portability. She submits with uncertainty because starting over feels worse than risking an error.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jtbd-callout" style="margin-top: 2rem;">
+                <div class="jtbd-label">Job to Be Done (JTBD)</div>
+                <div class="jtbd-text">"When I hit a tax situation I don't understand, I need clear guidance in the moment — not a chatbot loop that ends with 'upgrade for help.' I'm already paying for this software. The help should be part of the product, not a separate product."</div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- Section 2: Keep / Kill / Build -->
+        <div class="teardown-section">
+            <div class="section-number">Section 2</div>
+            <h2 class="section-title">Keep / Kill / Build</h2>
+
+            <p>After reviewing roughly 200 App Store reviews and cross-referencing BBB complaints and Reddit threads, the pattern was unmistakable. TurboTax's core interview flow is genuinely good — the problem is everything that happens when things go wrong. Support is deliberately gated, error messages are vague, and the upsell pressure is constant.</p>
+
+            <div class="kkb-grid">
+                <div class="kkb-column kkb-keep">
+                    <div class="kkb-header">Keep</div>
+                    <div class="kkb-items">
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Interview-style tax flow</div>
+                            <div class="kkb-item-detail">The step-by-step interview is the core product strength. It translates complex tax concepts into plain language questions. Most users cite this as the primary reason they stay — it feels like having a knowledgeable friend walk you through it.</div>
+                        </div>
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Import automation</div>
+                            <div class="kkb-item-detail">W-2 photo import, direct employer connections, and prior-year data import genuinely save time. When these work (which is most of the time), they eliminate the most tedious part of filing.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kkb-column kkb-kill">
+                    <div class="kkb-header">Kill</div>
+                    <div class="kkb-items">
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Chatbot as support wall</div>
+                            <div class="kkb-item-detail">The chatbot is designed to deflect, not resolve. Users describe loops: ask a question → get a generic article → ask again → get the same article. It's not a bug — it's a cost-reduction feature disguised as support.</div>
+                        </div>
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Mid-flow upsell gates</div>
+                            <div class="kkb-item-detail">Discovering you need a more expensive tier after entering data is hostile UX. The upgrade requirement should be surfaced before the user commits time, not after they're invested.</div>
+                        </div>
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Vague error messages</div>
+                            <div class="kkb-item-detail">"Review this section" with no specific guidance. When tax software shows an error, users need to know exactly what's wrong and what to do about it. The current errors create anxiety without resolution.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kkb-column kkb-build">
+                    <div class="kkb-header">Build</div>
+                    <div class="kkb-items">
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">In-context help panel</div>
+                            <div class="kkb-item-detail">When a user gets an error or pauses on a field for more than 10 seconds, show a contextual help panel: what this field means, common mistakes, and a direct path to human support if needed. Not a chatbot — a real escalation path.</div>
+                        </div>
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Community answers layer</div>
+                            <div class="kkb-item-detail">Let verified users answer common questions inline. TurboTax has millions of users who've solved these exact problems. Surface their solutions where new users are stuck, like Stack Overflow for tax questions.</div>
+                        </div>
+                        <div class="kkb-item">
+                            <div class="kkb-item-title">Transparent pricing upfront</div>
+                            <div class="kkb-item-detail">Show all tier requirements before the user starts. If stock options require Premier, say so on the landing page. Let users make informed decisions before they invest time.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- Section 3: The Redesign -->
+        <div class="teardown-section">
+            <div class="section-number">Section 3</div>
+            <h2 class="section-title">The Redesign</h2>
+
+            <p>Two wireframes. The first addresses the core support gap — putting help where users need it. The second tackles the community knowledge that TurboTax is sitting on but not leveraging.</p>
+
+            <div class="wireframe-pair">
+                <div class="wireframe-label">Proposal 1 — In-Context Help Panel</div>
+                <div class="wireframe-box">
+                    <div class="wireframe-box-label">Wireframe: Help Panel on Error</div>
+                    <svg viewBox="0 0 280 500" xmlns="http://www.w3.org/2000/svg">
+                      <title>In-Context Help Panel Wireframe</title>
+                      <defs>
+                        <style>
+                          .wf-phone-frame {
+                            stroke: var(--border);
+                            stroke-width: 2;
+                            fill: var(--bg-primary);
+                          }
+
+                          .wf-status-bar {
+                            fill: var(--bg-dark);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-form-section {
+                            fill: var(--bg-secondary);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-form-label {
+                            fill: var(--text-secondary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 10px;
+                            font-weight: 500;
+                          }
+
+                          .wf-form-field {
+                            fill: white;
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-form-field-error {
+                            fill: #fff5f0;
+                            stroke: #c47474;
+                            stroke-width: 1;
+                          }
+
+                          .wf-error-text {
+                            fill: #c47474;
+                            font-family: system-ui, sans-serif;
+                            font-size: 8px;
+                          }
+
+                          .wf-help-panel {
+                            fill: var(--bg-secondary);
+                            stroke: #6b9e6b;
+                            stroke-width: 1.5;
+                          }
+
+                          .wf-help-title {
+                            fill: var(--text-primary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 11px;
+                            font-weight: 600;
+                          }
+
+                          .wf-help-text {
+                            fill: var(--text-secondary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 8px;
+                          }
+
+                          .wf-button {
+                            fill: var(--bg-primary);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-button-text {
+                            fill: var(--text-primary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 9px;
+                            font-weight: 600;
+                          }
+
+                          .wf-annotation-dot {
+                            fill: #c47474;
+                          }
+
+                          .wf-annotation-line {
+                            stroke: #c47474;
+                            stroke-width: 1.5;
+                          }
+
+                          .wf-annotation-box {
+                            fill: var(--bg-dark);
+                            stroke: #c47474;
+                            stroke-width: 1;
+                          }
+
+                          .wf-annotation-text {
+                            fill: #c47474;
+                            font-family: system-ui, sans-serif;
+                            font-size: 9px;
+                          }
+
+                          .wf-new-element-border {
+                            stroke: #6b9e6b;
+                            stroke-width: 1.5;
+                            stroke-dasharray: 3,3;
+                            fill: none;
+                          }
+
+                          .wf-new-element-text {
+                            fill: #6b9e6b;
+                            font-family: system-ui, sans-serif;
+                            font-size: 9px;
+                          }
+                        </style>
+                      </defs>
+
+                      <!-- Phone frame (mobile viewport) -->
+                      <rect class="wf-phone-frame" x="15" y="10" width="250" height="480" rx="8"/>
+
+                      <!-- Status bar -->
+                      <rect class="wf-status-bar" x="15" y="10" width="250" height="20"/>
+                      <text x="25" y="22" font-size="8" fill="var(--text-muted)">9:41</text>
+
+                      <!-- Form section header -->
+                      <rect class="wf-form-section" x="25" y="35" width="230" height="25" rx="2"/>
+                      <text x="35" y="52" class="wf-form-label">Stock Options</text>
+
+                      <!-- Grant Date field (left side) -->
+                      <text x="35" y="75" class="wf-form-label">Grant Date</text>
+                      <rect class="wf-form-field" x="25" y="80" width="100" height="25" rx="2"/>
+                      <text x="35" y="98" font-size="9" fill="var(--text-muted)">MM/DD/YYYY</text>
+
+                      <!-- Exercise Price field (left side) -->
+                      <text x="35" y="125" class="wf-form-label">Exercise Price</text>
+                      <rect class="wf-form-field" x="25" y="130" width="100" height="25" rx="2"/>
+                      <text x="35" y="148" font-size="9" fill="var(--text-muted)">$0.00</text>
+
+                      <!-- Error field (with red highlight) -->
+                      <text x="35" y="175" class="wf-form-label">Vesting Date</text>
+                      <rect class="wf-form-field-error" x="25" y="180" width="100" height="25" rx="2"/>
+                      <text x="35" y="198" class="wf-error-text">Invalid date</text>
+
+                      <!-- Help Panel sliding in (right side) -->
+                      <rect class="wf-help-panel" x="135" y="35" width="115" height="220" rx="2"/>
+                      <text x="145" y="52" class="wf-help-title">Help</text>
+
+                      <!-- Common mistakes section -->
+                      <rect x="140" y="60" width="105" height="65" fill="white" stroke="var(--border)" stroke-width="1" rx="2"/>
+                      <text x="145" y="75" class="wf-help-title" style="font-weight: 500;">Mistakes:</text>
+                      <text x="145" y="88" class="wf-help-text">Use MM/DD/YYYY</text>
+                      <text x="145" y="100" class="wf-help-text">Date after grant</text>
+                      <text x="145" y="112" class="wf-help-text">No future dates</text>
+
+                      <!-- Expert button -->
+                      <rect class="wf-button" x="140" y="135" width="105" height="35" rx="2"/>
+                      <text x="192" y="152" class="wf-button-text" text-anchor="middle">Talk to Expert</text>
+                      <text x="192" y="164" font-size="7" fill="var(--text-muted)" text-anchor="middle">$0 additional</text>
+
+                      <!-- Close button area -->
+                      <text x="240" y="48" font-size="16" fill="var(--text-muted)">×</text>
+
+                      <!-- ANNOTATION: Red dot and label on error field -->
+                      <circle class="wf-annotation-dot" cx="130" cy="192" r="4"/>
+                      <line class="wf-annotation-line" x1="130" y1="188" x2="105" y2="155"/>
+                      <rect class="wf-annotation-box" x="50" y="142" width="80" height="22" rx="3"/>
+                      <text class="wf-annotation-text" x="90" y="156" text-anchor="middle" font-weight="500">Problem field</text>
+
+                      <!-- ANNOTATION: Green dashed border around help panel -->
+                      <rect class="wf-new-element-border" x="130" y="30" width="125" height="230" rx="2"/>
+                      <line class="wf-annotation-line-new" x1="190" y1="265" x2="190" y2="285"/>
+                      <rect class="wf-annotation-box" x="145" y="285" width="90" height="22" rx="3" fill="var(--bg-dark)" stroke="#6b9e6b" stroke-width="1"/>
+                      <text class="wf-new-element-text" x="190" y="299" text-anchor="middle" font-weight="500">Contextual help</text>
+                    </svg>
+                </div>
+                <div class="wireframe-caption">When a user gets stuck, the help comes to them. Not a chatbot popup — a contextual panel that understands what field they're on, what common mistakes look like, and offers a real escalation path. The key insight: help should be part of the tax interview flow, not a separate destination.</div>
+            </div>
+
+            <div class="wireframe-pair">
+                <div class="wireframe-label">Proposal 2 — Community Answers Layer</div>
+                <div class="wireframe-box">
+                    <div class="wireframe-box-label">Wireframe: Verified Answers Below Field</div>
+                    <svg viewBox="0 0 280 500" xmlns="http://www.w3.org/2000/svg">
+                      <title>Community Answers Layer Wireframe</title>
+                      <defs>
+                        <style>
+                          .wf-phone-frame {
+                            stroke: var(--border);
+                            stroke-width: 2;
+                            fill: var(--bg-primary);
+                          }
+
+                          .wf-status-bar {
+                            fill: var(--bg-dark);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-form-header {
+                            fill: var(--bg-secondary);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-form-text {
+                            fill: var(--text-secondary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 10px;
+                            font-weight: 500;
+                          }
+
+                          .wf-answers-section {
+                            fill: white;
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-answer-item {
+                            fill: white;
+                          }
+
+                          .wf-avatar {
+                            fill: var(--bg-dark);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-username {
+                            fill: var(--text-primary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 10px;
+                            font-weight: 600;
+                          }
+
+                          .wf-meta-text {
+                            fill: var(--text-muted);
+                            font-family: system-ui, sans-serif;
+                            font-size: 8px;
+                          }
+
+                          .wf-answer-text {
+                            fill: var(--text-secondary);
+                            font-family: system-ui, sans-serif;
+                            font-size: 9px;
+                          }
+
+                          .wf-verified-badge {
+                            fill: var(--bg-secondary);
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-badge-text {
+                            fill: var(--text-muted);
+                            font-family: system-ui, sans-serif;
+                            font-size: 7px;
+                            font-weight: 500;
+                          }
+
+                          .wf-divider {
+                            stroke: var(--border);
+                            stroke-width: 1;
+                          }
+
+                          .wf-new-element-border {
+                            stroke: #6b9e6b;
+                            stroke-width: 1.5;
+                            stroke-dasharray: 3,3;
+                            fill: none;
+                          }
+
+                          .wf-annotation-text {
+                            fill: #6b9e6b;
+                            font-family: system-ui, sans-serif;
+                            font-size: 9px;
+                            font-weight: 500;
+                          }
+                        </style>
+                      </defs>
+
+                      <!-- Phone frame (mobile viewport) -->
+                      <rect class="wf-phone-frame" x="15" y="10" width="250" height="480" rx="8"/>
+
+                      <!-- Status bar -->
+                      <rect class="wf-status-bar" x="15" y="10" width="250" height="20"/>
+                      <text x="25" y="22" font-size="8" fill="var(--text-muted)">9:41</text>
+
+                      <!-- Form field header -->
+                      <rect class="wf-form-header" x="25" y="35" width="230" height="30" rx="2"/>
+                      <text x="35" y="54" class="wf-form-text">Stock option income</text>
+
+                      <!-- Answers section with multiple answers -->
+                      <rect class="wf-answers-section" x="25" y="70" width="230" height="310" rx="2"/>
+
+                      <!-- Answer 1: Sarah M. -->
+                      <circle class="wf-avatar" cx="40" cy="90" r="8"/>
+                      <text x="55" y="93" class="wf-username">Sarah M.</text>
+                      <text x="55" y="104" class="wf-meta-text">Filed 847 returns</text>
+                      <text x="55" y="118" class="wf-answer-text">Use Form 3921.</text>
+                      <text x="55" y="129" class="wf-answer-text">Grant price applies.</text>
+                      <rect class="wf-verified-badge" x="55" y="135" width="55" height="14" rx="2"/>
+                      <text x="82" y="144" class="wf-badge-text" text-anchor="middle">✓ Verified</text>
+
+                      <!-- Divider -->
+                      <line class="wf-divider" x1="30" y1="160" x2="250" y2="160"/>
+
+                      <!-- Answer 2: James T. -->
+                      <circle class="wf-avatar" cx="40" cy="180" r="8"/>
+                      <text x="55" y="183" class="wf-username">James T.</text>
+                      <text x="55" y="194" class="wf-meta-text">CPA, Intuit Expert</text>
+                      <text x="55" y="208" class="wf-answer-text">ISO: Form 3921.</text>
+                      <text x="55" y="219" class="wf-answer-text">NSO: Form 6765.</text>
+                      <text x="55" y="230" class="wf-answer-text">Tax treatment differs.</text>
+                      <rect class="wf-verified-badge" x="55" y="236" width="55" height="14" rx="2"/>
+                      <text x="82" y="245" class="wf-badge-text" text-anchor="middle">✓ Expert</text>
+
+                      <!-- Divider -->
+                      <line class="wf-divider" x1="30" y1="260" x2="250" y2="260"/>
+
+                      <!-- Answer 3: Mike R. -->
+                      <circle class="wf-avatar" cx="40" cy="280" r="8"/>
+                      <text x="55" y="283" class="wf-username">Mike R.</text>
+                      <text x="55" y="294" class="wf-meta-text">Tax prep specialist</text>
+                      <text x="55" y="308" class="wf-answer-text">Consult your grant</text>
+                      <text x="55" y="319" class="wf-answer-text">documents. They'll</text>
+                      <text x="55" y="330" class="wf-answer-text">clarify ISO vs NSO.</text>
+
+                      <!-- ANNOTATION: Green dashed border around answers section -->
+                      <rect class="wf-new-element-border" x="18" y="65" width="250" height="320" rx="2"/>
+                      <line class="wf-new-element-border" x1="145" y1="390" x2="145" y2="410"/>
+                      <rect x="85" y="410" width="120" height="22" rx="3" fill="var(--bg-dark)" stroke="#6b9e6b" stroke-width="1"/>
+                      <text class="wf-annotation-text" x="145" y="424" text-anchor="middle">Community answers</text>
+                    </svg>
+                </div>
+                <div class="wireframe-caption">Stack Overflow for tax questions, embedded where users are stuck. TurboTax has 40 million users — thousands have solved the exact problem you're facing. Surface verified community answers inline, with expert-reviewed badges for accuracy. This isn't a forum — it's targeted answers attached to specific fields and error states.</div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- Section 4: The Business Case -->
+        <div class="teardown-section">
+            <div class="section-number">Section 4</div>
+            <h2 class="section-title">The Business Case</h2>
+
+            <div class="exec-summary">
+                <div class="exec-summary-label">Executive Summary</div>
+                <p>This is a bet on support cost reduction and retention. TurboTax's support costs are a known pain point for Intuit — they've been systematically reducing human support for years. The proposal isn't to reverse that trend, it's to make self-service actually work. Better in-context help reduces support tickets. Community answers scale without headcount. And transparent pricing reduces refund requests and churn.</p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-funnel-stage">Support</div>
+                    <div class="kpi-metric">-25-35%</div>
+                    <div class="kpi-name">Support ticket volume</div>
+                    <div class="kpi-rationale">In-context help resolves questions before users need to contact support. Every deflected ticket saves $15-25 in support costs.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-funnel-stage">Retention</div>
+                    <div class="kpi-metric">+8-12%</div>
+                    <div class="kpi-name">Year-over-year return rate</div>
+                    <div class="kpi-rationale">Users who complete filing without getting stuck are significantly more likely to return next year. The support desert is the #1 cited reason for switching.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-funnel-stage">Satisfaction</div>
+                    <div class="kpi-metric">+5-8pts</div>
+                    <div class="kpi-name">ACSI score improvement</div>
+                    <div class="kpi-rationale">From 73 to 78-81. Closing the gap with industry average (77) through better self-service, not more human agents.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-funnel-stage">Revenue</div>
+                    <div class="kpi-metric">+$3-5</div>
+                    <div class="kpi-name">ARPU from voluntary upgrades</div>
+                    <div class="kpi-rationale">Transparent pricing drives trust. Users who understand what they're paying for are more likely to upgrade willingly vs feeling forced.</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 2rem;">The counterargument is clear: gating support behind premium tiers is profitable. TurboTax Live generates significant revenue precisely because basic support is terrible. But the long-term math doesn't hold — when 73/100 ACSI puts you below the industry average and competitors like FreeTaxUSA offer free filing with better support, the moat is eroding. The question isn't whether to improve support, it's whether to do it proactively or wait until market share forces it.</p>
+
+            <div class="assumptions">
+                <div class="assumptions-label">Assumptions & Data Sources</div>
+                <p>I don't work at Intuit. I've never seen their internal support metrics or retention dashboards. Everything here is built from public data — App Store reviews (roughly 200 reviewed), BBB complaint patterns, the ACSI 2024 survey (73/100, below the software industry average of 77), and published financial data from Intuit's 10-K filings. The KPI estimates are directional ranges based on industry benchmarks for support deflection and self-service adoption, not predictions. If I had access to Intuit's internal data, the business case would be more precise — but the direction wouldn't change.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-social">
+            <div class="social-links">
+                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+                </a>
+                <a href="https://github.com/iamkiranrao" class="social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                </a>
+                <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                </a>
+                <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg>
+                </a>
+                <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg>
+                </a>
+                <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-site-info">
+            <img src="../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
+            <div class="footer-meta">
+                <span class="version-number">v1.0.24</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <span class="last-updated">Updated Feb 28, 2026</span>
+                <span class="footer-meta-sep">&middot;</span>
+                <a href="../rss.xml" class="rss-badge" title="Subscribe to RSS feed" target="_blank" rel="noopener noreferrer">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+                    RSS
+                </a>
+            </div>
+        </div>
+        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        const menuButton = document.getElementById('menuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ============================================
+        // THEME TOGGLE
+        // ============================================
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.querySelector('.moon-icon').style.display = 'none';
+            document.querySelector('.sun-icon').style.display = 'block';
+        }
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            document.documentElement.setAttribute('data-theme', isLight ? '' : 'light');
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
+            document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+        });
+
+        // ============================================
+        // MISC
+        // ============================================
+        window.addEventListener('load', () => {
+            document.body.classList.remove('preload');
+        });
+        document.querySelector('.footer-logo')?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+    <script src="../fenix-widget.js" defer></script>
+</body>
+</html>

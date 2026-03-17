@@ -13,11 +13,13 @@ Features:
 import json
 import os
 import uuid
+import tempfile
 from datetime import datetime, date, timedelta
 from typing import Optional, List, Dict
 from collections import Counter
 
-DATA_DIR = "/tmp/command-center/job-central"
+from utils.config import data_dir
+DATA_DIR = data_dir("job-central")
 
 
 # ── Data persistence helpers ──────────────────────────────────────

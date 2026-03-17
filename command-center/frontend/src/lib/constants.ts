@@ -1,5 +1,13 @@
 export const MODULES = [
   {
+    slug: "notifications",
+    label: "Notification Center",
+    icon: "Inbox",
+    description: "Actionable items from across Command Center — feedback, task failures, and more.",
+    href: "/dashboard/notifications",
+    color: "var(--accent-orange, #fb923c)",
+  },
+  {
     slug: "teardowns",
     label: "Teardown Builder",
     icon: "Wrench",
@@ -26,8 +34,8 @@ export const MODULES = [
   {
     slug: "job-central",
     label: "Job Central",
-    icon: "Target",
-    description: "Track applications, prep for interviews, manage your job search.",
+    icon: "Radar",
+    description: "Scan for fresh roles, track applications, prep for interviews.",
     href: "/dashboard/job-central",
     color: "var(--accent-red)",
   },
@@ -56,6 +64,14 @@ export const MODULES = [
     color: "var(--accent-teal, #2dd4bf)",
   },
   {
+    slug: "guides",
+    label: "Product Guides",
+    icon: "BookMarked",
+    description: "Living knowledge base for each Command Center module.",
+    href: "/dashboard/guides",
+    color: "var(--accent-violet, #8b5cf6)",
+  },
+  {
     slug: "content-audit",
     label: "Content Audit",
     icon: "Shield",
@@ -70,6 +86,22 @@ export const MODULES = [
     description: "View site feedback and manage testimonial submissions.",
     href: "/dashboard/feedback",
     color: "var(--accent-pink, #f472b6)",
+  },
+  {
+    slug: "ideas",
+    label: "Future Ideas",
+    icon: "Lightbulb",
+    description: "Feature backlog and improvement ideas for Command Center.",
+    href: "/dashboard/ideas",
+    color: "var(--accent-yellow, #facc15)",
+  },
+  {
+    slug: "library",
+    label: "Knowledge Library",
+    icon: "Library",
+    description: "Searchable index of all project documentation with quick summaries.",
+    href: "/dashboard/library",
+    color: "var(--accent-indigo, #818cf8)",
   },
   {
     slug: "tools",

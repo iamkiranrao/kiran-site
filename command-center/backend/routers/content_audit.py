@@ -10,6 +10,7 @@ Endpoints:
 """
 
 import os
+from utils.config import resolve_api_key
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
 from typing import Optional
@@ -23,17 +24,6 @@ from services.content_audit_service import (
 )
 
 
-def _resolve_api_key(header_key: Optional[str]) -> str:
-    """Use header key if provided, otherwise fall back to env var."""
-    if header_key and header_key.startswith("sk-ant-"):
-        return header_key
-    env_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
-    if env_key and env_key.startswith("sk-ant-"):
-        return env_key
-    raise HTTPException(
-        status_code=401,
-        detail="No valid Claude API key found. Set ANTHROPIC_API_KEY in backend/.env or provide X-Claude-Key header.",
-    )
 
 
 router = APIRouter()
@@ -65,7 +55,7 @@ async def run_audit(
     x_claude_key: Optional[str] = Header(None),
 ):
     """Audit a single file against content rules."""
-    api_key = _resolve_api_key(x_claude_key)
+    api_key = resolve_api_key(x_claude_key)
     result = await audit_file(api_key, req.file_path)
     if "error" in result:
         raise HTTPException(status_code=404, detail=result["error"])
@@ -77,7 +67,7 @@ async def run_full_audit(
     x_claude_key: Optional[str] = Header(None),
 ):
     """Audit all site files — full scan."""
-    api_key = _resolve_api_key(x_claude_key)
+    api_key = resolve_api_key(x_claude_key)
     return await audit_all(api_key)
 
 

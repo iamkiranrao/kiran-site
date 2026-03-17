@@ -1,0 +1,1015 @@
+{
+  "session_id": "efeaaf33",
+  "created_at": "2026-03-12T00:56:52.177899",
+  "status": "active",
+  "questions": [
+    {
+      "id": "professional_0",
+      "question": "When you're leading a team through a major product pivot, how do you handle the inevitable pushback from engineers who've invested months in the old direction?",
+      "category_id": "professional",
+      "category_label": "Professional",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "professional_1",
+      "question": "What's a product feature you killed that everyone else thought was brilliant, and why did you make that call?",
+      "category_id": "professional",
+      "category_label": "Professional",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "professional_2",
+      "question": "How do you decide when to ship something that's 80% ready versus waiting for that perfect 100%?",
+      "category_id": "professional",
+      "category_label": "Professional",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "professional_3",
+      "question": "What's your approach when a CEO or founder asks for a feature that you know will hurt the user experience?",
+      "category_id": "professional",
+      "category_label": "Professional",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "professional_4",
+      "question": "Describe a time when you had to deliver really bad news to stakeholders - how did you frame it?",
+      "category_id": "professional",
+      "category_label": "Professional",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "professional_5",
+      "question": "What's the most counterintuitive lesson you've learned about building products that actually get adopted?",
+      "category_id": "professional",
+      "category_label": "Professional",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "professional_6",
+      "question": "When you're hiring for your team, what green flag in an interview makes you think 'I need this person'?",
+      "category_id": "professional",
+      "category_label": "Professional",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "professional_7",
+      "question": "How do you handle the tension between what users say they want and what their behavior actually shows?",
+      "category_id": "professional",
+      "category_label": "Professional",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "professional_8",
+      "question": "What's a piece of conventional product wisdom that you think is completely wrong?",
+      "category_id": "professional",
+      "category_label": "Professional",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "professional_9",
+      "question": "Tell me about a project you're genuinely proud of that might not look impressive on paper but was personally meaningful to you.",
+      "category_id": "professional",
+      "category_label": "Professional",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "technical_0",
+      "question": "When you're building a new feature, what's your gut reaction: reach for the newest shiny framework or stick with the boring, battle-tested stack?",
+      "category_id": "technical",
+      "category_label": "Technical",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "technical_1",
+      "question": "What's one developer tool that everyone seems to love but you secretly think is overrated?",
+      "category_id": "technical",
+      "category_label": "Technical",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "technical_2",
+      "question": "If you had to choose between working with a brilliant engineer who writes terrible documentation or an average engineer who documents everything beautifully, who would you pick?",
+      "category_id": "technical",
+      "category_label": "Technical",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "technical_3",
+      "question": "What's your most controversial opinion about AI tools in software development right now?",
+      "category_id": "technical",
+      "category_label": "Technical",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "technical_4",
+      "question": "When you see a startup's tech stack on their careers page, what immediately makes you think 'these people know what they're doing' versus 'this is going to be a mess'?",
+      "category_id": "technical",
+      "category_label": "Technical",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "technical_5",
+      "question": "What's a technical decision you made early in a project that seemed minor but ended up having huge consequences later?",
+      "category_id": "technical",
+      "category_label": "Technical",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "technical_6",
+      "question": "If you could magically eliminate one common practice from software development forever, what would it be?",
+      "category_id": "technical",
+      "category_label": "Technical",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "technical_7",
+      "question": "What's your philosophy on technical debt: pay it down immediately, live with it strategically, or something else entirely?",
+      "category_id": "technical",
+      "category_label": "Technical",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "technical_8",
+      "question": "When evaluating a build vs buy decision, what's the one factor that most people overlook but you always consider?",
+      "category_id": "technical",
+      "category_label": "Technical",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "technical_9",
+      "question": "What's a piece of technology that you were initially skeptical about but completely changed your mind on after using it?",
+      "category_id": "technical",
+      "category_label": "Technical",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "personal_0",
+      "question": "What's a hobby or interest you have that most people wouldn't expect from looking at your professional background?",
+      "category_id": "personal",
+      "category_label": "Personal",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "personal_1",
+      "question": "When you're explaining a complex technical concept to someone, what's your go-to analogy or approach?",
+      "category_id": "personal",
+      "category_label": "Personal",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "personal_2",
+      "question": "What's something you believed strongly about product development early in your career that you've completely changed your mind on?",
+      "category_id": "personal",
+      "category_label": "Personal",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "personal_3",
+      "question": "If you had to pick one song that gets you in the zone for deep work, what would it be?",
+      "category_id": "personal",
+      "category_label": "Personal",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "personal_4",
+      "question": "What's your biggest pet peeve when it comes to how teams communicate in Slack or email?",
+      "category_id": "personal",
+      "category_label": "Personal",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "personal_5",
+      "question": "What's a piece of advice everyone gives that you think is actually terrible?",
+      "category_id": "personal",
+      "category_label": "Personal",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "personal_6",
+      "question": "When you're stuck on a problem, what's your weird ritual or method for getting unstuck?",
+      "category_id": "personal",
+      "category_label": "Personal",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "personal_7",
+      "question": "What's something you're irrationally passionate about that has nothing to do with work?",
+      "category_id": "personal",
+      "category_label": "Personal",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "personal_8",
+      "question": "If you could only use three words to describe how you approach building relationships with new team members, what would they be?",
+      "category_id": "personal",
+      "category_label": "Personal",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "personal_9",
+      "question": "What's the most interesting failure you've had outside of work that taught you something valuable about yourself?",
+      "category_id": "personal",
+      "category_label": "Personal",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "working_style_0",
+      "question": "When you're in a meeting that's clearly going nowhere, what's your move to get it back on track?",
+      "category_id": "working_style",
+      "category_label": "Working Style",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "working_style_1",
+      "question": "How do you handle giving tough feedback to someone who's clearly talented but struggling with execution?",
+      "category_id": "working_style",
+      "category_label": "Working Style",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "working_style_2",
+      "question": "What's your approach when two strong team members have completely opposite views on a technical decision?",
+      "category_id": "working_style",
+      "category_label": "Working Style",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "working_style_3",
+      "question": "Do you prefer async communication or face-to-face discussions when working through complex problems?",
+      "category_id": "working_style",
+      "category_label": "Working Style",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "working_style_4",
+      "question": "How do you mentor junior developers without just giving them the answer outright?",
+      "category_id": "working_style",
+      "category_label": "Working Style",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "working_style_5",
+      "question": "What's the most unconventional way you've ever run a team meeting or standup?",
+      "category_id": "working_style",
+      "category_label": "Working Style",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "working_style_6",
+      "question": "When you're collaborating with designers, what's the one thing they do that makes your job way easier?",
+      "category_id": "working_style",
+      "category_label": "Working Style",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "working_style_7",
+      "question": "How do you handle it when someone on your team consistently misses deadlines but has great ideas?",
+      "category_id": "working_style",
+      "category_label": "Working Style",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "working_style_8",
+      "question": "What's your strategy for keeping remote team members engaged during long technical discussions?",
+      "category_id": "working_style",
+      "category_label": "Working Style",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "working_style_9",
+      "question": "When you disagree with a decision that's already been made by leadership, how do you handle implementing it with your team?",
+      "category_id": "working_style",
+      "category_label": "Working Style",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "industry_views_0",
+      "question": "What's the most overhyped trend in insurance tech right now that everyone's chasing but probably shouldn't be?",
+      "category_id": "industry_views",
+      "category_label": "Industry Views",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "industry_views_1",
+      "question": "If you had to pick between working at a scrappy 20-person insurtech startup or leading innovation at a Fortune 500 insurance company, which would you choose and why?",
+      "category_id": "industry_views",
+      "category_label": "Industry Views",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "industry_views_2",
+      "question": "What's your controversial opinion about AI product features that companies build just to say they have AI?",
+      "category_id": "industry_views",
+      "category_label": "Industry Views",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "industry_views_3",
+      "question": "Which emerging technology do you think will actually matter for insurance in 5 years versus what's just shiny object syndrome?",
+      "category_id": "industry_views",
+      "category_label": "Industry Views",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "industry_views_4",
+      "question": "What's the biggest misconception that traditional insurance companies have about building tech products?",
+      "category_id": "industry_views",
+      "category_label": "Industry Views",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "industry_views_5",
+      "question": "If you were advising a startup founder who's never worked in insurance before, what's the one thing about the industry you'd warn them about?",
+      "category_id": "industry_views",
+      "category_label": "Industry Views",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "industry_views_6",
+      "question": "What's your take on insurance companies that try to build everything in-house versus partnering with specialized tech vendors?",
+      "category_id": "industry_views",
+      "category_label": "Industry Views",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "industry_views_7",
+      "question": "Which insurtech 'innovation' makes you roll your eyes because it's solving the wrong problem entirely?",
+      "category_id": "industry_views",
+      "category_label": "Industry Views",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "industry_views_8",
+      "question": "What's the most underrated aspect of working in insurance tech that people outside the industry don't appreciate?",
+      "category_id": "industry_views",
+      "category_label": "Industry Views",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "industry_views_9",
+      "question": "If you had to predict which traditional insurance process will be completely automated away first, what would it be?",
+      "category_id": "industry_views",
+      "category_label": "Industry Views",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "site_specific_0",
+      "question": "What's the most common misconception visitors have about what you actually do day-to-day?",
+      "category_id": "site_specific",
+      "category_label": "Site-Specific",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "site_specific_1",
+      "question": "When someone lands on your site, what's the one thing you'd want them to remember about you six months later?",
+      "category_id": "site_specific",
+      "category_label": "Site-Specific",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "site_specific_2",
+      "question": "What question do you secretly hope visitors will ask, but they rarely do?",
+      "category_id": "site_specific",
+      "category_label": "Site-Specific",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "site_specific_3",
+      "question": "If a visitor is comparing you to other product people, what would you say sets you apart from the typical PM they've worked with?",
+      "category_id": "site_specific",
+      "category_label": "Site-Specific",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "site_specific_4",
+      "question": "What's something about your working style that might surprise people who only know you from your online presence?",
+      "category_id": "site_specific",
+      "category_label": "Site-Specific",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "site_specific_5",
+      "question": "When visitors ask about your experience, what part of your journey do you think they undervalue or overlook?",
+      "category_id": "site_specific",
+      "category_label": "Site-Specific",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "site_specific_6",
+      "question": "What's your biggest pet peeve about how people talk about AI/ML products in the industry right now?",
+      "category_id": "site_specific",
+      "category_label": "Site-Specific",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "site_specific_7",
+      "question": "If someone's deciding whether to work with you, what's the most honest thing you'd tell them about what it's like?",
+      "category_id": "site_specific",
+      "category_label": "Site-Specific",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "site_specific_8",
+      "question": "What's one piece of conventional product wisdom that you think is completely wrong?",
+      "category_id": "site_specific",
+      "category_label": "Site-Specific",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "site_specific_9",
+      "question": "When visitors scroll through your work, what context are they missing that would change how they see those projects?",
+      "category_id": "site_specific",
+      "category_label": "Site-Specific",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "career_story_0",
+      "question": "What's the biggest career risk you took that everyone told you was a mistake?",
+      "category_id": "career_story",
+      "category_label": "Career Story",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "career_story_1",
+      "question": "Who was the worst boss you ever had, and what did they accidentally teach you about leadership?",
+      "category_id": "career_story",
+      "category_label": "Career Story",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "career_story_2",
+      "question": "What's a skill you thought was useless early in your career that turned out to be surprisingly valuable?",
+      "category_id": "career_story",
+      "category_label": "Career Story",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "career_story_3",
+      "question": "Tell me about a time you got promoted or recognized for something completely different than what you thought you'd be known for.",
+      "category_id": "career_story",
+      "category_label": "Career Story",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "career_story_4",
+      "question": "What's the most humbling moment you've had as a product leader?",
+      "category_id": "career_story",
+      "category_label": "Career Story",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "career_story_5",
+      "question": "Which career pivot felt the most unnatural at first but ended up being exactly right?",
+      "category_id": "career_story",
+      "category_label": "Career Story",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "career_story_6",
+      "question": "What's something you used to believe strongly about building products that you now think is completely wrong?",
+      "category_id": "career_story",
+      "category_label": "Career Story",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "career_story_7",
+      "question": "Who's someone you worked with early in your career who saw potential in you before you saw it in yourself?",
+      "category_id": "career_story",
+      "category_label": "Career Story",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "career_story_8",
+      "question": "What's the weirdest or most unconventional path that led to one of your biggest career breakthroughs?",
+      "category_id": "career_story",
+      "category_label": "Career Story",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "career_story_9",
+      "question": "If you could go back and give your first-year-as-a-PM self one specific piece of advice, what would it be?",
+      "category_id": "career_story",
+      "category_label": "Career Story",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "product_craft_0",
+      "question": "When you're forced to ship a feature you know isn't ready, how do you handle that internal conflict?",
+      "category_id": "product_craft",
+      "category_label": "Product Craft",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "product_craft_1",
+      "question": "What's a user research method most PMs overlook that you swear by?",
+      "category_id": "product_craft",
+      "category_label": "Product Craft",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "product_craft_2",
+      "question": "Do you believe in shipping fast and iterating, or taking time to get it right the first time?",
+      "category_id": "product_craft",
+      "category_label": "Product Craft",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "product_craft_3",
+      "question": "What's your most controversial opinion about how product metrics should be used?",
+      "category_id": "product_craft",
+      "category_label": "Product Craft",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "product_craft_4",
+      "question": "When stakeholders push for features that contradict user research, how do you navigate that tension?",
+      "category_id": "product_craft",
+      "category_label": "Product Craft",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "product_craft_5",
+      "question": "What's a prioritization framework you've seen fail spectacularly, and why did it backfire?",
+      "category_id": "product_craft",
+      "category_label": "Product Craft",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "product_craft_6",
+      "question": "How do you handle the pressure to show immediate impact when building foundational features?",
+      "category_id": "product_craft",
+      "category_label": "Product Craft",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "product_craft_7",
+      "question": "What's the biggest misconception people have about what makes a product successful?",
+      "category_id": "product_craft",
+      "category_label": "Product Craft",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "product_craft_8",
+      "question": "When you disagree with a designer's solution, how do you approach that conversation?",
+      "category_id": "product_craft",
+      "category_label": "Product Craft",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "product_craft_9",
+      "question": "What's a product craft skill you wish more PMs would develop but most ignore?",
+      "category_id": "product_craft",
+      "category_label": "Product Craft",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "opinions_0",
+      "question": "What's your most controversial opinion about AI in product development that other PMs would disagree with?",
+      "category_id": "opinions",
+      "category_label": "Opinions & Takes",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "opinions_1",
+      "question": "Which popular design trend or principle do you think is completely overrated?",
+      "category_id": "opinions",
+      "category_label": "Opinions & Takes",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "opinions_2",
+      "question": "What's the biggest myth about leadership that you've seen destroy teams?",
+      "category_id": "opinions",
+      "category_label": "Opinions & Takes",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "opinions_3",
+      "question": "Do you think user research is overvalued or undervalued in most product orgs, and why?",
+      "category_id": "opinions",
+      "category_label": "Opinions & Takes",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "opinions_4",
+      "question": "What's your spiciest take on the current state of tech hiring practices?",
+      "category_id": "opinions",
+      "category_label": "Opinions & Takes",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "opinions_5",
+      "question": "Which commonly praised 'unicorn' company do you think is actually terribly run?",
+      "category_id": "opinions",
+      "category_label": "Opinions & Takes",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "opinions_6",
+      "question": "What's one product management framework or methodology that you think is mostly BS?",
+      "category_id": "opinions",
+      "category_label": "Opinions & Takes",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "opinions_7",
+      "question": "Do you believe in 'natural born leaders' or is that concept complete nonsense?",
+      "category_id": "opinions",
+      "category_label": "Opinions & Takes",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "opinions_8",
+      "question": "What's your most unpopular opinion about work-life balance in tech?",
+      "category_id": "opinions",
+      "category_label": "Opinions & Takes",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "opinions_9",
+      "question": "Which emerging technology do you think is getting way too much hype relative to its actual potential?",
+      "category_id": "opinions",
+      "category_label": "Opinions & Takes",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "fun_0",
+      "question": "What's your guilty pleasure app or website that you'd be slightly embarrassed to admit you use regularly?",
+      "category_id": "fun",
+      "category_label": "Fun & Personality",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "fun_1",
+      "question": "If you had unlimited time but the same energy levels you have now, what would you spend most of it doing?",
+      "category_id": "fun",
+      "category_label": "Fun & Personality",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "fun_2",
+      "question": "What's an unpopular opinion you hold about the tech industry that might make people at networking events uncomfortable?",
+      "category_id": "fun",
+      "category_label": "Fun & Personality",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "fun_3",
+      "question": "What's the weirdest or most unexpected thing that consistently sparks your curiosity?",
+      "category_id": "fun",
+      "category_label": "Fun & Personality",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "fun_4",
+      "question": "If you could magically become world-class at any skill overnight, what would you choose and why?",
+      "category_id": "fun",
+      "category_label": "Fun & Personality",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "fun_5",
+      "question": "What's a small, seemingly insignificant thing that other people do that irrationally annoys you?",
+      "category_id": "fun",
+      "category_label": "Fun & Personality",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "fun_6",
+      "question": "What's your go-to conversation starter when you're stuck talking to someone at a work event and the small talk is dying?",
+      "category_id": "fun",
+      "category_label": "Fun & Personality",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "fun_7",
+      "question": "What's something you believed strongly about work or life five years ago that you now think was completely wrong?",
+      "category_id": "fun",
+      "category_label": "Fun & Personality",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "fun_8",
+      "question": "If you had to choose between being known for building something technically impressive but useless, or something simple but genuinely helpful to millions, which would you pick?",
+      "category_id": "fun",
+      "category_label": "Fun & Personality",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    },
+    {
+      "id": "fun_9",
+      "question": "What's the most unusual place or situation where you've had your best ideas, and do you intentionally recreate those conditions?",
+      "category_id": "fun",
+      "category_label": "Fun & Personality",
+      "status": "pending",
+      "raw_answer": null,
+      "polished_pairs": null,
+      "editorial_notes": null
+    }
+  ],
+  "current_index": 0,
+  "stats": {
+    "total": 100,
+    "answered": 0,
+    "approved": 0,
+    "skipped": 0,
+    "saved": 0
+  }
+}

@@ -15,6 +15,7 @@ import {
   Layout,
 } from "lucide-react";
 import { useApiKey } from "@/context/ApiKeyContext";
+import ModuleHelp from "@/components/ModuleHelp";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -695,6 +696,7 @@ export default function ContentAuditPage() {
         <h1 className="text-2xl font-semibold text-[var(--text-primary)] tracking-tight flex items-center gap-3">
           <Shield size={24} />
           Content Audit
+          <ModuleHelp moduleSlug="content-audit" />
         </h1>
         <p className="text-sm text-[var(--text-secondary)] mt-1">
           Scan every page against your content and visual rules.

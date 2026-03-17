@@ -7,10 +7,13 @@ Tables used:
   - testimonials: id, name, role, testimonial, is_public, status, created_at
 """
 
+import logging
 import os
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 from supabase import create_client, Client
+
+logger = logging.getLogger(__name__)
 
 
 def _get_client() -> Client:
@@ -36,7 +39,17 @@ def submit_feedback(rating: Optional[str], comment: Optional[str], ip: Optional[
         "user_agent": user_agent,
     }
     result = sb.table("site_feedback").insert(row).execute()
-    return {"success": True, "id": result.data[0]["id"] if result.data else None}
+    feedback_id = result.data[0]["id"] if result.data else None
+
+    # Emit notification
+    try:
+        from services.notification_service import notify_new_feedback
+        if feedback_id:
+            notify_new_feedback(feedback_id, rating, comment or "")
+    except Exception as e:
+        logger.warning("Failed to emit feedback notification: %s", e)
+
+    return {"success": True, "id": feedback_id}
 
 
 def get_feedback_stats(days: int = 30) -> dict:
@@ -123,7 +136,17 @@ def submit_testimonial(name: str, role: Optional[str], testimonial: str, is_publ
         "status": "pending",  # pending → approved / rejected
     }
     result = sb.table("testimonials").insert(row).execute()
-    return {"success": True, "id": result.data[0]["id"] if result.data else None}
+    testimonial_id = result.data[0]["id"] if result.data else None
+
+    # Emit notification
+    try:
+        from services.notification_service import notify_new_testimonial
+        if testimonial_id:
+            notify_new_testimonial(testimonial_id, name, testimonial[:200])
+    except Exception as e:
+        logger.warning("Failed to emit testimonial notification: %s", e)
+
+    return {"success": True, "id": testimonial_id}
 
 
 def get_testimonial_stats() -> dict:

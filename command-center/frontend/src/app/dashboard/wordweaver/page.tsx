@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useApiKey } from "@/context/ApiKeyContext";
+import ModuleHelp from "@/components/ModuleHelp";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -576,11 +577,7 @@ export default function WordWeaverPage() {
               <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
                 WordWeaver
               </h1>
-              <Link href="/dashboard/help?module=wordweaver"
-                className="text-[var(--text-muted)] hover:text-[var(--accent-blue)] transition-colors"
-                title="Help & Documentation">
-                <HelpCircle size={18} />
-              </Link>
+              <ModuleHelp moduleSlug="wordweaver" />
             </div>
             <p className="text-[var(--text-secondary)] text-sm">
               Blog &amp; social content production engine.

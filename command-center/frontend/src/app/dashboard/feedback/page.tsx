@@ -16,6 +16,7 @@ import {
   BarChart3,
   MessageCircle,
 } from "lucide-react";
+import ModuleHelp from "@/components/ModuleHelp";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -223,9 +224,12 @@ export default function FeedbackPage() {
             <MessageSquare size={20} style={{ color: "#f472b6" }} />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-[var(--text-primary)]">
-              Feedback & Testimonials
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-xl font-bold text-[var(--text-primary)]">
+                Feedback & Testimonials
+              </h1>
+              <ModuleHelp moduleSlug="feedback" />
+            </div>
             <p className="text-sm text-[var(--text-muted)]">
               Site feedback and testimonial submissions from visitors
             </p>

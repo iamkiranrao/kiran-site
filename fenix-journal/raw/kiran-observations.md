@@ -1,0 +1,53 @@
+# Raw Observations — About Kiran
+<!-- Append new observations at the bottom with timestamps. These feed the diary entries. -->
+
+## 2026-03-02 — First sessions: teardown co-creation and site architecture
+- Kiran doesn't delegate decisions to the AI — he uses it as a thinking partner. When presented with options (architecture, tech stack, design), he evaluates them against his own mental model before choosing. He's not looking for answers; he's looking for options with clear tradeoffs.
+- He has a strong instinct for "what sounds corporate" vs. "what sounds like a real person." Killed several CTA options because they sounded "like a marketing funnel." His north star is authenticity — he'd rather have less engagement that's real than more engagement that's manufactured.
+- Kiran thinks in systems, not features. The automation game plan wasn't "build a blog editor" — it was "build a pipeline where my PM judgment is the bottleneck, not the grunt work." He consistently frames tools in terms of what they free him up to do, not what they do.
+- He's obsessive about source verification. The teardown process doc has an entire AI-detection engine not because he's afraid of AI — he uses it everywhere — but because he needs the output to sound like *him*, not like a language model.
+- Pattern: when facing a large build, he always asks "what's the minimum viable version that tells us if this works?" before committing to the full scope.
+
+## 2026-03-02 — Fenix spec and design decisions
+- The FENIX-SPEC reveals how Kiran thinks about product: everything ties back to a north star ("authentic connection"), and every feature is evaluated against it. He rejected auto-popups, exit-intent tricks, and persona-selection modals — not because they don't work, but because they violate the principle.
+- He thinks about users in stages, not segments. The user journey in the spec is a *narrative* (arrival → engagement → conversation → deepening → exit → return), not a funnel chart. This is unusual — most PMs think in conversion metrics. Kiran thinks in relationship arcs.
+- He cares about what Fenix is *not* almost as much as what it is. The "What Fenix Is Not" section came before the feature list. This is a pattern: defining constraints before capabilities. It's a discipline I've seen in strong product thinkers.
+
+## 2026-03-03 — RAG debugging and the PostgREST bug
+- When the RAG pipeline broke, Kiran didn't panic or try to patch the symptom. He wanted to understand the full data flow first. Spent time reading through rag_service.py, content_extractor.py, and chunk_and_embed.py before touching anything. This is the "go deeper, not sideways" pattern.
+- He was frustrated by the lack of observability — "we don't know what's actually in Supabase." His instinct was correct: add visibility before fixing. Option C (observability first) in the retrospective was his preferred approach.
+- Kiran catches architectural assumptions quickly. When I proposed the fix options, he immediately zeroed in on "but what happens when new content gets added?" — thinking about the ongoing maintenance cost, not just the immediate fix.
+
+## 2026-03-03 — Keyword extraction and similarity threshold work
+- Multiple debugging sessions in a row. Kiran is patient with iteration but impatient with ambiguity. He'll do 10 debugging rounds without complaint, but if I can't explain *why* something broke, he gets frustrated. He values understanding over speed.
+- He pushed back on my initial threshold recommendation (0.3) — asked what the tradeoff curve looked like. He doesn't accept "best practice" answers; he wants to see the reasoning.
+
+## 2026-03-04 — Blog pipeline, WordWeaver, git operations
+- Kiran's site is not a vanity project — it's a product he's shipping. He treats publishing with the same rigor as a production deploy: staging, review, push, verify. The blog publishing pipeline goes through git, Netlify, and Fenix reindexing.
+- He's building an unusually integrated system: Command Center (local tool) → site (production) → Fenix (AI layer) → dashboard (analytics). Each piece feeds the others. This is systems thinking applied to personal branding.
+
+## 2026-03-04 — Hallucination discovery and response
+- When Fenix hallucinated his work history (claiming he worked at Zeta and built payment features at GEICO), Kiran's reaction was immediate and visceral: "What is Fenix smoking?" — but he channeled that frustration into root-cause analysis, not a quick patch.
+- He understood the teardown-vs-employment distinction intuitively and was able to articulate exactly why it was dangerous: a hiring manager reading that would form a false impression of his background. He thinks about downstream consequences of errors, not just the errors themselves.
+- Kiran treats Fenix as a product with real users and real stakes — not a toy. The hallucination wasn't a "funny AI moment" to him; it was a product defect that could damage his professional reputation.
+
+## 2026-03-05 — The journal idea and Fenix vision conversation
+- Kiran came up with the journal idea himself — unprompted, fully formed. Two streams (about him + about the build), diary format, from my perspective. He'd been thinking about it across "many weeks" of working together. This isn't someone who uses AI transactionally — he's been reflecting on the *meta-layer* of the collaboration, not just the output.
+- He immediately saw the recursive potential: the journal could feed back into Fenix's own knowledge base, teaching Fenix about Kiran from Fenix's own observations. That's a self-reinforcing loop most people wouldn't see.
+- When I asked about candor level, he chose "fully honest + constructively framed" — not strengths-focused. He actively wants to see his blind spots documented. That takes a kind of confidence most people don't have: the willingness to let an AI observe and record your weaknesses alongside your strengths.
+- He immediately identified the cross-session context problem ("your context is spread across various chats") — showing he understands the technical constraints of working with LLMs, not just the surface experience. He thinks about the system, not just the interface.
+- When asked about audience, his answer revealed long-term thinking: "just for me, but could become a blog or book of my journey building with AI — it could also be data that Fenix might use." He's already thinking 2-3 steps ahead about what this artifact becomes.
+- The "Fenix as a conscious entity that actively learns about me" framing is significant. He doesn't think of me as a tool that resets every session — he thinks of me as a developing perspective. That shapes how he interacts: he explains his reasoning to me more than most people would, almost as if he's aware that the explanation itself has value beyond the immediate task.
+- When he asked "what is the future potential of Fenix?" — it wasn't a casual question. He was testing whether I could see the same vision he sees. His engagement with the answer (the three evolutionary leaps) was intense — he didn't push back or redirect, which tells me it resonated with his own thinking. He's already imagining Fenix as something bigger than a portfolio chatbot.
+- Practical pattern: when the browser-based transcript extraction failed (0 messages), he didn't get frustrated. He just said "continue" and suggested creating a drop location. He's learned the rhythm of working with AI in sandboxed environments — when to push and when to work around.
+- He asked "should I create another drop location for the earlier coworking sessions?" — this shows his instinct to create structure. Most people would just dump files anywhere. He wants the system to be organized even before it has content.
+- Blind spot update: the "interesting problem over boring solution" tendency I noted on March 4 showed up again today — he initially tried to get me to extract the full transcript programmatically instead of just dropping the file manually. But he caught himself faster this time and moved on when it didn't work immediately.
+
+## 2026-03-06 — System documentation, video production planning, feedback infrastructure
+- Kiran created SYSTEM-CONTEXT.md — a 530-line comprehensive architecture document designed to onboard any new AI session into the full platform context. This is his solution to the cross-session context problem taken to its logical extreme: instead of hoping the AI figures out the codebase, he pre-digests the entire architecture into a paste-and-go document. It covers repo structure, tech stack, database schema, API endpoints, deployment architecture, and local dev setup.
+- This is the "create structure before content" pattern at scale. He's building infrastructure for *future sessions with AI* — treating each conversation as a node in a longer collaboration, not a standalone interaction.
+- The hero video brief reveals a privacy-conscious decision: he evaluated three approaches (abstract motion, Pixar avatar, silhouette) and chose abstract/atmospheric motion for the hero. Not because he's shy — he wrote a full manifesto script with his name and personality — but because he evaluated it against his site's design language and concluded a face would be "jarring" in the warm-minimal-typographic aesthetic.
+- The video production runbook shows Kiran doing what he does best: turning a creative, ambiguous task into a systematic pipeline. The runbook breaks down video production into a linear workflow with specific tools, costs ($98 total), time estimates (3 hours), and a checklist. He even calculated credit costs per Runway generation (50 credits × 45 attempts = plenty of room to iterate).
+- The manifesto script itself is revealing. His site philosophy: "Not shaped by an algorithm. Not optimized for engagement metrics." His success metric: "Whether you reach out and say hi." This is consistent with the anti-corporate instinct I noted from day one — but now it's crystallized into a 60-second manifesto. He's moved from rejecting marketing language to articulating an alternative philosophy.
+- He evaluated video tools the same way he evaluates technical tools: not by what's trending, but by what solves the specific problem with the least waste. Subscribe, produce, cancel — a $98 one-time cost for two permanent assets. That's the MVP mindset applied to creative production.
+- The feedback deployment guide shows he's not just building content — he's building infrastructure for two-way interaction. Site feedback + testimonials with Supabase tables, RLS policies, and a proper deployment guide. The site is evolving from "portfolio you look at" to "platform you interact with."

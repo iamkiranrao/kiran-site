@@ -14,21 +14,15 @@ Usage:
 """
 
 import sys
+import os
 import re
 import argparse
 from docx import Document
 from docx.oxml.ns import qn
 
-
-def pt(p):
-    """Get full text of a paragraph, representing <w:br/> as newlines."""
-    parts = []
-    for child in p._element.iter():
-        if child.tag == qn('w:t'):
-            parts.append(child.text or '')
-        elif child.tag == qn('w:br'):
-            parts.append('\n')
-    return ''.join(parts)
+# Allow importing from services/ when run as a standalone script
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from services.resume_editor import pt
 
 
 def check_repeated_verbs(doc):
