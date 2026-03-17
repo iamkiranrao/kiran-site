@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useApiKey } from "@/context/ApiKeyContext";
+import ModuleHelp from "@/components/ModuleHelp";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -426,6 +427,7 @@ export default function TeardownsPage() {
               <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
                 Teardown Builder
               </h1>
+              <ModuleHelp moduleSlug="teardowns" />
               <Link href="/dashboard/help?module=teardowns"
                 className="text-[var(--text-muted)] hover:text-[var(--accent-amber)] transition-colors"
                 title="Help & Documentation">

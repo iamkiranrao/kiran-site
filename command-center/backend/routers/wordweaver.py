@@ -21,7 +21,9 @@ Endpoints:
 import os
 import json
 import shutil
+import tempfile
 from pathlib import Path
+from utils.config import CLAUDE_MODEL, resolve_api_key
 from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -36,14 +38,6 @@ SITE_ROOT = os.getenv(
 )
 
 
-def _resolve_api_key(header_key: Optional[str]) -> str:
-    """Use header key if provided, otherwise fall back to env var."""
-    if header_key and header_key.startswith("sk-ant-"):
-        return header_key
-    env_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
-    if env_key and env_key.startswith("sk-ant-"):
-        return env_key
-    raise HTTPException(status_code=401, detail="No valid Claude API key found. Set ANTHROPIC_API_KEY in backend/.env or provide X-Claude-Key header.")
 
 from services.wordweaver_service import (
     BLOG_STEPS,
@@ -204,7 +198,8 @@ async def delete_session(session_id: str):
     if not state:
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
 
-    session_dir = os.path.join("/tmp/command-center/wordweaver", session_id)
+    from utils.config import data_dir
+    session_dir = os.path.join(data_dir("wordweaver"), session_id)
     if os.path.isdir(session_dir):
         shutil.rmtree(session_dir)
 
@@ -218,7 +213,7 @@ async def execute_step(
     x_claude_key: str = Header(None, alias="X-Claude-Key"),
 ):
     """Run the current step via Claude with SSE streaming."""
-    api_key = _resolve_api_key(x_claude_key)
+    api_key = resolve_api_key(x_claude_key)
 
     state = get_session(session_id)
     if not state:
@@ -286,7 +281,7 @@ async def revise_step(
     x_claude_key: str = Header(None, alias="X-Claude-Key"),
 ):
     """Re-run the current step with revision feedback."""
-    api_key = _resolve_api_key(x_claude_key)
+    api_key = resolve_api_key(x_claude_key)
 
     state = get_session(session_id)
     if not state:
@@ -371,7 +366,7 @@ async def preview_content(
             detail=f"Cannot preview in status '{state['status']}'. Complete all steps first.",
         )
 
-    api_key = _resolve_api_key(x_claude_key)
+    api_key = resolve_api_key(x_claude_key)
 
     try:
         html_content = await _assemble_blog_html(state, api_key)
@@ -416,7 +411,7 @@ async def edit_final(
     Streams the revised content back via SSE. The revised text replaces step 7
     as a new draft so the user can approve or request more edits.
     """
-    api_key = _resolve_api_key(x_claude_key)
+    api_key = resolve_api_key(x_claude_key)
 
     state = get_session(session_id)
     if not state:
@@ -466,7 +461,7 @@ async def approve_final(
     Streams both revalidation steps sequentially via SSE, then auto-generates
     a fresh preview. At the end, status becomes 'ready_to_publish'.
     """
-    api_key = _resolve_api_key(x_claude_key)
+    api_key = resolve_api_key(x_claude_key)
 
     state = get_session(session_id)
     if not state:
@@ -599,7 +594,7 @@ async def _assemble_blog_html(state: dict, api_key: str) -> str:
     # Use streaming to avoid timeout on large requests
     collected = []
     with client.messages.stream(
-        model="claude-sonnet-4-20250514",
+        model=CLAUDE_MODEL,
         max_tokens=30000,
         messages=[{
             "role": "user",
@@ -708,7 +703,7 @@ async def preview_post(
     if not (html_content.startswith("<!DOCTYPE") or html_content.startswith("<html")):
         # It's raw step content, need to assemble it
         try:
-            api_key = _resolve_api_key(x_claude_key)
+            api_key = resolve_api_key(x_claude_key)
             html_content = await _assemble_blog_html(state, api_key)
         except Exception as e:
             raise HTTPException(
@@ -930,7 +925,7 @@ async def generate_crosspost(
     converts to clean Markdown, adds canonical link and series footer.
     Also exports any inline SVG diagrams as light-mode PNGs.
     """
-    api_key = _resolve_api_key(x_claude_key)
+    api_key = resolve_api_key(x_claude_key)
 
     state = get_session(session_id)
     if not state:
@@ -1033,7 +1028,7 @@ Add an italic caption below each image placeholder describing what the diagram s
 
     collected = []
     with client.messages.stream(
-        model="claude-sonnet-4-20250514",
+        model=CLAUDE_MODEL,
         max_tokens=16000,
         messages=[{
             "role": "user",

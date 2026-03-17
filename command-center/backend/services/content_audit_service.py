@@ -6,6 +6,7 @@ and uses Claude to audit the content against the rules.
 """
 
 import os
+from utils.config import CLAUDE_MODEL
 import re
 import json
 from typing import Optional
@@ -143,7 +144,7 @@ Return your audit as a JSON array. Each item should have:
 Return ONLY the JSON array, no other text. If no violations, return an empty array: []"""
 
     message = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model=CLAUDE_MODEL,
         max_tokens=4096,
         messages=[{"role": "user", "content": prompt}],
     )

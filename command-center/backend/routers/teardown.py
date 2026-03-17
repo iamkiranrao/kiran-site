@@ -17,6 +17,7 @@ Endpoints:
 import os
 import json
 from pathlib import Path
+from utils.config import CLAUDE_MODEL, resolve_api_key
 from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -34,14 +35,6 @@ SITE_ROOT = os.getenv(
 )
 
 
-def _resolve_api_key(header_key: Optional[str]) -> str:
-    """Use header key if provided, otherwise fall back to env var."""
-    if header_key and header_key.startswith("sk-ant-"):
-        return header_key
-    env_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
-    if env_key and env_key.startswith("sk-ant-"):
-        return env_key
-    raise HTTPException(status_code=401, detail="No valid Claude API key found. Set ANTHROPIC_API_KEY in backend/.env or provide X-Claude-Key header.")
 
 from services.teardown_service import (
     STEPS,
@@ -172,7 +165,7 @@ async def execute_step(
     x_claude_key: str = Header(None, alias="X-Claude-Key"),
 ):
     """Run the current step via Claude with SSE streaming."""
-    api_key = _resolve_api_key(x_claude_key)
+    api_key = resolve_api_key(x_claude_key)
 
     state = get_session(session_id)
     if not state:
@@ -241,7 +234,7 @@ async def revise_step(
     x_claude_key: str = Header(None, alias="X-Claude-Key"),
 ):
     """Re-run the current step with feedback from Kiran."""
-    api_key = _resolve_api_key(x_claude_key)
+    api_key = resolve_api_key(x_claude_key)
 
     state = get_session(session_id)
     if not state:
@@ -443,7 +436,7 @@ async def _assemble_html_from_steps(state: dict, api_key: str) -> str:
     # Ask Claude to generate JSON content fragments
     collected = []
     with client.messages.stream(
-        model="claude-sonnet-4-20250514",
+        model=CLAUDE_MODEL,
         max_tokens=30000,
         messages=[{
             "role": "user",
@@ -556,7 +549,7 @@ async def publish_teardown(
             html_content = _assemble_from_template(state, fragments)
         else:
             # Legacy or no JSON: use Claude to re-generate fragments from all steps
-            api_key = _resolve_api_key(x_claude_key)
+            api_key = resolve_api_key(x_claude_key)
             try:
                 html_content = await _assemble_html_from_steps(state, api_key)
             except Exception as e:
@@ -566,7 +559,7 @@ async def publish_teardown(
                 )
     else:
         # No step 8 content at all — assemble from earlier steps
-        api_key = _resolve_api_key(x_claude_key)
+        api_key = resolve_api_key(x_claude_key)
         try:
             html_content = await _assemble_html_from_steps(state, api_key)
         except Exception as e:

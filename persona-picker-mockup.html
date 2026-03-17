@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persona Picker Mockup — kirangorapalli.com</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f5f0eb;
+            --bg-dark: #1a1a1a;
+            --text: #1a1a1a;
+            --text-muted: #6b6560;
+            --accent: #8b4513;
+            --border: rgba(0,0,0,0.08);
+            --card-bg: rgba(255,255,255,0.6);
+            --card-hover: rgba(255,255,255,0.9);
+            --card-selected: rgba(139,69,19,0.08);
+            --card-selected-border: rgba(139,69,19,0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── Nav ──────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 24px 40px;
+            z-index: 100;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .nav-btn {
+            background: var(--text);
+            color: var(--bg);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* ─── Hero ─────────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 60px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 7vw, 96px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .hero-tagline {
+            font-size: clamp(32px, 5vw, 72px);
+            font-weight: 700;
+            color: var(--text-muted);
+            opacity: 0.5;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .hero-location {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        /* ─── Persona Picker ───────────────────────── */
+        .persona-section {
+            margin-top: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.4s forwards;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .persona-prompt {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .persona-subtext {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 900px;
+        }
+
+        .persona-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .persona-card:hover {
+            background: var(--card-hover);
+            border-color: rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .persona-card.selected {
+            background: var(--card-selected);
+            border-color: var(--card-selected-border);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139,69,19,0.08);
+        }
+
+        .persona-card.selected::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .persona-icon {
+            font-size: 22px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .persona-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .persona-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ─── Transition overlay ───────────────────── */
+        .transition-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 200;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .transition-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .transition-message {
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .transition-greeting {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .transition-detail {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .transition-loader {
+            margin-top: 32px;
+            width: 40px;
+            height: 4px;
+            background: rgba(0,0,0,0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .transition-loader::after {
+            content: '';
+            position: absolute;
+            left: -40px;
+            width: 40px;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px;
+            animation: loadSlide 1s ease infinite;
+        }
+
+        @keyframes loadSlide {
+            0% { left: -40px; }
+            100% { left: 40px; }
+        }
+
+        /* ─── Personalized page (after selection) ─── */
+        .personalized-page {
+            display: none;
+            min-height: 100vh;
+            padding: 100px 60px 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .personalized-page.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        .personalized-header {
+            margin-bottom: 48px;
+        }
+
+        .persona-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 16px;
+            background: rgba(139,69,19,0.06);
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .personalized-title {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .personalized-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 650px;
+        }
+
+        .change-persona {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-top: 16px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+            padding: 0;
+        }
+
+        .change-persona:hover {
+            color: var(--accent);
+        }
+
+        /* ─── Fenix summary card ───────────────────── */
+        .fenix-summary {
+            background: linear-gradient(135deg, rgba(139,69,19,0.04), rgba(139,69,19,0.02));
+            border: 1px solid rgba(139,69,19,0.1);
+            border-radius: 20px;
+            padding: 28px 32px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .fenix-summary-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .fenix-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(139,69,19,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .fenix-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .fenix-for-you {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: rgba(0,0,0,0.04);
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+
+        .fenix-summary-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        /* ─── Content cards ────────────────────────── */
+        .content-section-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .content-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .content-card:hover {
+            background: var(--card-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+        }
+
+        .content-card-tag {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .content-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .content-card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .content-card-relevance {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--accent);
+            margin-top: 12px;
+            opacity: 0.7;
+        }
+
+        /* ─── Responsive ───────────────────────────── */
+        @media (max-width: 768px) {
+            .hero { padding: 100px 28px 40px; }
+            .persona-grid { grid-template-columns: repeat(2, 1fr); }
+            .content-cards { grid-template-columns: 1fr; }
+            .personalized-page { padding: 80px 28px 40px; }
+        }
+
+        @media (max-width: 480px) {
+            .persona-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <button class="nav-btn" style="background:none;color:var(--text-muted);font-size:12px;padding:8px 16px;border:1px solid var(--border);" id="mockupLabel">MOCKUP — Not live</button>
+    </nav>
+
+    <!-- ═══ HERO + PERSONA PICKER ═══ -->
+    <section class="hero" id="heroSection">
+        <div>
+            <h1>Kiran Gorapalli</h1>
+            <p class="hero-tagline">Builder of Products People Love</p>
+            <p class="hero-location">(San Francisco, California)</p>
+        </div>
+
+        <div class="persona-section">
+            <p class="persona-prompt">What brings you here?</p>
+            <p class="persona-subtext">I'll tailor what you see to what matters most to you.</p>
+
+            <div class="persona-grid">
+                <div class="persona-card" data-persona="evaluator" onclick="selectPersona(this)">
+                    <span class="persona-icon">🎯</span>
+                    <p class="persona-label">I'm considering Kiran for a role</p>
+                    <p class="persona-desc">Hiring manager, recruiter, or talent partner evaluating fit</p>
+                </div>
+
+                <div class="persona-card" data-persona="seeker" onclick="selectPersona(this)">
+                    <span class="persona-icon">🚀</span>
+                    <p class="persona-label">I need product leadership help</p>
+                    <p class="persona-desc">Exploring fractional, advisory, or consulting engagement</p>
+                </div>
+
+                <div class="persona-card" data-persona="practitioner" onclick="selectPersona(this)">
+                    <span class="persona-icon">⚙️</span>
+                    <p class="persona-label">I'm a fellow builder</p>
+                    <p class="persona-desc">PM, engineer, or designer here for the craft</p>
+                </div>
+
+                <div class="persona-card" data-persona="learner" onclick="selectPersona(this)">
+                    <span class="persona-icon">📚</span>
+                    <p class="persona-label">I'm learning product management</p>
+                    <p class="persona-desc">Student, career changer, or aspiring PM</p>
+                </div>
+
+                <div class="persona-card" data-persona="explorer" onclick="selectPersona(this)">
+                    <span class="persona-icon">🧭</span>
+                    <p class="persona-label">Just exploring</p>
+                    <p class="persona-desc">First time here — show me around</p>
+                </div>
+
+                <div class="persona-card" data-persona="inner_circle" onclick="selectPersona(this)">
+                    <span class="persona-icon">👋</span>
+                    <p class="persona-label">I know Kiran</p>
+                    <p class="persona-desc">Friend, former colleague, or mentor checking in</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TRANSITION OVERLAY ═══ -->
+    <div class="transition-overlay" id="transitionOverlay">
+        <div class="transition-message">
+            <p class="transition-greeting" id="transitionGreeting"></p>
+            <p class="transition-detail" id="transitionDetail"></p>
+        </div>
+        <div class="transition-loader"></div>
+    </div>
+
+    <!-- ═══ PERSONALIZED PAGE (shown after selection) ═══ -->
+    <div class="personalized-page" id="personalizedPage">
+        <div class="personalized-header">
+            <div class="persona-badge" id="personaBadge"></div>
+            <h1 class="personalized-title" id="personalizedTitle"></h1>
+            <p class="personalized-subtitle" id="personalizedSubtitle"></p>
+            <button class="change-persona" onclick="resetPersona()">↻ Not quite right? Change your lens</button>
+        </div>
+
+        <!-- Fenix summary -->
+        <div class="fenix-summary">
+            <div class="fenix-summary-header">
+                <div class="fenix-avatar">🔥</div>
+                <span class="fenix-name">Fenix</span>
+                <span class="fenix-for-you">Tailored for you</span>
+            </div>
+            <p class="fenix-summary-text" id="fenixSummary"></p>
+        </div>
+
+        <!-- Content -->
+        <p class="content-section-label" id="contentLabel">Recommended for you</p>
+        <div class="content-cards" id="contentCards"></div>
+
+        <p class="content-section-label">Also on this site</p>
+        <div class="content-cards" id="secondaryCards"></div>
+    </div>
+
+    <script>
+        // ── Persona content data ─────────────────────
+        const PERSONA_DATA = {
+            evaluator: {
+                greeting: "Welcome — let's make this easy for you.",
+                detail: "Reshaping the site to highlight outcomes, leadership, and what Kiran brings to a team.",
+                badge: "🎯 Evaluator View",
+                title: "Here's what Kiran brings to a product team.",
+                subtitle: "12 years building products across fintech, enterprise, and consumer — from zero-to-one launches to scaling platforms serving millions. The work below is organized by impact.",
+                fenix: "You're evaluating Kiran for a role — so here's what matters most. He's led product teams at Wells Fargo, Hilton, and startups, shipping products that drove measurable business outcomes. The teardowns below show how he thinks about product strategy. Career Highlights has the full professional timeline with metrics. If you want a quick conversation, I can pull together a tailored summary — just ask.",
+                primary: [
+                    { tag: "Career", title: "Career Highlights", desc: "Full professional timeline — roles, outcomes, metrics, and leadership scope at each company.", relevance: "Key for role evaluation" },
+                    { tag: "Teardown", title: "How I'd've Built It", desc: "Deep product teardowns showing strategic thinking, user empathy, and technical product sense.", relevance: "Shows product thinking" },
+                    { tag: "Blog", title: "Demystifying ACH Payments", desc: "Technical product thinking applied to fintech infrastructure — a domain deep-dive.", relevance: "Demonstrates domain expertise" },
+                    { tag: "MadLab", title: "AI Prototypes", desc: "Working prototypes built end-to-end — from problem framing to live demo.", relevance: "Proves hands-on building" },
+                ],
+                secondary: [
+                    { tag: "Studio", title: "Creative Work", desc: "Side projects, design explorations, and personal creative output." },
+                    { tag: "Learning", title: "Certifications & Learning", desc: "Ongoing professional development and technical skill-building." },
+                ],
+            },
+            seeker: {
+                greeting: "Let's explore what working together could look like.",
+                detail: "Highlighting thinking style, approach, and what Kiran unlocks for product teams.",
+                badge: "🚀 Advisory View",
+                title: "What Kiran unlocks for product teams.",
+                subtitle: "Fractional product leadership, advisory, and consulting for companies that need senior product thinking without a full-time hire. Here's the evidence.",
+                fenix: "You're exploring whether Kiran can help your company's product challenges. The teardowns below are the best window into how he thinks — each one breaks down a real product, identifies strategic gaps, and proposes solutions. The MadLab prototypes show building speed. If you tell me about your company's stage and challenges, I can point you to the most relevant work and explain how Kiran's experience maps to your situation.",
+                primary: [
+                    { tag: "Teardown", title: "How I'd've Built It", desc: "Real product analysis showing how Kiran diagnoses problems and proposes solutions — the exact skill you'd be engaging.", relevance: "See the thinking in action" },
+                    { tag: "MadLab", title: "AI Prototypes", desc: "End-to-end prototypes built in days, not months. Evidence of velocity and technical product leadership.", relevance: "Proves building speed" },
+                    { tag: "Blog", title: "JPMorgan LLM Suite", desc: "Analysis of AI adoption strategy in enterprise — relevant for companies navigating AI integration.", relevance: "AI strategy thinking" },
+                    { tag: "Career", title: "Career Highlights", desc: "The full arc — from enterprise platforms to startup products. Shows range and adaptability.", relevance: "Engagement context" },
+                ],
+                secondary: [
+                    { tag: "Blog", title: "Demystifying Apple Pay", desc: "Payment infrastructure analysis — shows depth in fintech domain." },
+                    { tag: "Causes", title: "Causes & Advocacy", desc: "What Kiran cares about beyond product — values and alignment signals." },
+                ],
+            },
+            practitioner: {
+                greeting: "Hey — fellow builder. Let's get into it.",
+                detail: "Loading the technical depth, architecture decisions, and honest war stories.",
+                badge: "⚙️ Practitioner View",
+                title: "The craft behind the work.",
+                subtitle: "Teardowns with real opinions. Prototypes with real code. Blog posts with real tradeoffs. No fluff, no LinkedIn-speak — just how the work actually gets done.",
+                fenix: "You're here for the real stuff — architecture decisions, product tradeoffs, and the honest version of what worked versus what didn't. The teardowns go deep on product strategy. The MadLab prototypes are fully functional — built with FastAPI, Claude API, Supabase, and deployed on Vercel. The blog posts cover technical product topics like ACH payment rails and enterprise AI adoption. Ask me anything technical and I'll go as deep as you want.",
+                primary: [
+                    { tag: "Teardown", title: "How I'd've Built It", desc: "Product teardowns with technical depth — system architecture, data models, and the decisions behind the UI.", relevance: "Deep craft content" },
+                    { tag: "MadLab", title: "AI Prototypes", desc: "Insurance chatbot, HR onboarding bot, and more — live demos with source architecture.", relevance: "Real code, real systems" },
+                    { tag: "Blog", title: "Demystifying ACH Payments", desc: "How payment rails actually work — technical infrastructure explained for product people.", relevance: "Technical depth" },
+                    { tag: "Blog", title: "JPMorgan LLM Suite", desc: "Enterprise AI adoption — architecture, governance, and the real deployment challenges.", relevance: "AI/ML systems thinking" },
+                ],
+                secondary: [
+                    { tag: "Career", title: "Career Highlights", desc: "Professional context — what Kiran's built and where." },
+                    { tag: "Learning", title: "Certifications & Learning", desc: "Technical skill-building and continuous learning." },
+                ],
+            },
+            learner: {
+                greeting: "Welcome — let's help you level up.",
+                detail: "Organizing content for learning: frameworks, examples, and career guidance.",
+                badge: "📚 Learning View",
+                title: "Learn product management from real work.",
+                subtitle: "Teardowns that teach you how to analyze products. Blog posts that explain complex topics simply. A career timeline that shows one path through this industry.",
+                fenix: "You're learning product management — that's exciting. The best way to learn is by studying real products, and the teardowns here do exactly that: they break down how companies like Airbnb, GEICO, and Spotify make product decisions. The blog posts explain complex topics like payment systems and AI adoption in plain language. And if you want career advice — how to break into PM, what skills matter most, how to prepare for interviews — just ask me. I've been trained on Kiran's experience and perspective.",
+                primary: [
+                    { tag: "Teardown", title: "How I'd've Built It", desc: "Product teardowns as teaching tools — learn how to analyze user flows, identify gaps, and propose solutions.", relevance: "Best learning resource" },
+                    { tag: "Blog", title: "Demystifying ACH", desc: "Complex fintech topic explained from first principles — a model for how PMs learn new domains.", relevance: "Learn domain analysis" },
+                    { tag: "Career", title: "Career Highlights", desc: "One path through product management — from enterprise to startup. See what the career actually looks like.", relevance: "Career path example" },
+                    { tag: "Learning", title: "Certifications & Learning", desc: "What Kiran studies and recommends — courses, books, and skills that matter.", relevance: "Curated learning paths" },
+                ],
+                secondary: [
+                    { tag: "MadLab", title: "AI Prototypes", desc: "See what's possible when PMs can build — inspiration for developing technical skills." },
+                    { tag: "Causes", title: "Causes & Advocacy", desc: "The human side of product management — what you stand for matters." },
+                ],
+            },
+            explorer: {
+                greeting: "Welcome to Kiran's corner of the internet.",
+                detail: "Here's the grand tour — the highlights of what makes this site different.",
+                badge: "🧭 Exploring",
+                title: "This isn't a typical portfolio site.",
+                subtitle: "It's part portfolio, part playground, part AI experiment. Product teardowns, working prototypes, an AI assistant that knows everything here — explore what catches your eye.",
+                fenix: "Welcome! I'm Fenix — Kiran's AI assistant. I know everything on this site and I can help you find what's interesting to you. The teardowns are deep product analyses. The MadLab has working AI prototypes you can actually try. The blog covers fintech and AI topics. And I can answer questions about any of it — or about Kiran's background, approach, and work. What are you curious about?",
+                primary: [
+                    { tag: "Teardown", title: "How I'd've Built It", desc: "Deep dives into products like Airbnb, GEICO, Spotify — what works, what doesn't, and what Kiran would change.", relevance: "Most popular section" },
+                    { tag: "MadLab", title: "AI Prototypes", desc: "Working demos built with AI — an insurance chatbot, onboarding bot, and more. Try them live.", relevance: "Interactive experiences" },
+                    { tag: "Career", title: "Career Highlights", desc: "12 years of product work across fintech, hospitality, and AI — the full professional story.", relevance: "The background" },
+                    { tag: "Blog", title: "Blog & Podcast", desc: "Long-form writing on payments, AI adoption, and product strategy.", relevance: "Deep reading" },
+                ],
+                secondary: [
+                    { tag: "Studio", title: "Creative Work", desc: "Design explorations and creative projects outside product management." },
+                    { tag: "Store", title: "Store", desc: "Resources and products — coming soon." },
+                ],
+            },
+            inner_circle: {
+                greeting: "Hey — good to see you.",
+                detail: "Loading the latest from what Kiran's been building.",
+                badge: "👋 Inner Circle",
+                title: "Here's what I've been up to.",
+                subtitle: "The latest builds, the behind-the-scenes decisions, and the honest version of how this whole thing is coming together. No polish — just the real stuff.",
+                fenix: "You know Kiran — so I'll skip the pitch. He's been building this entire platform over the past month: an AI assistant (that's me), a command center for managing all the content, a training system where he teaches me things that aren't on the website, and a journal where I write about what I'm learning about him. The MadLab has new prototypes. The teardowns keep getting deeper. Ask me anything — I can share the unfiltered version, including what's not working yet.",
+                primary: [
+                    { tag: "New", title: "MadLab Prototypes", desc: "Latest AI prototypes — built in the last few weeks. Insurance chatbot, HR bot, and more coming.", relevance: "What's new" },
+                    { tag: "New", title: "Blog: JPMorgan LLM Suite", desc: "Recent analysis on enterprise AI adoption — Kiran's take on how big banks are approaching LLMs.", relevance: "Latest writing" },
+                    { tag: "Teardown", title: "How I'd've Built It", desc: "The teardown collection keeps growing — now covering fintech, travel, social, and insurance.", relevance: "Ongoing project" },
+                    { tag: "Behind the scenes", title: "This Site Is the Portfolio", desc: "The site itself is a product: RAG-powered AI, automated publishing, embeddings pipeline. It's all custom.", relevance: "The meta story" },
+                ],
+                secondary: [
+                    { tag: "Career", title: "Career Highlights", desc: "The full timeline — you might spot some stories you remember." },
+                    { tag: "Causes", title: "Causes & Advocacy", desc: "What Kiran cares about — some of this might be new to you." },
+                ],
+            },
+        };
+
+        // ── Interaction ──────────────────────────────
+        let selectedPersona = null;
+
+        function selectPersona(el) {
+            // Visual selection
+            document.querySelectorAll('.persona-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+
+            selectedPersona = el.dataset.persona;
+            const data = PERSONA_DATA[selectedPersona];
+
+            // Show transition
+            setTimeout(() => {
+                const overlay = document.getElementById('transitionOverlay');
+                document.getElementById('transitionGreeting').textContent = data.greeting;
+                document.getElementById('transitionDetail').textContent = data.detail;
+                overlay.classList.add('active');
+
+                // After transition, show personalized page
+                setTimeout(() => {
+                    document.getElementById('heroSection').style.display = 'none';
+                    overlay.classList.remove('active');
+
+                    renderPersonalizedPage(data);
+                }, 2000);
+            }, 400);
+        }
+
+        function renderPersonalizedPage(data) {
+            document.getElementById('personaBadge').textContent = data.badge;
+            document.getElementById('personalizedTitle').textContent = data.title;
+            document.getElementById('personalizedSubtitle').textContent = data.subtitle;
+            document.getElementById('fenixSummary').textContent = data.fenix;
+
+            // Primary cards
+            const primary = document.getElementById('contentCards');
+            primary.innerHTML = data.primary.map(c => `
+                <div class="content-card">
+                    <p class="content-card-tag">${c.tag}</p>
+                    <p class="content-card-title">${c.title}</p>
+                    <p class="content-card-desc">${c.desc}</p>
+                    ${c.relevance ? `<p class="content-card-relevance">✦ ${c.relevance}</p>` : ''}
+                </div>
+            `).join('');
+
+            // Secondary cards
+            const secondary = document.getElementById('secondaryCards');
+            secondary.innerHTML = data.secondary.map(c => `
+                <div class="content-card">
+                    <p class="content-card-tag">${c.tag}</p>
+                    <p class="content-card-title">${c.title}</p>
+                    <p class="content-card-desc">${c.desc}</p>
+                </div>
+            `).join('');
+
+            const page = document.getElementById('personalizedPage');
+            page.classList.add('visible');
+        }
+
+        function resetPersona() {
+            const page = document.getElementById('personalizedPage');
+            page.classList.remove('visible');
+            page.style.display = 'none';
+
+            setTimeout(() => {
+                document.getElementById('heroSection').style.display = 'flex';
+                document.querySelectorAll('.persona-card').forEach(c => c.classList.remove('selected'));
+                page.style.display = '';
+                selectedPersona = null;
+            }, 100);
+        }
+    </script>
+</body>
+</html>

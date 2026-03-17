@@ -18,7 +18,7 @@ from pathlib import Path
 FENIX_BACKEND = Path(__file__).resolve().parent.parent.parent.parent / "fenix-backend" / "scripts"
 sys.path.insert(0, str(FENIX_BACKEND))
 
-from embed_flame_on_data import discover_journal_entries, process_entry
+from embed_flame_on_data import discover_journal_entries, process_entry, store_content_registry
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 logger = logging.getLogger("embed_journal")
@@ -126,6 +126,10 @@ def run():
     for e in entries:
         all_chunks.extend(process_entry(e))
     logger.info(f"Total chunks: {len(all_chunks)}")
+
+    # Ensure all entries are registered in content_registry (foreign key requirement)
+    logger.info(f"Registering {len(entries)} entries in content_registry...")
+    store_content_registry(entries, SUPABASE_URL, SUPABASE_KEY)
 
     # Filter to only new chunks
     existing = get_existing_ids()

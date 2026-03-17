@@ -1,9 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { Wrench, PenTool, FileText, Target, Shield, ExternalLink, LogOut, Command, Beaker, Bot, BookOpen, BookMarked, MessageSquare, Radar, Lightbulb } from "lucide-react";
+import { Wrench, PenTool, FileText, Target, Shield, ExternalLink, LogOut, Command, Beaker, Bot, BookOpen, BookMarked, MessageSquare, Radar, Lightbulb, Inbox, Library } from "lucide-react";
 import { MODULES, APP_NAME } from "@/lib/constants";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -21,11 +22,35 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   MessageSquare,
   Radar,
   Lightbulb,
+  Inbox,
+  Library,
 };
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export function Sidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  // Poll notification count every 60 seconds
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/notifications/counts`);
+        if (res.ok) {
+          const data = await res.json();
+          setUnreadCount(data.unread || 0);
+        }
+      } catch {
+        // Silently fail — badge is non-critical
+      }
+    };
+
+    fetchCount();
+    const interval = setInterval(fetchCount, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-[260px] flex flex-col bg-[var(--bg-primary)] border-r border-[var(--border)]">
@@ -70,7 +95,15 @@ export function Sidebar() {
                   className={isActive ? "text-[var(--text-primary)]" : "text-[var(--text-muted)]"}
                 />
               )}
-              {mod.label}
+              <span className="flex-1">{mod.label}</span>
+              {mod.slug === "notifications" && unreadCount > 0 && (
+                <span
+                  className="ml-auto px-1.5 py-0.5 rounded-full text-[10px] font-bold leading-none text-white"
+                  style={{ backgroundColor: "#fb923c", minWidth: "18px", textAlign: "center" }}
+                >
+                  {unreadCount > 99 ? "99+" : unreadCount}
+                </span>
+              )}
             </Link>
           );
         })}

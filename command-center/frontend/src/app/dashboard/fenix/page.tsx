@@ -20,6 +20,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import Link from "next/link";
+import ModuleHelp from "@/components/ModuleHelp";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -382,6 +383,7 @@ export default function FenixDashboardPage() {
             <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
               Fenix Dashboard
             </h1>
+            <ModuleHelp moduleSlug="fenix" />
             <Link
               href="/dashboard/help?module=fenix"
               className="text-[var(--text-muted)] hover:text-[#fb923c] transition-colors"

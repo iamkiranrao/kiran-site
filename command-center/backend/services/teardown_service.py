@@ -23,10 +23,12 @@ Steps:
 import json
 import os
 import uuid
+import tempfile
 from datetime import datetime
 from typing import Optional, List, Dict
 
-SESSIONS_DIR = "/tmp/command-center/teardowns"
+from utils.config import CLAUDE_MODEL, data_dir
+SESSIONS_DIR = data_dir("teardowns")
 
 
 # ── Step definitions ──────────────────────────────────────────────
@@ -471,7 +473,7 @@ async def run_step(
     messages = build_step_messages(state, step, user_input)
 
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model=CLAUDE_MODEL,
         max_tokens=4096,
         system=TEARDOWN_SYSTEM_PROMPT,
         messages=messages,
@@ -504,7 +506,7 @@ async def run_step_stream(
     full_content = ""
 
     with client.messages.stream(
-        model="claude-sonnet-4-20250514",
+        model=CLAUDE_MODEL,
         max_tokens=4096,
         system=TEARDOWN_SYSTEM_PROMPT,
         messages=messages,

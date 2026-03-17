@@ -13,10 +13,12 @@ Each step requires Kiran's approval before advancing.
 import json
 import os
 import uuid
+import tempfile
 from datetime import datetime
 from typing import Optional, List, Dict
 
-SESSIONS_DIR = "/tmp/command-center/wordweaver"
+from utils.config import CLAUDE_MODEL, data_dir
+SESSIONS_DIR = data_dir("wordweaver")
 CONFIG_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config")
 
 
@@ -435,7 +437,7 @@ async def run_step_stream(
     full_content = ""
 
     with client.messages.stream(
-        model="claude-sonnet-4-20250514",
+        model=CLAUDE_MODEL,
         max_tokens=4096,
         system=system_prompt,
         messages=messages,

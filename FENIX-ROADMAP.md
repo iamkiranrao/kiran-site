@@ -292,7 +292,7 @@ Command Center (local FastAPI + Next.js)
 **Goal:** Let Kiran teach Fenix things that aren't on the website — personal knowledge, opinions, preferences, working style.
 
 ### Step 5.1 — Build training backend
-- [ ] Create `backend/routers/fenix_training.py` with endpoints:
+- [x] Create `backend/routers/fenix_training.py` with endpoints:
   - `POST /api/fenix/training/start` — begin a training session (Claude asks 100 questions)
   - `GET /api/fenix/training/sessions` — list training sessions
   - `GET /api/fenix/training/sessions/{id}` — get session state
@@ -301,49 +301,53 @@ Command Center (local FastAPI + Next.js)
   - `GET /api/fenix/training/data` — list all training data entries
   - `PUT /api/fenix/training/data/{id}` — edit an entry
   - `DELETE /api/fenix/training/data/{id}` — remove an entry
-- [ ] Create `backend/services/fenix_training_service.py`
+- [x] Create `backend/services/fenix_training_service.py`
+- [x] Extended with: question bank endpoints, manual input, production-ready voice conversion, draft generation
+- **Files:** `backend/routers/fenix_training.py`, `backend/services/fenix_training_service.py`, `backend/data/question_bank.py`
 
 ### Step 5.2 — Design the training flow
-- [ ] Claude generates 100 questions across categories:
-  - **Professional:** Product philosophy, leadership style, decision-making frameworks, career highlights, proudest work
-  - **Technical:** Tech stack preferences, AI opinions, tools you love/hate, build vs buy philosophy
-  - **Personal:** Hobbies, interests, values, communication style, fun facts, favorite books/movies/shows
-  - **Working style:** How you run meetings, give feedback, handle conflict, mentor, collaborate
-  - **Industry views:** Insurance tech opinions, AI in product, startup vs enterprise, emerging trends
-  - **Site-specific:** What visitors should know, what you want Fenix to emphasize, common misconceptions
-- [ ] Questions are generated in batches of 10 (manageable sessions)
-- [ ] Each batch focuses on one category
-- [ ] Kiran answers naturally (no formatting needed)
-- [ ] Claude does an editorial pass on each answer:
+- [x] Claude generates 100 questions across 10 categories (professional, technical, personal, working style, industry views, site-specific, career story, product craft, opinions, fun & personality)
+- [x] Questions are generated in batches of 10 (one per category)
+- [x] Kiran answers naturally (no formatting needed)
+- [x] Claude does an editorial pass on each answer:
   - Clean up grammar and clarity
   - Preserve Kiran's voice and personality
   - Split compound answers into distinct Q&A pairs
   - Flag anything that needs Kiran's review
-- [ ] Kiran approves or edits the polished version
-- [ ] Approved answers are stored in `training_data` table
+- [x] Kiran approves or edits the polished version
+- [x] Approved answers are stored in `training_data` table
+- [x] Added: Question Bank (319 research-backed questions, persona/dimension taxonomy), Manual Input mode, Draft Answer generation, Production Ready voice conversion
+- [x] Already-answered question tracking prevents re-asking across sessions
 
 ### Step 5.3 — Build training frontend
-- [ ] Create `frontend/src/app/dashboard/fenix/training/page.tsx`
-- [ ] UI: Conversational interview format
-  - Claude asks a question
-  - Kiran types an answer
-  - Claude shows the editorial version side-by-side
-  - Kiran approves, edits, or skips
-  - Progress bar showing X/100 questions completed
-- [ ] Browse/edit all training data entries
-- [ ] Category filter and search
+- [x] Create `frontend/src/app/dashboard/fenix/training/page.tsx`
+- [x] UI: Five views — Home, Interview, Data Browser, Question Bank, Manual Input
+  - Interview: Claude asks → Kiran answers → editorial pass → approve/edit/skip
+  - Question Bank: Browse 319 questions by persona/dimension, generate best-answer examples + customized drafts
+  - Manual Input: Free-form Q&A entry
+  - Data Browser: Search, filter, edit all training data
+  - Production Ready button: one-click voice conversion + content rules check
+- [x] Category filter and search
+- [x] Progress tracking and persona/dimension color coding
 
 ### Step 5.4 — Embed training data for RAG
-- [ ] Generate embeddings for each training Q&A pair
-- [ ] Store in `content_embeddings` with a special `content_type = 'training'`
-- [ ] OR create a separate `training_embeddings` table
-- [ ] Update `rag_service.py` to search training data alongside content
-- [ ] Training answers should be weighted slightly higher for personal/opinion questions
+- [x] Generate embeddings for each training Q&A pair (Voyage AI `voyage-3-lite`, 512 dims)
+- [x] Embeddings stored directly on `training_data.embedding` column (migration 004)
+- [x] `match_training_embeddings` SQL function for semantic vector search
+- [x] `match_training_data` SQL function for pg_trgm text fallback
+- [x] Update `rag_service.py` to search training data alongside content — dual strategy: semantic + text fallback, merged and deduplicated
+- [x] Training matches injected as "Personal Knowledge" section in LLM context, prioritized for personal/opinion questions
+- [x] RAGContext extended with `search_type`, `similarity_scores`, `training_matches` fields
+- [x] Backfill script: `fenix-backend/scripts/embed_training_data.py`
+- **Migration:** `fenix-backend/migrations/004_training_embeddings.sql` — run in Supabase SQL Editor
 
 ### Step 5.5 — Test training integration
-- [ ] Complete at least 20 training questions
+- [ ] Run migration 004 in Supabase SQL Editor
+- [ ] Run backfill script to embed any existing training data
+- [ ] Deploy updated `rag_service.py` to Vercel (push to fenix-backend repo)
+- [ ] Complete at least 20 training questions via Command Center
 - [ ] Ask Fenix questions that should be answered by training data
-- [ ] Verify training data appears in citations
+- [ ] Verify training data appears in context (check logs for "Training data search found X matches")
 - [ ] Verify training doesn't override factual content from the site
 
 **Exit criteria:** Kiran can teach Fenix personal knowledge through a structured Q&A flow, and Fenix uses that knowledge when answering visitor questions.
@@ -387,4 +391,10 @@ The assistant will read this file, understand the full context, and pick up wher
 | Content index | `/fenix-index.json` | Content taxonomy + metadata |
 | Command Center BE | `/command-center/backend/` | FastAPI (local) |
 | Command Center FE | `/command-center/frontend/` | Next.js (local) |
+| Training service | `command-center/backend/services/fenix_training_service.py` | Training Q&A + question bank |
+| Training router | `command-center/backend/routers/fenix_training.py` | Training API endpoints |
+| Training frontend | `command-center/frontend/src/app/dashboard/fenix/training/page.tsx` | Training UI (5 views) |
+| Question bank | `command-center/backend/data/question_bank.py` | 319 research-backed questions |
+| Embed backfill | `fenix-backend/scripts/embed_training_data.py` | Backfill training embeddings |
+| Migration 004 | `fenix-backend/migrations/004_training_embeddings.sql` | Training vector search |
 | Supabase project | `gndzmmywtxvlukoavadj` | PostgreSQL + pgvector |
