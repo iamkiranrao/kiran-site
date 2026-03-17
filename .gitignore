@@ -18,6 +18,13 @@ translations.js
 .DS_Store
 Thumbs.db
 
+# FUSE filesystem artifacts
+.fuse_hidden*
+
+# LibreOffice lock and temp files
+.~lock.*
+*.tmp
+
 # Strategy docs
 Site Strategy*
 Site Reference*
