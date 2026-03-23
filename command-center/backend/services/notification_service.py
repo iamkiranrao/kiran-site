@@ -622,3 +622,24 @@ def notify_cost_alert(
             "period": period,
         },
     )
+
+
+def notify_draft_content(
+    content_type: str, title: str, slug: str, session_id: str
+) -> dict:
+    """Called when creative content (blog, teardown, prototype) is deployed to production."""
+    action_urls = {
+        "blog": "/dashboard/wordweaver",
+        "teardown": "/dashboard/teardowns",
+        "prototype": "/dashboard/madlab",
+    }
+    return create_notification(
+        type="draft_content",
+        title=f"{content_type.title()} deployed: {title}",
+        summary=f"\"{title}\" is now live on the site.",
+        source=f"{content_type}_deploy",
+        action_url=action_urls.get(content_type, "/dashboard"),
+        priority="normal",
+        reference_id=session_id,
+        metadata={"content_type": content_type, "slug": slug},
+    )

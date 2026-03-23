@@ -40,6 +40,7 @@ interface ActionItem {
   due_date: string | null;
   tags: string[];
   blocked_by: string | null;
+  owner: string;
   completed_at: string | null;
   notes: string;
   created_at: string;
@@ -93,6 +94,12 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }
   "wont-do":     { label: "Won't Do",   color: "#94a3b8",           bg: "rgba(148,163,184,0.12)" },
 };
 
+const OWNER_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
+  kiran:  { label: "Kiran",  color: "#fb923c", bg: "rgba(251,147,60,0.12)" },
+  claude: { label: "Claude", color: "#a78bfa", bg: "rgba(167,139,250,0.12)" },
+  joint:  { label: "Joint",  color: "#60a5fa", bg: "rgba(96,165,250,0.12)" },
+};
+
 /* ── Component ──────────────────────────────────────────── */
 
 export default function ActionItemsPage() {
@@ -108,6 +115,7 @@ export default function ActionItemsPage() {
   const [filterWorkstream, setFilterWorkstream] = useState<string>("");
   const [filterPriority, setFilterPriority] = useState<string>("");
   const [filterStatus, setFilterStatus] = useState<string>("");
+  const [filterOwner, setFilterOwner] = useState<string>("");
 
   // Form state
   const [formTitle, setFormTitle] = useState("");
@@ -118,6 +126,7 @@ export default function ActionItemsPage() {
   const [formTags, setFormTags] = useState("");
   const [formBlockedBy, setFormBlockedBy] = useState("");
   const [formSource, setFormSource] = useState("");
+  const [formOwner, setFormOwner] = useState("");
 
   // Tab: "active" vs "completed"
   const [tab, setTab] = useState<"active" | "completed">("active");
@@ -128,6 +137,7 @@ export default function ActionItemsPage() {
       if (filterWorkstream) params.set("workstream", filterWorkstream);
       if (filterPriority) params.set("priority", filterPriority);
       if (filterStatus) params.set("status", filterStatus);
+      if (filterOwner) params.set("owner", filterOwner);
       if (searchText.trim()) params.set("search", searchText.trim());
       if (tab === "completed") {
         params.set("include_done", "true");
@@ -142,7 +152,7 @@ export default function ActionItemsPage() {
     } finally {
       setLoading(false);
     }
-  }, [filterWorkstream, filterPriority, filterStatus, searchText, tab]);
+  }, [filterWorkstream, filterPriority, filterStatus, filterOwner, searchText, tab]);
 
   const fetchSummary = useCallback(async () => {
     try {
@@ -160,7 +170,7 @@ export default function ActionItemsPage() {
   const resetForm = () => {
     setFormTitle(""); setFormDesc(""); setFormWorkstream("cross-cutting");
     setFormPriority("medium"); setFormDueDate(""); setFormTags("");
-    setFormBlockedBy(""); setFormSource("");
+    setFormBlockedBy(""); setFormSource(""); setFormOwner("");
     setEditingId(null); setShowForm(false);
   };
 
@@ -172,6 +182,7 @@ export default function ActionItemsPage() {
       workstream: formWorkstream,
       priority: formPriority,
       source: formSource.trim(),
+      owner: formOwner,
       tags: formTags.split(",").map(t => t.trim()).filter(Boolean),
     };
     if (formDueDate) payload.due_date = formDueDate;
@@ -202,6 +213,7 @@ export default function ActionItemsPage() {
     setFormTags(item.tags.join(", "));
     setFormBlockedBy(item.blocked_by || "");
     setFormSource(item.source);
+    setFormOwner(item.owner || "");
     setEditingId(item.id);
     setShowForm(true);
   };
@@ -365,6 +377,16 @@ export default function ActionItemsPage() {
             <option value="blocked">Blocked</option>
           </select>
         )}
+        <select
+          value={filterOwner}
+          onChange={e => setFilterOwner(e.target.value)}
+          className="px-3 py-1.5 text-sm rounded-lg bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-primary)]"
+        >
+          <option value="">All Owners</option>
+          <option value="kiran">Kiran</option>
+          <option value="claude">Claude</option>
+          <option value="joint">Joint</option>
+        </select>
         <span className="text-xs text-[var(--text-muted)] ml-auto">
           {items.length} item{items.length !== 1 ? "s" : ""}
         </span>
@@ -420,7 +442,7 @@ export default function ActionItemsPage() {
               className="px-3 py-2 text-sm rounded-lg bg-[var(--bg-primary)] border border-[var(--border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
             />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             <input
               value={formSource}
               onChange={e => setFormSource(e.target.value)}
@@ -433,6 +455,13 @@ export default function ActionItemsPage() {
               placeholder="Blocked by... (optional)"
               className="px-3 py-2 text-sm rounded-lg bg-[var(--bg-primary)] border border-[var(--border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
             />
+            <select value={formOwner} onChange={e => setFormOwner(e.target.value)}
+              className="px-3 py-2 text-sm rounded-lg bg-[var(--bg-primary)] border border-[var(--border)] text-[var(--text-primary)]">
+              <option value="">No Owner</option>
+              <option value="kiran">Kiran</option>
+              <option value="claude">Claude</option>
+              <option value="joint">Joint</option>
+            </select>
           </div>
           <div className="flex justify-end gap-2">
             <button onClick={resetForm}
@@ -549,6 +578,14 @@ export default function ActionItemsPage() {
                         {item.due_date && (
                           <span className={`flex items-center gap-1 text-xs shrink-0 ${overdue ? "text-[#f87171]" : "text-[var(--text-muted)]"}`}>
                             <Calendar size={10} /> {formatDate(item.due_date)}
+                          </span>
+                        )}
+
+                        {/* Owner badge */}
+                        {item.owner && OWNER_CONFIG[item.owner] && (
+                          <span className="text-xs px-2 py-0.5 rounded-full shrink-0 font-medium"
+                            style={{ color: OWNER_CONFIG[item.owner].color, backgroundColor: OWNER_CONFIG[item.owner].bg }}>
+                            {OWNER_CONFIG[item.owner].label}
                           </span>
                         )}
 

@@ -173,6 +173,14 @@ async def deploy_prototype(session_id: str):
             themes=[],
         )
         update_session(session_id, {"status": "published"})
+
+        # Fire notification for deployed content
+        try:
+            from services.notification_service import notify_draft_content
+            notify_draft_content("prototype", state["project_name"], project_slug, session_id)
+        except Exception:
+            pass  # Fire-and-forget
+
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Deploy failed: {str(e)}")

@@ -37,7 +37,7 @@ export function Sidebar() {
   const { data: session } = useSession();
   const [unreadCount, setUnreadCount] = useState(0);
 
-  // Poll notification count every 60 seconds
+  // Poll notification count every 15 seconds
   useEffect(() => {
     const fetchCount = async () => {
       try {
@@ -52,7 +52,7 @@ export function Sidebar() {
     };
 
     fetchCount();
-    const interval = setInterval(fetchCount, 60000);
+    const interval = setInterval(fetchCount, 15000);
     return () => clearInterval(interval);
   }, []);
 

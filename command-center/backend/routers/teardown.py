@@ -575,6 +575,14 @@ async def deploy_teardown(session_id: str):
 
         update_session(session_id, {"status": "published"})
 
+        # Fire notification for deployed content
+        try:
+            from services.notification_service import notify_draft_content
+            teardown_title = f"{state['company']} — {state['product']}"
+            notify_draft_content("teardown", teardown_title, filename.replace(".html", ""), session_id)
+        except Exception:
+            pass  # Fire-and-forget
+
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Deploy failed: {str(e)}")

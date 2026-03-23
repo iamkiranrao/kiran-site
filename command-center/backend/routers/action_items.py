@@ -57,6 +57,7 @@ def list_items(
     workstream: Optional[str] = None,
     priority: Optional[str] = None,
     status: Optional[str] = None,
+    owner: Optional[str] = None,
     tag: Optional[str] = None,
     search: Optional[str] = None,
     include_done: bool = False,
@@ -74,6 +75,8 @@ def list_items(
         items = [i for i in items if i.get("priority") == priority]
     if status:
         items = [i for i in items if i.get("status") == status]
+    if owner:
+        items = [i for i in items if i.get("owner", "") == owner]
     if tag:
         items = [i for i in items if tag in i.get("tags", [])]
     if search:
@@ -112,6 +115,7 @@ def create_item(body: ActionItemCreate):
         "due_date": body.due_date,
         "tags": body.tags,
         "blocked_by": body.blocked_by,
+        "owner": body.owner,
         "completed_at": None,
         "notes": "",
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -147,6 +151,7 @@ def create_items_bulk(items_data: List[ActionItemCreate]):
             "due_date": body.due_date,
             "tags": body.tags,
             "blocked_by": body.blocked_by,
+            "owner": body.owner,
             "completed_at": None,
             "notes": "",
             "created_at": datetime.now(timezone.utc).isoformat(),

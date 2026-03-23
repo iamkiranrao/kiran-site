@@ -716,6 +716,14 @@ async def deploy_post(session_id: str):
 
         update_session(session_id, {"status": "published"})
 
+        # Fire notification for deployed content
+        try:
+            from services.notification_service import notify_draft_content
+            blog_title = state.get("title", slug.replace("-", " ").title())
+            notify_draft_content("blog", blog_title, slug, session_id)
+        except Exception:
+            pass  # Fire-and-forget — don't break deploy on notification failure
+
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Deploy failed: {str(e)}")

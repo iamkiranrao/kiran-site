@@ -125,6 +125,20 @@ async def approve(session_id: str, request: ApproveRequest):
     """Approve polished answer and save to Supabase training_data."""
     try:
         result = approve_question(session_id, edited_pairs=request.edited_pairs)
+
+        # Fire training progress notification at milestones (every 10 approvals)
+        try:
+            state = get_training_session(session_id)
+            if state:
+                stats = state.get("stats", {})
+                approved = stats.get("approved", 0)
+                total = len(state.get("questions", []))
+                if approved > 0 and approved % 10 == 0:
+                    from services.notification_service import notify_training_progress
+                    notify_training_progress(approved, total)
+        except Exception:
+            pass  # Fire-and-forget
+
         return result
     except FileNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
