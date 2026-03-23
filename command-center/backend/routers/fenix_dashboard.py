@@ -29,7 +29,7 @@ from services.fenix_dashboard_service import (
 router = APIRouter()
 
 
-@router.get("/overview")
+@router.get("/overview", response_model=dict)
 async def overview(days: int = Query(30, ge=1, le=365)):
     """Summary stats: total conversations, messages, avg depth, unique visitors."""
     try:
@@ -40,7 +40,7 @@ async def overview(days: int = Query(30, ge=1, le=365)):
         raise HTTPException(status_code=500, detail=f"Failed to fetch overview: {e}")
 
 
-@router.get("/queries")
+@router.get("/queries", response_model=dict)
 async def top_queries(
     limit: int = Query(20, ge=1, le=100),
     days: int = Query(30, ge=1, le=365),
@@ -52,7 +52,7 @@ async def top_queries(
         raise HTTPException(status_code=500, detail=f"Failed to fetch queries: {e}")
 
 
-@router.get("/failures")
+@router.get("/failures", response_model=dict)
 async def failures(
     limit: int = Query(50, ge=1, le=200),
     days: int = Query(30, ge=1, le=365),
@@ -64,7 +64,7 @@ async def failures(
         raise HTTPException(status_code=500, detail=f"Failed to fetch failures: {e}")
 
 
-@router.get("/coverage")
+@router.get("/coverage", response_model=dict)
 async def content_coverage(days: int = Query(30, ge=1, le=365)):
     """Which content pages get cited most/least."""
     try:
@@ -73,7 +73,7 @@ async def content_coverage(days: int = Query(30, ge=1, le=365)):
         raise HTTPException(status_code=500, detail=f"Failed to fetch coverage: {e}")
 
 
-@router.get("/conversations")
+@router.get("/conversations", response_model=dict)
 async def conversations(
     limit: int = Query(30, ge=1, le=100),
     offset: int = Query(0, ge=0),
@@ -88,7 +88,7 @@ async def conversations(
         )
 
 
-@router.get("/conversations/{conversation_id}")
+@router.get("/conversations/{conversation_id}", response_model=dict)
 async def conversation_detail(conversation_id: str):
     """Full conversation transcript with metadata."""
     try:
@@ -104,7 +104,7 @@ async def conversation_detail(conversation_id: str):
         )
 
 
-@router.get("/search-quality")
+@router.get("/search-quality", response_model=dict)
 async def search_quality(days: int = Query(30, ge=1, le=365)):
     """Search type distribution and similarity score trends."""
     try:
@@ -115,7 +115,7 @@ async def search_quality(days: int = Query(30, ge=1, le=365)):
         )
 
 
-@router.get("/training")
+@router.get("/training", response_model=dict)
 async def training_stats():
     """Training data overview."""
     try:

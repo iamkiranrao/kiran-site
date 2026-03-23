@@ -143,8 +143,8 @@ nav {
 
 /* Icons inside filled buttons use inverted color */
 .theme-icon,
-.moon-icon,
-.sun-icon {
+.wf-moon-icon,
+.wf-sun-icon {
     fill: none;
     stroke: var(--bg-primary);
     stroke-width: 2;
@@ -177,7 +177,7 @@ nav {
 
 .share-button:hover svg { transform: rotate(-15deg); }
 
-.share-icon {
+.wf-share-icon {
     fill: none;
     stroke: var(--bg-primary);
     stroke-width: 2;
@@ -677,7 +677,7 @@ nav {
     gap: 0.75rem;
 }
 
-.social-icon {
+.wf-social-icon {
     width: 42px;
     height: 42px;
     background: transparent;
@@ -692,27 +692,27 @@ nav {
     transition: all 0.3s ease;
 }
 
-.social-icon:hover {
+.wf-social-icon:hover {
     border-color: var(--text-secondary);
     transform: translateY(-2px);
 }
 
-.social-icon svg {
+.wf-social-icon svg {
     width: 18px;
     height: 18px;
     color: var(--text-primary);
     transition: transform 0.3s ease;
 }
-.social-icon:hover svg { transform: scale(1.1); }
+.wf-social-icon:hover svg { transform: scale(1.1); }
 
 /* Hover color accents */
-.social-icon.linkedin:hover { border-color: #0077b5; }
-.social-icon.github:hover { border-color: #6e5494; }
-[data-theme="light"] .social-icon.github:hover { border-color: #24292e; }
-.social-icon.youtube:hover { border-color: #ff0000; }
-.social-icon.flickr:hover { border-color: #0063dc; }
-.social-icon.spotify:hover { border-color: #1db954; }
-.social-icon.substack:hover { border-color: #ff6719; }
+.wf-social-icon.linkedin:hover { border-color: #0077b5; }
+.wf-social-icon.github:hover { border-color: #6e5494; }
+[data-theme="light"] .wf-social-icon.github:hover { border-color: #24292e; }
+.wf-social-icon.youtube:hover { border-color: #ff0000; }
+.wf-social-icon.flickr:hover { border-color: #0063dc; }
+.wf-social-icon.spotify:hover { border-color: #1db954; }
+.wf-social-icon.substack:hover { border-color: #ff6719; }
 
 .about-intro {
     font-size: clamp(1.8rem, 4vw, 2.8rem);
@@ -741,7 +741,7 @@ nav {
     letter-spacing: -0.02em;
 }
 
-.expand-icon { font-size: 1.375rem; color: var(--text-primary); }
+.wf-expand-icon { font-size: 1.375rem; color: var(--text-primary); }
 
 
 /* ============================================

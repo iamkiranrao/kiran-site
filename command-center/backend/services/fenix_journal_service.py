@@ -54,6 +54,29 @@ def _extract_day_number(text: str) -> Optional[int]:
     return int(m.group(1)) if m else None
 
 
+def _is_date_filename(fname: str) -> bool:
+    """Check if filename matches YYYY-MM-DD.md pattern."""
+    return bool(re.match(r"^\d{4}-\d{2}-\d{2}\.md$", fname))
+
+
+def _extract_thread_date(text: str) -> Optional[str]:
+    """Extract date from connecting-threads content like '**Thread written:** March 11, 2026'."""
+    m = re.search(r"\*\*Thread written:\*\*\s*(.+?)$", text, re.MULTILINE)
+    if m:
+        try:
+            dt = datetime.strptime(m.group(1).strip(), "%B %d, %Y")
+            return dt.strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+    return None
+
+
+def _extract_thread_title(text: str) -> Optional[str]:
+    """Extract title from connecting-threads content like '# Connecting Thread: The Title'."""
+    m = re.search(r"^#\s+(?:Connecting Thread:\s*)?(.+)$", text, re.MULTILINE)
+    return m.group(1).strip() if m else None
+
+
 def get_journal_stats() -> Dict:
     """Return summary stats about the journal."""
     entries_dir = os.path.join(JOURNAL_ROOT, "entries")
@@ -69,15 +92,16 @@ def get_journal_stats() -> Dict:
         files = [f for f in os.listdir(stream_dir) if f.endswith(".md")]
         stream_counts[stream_key] = len(files)
         for fname in files:
-            date_str = fname.replace(".md", "")
-            all_dates.add(date_str)
             content = _read_file(os.path.join(stream_dir, fname))
             if content:
                 total_words += _word_count(content)
+            # Only add date-based filenames to the date set
+            if _is_date_filename(fname):
+                all_dates.add(fname.replace(".md", ""))
 
     sorted_dates = sorted(all_dates)
     return {
-        "total_entries": len(all_dates),
+        "total_entries": sum(stream_counts.values()),
         "total_words": total_words,
         "streams": stream_counts,
         "date_range": {
@@ -92,9 +116,10 @@ def list_entries(
     limit: int = 50,
     offset: int = 0,
 ) -> Dict:
-    """List entry dates with metadata for both streams."""
+    """List entry dates with metadata for all streams."""
     entries_dir = os.path.join(JOURNAL_ROOT, "entries")
     date_map: Dict[str, Dict] = {}
+    connecting_threads: List[Dict] = []
 
     streams_to_scan = list(STREAMS.keys()) if stream == "all" else [stream]
 
@@ -105,11 +130,27 @@ def list_entries(
         for fname in os.listdir(stream_dir):
             if not fname.endswith(".md"):
                 continue
-            date_str = fname.replace(".md", "")
             content = _read_file(os.path.join(stream_dir, fname))
             if not content:
                 continue
 
+            # Connecting-threads use slug filenames, not dates
+            if stream_key == "connecting-threads":
+                slug = fname.replace(".md", "")
+                thread_date = _extract_thread_date(content) or ""
+                thread_title = _extract_thread_title(content) or slug.replace("-", " ").title()
+                connecting_threads.append({
+                    "slug": slug,
+                    "filename": fname,
+                    "date": thread_date,
+                    "title": thread_title,
+                    "word_count": _word_count(content),
+                    "preview": _extract_preview(content),
+                    "stream": "connecting-threads",
+                })
+                continue
+
+            date_str = fname.replace(".md", "")
             if date_str not in date_map:
                 date_map[date_str] = {"date": date_str, "streams": {}}
 
@@ -125,7 +166,16 @@ def list_entries(
     total = len(sorted_entries)
     page = sorted_entries[offset : offset + limit]
 
-    return {"entries": page, "total": total, "limit": limit, "offset": offset}
+    # Sort connecting threads by date descending
+    connecting_threads.sort(key=lambda t: t.get("date", ""), reverse=True)
+
+    return {
+        "entries": page,
+        "connecting_threads": connecting_threads,
+        "total": total,
+        "limit": limit,
+        "offset": offset,
+    }
 
 
 def get_entry(date: str) -> Optional[Dict]:
@@ -135,6 +185,8 @@ def get_entry(date: str) -> Optional[Dict]:
     found = False
 
     for stream_key, title in STREAMS.items():
+        if stream_key == "connecting-threads":
+            continue  # connecting-threads use get_connecting_thread()
         path = os.path.join(entries_dir, stream_key, f"{date}.md")
         content = _read_file(path)
         if content:
@@ -147,6 +199,35 @@ def get_entry(date: str) -> Optional[Dict]:
             }
 
     return result if found else None
+
+
+def get_connecting_thread(slug: str) -> Optional[Dict]:
+    """Get full content of a connecting-threads entry by slug."""
+    path = os.path.join(JOURNAL_ROOT, "entries", "connecting-threads", f"{slug}.md")
+    content = _read_file(path)
+    if not content:
+        return None
+    return {
+        "slug": slug,
+        "title": _extract_thread_title(content) or slug.replace("-", " ").title(),
+        "date": _extract_thread_date(content) or "",
+        "content": content,
+        "word_count": _word_count(content),
+        "stream": "connecting-threads",
+    }
+
+
+def delete_entry(stream: str, identifier: str) -> bool:
+    """Delete a journal entry. identifier is a date (YYYY-MM-DD) or slug for connecting-threads."""
+    entries_dir = os.path.join(JOURNAL_ROOT, "entries")
+    if stream == "connecting-threads":
+        path = os.path.join(entries_dir, stream, f"{identifier}.md")
+    else:
+        path = os.path.join(entries_dir, stream, f"{identifier}.md")
+    if os.path.exists(path):
+        os.remove(path)
+        return True
+    return False
 
 
 def get_raw_observations() -> Dict:

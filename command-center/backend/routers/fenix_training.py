@@ -18,7 +18,7 @@ Endpoints:
 import os
 from utils.config import resolve_api_key
 from fastapi import APIRouter, HTTPException, Header, Query
-from pydantic import BaseModel
+from models.fenix_training import AnswerRequest, ApproveRequest, UpdateEntryRequest, QuestionBankApproveRequest, ManualInputRequest, ProductionReadyRequest
 from typing import Optional
 
 from services.fenix_training_service import (
@@ -45,48 +45,11 @@ from services.fenix_training_service import (
 
 router = APIRouter()
 
-
 # ── Request models ────────────────────────────────────────────────────
-
-
-class AnswerRequest(BaseModel):
-    answer: str
-
-
-class ApproveRequest(BaseModel):
-    edited_pairs: Optional[list[dict]] = None
-
-
-class UpdateEntryRequest(BaseModel):
-    question: Optional[str] = None
-    answer: Optional[str] = None
-    category: Optional[str] = None
-    status: Optional[str] = None
-
-
-class QuestionBankApproveRequest(BaseModel):
-    question_text: str
-    answer_text: str
-    category: Optional[str] = "question_bank"
-
-
-class ManualInputRequest(BaseModel):
-    question: str
-    answer: str
-    category: Optional[str] = "manual"
-
-
-class ProductionReadyRequest(BaseModel):
-    question: str
-    answer: str
-
 
 # ── Helpers ───────────────────────────────────────────────────────────
 
-
-
-
-@router.post("/training/start")
+@router.post("/training/start", response_model=dict)
 async def start_session(
     x_claude_key: Optional[str] = Header(None, alias="X-Claude-Key"),
 ):
@@ -97,14 +60,12 @@ async def start_session(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to start session: {e}")
 
-
-@router.get("/training/categories")
+@router.get("/training/categories", response_model=dict)
 async def categories():
     """List training categories."""
     return {"categories": get_categories()}
 
-
-@router.get("/training/sessions")
+@router.get("/training/sessions", response_model=dict)
 async def sessions():
     """List all training sessions."""
     try:
@@ -112,8 +73,7 @@ async def sessions():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to list sessions: {e}")
 
-
-@router.get("/training/sessions/{session_id}")
+@router.get("/training/sessions/{session_id}", response_model=dict)
 async def session_detail(session_id: str):
     """Get full session state."""
     state = get_training_session(session_id)
@@ -121,8 +81,7 @@ async def session_detail(session_id: str):
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
     return state
 
-
-@router.get("/training/sessions/{session_id}/current")
+@router.get("/training/sessions/{session_id}/current", response_model=dict)
 async def current_question(session_id: str):
     """Get the current question in the session."""
     result = get_current_question(session_id)
@@ -130,8 +89,7 @@ async def current_question(session_id: str):
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
     return result
 
-
-@router.get("/training/sessions/{session_id}/generate-draft")
+@router.get("/training/sessions/{session_id}/generate-draft", response_model=dict)
 async def generate_draft(
     session_id: str,
     regenerate: bool = Query(False),
@@ -146,8 +104,7 @@ async def generate_draft(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to generate draft: {e}")
 
-
-@router.post("/training/sessions/{session_id}/answer")
+@router.post("/training/sessions/{session_id}/answer", response_model=dict)
 async def submit_answer(
     session_id: str,
     request: AnswerRequest,
@@ -163,8 +120,7 @@ async def submit_answer(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to process answer: {e}")
 
-
-@router.post("/training/sessions/{session_id}/approve")
+@router.post("/training/sessions/{session_id}/approve", response_model=dict)
 async def approve(session_id: str, request: ApproveRequest):
     """Approve polished answer and save to Supabase training_data."""
     try:
@@ -177,8 +133,7 @@ async def approve(session_id: str, request: ApproveRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to approve: {e}")
 
-
-@router.post("/training/sessions/{session_id}/skip")
+@router.post("/training/sessions/{session_id}/skip", response_model=dict)
 async def skip(session_id: str):
     """Skip the current question."""
     try:
@@ -189,11 +144,9 @@ async def skip(session_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to skip: {e}")
 
-
 # ── Training data CRUD ───────────────────────────────────────────────
 
-
-@router.get("/training/data")
+@router.get("/training/data", response_model=dict)
 async def training_data(
     category: Optional[str] = Query(None),
     status: Optional[str] = Query(None),
@@ -213,8 +166,7 @@ async def training_data(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to list training data: {e}")
 
-
-@router.put("/training/data/{entry_id}")
+@router.put("/training/data/{entry_id}", response_model=dict)
 async def update_entry(entry_id: str, request: UpdateEntryRequest):
     """Edit a training data entry."""
     try:
@@ -232,8 +184,7 @@ async def update_entry(entry_id: str, request: UpdateEntryRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to update entry: {e}")
 
-
-@router.delete("/training/data/{entry_id}")
+@router.delete("/training/data/{entry_id}", response_model=dict)
 async def delete_entry(entry_id: str):
     """Delete a training data entry."""
     try:
@@ -243,16 +194,14 @@ async def delete_entry(entry_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to delete entry: {e}")
 
-
 # ── Question Bank endpoints ──────────────────────────────────────────
 
-@router.get("/training/question-bank/meta")
+@router.get("/training/question-bank/meta", response_model=dict)
 async def question_bank_meta():
     """Get question bank metadata (personas, dimensions, counts)."""
     return get_question_bank_meta()
 
-
-@router.get("/training/question-bank")
+@router.get("/training/question-bank", response_model=dict)
 async def question_bank_list(
     persona: Optional[str] = Query(None),
     dimension: Optional[str] = Query(None),
@@ -264,8 +213,7 @@ async def question_bank_list(
         persona=persona, dimension=dimension, limit=limit, offset=offset
     )
 
-
-@router.get("/training/question-bank/{question_id}/generate")
+@router.get("/training/question-bank/{question_id}/generate", response_model=dict)
 async def question_bank_generate(
     question_id: str,
     x_claude_key: Optional[str] = Header(None, alias="X-Claude-Key"),
@@ -279,8 +227,7 @@ async def question_bank_generate(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to generate answer: {e}")
 
-
-@router.post("/training/question-bank/{question_id}/approve")
+@router.post("/training/question-bank/{question_id}/approve", response_model=dict)
 async def question_bank_approve(
     question_id: str,
     request: QuestionBankApproveRequest,
@@ -298,8 +245,7 @@ async def question_bank_approve(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to approve: {e}")
 
-
-@router.post("/training/manual")
+@router.post("/training/manual", response_model=dict)
 async def manual_training_input(request: ManualInputRequest):
     """Save a manually entered question-answer pair to training data."""
     if not request.question.strip() or not request.answer.strip():
@@ -313,8 +259,7 @@ async def manual_training_input(request: ManualInputRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to save: {e}")
 
-
-@router.post("/training/production-ready")
+@router.post("/training/production-ready", response_model=dict)
 async def production_ready(
     request: ProductionReadyRequest,
     x_claude_key: Optional[str] = Header(None, alias="X-Claude-Key"),

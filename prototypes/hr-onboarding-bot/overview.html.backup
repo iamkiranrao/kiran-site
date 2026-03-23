@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Onboardly is a RAG-powered HR onboarding assistant that answers employee questions by searching company policy documents. Built with TF-IDF retrieval, Claude generation, and Flask   a case study in grounded AI that only says what it can back up.">
+    <title>Onboardly - MadLab | Kiran Gorapalli</title>
+    <link rel="icon" href="../../images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="canonical" href="https://kirangorapalli.com/prototypes/hr-onboarding-bot/overview.html">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Onboardly - MadLab | Kiran Gorapalli">
+    <meta property="og:description" content="A RAG-powered HR assistant that answers questions from company policy docs. Shows how retrieval-augmented generation keeps AI grounded in facts.">
+    <meta property="og:url" content="https://kirangorapalli.com/prototypes/hr-onboarding-bot/overview.html">
+    <meta property="og:image" content="https://kirangorapalli.com/images/og-image.png">
+
+    <style>
+        .breadcrumb { padding: 5rem 4rem 0; max-width: 960px; margin: 0 auto; }
+        .breadcrumb a { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); text-decoration: none; letter-spacing: 0.03em; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--text-primary); }
+        .breadcrumb .sep { color: var(--text-muted); margin: 0 0.5rem; font-size: 0.7rem; }
+        .breadcrumb .current { font-size: 0.75rem; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.03em; }
+
+        .project-hero { max-width: 960px; margin: 0 auto; padding: 1.5rem 4rem 0; }
+        .project-status-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .status-badge { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 500px; background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        [data-theme="light"] .status-badge { background: rgba(16, 185, 129, 0.12); color: #059669; }
+        .project-category { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
+        .project-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--text-primary); letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 0.75rem; }
+        .project-hero .tagline { font-size: clamp(1rem, 2vw, 1.15rem); font-weight: 400; color: var(--text-secondary); line-height: 1.6; max-width: 640px; margin-bottom: 1.5rem; }
+        .hero-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem; }
+        .hero-tag { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.01em; color: var(--text-secondary); background: var(--bg-dark, #111); border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 500px; }
+        [data-theme="light"] .hero-tag { background: var(--bg-secondary); }
+
+        .launch-row { margin-bottom: 2.5rem; }
+        .launch-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: -0.01em; color: #0a0a0a; background: var(--text-primary); border: none; padding: 0.75rem 1.75rem; border-radius: 8px; cursor: pointer; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+        .launch-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+        .launch-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        [data-theme="light"] .launch-btn { color: #f5f3f0; }
+
+        .section-divider { max-width: 960px; margin: 0 auto; padding: 0 4rem; }
+        .section-divider hr { border: none; border-top: 1px solid var(--border); }
+
+        .project-section { max-width: 960px; margin: 0 auto; padding: 2.5rem 4rem; }
+        .project-section h2 { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+        .project-section p { font-size: 0.95rem; line-height: 1.75; color: var(--text-secondary); max-width: 640px; }
+
+        .sys-diagram { margin-top: 1.5rem; max-width: 600px; }
+        .sys-row { display: flex; align-items: stretch; gap: 0.6rem; margin-bottom: 0.6rem; }
+        .sys-block { flex: 1; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary); text-align: center; }
+        .sys-block-label { font-size: 0.75rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+        .sys-block-sub { font-size: 0.6rem; color: var(--text-muted); margin-top: 0.1rem; }
+        .sys-block.wide { flex: 2; }
+        .sys-block.accent { border-color: var(--text-muted); background: var(--bg-secondary, #111); }
+        .sys-connector { text-align: center; color: var(--text-muted); font-size: 0.75rem; padding: 0.15rem 0; letter-spacing: 0.1em; }
+
+        .related-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; padding: 0.5rem 0.85rem; border: 1px solid var(--border); border-radius: 8px; transition: border-color 0.2s, color 0.2s; margin-top: 1.25rem; }
+        .related-link:hover { border-color: var(--text-muted); color: var(--text-primary); }
+        .related-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .key-decision { font-size: 0.8rem; line-height: 1.6; color: var(--text-muted); margin-top: 1rem; font-style: italic; }
+
+        .creds-table { margin-top: 1rem; width: 100%; max-width: 480px; border-collapse: collapse; }
+        .creds-table th, .creds-table td { text-align: left; padding: 0.5rem 1rem; font-size: 0.8rem; border-bottom: 1px solid var(--border); }
+        .creds-table th { font-weight: 600; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; }
+        .creds-table td { color: var(--text-secondary); font-family: 'Courier New', monospace; font-size: 0.8rem; }
+
+        .bottom-cta { max-width: 960px; margin: 0 auto; padding: 2.5rem 4rem 4rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+        .back-link { font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        .back-link:hover { color: var(--text-primary); }
+
+        .page-glossary { max-width: 960px; margin: 0 auto; padding: 1.5rem 4rem 0; }
+        .glossary-toggle { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.03em; color: var(--text-muted); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 0.35rem 0.75rem; cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease; }
+        .glossary-toggle:hover { color: var(--text-primary); border-color: var(--text-muted); }
+        .glossary-toggle .arrow { transition: transform 0.2s ease; font-size: 0.6rem; }
+        .glossary-toggle.open .arrow { transform: rotate(90deg); }
+        .glossary-terms { display: none; margin-top: 1rem; padding: 1rem 1.25rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-secondary); }
+        .glossary-terms.visible { display: block; }
+        .glossary-term { margin-bottom: 0.6rem; font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary); }
+        .glossary-term:last-child { margin-bottom: 0; }
+        .glossary-term strong { color: var(--text-primary); font-weight: 600; }
+
+        @media (max-width: 768px) {
+            .breadcrumb { padding: 4.5rem 1.5rem 0; }
+            .project-hero { padding: 1.25rem 1.5rem 0; }
+            .project-section { padding: 2rem 1.5rem; }
+            .section-divider { padding: 0 1.5rem; }
+            .bottom-cta { padding: 2rem 1.5rem 3rem; flex-direction: column; align-items: flex-start; }
+            .sys-row { flex-direction: column; gap: 0.4rem; }
+            .sys-block.wide { flex: 1; }
+            footer { padding: 2.5rem 1.5rem 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .breadcrumb { padding: 4rem 1rem 0; }
+            .project-hero { padding: 1rem 1rem 0; }
+            .project-section { padding: 1.5rem 1rem; }
+            .section-divider { padding: 0 1rem; }
+            .bottom-cta { padding: 1.5rem 1rem 2.5rem; }
+            footer { padding: 2rem 1rem 1.5rem; }
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Onboardly",
+        "author": { "@type": "Person", "name": "Kiran Gorapalli", "url": "https://kirangorapalli.com" },
+        "applicationCategory": "Chatbots & AI Assistants",
+        "operatingSystem": "Web",
+        "description": "Onboardly is a RAG-powered HR onboarding assistant that answers employee questions by searching company policy documents. Built with TF-IDF retrieval, Claude generation, and Flask   a case study in grounded AI that only says what it can back up.",
+        "url": "https://kirangorapalli.com/prototypes/hr-onboarding-bot/overview.html"
+    }
+    </script>
+</head>
+<body class="preload">
+    <a href="#project-content" class="skip-link">Skip to main content</a>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-right">
+                <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                    <svg aria-hidden="true" class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg aria-hidden="true" class="sun-icon" viewBox="0 0 24 24" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                </button>
+                <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
+                    <svg aria-hidden="true" class="share-icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                </button>
+                <button id="menuButton" class="menu-button" aria-label="Open menu">Menu</button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-header"><div></div><button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button></div>
+        <ul class="mobile-nav-links">
+            <li><a href="../../index.html">&#8600; Home</a></li>
+            <li><a href="../../career-highlights.html">&#8600; Career Highlights</a></li>
+            <li><a href="../../how-id-built-it.html">&#8600; How I'd've Built It</a></li>
+            <li><a href="../../madlab.html">&#8600; MadLab</a></li>
+            <li><a href="../../studio.html">&#8600; Studio</a></li>
+            <li><a href="../../blog-podcast.html">&#8600; Blog & Podcast</a></li>
+            <li><a href="../../learning.html">&#8600; Learning & Certifications</a></li>
+            <li><a href="../../causes.html">&#8600; Causes</a></li>
+            <li><a href="../../store.html">&#8600; Store</a></li>
+            <li><a href="../../index.html#contact">&#8600; Connect</a></li>
+        </ul>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="../../madlab.html">MadLab</a>
+        <span class="sep">/</span>
+        <a href="../../madlab.html">Chatbots & AI Assistants</a>
+        <span class="sep">/</span>
+        <span class="current">Onboardly</span>
+    </div>
+
+    <div class="page-glossary">
+        <button class="glossary-toggle" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('visible')" aria-expanded="false">
+            <span class="arrow">&#9654;</span> Quick reference
+        </button>
+        <div class="glossary-terms" role="region" aria-label="Glossary">
+            <div class="glossary-term"><strong>RAG</strong>   Retrieval-Augmented Generation. Instead of making things up, the AI searches a document corpus first, then generates an answer grounded in what it actually found.</div>
+            <div class="glossary-term"><strong>TF-IDF</strong>   Term Frequency-Inverse Document Frequency. A classic way to measure how relevant a document is to a query. Words that are common everywhere (like "the") get low scores; words that are rare but appear in your query get high scores.</div>
+            <div class="glossary-term"><strong>Chunking</strong>   Splitting long documents into smaller overlapping pieces so the retrieval system can find the specific paragraph that answers your question, not just the right file.</div>
+            <div class="glossary-term"><strong>Cosine Similarity</strong>   A way to measure how similar two pieces of text are by comparing their TF-IDF vectors. A score of 1 means identical; 0 means nothing in common.</div>
+            <div class="glossary-term"><strong>Grounding</strong>   Constraining an LLM to only use information from provided sources. Reduces hallucination by giving the model facts to cite rather than knowledge to recall.</div>
+        </div>
+    </div>
+
+    <div id="project-content">
+        <div class="project-hero">
+            <div class="project-status-row">
+                <span class="status-badge">Live Prototype</span>
+                <span class="project-category">Chatbots & AI Assistants</span>
+            </div>
+            <h1>Onboardly</h1>
+            <p class="tagline">A RAG-powered HR assistant that answers new employee questions by searching actual policy documents. It only tells you what it can find in the docs   and says so when it can't.</p>
+            <div class="hero-tags"><span class="hero-tag">RAG</span>
+                <span class="hero-tag">Claude API</span>
+                <span class="hero-tag">TF-IDF</span>
+                <span class="hero-tag">Python</span>
+                <span class="hero-tag">Flask</span>
+                <span class="hero-tag">NLP</span>
+                <span class="hero-tag">Vector Search</span></div>
+            <div class="launch-row">
+                <a href="https://onboardly-r3r4.onrender.com" target="_blank" rel="noopener" class="launch-btn">Launch Prototype <svg aria-hidden="true" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+            </div>
+        </div>
+
+        <div class="section-divider"><hr></div>
+
+        <div class="project-section" data-section-id="the-details" data-section-type="prototype-details">
+            <h2>Details</h2>
+            <p>Onboardly is an HR onboarding assistant built on retrieval-augmented generation (RAG). It answers new employee questions   leave policies, benefits, IT setup, expenses, remote work   by searching a corpus of company policy documents and generating responses grounded in what it finds.</p>
+            <p>The interesting question this prototype explores isn't "can AI answer HR questions"   of course it can. It's "what happens when the answer isn't in the documents?" A pure LLM would confidently make something up. A keyword search would return nothing. RAG sits in between: it retrieves the most relevant passages, hands them to Claude as context, and Claude generates a response that's constrained to that context. If the answer isn't there, it says so.</p>
+            <p>That grounding behavior is what makes RAG useful for real-world applications where accuracy matters more than fluency. You'd rather the bot say "I don't have that information" than invent a leave policy that doesn't exist.</p>
+        </div>
+
+        <div class="section-divider"><hr></div>
+
+        <div class="project-section" data-section-id="system-architecture" data-section-type="prototype-architecture">
+            <h2>System Architecture</h2>
+            <p>The system has three stages: chunk, retrieve, generate. On startup, 8 HR policy documents are split into overlapping 300-word chunks and embedded using TF-IDF vectors. When a user asks a question, the query is vectorised, compared against all chunks using cosine similarity, and the top 3 most relevant chunks are passed to Claude as context alongside the conversation history.</p>
+            <p class="key-decision">Why TF-IDF instead of OpenAI embeddings? This prototype deliberately uses a simpler retrieval method to keep everything self-contained   no external embedding API, no vector database, no infrastructure beyond a Python process. For 8 documents and 43 chunks, TF-IDF works remarkably well. The tradeoff is that it matches on keywords rather than semantic meaning, so "time off" won't match "annual leave" as well as a proper embedding model would.</p>
+
+            <div class="sys-diagram">
+                <div class="sys-row">
+                    <div class="sys-block wide">
+                        <div class="sys-block-label">Chat UI</div>
+                        <div class="sys-block-sub">Browser &middot; Session tracking</div>
+                    </div>
+                </div>
+                <div class="sys-connector">&#8595;</div>
+                <div class="sys-row">
+                    <div class="sys-block wide">
+                        <div class="sys-block-label">Flask API</div>
+                        <div class="sys-block-sub">REST endpoint &middot; Conversation history</div>
+                    </div>
+                </div>
+                <div class="sys-connector">&#8595;</div>
+                <div class="sys-row">
+                    <div class="sys-block accent">
+                        <div class="sys-block-label">TF-IDF Retriever</div>
+                        <div class="sys-block-sub">43 chunks &middot; Cosine similarity</div>
+                    </div>
+                    <div class="sys-block accent">
+                        <div class="sys-block-label">Claude API</div>
+                        <div class="sys-block-sub">Grounded generation</div>
+                    </div>
+                </div>
+                <div class="sys-connector">&#8595;</div>
+                <div class="sys-row">
+                    <div class="sys-block">
+                        <div class="sys-block-label">Leave Policy</div>
+                        <div class="sys-block-sub">leave-policy.txt</div>
+                    </div>
+                    <div class="sys-block">
+                        <div class="sys-block-label">Benefits</div>
+                        <div class="sys-block-sub">benefits.txt</div>
+                    </div>
+                    <div class="sys-block">
+                        <div class="sys-block-label">IT Setup</div>
+                        <div class="sys-block-sub">it-setup.txt</div>
+                    </div>
+                    <div class="sys-block">
+                        <div class="sys-block-label">5 more docs</div>
+                        <div class="sys-block-sub">expenses, remote, etc.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"><hr></div>
+
+        <div class="project-section" data-section-id="try-it-yourself" data-section-type="prototype-demo">
+            <h2>Try It Yourself</h2>
+            <p>The live demo is hosted on Render. The free tier spins down after inactivity, so the first load may take 30–60 seconds to cold-start.</p>
+            <p>Try these questions to see RAG in action:</p>
+            <p><strong>"How many days of annual leave do I get?"</strong>   pulls from leave-policy.txt, returns the specific number.<br>
+            <strong>"What laptop options are available?"</strong>   retrieves IT setup docs with MacBook Pro and ThinkPad details.<br>
+            <strong>"How do I submit expenses?"</strong>   finds the Expensify process from expenses.txt.<br>
+            <strong>"What's the dress code?"</strong>   this one isn't in the docs. Watch the bot admit it doesn't know rather than making something up.</p>
+            <p style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);"><strong>Run locally:</strong> Clone the repo, navigate to <code>prototypes/hr-onboarding-bot/</code>, install with <code>pip install -r requirements.txt</code>, set <code>ANTHROPIC_API_KEY</code>, and run <code>python app.py</code>.</p>
+        </div>
+
+        <div class="section-divider"><hr></div>
+
+        <div class="project-section" style="padding-bottom:0;">
+            <h2>Related</h2>
+            <a href="../../prototypes/jurassic-bites/overview.html" class="related-link">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Jurassic Bites   what happens when there's no document corpus and every response is pre-written
+            </a>
+            <a href="../../prototypes/insurance-chatbot/overview.html" class="related-link">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Insurance AI Assistant   stateful multi-turn conversations with LangGraph
+            </a>
+        </div>
+
+        <div class="section-divider"><hr></div>
+
+        <div class="bottom-cta">
+            <a href="../../madlab.html" class="back-link">&larr; Back to MadLab</a>
+            <a href="https://onboardly-r3r4.onrender.com" target="_blank" rel="noopener" class="launch-btn">Launch Prototype <svg aria-hidden="true" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-social">
+            <div class="social-links">
+                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg></a>
+                <a href="https://github.com/iamkiranrao" class="social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg></a>
+                <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg></a>
+                <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg></a>
+                <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg></a>
+                <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg></a>
+            </div>
+        </div>
+        <div class="footer-site-info">
+            <img src="../../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">        </div>
+        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const menuButton=document.getElementById('menuButton'),closeMenu=document.getElementById('closeMenu'),mobileMenu=document.getElementById('mobileMenu'),mobileLinks=document.querySelectorAll('.mobile-nav-links a');
+        menuButton.addEventListener('click',()=>{mobileMenu.classList.add('active');document.body.style.overflow='hidden';});
+        closeMenu.addEventListener('click',()=>{mobileMenu.classList.remove('active');document.body.style.overflow='';});
+        mobileLinks.forEach(l=>l.addEventListener('click',()=>{mobileMenu.classList.remove('active');document.body.style.overflow='';}));
+        document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileMenu.classList.contains('active')){mobileMenu.classList.remove('active');document.body.style.overflow='';}});
+        const themeToggle=document.getElementById('themeToggle'),savedTheme=localStorage.getItem('theme');
+        if(savedTheme==='light'){document.documentElement.setAttribute('data-theme','light');document.querySelector('.moon-icon').style.display='none';document.querySelector('.sun-icon').style.display='block';}
+        themeToggle.addEventListener('click',()=>{const isLight=document.documentElement.getAttribute('data-theme')==='light';if(isLight){document.documentElement.removeAttribute('data-theme');localStorage.setItem('theme','dark');document.querySelector('.moon-icon').style.display='block';document.querySelector('.sun-icon').style.display='none';}else{document.documentElement.setAttribute('data-theme','light');localStorage.setItem('theme','light');document.querySelector('.moon-icon').style.display='none';document.querySelector('.sun-icon').style.display='block';}});
+        document.getElementById('shareButton').addEventListener('click',async()=>{const toast=document.getElementById('toast');if(navigator.share){try{await navigator.share({title:document.title,url:window.location.href});}catch(e){}}else{await navigator.clipboard.writeText(window.location.href);toast.textContent='Link copied to clipboard';toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2500);}});
+        window.addEventListener('load',()=>document.body.classList.remove('preload'));
+        const footerLogo=document.querySelector('.footer-logo');if(footerLogo)footerLogo.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+    </script>
+</body>
+</html>

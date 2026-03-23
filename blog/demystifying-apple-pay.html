@@ -19,7 +19,7 @@
       })(window, document, "clarity", "script", "vpgxcc8q5n");
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="From Wells Fargo's 2014 launch complexity to today's seamless experience - understanding the architecture that makes Apple Pay work - from device hardware to issuing bank - and the strategic principles every payments PM should know.">
+    <meta name="description" content="Apple Pay's architecture explained: from device hardware to issuing bank. Learn how the infrastructure maintains security, distributes complexity, and powers seamless payments for billions of transactions annually.">
     <title>Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go' - Kiran Gorapalli</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -397,10 +397,10 @@
         <div class="nav-container">
             <div class="nav-right">
                 <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
-                    <svg class="moon-icon" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" class="wf-moon-icon" viewBox="0 0 24 24">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                    <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display: none;">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
                         <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -413,7 +413,7 @@
                     </svg>
                 </button>
                 <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
-                    <svg class="share-icon" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" class="wf-share-icon" viewBox="0 0 24 24">
                         <circle cx="18" cy="5" r="3"></circle>
                         <circle cx="6" cy="12" r="3"></circle>
                         <circle cx="18" cy="19" r="3"></circle>
@@ -477,11 +477,11 @@
 
         <p>That's the thing about great payment experiences - the harder they are to build, the more invisible they should be. Nearly a decade later, Apple Pay has become so seamless that most payments product managers take its architecture for granted. But for anyone deploying payment experiences, the architecture beneath the magic is the difference between shipping with confidence and shipping with crossed fingers.</p>
 
-        <p>This isn't about appreciating Apple's engineering prowess. It's about recognizing how they solved problems that every payments PM faces: security without friction, platform control without custody risk, and ecosystem growth without compromising user trust. The solutions they chose reveal principles that apply far beyond iOS wallets.</p>
+        <p>This isn't about appreciating Apple's engineering prowess. It's about recognizing how they solved problems that every payments PM faces: security without friction, platform control without custody risk, and system growth without compromising user trust. The solutions they chose reveal principles that apply far beyond iOS wallets.</p>
 
         <h2>The Architecture That Makes It Work</h2>
 
-        <p>Apple Pay succeeds because it distributes complexity across an entire ecosystem - from the chip in your phone to the issuing bank that approves the charge. The diagram below maps the full transaction architecture: five layers, five steps, and a return path that completes the loop. Most payment systems try to centralise control. Apple deliberately fragments responsibility across every layer.</p>
+        <p>Apple Pay succeeds because it distributes complexity across an entire system - from the chip in your phone to the issuing bank that approves the charge. The diagram below maps the full transaction architecture: five layers, five steps, and a return path that completes the loop. Most payment systems try to centralise control. Apple deliberately fragments responsibility across every layer.</p>
 
         <!-- Architecture Diagram -->
         <div style="margin: 2.5rem -1rem; padding: 1.5rem 0;">
@@ -525,27 +525,27 @@
 
           <!-- Step 1 badge - sits ON the top border of iPhone container -->
           <circle cx="135" cy="100" r="12" class="dg-fc"/>
-          <text x="135" y="104" text-anchor="middle" class="dg-fn">1</text>
+          <text x="135" y="-136" text-anchor="middle" class="dg-fn">1</text>
 
           <!-- iPhone label + step description -->
-          <text x="135" y="132" text-anchor="middle" class="dg-lp" font-size="12" font-weight="600">iPhone</text>
-          <text x="135" y="148" text-anchor="middle" class="dg-lm" font-size="9">User authenticates</text>
+          <text x="135" y="-124" text-anchor="middle" class="dg-lp" font-size="12" font-weight="600">iPhone</text>
+          <text x="135" y="-112" text-anchor="middle" class="dg-lm" font-size="9">User authenticates</text>
 
           <!-- Secure Element -->
           <rect x="52" y="160" width="166" height="76" rx="6" class="dg-bi"/>
-          <text x="135" y="182" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Secure Element (SE)</text>
-          <text x="135" y="198" text-anchor="middle" class="dg-lm" font-size="9">Tamper-resistant chip</text>
-          <text x="135" y="212" text-anchor="middle" class="dg-lm" font-size="9">Stores tokens &amp; crypto keys</text>
-          <text x="135" y="226" text-anchor="middle" class="dg-lm" font-size="9">Isolated from iOS</text>
+          <text x="135" y="-100" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Secure Element (SE)</text>
+          <text x="135" y="-88" text-anchor="middle" class="dg-lm" font-size="9">Tamper-resistant chip</text>
+          <text x="135" y="-76" text-anchor="middle" class="dg-lm" font-size="9">Stores tokens &amp; crypto keys</text>
+          <text x="135" y="-64" text-anchor="middle" class="dg-lm" font-size="9">Isolated from iOS</text>
 
           <!-- Wallet -->
           <rect x="52" y="248" width="166" height="52" rx="6" class="dg-bi"/>
-          <text x="135" y="270" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Wallet App + iOS</text>
-          <text x="135" y="286" text-anchor="middle" class="dg-lm" font-size="9">UX, biometrics, orchestration</text>
+          <text x="135" y="-52" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Wallet App + iOS</text>
+          <text x="135" y="-40" text-anchor="middle" class="dg-lm" font-size="9">UX, biometrics, orchestration</text>
 
           <!-- Face ID -->
           <rect x="52" y="312" width="166" height="32" rx="6" class="dg-bi"/>
-          <text x="135" y="333" text-anchor="middle" class="dg-lm" font-size="10">Face ID / Touch ID</text>
+          <text x="135" y="-28" text-anchor="middle" class="dg-lm" font-size="10">Face ID / Touch ID</text>
 
           <!-- Arrows inside phone (upward, with visible line + head) -->
           <line x1="135" y1="310" x2="135" y2="302" class="dg-al" marker-end="url(#arr)"/>
@@ -584,8 +584,8 @@
           <line x1="341" y1="372" x2="341" y2="446" class="dg-al" marker-end="url(#arr)"/>
           <!-- Step 2 badge (solid, drawn on top of line) -->
           <circle cx="341" cy="409" r="12" class="dg-fc"/>
-          <text x="341" y="413" text-anchor="middle" class="dg-fn">2</text>
-          <text x="365" y="413" class="dg-lm" font-size="9" font-style="italic">NFC tap to terminal</text>
+          <text x="341" y="221" text-anchor="middle" class="dg-fn">2</text>
+          <text x="365" y="209" class="dg-lm" font-size="9" font-style="italic">NFC tap to terminal</text>
 
           <!-- ===== MERCHANT LAYER (y: 448–526) ===== -->
           <text x="30" y="444" class="dg-ll">MERCHANT LAYER</text>
@@ -603,22 +603,22 @@
           <!-- Single line, one arrowhead, badge covers middle -->
           <line x1="341" y1="528" x2="341" y2="602" class="dg-al" marker-end="url(#arr)"/>
           <circle cx="341" cy="565" r="12" class="dg-fc"/>
-          <text x="341" y="569" text-anchor="middle" class="dg-fn">3</text>
-          <text x="365" y="569" class="dg-lm" font-size="9" font-style="italic">Existing card rails</text>
+          <text x="341" y="245" text-anchor="middle" class="dg-fn">3</text>
+          <text x="365" y="233" class="dg-lm" font-size="9" font-style="italic">Existing card rails</text>
 
           <!-- ===== NETWORK LAYER (y: 604–714) ===== -->
           <text x="30" y="600" class="dg-ll">NETWORK LAYER</text>
           <rect x="22" y="606" width="656" height="110" rx="8" class="dg-layer"/>
 
           <rect x="40" y="624" width="186" height="76" rx="6" class="dg-bi"/>
-          <text x="133" y="650" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Acquirer / Processor</text>
-          <text x="133" y="666" text-anchor="middle" class="dg-lm" font-size="9">Merchant's bank</text>
-          <text x="133" y="682" text-anchor="middle" class="dg-lm" font-size="9">Routes transaction</text>
+          <text x="133" y="-16" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Acquirer / Processor</text>
+          <text x="133" y="-4" text-anchor="middle" class="dg-lm" font-size="9">Merchant's bank</text>
+          <text x="133" y="8" text-anchor="middle" class="dg-lm" font-size="9">Routes transaction</text>
 
           <rect x="248" y="624" width="204" height="76" rx="6" class="dg-bi"/>
-          <text x="350" y="650" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Card Network</text>
-          <text x="350" y="666" text-anchor="middle" class="dg-lm" font-size="9">Visa / Mastercard / Amex</text>
-          <text x="350" y="682" text-anchor="middle" class="dg-lm" font-size="9">Switches to issuing bank</text>
+          <text x="350" y="257" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Card Network</text>
+          <text x="350" y="269" text-anchor="middle" class="dg-lm" font-size="9">Visa / Mastercard / Amex</text>
+          <text x="350" y="281" text-anchor="middle" class="dg-lm" font-size="9">Switches to issuing bank</text>
 
           <rect x="474" y="624" width="192" height="76" rx="6" class="dg-bi"/>
           <text x="570" y="650" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Token Service Provider</text>
@@ -633,22 +633,22 @@
           <!-- Single line, one arrowhead, badge covers middle -->
           <line x1="341" y1="716" x2="341" y2="790" class="dg-al" marker-end="url(#arr)"/>
           <circle cx="341" cy="753" r="12" class="dg-fc"/>
-          <text x="341" y="757" text-anchor="middle" class="dg-fn">4</text>
-          <text x="365" y="757" class="dg-lm" font-size="9" font-style="italic">Auth request</text>
+          <text x="341" y="305" text-anchor="middle" class="dg-fn">4</text>
+          <text x="365" y="293" class="dg-lm" font-size="9" font-style="italic">Auth request</text>
 
           <!-- ===== ISSUING BANK LAYER (y: 792–902) ===== -->
           <text x="30" y="788" class="dg-ll">ISSUING BANK LAYER</text>
           <rect x="22" y="794" width="656" height="110" rx="8" class="dg-layer"/>
 
           <rect x="40" y="812" width="200" height="76" rx="6" class="dg-bi"/>
-          <text x="140" y="838" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Token Vault</text>
-          <text x="140" y="854" text-anchor="middle" class="dg-lm" font-size="9">De-tokenises: token &#x2192; PAN</text>
-          <text x="140" y="870" text-anchor="middle" class="dg-lm" font-size="9">Verifies cryptogram validity</text>
+          <text x="140" y="20" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Token Vault</text>
+          <text x="140" y="32" text-anchor="middle" class="dg-lm" font-size="9">De-tokenises: token &#x2192; PAN</text>
+          <text x="140" y="44" text-anchor="middle" class="dg-lm" font-size="9">Verifies cryptogram validity</text>
 
           <rect x="260" y="812" width="200" height="76" rx="6" class="dg-bi"/>
-          <text x="360" y="838" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Auth &amp; Fraud Engine</text>
-          <text x="360" y="854" text-anchor="middle" class="dg-lm" font-size="9">Balance / credit check</text>
-          <text x="360" y="870" text-anchor="middle" class="dg-lm" font-size="9">Risk scoring &amp; fraud models</text>
+          <text x="360" y="317" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Auth &amp; Fraud Engine</text>
+          <text x="360" y="329" text-anchor="middle" class="dg-lm" font-size="9">Balance / credit check</text>
+          <text x="360" y="341" text-anchor="middle" class="dg-lm" font-size="9">Risk scoring &amp; fraud models</text>
 
           <rect x="480" y="812" width="186" height="76" rx="6" class="dg-bi"/>
           <text x="573" y="838" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Approve / Decline</text>
@@ -668,10 +668,10 @@
           <line x1="698" y1="476" x2="412" y2="476" class="dg-al" marker-end="url(#arr)"/>
           <!-- Step 5 badge (solid, covers vertical line, 20px clear of boxes) -->
           <circle cx="698" cy="663" r="12" class="dg-fc"/>
-          <text x="698" y="667" text-anchor="middle" class="dg-fn">5</text>
+          <text x="698" y="643" text-anchor="middle" class="dg-fn">5</text>
 
           <!-- Step 5 caption -->
-          <text x="350" y="926" text-anchor="middle" class="dg-lm" font-size="9" font-style="italic">Approval flows back through the same rails to the terminal, then to the device</text>
+          <text x="350" y="353" text-anchor="middle" class="dg-lm" font-size="9" font-style="italic">Approval flows back through the same rails to the terminal, then to the device</text>
 
           <!-- ===== APPLE CLOUD LAYER (y: 944–1048) ===== -->
           <text x="30" y="956" class="dg-ll">APPLE CLOUD LAYER</text>
@@ -679,14 +679,14 @@
           <rect x="22" y="964" width="656" height="86" rx="8" class="dg-layer"/>
 
           <rect x="40" y="978" width="200" height="60" rx="6" class="dg-bi"/>
-          <text x="140" y="1004" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Provisioning Service</text>
-          <text x="140" y="1020" text-anchor="middle" class="dg-lm" font-size="9">Card setup &amp; bank verification</text>
-          <text x="140" y="1032" text-anchor="middle" class="dg-lm" font-size="9">Initial token creation</text>
+          <text x="140" y="56" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Provisioning Service</text>
+          <text x="140" y="68" text-anchor="middle" class="dg-lm" font-size="9">Card setup &amp; bank verification</text>
+          <text x="140" y="80" text-anchor="middle" class="dg-lm" font-size="9">Initial token creation</text>
 
           <rect x="260" y="978" width="196" height="60" rx="6" class="dg-bi"/>
-          <text x="358" y="1004" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Device Management</text>
-          <text x="358" y="1020" text-anchor="middle" class="dg-lm" font-size="9">Multi-device token lifecycle</text>
-          <text x="358" y="1032" text-anchor="middle" class="dg-lm" font-size="9">Remote wipe if device lost</text>
+          <text x="358" y="365" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Device Management</text>
+          <text x="358" y="377" text-anchor="middle" class="dg-lm" font-size="9">Multi-device token lifecycle</text>
+          <text x="358" y="389" text-anchor="middle" class="dg-lm" font-size="9">Remote wipe if device lost</text>
 
           <rect x="476" y="978" width="190" height="60" rx="6" class="dg-bi"/>
           <text x="571" y="1004" text-anchor="middle" class="dg-lp" font-size="11" font-weight="600">Identity Services</text>
@@ -698,11 +698,11 @@
         <p>Let me walk through each layer the way I wish someone had explained it to me in 2014 - as a bank PM trying to understand what my team actually needed to build, what Apple controlled, and what existing infrastructure we could lean on.</p>
 
         <p><strong>Device Layer: Where the Security Lives</strong><br>
-        Start at the top of the diagram. The iPhone contains three components that matter: the Secure Element (SE), a tamper-resistant chip isolated from iOS that stores payment tokens and cryptographic keys; the Wallet app and iOS framework that orchestrate the user experience and biometric authentication; and the NFC controller that handles the contactless data exchange.</p>
+        Start at the top of the diagram. The iPhone has three key components. The Secure Element (SE) is a tamper-resistant chip isolated from iOS that stores payment tokens and cryptographic keys. The Wallet app and iOS framework handle user experience and biometric authentication. The NFC controller manages contactless data exchange.</p>
 
         <p>From a bank's perspective, the SE is the critical piece. It's a tiny, isolated computer that can perform calculations but never reveals its contents. Even if someone compromises the phone's operating system, they can't access the payment data. For us at Wells Fargo, this meant we could trust the device with tokenized credentials without worrying about a software vulnerability exposing real card numbers. Apple deliberately can't see them either - which is what convinced our security team.</p>
 
-        <p>The dashed callout box on the right side of the diagram matters: the device stores a Device Account Number (a token that maps to the real card), cryptographic keys (locked inside the SE), and biometric data. What it never stores is the actual card number. That separation is what makes the whole system work.</p>
+        <p>Look at the dashed callout box on the right. The device stores three things: a Device Account Number (a token that maps to the real card), cryptographic keys (locked in the SE), and biometric data. Critically, it never stores the actual card number. That separation makes the whole system work.</p>
 
         <p><strong>Merchant Layer: What Changes (and What Doesn't) at the Terminal</strong><br>
         Step 2 in the diagram - the NFC tap. When a customer holds their phone to a terminal, the merchant's POS system receives a tokenized payment. From the merchant's perspective, it looks like a regular card transaction. They see only a token and a one-time cryptogram, both useless if intercepted.</p>
@@ -722,7 +722,7 @@
         <p>What matters from the bank PM's seat: your existing auth and fraud engines work without modification. The token vault is the new piece - a system that maps tokens to real PANs and validates that the cryptographic signatures match. That's the core integration work.</p>
 
         <p><strong>Apple Cloud Layer: The Provisioning Engine</strong><br>
-        The bottom of the diagram shows a layer that's easy to overlook because it's not involved in payments at all. Apple's cloud services handle card setup (when a customer first adds their card to Wallet), device management (syncing tokens across iPhone, Watch, and iPad), and remote wipe (disabling payment credentials if a device is lost).</p>
+        The bottom of the diagram shows a layer that's easy to overlook. It's not part of the payment flow itself. Apple's cloud services handle three critical functions: card setup (adding cards to Wallet), device management (syncing tokens across devices), and remote wipe (disabling credentials if a device is lost).</p>
 
         <p>For a bank deploying Apple Pay, this is where the initial partnership friction lives. Your bank needs to integrate with Apple's provisioning service to verify cardholders, approve token creation, and manage the lifecycle. Once that's running, the payment flow itself rides entirely on existing infrastructure - the cloud layer steps aside.</p>
 
@@ -748,7 +748,7 @@
         <p>The strategic insight: Apple chose recurring, usage-based revenue over higher-margin but lower-volume alternatives. They could have built their own payment network or charged merchants directly, but both approaches would have required building new financial infrastructure and convincing new stakeholders. Instead, they inserted themselves into existing value chains and extracted ongoing fees from willing partners.</p>
 
         <p><strong>Platform Lock-in and Services Revenue</strong><br>
-        The deeper play isn't the transaction fees - it's strengthening iOS ecosystem stickiness. Once you've configured Apple Pay with multiple cards, switching to Android means rebuilding your entire digital wallet. The switching cost isn't financial; it's operational friction.</p>
+        The deeper play isn't the transaction fees - it's strengthening iOS system stickiness. Once you've configured Apple Pay with multiple cards, switching to Android means rebuilding your entire digital wallet. The switching cost isn't financial; it's operational friction.</p>
 
         <p>This explains why Apple hasn't aggressively monetised Apple Pay features that could generate higher short-term revenue. They're optimising for long-term platform retention rather than immediate wallet profitability.</p>
 
@@ -769,15 +769,15 @@
 
         <p>More importantly, Apple has used their scale to push privacy standards across the industry. The success of Apple Pay's privacy model influenced how other platforms approach financial data custody.</p>
 
-        <p><strong>Ecosystem Expansion</strong><br>
-        Apple Pay now works across Apple Watch, iPad, and Mac, with each device requiring separate security provisioning. The cloud layer manages this multi-device complexity whilst maintaining the principle that payment credentials stay hardware-bound.</p>
+        <p><strong>Multi-Device Strategy</strong><br>
+        Apple Pay now works on Apple Watch, iPad, and Mac. Each device requires separate security provisioning. The cloud layer manages the multi-device complexity while keeping payment credentials hardware-bound.</p>
 
-        <p>The infrastructure built for simple iPhone payments now supports a comprehensive ecosystem of connected devices, each with different interaction models but consistent security standards.</p>
+        <p>The infrastructure built for simple iPhone payments now supports a comprehensive system of connected devices, each with different interaction models but consistent security standards.</p>
 
         <p><strong>The Paze Experiment: What Happens When Banks Try to Build Their Own</strong><br>
         In 2023, seven of the largest US banks - including Wells Fargo, JPMorgan Chase, and Bank of America - launched Paze, a digital wallet built through Early Warning Services (the same consortium behind Zelle). The motivation was straightforward: Apple collects roughly 0.15% of every Apple Pay transaction from card networks, with banks absorbing most of that cost. At Apple Pay's scale (over $6 trillion in transactions in 2023, per company reports), even that thin margin adds up to projected revenues approaching $1 billion globally. Banks wanted to reclaim that value and reduce their dependence on a platform they didn't control.</p>
 
-        <p>The strategy seemed sound on paper. Paze reported pre-loading some 150 million debit and credit card accounts from its member banks. It targeted e-commerce checkout (not in-store), where it didn't need to compete with Apple's NFC hardware advantage. And it leveraged the trust consumers already had in their banks.</p>
+        <p>The strategy seemed sound on paper. Paze reported pre-loading some 150 million debit and credit card accounts from its member banks. It targeted e-commerce checkout (not in-store), where it didn't need to compete with Apple's NFC hardware advantage. And it used the trust consumers already had in their banks.</p>
 
         <p>But two years in, the results tell a different story about Apple Pay's stickiness. Paze has struggled with consumer awareness and active adoption, despite the sheer number of cards loaded onto the system. Industry analysts have questioned what would motivate someone already using Apple Pay to switch. The rollout took longer than planned, missing its initial 2023 holiday season target. And the fundamental challenge remains: Paze is e-commerce only, whilst Apple Pay works everywhere - in-store, online, and in-app.</p>
 
@@ -826,7 +826,7 @@
     <!-- Back to Blog -->
     <div class="back-link-wrapper">
         <a href="../blog-podcast.html" class="back-link">
-            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
             Back to Blog & Podcast
         </a>
     </div>
@@ -836,22 +836,22 @@
         <div class="footer-social">
             <div class="social-links">
                 <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
                 </a>
                 <a href="https://github.com/iamkiranrao" class="social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
                 </a>
                 <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
                 </a>
                 <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg>
                 </a>
                 <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg>
                 </a>
                 <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg>
                 </a>
             </div>
         </div>
@@ -895,15 +895,15 @@
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
-            document.querySelector('.moon-icon').style.display = 'none';
-            document.querySelector('.sun-icon').style.display = 'block';
+            document.querySelector('.wf-moon-icon').style.display = 'none';
+            document.querySelector('.wf-sun-icon').style.display = 'block';
         }
         themeToggle.addEventListener('click', () => {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             document.documentElement.setAttribute('data-theme', isLight ? '' : 'light');
             localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
-            document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+            document.querySelector('.wf-moon-icon').style.display = isLight ? 'block' : 'none';
+            document.querySelector('.wf-sun-icon').style.display = isLight ? 'none' : 'block';
         });
 
         // MISC

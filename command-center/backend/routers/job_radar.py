@@ -13,7 +13,7 @@ Endpoints:
 """
 
 from fastapi import APIRouter, HTTPException, Query
-from pydantic import BaseModel
+from models.job_radar import JobStatusUpdate, PipelinePush
 from typing import Optional, List
 
 from services.job_radar_service import (
@@ -31,30 +31,17 @@ from services.job_central_service import add_application
 
 router = APIRouter()
 
-
 # ── Request models ─────────────────────────────────────────────────
-
-class JobStatusUpdate(BaseModel):
-    status: str  # new, reviewing, applied, dismissed, saved
-    notes: Optional[str] = None
-
-
-class PipelinePush(BaseModel):
-    persona: Optional[str] = "pm"        # pm, pjm, pmm
-    length: Optional[str] = "2pager"     # 1pager, 2pager, detailed
-    tier: Optional[str] = "high-prob"    # dream, high-prob, practice
-
 
 # ── Endpoints ──────────────────────────────────────────────────────
 
-@router.post("/scan")
+@router.post("/scan", response_model=dict)
 async def trigger_scan():
     """Run a full scan across all monitored company career pages."""
     result = await run_full_scan()
     return result
 
-
-@router.get("/jobs")
+@router.get("/jobs", response_model=dict)
 async def list_jobs(
     freshness: Optional[str] = None,
     company: Optional[str] = None,
@@ -99,8 +86,7 @@ async def list_jobs(
             job["freshness_label"] = "Unknown"
     return result
 
-
-@router.get("/jobs/{job_id}")
+@router.get("/jobs/{job_id}", response_model=dict)
 async def get_job(job_id: str):
     """Get a single discovered job posting with full details."""
     job = get_job_by_id(job_id)
@@ -113,8 +99,7 @@ async def get_job(job_id: str):
         job["freshness_label"] = "Unknown"
     return job
 
-
-@router.put("/jobs/{job_id}/status")
+@router.put("/jobs/{job_id}/status", response_model=dict)
 async def change_job_status(job_id: str, body: JobStatusUpdate):
     """Update a job's status: new, reviewing, applied, dismissed, saved."""
     valid_statuses = {"new", "reviewing", "applied", "dismissed", "saved"}
@@ -128,21 +113,18 @@ async def change_job_status(job_id: str, body: JobStatusUpdate):
         raise HTTPException(status_code=404, detail=f"Job {job_id} not found")
     return result
 
-
-@router.get("/stats")
+@router.get("/stats", response_model=dict)
 async def radar_stats():
     """Get Job Radar dashboard statistics."""
     return get_stats()
 
-
-@router.get("/scan-history")
+@router.get("/scan-history", response_model=dict)
 async def scan_history(limit: int = 20):
     """Get recent scan history."""
     history = get_scan_history(limit=limit)
     return {"history": history, "count": len(history)}
 
-
-@router.get("/companies")
+@router.get("/companies", response_model=dict)
 async def list_companies():
     """List all monitored companies with their ATS info."""
     companies = [
@@ -155,8 +137,7 @@ async def list_companies():
     ]
     return {"companies": companies, "count": len(companies)}
 
-
-@router.post("/jobs/{job_id}/pipeline")
+@router.post("/jobs/{job_id}/pipeline", response_model=dict)
 async def push_to_pipeline(job_id: str, body: PipelinePush):
     """
     Push a discovered job through the full pipeline:

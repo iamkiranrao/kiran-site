@@ -18,11 +18,11 @@ import os
 import json
 from pathlib import Path
 from utils.config import CLAUDE_MODEL, resolve_api_key
+from services.claude_client import create_client
 from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
+from models.teardown import CreateRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, PublishRequest
 from typing import Optional
-
 
 # ── Resolve paths ─────────────────────────────────────────────────
 
@@ -33,8 +33,6 @@ SITE_ROOT = os.getenv(
     "KIRAN_SITE_LOCAL_FOLDER",
     str(_BACKEND_DIR.parent.parent),  # command-center/ → website root
 )
-
-
 
 from services.teardown_service import (
     STEPS,
@@ -52,39 +50,11 @@ from services.git_handler import GitHandler
 
 router = APIRouter()
 
-
 # ── Request models ─────────────────────────────────────────────────
-
-class CreateRequest(BaseModel):
-    company: str
-    product: str
-
-
-class StepRequest(BaseModel):
-    user_input: Optional[str] = None
-
-
-class ApproveRequest(BaseModel):
-    decision: Optional[str] = "Approved"
-
-
-class ReviseRequest(BaseModel):
-    feedback: str
-
-
-class GoToStepRequest(BaseModel):
-    step: int
-
-
-class PublishRequest(BaseModel):
-    html_content: str
-    company_card_html: Optional[str] = None
-    tier2_html: Optional[str] = None
-
 
 # ── Endpoints ──────────────────────────────────────────────────────
 
-@router.get("/")
+@router.get("/", response_model=dict)
 async def list_published_teardowns():
     """List teardowns published on the live site."""
     teardowns_dir = os.path.join(SITE_ROOT, "teardowns")
@@ -112,14 +82,12 @@ async def list_published_teardowns():
 
     return {"published": known, "steps": STEPS}
 
-
-@router.get("/steps")
+@router.get("/steps", response_model=dict)
 async def get_step_definitions():
     """Return the 8-step workflow definition."""
     return {"steps": STEPS}
 
-
-@router.post("/create")
+@router.post("/create", response_model=dict)
 async def create_teardown(request: CreateRequest):
     """Start a new teardown co-creation session."""
     session = create_session(request.company, request.product)
@@ -131,15 +99,13 @@ async def create_teardown(request: CreateRequest):
         "steps": STEPS,
     }
 
-
-@router.get("/sessions")
+@router.get("/sessions", response_model=dict)
 async def get_sessions():
     """List all teardown sessions."""
     sessions = list_sessions()
     return {"sessions": sessions}
 
-
-@router.get("/sessions/{session_id}")
+@router.get("/sessions/{session_id}", response_model=dict)
 async def get_session_detail(session_id: str):
     """Get full session state."""
     state = get_session(session_id)
@@ -147,8 +113,7 @@ async def get_session_detail(session_id: str):
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
     return state
 
-
-@router.delete("/sessions/{session_id}")
+@router.delete("/sessions/{session_id}", response_model=dict)
 async def delete_session_endpoint(session_id: str):
     """Delete a teardown session."""
     try:
@@ -156,7 +121,6 @@ async def delete_session_endpoint(session_id: str):
         return {"deleted": True, "session_id": session_id}
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
-
 
 @router.post("/sessions/{session_id}/step")
 async def execute_step(
@@ -192,8 +156,7 @@ async def execute_step(
         },
     )
 
-
-@router.post("/sessions/{session_id}/approve")
+@router.post("/sessions/{session_id}/approve", response_model=dict)
 async def approve_step(session_id: str, request: ApproveRequest):
     """Approve the current step's draft and advance."""
     state = get_session(session_id)
@@ -225,7 +188,6 @@ async def approve_step(session_id: str, request: ApproveRequest):
         "next_step": updated["current_step"],
         "status": updated["status"],
     }
-
 
 @router.post("/sessions/{session_id}/revise")
 async def revise_step(
@@ -261,8 +223,7 @@ async def revise_step(
         },
     )
 
-
-@router.post("/sessions/{session_id}/goto-step")
+@router.post("/sessions/{session_id}/goto-step", response_model=dict)
 async def goto_step(session_id: str, request: GoToStepRequest):
     """Navigate to a specific step (back or forward) to review or re-run it."""
     state = get_session(session_id)
@@ -294,20 +255,16 @@ async def goto_step(session_id: str, request: GoToStepRequest):
         "status": updated["status"],
     }
 
-
 # ── HTML Assembly Helpers ─────────────────────────────────────────
 
 def _load_template() -> str:
-    """Load the teardown HTML template."""
     template_path = os.path.join(
         os.path.dirname(__file__), "..", "templates", "teardown-template.html"
     )
     with open(template_path, "r", encoding="utf-8") as f:
         return f.read()
 
-
 def _extract_json_from_step8(content: str) -> Optional[dict]:
-    """Extract JSON content fragments from step 8 output."""
     # Try ---JSON-START--- separator first (new format)
     if "---JSON-START---" in content:
         json_part = content.split("---JSON-START---", 1)[1].strip()
@@ -335,7 +292,6 @@ def _extract_json_from_step8(content: str) -> Optional[dict]:
         return {"_legacy_html": html_part.strip()}
 
     return None
-
 
 def _assemble_from_template(state: dict, fragments: dict) -> str:
     """Assemble a complete HTML page by injecting content fragments into the canonical template.
@@ -397,15 +353,12 @@ def _assemble_from_template(state: dict, fragments: dict) -> str:
 
     return html
 
-
 async def _assemble_html_from_steps(state: dict, api_key: str) -> str:
     """Use Claude to generate content fragments, then inject into the canonical template.
 
     Step 1: Claude generates a JSON object with content for each template placeholder.
     Step 2: Python injects those fragments into the template mechanically.
     """
-    import anthropic
-
     # Gather all step content
     all_content = []
     for i in range(1, 9):
@@ -431,7 +384,7 @@ async def _assemble_html_from_steps(state: dict, api_key: str) -> str:
         with open(rules_path, "r", encoding="utf-8") as f:
             content_rules = f.read()
 
-    client = anthropic.Anthropic(api_key=api_key)
+    client = create_client(api_key)
 
     # Ask Claude to generate JSON content fragments
     collected = []
@@ -514,10 +467,9 @@ Output ONLY valid JSON. No explanation, no markdown fences."""
 
     return _assemble_from_template(state, fragments)
 
-
 # ── Publish (Local Preview) ───────────────────────────────────────
 
-@router.post("/sessions/{session_id}/publish")
+@router.post("/sessions/{session_id}/publish", response_model=dict)
 async def publish_teardown(
     session_id: str,
     request: PublishRequest,
@@ -584,10 +536,9 @@ async def publish_teardown(
         "message": f"Saved locally at teardowns/{filename}. Open the file to preview, then Deploy to push to production.",
     }
 
-
 # ── Deploy (Push to Production) ───────────────────────────────────
 
-@router.post("/sessions/{session_id}/deploy")
+@router.post("/sessions/{session_id}/deploy", response_model=dict)
 async def deploy_teardown(session_id: str):
     """Push a locally-previewed teardown to production via git."""
     state = get_session(session_id)

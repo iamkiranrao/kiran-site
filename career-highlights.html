@@ -172,13 +172,13 @@
             background: var(--bg-primary);
         }
 
-        .gate-lock-icon {
+        .wf-gate-lock-icon {
             width: 48px;
             height: 48px;
             margin: 0 auto 1.25rem;
             opacity: 0.5;
         }
-        .gate-lock-icon svg {
+        .wf-gate-lock-icon svg {
             width: 100%;
             height: 100%;
             stroke: var(--text-muted);
@@ -594,7 +594,7 @@
             padding: 1.25rem;
             position: relative;
         }
-        .initiative-icon {
+        .wf-initiative-icon {
             width: 36px;
             height: 36px;
             border-radius: 8px;
@@ -629,7 +629,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .initiative-chevron {
+        .wf-initiative-chevron {
             width: 20px;
             height: 20px;
             flex-shrink: 0;
@@ -641,7 +641,7 @@
             transition: transform 0.3s ease, stroke 0.3s ease;
             margin-top: 0.25rem;
         }
-        .initiative-card.open .initiative-chevron {
+        .initiative-card.open .wf-initiative-chevron {
             transform: rotate(180deg);
             stroke: var(--text-primary);
         }
@@ -1014,10 +1014,10 @@
         <div class="nav-container">
             <div class="nav-right">
                 <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
-                    <svg class="moon-icon" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" class="wf-moon-icon" viewBox="0 0 24 24">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                    <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display: none;">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
                         <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -1030,7 +1030,7 @@
                     </svg>
                 </button>
                 <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
-                    <svg class="share-icon" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" class="wf-share-icon" viewBox="0 0 24 24">
                         <circle cx="18" cy="5" r="3"></circle>
                         <circle cx="6" cy="12" r="3"></circle>
                         <circle cx="18" cy="19" r="3"></circle>
@@ -1117,7 +1117,7 @@
 
         <!-- Consulting CTA pill -->
         <div class="consulting-pill-wrapper">
-            <a href="https://www.productincite.com" target="_blank" rel="noopener" class="consulting-pill">Product Incite - Current Consulting Work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+            <a href="https://www.productincite.com" target="_blank" rel="noopener" class="consulting-pill">Product Incite - Current Consulting Work <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
         </div>
 
         <!-- ==========================================
@@ -1154,13 +1154,13 @@
 
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x2699;</div>
+                        <div class="wf-initiative-icon">&#x2699;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">AI-Assisted Reporting Platform</div>
                             <div class="initiative-oneliner">Pivoted core product from live inspections to async AI-powered reporting</div>
                         </div>
                         <div class="initiative-metric">3.2x TAM</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1230,8 +1230,8 @@
     <div class="discretion-notice">
         <p>The work below represents years past of building alongside teams I respect at companies that trusted me with meaningful problems. Some of it involved strategic work that requires care in how I share it. I've gated the detail behind a simple access code out of respect for those organizations. I'm proud to share my work with the right people for the right reasons. Reach out on LinkedIn for a code.</p>
         <div class="gate-contact-links">
-            <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+            <a href="https://linkedin.com/in/kirangorapalli" class="wf-social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
                 </svg>
             </a>
@@ -1287,13 +1287,13 @@
 
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F4F1;</div>
+                        <div class="wf-initiative-icon">&#x1F4F1;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Teen Banking Platform</div>
                             <div class="initiative-oneliner">Led mobile strategy that grew app user base and jumped JD Power rankings</div>
                         </div>
                         <div class="initiative-metric">#9 to #3</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1324,7 +1324,7 @@
                                     <div class="initiative-gallery-placeholder">Redesigned home screen with quick actions</div>
                                 </div>
                                 <div class="initiative-gallery-item">
-                                    <div class="initiative-gallery-placeholder">Streamlined transfer flow (2-tap)</div>
+                                    <div class="initiative-gallery-placeholder">Simple transfer flow (2-tap)</div>
                                 </div>
                                 <div class="initiative-gallery-item">
                                     <div class="initiative-gallery-placeholder">JD Power ranking progression</div>
@@ -1347,13 +1347,13 @@
                 <!-- Fargo AI Assistant -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F916;</div>
+                        <div class="wf-initiative-icon">&#x1F916;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Fargo AI Assistant - Consumer Scale</div>
                             <div class="initiative-oneliner">Scaled the bank's AI assistant from 4.1M to 27.5M active users</div>
                         </div>
                         <div class="initiative-metric">27.5M users</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1361,7 +1361,7 @@
                             <!-- Hero image area -->
                             <div class="initiative-hero">
                                 <div class="initiative-hero-placeholder">
-                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                         <circle cx="8.5" cy="8.5" r="1.5"></circle>
                                         <polyline points="21 15 16 10 5 21"></polyline>
@@ -1438,13 +1438,13 @@
                 <!-- 3. In-App Marketplace -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F6D2;</div>
+                        <div class="wf-initiative-icon">&#x1F6D2;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">In-App Marketplace for Banking Products</div>
                             <div class="initiative-oneliner">Launched embedded marketplace for loans, deposits, and wealth products</div>
                         </div>
                         <div class="initiative-metric">23% conversion</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1464,7 +1464,7 @@
                                 </div>
                                 <div class="initiative-beat">
                                     <div class="initiative-beat-label">What Shipped</div>
-                                    <div class="initiative-beat-text">Embedded marketplace within the mobile app for loans, deposits, credit cards, and wealth products. Contextual product recommendations powered by transaction data. Streamlined in-app application flows with pre-filled customer data.</div>
+                                    <div class="initiative-beat-text">Embedded marketplace in the app for loans, deposits, credit cards, and wealth products. Smart recommendations based on transaction data. Simple in-app application flows with pre-filled customer data.</div>
                                 </div>
                                 <div class="initiative-beat initiative-beat-outcome">
                                     <div class="initiative-beat-label">The Outcome</div>
@@ -1499,13 +1499,13 @@
                 <!-- 4. Engagement Toolkit -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F3AF;</div>
+                        <div class="wf-initiative-icon">&#x1F3AF;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Engagement Toolkit for Feature Adoption</div>
                             <div class="initiative-oneliner">Built a reusable system to drive discovery and adoption of new features</div>
                         </div>
                         <div class="initiative-metric">+34% adoption</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1560,13 +1560,13 @@
                 <!-- 5. Open Banking Initiative -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F310;</div>
+                        <div class="wf-initiative-icon">&#x1F310;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Open Banking Initiative</div>
                             <div class="initiative-oneliner">API-first architecture enabling third-party integrations and data sharing</div>
                         </div>
                         <div class="initiative-metric">35% faster</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1578,7 +1578,7 @@
                             <div class="initiative-beats">
                                 <div class="initiative-beat">
                                     <div class="initiative-beat-label">The Problem</div>
-                                    <div class="initiative-beat-text">Wells Fargo's data layer was built on legacy point-to-point integrations. Third-party fintechs were screen-scraping customer data because there was no sanctioned API. This created security risk, poor user experience, and an inability to participate in the open banking ecosystem.</div>
+                                    <div class="initiative-beat-text">Wells Fargo's data layer was built on legacy point-to-point integrations. Third-party fintechs were screen-scraping customer data because there was no sanctioned API. This created security risk, poor user experience, and an inability to participate in the open banking system.</div>
                                 </div>
                                 <div class="initiative-beat">
                                     <div class="initiative-beat-label">The Bet</div>
@@ -1621,13 +1621,13 @@
                 <!-- 6. Segmentation & Personalization -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F465;</div>
+                        <div class="wf-initiative-icon">&#x1F465;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Segmentation and Personalization</div>
                             <div class="initiative-oneliner">Personalized app experience based on customer segment and behavior</div>
                         </div>
                         <div class="initiative-metric">+19% engagement</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1682,13 +1682,13 @@
                 <!-- 7. Visual Overhaul -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F3A8;</div>
+                        <div class="wf-initiative-icon">&#x1F3A8;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Visual Overhaul</div>
                             <div class="initiative-oneliner">Modernized the mobile app's design system and visual language</div>
                         </div>
                         <div class="initiative-metric">+0.6 rating</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1743,13 +1743,13 @@
                 <!-- 8. Device Innovation with Apple and Google -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F4F2;</div>
+                        <div class="wf-initiative-icon">&#x1F4F2;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Device Innovation with Apple and Google</div>
                             <div class="initiative-oneliner">First-mover integrations with new OS capabilities and hardware features</div>
                         </div>
                         <div class="initiative-metric">Day-1 launches</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1804,13 +1804,13 @@
                 <!-- 9. Mobile Push, Alerts & Badging -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F514;</div>
+                        <div class="wf-initiative-icon">&#x1F514;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Mobile Push, Alerts and Badging</div>
                             <div class="initiative-oneliner">Rebuilt the notification stack to drive re-engagement and reduce fraud response time</div>
                         </div>
                         <div class="initiative-metric">+28% opens</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1865,13 +1865,13 @@
                 <!-- 10. AI-Driven Customer Insights -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F4CA;</div>
+                        <div class="wf-initiative-icon">&#x1F4CA;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">AI-Driven Customer Insights</div>
                             <div class="initiative-oneliner">ML-powered spending insights and financial health signals surfaced in-app</div>
                         </div>
                         <div class="initiative-metric">3.1x engagement</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1963,13 +1963,13 @@
                 <!-- Zelle -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F4B3;</div>
+                        <div class="wf-initiative-icon">&#x1F4B3;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Zelle P2P Payments</div>
                             <div class="initiative-oneliner">Launched real-time P2P payments for 1M+ high-net-worth clients</div>
                         </div>
                         <div class="initiative-metric">+40% over forecast</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -1980,7 +1980,7 @@
                             <div class="initiative-beats">
                                 <div class="initiative-beat">
                                     <div class="initiative-beat-label">The Problem</div>
-                                    <div class="initiative-beat-text">First Republic's clients had no way to send real-time peer-to-peer payments through the bank's digital channels. They were using Venmo and third-party apps, moving money outside the bank's ecosystem. Competitors had already launched Zelle months earlier.</div>
+                                    <div class="initiative-beat-text">First Republic's clients had no way to send real-time peer-to-peer payments through the bank's digital channels. They were using Venmo and third-party apps, moving money outside the bank's system. Competitors had already launched Zelle months earlier.</div>
                                 </div>
                                 <div class="initiative-beat">
                                     <div class="initiative-beat-label">The Bet</div>
@@ -1992,7 +1992,7 @@
                                 </div>
                                 <div class="initiative-beat initiative-beat-outcome">
                                     <div class="initiative-beat-label">The Outcome</div>
-                                    <div class="initiative-beat-text">Zelle adoption exceeded projections by 40% in the first quarter. P2P transaction volume grew steadily month over month. Kept client payment activity within the bank's ecosystem.</div>
+                                    <div class="initiative-beat-text">Zelle adoption exceeded projections by 40% in the first quarter. P2P transaction volume grew steadily month over month. Kept client payment activity within the bank's system.</div>
                                 </div>
                             </div>
                             <div class="initiative-gallery">
@@ -2023,13 +2023,13 @@
                 <!-- Apple Pay -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F4F1;</div>
+                        <div class="wf-initiative-icon">&#x1F4F1;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Apple Pay</div>
                             <div class="initiative-oneliner">Contactless payments with same-day card provisioning for debit and credit</div>
                         </div>
                         <div class="initiative-metric">Fastest adoption</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2084,13 +2084,13 @@
                 <!-- Core Platform Migration -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F504;</div>
+                        <div class="wf-initiative-icon">&#x1F504;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Core Platform Migration</div>
                             <div class="initiative-oneliner">Led end-to-end migration from Fiserv to FIS across digital channels</div>
                         </div>
                         <div class="initiative-metric">+18% revenue</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2144,13 +2144,13 @@
                 <!-- Eagle Tracker Portfolio Management Tool -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F4C8;</div>
+                        <div class="wf-initiative-icon">&#x1F4C8;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Eagle Tracker Portfolio Management Tool</div>
                             <div class="initiative-oneliner">Built portfolio tracking and analytics tool for wealth management clients</div>
                         </div>
                         <div class="initiative-metric">Real-time views</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2205,13 +2205,13 @@
                 <!-- Digital Wealth Management Platform -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F4BC;</div>
+                        <div class="wf-initiative-icon">&#x1F4BC;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Digital Wealth Management Platform</div>
                             <div class="initiative-oneliner">Launched end-to-end digital wealth platform for clients and advisors</div>
                         </div>
                         <div class="initiative-metric">Full platform</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2266,13 +2266,13 @@
                 <!-- Stealth Mode on Mobile -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F6E1;</div>
+                        <div class="wf-initiative-icon">&#x1F6E1;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Stealth Mode on Mobile for Privacy</div>
                             <div class="initiative-oneliner">Privacy mode that hides balances and sensitive data in public settings</div>
                         </div>
                         <div class="initiative-metric">Client favorite</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2327,13 +2327,13 @@
                 <!-- DOC AI -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F4C4;</div>
+                        <div class="wf-initiative-icon">&#x1F4C4;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">DOC AI - Data Extraction for Compliance</div>
                             <div class="initiative-oneliner">AI-powered document processing to automate compliance data extraction</div>
                         </div>
                         <div class="initiative-metric">85% automation</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2388,13 +2388,13 @@
                 <!-- Digital Closing Application for Loans -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F3E0;</div>
+                        <div class="wf-initiative-icon">&#x1F3E0;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Digital Closing Application for Loans</div>
                             <div class="initiative-oneliner">End-to-end digital loan closing with e-signature and document management</div>
                         </div>
                         <div class="initiative-metric">Days to hours</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2449,13 +2449,13 @@
                 <!-- Enhancements to Banker Platform -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F5A5;</div>
+                        <div class="wf-initiative-icon">&#x1F5A5;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Enhancements to Banker Platform</div>
                             <div class="initiative-oneliner">Modernized internal tools for relationship managers and branch staff</div>
                         </div>
                         <div class="initiative-metric">+30% efficiency</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2545,13 +2545,13 @@
                 <!-- DailyChange -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F4B0;</div>
+                        <div class="wf-initiative-icon">&#x1F4B0;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">DailyChange Gamified Payments App</div>
                             <div class="initiative-oneliner">Gamified round-up savings app that increased ACH transfers by 27%</div>
                         </div>
                         <div class="initiative-metric">+27% ACH</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2606,13 +2606,13 @@
                 <!-- Enterprise MFA Rollout -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F512;</div>
+                        <div class="wf-initiative-icon">&#x1F512;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Enterprise Multi-Factor Authentication</div>
                             <div class="initiative-oneliner">Enterprise rollout of MFA across online and mobile, securing 25M+ users</div>
                         </div>
                         <div class="initiative-metric">-40% unauth access</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2667,13 +2667,13 @@
                 <!-- Biometric Login Integration -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">👤</div>
+                        <div class="wf-initiative-icon">👤</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Biometric Login Integration</div>
                             <div class="initiative-oneliner">Touch ID and Android Fingerprint login driving 60%+ adoption</div>
                         </div>
                         <div class="initiative-metric">60%+ adoption</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2728,13 +2728,13 @@
                 <!-- Device Fingerprinting & Behavioral Analytics -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F50D;</div>
+                        <div class="wf-initiative-icon">&#x1F50D;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Device Fingerprinting & Behavioral Analytics</div>
                             <div class="initiative-oneliner">Risk-based authentication using device signals and behavioral patterns</div>
                         </div>
                         <div class="initiative-metric">-35% ATO</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2789,13 +2789,13 @@
                 <!-- Cardless ATM Access -->
                 <div class="initiative-card">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">&#x1F3E7;</div>
+                        <div class="wf-initiative-icon">&#x1F3E7;</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Cardless ATM Access</div>
                             <div class="initiative-oneliner">Mobile-authenticated cardless withdrawals across 12K+ ATMs</div>
                         </div>
                         <div class="initiative-metric">-30% card fraud</div>
-                        <svg class="initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <svg aria-hidden="true" class="wf-initiative-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-detail-inner">
@@ -2850,13 +2850,13 @@
                 <!-- Alerts Next Gen -->
                 <div class="initiative-card" data-tags="mobile,scale">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">🔔</div>
+                        <div class="wf-initiative-icon">🔔</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Alerts Next Gen</div>
                             <div class="initiative-oneliner">Rebuilt the alerts platform to deliver smarter, real-time notifications across channels</div>
                             <div class="initiative-metric">Next Gen</div>
                         </div>
-                        <div class="initiative-chevron">▾</div>
+                        <div class="wf-initiative-chevron">▾</div>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-tags">
@@ -2910,13 +2910,13 @@
                 <!-- Digital Redesign and Replatforming -->
                 <div class="initiative-card" data-tags="transformation,scale">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">🔄</div>
+                        <div class="wf-initiative-icon">🔄</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Digital Redesign and Replatforming</div>
                             <div class="initiative-oneliner">Led the redesign and migration of digital banking to a modern platform architecture</div>
                             <div class="initiative-metric">Replatform</div>
                         </div>
-                        <div class="initiative-chevron">▾</div>
+                        <div class="wf-initiative-chevron">▾</div>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-tags">
@@ -2970,13 +2970,13 @@
                 <!-- Managed Student Loans Digital Roadmap -->
                 <div class="initiative-card" data-tags="strategy,scale">
                     <div class="initiative-card-header">
-                        <div class="initiative-icon">🎓</div>
+                        <div class="wf-initiative-icon">🎓</div>
                         <div class="initiative-card-summary">
                             <div class="initiative-title">Managed Student Loans Digital Roadmap</div>
                             <div class="initiative-oneliner">Owned the digital product roadmap for the student lending portfolio</div>
                             <div class="initiative-metric">Roadmap</div>
                         </div>
-                        <div class="initiative-chevron">▾</div>
+                        <div class="wf-initiative-chevron">▾</div>
                     </div>
                     <div class="initiative-detail">
                         <div class="initiative-tags">
@@ -3077,13 +3077,13 @@
                         <!-- Starbucks Card Mobile App -->
                         <div class="initiative-card" data-tags="mobile,scale">
                             <div class="initiative-card-header">
-                                <div class="initiative-icon">☕</div>
+                                <div class="wf-initiative-icon">☕</div>
                                 <div class="initiative-card-summary">
                                     <div class="initiative-title">Starbucks Card Mobile App</div>
                                     <div class="initiative-oneliner">Digitized the Starbucks rewards card to drive a better omnichannel experience</div>
                                     <div class="initiative-metric">45% adoption</div>
                                 </div>
-                                <div class="initiative-chevron">▾</div>
+                                <div class="wf-initiative-chevron">▾</div>
                             </div>
                             <div class="initiative-detail">
                                 <div class="initiative-tags">
@@ -3155,13 +3155,13 @@
                         <!-- Online Bill Pay Redesign -->
                         <div class="initiative-card" data-tags="payments,scale">
                             <div class="initiative-card-header">
-                                <div class="initiative-icon">💳</div>
+                                <div class="wf-initiative-icon">💳</div>
                                 <div class="initiative-card-summary">
                                     <div class="initiative-title">Online Bill Pay Redesign</div>
                                     <div class="initiative-oneliner">Redesigned customer onboarding for ACH-based Bill Pay across business and consumer accounts</div>
                                     <div class="initiative-metric">+38% adoption</div>
                                 </div>
-                                <div class="initiative-chevron">▾</div>
+                                <div class="wf-initiative-chevron">▾</div>
                             </div>
                             <div class="initiative-detail">
                                 <div class="initiative-tags">
@@ -3229,13 +3229,13 @@
                         <!-- OnQ ERP Platform -->
                         <div class="initiative-card" data-tags="strategy,transformation">
                             <div class="initiative-card-header">
-                                <div class="initiative-icon">🏨</div>
+                                <div class="wf-initiative-icon">🏨</div>
                                 <div class="initiative-card-summary">
                                     <div class="initiative-title">OnQ - Proprietary Hotel ERP Platform</div>
                                     <div class="initiative-oneliner">Product strategy for a proprietary ERP powering hotel operations, inventory, finance, and guest experience</div>
                                     <div class="initiative-metric">+10pt RevPAR</div>
                                 </div>
-                                <div class="initiative-chevron">▾</div>
+                                <div class="wf-initiative-chevron">▾</div>
                             </div>
                             <div class="initiative-detail">
                                 <div class="initiative-tags">
@@ -3303,13 +3303,13 @@
                         <!-- Yahoo! Messenger -->
                         <div class="initiative-card" data-tags="consumer,scale">
                             <div class="initiative-card-header">
-                                <div class="initiative-icon">💬</div>
+                                <div class="wf-initiative-icon">💬</div>
                                 <div class="initiative-card-summary">
                                     <div class="initiative-title">Yahoo! Messenger Product Strategy</div>
                                     <div class="initiative-oneliner">Product evolution of a messaging platform with 10.6M users</div>
                                     <div class="initiative-metric">57 min/day</div>
                                 </div>
-                                <div class="initiative-chevron">▾</div>
+                                <div class="wf-initiative-chevron">▾</div>
                             </div>
                             <div class="initiative-detail">
                                 <div class="initiative-tags">
@@ -3333,7 +3333,7 @@
                                     </div>
                                     <div class="initiative-beat">
                                         <div class="initiative-beat-label">Outcome</div>
-                                        <div class="initiative-beat-text">Users spending an average of 57 minutes per day on the app. Stronger integration across the Yahoo ecosystem and clearer product positioning in a competitive messaging market.</div>
+                                        <div class="initiative-beat-text">Users spending an average of 57 minutes per day on the app. Stronger integration across the Yahoo system and clearer product positioning in a competitive messaging market.</div>
                                     </div>
                                 </div>
                                 <div class="initiative-gallery">
@@ -3405,8 +3405,8 @@
     <!-- Access Prompt (visible only when locked) -->
     <div class="gate-prompt" id="gatePrompt">
         <div class="gate-prompt-inner">
-            <div class="gate-lock-icon">
-                <svg viewBox="0 0 24 24">
+            <div class="wf-gate-lock-icon">
+                <svg aria-hidden="true" viewBox="0 0 24 24">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                 </svg>
@@ -3414,15 +3414,15 @@
             <h3>This content is access-controlled</h3>
             <p>Reach out on LinkedIn for a code.</p>
             <div class="gate-contact-links">
-                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <a href="https://linkedin.com/in/kirangorapalli" class="wf-social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
                     </svg>
                 </a>
             </div>
 
             <div class="gate-input-row">
-                <input type="text" class="gate-input" id="gateInput" placeholder="Enter access code" autocomplete="off" spellcheck="false">
+                <input type="text" class="gate-input" id="gateInput" placeholder="Enter access code" autocomplete="off" spellcheck="false" aria-label="Access code input">
                 <button class="gate-submit" id="gateSubmit">Unlock</button>
             </div>
             <div class="gate-error-msg" id="gateError"></div>
@@ -3436,34 +3436,34 @@
         <!-- Social Icons -->
         <div class="footer-social">
             <div class="social-links">
-                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <a href="https://linkedin.com/in/kirangorapalli" class="wf-social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
                     </svg>
                 </a>
-                <a href="https://github.com/iamkiranrao" class="social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <a href="https://github.com/iamkiranrao" class="wf-social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                         <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
                     </svg>
                 </a>
-                <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <a href="https://youtube.com/@kirangorapalli" class="wf-social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
                     </svg>
                 </a>
-                <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <a href="https://flickr.com/photos/kirangorapalli" class="wf-social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                         <circle cx="7" cy="12" r="5"></circle>
                         <circle cx="17" cy="12" r="5" opacity="0.45"></circle>
                     </svg>
                 </a>
-                <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <a href="https://open.spotify.com/user/kirangorapalli" class="wf-social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                         <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path>
                     </svg>
                 </a>
-                <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <a href="https://substack.com/@kirangorapalli" class="wf-social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                         <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path>
                     </svg>
                 </a>

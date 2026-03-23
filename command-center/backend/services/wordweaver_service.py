@@ -18,6 +18,8 @@ from datetime import datetime
 from typing import Optional, List, Dict
 
 from utils.config import CLAUDE_MODEL, data_dir
+from services.governance_loader import DOMAIN_RULES
+
 SESSIONS_DIR = data_dir("wordweaver")
 CONFIG_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config")
 
@@ -97,22 +99,35 @@ def _load_themes() -> dict:
     }
 
 
-WORDWEAVER_SYSTEM = """You are WordWeaver, Kiran Gorapalli's personal content production engine. You help create polished blog posts, social media content, and thought leadership pieces.
+def _build_wordweaver_system() -> str:
+    """Build WordWeaver system prompt with governance-loaded domain rules.
 
-{voice_profile}
+    Returns a template string with {voice_profile} placeholder for runtime formatting.
+    """
+    domain = DOMAIN_RULES.get("canonical_domain", "kirangorapalli.com")
+    domain_note = DOMAIN_RULES.get("never_use_in_content", "Never use the domain in user-facing content, OG tags, canonical URLs, or JSON-LD.")
 
-Writing quality standards (non-negotiable):
-1. Lead with insight, not information
-2. Data is seasoning, not the meal
-3. Write for the smart, busy reader
-4. Every section transition should feel inevitable
-5. American English throughout
-6. The Sinek-Grant-Noah blend (start with why, back with evidence, make it human)
-7. Credibility bar: if the product leader of the company being analyzed read this, they should respect it
+    # Use concatenation to preserve {voice_profile} as a format placeholder
+    return (
+        "You are WordWeaver, Kiran Gorapalli's personal content production engine. "
+        "You help create polished blog posts, social media content, and thought leadership pieces.\n\n"
+        "{voice_profile}\n\n"
+        "Writing quality standards (non-negotiable):\n"
+        "1. Lead with insight, not information\n"
+        "2. Data is seasoning, not the meal\n"
+        "3. Write for the smart, busy reader\n"
+        "4. Every section transition should feel inevitable\n"
+        "5. American English throughout\n"
+        "6. The Sinek-Grant-Noah blend (start with why, back with evidence, make it human)\n"
+        "7. Credibility bar: if the product leader of the company being analyzed read this, "
+        "they should respect it\n\n"
+        f"Kiran works in banking, product leadership, and technology. "
+        f"His blog is at {domain}/blog-podcast.html.\n\n"
+        f"Domain rule: the canonical domain is {domain}. {domain_note}"
+    )
 
-Kiran works in banking, product leadership, and technology. His blog is at kirangorapalli.com/blog-podcast.html.
 
-Domain rule: the canonical domain is kirangorapalli.com. Never use kirangorapalli.com in any user-facing content, OG tags, canonical URLs, or JSON-LD."""
+WORDWEAVER_SYSTEM = _build_wordweaver_system()
 
 
 BLOG_STEP_PROMPTS = {
@@ -292,8 +307,11 @@ def create_session(mode: str, initial_data: Optional[dict] = None) -> dict:
         "decisions": {},
     }
 
-    with open(_session_path(session_id), "w") as f:
+    path = _session_path(session_id)
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, path)
 
     return state
 
@@ -312,8 +330,11 @@ def update_session(session_id: str, updates: dict) -> dict:
         raise FileNotFoundError(f"Session {session_id} not found")
     state.update(updates)
     state["updated_at"] = datetime.now().isoformat()
-    with open(_session_path(session_id), "w") as f:
+    path = _session_path(session_id)
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, path)
     return state
 
 
@@ -332,8 +353,11 @@ def save_step_result(session_id: str, step: int, content: str, status: str = "dr
         state["current_step"] = min(step + 1, state["total_steps"])
 
     state["updated_at"] = datetime.now().isoformat()
-    with open(_session_path(session_id), "w") as f:
+    path = _session_path(session_id)
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, path)
     return state
 
 
@@ -346,8 +370,11 @@ def save_decision(session_id: str, step: int, decision: str) -> dict:
         "decided_at": datetime.now().isoformat(),
     }
     state["updated_at"] = datetime.now().isoformat()
-    with open(_session_path(session_id), "w") as f:
+    path = _session_path(session_id)
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, path)
     return state
 
 
@@ -476,8 +503,10 @@ def add_theme(name: str, description: str) -> dict:
     })
     data["last_updated"] = datetime.now().isoformat()
 
-    with open(themes_path, "w") as f:
+    tmp_path = themes_path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(data, f, indent=2)
+    os.replace(tmp_path, themes_path)
 
     return {"added": name, "total": len(data["themes"])}
 
@@ -492,8 +521,10 @@ def remove_theme(name: str) -> dict:
     data["themes"] = [t for t in data["themes"] if t["name"] != name]
     data["last_updated"] = datetime.now().isoformat()
 
-    with open(themes_path, "w") as f:
+    tmp_path = themes_path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(data, f, indent=2)
+    os.replace(tmp_path, themes_path)
 
     removed = original_count - len(data["themes"])
     return {"removed": name, "found": removed > 0, "total": len(data["themes"])}

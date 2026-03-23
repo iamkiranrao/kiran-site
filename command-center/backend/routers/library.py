@@ -27,66 +27,117 @@ SKIP_DIRS = {
     "site-packages", ".expo", ".claude", ".claude-skills",
 }
 
-# Skip journal daily entries, session archives, and chat drops
+# Skip journal daily entries, session archives, chat drops, archived docs,
+# old root-level docs (now reorganized into module folders), and old guides location
 SKIP_PATH_PATTERNS = [
     "fenix-journal/entries/about-kiran/",
     "fenix-journal/entries/build-journey/",
     "fenix-journal/session-archive/",
     "fenix-journal/raw/chat-drops/",
+    "fenix-journal/guides/",
+    "docs/archive/",
+    "docs/research/",
+    "archive/",
 ]
+
+# Old root-level doc files that have been moved into module folders — skip to avoid duplicates
+OLD_ROOT_DOCS = {
+    "ARCHITECTURE.md", "AUTHENTICITY-STANDARDS.md", "BACKEND-STANDARDS.md",
+    "CONTENT-STANDARDS.md", "VISUAL-STANDARDS.md", "PLATFORM-MIGRATION.md",
+    "SCANNIBAL.md", "DIA-FUND.md", "PERSONA-PICKER.md", "FENIX.md",
+    "SITE-HOMEPAGE.md", "SITE-TEARDOWNS.md", "SITE-BLOG.md", "SITE-MADLAB.md",
+    "SITE-CAREER.md", "SITE-STUDIO.md", "SITE-SUPPORT.md",
+    "CC-ACTION-ITEMS.md", "CC-AUDITING.md", "CC-CORE.md", "CC-FENIX-JOURNAL.md",
+    "CC-FENIX-TRAINING.md", "CC-KIRANS-JOURNAL.md", "CC-RESUME-PIPELINE.md",
+    "CC-WORDWEAVER.md", "CC-TEARDOWNS.md",
+    "AUDIT-REPORT-2026-03-20.md", "OVERNIGHT-REPORT-2026-03-20.md",
+    "CONTINUATION-PROMPT-DASHBOARD-BUILD.md", "ACTION-ITEMS-PENDING.md",
+}
 
 LIBRARY_CACHE = os.path.join(data_dir("library"), "library_cache.json")
 
 # ── Category mapping ──────────────────────────────────────────────
+# Module-based categorization: derives category from folder structure under docs/
+# Format: "TopLevel > SubModule" for nested folders, "TopLevel" for root-level
 
-CATEGORY_RULES = [
-    # (path_contains, category, color)
+# Color palette for top-level modules
+MODULE_COLORS = {
+    "Website": "#34d399",
+    "Command Center": "#fb923c",
+    "Scannibal": "#67e8f9",
+    "The DIA Fund": "#f472b6",
+    "Persona Picker": "#e879f9",
+    "Fenix": "#2dd4bf",
+    "Foundation": "#a78bfa",
+}
+
+# Folder name → display name mapping
+FOLDER_DISPLAY_NAMES = {
+    "CommandCenter": "Command Center",
+    "TheDiaFund": "The DIA Fund",
+    "PersonaPicker": "Persona Picker",
+    "ActionItems": "Action Items",
+    "FenixJournal": "Fenix Journal",
+    "FenixTraining": "Fenix Training",
+    "FenixDashboard": "Fenix Dashboard",
+    "KiransJournal": "Kiran's Journal",
+    "ResumePipeline": "Resume Pipeline",
+    "WordWeaver": "WordWeaver",
+    "JobCentral": "Job Central",
+    "SessionArchive": "Session Archive",
+    "TechCosts": "Tech Costs",
+    "MadLab": "MadLab",
+}
+
+# Legacy rules for files OUTSIDE the new docs/ folder structure
+LEGACY_CATEGORY_RULES = [
+    ("CLAUDE.md", "Foundation", "#a78bfa"),
     ("command-center/", "Command Center", "#fb923c"),
-    ("fenix-journal/guides/", "Guides", "#8b5cf6"),
     ("fenix-journal/entries/connecting-threads/", "Connecting Threads", "#2dd4bf"),
+    ("fenix-journal/entries/strategic-decisions/", "Strategic Decisions", "#d4a74a"),
     ("fenix-journal/", "Fenix Journal", "#2dd4bf"),
-    ("prototypes/scannibal/", "Scannibal Prototype", "#67e8f9"),
+    ("prototypes/scannibal/", "Scannibal", "#67e8f9"),
     ("prototypes/", "Prototypes", "#67e8f9"),
-    ("FENIX-", "Fenix", "#fb923c"),
-    ("ARCHITECTURE", "Architecture", "#a78bfa"),
-    ("MIGRATION", "Architecture", "#a78bfa"),
-    ("resume", "Career", "#3b82f6"),
-    ("RESUME", "Career", "#3b82f6"),
-    ("GEICO", "Career", "#3b82f6"),
-    ("job", "Career", "#3b82f6"),
-    ("Interview", "Career", "#3b82f6"),
     ("teardown", "Content", "#f59e0b"),
-    ("persona-picker", "Content", "#f59e0b"),
-    ("midjourney", "Content", "#f59e0b"),
-    ("botasaurusrex", "Content", "#f59e0b"),
-    ("jurassic", "Content", "#f59e0b"),
-    ("apple-pay", "Content", "#f59e0b"),
-    ("demystifying", "Content", "#f59e0b"),
-    ("VIDEO", "Content", "#f59e0b"),
-    ("HERO", "Content", "#f59e0b"),
-    ("CONTENT-RULES", "Content", "#f59e0b"),
-    ("automation", "Strategy", "#22c55e"),
-    ("Site Strategy", "Strategy", "#22c55e"),
-    ("Site Audit", "Strategy", "#22c55e"),
-    ("PROGRESS", "Strategy", "#22c55e"),
-    ("SYSTEM-CONTEXT", "Strategy", "#22c55e"),
-    ("URL-SLUG", "Strategy", "#22c55e"),
-    ("FEEDBACK", "Strategy", "#22c55e"),
+    ("blog/", "Content", "#f59e0b"),
 ]
 
 
 def _categorize(relative_path: str) -> tuple:
-    """Return (category, color) for a file path."""
-    for pattern, category, color in CATEGORY_RULES:
-        if pattern in relative_path:
+    """Derive category from folder structure for docs/, fall back to legacy rules."""
+    norm = relative_path.replace(os.sep, "/")
+
+    # ── New folder-based categorization for docs/ ──
+    if norm.startswith("docs/"):
+        parts = norm.split("/")
+        # parts[0] = "docs", parts[1] = top-level folder, parts[2] = sub-module (optional)
+        if len(parts) >= 2 and parts[1] in FOLDER_DISPLAY_NAMES:
+            top_level = FOLDER_DISPLAY_NAMES.get(parts[1], parts[1])
+        elif len(parts) >= 2:
+            top_level = parts[1]  # Already a clean name like "Website", "Fenix", etc.
+        else:
+            return "General", "#94a3b8"
+
+        color = MODULE_COLORS.get(top_level, "#94a3b8")
+
+        # Check for sub-module (e.g., docs/CommandCenter/Standards/)
+        if len(parts) >= 3 and parts[2] and not parts[2].endswith(".md"):
+            sub_name = FOLDER_DISPLAY_NAMES.get(parts[2], parts[2])
+            return f"{top_level} > {sub_name}", color
+
+        return top_level, color
+
+    # ── Legacy rules for non-docs/ files ──
+    for pattern, category, color in LEGACY_CATEGORY_RULES:
+        if pattern in norm:
             return category, color
+
     return "General", "#94a3b8"
 
 
 # ── Summary extraction ────────────────────────────────────────────
 
 def _extract_summary(filepath: str, max_chars: int = 300) -> str:
-    """Extract a short summary from the first meaningful lines of a markdown file."""
     try:
         with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
             lines = f.readlines()
@@ -136,7 +187,6 @@ def _extract_summary(filepath: str, max_chars: int = 300) -> str:
 
 
 def _extract_title(filepath: str, filename: str) -> str:
-    """Extract title from first heading or derive from filename."""
     try:
         with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
             for line in f:
@@ -161,19 +211,24 @@ def _extract_title(filepath: str, filename: str) -> str:
 # ── Scanning ──────────────────────────────────────────────────────
 
 def _should_skip(path: str) -> bool:
-    """Check if a path should be skipped."""
     parts = path.split(os.sep)
     for part in parts:
         if part in SKIP_DIRS:
             return True
+    norm = path.replace(os.sep, "/")
     for pattern in SKIP_PATH_PATTERNS:
-        if pattern in path.replace(os.sep, "/"):
+        if pattern in norm:
+            return True
+    # Skip old root-level docs that have been reorganized into module folders
+    if norm.startswith("docs/") and "/" not in norm[5:]:
+        # This is a file directly in docs/ (not in a subfolder)
+        filename = norm.split("/")[-1]
+        if filename in OLD_ROOT_DOCS:
             return True
     return False
 
 
 def _scan_files() -> List[dict]:
-    """Scan for all eligible .md files and build library entries."""
     items = []
     for root, dirs, files in os.walk(PROJECT_ROOT):
         # Prune skip dirs
@@ -232,7 +287,7 @@ def _scan_files() -> List[dict]:
 
 # ── Endpoints ─────────────────────────────────────────────────────
 
-@router.get("/")
+@router.get("/", response_model=dict)
 def list_library(
     category: Optional[str] = None,
     search: Optional[str] = None,
@@ -256,7 +311,7 @@ def list_library(
     return {"items": items, "total": len(items)}
 
 
-@router.get("/stats")
+@router.get("/stats", response_model=dict)
 def library_stats():
     """Summary statistics for the library."""
     items = _scan_files()
@@ -275,7 +330,7 @@ def library_stats():
     }
 
 
-@router.get("/categories")
+@router.get("/categories", response_model=dict)
 def list_categories():
     """Return distinct categories with counts and colors."""
     items = _scan_files()
@@ -288,7 +343,7 @@ def list_categories():
     return {"categories": categories}
 
 
-@router.get("/{item_id}")
+@router.get("/{item_id}", response_model=dict)
 def get_library_item(item_id: str):
     """Get full content of a specific library document."""
     items = _scan_files()

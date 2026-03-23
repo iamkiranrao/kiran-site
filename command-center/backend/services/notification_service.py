@@ -44,7 +44,16 @@ VALID_TYPES = {
     "journal_pending",
     "training_progress",
     "draft_content",
+    "action_item",
+    "journal_entry",
+    "docs_drift",
     "system",
+    # Added in System Wiring Task 2
+    "standards_violation",
+    "job_match",
+    "interview_reminder",
+    "health_alert",
+    "cost_alert",
 }
 
 VALID_PRIORITIES = {"low", "normal", "high", "urgent"}
@@ -388,6 +397,52 @@ def notify_content_freshness(stale_pages: list[dict]) -> dict:
     )
 
 
+def notify_new_action_item(item_id: str, title: str, priority: str, workstream: str) -> dict:
+    """Called when a new action item is created."""
+    notif_priority = "high" if priority in ("critical", "high") else "normal"
+    return create_notification(
+        type="action_item",
+        title=f"New action item: {title}",
+        summary=f"Priority: {priority} · Workstream: {workstream}",
+        source="action_items",
+        action_url="/dashboard/action-items",
+        priority=notif_priority,
+        reference_id=item_id,
+    )
+
+
+def notify_new_journal_entry(entry_id: str, title: str, category: str) -> dict:
+    """Called when a new Kiran's Journal entry is created."""
+    return create_notification(
+        type="journal_entry",
+        title=f"Journal: {title}",
+        summary=f"Category: {category}",
+        source="kirans_journal",
+        action_url="/dashboard/kirans-journal",
+        priority="low",
+        reference_id=entry_id,
+    )
+
+
+def notify_docs_drift(drift_items: list[dict]) -> dict:
+    """Called by session-capture when docs may have drifted from code."""
+    count = len(drift_items)
+    titles = [d.get("doc", "unknown") for d in drift_items[:5]]
+    summary = f"Docs that may need updating: {', '.join(titles)}"
+    if count > 5:
+        summary += f" and {count - 5} more"
+
+    return create_notification(
+        type="docs_drift",
+        title=f"{count} doc{'s' if count != 1 else ''} may be out of date",
+        summary=summary,
+        source="session_capture",
+        action_url="/dashboard/action-items",
+        priority="normal",
+        metadata={"drift_items": drift_items},
+    )
+
+
 def notify_training_progress(answered: int, total: int, gaps: list[str] = None) -> dict:
     """Called to report training question bank progress."""
     pct = round((answered / total) * 100) if total > 0 else 0
@@ -403,4 +458,167 @@ def notify_training_progress(answered: int, total: int, gaps: list[str] = None) 
         action_url="/dashboard/fenix/training",
         priority="low",
         metadata={"answered": answered, "total": total, "pct": pct, "gaps": gaps or []},
+    )
+
+
+# ── System Wiring: New notification helpers ──────────────────────
+
+
+def notify_standards_violation(
+    pillar: str, new_violations: int, critical_count: int, score: float
+) -> dict:
+    """Called after run_pillar_audit() when new (non-baselined) violations are found.
+
+    Only fires when critical_count > 0 to avoid notification spam.
+    """
+    if critical_count == 0 and new_violations == 0:
+        return {"success": True, "skipped": True, "reason": "no critical violations"}
+
+    priority = "urgent" if critical_count > 0 else "high"
+    title = f"Standards: {pillar} audit found {new_violations} new violation{'s' if new_violations != 1 else ''}"
+    summary = f"Score: {score}/100. {critical_count} critical, {new_violations} new."
+
+    return create_notification(
+        type="standards_violation",
+        title=title,
+        summary=summary,
+        source="standards_service",
+        action_url="/dashboard/standards",
+        priority=priority,
+        reference_id=f"audit-{pillar}",
+        metadata={
+            "pillar": pillar,
+            "new_violations": new_violations,
+            "critical_count": critical_count,
+            "score": score,
+        },
+    )
+
+
+def notify_job_match(new_job_count: int, top_match: Optional[dict] = None) -> dict:
+    """Called after run_full_scan() when new matching jobs are discovered.
+
+    Only fires when at least 1 new job is found.
+    """
+    if new_job_count == 0:
+        return {"success": True, "skipped": True, "reason": "no new jobs"}
+
+    gold_count = 0
+    top_title = ""
+    top_company = ""
+    if top_match:
+        top_title = top_match.get("title", "Unknown")
+        top_company = top_match.get("company", "Unknown")
+        if top_match.get("freshness") == "gold":
+            gold_count = 1
+
+    priority = "high" if gold_count > 0 else "normal"
+    title = f"Job Radar: {new_job_count} new match{'es' if new_job_count != 1 else ''}"
+    summary = f"Top match: {top_title} at {top_company}" if top_match else f"{new_job_count} new jobs found"
+
+    return create_notification(
+        type="job_match",
+        title=title,
+        summary=summary,
+        source="job_radar",
+        action_url="/dashboard/job-radar",
+        priority=priority,
+        metadata={
+            "new_job_count": new_job_count,
+            "top_title": top_title,
+            "top_company": top_company,
+            "has_gold": gold_count > 0,
+        },
+    )
+
+
+def notify_interview_reminder(
+    app_id: str, company: str, role: str, interview_type: str
+) -> dict:
+    """Called when an interview is logged, so Kiran can prep."""
+    return create_notification(
+        type="interview_reminder",
+        title=f"Interview logged: {company}",
+        summary=f"{interview_type.title()} interview for {role} at {company}.",
+        source="job_central",
+        action_url="/dashboard/job-central",
+        priority="high",
+        reference_id=app_id,
+        metadata={
+            "company": company,
+            "role": role,
+            "interview_type": interview_type,
+        },
+    )
+
+
+def notify_fenix_dead_end(failure_count: int, top_query: str = "") -> dict:
+    """Called when Fenix failure count exceeds threshold.
+
+    Only fires when failure_count >= 5 to avoid noise from occasional misses.
+    """
+    if failure_count < 5:
+        return {"success": True, "skipped": True, "reason": "below threshold"}
+
+    title = f"Fenix: {failure_count} conversation failures"
+    summary = f"Top failing query: \"{top_query[:80]}\"" if top_query else f"{failure_count} queries with no RAG results"
+
+    return create_notification(
+        type="fenix_dead_end",
+        title=title,
+        summary=summary,
+        source="fenix_dashboard",
+        action_url="/dashboard/fenix",
+        priority="high" if failure_count >= 10 else "normal",
+        metadata={"failure_count": failure_count, "top_query": top_query},
+    )
+
+
+def notify_health_alert(service_name: str, status: str, detail: str = "") -> dict:
+    """Called when a health check dependency fails."""
+    return create_notification(
+        type="health_alert",
+        title=f"Health: {service_name} is {status}",
+        summary=detail or f"{service_name} dependency check failed.",
+        source="health_check",
+        action_url="/dashboard/health",
+        priority="urgent" if status == "down" else "high",
+        reference_id=f"health-{service_name}",
+        metadata={"service": service_name, "status": status},
+    )
+
+
+def notify_cost_alert(
+    current_spend: float, budget: float, budget_pct: float, period: str
+) -> dict:
+    """Called when monthly spend exceeds 80% of budget.
+
+    Only fires at 80% and 100% thresholds.
+    """
+    if budget_pct < 80:
+        return {"success": True, "skipped": True, "reason": "below threshold"}
+
+    if budget_pct >= 100:
+        priority = "urgent"
+        title = f"Tech Costs: budget exceeded ({budget_pct:.0f}%)"
+    else:
+        priority = "high"
+        title = f"Tech Costs: {budget_pct:.0f}% of budget used"
+
+    summary = f"${current_spend:.2f} of ${budget:.2f} budget for {period}."
+
+    return create_notification(
+        type="cost_alert",
+        title=title,
+        summary=summary,
+        source="tech_costs",
+        action_url="/dashboard/tech-costs",
+        priority=priority,
+        reference_id=f"cost-{period}",
+        metadata={
+            "current_spend": current_spend,
+            "budget": budget,
+            "budget_pct": budget_pct,
+            "period": period,
+        },
     )

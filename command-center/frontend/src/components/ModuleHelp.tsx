@@ -14,15 +14,16 @@ export interface ModuleHelpContent {
 export const MODULE_HELP: Record<string, ModuleHelpContent> = {
   notifications: {
     summary:
-      "Unified inbox for everything that needs your attention across Command Center. Notifications are created automatically when feedback arrives, tasks fail, content goes stale, or training milestones are hit. Deduplication prevents repeats, and dismissed items auto-cleanup after 90 days.",
+      "Unified inbox for everything that needs your attention across Command Center. 14 notification types fire automatically when feedback arrives, standards violations appear, jobs match, health checks fail, or costs exceed budget. Deduplication prevents repeats, and dismissed items auto-cleanup after 90 days.",
     features: [
-      "11 notification types covering feedback, Fenix, tasks, content, and system events",
+      "14 notification types covering feedback, standards, jobs, health, costs, Fenix, content, and system events",
       "Priority levels (urgent, high, normal, low) with visual badges",
       "Type and priority filters with unread-only toggle",
       "Mark read, dismiss, or bulk-clear actions",
       "Deep-link navigation to the relevant module for each notification",
       "Sidebar badge with live unread count (polls every 60s)",
     ],
+    guideSlug: "notifications",
   },
   teardowns: {
     summary:
@@ -142,14 +143,66 @@ export const MODULE_HELP: Record<string, ModuleHelpContent> = {
       "Sortable and filterable list view",
     ],
   },
+  standards: {
+    summary:
+      "Multi-pillar audit framework scanning all site content against 5 compliance pillars: backend, architecture, authenticity, content, and visual. Real-time scoring with compliance tiers, baseline system for known violations, and auto-remediation for fixable issues.",
+    features: [
+      "5 compliance pillars with individual scoring and overall scorecard",
+      "3-level drill-down: Scorecard → Pillar Details → Remediation",
+      "Baseline system to acknowledge known violations and track only new regressions",
+      "Pre-publish file check endpoint for quality gates",
+      "Auto-remediation with dry-run preview",
+      "Startup automation pre-warms scorecard and notifications on launch",
+    ],
+    guideSlug: "standards",
+  },
+  "tech-costs": {
+    summary:
+      "Track operational costs across the full tech stack — APIs, hosting, databases, and subscriptions. Monthly summaries, 3-month projections, and budget alerts when spend exceeds 80% of budget.",
+    features: [
+      "Per-service cost tracking with auto-aggregation from API usage logs",
+      "Monthly summary with category breakdown and month-over-month trends",
+      "3-month projection engine using weighted historical averages",
+      "Budget alerts via notification system at 80% threshold",
+      "Rate card for per-model API pricing (Claude, Gemini, Voyage)",
+      "Dashboard widget for homepage compact view",
+    ],
+    guideSlug: "tech-costs",
+  },
+  "action-items": {
+    summary:
+      "Unified task tracker across all 18 workstreams. Created live during Cowork sessions when you say 'action item' or 'track this', or manually via the dashboard. Tracks priority, status, and source.",
+    features: [
+      "18 workstreams: fenix, scannibal, dia-fund, resume-pipeline, site-teardowns, and more",
+      "Four priority levels (critical, high, medium, low) and four statuses (todo, in-progress, done, blocked)",
+      "Live capture from Cowork sessions via CLAUDE.md integration",
+      "Summary endpoint for dashboard widgets and workstream-level views",
+      "Filterable by workstream, priority, status, and source",
+    ],
+    guideSlug: "action-items",
+  },
+  "kirans-journal": {
+    summary:
+      "Strategic decision journal capturing live reasoning, decisions, principles, and ideas in your voice. Nine categories from architecture to apprehension. Distinct from Fenix Journal — this is YOUR thinking, not Fenix's observations.",
+    features: [
+      "Nine categories: principle, architecture, product-philosophy, brand-identity, career-strategy, content-strategy, apprehension, idea, general",
+      "Live capture during Cowork sessions — 'journal this' triggers immediate logging",
+      "Principles view for reusable beliefs crystallized from experience",
+      "Open Questions view for unresolved tensions and follow-ups",
+      "Decision + alternatives_considered fields for structured decision records",
+    ],
+    guideSlug: "kirans-journal",
+  },
   tools: {
     summary:
-      "Quick-access hub for analytics dashboards, infrastructure services, and external tools you use regularly. Everything in one place so you don't have to bookmark-hunt.",
+      "Quick-access hub for analytics dashboards, infrastructure services, and external tools you use regularly. Each tool with a guide has a contextual help button that opens a practical reference tailored to your setup.",
     features: [
-      "Grouped links: Analytics, Infrastructure, Design, Development",
-      "One-click access to Supabase, Vercel, GitHub, Netlify, etc.",
-      "Visual cards with service icons and descriptions",
+      "10 categories: Analytics, Hosting, AI Services, Code, SEO, Products, Social, Live Site, and more",
+      "One-click access to Supabase, Vercel, GitHub, Cloudflare, GA4, Clarity, Anthropic Console, etc.",
+      "Contextual help guides (hover any card with a ? icon) with what to check, common tasks, and red flags",
+      "Maintenance checklist with after-publish, weekly, monthly, and quarterly cadences",
     ],
+    guideSlug: "tools",
   },
   library: {
     summary:
@@ -161,6 +214,7 @@ export const MODULE_HELP: Record<string, ModuleHelpContent> = {
       "Click to read full document content with markdown rendering",
       "Word count and last-modified metadata for each document",
     ],
+    guideSlug: "library",
   },
   guides: {
     summary:

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GEICO Insurance AI Assistant - LangGraph + LangChain prototype by Kiran Gorapalli">
+    <meta name="description" content="Insurance AI assistant prototype built with LangGraph and LangChain. Demonstrates multi-turn conversations for policy inquiries, claims, and coverage questions.">
     <title>Insurance AI Assistant - MadLab | Kiran Gorapalli</title>
     <link rel="icon" href="../../images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -420,8 +420,11 @@
             .message { max-width: 90%; }
         }
     </style>
+<link rel="canonical" href="https://kirangorapalli.com/prototypes/insurance-chatbot/index.html">
 </head>
 <body>
+    <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
+    
     <!-- Header -->
     <div class="proto-header">
         <div class="proto-header-left">
@@ -506,7 +509,7 @@
             <div class="chat-messages" id="chatMessages"></div>
             <div class="quick-replies" id="quickReplies"></div>
             <div class="chat-input-area">
-                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..." autocomplete="off">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..." autocomplete="off" aria-label="Chat message input">
                 <button class="chat-send" id="chatSend">Send</button>
             </div>
         </div>

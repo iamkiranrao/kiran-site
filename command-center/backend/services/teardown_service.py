@@ -28,6 +28,8 @@ from datetime import datetime
 from typing import Optional, List, Dict
 
 from utils.config import CLAUDE_MODEL, data_dir
+from services.governance_loader import get_banned_phrases_prompt, get_anti_ai_prompt
+
 SESSIONS_DIR = data_dir("teardowns")
 
 
@@ -47,18 +49,20 @@ STEPS = [
 
 # ── Claude system prompts per step ────────────────────────────────
 
-TEARDOWN_SYSTEM_PROMPT = """You are helping Kiran Gorapalli build a product teardown page for his portfolio site at kirangorapalli.com. This is a co-creation process: you do the research and drafting, Kiran makes the decisions. The teardown must sound like a real PM wrote it, not like AI generated it. His credibility is on the line.
+def _build_teardown_system_prompt() -> str:
+    """Build teardown system prompt with governance-loaded rules."""
+    banned = get_banned_phrases_prompt()
+    anti_ai = get_anti_ai_prompt()
 
-Critical anti-AI rules (apply to EVERY word):
-- Asymmetric structure: KKB counts, journey stages, KPI counts must ALL differ from existing teardowns
-- First-person asides: 3-4 per teardown minimum ("I spent two hours on this...")
-- Dead ends: Show at least one angle explored and discarded
+    return f"""You are helping Kiran Gorapalli build a product teardown page for his portfolio site at kirangorapalli.com. This is a co-creation process: you do the research and drafting, Kiran makes the decisions. The teardown must sound like a real PM wrote it, not like AI generated it. His credibility is on the line.
+
+{anti_ai}
+
 - Casual conversational English: like explaining to a smart friend, NOT consultant-speak
-- Vary sentence length: mix short punchy with longer reasoning
 - Specific persona: named, aged, with a story
-- Selective citations: source important claims, don't over-cite
-- Honest unknowns: name what data is missing and where you looked
-- BANNED phrases: "Let's dive in", "Here's the thing", "It's worth noting", "compelling", "robust", "leverage"
+- Asymmetric structure: KKB counts, journey stages, KPI counts must ALL differ from existing teardowns
+
+{banned}
 
 No per-section help icons or explainer panels:
 - Do NOT generate any explainer-icon markup, data-explainer-* attributes, or slide panel content
@@ -73,6 +77,9 @@ Previous teardowns for asymmetry reference:
 - Instagram: 5-stage journey, 2/3/3 KKB split, narrative business case, 4 KPIs
 - GEICO: 5-stage journey, 2/2/3 KKB split, numbers-driven business case, 5 KPIs
 This new teardown MUST use different counts for all of the above."""
+
+
+TEARDOWN_SYSTEM_PROMPT = _build_teardown_system_prompt()
 
 
 STEP_PROMPTS = {
@@ -294,8 +301,11 @@ def create_session(company: str, product: str) -> dict:
         "decisions": {},
     }
 
-    with open(_session_path(session_id), "w") as f:
+    path = _session_path(session_id)
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, path)
 
     return state
 
@@ -318,8 +328,11 @@ def update_session(session_id: str, updates: dict) -> dict:
     state.update(updates)
     state["updated_at"] = datetime.now().isoformat()
 
-    with open(_session_path(session_id), "w") as f:
+    path = _session_path(session_id)
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, path)
 
     return state
 
@@ -341,8 +354,11 @@ def save_step_result(session_id: str, step: int, content: str, status: str = "dr
 
     state["updated_at"] = datetime.now().isoformat()
 
-    with open(_session_path(session_id), "w") as f:
+    path = _session_path(session_id)
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, path)
 
     return state
 
@@ -359,8 +375,11 @@ def save_decision(session_id: str, step: int, decision: str) -> dict:
     }
     state["updated_at"] = datetime.now().isoformat()
 
-    with open(_session_path(session_id), "w") as f:
+    path = _session_path(session_id)
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, path)
 
     return state
 

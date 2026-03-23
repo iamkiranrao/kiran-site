@@ -1,0 +1,154 @@
+{
+  "_meta": {
+    "description": "Single source of truth for content governance rules across all Command Center modules.",
+    "foundation_ref": "docs/Foundation/CONTENT-GOVERNANCE.md",
+    "last_updated": "2026-03-20",
+    "version": "1.0.0"
+  },
+
+  "banned_phrases": {
+    "hard_banned": {
+      "description": "Never use. Zero tolerance across all content types.",
+      "words": [
+        "orchestrated", "spearheaded", "championed", "pioneered",
+        "seasoned", "comprehensive", "leveraged", "synergized",
+        "utilized", "facilitated", "harnessed", "endeavored"
+      ]
+    },
+    "soft_banned": {
+      "description": "Avoid. Resume allows max 1 instance; other content types should avoid entirely.",
+      "words": [
+        "architected", "streamlined", "revolutionized",
+        "transformed", "empowered", "optimized"
+      ]
+    },
+    "ai_language": {
+      "description": "AI-detection flags. Rewrite any sentence containing these.",
+      "words": [
+        "delve", "landscape", "multifaceted", "game-changer",
+        "compelling", "robust", "holistic", "seamlessly",
+        "innovative", "transformative", "best-in-class",
+        "world-class", "state-of-the-art", "cutting-edge"
+      ]
+    },
+    "buzzwords": {
+      "description": "Corporate jargon. Cut entirely or replace with plain language.",
+      "words": [
+        "leverage", "synergy", "paradigm", "ecosystem",
+        "scalable solution", "cutting-edge", "best-in-class", "empower"
+      ]
+    },
+    "anti_patterns": {
+      "description": "Resume-specific clichés that signal generic writing.",
+      "words": [
+        "results-driven", "dynamic", "passionate about",
+        "dedicated to", "seeking"
+      ]
+    },
+    "filler_qualifiers": {
+      "description": "Weak intensifiers that add no meaning. Cut them.",
+      "patterns": ["\\bvery\\b", "\\breally\\b", "\\bextremely\\b", "\\bincredibly\\b", "\\bhighly\\b"]
+    },
+    "banned_openers": {
+      "description": "AI-tell opening phrases. Never start a section or paragraph with these.",
+      "phrases": [
+        "Let's dive in",
+        "Here's the thing",
+        "It's worth noting",
+        "In today's world",
+        "At the end of the day",
+        "It's important to note"
+      ]
+    }
+  },
+
+  "voice_rules": {
+    "core_principles": [
+      "Like a real person talking to another real person — not a pitch deck, not AI",
+      "Approachable and clear — a smart friend explaining something interesting",
+      "Warm but rigorous — never preachy, never detached",
+      "Starts with why — why something matters before what it is",
+      "Names what's hard — uncertainty, failure, uncomfortable truths",
+      "Varied rhythm — mix short punchy sentences with longer flowing ones"
+    ],
+    "english_standard": "American English exclusively",
+    "em_dash_rule": "BANNED entirely. Use commas, periods, or rewrite the sentence.",
+    "passive_voice": "Avoid where active voice works. Active voice is almost always better.",
+    "conversational_test": "Every sentence should sound like explaining to a smart friend. No consultant-speak."
+  },
+
+  "anti_ai_markers": {
+    "required": {
+      "first_person_asides": {
+        "description": "Real thinking markers like 'I spent two hours on this...' or 'Honestly, I'm not sure this is the right call.'",
+        "minimum_per_long_form": 3,
+        "minimum_per_short_form": 1
+      },
+      "dead_ends": {
+        "description": "Show at least one angle explored and discarded. 'I initially looked at X, but the data pointed to Y.'",
+        "minimum_per_long_form": 1
+      },
+      "honest_unknowns": {
+        "description": "Name what data is missing and where you looked. 'I couldn't find public data on this' is more credible than pretending you know.",
+        "minimum_per_long_form": 1
+      },
+      "selective_citations": {
+        "description": "Source important claims. Don't over-cite obvious things. Over-citation is an AI tell."
+      },
+      "specificity": {
+        "description": "Named examples, real numbers, actual products. Not 'many companies' or 'various industries.'"
+      }
+    },
+    "structural": {
+      "asymmetry": "No two pages should have the same shape. Vary section counts, item counts, lengths.",
+      "sentence_length_variation": "Mix short punchy with longer reasoning. Uniform length is an AI tell.",
+      "no_excessive_parallelism": "If 5 bullets all start with the same grammatical pattern, vary the structure."
+    }
+  },
+
+  "readability_targets": {
+    "blog": {"grade_level": "10-11", "description": "Blog posts and thought leadership"},
+    "teardown": {"grade_level": "11-12", "description": "Product teardown pages"},
+    "madlab": {"grade_level": "9-10", "description": "MadLab prototype overviews"},
+    "scannibal": {"grade_level": "8-9", "description": "Scannibal product content"},
+    "social": {"grade_level": "8-9", "description": "Social media content"},
+    "resume": {
+      "flesch_reading_ease": "30-60",
+      "flesch_kincaid_grade": "9-14",
+      "description": "Resume content — higher grade level acceptable for professional context"
+    }
+  },
+
+  "domain_rules": {
+    "canonical_domain": "kirangorapalli.com",
+    "never_use_in_content": "Never use kirangorapalli.com in any user-facing content, OG tags, canonical URLs, or JSON-LD."
+  },
+
+  "resume_overrides": {
+    "_note": "Resume Pipeline has legitimate custom rules that extend (not contradict) Foundation governance. See docs/CommandCenter/ResumePipeline/RESUME-RULES.md for full documentation.",
+    "soft_banned_limit": 1,
+    "preferred_verbs": [
+      "built", "ran", "grew", "cut", "shipped", "owned", "led",
+      "launched", "reduced", "drove", "managed", "created", "designed",
+      "delivered", "deployed", "migrated", "integrated", "implemented",
+      "established", "executed", "defined", "restructured", "repositioned",
+      "consolidated", "negotiated", "reworked"
+    ],
+    "verb_categories": {
+      "impact": ["Drove", "Grew", "Increased", "Expanded", "Scaled", "Cut", "Reduced"],
+      "creation": ["Built", "Designed", "Created", "Shipped", "Launched", "Introduced", "Developed"],
+      "leadership": ["Led", "Managed", "Owned", "Ran", "Directed", "Oversaw"],
+      "execution": ["Delivered", "Deployed", "Migrated", "Integrated", "Implemented", "Established", "Executed"],
+      "strategy": ["Defined", "Restructured", "Repositioned", "Consolidated", "Negotiated", "Reworked"]
+    },
+    "pm_keywords": [
+      "roadmap", "cross-functional", "stakeholder", "a/b test",
+      "user research", "data-driven", "gtm", "p&l", "okr",
+      "experimentation"
+    ],
+    "ats_headers": [
+      "experience", "education", "skills", "summary",
+      "competencies", "certifications"
+    ]
+  }
+}

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { Wrench, PenTool, FileText, Target, Shield, ExternalLink, LogOut, Command, Beaker, Bot, BookOpen, BookMarked, MessageSquare, Radar, Lightbulb, Inbox, Library } from "lucide-react";
+import { Wrench, PenTool, FileText, Target, Shield, ShieldCheck, ExternalLink, LogOut, Command, Beaker, Bot, BookOpen, BookMarked, MessageSquare, Radar, Lightbulb, Inbox, Library, CheckSquare, BookHeart, DollarSign } from "lucide-react";
 import { MODULES, APP_NAME } from "@/lib/constants";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -14,6 +14,7 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   FileText,
   Target,
   Shield,
+  ShieldCheck,
   ExternalLink,
   Beaker,
   Bot,
@@ -24,6 +25,9 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   Lightbulb,
   Inbox,
   Library,
+  CheckSquare,
+  BookHeart,
+  DollarSign,
 };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";

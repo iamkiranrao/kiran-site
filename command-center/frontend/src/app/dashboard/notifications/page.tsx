@@ -24,6 +24,9 @@ import {
   Filter,
   ChevronDown,
   HelpCircle,
+  CheckSquare,
+  BookHeart,
+  FileWarning,
 } from "lucide-react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -70,6 +73,9 @@ const TYPE_CONFIG: Record<
   journal_pending: { label: "Journal", icon: BookOpen, color: "#2dd4bf" },
   training_progress: { label: "Training", icon: Brain, color: "#fb923c" },
   draft_content: { label: "Draft", icon: FileText, color: "#a78bfa" },
+  action_item: { label: "Action Item", icon: CheckSquare, color: "#34d399" },
+  journal_entry: { label: "Journal", icon: BookHeart, color: "#d4a74a" },
+  docs_drift: { label: "Docs Drift", icon: FileWarning, color: "#fbbf24" },
   system: { label: "System", icon: Settings, color: "#888" },
 };
 
@@ -337,6 +343,9 @@ export default function NotificationsPage() {
               { type: "journal_pending", desc: "Journal entries ready for your review" },
               { type: "training_progress", desc: "Fenix training milestones and gap alerts" },
               { type: "draft_content", desc: "Content drafts waiting to be published" },
+              { type: "action_item", desc: "New action items from sessions or manual entry" },
+              { type: "journal_entry", desc: "New strategic thinking entries in Kiran's Journal" },
+              { type: "docs_drift", desc: "Documentation that may be out of sync with code changes" },
               { type: "system", desc: "Generic system alerts and announcements" },
             ].map(({ type, desc }) => {
               const cfg = TYPE_CONFIG[type] || TYPE_CONFIG.system;

@@ -13,6 +13,8 @@ from datetime import datetime
 from typing import Optional, List, Dict
 
 from utils.config import CLAUDE_MODEL, data_dir
+from services.governance_loader import get_banned_phrases_prompt
+
 SESSIONS_DIR = data_dir("madlab")
 
 CATEGORIES = [
@@ -60,8 +62,11 @@ def create_session(project_name: str, project_slug: str, category: str) -> dict:
         "updated_at": datetime.now().isoformat(),
     }
 
-    with open(_session_path(session_id), "w") as f:
+    path = _session_path(session_id)
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, path)
 
     return state
 
@@ -89,8 +94,11 @@ def update_session(session_id: str, updates: dict) -> dict:
 
     state["updated_at"] = datetime.now().isoformat()
 
-    with open(_session_path(session_id), "w") as f:
+    path = _session_path(session_id)
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, path)
 
     return state
 
@@ -128,7 +136,15 @@ def list_sessions() -> List[Dict]:
 
 # ── Claude draft (optional) ──────────────────────────────────────
 
-DRAFT_SYSTEM_PROMPT = """You are helping Kiran Gorapalli write a prototype overview page for his portfolio site. Write like a real builder, not like AI. Casual conversational English, like explaining to a smart friend. Include first-person asides. Be honest about tradeoffs. BANNED phrases: "Let's dive in", "Here's the thing", "It's worth noting", "compelling", "robust", "leverage"."""
+def _build_draft_system_prompt() -> str:
+    """Build MadLab system prompt with governance-loaded banned phrases."""
+    banned = get_banned_phrases_prompt()
+    return f"""You are helping Kiran Gorapalli write a prototype overview page for his portfolio site. Write like a real builder, not like AI. Casual conversational English, like explaining to a smart friend. Include first-person asides. Be honest about tradeoffs.
+
+{banned}"""
+
+
+DRAFT_SYSTEM_PROMPT = _build_draft_system_prompt()
 
 DRAFT_USER_PROMPT = """Write content for a prototype overview page.
 

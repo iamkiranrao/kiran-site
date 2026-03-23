@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before / After — What These Fixes Actually Look Like</title>
+<style>
+  :root { --bg: #09090b; --bg2: #18181b; --bg3: #27272a; --border: #3f3f46; --text: #fafafa; --text2: #a1a1aa; --text3: #71717a; --red: #f87171; --green: #34d399; --amber: #fbbf24; --blue: #60a5fa; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+  h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .subtitle { color: var(--text3); font-size: 14px; margin-bottom: 48px; }
+
+  .section { margin-bottom: 64px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .section-number { background: var(--blue); color: var(--bg); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .section-title { font-size: 20px; font-weight: 600; }
+  .section-desc { color: var(--text2); font-size: 14px; margin-bottom: 24px; margin-left: 44px; }
+
+  .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .panel { border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+  .panel-header { padding: 12px 16px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px; }
+  .panel-before .panel-header { background: rgba(239,68,68,0.08); color: var(--red); border-bottom: 1px solid rgba(239,68,68,0.15); }
+  .panel-after .panel-header { background: rgba(16,185,129,0.08); color: var(--green); border-bottom: 1px solid rgba(16,185,129,0.15); }
+  .panel-body { padding: 20px; background: var(--bg2); }
+
+  /* Content text styling */
+  .content-text { font-size: 14px; line-height: 1.8; color: var(--text2); }
+  .content-text .highlight { background: rgba(239,68,68,0.15); border-bottom: 2px solid var(--red); padding: 0 2px; }
+  .content-text .fix { background: rgba(16,185,129,0.15); border-bottom: 2px solid var(--green); padding: 0 2px; }
+  .content-text p { margin-bottom: 12px; }
+
+  /* FK Score badge */
+  .fk-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; font-family: 'SF Mono', monospace; }
+  .fk-fail { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+  .fk-pass { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.2); }
+
+  /* SVG mockup */
+  .svg-container { background: var(--bg); border-radius: 8px; padding: 16px; display: flex; justify-content: center; }
+  .svg-container svg { max-width: 100%; }
+
+  /* Annotation callout */
+  .callout { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); border-radius: 8px; padding: 14px 18px; margin-top: 16px; font-size: 13px; color: var(--text2); }
+  .callout strong { color: var(--blue); }
+
+  /* Tradeoff box */
+  .tradeoff { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.15); border-radius: 8px; padding: 14px 18px; margin-top: 16px; font-size: 13px; color: var(--text2); }
+  .tradeoff strong { color: var(--amber); }
+
+  .stat-row { display: flex; gap: 24px; margin-top: 12px; }
+  .stat { text-align: center; }
+  .stat-val { font-size: 20px; font-weight: 700; font-family: 'SF Mono', monospace; }
+  .stat-label { font-size: 11px; color: var(--text3); }
+
+  @media (max-width: 768px) { .comparison { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Before / After — Remaining Violations</h1>
+  <p class="subtitle">What the two remaining issue categories look like, why they need your judgment, and what the tradeoffs are.</p>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SECTION 1: CONTENT READABILITY -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title">Content Readability — learning.html</div>
+    </div>
+    <p class="section-desc">
+      Flesch-Kincaid grade 17.5 (target: &lt;13.0). The score measures average sentence length × average syllables per word.
+      Lower grade = simpler reading. Grade 13 ≈ college freshman. Grade 17.5 ≈ graduate school.
+    </p>
+
+    <div class="comparison">
+      <div class="panel panel-before">
+        <div class="panel-header">
+          <span>✕</span> Before (Current)
+          <span class="fk-badge fk-fail">FK 17.5</span>
+        </div>
+        <div class="panel-body">
+          <div class="content-text">
+            <p><span class="highlight">Completed McKinsey Academy's Business Strategy digital learning program, demonstrating the ability to assess strategy strength and apply McKinsey's Strategy Method to real business challenges.</span></p>
+            <p><span class="highlight">Passed the CSM exam after a two-day intensive covering Scrum theory, roles, events, and artifacts. Applied the framework immediately to restructure sprint cadence on a cross-functional product team.</span></p>
+            <p><span class="highlight">Tools for leading through uncertainty: adaptability, resilience, problem-solving, and strategy execution. Self-leadership module reframed how I navigate my career while staying authentic. Part of McKinsey's Connected Leaders Academy for Asian professionals in tech.</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-after">
+        <div class="panel-header">
+          <span>✓</span> After (One Possible Rewrite)
+          <span class="fk-badge fk-pass">FK ~12.0</span>
+        </div>
+        <div class="panel-body">
+          <div class="content-text">
+            <p><span class="fix">Completed McKinsey Academy's Business Strategy program.</span> <span class="fix">Learned to assess strategy strength and apply it to real problems.</span></p>
+            <p><span class="fix">Passed the CSM exam after a two-day deep dive into Scrum.</span> <span class="fix">Covered roles, events, and artifacts.</span> <span class="fix">Used it right away to fix sprint cadence on a cross-team product squad.</span></p>
+            <p><span class="fix">How to lead when things are uncertain.</span> <span class="fix">The self-leadership module changed how I think about my career path.</span> <span class="fix">Part of McKinsey's Connected Leaders Academy for Asian professionals in tech.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tradeoff">
+      <strong>⚠ The tradeoff:</strong> The "before" sounds more authoritative and credential-heavy — which might be exactly what you want on a certifications page.
+      The "after" is more conversational and easier to scan, but loses some gravitas. You could also go halfway — keep the formal cert descriptions but break them into shorter sentences.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SECTION 1b: hero-video-prototype.html -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">1b</div>
+      <div class="section-title">Content Readability — hero-video-prototype.html</div>
+    </div>
+    <p class="section-desc">
+      FK grade 14.6 (target: &lt;11.0). This is a MadLab prototype page — the visible text is mostly
+      technical UI labels and animation descriptions.
+    </p>
+
+    <div class="comparison">
+      <div class="panel panel-before">
+        <div class="panel-header">
+          <span>✕</span> Before (Current)
+          <span class="fk-badge fk-fail">FK 14.6</span>
+        </div>
+        <div class="panel-body">
+          <div class="content-text">
+            <p><span class="highlight">Prototype demonstrating a cinematic hero section with synchronized video background,
+            particle effects overlay, and progressive content revelation through scroll-triggered animations
+            with configurable easing curves and viewport intersection thresholds.</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-after">
+        <div class="panel-header">
+          <span>✓</span> After (One Possible Rewrite)
+          <span class="fk-badge fk-pass">FK ~10.0</span>
+        </div>
+        <div class="panel-body">
+          <div class="content-text">
+            <p><span class="fix">A hero section prototype with video, particles, and scroll animations.</span>
+            <span class="fix">Content fades in as you scroll down.</span>
+            <span class="fix">You can tweak the easing and trigger points.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tradeoff">
+      <strong>⚠ The tradeoff:</strong> This is an internal MadLab prototype. Nobody sees it except you. The question is whether you care about compliance scores on dev tools, or if you'd rather exclude MadLab prototypes from the readability check entirely.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SECTION 2: ANNOTATION SIZING -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title">Visual Annotation Sizing — SVG Diagrams</div>
+    </div>
+    <p class="section-desc">
+      230 info-level violations across your payment flow diagrams, teardown journey maps, and architecture diagrams.
+      The check requires 10px padding between text and its containing rectangle box on all sides.
+    </p>
+
+    <div class="comparison">
+      <div class="panel panel-before">
+        <div class="panel-header">
+          <span>✕</span> Before — Text overflows box
+        </div>
+        <div class="panel-body">
+          <div class="svg-container">
+            <svg width="420" height="200" viewBox="0 0 420 200">
+              <defs>
+                <style>
+                  .wf-label { font-family: -apple-system, sans-serif; font-size: 12px; fill: #e4e4e7; }
+                  .wf-sublabel { font-family: -apple-system, sans-serif; font-size: 10px; fill: #a1a1aa; }
+                </style>
+              </defs>
+              <!-- Annotation box — too narrow -->
+              <rect x="20" y="20" width="160" height="70" rx="8" fill="#18181b" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4"/>
+              <text x="30" y="45" class="wf-label">NFC Controller</text>
+              <text x="30" y="62" class="wf-sublabel">Near Field Communication</text>
+              <!-- Red markers showing overflow -->
+              <line x1="180" y1="20" x2="180" y2="90" stroke="#f87171" stroke-width="1" stroke-dasharray="2"/>
+              <text x="183" y="58" fill="#f87171" font-size="9" font-family="SF Mono, monospace">right padding: 1px ✕</text>
+
+              <!-- Another box — negative padding -->
+              <rect x="220" y="20" width="180" height="70" rx="8" fill="#18181b" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4"/>
+              <text x="230" y="45" class="wf-label">Payment received</text>
+              <text x="230" y="62" class="wf-sublabel">Transaction confirmed by issuer</text>
+              <line x1="400" y1="20" x2="400" y2="90" stroke="#f87171" stroke-width="1" stroke-dasharray="2"/>
+              <text x="403" y="58" fill="#f87171" font-size="9" font-family="SF Mono, monospace">-10px ✕</text>
+
+              <!-- Metric callout -->
+              <rect x="20" y="120" width="380" height="60" rx="8" fill="rgba(239,68,68,0.05)" stroke="rgba(239,68,68,0.2)"/>
+              <text x="40" y="145" fill="#f87171" font-size="11" font-family="-apple-system, sans-serif" font-weight="600">The check measures:</text>
+              <text x="40" y="163" fill="#a1a1aa" font-size="10" font-family="-apple-system, sans-serif">left_padding = text.x - rect.x → need ≥10px</text>
+              <text x="250" y="163" fill="#a1a1aa" font-size="10" font-family="-apple-system, sans-serif">right_padding = (rect.x + rect.width) - text_end → need ≥10px</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-after">
+        <div class="panel-header">
+          <span>✓</span> After — Box widened for 10px padding
+        </div>
+        <div class="panel-body">
+          <div class="svg-container">
+            <svg width="420" height="200" viewBox="0 0 420 200">
+              <defs>
+                <style>
+                  .wf-label2 { font-family: -apple-system, sans-serif; font-size: 12px; fill: #e4e4e7; }
+                  .wf-sublabel2 { font-family: -apple-system, sans-serif; font-size: 10px; fill: #a1a1aa; }
+                </style>
+              </defs>
+              <!-- Fixed box — wider with proper padding -->
+              <rect x="20" y="20" width="190" height="70" rx="8" fill="#18181b" stroke="#34d399" stroke-width="1.5"/>
+              <text x="30" y="45" class="wf-label2">NFC Controller</text>
+              <text x="30" y="62" class="wf-sublabel2">Near Field Communication</text>
+              <line x1="200" y1="35" x2="200" y2="70" stroke="#34d399" stroke-width="1" stroke-dasharray="2"/>
+              <text x="203" y="55" fill="#34d399" font-size="9" font-family="SF Mono, monospace">10px+ ✓</text>
+
+              <!-- Fixed box — widened -->
+              <rect x="230" y="20" width="180" height="70" rx="8" fill="#18181b" stroke="#34d399" stroke-width="1.5"/>
+              <text x="240" y="45" class="wf-label2">Payment received</text>
+              <text x="240" y="62" class="wf-sublabel2">Transaction confirmed</text>
+              <line x1="400" y1="35" x2="400" y2="70" stroke="#34d399" stroke-width="1" stroke-dasharray="2"/>
+              <text x="403" y="55" fill="#34d399" font-size="9" font-family="SF Mono, monospace">10px+ ✓</text>
+
+              <!-- Cascade warning -->
+              <rect x="20" y="120" width="380" height="60" rx="8" fill="rgba(245,158,11,0.05)" stroke="rgba(245,158,11,0.2)"/>
+              <text x="40" y="145" fill="#fbbf24" font-size="11" font-family="-apple-system, sans-serif" font-weight="600">But widening boxes can cascade:</text>
+              <text x="40" y="163" fill="#a1a1aa" font-size="10" font-family="-apple-system, sans-serif">Adjacent boxes overlap → need to shift everything → connector lines break → whole diagram reflows</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>What this looks like in practice:</strong> Your Apple Pay flow diagram has 38 annotation boxes.
+      Fixing one box's padding pushes it into the next box. Moving that box shifts a connector line.
+      The fix for one violation creates layout problems that cascade across the entire diagram.
+      Each diagram needs to be rebalanced as a composition, not fixed element-by-element.
+    </div>
+
+    <div style="margin-top: 24px;">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-val" style="color: var(--amber);">230</div>
+          <div class="stat-label">annotation violations</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" style="color: var(--text2);">6</div>
+          <div class="stat-label">SVG diagrams affected</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" style="color: var(--text3);">info</div>
+          <div class="stat-label">severity level</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" style="color: var(--blue);">~38</div>
+          <div class="stat-label">avg boxes per diagram</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- OPTIONS -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">?</div>
+      <div class="section-title">Your Options</div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+      <div style="border: 1px solid var(--border); border-radius: 12px; padding: 20px; background: var(--bg2);">
+        <div style="font-weight: 600; color: var(--green); margin-bottom: 8px;">Option A: Fix Everything</div>
+        <div style="font-size: 13px; color: var(--text2); line-height: 1.7;">
+          I rewrite the learning.html text to hit FK &lt;13 and rebalance all 6 SVG diagrams.
+          Score impact: Content could go from 5 → ~40, Visual from 0 → ~60.
+          Risk: Your certifications page loses its formal tone. Diagrams may look different.
+        </div>
+      </div>
+      <div style="border: 1px solid var(--border); border-radius: 12px; padding: 20px; background: var(--bg2);">
+        <div style="font-weight: 600; color: var(--blue); margin-bottom: 8px;">Option B: Tune the Checks</div>
+        <div style="font-size: 13px; color: var(--text2); line-height: 1.7;">
+          Exclude MadLab prototypes from readability checks. Raise the FK threshold for "certifications" content type to 16.0.
+          Downgrade annotation-sizing from info to excluded for SVG-heavy pages.
+          Score impact: Similar improvement, zero content changes.
+        </div>
+      </div>
+      <div style="border: 1px solid var(--border); border-radius: 12px; padding: 20px; background: var(--bg2);">
+        <div style="font-weight: 600; color: var(--amber); margin-bottom: 8px;">Option C: You Rewrite, I Rebalance</div>
+        <div style="font-size: 13px; color: var(--text2); line-height: 1.7;">
+          You rewrite the cert descriptions in your voice. I handle the SVG diagram rebalancing.
+          Best of both: your voice stays authentic, diagrams get proper spacing.
+        </div>
+      </div>
+      <div style="border: 1px solid var(--border); border-radius: 12px; padding: 20px; background: var(--bg2);">
+        <div style="font-weight: 600; color: var(--text3); margin-bottom: 8px;">Option D: Accept and Move On</div>
+        <div style="font-size: 13px; color: var(--text2); line-height: 1.7;">
+          These are info-level violations and 2 criticals on low-traffic pages.
+          The score is already 41/100 (up from 12). Focus energy on authenticity instead — that's where visitors actually judge quality.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

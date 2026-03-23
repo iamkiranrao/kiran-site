@@ -4,7 +4,7 @@ Supports listing, filtering, marking read, and dismissing notifications.
 """
 
 from fastapi import APIRouter, HTTPException, Query
-from pydantic import BaseModel
+from models.notifications import CreateNotification, MarkAllReadRequest, DismissAllRequest
 from typing import Optional
 
 from services.notification_service import (
@@ -20,33 +20,11 @@ from services.notification_service import (
 
 router = APIRouter()
 
-
 # ── Request models ──────────────────────────────────────────────
-
-
-class CreateNotification(BaseModel):
-    type: str
-    title: str
-    summary: str = ""
-    source: str = "manual"
-    action_url: Optional[str] = None
-    priority: str = "normal"
-    reference_id: Optional[str] = None
-    metadata: Optional[dict] = None
-
-
-class MarkAllReadRequest(BaseModel):
-    type: Optional[str] = None
-
-
-class DismissAllRequest(BaseModel):
-    type: Optional[str] = None
-
 
 # ── Read endpoints ──────────────────────────────────────────────
 
-
-@router.get("/")
+@router.get("/", response_model=dict)
 async def list_notifications(
     limit: int = Query(50, ge=1, le=200),
     offset: int = Query(0, ge=0),
@@ -65,17 +43,14 @@ async def list_notifications(
         include_dismissed=include_dismissed,
     )
 
-
-@router.get("/counts")
+@router.get("/counts", response_model=dict)
 async def notification_counts():
     """Summary counts for nav badge and stats cards."""
     return get_notification_counts()
 
-
 # ── Write endpoints ─────────────────────────────────────────────
 
-
-@router.post("/")
+@router.post("/", response_model=dict)
 async def add_notification(body: CreateNotification):
     """Manually create a notification (for testing or manual alerts)."""
     try:
@@ -92,38 +67,31 @@ async def add_notification(body: CreateNotification):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-
 # ── Update endpoints ────────────────────────────────────────────
 
-
-@router.patch("/{notification_id}/read")
+@router.patch("/{notification_id}/read", response_model=dict)
 async def read_notification(notification_id: str):
     """Mark a single notification as read."""
     return mark_read(notification_id)
 
-
-@router.patch("/read-all")
+@router.patch("/read-all", response_model=dict)
 async def read_all_notifications(body: MarkAllReadRequest = MarkAllReadRequest()):
     """Mark all unread notifications as read."""
     return mark_all_read(type_filter=body.type)
 
-
-@router.patch("/{notification_id}/dismiss")
+@router.patch("/{notification_id}/dismiss", response_model=dict)
 async def dismiss_single(notification_id: str):
     """Dismiss a single notification."""
     return dismiss_notification(notification_id)
 
-
-@router.patch("/dismiss-all")
+@router.patch("/dismiss-all", response_model=dict)
 async def dismiss_all_notifications(body: DismissAllRequest = DismissAllRequest()):
     """Dismiss all active notifications."""
     return dismiss_all(type_filter=body.type)
 
-
 # ── Maintenance ─────────────────────────────────────────────────
 
-
-@router.delete("/cleanup")
+@router.delete("/cleanup", response_model=dict)
 async def cleanup(days: int = Query(90, ge=7, le=365)):
     """Remove dismissed notifications older than N days."""
     return cleanup_old_notifications(days=days)

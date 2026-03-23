@@ -10,7 +10,7 @@ from utils.config import CLAUDE_MODEL
 import re
 import json
 from typing import Optional
-from anthropic import Anthropic
+from services.claude_client import create_client
 from pathlib import Path
 
 
@@ -116,7 +116,7 @@ async def audit_file(api_key: str, file_path: str) -> dict:
     if "error" in page:
         return page
 
-    client = Anthropic(api_key=api_key)
+    client = create_client(api_key)
 
     prompt = f"""You are a content auditor for Kiran Gorapalli's portfolio website. Your job is to find every piece of text that violates his content rules.
 

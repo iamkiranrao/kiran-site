@@ -16,6 +16,10 @@ import json
 from typing import Optional
 from anthropic import Anthropic
 from utils.config import CLAUDE_MODEL
+from services.governance_loader import (
+    HARD_BANNED, SOFT_BANNED, AI_LANGUAGE, BUZZWORDS,
+    BANNED_OPENERS, PREFERRED_VERBS,
+)
 
 
 KIRAN_BACKGROUND = """
@@ -61,15 +65,19 @@ seniority indicators (like L6/L7 in tech), not as proof of large management span
 """
 
 
-HUMAN_WRITING_RULES = """
+def _build_human_writing_rules() -> str:
+    """Build HUMAN_WRITING_RULES from governance-loaded banned phrases."""
+    hard_banned_str = ", ".join(f'"{w.title()}"' for w in HARD_BANNED)
+    ai_filler_str = ", ".join(f'"{w}"' for w in AI_LANGUAGE)
+    preferred_str = ", ".join(PREFERRED_VERBS[:15])
+
+    return f"""
 ANTI-AI-WRITING RULES — the resume must read as human-written:
 1. NO em dashes (—). Use commas, periods, or rewrite the sentence.
 2. NO semicolons joining clauses in bullets. Keep bullets as single, punchy statements.
-3. BANNED overused AI verbs: "Leveraged", "Utilized", "Orchestrated", "Synergized", "Facilitated",
-   "Harnessed", "Endeavored", "Pioneered" (unless truly accurate). Prefer plain strong verbs:
-   built, ran, grew, cut, shipped, owned, led, launched, reduced, drove, managed, created, designed.
-4. BANNED AI filler words: "robust", "holistic", "cutting-edge", "innovative", "comprehensive",
-   "transformative", "best-in-class", "world-class", "state-of-the-art", "seamlessly".
+3. BANNED overused AI verbs: {hard_banned_str}. Prefer plain strong verbs:
+   {preferred_str}.
+4. BANNED AI filler words: {ai_filler_str}.
 5. VARY bullet structure. NOT every bullet should follow "Verb + what + resulting in + metric".
    Mix it up: some lead with outcome, some are shorter without metrics, some describe scope.
    A few bullets without numbers is FINE for non-quantifiable work (vision, partnerships, process).
@@ -118,6 +126,9 @@ CONTENT INTEGRITY RULES — never fabricate or embellish:
     "contributed to" into "owned" or "supported" into "drove" unless the source material supports it.
     Inflating ownership level is as misleading as inventing a metric.
 """
+
+# Build at module load time for backward compatibility
+HUMAN_WRITING_RULES = _build_human_writing_rules()
 
 
 IC_REFRAMING_RULES = """
@@ -180,9 +191,44 @@ def _ic_rules_block(jd_analysis: dict) -> str:
     return ""
 
 
-def create_client(api_key: str) -> Anthropic:
-    """Create an Anthropic client with the provided API key."""
-    return Anthropic(api_key=api_key)
+class _TrackedMessages:
+    """Wrapper around client.messages that auto-logs usage to the cost tracker."""
+
+    def __init__(self, original_messages):
+        self._original = original_messages
+
+    def create(self, **kwargs):
+        response = self._original.create(**kwargs)
+        try:
+            from services.cost_tracker import track_anthropic_usage
+            # Try to infer endpoint from call stack context
+            import inspect
+            caller = inspect.stack()[1]
+            endpoint = f"{caller.filename.split('/')[-1]}:{caller.function}"
+            track_anthropic_usage(response, endpoint=endpoint)
+        except Exception:
+            pass  # Never let tracking break the actual call
+        return response
+
+    def __getattr__(self, name):
+        return getattr(self._original, name)
+
+
+class _TrackedClient:
+    """Anthropic client wrapper that auto-tracks all message creation costs."""
+
+    def __init__(self, client: Anthropic):
+        self._client = client
+        self.messages = _TrackedMessages(client.messages)
+
+    def __getattr__(self, name):
+        return getattr(self._client, name)
+
+
+def create_client(api_key: str):
+    """Create an Anthropic client with automatic cost tracking."""
+    raw_client = Anthropic(api_key=api_key)
+    return _TrackedClient(raw_client)
 
 
 async def analyze_jd(api_key: str, jd_text: str) -> dict:

@@ -26,6 +26,7 @@ import os
 import re
 import shutil
 import subprocess
+import tempfile
 from datetime import datetime
 from typing import Optional, List
 
@@ -1052,9 +1053,11 @@ class GitHandler:
         if not teardown_exists or not hub_exists:
             index_data["content"] = content_list
             index_data["lastUpdated"] = datetime.now().strftime("%Y-%m-%d")
-            with open(index_path, "w", encoding="utf-8") as f:
+            tmp_path = index_path + ".tmp"
+            with open(tmp_path, "w", encoding="utf-8") as f:
                 json.dump(index_data, f, indent=2, ensure_ascii=False)
                 f.write("\n")
+            os.replace(tmp_path, index_path)
             changed.append("fenix-index.json")
 
         return changed

@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Homepage Preview — Hero Animation Integration</title>
+<meta name="description" content="Interactive homepage prototype featuring a canvas-based hero animation integrated with Kiran's story. Demonstrates animation design, portfolio presentation, and responsive creative direction.">
+<title>Homepage Preview: Hero Animation Integration</title>
+<link rel="canonical" href="https://kirangorapalli.com/hero-video-prototype.html">
 <link rel="icon" href="images/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,7 +96,7 @@ canvas#workshopCanvas {
     line-height: 1.6;
 }
 
-/* ─── Story Video Section (below fold) ─── */
+/* Story Video Section (below fold) */
 .story-video-section {
     padding: 6rem 4rem;
     background: #0a0a0a;
@@ -204,10 +206,10 @@ body {
         <div class="nav-container">
             <div class="nav-right">
                 <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
-                    <svg class="moon-icon" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" class="wf-moon-icon" viewBox="0 0 24 24">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                    <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display: none;">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
                         <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -220,7 +222,7 @@ body {
                     </svg>
                 </button>
                 <button id="shareButton" class="share-button" title="Share website" aria-label="Share this site">
-                    <svg class="share-icon" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" class="wf-share-icon" viewBox="0 0 24 24">
                         <circle cx="18" cy="5" r="3"></circle>
                         <circle cx="6" cy="12" r="3"></circle>
                         <circle cx="18" cy="19" r="3"></circle>
@@ -262,46 +264,46 @@ body {
             </div>
             <div class="share-options">
                 <button id="shareEmail" class="share-option" type="button">
-                    <svg viewBox="0 0 24 24">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
                         <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                         <path d="m2 6 10 7 10-7"></path>
                     </svg>
                     <span class="share-option-label">Email</span>
                 </button>
                 <button id="shareWhatsApp" class="share-option" type="button">
-                    <svg viewBox="0 0 24 24">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-9.746 9.798c0 2.734.743 5.404 2.152 7.707L2.06 22.5l8.15-2.14a9.868 9.868 0 004.763 1.213h.004c5.44 0 9.868-4.43 9.868-9.873 0-2.634-.704-5.167-2.041-7.41-1.337-2.242-3.236-4.163-5.568-5.472-2.332-1.31-5.044-2.019-7.827-2.019Z"></path>
                     </svg>
                     <span class="share-option-label">WhatsApp</span>
                 </button>
                 <button id="shareLinkedIn" class="share-option" type="button">
-                    <svg viewBox="0 0 24 24">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
                         <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
                         <circle cx="4" cy="4" r="2"></circle>
                     </svg>
                     <span class="share-option-label">LinkedIn</span>
                 </button>
                 <button id="shareTwitter" class="share-option" type="button">
-                    <svg viewBox="0 0 24 24">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
                         <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"></path>
                     </svg>
                     <span class="share-option-label">Twitter</span>
                 </button>
                 <button id="shareFacebook" class="share-option" type="button">
-                    <svg viewBox="0 0 24 24">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
                         <path d="M18 2h-3a6 6 0 00-6 6v3H7v4h2v8h4v-8h3l1-4h-4V8a2 2 0 012-2h3z"></path>
                     </svg>
                     <span class="share-option-label">Facebook</span>
                 </button>
                 <button id="shareSMS" class="share-option" type="button">
-                    <svg viewBox="0 0 24 24">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
                         <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path>
                     </svg>
                     <span class="share-option-label">SMS</span>
                 </button>
             </div>
             <div class="share-link-copy">
-                <input type="text" id="shareLink" class="share-link-input" readonly>
+                <input type="text" id="shareLink" class="share-link-input" readonly aria-label="Share link">
                 <button id="copyLinkBtn" class="copy-link-btn">Copy</button>
             </div>
         </div>
@@ -333,7 +335,7 @@ body {
         <div class="story-video-player">
             <div class="story-video-placeholder-inner">
                 <div class="story-play-button">
-                    <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5">
                         <circle cx="12" cy="12" r="11" />
                         <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none" />
                     </svg>
@@ -341,7 +343,7 @@ body {
                 <p class="story-video-duration">1:00</p>
             </div>
         </div>
-        <p class="story-video-caption">A space not shaped by algorithms — built with AI, measured by connection.</p>
+        <p class="story-video-caption">A space free from algorithm-driven design, built intelligently, measured by human connection.</p>
     </div>
 </section>
 
@@ -349,10 +351,10 @@ body {
 <div class="after-hero">
     <p style="border: 1px dashed #5a4a3a; padding: 2rem; border-radius: 8px;">
         <strong style="color: #c9944a;">PREVIEW NOTE</strong><br><br>
-        This is how your homepage will look with the Builder's Workshop animation integrated:<br><br>
-        <strong>Above the fold:</strong> Full-viewport canvas animation + your name/tagline overlaid.<br>
-        <strong>Below the fold:</strong> "My Story" section with the 60-second Pixar avatar video.<br><br>
-        The "Video coming soon" placeholder and the separate hero-text / hero-image split are gone — replaced by this single immersive hero.
+        Here's how your homepage will look with the Builder's Workshop animation:<br><br>
+        <strong>Above the fold:</strong> Full-screen animation with your name and tagline overlaid.<br>
+        <strong>Below the fold:</strong> "My Story" section with a 60-second video.<br><br>
+        The "Video coming soon" placeholder is gone. The separate hero sections are now one unified hero.
     </p>
 </div>
 
@@ -384,7 +386,7 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
-// ─── FLOATING UI COMPONENTS ───
+// FLOATING UI COMPONENTS
 class UIComponent {
     constructor() { this.reset(true); }
 
@@ -522,7 +524,7 @@ class UIComponent {
     }
 }
 
-// ─── CONNECTION NODES (system architecture) ───
+// CONNECTION NODES (system architecture)
 class Node {
     constructor() {
         this.x = Math.random() * (W / DPR);
@@ -550,7 +552,7 @@ class Node {
     }
 }
 
-// ─── GRID PATTERN (design tools) ───
+// GRID PATTERN (design tools)
 function drawGrid() {
     const gridSize = 60;
     const offsetX = (time * 8) % gridSize;
@@ -587,7 +589,7 @@ function drawGrid() {
     }
 }
 
-// ─── WIREFRAME MORPHING ───
+// WIREFRAME MORPHING
 class WireframeMorph {
     constructor() {
         this.x = (W/DPR) * 0.3 + Math.random() * (W/DPR) * 0.4;
@@ -655,13 +657,13 @@ class WireframeMorph {
     }
 }
 
-// ─── INITIALIZE ───
+// INITIALIZE
 const components = Array.from({ length: 18 }, () => new UIComponent());
 const nodes = Array.from({ length: 35 }, () => new Node());
 const wireframes = Array.from({ length: 3 }, () => new WireframeMorph());
 const CONNECTION_DIST = 150;
 
-// ─── WARM RADIAL GLOW ───
+// WARM RADIAL GLOW
 function drawGlow() {
     const cx = W / DPR * 0.45;
     const cy = H / DPR * 0.35;
@@ -687,7 +689,7 @@ function drawGlow() {
     ctx.fillRect(0, 0, W/DPR, H/DPR);
 }
 
-// ─── RENDER LOOP ───
+// RENDER LOOP
 function render() {
     time += 0.016;
 
