@@ -22,8 +22,9 @@ import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
-from anthropic import Anthropic
+from services.claude_client import create_client as create_claude_client
 from supabase import create_client, Client
+import tempfile
 
 try:
     import httpx
@@ -157,13 +158,13 @@ def _get_supabase() -> Client:
     return create_client(url, key)
 
 
-def _get_claude(api_key: Optional[str] = None) -> Anthropic:
+def _get_claude(api_key: Optional[str] = None):
     key = api_key
     if not key or not key.startswith("sk-ant-"):
         key = os.getenv("ANTHROPIC_API_KEY", "").strip()
     if not key or not key.startswith("sk-ant-"):
         raise RuntimeError("No valid Claude API key available")
-    return Anthropic(api_key=key)
+    return create_claude_client(key)
 
 
 # ── Already-answered tracking ────────────────────────────────────────
@@ -210,8 +211,11 @@ def _session_path(session_id: str) -> Path:
 
 
 def _save_session(state: dict):
-    with open(_session_path(state["session_id"]), "w") as f:
+    path = _session_path(state["session_id"])
+    tmp_path = str(path) + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2)
+    os.replace(tmp_path, str(path))
 
 
 def _load_session(session_id: str) -> Optional[dict]:

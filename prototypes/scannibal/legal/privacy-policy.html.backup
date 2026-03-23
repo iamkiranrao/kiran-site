@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Scannibal</title>
+  <style>
+    :root {
+      --bg: #1e1b16;
+      --surface: #252119;
+      --text: #c4b99a;
+      --text-bright: #d4c9a8;
+      --accent: #8b7d62;
+      --border: #3a3428;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 2rem 1.5rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--text-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
+      font-size: 1.1rem;
+      color: var(--text-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    p { margin-bottom: 1rem; }
+    .effective-date {
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    li { margin-bottom: 0.4rem; }
+    a { color: var(--accent); }
+    .contact { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+<p class="effective-date">Effective Date: March 14, 2026</p>
+
+<p>Scannibal ("the App") is developed by Kiran Rao ("we," "us," or "our"). This Privacy Policy explains what information the App collects, how it is used, and your choices regarding that information.</p>
+
+<h2>Information We Collect</h2>
+
+<p><strong>Photos you scan.</strong> When you use any of Scannibal's scan modes, the photo you capture is sent to a third-party AI service (Google Gemini) for analysis. The photo is transmitted over an encrypted connection, processed in real time, and is not stored on our servers or by us after the analysis is complete. Google's use of data sent to the Gemini API is governed by Google's API Terms of Service.</p>
+
+<p><strong>Device identifier.</strong> We generate a random, non-identifiable device ID stored locally on your device. This is used solely for rate limiting (tracking how many scans you've used today). We do not link this ID to your identity, and it cannot be used to identify you personally.</p>
+
+<p><strong>Profiles you create.</strong> The App allows you to create profiles (allergy, pet, skin, health, dietary, and growing profiles). All profile data is stored exclusively on your device using local storage. It is never transmitted to our servers or any third party. Profile information is included in the text of your scan request to provide personalized results, but it is not stored server-side after the analysis completes.</p>
+
+<p><strong>Scan history.</strong> Your scan history is stored locally on your device. It is never uploaded to our servers.</p>
+
+<h2>Information We Do Not Collect</h2>
+
+<p>We do not collect your name, email address, phone number, physical location, contacts, browsing history, or any other personally identifiable information. We do not use cookies or tracking pixels. We do not run analytics or advertising SDKs. We do not use Apple's Identifier for Advertisers (IDFA) or any advertising tracking technology. We do not sell, share, or disclose your personal information to third parties for advertising or marketing purposes.</p>
+
+<h2>Third-Party Services</h2>
+
+<p>The App uses the following third-party services to function:</p>
+
+<ul>
+  <li><strong>Google Gemini API</strong> — processes your scan photos to generate analysis results. Photos are sent via encrypted connection and are subject to <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Google's Gemini API Terms</a>.</li>
+  <li><strong>ElevenLabs API</strong> (optional) — generates voice narration for scan results. Only the text of the narration is sent; no photos or personal data are transmitted. Subject to <a href="https://elevenlabs.io/terms-of-use" target="_blank" rel="noopener">ElevenLabs' Terms of Use</a>.</li>
+  <li><strong>RevenueCat</strong> (for Supporter subscribers) — manages subscription status. RevenueCat receives only your anonymous App Store subscriber ID. Subject to <a href="https://www.revenuecat.com/privacy/" target="_blank" rel="noopener">RevenueCat's Privacy Policy</a>.</li>
+</ul>
+
+<h2>Data Retention</h2>
+
+<p>We do not retain any data on our servers beyond the duration of a single scan request. Photos are processed in real time and discarded. Local data on your device (profiles, scan history, device ID) persists until you delete the App or clear its data.</p>
+
+<h2>Children's Privacy</h2>
+
+<p>The App is rated 12+ on the App Store due to the nature of its content (health and safety information). However, the App is not directed at children under 13 and we do not knowingly collect personal information from children under 13. Users under 18 should use the App with parental or guardian awareness. If you believe a child under 13 has provided us with personal information, please contact us and we will delete it.</p>
+
+<h2>California Residents</h2>
+
+<p>Under the California Consumer Privacy Act (CCPA), California residents have the right to know what personal information is collected, request its deletion, and opt out of its sale. Because Scannibal collects minimal data (a random device ID for rate limiting, sent only during scan requests) and stores all user-created data locally on your device, there is no personal information stored on our servers to disclose, delete, or sell. We do not sell personal information. We do not share personal information for cross-context behavioral advertising. We do not respond to "Do Not Track" browser signals because we do not track users across websites or apps. If you have questions about your California privacy rights, contact us at the email below.</p>
+
+<h2>Your Choices</h2>
+
+<p>You can delete all locally stored data at any time by deleting the App from your device. Since we do not maintain server-side accounts or stored data, there is nothing to request deletion of on our end.</p>
+
+<h2>Changes to This Policy</h2>
+
+<p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated effective date. Continued use of the App after changes constitutes acceptance of the revised policy.</p>
+
+<div class="contact">
+  <h2>Contact</h2>
+  <p>If you have questions about this Privacy Policy, contact us at:<br>
+  <a href="mailto:kiranrao@gmail.com">kiranrao@gmail.com</a></p>
+</div>
+
+</body>
+</html>

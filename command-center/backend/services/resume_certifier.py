@@ -31,28 +31,12 @@ import logging
 from typing import Optional, Dict, List
 from docx import Document
 
+from services.governance_loader import (
+    HARD_BANNED, SOFT_BANNED, AI_LANGUAGE, ANTI_PATTERNS,
+    SOFT_BANNED_LIMIT,
+)
+
 logger = logging.getLogger(__name__)
-
-
-# ── Blocked words (import from scorer to stay in sync) ────────────────
-
-HARD_BANNED = [
-    "orchestrated", "spearheaded", "championed", "pioneered",
-    "seasoned", "comprehensive", "leveraged", "synergized",
-]
-SOFT_BANNED_LIMIT = 1  # Max 1 soft-banned word per resume
-SOFT_BANNED = [
-    "architected", "streamlined", "revolutionized",
-    "transformed", "empowered", "optimized",
-]
-AI_LANGUAGE = [
-    "delve", "landscape", "multifaceted", "game-changer",
-    "compelling", "robust", "holistic",
-]
-ANTI_PATTERNS = [
-    "results-driven", "dynamic", "passionate about",
-    "dedicated to", "seeking",
-]
 
 # Contact info patterns
 EMAIL_PATTERN = re.compile(r'[\w.+-]+@[\w-]+\.[\w.-]+')

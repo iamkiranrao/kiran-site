@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Image Tuner: Crop Visualizer</title>
+<link rel="canonical" href="https://kirangorapalli.com/hero-tuner.html">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #111;
+    color: #e8dcc8;
+    font-family: 'Inter', -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+
+  .controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(20, 16, 12, 0.95);
+    backdrop-filter: blur(12px);
+    padding: 16px 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .control-group label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #a08868;
+  }
+  .control-group .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e8a44a;
+    min-width: 60px;
+  }
+  input[type="range"] {
+    width: 180px;
+    accent-color: #e8a44a;
+  }
+
+  .stats {
+    margin-left: auto;
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #a08868;
+  }
+  .stat-value {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .stat-value.good { color: #5bbfba; }
+  .stat-value.ok { color: #e8a44a; }
+  .stat-value.bad { color: #e06b7a; }
+
+  .preview-area {
+    margin-top: 100px;
+    padding: 24px 32px 40px;
+  }
+
+  .hero-preview {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background: #1a1410;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+  }
+  .hero-preview img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Annotation overlays */
+  .zone-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .zone-dog {
+    border-top: 2px dashed #e8a44a;
+    border-bottom: 2px dashed #e8a44a;
+    background: rgba(232, 164, 74, 0.08);
+  }
+  .zone-dog::after {
+    content: 'DOG ZONE';
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #e8a44a;
+    font-weight: 600;
+  }
+  .zone-bridge {
+    border-top: 2px dashed #6e8ef7;
+    border-bottom: 2px dashed #6e8ef7;
+    background: rgba(110, 142, 247, 0.08);
+  }
+  .zone-bridge::after {
+    content: 'BRIDGE ZONE';
+    position: absolute;
+    right: 8px;
+    bottom: 4px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #6e8ef7;
+    font-weight: 600;
+  }
+
+  .crop-line-top, .crop-line-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-top: 2px solid #e06b7a;
+    z-index: 20;
+    pointer-events: none;
+  }
+  .crop-line-top::after, .crop-line-bottom::after {
+    content: 'CROP';
+    position: absolute;
+    left: 8px;
+    top: 2px;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #e06b7a;
+    font-weight: 600;
+  }
+
+  .fade-preview {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, #1a1410);
+    z-index: 15;
+    pointer-events: none;
+  }
+
+  .section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #a08868;
+    margin-bottom: 12px;
+    margin-top: 32px;
+  }
+
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .comparison-box {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .comparison-box .label {
+    background: rgba(255,255,255,0.05);
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .comparison-box .hero-sim {
+    position: relative;
+    overflow: hidden;
+    background: #1a1410;
+  }
+  .comparison-box img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .midjourney-note {
+    margin-top: 40px;
+    padding: 24px;
+    background: rgba(232, 164, 74, 0.08);
+    border: 1px solid rgba(232, 164, 74, 0.2);
+    border-radius: 12px;
+  }
+  .midjourney-note h3 {
+    font-size: 14px;
+    color: #e8a44a;
+    margin-bottom: 8px;
+  }
+  .midjourney-note p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #c4b6a0;
+  }
+  .midjourney-note code {
+    background: rgba(0,0,0,0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .recommended {
+    display: inline-block;
+    background: rgba(91, 191, 186, 0.15);
+    color: #5bbfba;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+</style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
+    
+
+<div class="controls">
+  <div class="control-group">
+    <label>Hero Height</label>
+    <input type="range" id="heroHeight" min="50" max="100" value="85" step="1">
+    <span class="value" id="heroHeightVal">85vh</span>
+  </div>
+  <div class="control-group">
+    <label>Object Position Y</label>
+    <input type="range" id="objPos" min="0" max="100" value="65" step="1">
+    <span class="value" id="objPosVal">65%</span>
+  </div>
+  <div class="control-group">
+    <label>Bottom Fade</label>
+    <input type="range" id="fadeHeight" min="0" max="120" value="30" step="5">
+    <span class="value" id="fadeHeightVal">30px</span>
+  </div>
+  <div class="control-group">
+    <label>Show Zones</label>
+    <input type="checkbox" id="showZones" checked>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-label">Dog</span>
+      <span class="stat-value" id="dogPct">-</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Bridge</span>
+      <span class="stat-value" id="bridgePct">-</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Total Crop</span>
+      <span class="stat-value" id="cropPct">-</span>
+    </div>
+  </div>
+</div>
+
+<div class="preview-area">
+  <div class="section-title">Live Preview: drag sliders to tune</div>
+  <div class="hero-preview" id="heroPreview">
+    <img id="heroImg" src="images/hero-scene-final.png" alt="Hero scene">
+    <div class="zone-overlay zone-dog" id="zoneDog" style="display:none"></div>
+    <div class="zone-overlay zone-bridge" id="zoneBridge" style="display:none"></div>
+    <div class="crop-line-top" id="cropTop" style="display:none"></div>
+    <div class="crop-line-bottom" id="cropBottom" style="display:none"></div>
+    <div class="fade-preview" id="fadePreview"></div>
+  </div>
+
+  <div class="section-title" style="margin-top: 40px">Side-by-side: Current (contain) vs. Recommended (85vh cover)</div>
+  <div class="comparison">
+    <div class="comparison-box">
+      <div class="label">Previous: object-fit: contain (no crop, dark bars)</div>
+      <div class="hero-sim" style="height: 400px; display: flex; align-items: center; justify-content: center;">
+        <img src="images/hero-scene-final.png" style="object-fit: contain; max-height: 100%;" alt="Hero scene with object-fit contain">
+      </div>
+    </div>
+    <div class="comparison-box">
+      <div class="label">Recommended: 85vh + position 65% <span class="recommended">Best Balance</span></div>
+      <div class="hero-sim" id="recPreview" style="height: 400px;">
+        <img src="images/hero-scene-final.png" style="object-fit: cover; object-position: center 65%; height: 100%;" alt="Hero scene with recommended object-fit cover at 85vh">
+      </div>
+    </div>
+  </div>
+
+  <div class="midjourney-note">
+    <h3>Nuclear Option: Midjourney at --ar 21:9</h3>
+    <p>
+      If you regenerate the hero at <code>--ar 21:9</code> (ultrawide), the image's natural ratio (~2.33:1) nearly matches
+      the hero container ratio at most viewports. This means <strong>zero vertical crop</strong> at 85vh on every screen.
+      The dog, the bridge, everything shows perfectly with no CSS gymnastics. The tradeoff: you need to go back to Midjourney
+      and the composition would be wider/shorter, so elements would be arranged more horizontally. Use the same prompt with
+      <code>--ar 21:9</code> instead of <code>--ar 16:9</code>. Given the current CSS solution gets 99% dog visibility at worst,
+      this might be overkill. It's the guaranteed zero-compromise path.
+    </p>
+  </div>
+</div>
+
+<script>
+  const IMG_W = 2912, IMG_H = 1632;
+  const DOG_START = 0.78, DOG_END = 0.96;     // dog zone in image
+  const BRIDGE_START = 0.02, BRIDGE_END = 0.18; // bridge zone in image
+
+  const heroHeight = document.getElementById('heroHeight');
+  const objPos = document.getElementById('objPos');
+  const fadeHeight = document.getElementById('fadeHeight');
+  const showZones = document.getElementById('showZones');
+  const heroPreview = document.getElementById('heroPreview');
+  const heroImg = document.getElementById('heroImg');
+
+  function update() {
+    const vh = heroHeight.value;
+    const pos = objPos.value;
+    const fade = fadeHeight.value;
+    const zones = showZones.checked;
+
+    document.getElementById('heroHeightVal').textContent = vh + 'vh';
+    document.getElementById('objPosVal').textContent = pos + '%';
+    document.getElementById('fadeHeightVal').textContent = fade + 'px';
+
+    // Simulate the hero container height as a percentage of viewport
+    const viewH = window.innerHeight;
+    const containerH = viewH * vh / 100;
+    heroPreview.style.height = containerH + 'px';
+    heroImg.style.objectFit = 'cover';
+    heroImg.style.objectPosition = `center ${pos}%`;
+    heroImg.style.height = '115%';
+
+    // Calculate crop math for the real viewport
+    const viewW = window.innerWidth - 64; // account for padding
+    const scaleW = viewW / IMG_W;
+    const scaleH = containerH / IMG_H;
+    const scale = Math.max(scaleW, scaleH);
+    const renderedH = IMG_H * scale;
+    const totalCrop = Math.max(0, renderedH - containerH);
+    const topCrop = totalCrop * (pos / 100);
+    const bottomCrop = totalCrop * (1 - pos / 100);
+
+    const visStart = topCrop / renderedH;
+    const visEnd = 1 - (bottomCrop / renderedH);
+
+    const dogVis = Math.max(0, Math.min(DOG_END, visEnd) - Math.max(DOG_START, visStart)) / (DOG_END - DOG_START) * 100;
+    const bridgeVis = Math.max(0, Math.min(BRIDGE_END, visEnd) - Math.max(BRIDGE_START, visStart)) / (BRIDGE_END - BRIDGE_START) * 100;
+    const cropPct = totalCrop / renderedH * 100;
+
+    // Update stats
+    const dogEl = document.getElementById('dogPct');
+    const bridgeEl = document.getElementById('bridgePct');
+    const cropEl = document.getElementById('cropPct');
+
+    dogEl.textContent = Math.round(dogVis) + '%';
+    dogEl.className = 'stat-value ' + (dogVis >= 90 ? 'good' : dogVis >= 60 ? 'ok' : 'bad');
+
+    bridgeEl.textContent = Math.round(bridgeVis) + '%';
+    bridgeEl.className = 'stat-value ' + (bridgeVis >= 70 ? 'good' : bridgeVis >= 40 ? 'ok' : 'bad');
+
+    cropEl.textContent = Math.round(cropPct) + '%';
+    cropEl.className = 'stat-value ' + (cropPct <= 10 ? 'good' : cropPct <= 20 ? 'ok' : 'bad');
+
+    // Zone overlays
+    const zoneDog = document.getElementById('zoneDog');
+    const zoneBridge = document.getElementById('zoneBridge');
+    const fadePreview = document.getElementById('fadePreview');
+
+    fadePreview.style.height = fade + 'px';
+
+    if (zones) {
+      // Map image zones to container pixel positions
+      const dogTopPx = (DOG_START - visStart) / (visEnd - visStart) * containerH;
+      const dogBotPx = (DOG_END - visStart) / (visEnd - visStart) * containerH;
+      const bridgeTopPx = (BRIDGE_START - visStart) / (visEnd - visStart) * containerH;
+      const bridgeBotPx = (BRIDGE_END - visStart) / (visEnd - visStart) * containerH;
+
+      zoneDog.style.display = 'block';
+      zoneDog.style.top = Math.max(0, dogTopPx) + 'px';
+      zoneDog.style.height = Math.min(containerH, dogBotPx) - Math.max(0, dogTopPx) + 'px';
+
+      zoneBridge.style.display = 'block';
+      zoneBridge.style.top = Math.max(0, bridgeTopPx) + 'px';
+      zoneBridge.style.height = Math.min(containerH, bridgeBotPx) - Math.max(0, bridgeTopPx) + 'px';
+    } else {
+      zoneDog.style.display = 'none';
+      zoneBridge.style.display = 'none';
+    }
+  }
+
+  heroHeight.addEventListener('input', update);
+  objPos.addEventListener('input', update);
+  fadeHeight.addEventListener('input', update);
+  showZones.addEventListener('change', update);
+  window.addEventListener('resize', update);
+
+  // Initial render
+  update();
+</script>
+
+</body>
+</html>

@@ -205,6 +205,18 @@ def get_failures(limit: int = 50, days: int = 30) -> list[dict]:
             "created_at": f["created_at"],
         })
 
+    # Push notification if failure count is above threshold
+    if len(results) >= 5:
+        try:
+            from services.notification_service import notify_fenix_dead_end
+            top_query = results[0]["user_query"] if results else ""
+            notify_fenix_dead_end(
+                failure_count=len(results),
+                top_query=top_query,
+            )
+        except Exception:
+            pass  # Never let notification failure break the dashboard
+
     return results
 
 

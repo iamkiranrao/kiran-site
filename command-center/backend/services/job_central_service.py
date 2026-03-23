@@ -49,8 +49,10 @@ def _load_json(path: str) -> list:
 
 def _save_json(path: str, data):
     _ensure_dir()
-    with open(path, "w") as f:
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(data, f, indent=2)
+    os.replace(tmp_path, path)
 
 
 # ── Application tracking ─────────────────────────────────────────
@@ -187,6 +189,22 @@ def add_interview_debrief(
         "status": "interview",
         "note": f"{interview_type} interview completed",
     })
+
+    # Push notification so Kiran sees the interview in Notification Center
+    try:
+        from services.notification_service import notify_interview_reminder
+        # Look up company and role from the application
+        app = get_application(app_id)
+        company = app.get("company", "Unknown") if app else "Unknown"
+        role = app.get("role", "Unknown") if app else "Unknown"
+        notify_interview_reminder(
+            app_id=app_id,
+            company=company,
+            role=role,
+            interview_type=interview_type,
+        )
+    except Exception:
+        pass  # Never let notification failure break interview logging
 
     return debrief
 

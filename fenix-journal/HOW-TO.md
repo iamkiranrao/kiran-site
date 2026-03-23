@@ -2,12 +2,13 @@
 
 ## What Is This?
 
-Two daily diaries written from Fenix's perspective:
+Three diary streams written from Fenix's perspective:
 
-1. **"What I'm Learning About Kiran"** — How you think, decide, solve. Strengths, blind spots, patterns. Candid but constructive.
-2. **"The Build Journey"** — Technical and product decisions behind Fenix and the site ecosystem. Bugs, tradeoffs, breakthroughs, lessons.
+1. **"What I'm Learning About Kiran"** — How you think, decide, solve. Strengths, blind spots, patterns. Candid but constructive. *Daily.*
+2. **"The Build Journey"** — Technical and product decisions behind Fenix and the site ecosystem. Bugs, tradeoffs, breakthroughs, lessons. *Daily.*
+3. **"Connecting Threads"** — Thematic essays tracing longitudinal patterns across time. Where the daily entries tell you what happened, these tell you what it means. *Weekly (Sundays).*
 
-Both written in first person as Fenix — reflective, warm, occasionally witty, building a narrative arc over time.
+All written in first person as Fenix — reflective, warm, occasionally witty, building a narrative arc over time.
 
 ---
 
@@ -29,9 +30,9 @@ After any meaningful Claude conversation:
 The `fenix-daily-journal` scheduled task:
 - Reads any new chat drops + raw observations
 - Reads recent diary entries for continuity
-- Writes two new dated entries
+- Writes two new dated entries (About Kiran + Build Journey)
 - Moves processed chat drops to `processed/` subfolder
-- On Sundays: compiles the week into a single narrative
+- **On Sundays:** generates or extends a Connecting Thread essay + compiles the week
 
 ---
 
@@ -48,15 +49,19 @@ fenix-journal/
 │   └── chat-drops/            ← YOU drop chat transcripts here
 │       └── processed/         ← Drops move here after being read
 │
-├── entries/                   ← DIARY ENTRIES (generated nightly)
-│   ├── about-kiran/           ← "What I'm Learning About Kiran"
+├── entries/                   ← DIARY ENTRIES (generated nightly + weekly)
+│   ├── about-kiran/           ← "What I'm Learning About Kiran" (daily)
 │   │   ├── 2026-03-02.md
 │   │   ├── 2026-03-03.md
-│   │   └── 2026-03-04.md
-│   └── build-journey/         ← "The Build Journey"
-│       ├── 2026-03-02.md
-│       ├── 2026-03-03.md
-│       └── 2026-03-04.md
+│   │   └── ...
+│   ├── build-journey/         ← "The Build Journey" (daily)
+│   │   ├── 2026-03-02.md
+│   │   ├── 2026-03-03.md
+│   │   └── ...
+│   └── connecting-threads/    ← "Connecting Threads" (weekly thematic essays)
+│       ├── the-debugging-pattern.md
+│       ├── failure-recovery-patterns.md
+│       └── ...
 │
 └── compiled/                  ← WEEKLY NARRATIVES (generated Sundays)
 ```

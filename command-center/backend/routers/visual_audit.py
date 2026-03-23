@@ -9,7 +9,7 @@ Endpoints:
 """
 
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from models.visual_audit import VisualAuditRequest
 
 from services.visual_audit_service import (
     get_visual_rules,
@@ -18,28 +18,20 @@ from services.visual_audit_service import (
     visual_audit_all,
 )
 
-
 router = APIRouter()
 
-
-class VisualAuditRequest(BaseModel):
-    file_path: str
-
-
-@router.get("/rules")
+@router.get("/rules", response_model=dict)
 async def view_visual_rules():
     """Return visual rules from CONTENT-RULES.md."""
     return {"rules": get_visual_rules()}
 
-
-@router.get("/files")
+@router.get("/files", response_model=dict)
 async def view_files():
     """Return list of all auditable site files."""
     files = list_auditable_files()
     return {"count": len(files), "files": files}
 
-
-@router.post("/audit")
+@router.post("/audit", response_model=dict)
 async def run_visual_audit(req: VisualAuditRequest):
     """Audit a single file for visual rule violations."""
     result = visual_audit_file(req.file_path)
@@ -47,8 +39,7 @@ async def run_visual_audit(req: VisualAuditRequest):
         raise HTTPException(status_code=404, detail=result["error"])
     return result
 
-
-@router.post("/audit-all")
+@router.post("/audit-all", response_model=dict)
 async def run_full_visual_audit():
     """Audit all site files for visual violations - full scan."""
     return visual_audit_all()

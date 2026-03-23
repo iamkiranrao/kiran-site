@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persona Picker   Final Layout (Option B)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a1410;
+    color: #e8dcc8;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ========== FULL-BLEED HERO ========== */
+  .hero {
+    width: 100%;
+    height: 65vh;
+    min-height: 500px;
+    max-height: 720px;
+    background: linear-gradient(135deg, #3d2e1e 0%, #5a4230 30%, #4a3525 60%, #3d2e1e 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Fake studio scene elements */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 40% 60% at 25% 55%, rgba(232,164,74,0.08) 0%, transparent 100%),
+      radial-gradient(ellipse 30% 40% at 75% 40%, rgba(232,164,74,0.06) 0%, transparent 100%),
+      radial-gradient(ellipse 15% 20% at 60% 70%, rgba(91,191,186,0.04) 0%, transparent 100%);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .hero-wireframe-label {
+    font-size: 14px;
+    color: rgba(232,164,74,0.4);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .hero-dimension {
+    font-size: 36px;
+    color: rgba(232,164,74,0.25);
+    font-weight: 200;
+    letter-spacing: 2px;
+  }
+  .hero-sublabel {
+    font-size: 13px;
+    color: rgba(232,164,74,0.3);
+    margin-top: 6px;
+  }
+
+  /* Desk silhouette at bottom */
+  .desk-silhouette {
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    width: 55%;
+    height: 30%;
+    background: rgba(232,164,74,0.03);
+    border-radius: 8px 8px 0 0;
+    border: 1px solid rgba(232,164,74,0.04);
+    border-bottom: none;
+  }
+  .monitor-silhouette {
+    position: absolute;
+    bottom: 25%;
+    left: 15%;
+    width: 18%;
+    height: 20%;
+    background: rgba(91,191,186,0.03);
+    border-radius: 4px;
+    border: 1px solid rgba(232,164,74,0.04);
+  }
+  .dog-silhouette {
+    position: absolute;
+    bottom: 5%;
+    right: 12%;
+    width: 14%;
+    height: 10%;
+    background: rgba(232,164,74,0.04);
+    border-radius: 50% 50% 40% 40%;
+    border: 1px solid rgba(232,164,74,0.04);
+  }
+
+  /* Bottom fade to transition into persona section */
+  .hero-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(transparent, #1a1410);
+    z-index: 2;
+  }
+
+  /* Dimension annotations */
+  .dim-annotation {
+    position: absolute;
+    z-index: 10;
+    font-size: 10px;
+    color: rgba(232,164,74,0.5);
+    background: rgba(26,20,16,0.85);
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(232,164,74,0.2);
+    white-space: nowrap;
+  }
+  .dim-annotation.hero-width {
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .dim-annotation.hero-height {
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+  }
+  .dim-annotation.fold {
+    bottom: -14px;
+    right: 20px;
+    color: #e06b7a;
+    border-color: rgba(224,107,122,0.3);
+  }
+
+  /* ========== PERSONA SECTION ========== */
+  .persona-section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+    position: relative;
+  }
+
+  /* Two-line lead-in */
+  .lead-hook {
+    text-align: center;
+    font-size: 26px;
+    color: #e8dcc8;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .lead-cta {
+    text-align: center;
+    font-size: 15px;
+    color: #a08868;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 32px;
+  }
+
+  /* ========== CARD GRID   2×3 LANDSCAPE ========== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    aspect-ratio: 16/10;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    border-color: rgba(255,255,255,0.12);
+  }
+
+  /* Accent glow on hover */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 18px;
+    opacity: 0;
+    transition: opacity 0.35s;
+    z-index: -1;
+  }
+  .card:hover::after {
+    opacity: 1;
+  }
+
+  /* Card background gradient */
+  .card-bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* CHARACTER IMAGE AREA   left 38% */
+  .card-character {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 38%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .card-character-placeholder {
+    width: 75%;
+    height: 80%;
+    border-radius: 45% 45% 35% 35%;
+    border: 2px dashed rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .card-character-placeholder span {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .card-character-placeholder .mj-label {
+    font-size: 9px;
+    color: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.04);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  /* Gradient fade from character to text area */
+  .card-character-fade {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    width: 15%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  /* TEXT AREA   right 62% */
+  .card-text {
+    position: absolute;
+    top: 0;
+    left: 38%;
+    right: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px 20px 16px 12px;
+    z-index: 2;
+  }
+
+  .card-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .card-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+    letter-spacing: 0.3px;
+  }
+  .card-title {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+  .card-divider {
+    width: 30px;
+    height: 2px;
+    margin-bottom: 10px;
+    border-radius: 1px;
+    opacity: 0.5;
+  }
+  .card-hook {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+  }
+
+  /* ========== PERSONA COLORS ========== */
+  .evaluator .card-bg {
+    background: linear-gradient(135deg, #141c30 0%, #1a2844 40%, #1e3050 100%);
+  }
+  .evaluator .card-tag { color: #6e8ef7; }
+  .evaluator .card-divider { background: #6e8ef7; }
+  .evaluator .card-character-fade {
+    background: linear-gradient(to right, transparent, #1a2844);
+  }
+  .evaluator::after { box-shadow: 0 0 30px rgba(110,142,247,0.15); }
+  .evaluator .card-character { background: radial-gradient(circle at 50% 40%, rgba(110,142,247,0.08), transparent 70%); }
+
+  .seeker .card-bg {
+    background: linear-gradient(135deg, #2a1f12 0%, #36281a 40%, #3d2e1e 100%);
+  }
+  .seeker .card-tag { color: #e8a44a; }
+  .seeker .card-divider { background: #e8a44a; }
+  .seeker .card-character-fade {
+    background: linear-gradient(to right, transparent, #36281a);
+  }
+  .seeker::after { box-shadow: 0 0 30px rgba(232,164,74,0.15); }
+  .seeker .card-character { background: radial-gradient(circle at 50% 40%, rgba(232,164,74,0.08), transparent 70%); }
+
+  .practitioner .card-bg {
+    background: linear-gradient(135deg, #121e1e 0%, #1a2e2d 40%, #1e3635 100%);
+  }
+  .practitioner .card-tag { color: #5bbfba; }
+  .practitioner .card-divider { background: #5bbfba; }
+  .practitioner .card-character-fade {
+    background: linear-gradient(to right, transparent, #1a2e2d);
+  }
+  .practitioner::after { box-shadow: 0 0 30px rgba(91,191,186,0.15); }
+  .practitioner .card-character { background: radial-gradient(circle at 50% 40%, rgba(91,191,186,0.08), transparent 70%); }
+
+  .learner .card-bg {
+    background: linear-gradient(135deg, #1e1428 0%, #281c38 40%, #2e2040 100%);
+  }
+  .learner .card-tag { color: #c07edb; }
+  .learner .card-divider { background: #c07edb; }
+  .learner .card-character-fade {
+    background: linear-gradient(to right, transparent, #281c38);
+  }
+  .learner::after { box-shadow: 0 0 30px rgba(192,126,219,0.15); }
+  .learner .card-character { background: radial-gradient(circle at 50% 40%, rgba(192,126,219,0.08), transparent 70%); }
+
+  .explorer .card-bg {
+    background: linear-gradient(135deg, #281418 0%, #361c22 40%, #3e2028 100%);
+  }
+  .explorer .card-tag { color: #e06b7a; }
+  .explorer .card-divider { background: #e06b7a; }
+  .explorer .card-character-fade {
+    background: linear-gradient(to right, transparent, #361c22);
+  }
+  .explorer::after { box-shadow: 0 0 30px rgba(224,107,122,0.15); }
+  .explorer .card-character { background: radial-gradient(circle at 50% 40%, rgba(224,107,122,0.08), transparent 70%); }
+
+  .innercircle .card-bg {
+    background: linear-gradient(135deg, #2a1e14 0%, #36281c 40%, #3d2e20 100%);
+  }
+  .innercircle .card-tag { color: #d4a574; }
+  .innercircle .card-divider { background: #d4a574; }
+  .innercircle .card-character-fade {
+    background: linear-gradient(to right, transparent, #36281c);
+  }
+  .innercircle::after { box-shadow: 0 0 30px rgba(212,165,116,0.15); }
+  .innercircle .card-character { background: radial-gradient(circle at 50% 40%, rgba(212,165,116,0.08), transparent 70%); }
+
+  /* ========== ANNOTATIONS OVERLAY ========== */
+  .annotations-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    background: rgba(232,164,74,0.15);
+    border: 1px solid rgba(232,164,74,0.3);
+    color: #e8a44a;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .annotations-toggle:hover {
+    background: rgba(232,164,74,0.25);
+  }
+
+  .annotation {
+    position: absolute;
+    font-size: 10px;
+    color: rgba(232,164,74,0.6);
+    background: rgba(26,20,16,0.9);
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(232,164,74,0.25);
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .annotations-off .annotation,
+  .annotations-off .dim-annotation,
+  .annotations-off .fold-indicator,
+  .annotations-off .hero-wireframe-label,
+  .annotations-off .hero-dimension,
+  .annotations-off .hero-sublabel,
+  .annotations-off .card-character-placeholder .mj-label,
+  .annotations-off .stats-bar {
+    opacity: 0 !important;
+  }
+
+  /* Card dimension annotation */
+  .card-dim {
+    top: 6px;
+    right: 6px;
+  }
+
+  /* Stats bar at bottom */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 24px;
+    font-size: 11px;
+    color: rgba(232,164,74,0.4);
+  }
+  .stats-bar span {
+    background: rgba(232,164,74,0.05);
+    padding: 4px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(232,164,74,0.08);
+  }
+
+  /* Fold indicator */
+  .fold-indicator {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-top: 2px dashed rgba(224,107,122,0.3);
+    z-index: 20;
+    pointer-events: none;
+  }
+  .fold-indicator span {
+    position: absolute;
+    right: 16px;
+    top: -12px;
+    font-size: 10px;
+    color: #e06b7a;
+    background: #1a1410;
+    padding: 2px 8px;
+  }
+
+  /* ========== RESPONSIVE PREVIEW ========== */
+  @media (max-width: 900px) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
+    .lead-hook { font-size: 20px; }
+    .card { aspect-ratio: 16/9; }
+  }
+</style>
+<link rel="canonical" href="https://kirangorapalli.com/persona-layout-v2-wireframe.html">
+</head>
+<body>
+
+<button class="annotations-toggle" onclick="toggleAnnotations()">Toggle Annotations</button>
+
+<!-- ========== HERO   FULL BLEED, 65vh ========== -->
+<div class="hero">
+  <div class="dim-annotation hero-width">← 100vw full bleed   Runway Gen-4 animates at 1920×1080 (16:9) →</div>
+  <div class="dim-annotation hero-height">65vh (~680px)</div>
+
+  <div class="hero-inner">
+    <div class="hero-wireframe-label">Animated Pixar Studio Scene</div>
+    <div class="hero-dimension">1920 × 1080</div>
+    <div class="hero-sublabel">Runway Gen-4 looping video · 16:9 · full bleed</div>
+  </div>
+
+  <!-- Studio scene silhouettes -->
+  <div class="desk-silhouette"></div>
+  <div class="monitor-silhouette"></div>
+  <div class="dog-silhouette"></div>
+
+  <div class="hero-fade"></div>
+</div>
+
+<!-- Fold line at ~850px viewport height -->
+<div style="position: relative; max-width: 1280px; margin: 0 auto;">
+  <div class="fold-indicator" style="top: 0;">
+    <span>↑ ~850px viewport fold   top row of cards visible</span>
+  </div>
+</div>
+
+<!-- ========== PERSONA PICKER SECTION ========== -->
+<div class="persona-section">
+
+  <!-- Two-line lead-in -->
+  <div class="lead-hook">This site reshapes itself around you.</div>
+  <div class="lead-cta">Pick the lens that fits   the whole experience changes.</div>
+
+  <!-- 2×3 Landscape Card Grid -->
+  <div class="card-grid">
+
+    <!-- EVALUATOR -->
+    <div class="card evaluator">
+      <div class="card-bg"></div>
+      <div class="annotation card-dim">~400 × 250px · 16:10</div>
+      <div class="card-character">
+        <div class="card-character-placeholder">
+          <span>Midjourney<br>character</span>
+          <span class="mj-label">~square crop</span>
+        </div>
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Evaluator</div>
+        <div class="card-name">Hunter Voss</div>
+        <div class="card-title">Talent Lead at FitCheck</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"I've got a Job to be Done   is Kiran my guy?"</div>
+      </div>
+    </div>
+
+    <!-- SEEKER -->
+    <div class="card seeker">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <div class="card-character-placeholder">
+          <span>Midjourney<br>character</span>
+          <span class="mj-label">~square crop</span>
+        </div>
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Seeker</div>
+        <div class="card-name">Quest Parekh</div>
+        <div class="card-title">Founder at GapBridge</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"I need a force multiplier, not another consultant."</div>
+      </div>
+    </div>
+
+    <!-- PRACTITIONER -->
+    <div class="card practitioner">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <div class="card-character-placeholder">
+          <span>Midjourney<br>character</span>
+          <span class="mj-label">~square crop</span>
+        </div>
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Practitioner</div>
+        <div class="card-name">Mei Craft</div>
+        <div class="card-title">VP Product at Shipwright</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"Frameworks, first principles, and strong opinions   my kind of thing."</div>
+      </div>
+    </div>
+
+    <!-- LEARNER -->
+    <div class="card learner">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <div class="card-character-placeholder">
+          <span>Midjourney<br>character</span>
+          <span class="mj-label">~square crop</span>
+        </div>
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Learner</div>
+        <div class="card-name">Sage Minto</div>
+        <div class="card-title">Associate PM at LadderUp</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"I learn best from war stories, not textbooks."</div>
+      </div>
+    </div>
+
+    <!-- EXPLORER -->
+    <div class="card explorer">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <div class="card-character-placeholder">
+          <span>Midjourney<br>character</span>
+          <span class="mj-label">~square crop</span>
+        </div>
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Explorer</div>
+        <div class="card-name">Wren Atlas</div>
+        <div class="card-title">Freelance Curious</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"I followed a breadcrumb and now I'm curious."</div>
+      </div>
+    </div>
+
+    <!-- INNER CIRCLE -->
+    <div class="card innercircle">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <div class="card-character-placeholder">
+          <span>Midjourney<br>character</span>
+          <span class="mj-label">~square crop</span>
+        </div>
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Inner Circle</div>
+        <div class="card-name">Kai Anand</div>
+        <div class="card-title">Old Friend</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"Skip the pitch   we go way back."</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="stats-bar">
+    <span>Hero: 100vw × 65vh (~1920×680 visible)</span>
+    <span>Cards: ~400 × 250px each (16:10)</span>
+    <span>Grid: 2 rows × 3 cols · ~520px total grid height</span>
+    <span>Full section: ~1400px total scroll</span>
+  </div>
+</div>
+
+<script>
+function toggleAnnotations() {
+  document.body.classList.toggle('annotations-off');
+}
+</script>
+
+</body>
+</html>

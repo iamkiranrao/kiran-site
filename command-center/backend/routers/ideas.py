@@ -10,14 +10,13 @@ from datetime import datetime, timezone
 from typing import Optional, List
 
 from fastapi import APIRouter, HTTPException, Query
-from pydantic import BaseModel
+from models.ideas import IdeaCreate, IdeaUpdate
 
 from utils.config import data_dir
 
 router = APIRouter()
 
 IDEAS_FILE = os.path.join(data_dir("ideas"), "ideas.json")
-
 
 # ── Helpers ──────────────────────────────────────────────────────
 
@@ -27,37 +26,16 @@ def _load() -> list:
             return json.load(f)
     return []
 
-
 def _save(data: list):
     os.makedirs(os.path.dirname(IDEAS_FILE), exist_ok=True)
     with open(IDEAS_FILE, "w") as f:
         json.dump(data, f, indent=2)
 
-
 # ── Models ───────────────────────────────────────────────────────
-
-class IdeaCreate(BaseModel):
-    title: str
-    description: str = ""
-    category: str = "general"           # e.g. "job-radar", "resume", "fenix", "infra", "general"
-    priority: str = "medium"            # low, medium, high
-    estimated_effort: str = ""          # e.g. "small", "medium", "large", "XL"
-    tags: List[str] = []
-
-class IdeaUpdate(BaseModel):
-    title: Optional[str] = None
-    description: Optional[str] = None
-    category: Optional[str] = None
-    priority: Optional[str] = None
-    status: Optional[str] = None        # backlog, in-progress, done, parked
-    estimated_effort: Optional[str] = None
-    tags: Optional[List[str]] = None
-    notes: Optional[str] = None
-
 
 # ── Endpoints ────────────────────────────────────────────────────
 
-@router.get("/")
+@router.get("/", response_model=dict)
 def list_ideas(
     category: Optional[str] = None,
     status: Optional[str] = None,
@@ -78,8 +56,7 @@ def list_ideas(
 
     return {"ideas": ideas, "total": len(ideas)}
 
-
-@router.post("/")
+@router.post("/", response_model=dict)
 def create_idea(body: IdeaCreate):
     """Create a new idea."""
     ideas = _load()
@@ -100,8 +77,7 @@ def create_idea(body: IdeaCreate):
     _save(ideas)
     return idea
 
-
-@router.put("/{idea_id}")
+@router.put("/{idea_id}", response_model=dict)
 def update_idea(idea_id: str, body: IdeaUpdate):
     """Update an existing idea."""
     ideas = _load()
@@ -114,8 +90,7 @@ def update_idea(idea_id: str, body: IdeaUpdate):
             return idea
     raise HTTPException(status_code=404, detail="Idea not found")
 
-
-@router.delete("/{idea_id}")
+@router.delete("/{idea_id}", response_model=dict)
 def delete_idea(idea_id: str):
     """Delete an idea."""
     ideas = _load()
@@ -125,8 +100,7 @@ def delete_idea(idea_id: str):
     _save(filtered)
     return {"deleted": idea_id}
 
-
-@router.get("/categories")
+@router.get("/categories", response_model=dict)
 def list_categories():
     """Return distinct categories and their counts."""
     ideas = _load()

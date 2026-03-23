@@ -23,50 +23,20 @@ from collections import Counter
 from typing import Optional, Dict, List, Tuple
 from docx import Document
 
+from services.governance_loader import (
+    HARD_BANNED, SOFT_BANNED, AI_LANGUAGE, BUZZWORDS,
+    ANTI_PATTERNS, FILLER_PATTERNS,
+    ATS_HEADERS, PM_KEYWORDS, VERB_CATEGORIES,
+)
 
-# ── Constants ──────────────────────────────────────────────────────────
 
-HARD_BANNED = [
-    "orchestrated", "spearheaded", "championed", "pioneered",
-    "seasoned", "comprehensive", "leveraged", "synergized",
-]
-SOFT_BANNED = [
-    "architected", "streamlined", "revolutionized",
-    "transformed", "empowered", "optimized",
-]
-AI_LANGUAGE = [
-    "delve", "landscape", "multifaceted", "game-changer",
-    "compelling", "robust", "holistic",
-]
-BUZZWORDS = [
-    "leverage", "synergy", "paradigm", "ecosystem",
-    "scalable solution", "cutting-edge", "best-in-class", "empower",
-]
-ANTI_PATTERNS = [
-    "results-driven", "dynamic", "passionate about",
-    "dedicated to", "seeking",
-]
-FILLER_PATTERNS = [
-    r"\bvery\b", r"\breally\b", r"\bextremely\b",
-    r"\bincredibly\b", r"\bhighly\b",
-]
+# ── Verb sets (derived from governance config) ────────────────────────
 
-ATS_HEADERS = [
-    "experience", "education", "skills", "summary",
-    "competencies", "certifications",
-]
-
-PM_KEYWORDS = [
-    "roadmap", "cross-functional", "stakeholder", "a/b test",
-    "user research", "data-driven", "gtm", "p&l", "okr",
-    "experimentation",
-]
-
-IMPACT_VERBS = {"Drove", "Grew", "Increased", "Expanded", "Scaled", "Cut", "Reduced"}
-CREATION_VERBS = {"Built", "Designed", "Created", "Shipped", "Launched", "Introduced", "Developed"}
-LEADERSHIP_VERBS = {"Led", "Managed", "Owned", "Ran", "Directed", "Oversaw"}
-EXECUTION_VERBS = {"Delivered", "Deployed", "Migrated", "Integrated", "Implemented", "Established", "Executed"}
-STRATEGY_VERBS = {"Defined", "Restructured", "Repositioned", "Consolidated", "Negotiated", "Reworked"}
+IMPACT_VERBS = set(VERB_CATEGORIES.get("impact", ["Drove", "Grew", "Increased", "Expanded", "Scaled", "Cut", "Reduced"]))
+CREATION_VERBS = set(VERB_CATEGORIES.get("creation", ["Built", "Designed", "Created", "Shipped", "Launched", "Introduced", "Developed"]))
+LEADERSHIP_VERBS = set(VERB_CATEGORIES.get("leadership", ["Led", "Managed", "Owned", "Ran", "Directed", "Oversaw"]))
+EXECUTION_VERBS = set(VERB_CATEGORIES.get("execution", ["Delivered", "Deployed", "Migrated", "Integrated", "Implemented", "Established", "Executed"]))
+STRATEGY_VERBS = set(VERB_CATEGORIES.get("strategy", ["Defined", "Restructured", "Repositioned", "Consolidated", "Negotiated", "Reworked"]))
 
 
 # ── Helpers ────────────────────────────────────────────────────────────

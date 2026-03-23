@@ -202,7 +202,7 @@
         }
 
         /* Chevron */
-        .cert-chevron {
+        .wf-cert-chevron {
             width: 20px;
             height: 20px;
             flex-shrink: 0;
@@ -214,7 +214,7 @@
             transition: transform 0.3s ease, stroke 0.3s ease;
             margin-top: 0.25rem;
         }
-        .cert-card.open .cert-chevron {
+        .cert-card.open .wf-cert-chevron {
             transform: rotate(180deg);
             stroke: var(--text-primary);
         }
@@ -446,10 +446,10 @@
         <div class="nav-container">
             <div class="nav-right">
                 <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
-                    <svg class="moon-icon" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" class="wf-moon-icon" viewBox="0 0 24 24">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                    <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display: none;">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
                         <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -462,7 +462,7 @@
                     </svg>
                 </button>
                 <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
-                    <svg class="share-icon" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" class="wf-share-icon" viewBox="0 0 24 24">
                         <circle cx="18" cy="5" r="3"></circle>
                         <circle cx="6" cy="12" r="3"></circle>
                         <circle cx="18" cy="19" r="3"></circle>
@@ -521,14 +521,14 @@
                             <span class="cert-tag">Go-to-Market</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">An eight-week executive program that integrates AI into every stage of the product lifecycle. Learned to use generative AI for opportunity analysis, stress-testing assumptions, simulating customer segments, and developing messaging. The biggest shift was moving from thinking about AI as a feature to treating it as a strategic lens across vision, discovery, roadmapping, and growth.</div>
+                                <div class="cert-detail-text">Eight-week program on AI strategy in product. Covered using AI for analysis, testing ideas, understanding customers, and messaging. Key insight: AI is a strategic approach, not just a feature.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -546,7 +546,7 @@
                         </div>
                         <div class="cert-capstone">
                             <div class="cert-capstone-label">Capstone</div>
-                            <div class="cert-capstone-text">Developed AI-supported strategy artifacts across the full product lifecycle - from vision and opportunity analysis through GTM and monetization - using generative AI to simulate customer segments, stress-test assumptions, and build a defensible product roadmap.</div>
+                            <div class="cert-capstone-text">Built AI-driven strategy documents from vision through launch. Used AI to model customers, test ideas, and create a solid roadmap.</div>
                         </div>
                     </div>
                 </div>
@@ -565,14 +565,14 @@
                             <span class="cert-tag">Python</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">How to acquire, clean, analyze, and visualize data to drive real decisions. The bootcamp took a hands-on approach to turning raw datasets into clear narratives - from writing SQL queries and building Excel models to creating Tableau dashboards and Python scripts. Sharpened my ability to frame data as a story that informs product and business strategy.</div>
+                                <div class="cert-detail-text">Hands-on bootcamp on getting data to drive decisions. Learned SQL, Excel, Tableau, and Python. Focused on turning raw data into clear stories for products and business.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -590,7 +590,7 @@
                         </div>
                         <div class="cert-capstone">
                             <div class="cert-capstone-label">Capstone</div>
-                            <div class="cert-capstone-text">Selected a real-world dataset, crafted a problem statement, and applied the full analytics workflow - data collection, cleaning, analysis, and visualization - to solve it. Prepared technical documentation and delivered a stakeholder presentation communicating findings and recommendations.</div>
+                            <div class="cert-capstone-text">Picked a real dataset, set a problem, and solved it with data. Cleaned, analyzed, and visualized the data. Presented findings to stakeholders.</div>
                         </div>
                     </div>
                 </div>
@@ -609,14 +609,14 @@
                             <span class="cert-tag">Facilitation</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">The difference between doing Scrum and being agile. The certification deepened my understanding of sprint mechanics, but the real value was learning how to remove blockers and create space for engineering teams to do their best work. Changed how I think about the PM's role in ceremonies.</div>
+                                <div class="cert-detail-text">Scrum vs being truly agile. Learned sprint mechanics and how to unblock teams. Key shift: the PM's role is creating space for engineers to excel, not managing ceremony details.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -652,14 +652,14 @@
                             <span class="cert-tag">Competitive Analysis</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">How to assess the robustness of a business strategy using McKinsey's Strategy Method. Covered frameworks for evaluating competitive positioning, identifying where to play and how to win, and stress-testing strategic assumptions. Sharpened my ability to connect product decisions to broader business strategy and communicate them in terms leadership teams actually care about.</div>
+                                <div class="cert-detail-text">McKinsey's Strategy Method: evaluating competitive position, deciding where to play and how to win. Learned to connect product decisions to business strategy in language leadership understands.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -675,7 +675,7 @@
                         </div>
                         <div class="cert-capstone">
                             <div class="cert-capstone-label">Certification</div>
-                            <div class="cert-capstone-text">Completed McKinsey Academy's Business Strategy digital learning program, demonstrating the ability to assess strategy robustness and apply McKinsey's Strategy Method to real business challenges.</div>
+                            <div class="cert-capstone-text">Completed McKinsey Academy's Business Strategy digital learning program, demonstrating the ability to assess strategy strength and apply McKinsey's Strategy Method to real business challenges.</div>
                         </div>
                     </div>
                 </div>
@@ -695,14 +695,14 @@
                             <span class="cert-tag">Self-Leadership</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">A toolkit for leading through ambiguity - building adaptability and resilience, sharpening problem solving for real impact, and helping organizations set and execute business strategy. The self-leadership module was especially valuable, reframing how I navigate my career while staying authentic. Part of McKinsey's Connected Leaders Academy designed for Asian professionals in management roles.</div>
+                                <div class="cert-detail-text">Tools for leading through uncertainty: adaptability, resilience, problem-solving, and strategy execution. Self-leadership module reframed how I navigate my career while staying authentic. Part of McKinsey's Connected Leaders Academy for Asian professionals in management.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -738,14 +738,14 @@
                             <span class="cert-tag">Synthesis</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">McKinsey's approach to structured problem solving - how to define challenging problems clearly, prioritize the right issues, build hypothesis-driven analyses, synthesize findings, and develop actionable recommendations. Changed how I break down ambiguous product challenges and present solutions to stakeholders with clarity and conviction.</div>
+                                <div class="cert-detail-text">McKinsey's problem-solving approach: define issues clearly, prioritize, build hypothesis-driven analysis, synthesize findings. Directly shaped how I break down ambiguous product challenges and present solutions with clarity.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -781,14 +781,14 @@
                             <span class="cert-tag">Customer Advocacy</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">Foundational themes across the entire product development lifecycle - from defining product strategy to customer advocacy to building platforms. An eight-part speaker series featuring leaders from companies like DoorDash, The New York Times, Twilio, and Microsoft. Reinforced that product management is about solving customer problems and creating outcomes, not just shipping features. Also explored how AI is reshaping product workflows and decision-making.</div>
+                                <div class="cert-detail-text">Product development fundamentals: strategy, customer advocacy, building platforms. Eight-part series with leaders from DoorDash, The New York Times, Twilio, Microsoft. Core insight: product management is about solving problems and outcomes, not just shipping. Also covered how AI is reshaping product work.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -824,14 +824,14 @@
                             <span class="cert-tag">Prosci 3-Phase</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">That shipping a product is only half the job - the other half is getting people to actually use it. The Prosci 3-Phase Process (Prepare Approach, Manage Change, Sustain Outcomes) and ADKAR model (Awareness, Desire, Knowledge, Ability, Reinforcement) gave me a structured way to think about adoption, resistance, and reinforcement. Learned to build sponsor coalitions, run readiness assessments, and develop change management plans tied to real project timelines. Directly shaped how I approach rollouts, especially for internal tools and platform changes where user buy-in isn't automatic.</div>
+                                <div class="cert-detail-text">Shipping is half the job. Getting people to use it is the other half. Learned Prosci's 3-Phase Process and ADKAR model for adoption. Build sponsor coalitions, run readiness assessments, create change plans. Reshaped how I approach rollouts, especially internal tools where buy-in isn't automatic.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -869,14 +869,14 @@
                             <span class="cert-tag">DevOps</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">How to treat APIs as products with their own lifecycle - from design and deployment through documentation and monetization. Covered product thinking for API consumers, publishing and versioning strategies, building documentation for different audiences (machines, developers, and designers), and how DevOps practices support API scalability and evolvability. Gave me the framework to drive API strategy conversations with engineering and think about developer experience as a core product concern.</div>
+                                <div class="cert-detail-text">APIs are products. Learned design, deployment, documentation, and monetization. How to version, document for different audiences, and talk API strategy with engineers. Developer experience is a core product concern.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -914,14 +914,14 @@
                             <span class="cert-tag">IaaS/PaaS/SaaS</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">A foundational understanding of Azure's cloud ecosystem and how it maps to real product and infrastructure decisions. Covered core services like VMs, Virtual Networks, and Azure Storage alongside governance tools like Azure Policy and Cost Management. Gave me the fluency to evaluate Azure-based architecture proposals and understand trade-offs between IaaS, PaaS, and SaaS when scoping product builds.</div>
+                                <div class="cert-detail-text">Azure cloud fundamentals: VMs, networks, storage, governance tools. Gained fluency to evaluate Azure proposals and understand IaaS/PaaS/SaaS trade-offs when building products.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -958,14 +958,14 @@
                             <span class="cert-tag">BigQuery</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">How Google Cloud approaches digital transformation and where its platform fits in the broader cloud landscape. Covered data transformation with BigQuery and Cloud Storage, AI and ML capabilities through Vertex AI, and infrastructure modernization with GKE and Cloud Run. The real value was understanding how to articulate cloud solutions in business terms - connecting technical capabilities to organizational goals.</div>
+                                <div class="cert-detail-text">Google Cloud for transformation: BigQuery and Cloud Storage for data, Vertex AI for ML, GKE and Cloud Run for infrastructure. Key skill: translate cloud capabilities into business value and organizational goals.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -1002,14 +1002,14 @@
                             <span class="cert-tag">EC2 / S3 / Lambda</span>
                         </div>
                     </div>
-                    <svg class="cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg aria-hidden="true" class="wf-cert-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
                 <div class="cert-detail">
                     <div class="cert-detail-inner">
                         <div class="cert-detail-grid">
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">What I Learned</div>
-                                <div class="cert-detail-text">Enough AWS infrastructure to be dangerous - in a good way. Understanding how services like EC2, S3, Lambda, and RDS actually work made me a better product partner to engineering. Covered the shared responsibility model, Well-Architected Framework, and cost optimization strategies. I can now participate in architecture discussions, understand billing implications of design decisions, and speak the same language as the teams building the systems.</div>
+                                <div class="cert-detail-text">AWS fundamentals: EC2, S3, Lambda, RDS. Learned shared responsibility model and cost optimization. Now I can discuss architecture, understand billing impacts, and partner effectively with engineering teams.</div>
                             </div>
                             <div class="cert-detail-block">
                                 <div class="cert-detail-label">Skills Covered</div>
@@ -1039,23 +1039,23 @@
     <footer>
         <div class="footer-social">
             <div class="social-links">
-                <a href="https://linkedin.com/in/kirangorapalli" class="social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+                <a href="https://linkedin.com/in/kirangorapalli" class="wf-social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
                 </a>
-                <a href="https://github.com/iamkiranrao" class="social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                <a href="https://github.com/iamkiranrao" class="wf-social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
                 </a>
-                <a href="https://youtube.com/@kirangorapalli" class="social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                <a href="https://youtube.com/@kirangorapalli" class="wf-social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
                 </a>
-                <a href="https://flickr.com/photos/kirangorapalli" class="social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg>
+                <a href="https://flickr.com/photos/kirangorapalli" class="wf-social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg>
                 </a>
-                <a href="https://open.spotify.com/user/kirangorapalli" class="social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg>
+                <a href="https://open.spotify.com/user/kirangorapalli" class="wf-social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg>
                 </a>
-                <a href="https://substack.com/@kirangorapalli" class="social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg>
+                <a href="https://substack.com/@kirangorapalli" class="wf-social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg>
                 </a>
             </div>
         </div>

@@ -22,6 +22,7 @@ import shutil
 import zipfile
 import asyncio
 import logging
+import tempfile
 from typing import AsyncGenerator, List, Optional
 from docx import Document
 
@@ -267,8 +268,10 @@ def _save_proposal(job_id: str, data: dict) -> None:
     """Save proposal + metadata to job dir."""
     job_dir = os.path.join(JOBS_DIR, job_id)
     path = os.path.join(job_dir, "_proposal.json")
-    with open(path, "w") as f:
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(data, f, indent=2)
+    os.replace(tmp_path, path)
 
 
 def _load_proposal(job_id: str) -> Optional[dict]:
@@ -303,8 +306,10 @@ def _load_tracker() -> list:
 def _save_tracker(entries: list) -> None:
     """Save the application tracker index."""
     os.makedirs(os.path.dirname(TRACKER_PATH), exist_ok=True)
-    with open(TRACKER_PATH, "w") as f:
+    tmp_path = TRACKER_PATH + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(entries, f, indent=2)
+    os.replace(tmp_path, TRACKER_PATH)
 
 
 def add_tracker_entry(entry: dict) -> None:

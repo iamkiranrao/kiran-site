@@ -18,7 +18,7 @@ import sys
 import shutil
 from pathlib import Path
 from datetime import datetime
-from anthropic import Anthropic
+from services.claude_client import create_client
 
 # ── Paths ──────────────────────────────────────────────────────────
 
@@ -49,7 +49,7 @@ def get_claude():
                     api_key = line.split("=", 1)[1].strip().strip('"')
     if not api_key:
         raise RuntimeError("No ANTHROPIC_API_KEY found")
-    return Anthropic(api_key=api_key)
+    return create_client(api_key)
 
 
 # ── Helpers ────────────────────────────────────────────────────────

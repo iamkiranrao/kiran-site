@@ -15,13 +15,13 @@ from services.session_archive_service import (
 router = APIRouter()
 
 
-@router.get("/stats")
+@router.get("/stats", response_model=dict)
 async def archive_stats():
     """Summary stats about the session archive."""
     return get_archive_stats()
 
 
-@router.get("/sessions")
+@router.get("/sessions", response_model=dict)
 async def archive_list(
     limit: int = Query(50, ge=1, le=200),
     offset: int = Query(0, ge=0),
@@ -30,7 +30,7 @@ async def archive_list(
     return list_sessions(limit=limit, offset=offset)
 
 
-@router.get("/sessions/{filename}")
+@router.get("/sessions/{filename}", response_model=dict)
 async def archive_detail(filename: str):
     """Get full content of a specific archived session."""
     session = get_session(filename)
@@ -39,7 +39,7 @@ async def archive_detail(filename: str):
     return session
 
 
-@router.delete("/sessions/{filename}")
+@router.delete("/sessions/{filename}", response_model=dict)
 async def archive_delete(filename: str):
     """Delete a session from archive and chat-drops."""
     result = delete_session(filename)

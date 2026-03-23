@@ -16,7 +16,7 @@ import os
 from pathlib import Path
 from utils.config import resolve_api_key
 from fastapi import APIRouter, Header, HTTPException
-from pydantic import BaseModel
+from models.madlab import CreateRequest, ContentUpdate, DraftRequest
 from typing import Optional, List
 
 from services.madlab_service import (
@@ -39,70 +39,44 @@ SITE_ROOT = os.getenv(
     str(_BACKEND_DIR.parent.parent),
 )
 
-
-
-
 # ── Request models ────────────────────────────────────────────────
-
-class CreateRequest(BaseModel):
-    project_name: str
-    project_slug: str
-    category: str
-
-
-class ContentUpdate(BaseModel):
-    tagline: Optional[str] = None
-    meta_description: Optional[str] = None
-    tags: Optional[List[str]] = None
-    launch_url: Optional[str] = None
-    project_status: Optional[str] = None
-    glossary: Optional[list] = None
-    details_html: Optional[str] = None
-    architecture_html: Optional[str] = None
-    try_it_html: Optional[str] = None
-    related_html: Optional[str] = None
-
-
-class DraftRequest(BaseModel):
-    extra_context: Optional[str] = ""
-
 
 # ── Endpoints ─────────────────────────────────────────────────────
 
-@router.get("/categories")
+@router.get("/categories", response_model=dict)
 async def get_categories():
+    """Get list of available prototype categories."""
     return {"categories": CATEGORIES}
 
-
-@router.post("/create")
+@router.post("/create", response_model=dict)
 async def create_prototype(request: CreateRequest):
+    """Create a new prototype development session."""
     session = create_session(request.project_name, request.project_slug, request.category)
     return session
 
-
-@router.get("/sessions")
+@router.get("/sessions", response_model=dict)
 async def get_sessions():
+    """List all prototype development sessions."""
     return {"sessions": list_sessions()}
 
-
-@router.get("/sessions/{session_id}")
+@router.get("/sessions/{session_id}", response_model=dict)
 async def get_session_detail(session_id: str):
+    """Get the full state of a prototype session."""
     state = get_session(session_id)
     if not state:
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
     return state
 
-
-@router.delete("/sessions/{session_id}")
+@router.delete("/sessions/{session_id}", response_model=dict)
 async def delete_session_endpoint(session_id: str):
+    """Delete a prototype session."""
     try:
         delete_session(session_id)
         return {"deleted": True}
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
 
-
-@router.put("/sessions/{session_id}/content")
+@router.put("/sessions/{session_id}/content", response_model=dict)
 async def save_content(session_id: str, request: ContentUpdate):
     """Save section content (manual edits)."""
     state = get_session(session_id)
@@ -113,8 +87,7 @@ async def save_content(session_id: str, request: ContentUpdate):
     updated = update_session(session_id, {"content": updates})
     return updated
 
-
-@router.post("/sessions/{session_id}/draft")
+@router.post("/sessions/{session_id}/draft", response_model=dict)
 async def draft_with_claude(
     session_id: str,
     request: DraftRequest,
@@ -141,8 +114,7 @@ async def draft_with_claude(
     updated = update_session(session_id, {"content": result})
     return updated
 
-
-@router.post("/sessions/{session_id}/publish")
+@router.post("/sessions/{session_id}/publish", response_model=dict)
 async def publish_prototype(session_id: str):
     """Assemble HTML from template + content and save locally for preview."""
     state = get_session(session_id)
@@ -167,8 +139,7 @@ async def publish_prototype(session_id: str):
         "local_file": f"prototypes/{project_slug}/overview.html",
     }
 
-
-@router.post("/sessions/{session_id}/deploy")
+@router.post("/sessions/{session_id}/deploy", response_model=dict)
 async def deploy_prototype(session_id: str):
     """Push locally-previewed prototype to production via git."""
     state = get_session(session_id)

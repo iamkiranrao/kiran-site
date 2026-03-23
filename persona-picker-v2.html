@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kiran Gorapalli — Choose Your Lens</title>
+<meta name="description" content="Persona picker v2: early prototype exploring how to present six personas for users to choose their preferred lens for engaging with the site.">
+<title>Kiran Gorapalli   Choose Your Lens</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
 
@@ -195,7 +196,7 @@
   }
   .card:hover::before { opacity: 1; }
   .card:hover::after { opacity: 1; }
-  .card:hover .card-icon { transform: scale(1.05); }
+  .card:hover .wf-card-icon { transform: scale(1.05); }
   .card:hover .card-arrow { opacity: 1; transform: translateX(0); }
 
   /* Card accent colors */
@@ -207,7 +208,7 @@
   .card--inner { --card-accent: var(--inner); --card-glow: rgba(212,165,116,0.08); }
 
   /* === CARD ICON (Abstract generative art) === */
-  .card-icon {
+  .wf-card-icon {
     width: 64px;
     height: 64px;
     margin-bottom: 28px;
@@ -353,6 +354,7 @@
     .card-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
+<link rel="canonical" href="https://kirangorapalli.com/persona-picker-v2.html">
 </head>
 <body>
 
@@ -363,14 +365,14 @@
   <header class="header">
     <div class="kiran-name">Kiran Gorapalli</div>
     <h1>Everyone sees something <em>different</em> here.</h1>
-    <p class="subtitle">Choose the lens that fits — the experience adapts to you.</p>
+    <p class="subtitle">Choose the lens that fits   the experience adapts to you.</p>
   </header>
 
   <div class="card-grid">
 
     <!-- THE EVALUATOR -->
     <div class="card card--evaluator" data-persona="evaluator">
-      <div class="card-icon">
+      <div class="wf-card-icon">
         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="8" y="8" width="20" height="20" rx="2" stroke="rgba(110,142,247,0.6)" stroke-width="1.5"/>
           <rect x="36" y="8" width="20" height="20" rx="2" stroke="rgba(110,142,247,0.3)" stroke-width="1.5"/>
@@ -390,7 +392,7 @@
 
     <!-- THE SEEKER -->
     <div class="card card--seeker" data-persona="seeker">
-      <div class="card-icon">
+      <div class="wf-card-icon">
         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 48 C16 28, 28 16, 52 12" stroke="rgba(232,164,74,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
           <path d="M12 52 C20 36, 32 24, 56 20" stroke="rgba(232,164,74,0.25)" stroke-width="1" fill="none" stroke-linecap="round"/>
@@ -407,7 +409,7 @@
 
     <!-- THE PRACTITIONER -->
     <div class="card card--practitioner" data-persona="practitioner">
-      <div class="card-icon">
+      <div class="wf-card-icon">
         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <polygon points="32,6 56,18 56,42 32,54 8,42 8,18" stroke="rgba(91,191,186,0.4)" stroke-width="1.5" fill="none"/>
           <polygon points="32,14 48,22 48,38 32,46 16,38 16,22" stroke="rgba(91,191,186,0.25)" stroke-width="1" fill="none"/>
@@ -424,7 +426,7 @@
 
     <!-- THE LEARNER -->
     <div class="card card--learner" data-persona="learner">
-      <div class="card-icon">
+      <div class="wf-card-icon">
         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="32" cy="52" r="3" fill="rgba(192,126,219,0.3)"/>
           <path d="M32 48 C32 40, 24 36, 24 28 C24 20, 28 14, 32 10" stroke="rgba(192,126,219,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
@@ -443,7 +445,7 @@
 
     <!-- THE EXPLORER -->
     <div class="card card--explorer" data-persona="explorer">
-      <div class="card-icon">
+      <div class="wf-card-icon">
         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M8 32 C16 28, 20 20, 32 20 C44 20, 48 36, 56 32" stroke="rgba(224,107,122,0.45)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
           <path d="M8 40 C18 38, 24 28, 36 30 C48 32, 50 42, 56 40" stroke="rgba(224,107,122,0.2)" stroke-width="1" fill="none" stroke-linecap="round"/>
@@ -454,13 +456,13 @@
         </svg>
       </div>
       <div class="card-label">The Explorer</div>
-      <div class="card-hook">I'm just looking around — show me what's interesting.</div>
+      <div class="card-hook">I'm just looking around   show me what's interesting.</div>
       <div class="card-arrow"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </div>
 
     <!-- THE INNER CIRCLE -->
     <div class="card card--inner" data-persona="inner">
-      <div class="card-icon">
+      <div class="wf-card-icon">
         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="26" cy="28" r="14" stroke="rgba(212,165,116,0.3)" stroke-width="1" fill="none"/>
           <circle cx="38" cy="28" r="14" stroke="rgba(212,165,116,0.3)" stroke-width="1" fill="none"/>
@@ -469,7 +471,7 @@
         </svg>
       </div>
       <div class="card-label">The Inner Circle</div>
-      <div class="card-hook">I already know Kiran — show me what's new.</div>
+      <div class="card-hook">I already know Kiran   show me what's new.</div>
       <div class="card-arrow"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </div>
 
@@ -495,7 +497,7 @@
     practitioner: 'Loading the craft deep-dive...',
     learner: 'Building your learning path...',
     explorer: 'Gathering the highlights...',
-    inner: 'Welcome back — here\'s what\'s new...'
+    inner: 'Welcome back   here\'s what\'s new...'
   };
 
   cards.forEach(card => {

@@ -1,12 +1,17 @@
 ---
 module: content-audit
-title: Content Audit Module
+title: Content Audit Module (RETIRED)
 created: 2026-03-11
-last_updated: 2026-03-11
-version: 1
+last_updated: 2026-03-21
+version: 1.1
+status: retired
+retired_reason: "Module absorbed into Standards & Compliance. All content audit functionality is now part of the Standards dashboard."
+redirect: standards
 ---
 
-# Content Audit Module
+# Content Audit Module (RETIRED)
+
+> **This module has been retired.** Its functionality was absorbed into the **Standards & Compliance** module during the March 2026 system consolidation. See the [Standards & Compliance guide](standards.md) for current documentation.
 
 ## Overview
 

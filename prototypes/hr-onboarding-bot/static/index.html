@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Onboardly - NovaCorp HR Assistant powered by RAG + Claude">
+    <meta name="description" content="Onboardly interactive demo. RAG-powered HR assistant that answers employee policy questions using retrieval-augmented generation with Claude.">
     <title>Onboardly - NovaCorp HR Assistant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,7 +90,7 @@
             margin-left: 0.5rem;
         }
 
-        .info-icon {
+        .wf-info-icon {
             width: 16px;
             height: 16px;
             border-radius: 50%;
@@ -275,13 +275,13 @@
             user-select: none;
         }
 
-        .sources-toggle-icon {
+        .wf-sources-toggle-icon {
             display: inline-block;
             transition: transform 0.2s ease;
             font-size: 0.6rem;
         }
 
-        .sources-toggle-icon.open {
+        .wf-sources-toggle-icon.open {
             transform: rotate(180deg);
         }
 
@@ -508,6 +508,7 @@
             }
         }
     </style>
+<link rel="canonical" href="https://kirangorapalli.com/prototypes/hr-onboarding-bot/static/index.html">
 </head>
 <body>
     <!-- Header -->
@@ -520,7 +521,7 @@
                 <div class="header-subtitle">NovaCorp HR Assistant</div>
             </div>
             <div class="header-info">
-                <div class="info-icon">?</div>
+                <div class="wf-info-icon">?</div>
                 <div class="info-tooltip">Powered by RAG + Claude. Answers are grounded in NovaCorp's HR documents.</div>
             </div>
         </div>
@@ -541,6 +542,7 @@
                 id="chatInput"
                 placeholder="Ask about leave, benefits, IT setup, remote work, expenses..."
                 autocomplete="off"
+                aria-label="Chat message input"
             >
             <button class="chat-send" id="chatSend">Send</button>
         </div>
@@ -632,11 +634,11 @@
 
                 const header = document.createElement('div');
                 header.className = 'sources-header';
-                header.innerHTML = '<span class="sources-toggle-icon open">▼</span> Sources';
+                header.innerHTML = '<span class="wf-sources-toggle-icon open">▼</span> Sources';
                 header.addEventListener('click', () => {
                     const list = header.nextElementSibling;
                     list.classList.toggle('hidden');
-                    header.querySelector('.sources-toggle-icon').classList.toggle('open');
+                    header.querySelector('.wf-sources-toggle-icon').classList.toggle('open');
                 });
                 sourcesDiv.appendChild(header);
 

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Persona picker interface: select your preferred lens (Evaluator, Seeker, Practitioner, Learner, Explorer, or Inner Circle) to customize your experience on the site.">
+<title>kirangorapalli.com   Choose Your Lens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --persona-accent: #e0952a;
+    --bg-deep: #1a1410;
+    --bg-warm: #231c14;
+    --text-cream: #e8dcc8;
+    --text-muted: #a08868;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-cream);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========== HERO   VIDEO-READY ========== */
+  .hero {
+    width: 100%;
+    height: 85vh;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-deep);
+  }
+
+  /* Still image (poster frame / fallback) */
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center 70%;
+  }
+
+  /* Video overlay   sits on top of still image when loaded */
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .hero-video.loaded {
+    opacity: 1;
+  }
+
+  /* Subtle vignette */
+  .hero-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(26,20,16,0.5) 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Bottom fade   whisper thin, doesn't eat into the dog */
+  .hero-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(transparent, var(--bg-deep));
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* ========== LEAD-IN WITH GLASS TREATMENT ========== */
+  .persona-section {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+    position: relative;
+  }
+
+  .lead-block {
+    text-align: center;
+    padding: 48px 0 44px;
+    position: relative;
+  }
+
+  /* Glassmorphic container for lead-in text */
+  .lead-glass {
+    display: inline-block;
+    padding: 32px 48px;
+    border-radius: 20px;
+    background: rgba(26, 20, 16, 0.35);
+    backdrop-filter: blur(16px) saturate(1.3);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .lead-glass {
+      background: rgba(26, 20, 16, 0.82);
+    }
+  }
+
+  .lead-hook {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 38px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.9s ease-out 0.3s forwards;
+  }
+  .lead-hook em {
+    font-style: italic;
+    position: relative;
+    display: inline-block;
+    padding-right: 8px;
+    margin-right: -4px;
+    /* Animated gradient text   uses accent variables for persona coordination */
+    background: linear-gradient(
+      90deg,
+      var(--em-color-1, #e0952a) 0%,
+      var(--em-color-2, #f0b050) 25%,
+      var(--em-color-1, #e0952a) 50%,
+      var(--em-color-3, #d4822a) 75%,
+      var(--em-color-1, #e0952a) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Start fully clipped (invisible), then reveal L→R, then shimmer */
+    clip-path: inset(0 100% 0 0);
+    animation: textReveal 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards,
+               gradientShift 4s ease-in-out 3.4s infinite;
+  }
+
+  /* Underline draw-on   starts after text reveal finishes */
+  .lead-hook em::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: linear-gradient(90deg, var(--em-color-1, #e0952a), var(--em-color-2, #f0b050));
+    border-radius: 1px;
+    animation: underlineDraw 1.0s ease-out 3.4s forwards;
+  }
+
+  @keyframes textReveal {
+    to { clip-path: inset(0 0 0 0); }
+  }
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes underlineDraw {
+    to { width: 100%; }
+  }
+
+  .lead-cta {
+    font-size: 17px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.9s ease-out 0.55s forwards;
+  }
+
+  .lead-divider {
+    width: 48px;
+    height: 2px;
+    background: var(--persona-accent);
+    margin: 20px auto 0;
+    border-radius: 1px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease-out 0.75s forwards;
+  }
+
+  .scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 24px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease-out 0.9s forwards;
+  }
+  .scroll-hint span {
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-cream);
+    font-weight: 500;
+    opacity: 0.7;
+  }
+  .scroll-hint-arrow-wrap { animation: bounceDown 2s ease-in-out infinite; }
+  .scroll-hint-arrow {
+    width: 18px;
+    height: 18px;
+    border-right: 2px solid var(--persona-accent);
+    border-bottom: 2px solid var(--persona-accent);
+    transform: rotate(45deg);
+    opacity: 0.7;
+  }
+
+  @keyframes bounceDown {
+    0%, 100% { transform: translateY(-4px); }
+    50% { transform: translateY(4px); }
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========== PORTRAIT CARD GRID   3×2 ========== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .card {
+    aspect-ratio: 3/4;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.14);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  /* Staggered entrance */
+  .card:nth-child(1) { animation: cardIn 0.6s ease-out 0.6s forwards; }
+  .card:nth-child(2) { animation: cardIn 0.6s ease-out 0.72s forwards; }
+  .card:nth-child(3) { animation: cardIn 0.6s ease-out 0.84s forwards; }
+  .card:nth-child(4) { animation: cardIn 0.6s ease-out 0.96s forwards; }
+  .card:nth-child(5) { animation: cardIn 0.6s ease-out 1.08s forwards; }
+  .card:nth-child(6) { animation: cardIn 0.6s ease-out 1.2s forwards; }
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========== CHARACTER IMAGE   FULL BLEED ========== */
+  .card-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+    filter: contrast(1.02) saturate(1.05);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s;
+  }
+
+  /* Bottom gradient overlay   persona-tinted
+     Each persona gets a custom gradient via CSS variable --card-tint */
+  .card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(
+      to top,
+      var(--card-tint, rgba(0,0,0,0.75)) 0%,
+      rgba(0,0,0,0.35) 50%,
+      transparent 100%
+    );
+    z-index: 1;
+    transition: opacity 0.5s;
+  }
+
+  /* ========== GLASSMORPHIC TEXT PANEL ========== */
+  .card-glass {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 18px 22px 22px;
+    /* Glassmorphism */
+    background: rgba(10, 8, 6, 0.45);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    /* Top border   neutral at rest, accent on hover */
+    border-top: 1.5px solid rgba(255,255,255,0.18);
+    transition: background 0.5s ease,
+                border-top-color 0.4s ease;
+  }
+
+  /* Fallback for browsers without backdrop-filter */
+  @supports not (backdrop-filter: blur(14px)) {
+    .card-glass {
+      background: rgba(10, 8, 6, 0.85);
+    }
+  }
+
+  /* --- Text hierarchy: Title → Name at rest, Hook on hover --- */
+  .card-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    color: var(--card-accent);
+    opacity: 0.85;
+    transition: opacity 0.4s ease;
+  }
+
+  .card-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 21px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    transition: margin-bottom 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card-hook {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.65);
+    font-style: italic;
+    line-height: 1.55;
+    letter-spacing: 0.2px;
+    /* Hidden by default, revealed on hover */
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.4s ease 0.1s,
+                margin-top 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ========== HOVER STATE ========== */
+  .card:hover {
+    border-color: rgba(255,255,255,0.28);
+  }
+  .card:hover .card-image img {
+    transform: scale(1.06);
+    filter: contrast(1.05) saturate(1.1) brightness(1.05);
+  }
+  .card:hover .card-title {
+    opacity: 1;
+  }
+  .card:hover .card-name {
+    margin-bottom: 8px;
+  }
+  .card:hover .card-hook {
+    max-height: 80px;
+    opacity: 1;
+    margin-top: 0;
+  }
+  .card:hover .card-glass {
+    background: rgba(10, 8, 6, 0.62);
+    border-top-color: var(--card-accent);
+  }
+
+  /* Accent glow ring on hover */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 23px;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .card:hover::after {
+    opacity: 1;
+  }
+
+  /* Accent inner border on hover */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 20;
+    pointer-events: none;
+  }
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  /* ========== SELECTED STATE ========== */
+  .card.selected {
+    border-color: rgba(255,255,255,0.2);
+  }
+  .card.selected::after {
+    opacity: 0.6;
+  }
+  .card.selected .card-glass {
+    border-top-color: var(--card-accent);
+  }
+  .card.selected .card-hook {
+    max-height: 80px;
+    opacity: 1;
+  }
+  .card.selected .card-name {
+    margin-bottom: 8px;
+  }
+
+  /* ========== PERSONA COLORS ========== */
+  /* Each persona gets: accent color (text/border), tinted bottom gradient, glow */
+
+  /* Evaluator   Steel Blue #7B9ACC */
+  .evaluator {
+    --card-accent: #7B9ACC;
+    --card-tint: rgba(13, 20, 38, 0.78);
+    border-color: rgba(123,154,204,0.25);
+  }
+  .evaluator .card-title { color: #7B9ACC; }
+  .evaluator::after { box-shadow: 0 0 40px rgba(123,154,204,0.35), 0 0 80px rgba(123,154,204,0.15); }
+  .evaluator::before { border-color: rgba(123,154,204,0.45); }
+  .evaluator .card-glass { border-top-color: rgba(123,154,204,0.3); }
+
+  /* Seeker   Warm Gunmetal #8A8580 */
+  .seeker {
+    --card-accent: #8A8580;
+    --card-tint: rgba(14, 13, 12, 0.78);
+    border-color: rgba(138,133,128,0.25);
+  }
+  .seeker .card-title { color: #8A8580; }
+  .seeker::after { box-shadow: 0 0 40px rgba(138,133,128,0.35), 0 0 80px rgba(138,133,128,0.15); }
+  .seeker::before { border-color: rgba(138,133,128,0.45); }
+  .seeker .card-glass { border-top-color: rgba(138,133,128,0.3); }
+
+  /* Practitioner   Jade Green #4DAF8B */
+  .practitioner {
+    --card-accent: #4DAF8B;
+    --card-tint: rgba(8, 22, 16, 0.78);
+    border-color: rgba(77,175,139,0.25);
+  }
+  .practitioner .card-title { color: #4DAF8B; }
+  .practitioner::after { box-shadow: 0 0 40px rgba(77,175,139,0.35), 0 0 80px rgba(77,175,139,0.15); }
+  .practitioner::before { border-color: rgba(77,175,139,0.45); }
+  .practitioner .card-glass { border-top-color: rgba(77,175,139,0.3); }
+
+  /* Learner   Lavender Purple #A07ED4 */
+  .learner {
+    --card-accent: #A07ED4;
+    --card-tint: rgba(18, 12, 30, 0.78);
+    border-color: rgba(160,126,212,0.25);
+  }
+  .learner .card-title { color: #A07ED4; }
+  .learner::after { box-shadow: 0 0 40px rgba(160,126,212,0.35), 0 0 80px rgba(160,126,212,0.15); }
+  .learner::before { border-color: rgba(160,126,212,0.45); }
+  .learner .card-glass { border-top-color: rgba(160,126,212,0.3); }
+
+  /* Explorer   Cherry Red #cb5c72 */
+  .explorer {
+    --card-accent: #cb5c72;
+    --card-tint: rgba(28, 10, 14, 0.78);
+    border-color: rgba(203,92,114,0.25);
+  }
+  .explorer .card-title { color: #cb5c72; }
+  .explorer::after { box-shadow: 0 0 40px rgba(203,92,114,0.35), 0 0 80px rgba(203,92,114,0.15); }
+  .explorer::before { border-color: rgba(203,92,114,0.45); }
+  .explorer .card-glass { border-top-color: rgba(203,92,114,0.3); }
+
+  /* Inner Circle   Rusty Orange #cb6923 */
+  .innercircle {
+    --card-accent: #cb6923;
+    --card-tint: rgba(28, 14, 6, 0.78);
+    border-color: rgba(203,105,35,0.25);
+  }
+  .innercircle .card-title { color: #cb6923; }
+  .innercircle::after { box-shadow: 0 0 40px rgba(203,105,35,0.35), 0 0 80px rgba(203,105,35,0.15); }
+  .innercircle::before { border-color: rgba(203,105,35,0.45); }
+  .innercircle .card-glass { border-top-color: rgba(203,105,35,0.3); }
+
+  /* ========== SELECTION TOAST ========== */
+  .selection-toast {
+    position: fixed;
+    bottom: 48px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(20, 16, 12, 0.92);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 24px 48px;
+    border-radius: 16px;
+    font-size: 18px;
+    color: var(--text-cream);
+    z-index: 100;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s;
+    opacity: 0;
+    pointer-events: none;
+    text-align: center;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+    letter-spacing: 0.3px;
+  }
+  .selection-toast.visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  .selection-toast .toast-persona {
+    font-weight: 600;
+    font-size: 20px;
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1024px) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .persona-section {
+      padding: 24px 24px 60px;
+    }
+    .lead-hook {
+      font-size: 32px;
+    }
+    .lead-glass {
+      padding: 24px 32px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .card-glass {
+      padding: 14px 16px 18px;
+    }
+    .card-name {
+      font-size: 17px;
+    }
+    .card-title {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+    }
+    .card-hook {
+      font-size: 11px;
+    }
+    .lead-hook {
+      font-size: 26px;
+    }
+    .lead-cta {
+      font-size: 15px;
+    }
+    .lead-glass {
+      padding: 20px 20px;
+      border-radius: 16px;
+    }
+    .lead-block {
+      padding: 28px 0 28px;
+    }
+    .persona-section {
+      padding: 0 12px 60px;
+    }
+    .hero {
+      height: 55vh;
+    }
+  }
+
+  /* ========== ACCESSIBILITY ========== */
+  @media (prefers-reduced-motion: reduce) {
+    .card { animation: none !important; opacity: 1; transform: none; }
+    .lead-hook, .lead-cta, .lead-divider, .scroll-hint {
+      animation: none !important; opacity: 1; transform: none;
+    }
+    .lead-hook em {
+      animation: none !important;
+      clip-path: none !important;
+      background: none;
+      -webkit-text-fill-color: var(--persona-accent);
+      color: var(--persona-accent);
+    }
+    .lead-hook em::after {
+      animation: none !important;
+      width: 100%;
+    }
+    .card-image img { transition: none; }
+    .card-glass { transition: none; }
+    .hero-video { transition: none; }
+  }
+
+  .card:focus-visible {
+    outline: 2px solid var(--card-accent);
+    outline-offset: 3px;
+    border-color: rgba(255,255,255,0.15);
+  }
+  .card:focus-visible .card-hook {
+    max-height: 80px;
+    opacity: 1;
+  }
+  .card:focus-visible .card-name {
+    margin-bottom: 8px;
+  }
+  .card:focus-visible .card-glass {
+    background: rgba(10, 8, 6, 0.62);
+    border-top-color: var(--card-accent);
+  }
+
+  @media (max-width: 400px) {
+    .card-grid {
+      gap: 10px;
+    }
+    .card-glass {
+      padding: 12px 12px 14px;
+    }
+    .card-name {
+      font-size: 15px;
+    }
+    .card-title {
+      font-size: 8px;
+    }
+  }
+</style>
+<link rel="canonical" href="https://kirangorapalli.com/persona-picker.html">
+</head>
+<body>
+
+<!-- ========== HERO   VIDEO-READY ========== -->
+<div class="hero">
+  <!-- Still image: always loads first as poster frame -->
+  <picture>
+    <source srcset="images/final-hero-image3.webp" type="image/webp">
+    <img class="hero-image" src="images/final-hero-image3.png" alt="Painterly creative studio with a Bernese mountain dog sleeping in warm sunlight">
+  </picture>
+
+  <!-- Video cinemagraph: loads on top when available.
+       Replace src with hero-loop.mp4 when Runway Gen-4 output is ready.
+       The 'loaded' class is added via JS once canplaythrough fires. -->
+  <!-- <video class="hero-video" id="hero-video"
+         src="images/hero-loop.mp4"
+         autoplay loop muted playsinline
+         poster="images/final-hero-image3.png"></video> -->
+
+  <div class="hero-vignette"></div>
+  <div class="hero-fade"></div>
+</div>
+
+<!-- ========== PERSONA PICKER SECTION ========== -->
+<div class="persona-section">
+
+  <div class="lead-block">
+    <div class="lead-glass">
+      <div class="lead-hook">This site <em>reshapes itself</em> around you.</div>
+      <div class="lead-cta">Choose a perspective below. The content, the tone, the whole experience shifts to match.</div>
+      <div class="lead-divider"></div>
+      <div class="scroll-hint">
+        <span>Pick your persona</span>
+        <div class="scroll-hint-arrow-wrap"><div class="scroll-hint-arrow"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3×2 Portrait Card Grid -->
+  <div class="card-grid">
+
+    <!-- EVALUATOR -->
+    <div class="card evaluator" data-persona="evaluator" data-accent="#7B9ACC" tabindex="0" role="button" aria-label="Select The Evaluator: Merritt Hunter, Recruiter and Hiring Manager" onclick="selectPersona(this)">
+      <div class="card-image">
+        <picture>
+          <source srcset="images/evaluator-merritt.webp" type="image/webp">
+          <img src="images/evaluator-merritt.png" onerror="this.onerror=null;this.src='images/evaluator-hunter.png';" alt="Merritt Hunter   The Evaluator" loading="lazy">
+        </picture>
+      </div>
+      <div class="card-glass">
+        <div class="card-title">Recruiter / Hiring Manager</div>
+        <div class="card-name">Merritt Hunter</div>
+        <div class="card-hook">"I've got a Job to be Done   is Kiran my guy?"</div>
+      </div>
+    </div>
+
+    <!-- SEEKER -->
+    <div class="card seeker" data-persona="seeker" data-accent="#8A8580" tabindex="0" role="button" aria-label="Select The Seeker: Phil Thevoid, Founder" onclick="selectPersona(this)">
+      <div class="card-image">
+        <picture>
+          <source srcset="images/seeker-phil.webp" type="image/webp">
+          <img src="images/seeker-phil.png" onerror="this.onerror=null;this.src='images/seeker-quest2.png';" alt="Phil Thevoid   The Seeker" loading="lazy">
+        </picture>
+      </div>
+      <div class="card-glass">
+        <div class="card-title">Founder / Needs a Product Leader</div>
+        <div class="card-name">Phil Thevoid</div>
+        <div class="card-hook">"I know how to build a company. I need someone who knows how to build a product."</div>
+      </div>
+    </div>
+
+    <!-- PRACTITIONER -->
+    <div class="card practitioner" data-persona="practitioner" data-accent="#4DAF8B" tabindex="0" role="button" aria-label="Select The Practitioner: Drew Skematics, Product Leader" onclick="selectPersona(this)">
+      <div class="card-image">
+        <picture>
+          <source srcset="images/practitioner-drew.webp" type="image/webp">
+          <img src="images/practitioner-drew.png" onerror="this.onerror=null;this.src='images/practitioner-mei.png';" alt="Drew Skematics   The Practitioner" loading="lazy">
+        </picture>
+      </div>
+      <div class="card-glass">
+        <div class="card-title">Product Leader / PM</div>
+        <div class="card-name">Drew Skematics</div>
+        <div class="card-hook">"A PM who actually builds? That's rare. Show me more."</div>
+      </div>
+    </div>
+
+    <!-- LEARNER -->
+    <div class="card learner" data-persona="learner" data-accent="#A07ED4" tabindex="0" role="button" aria-label="Select The Learner: Paige Turner, Aspiring PM" onclick="selectPersona(this)">
+      <div class="card-image">
+        <picture>
+          <source srcset="images/learner-paige.webp" type="image/webp">
+          <img src="images/learner-paige.png" onerror="this.onerror=null;this.src='images/learner-sage.png';" alt="Paige Turner   The Learner" loading="lazy">
+        </picture>
+      </div>
+      <div class="card-glass">
+        <div class="card-title">Aspiring PM / Career Switcher</div>
+        <div class="card-name">Paige Turner</div>
+        <div class="card-hook">"I want to see how a real PM thinks, not how a textbook says to."</div>
+      </div>
+    </div>
+
+    <!-- EXPLORER -->
+    <div class="card explorer" data-persona="explorer" data-accent="#cb5c72" tabindex="0" role="button" aria-label="Select The Explorer: Wanda Ring, Just Curious" onclick="selectPersona(this)">
+      <div class="card-image">
+        <picture>
+          <source srcset="images/explorer-wanda.webp" type="image/webp">
+          <img src="images/explorer-wanda.png" onerror="this.onerror=null;this.src='images/explorer-wren.png';" alt="Wanda Ring   The Explorer" loading="lazy">
+        </picture>
+      </div>
+      <div class="card-glass">
+        <div class="card-title">Just Curious</div>
+        <div class="card-name">Wanda Ring</div>
+        <div class="card-hook">"No agenda. Just looking around."</div>
+      </div>
+    </div>
+
+    <!-- INNER CIRCLE -->
+    <div class="card innercircle" data-persona="innercircle" data-accent="#cb6923" tabindex="0" role="button" aria-label="Select The Inner Circle: Keshav Shivdasani, Old Friend" onclick="selectPersona(this)">
+      <div class="card-image">
+        <picture>
+          <source srcset="images/innercircle-keshav.webp" type="image/webp">
+          <img src="images/innercircle-keshav.png" onerror="this.onerror=null;this.src='images/innercircle-kai.png';" alt="Keshav Shivdasani   The Inner Circle" loading="lazy">
+        </picture>
+      </div>
+      <div class="card-glass">
+        <div class="card-title">Old Friend</div>
+        <div class="card-name">Keshav Shivdasani</div>
+        <div class="card-hook">"Skip the pitch   we go wayyyyyy back."</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Selection toast -->
+<div class="selection-toast" id="toast">
+  Welcome. You're viewing as <span class="toast-persona" id="toast-persona"></span>.
+</div>
+
+<script>
+  // ===== HERO VIDEO LOADER =====
+  // When the cinemagraph video is ready, uncomment the <video> tag above.
+  // This script handles the crossfade from still to video.
+  (function() {
+    const video = document.getElementById('hero-video');
+    if (video) {
+      video.addEventListener('canplaythrough', function() {
+        video.classList.add('loaded');
+      }, { once: true });
+
+      // Pause video when scrolled past hero for performance
+      const hero = document.querySelector('.hero');
+      let videoVisible = true;
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !videoVisible) {
+            video.play();
+            videoVisible = true;
+          } else if (!entry.isIntersecting && videoVisible) {
+            video.pause();
+            videoVisible = false;
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(hero);
+    }
+  })();
+
+  // ===== HERO PARALLAX (scroll-driven fade) =====
+  (function() {
+    const hero = document.querySelector('.hero');
+    const heroImg = document.querySelector('.hero-image');
+    const heroVideo = document.getElementById('hero-video');
+    let ticking = false;
+
+    function updateParallax() {
+      const scrollY = window.scrollY;
+      const heroHeight = hero.offsetHeight;
+      if (scrollY <= heroHeight * 1.5) {
+        const progress = Math.min(scrollY / heroHeight, 1);
+        const opacity = 1 - (progress * 0.25);
+        heroImg.style.opacity = opacity;
+        if (heroVideo) heroVideo.style.opacity = heroVideo.classList.contains('loaded') ? opacity : 0;
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+    }, { passive: true });
+  })();
+
+  // ===== GRADIENT ACCENT UPDATER =====
+  function updateEmGradient(hex) {
+    // Parse hex to RGB, then create lighter and darker variants
+    var r = parseInt(hex.slice(1,3), 16);
+    var g = parseInt(hex.slice(3,5), 16);
+    var b = parseInt(hex.slice(5,7), 16);
+    var lighter = 'rgb(' + Math.min(r + 40, 255) + ',' + Math.min(g + 40, 255) + ',' + Math.min(b + 40, 255) + ')';
+    var darker = 'rgb(' + Math.max(r - 30, 0) + ',' + Math.max(g - 30, 0) + ',' + Math.max(b - 30, 0) + ')';
+    document.documentElement.style.setProperty('--em-color-1', hex);
+    document.documentElement.style.setProperty('--em-color-2', lighter);
+    document.documentElement.style.setProperty('--em-color-3', darker);
+  }
+
+  // ===== RESTORE PERSONA FROM LOCALSTORAGE =====
+  (function() {
+    const saved = localStorage.getItem('persona');
+    if (saved) {
+      const card = document.querySelector('[data-persona="' + saved + '"]');
+      if (card) {
+        card.classList.add('selected');
+        document.documentElement.style.setProperty('--persona-accent', card.dataset.accent);
+        updateEmGradient(card.dataset.accent);
+      }
+    }
+  })();
+
+  // ===== SELECT PERSONA =====
+  function selectPersona(card) {
+    var persona = card.dataset.persona;
+    var accent = card.dataset.accent;
+    var title = card.querySelector('.card-title').textContent;
+
+    // Store
+    localStorage.setItem('persona', persona);
+    localStorage.setItem('persona-accent', accent);
+
+    // Set CSS variable for accent threading
+    document.documentElement.style.setProperty('--persona-accent', accent);
+
+    // Update "reshapes itself" gradient to match persona accent
+    updateEmGradient(accent);
+
+    // Update selected state
+    document.querySelectorAll('.card').forEach(function(c) { c.classList.remove('selected'); });
+    card.classList.add('selected');
+
+    // Show toast
+    var toast = document.getElementById('toast');
+    var toastPersona = document.getElementById('toast-persona');
+    toastPersona.textContent = title;
+    toastPersona.style.color = accent;
+    toast.classList.add('visible');
+
+    setTimeout(function() {
+      toast.classList.remove('visible');
+    }, 5000);
+
+    // In production: trigger Phase 2 site reveal here
+    // e.g., window.location.href = '/home?persona=' + persona;
+  }
+
+  // ===== KEYBOARD SUPPORT =====
+  document.querySelectorAll('.card').forEach(function(card) {
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectPersona(card);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -13,19 +13,19 @@ from services.product_guides_service import (
 router = APIRouter()
 
 
-@router.get("/stats")
+@router.get("/stats", response_model=dict)
 async def guides_stats():
     """Summary stats about the product guides."""
     return get_guides_stats()
 
 
-@router.get("")
+@router.get("", response_model=dict)
 async def guides_list():
     """List all product guides with metadata."""
     return list_guides()
 
 
-@router.get("/{slug}")
+@router.get("/{slug}", response_model=dict)
 async def guide_detail(slug: str):
     """Get full content of a specific product guide."""
     guide = get_guide(slug)

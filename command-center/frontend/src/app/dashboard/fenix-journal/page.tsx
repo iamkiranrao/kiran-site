@@ -19,6 +19,7 @@ import {
   Hash,
   Search,
   X,
+  Link2,
 } from "lucide-react";
 import ModuleHelp from "@/components/ModuleHelp";
 
@@ -97,6 +98,25 @@ interface ArchiveStats {
   total_messages: number;
 }
 
+interface ConnectingThread {
+  slug: string;
+  filename: string;
+  date: string;
+  title: string;
+  word_count: number;
+  preview: string;
+  stream: "connecting-threads";
+}
+
+interface ConnectingThreadDetail {
+  slug: string;
+  title: string;
+  date: string;
+  content: string;
+  word_count: number;
+  stream: "connecting-threads";
+}
+
 interface SearchResult {
   source_type: "journal" | "session";
   stream: string | null;
@@ -115,7 +135,7 @@ interface SearchResponse {
   query: string;
 }
 
-type View = "timeline" | "entry" | "raw" | "sessions" | "session-detail" | "search";
+type View = "timeline" | "entry" | "raw" | "sessions" | "session-detail" | "search" | "thread-detail";
 
 // ── API helper ───────────────────────────────────────────────
 async function fetchApi(path: string, options?: RequestInit) {
@@ -228,6 +248,14 @@ export default function FenixJournalPage() {
   const [sessionDetailLoading, setSessionDetailLoading] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
+  // Connecting threads state
+  const [connectingThreads, setConnectingThreads] = useState<ConnectingThread[]>([]);
+  const [selectedThread, setSelectedThread] = useState<ConnectingThreadDetail | null>(null);
+  const [threadDetailLoading, setThreadDetailLoading] = useState(false);
+
+  // Entry delete state (stream/identifier)
+  const [entryDeleteConfirm, setEntryDeleteConfirm] = useState<{ stream: string; identifier: string } | null>(null);
+
   // Search state
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResponse | null>(null);
@@ -245,6 +273,7 @@ export default function FenixJournalPage() {
       setStats(statsRes);
       setEntries(entriesRes.entries);
       setTotalEntries(entriesRes.total);
+      setConnectingThreads(entriesRes.connecting_threads || []);
     } catch (e: any) {
       setError(e.message || "Failed to load journal");
     }
@@ -357,6 +386,39 @@ export default function FenixJournalPage() {
     }
   };
 
+  // ── Open connecting thread detail ─────────────────────
+  const openThread = async (slug: string) => {
+    setView("thread-detail");
+    setThreadDetailLoading(true);
+    try {
+      const data = await fetchApi(`/connecting-threads/${slug}`);
+      setSelectedThread(data);
+    } catch (e: any) {
+      setError(e.message);
+    }
+    setThreadDetailLoading(false);
+  };
+
+  // ── Delete journal entry ────────────────────────────────
+  const handleEntryDelete = async (stream: string, identifier: string) => {
+    try {
+      await fetchApi(`/entries/${stream}/${identifier}`, { method: "DELETE" });
+      setEntryDeleteConfirm(null);
+      // Refresh timeline
+      loadTimeline();
+      // If viewing the deleted entry, go back
+      if (view === "entry" && selectedDate === identifier) {
+        setView("timeline");
+      }
+      if (view === "thread-detail" && selectedThread?.slug === identifier) {
+        setView("timeline");
+        setSelectedThread(null);
+      }
+    } catch (e: any) {
+      setError(e.message);
+    }
+  };
+
   // ── Delete session ─────────────────────────────────────
   const handleDelete = async (filename: string) => {
     try {
@@ -389,13 +451,15 @@ export default function FenixJournalPage() {
   // ── Back navigation ────────────────────────────────────
   const handleBack = () => {
     if (view === "session-detail") {
-      // If we came from search, go back to search; otherwise sessions list
       if (searchResults) {
         setView("search");
       } else {
         setView("sessions");
       }
       setSelectedSession(null);
+    } else if (view === "thread-detail") {
+      setView("timeline");
+      setSelectedThread(null);
     } else if (view === "entry" && searchResults) {
       setView("search");
     } else {
@@ -437,6 +501,7 @@ export default function FenixJournalPage() {
               {view === "raw" && "Raw observation notes"}
               {view === "sessions" && "Archived session transcripts"}
               {view === "session-detail" && (selectedSession?.title || "Session detail")}
+              {view === "thread-detail" && (selectedThread?.title || "Connecting Thread")}
               {view === "search" && `Search results for "${searchResults?.query || searchQuery}"`}
             </p>
           </div>
@@ -574,12 +639,54 @@ export default function FenixJournalPage() {
         </div>
       )}
 
+      {/* Entry delete confirmation modal */}
+      {entryDeleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div
+            className="rounded-xl p-6 max-w-md mx-4"
+            style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}
+          >
+            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2">Delete entry?</h3>
+            <p className="text-sm text-[var(--text-secondary)] mb-1">
+              This will permanently remove the {entryDeleteConfirm.stream === "connecting-threads" ? "connecting thread" : "journal entry"}.
+            </p>
+            <p className="text-sm text-[var(--text-muted)] mb-6">
+              {entryDeleteConfirm.stream === "about-kiran"
+                ? "Both the About Kiran and Build Journey entries for this date will be deleted."
+                : `"${entryDeleteConfirm.identifier.replace(/-/g, " ")}"`}
+            </p>
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setEntryDeleteConfirm(null)}
+                className="px-4 py-2 rounded-lg text-sm bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  if (entryDeleteConfirm.stream === "about-kiran") {
+                    // Delete both streams for this date
+                    handleEntryDelete("about-kiran", entryDeleteConfirm.identifier);
+                    handleEntryDelete("build-journey", entryDeleteConfirm.identifier);
+                  } else {
+                    handleEntryDelete(entryDeleteConfirm.stream, entryDeleteConfirm.identifier);
+                  }
+                }}
+                className="px-4 py-2 rounded-lg text-sm bg-red-500/20 text-red-400 hover:bg-red-500/30"
+              >
+                Delete permanently
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ─── TIMELINE VIEW ─────────────────────────────────── */}
       {view === "timeline" && (
         <>
           {/* Stats row */}
           {stats && (
-            <div className="grid grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-5 gap-4 mb-8">
               <StatCard
                 label="Total Entries"
                 value={stats.total_entries}
@@ -604,6 +711,12 @@ export default function FenixJournalPage() {
                 icon={Hammer}
                 color="#60a5fa"
               />
+              <StatCard
+                label="Threads"
+                value={stats.streams["connecting-threads"] || 0}
+                icon={Link2}
+                color="#34d399"
+              />
             </div>
           )}
 
@@ -617,6 +730,80 @@ export default function FenixJournalPage() {
               <p>No journal entries yet.</p>
             </div>
           ) : (
+            <>
+            {/* Connecting Threads section */}
+            {connectingThreads.length > 0 && (
+              <div className="mb-8">
+                <div className="flex items-center gap-2 mb-4">
+                  <Link2 size={16} style={{ color: "#34d399" }} />
+                  <h2 className="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wider">
+                    Connecting Threads
+                  </h2>
+                  <span className="text-xs text-[var(--text-muted)]">
+                    — thematic essays tracing patterns over time
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-3 mb-8">
+                  {connectingThreads.map((thread) => (
+                    <div
+                      key={thread.slug}
+                      className="rounded-xl p-4 transition-all"
+                      style={{
+                        backgroundColor: "var(--bg-card)",
+                        border: "1px solid var(--border)",
+                      }}
+                    >
+                      <div className="flex items-start justify-between">
+                        <button
+                          onClick={() => openThread(thread.slug)}
+                          className="flex-1 text-left"
+                        >
+                          <div className="flex items-center gap-2 mb-1">
+                            <div
+                              className="w-7 h-7 rounded-md flex items-center justify-center"
+                              style={{ backgroundColor: "rgba(52, 211, 153, 0.12)" }}
+                            >
+                              <Link2 size={13} style={{ color: "#34d399" }} />
+                            </div>
+                            <p className="font-semibold text-sm text-[var(--text-primary)]">
+                              {thread.title}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-3 text-xs text-[var(--text-muted)] ml-9 mb-1">
+                            {thread.date && <span>{formatDate(thread.date)}</span>}
+                            <span>{thread.word_count.toLocaleString()} words</span>
+                          </div>
+                          <p className="text-xs text-[var(--text-secondary)] line-clamp-2 ml-9">
+                            {thread.preview}
+                          </p>
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setEntryDeleteConfirm({ stream: "connecting-threads", identifier: thread.slug });
+                          }}
+                          className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors flex-shrink-0 ml-2"
+                          title="Delete thread"
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Daily entries section header */}
+            {connectingThreads.length > 0 && entries.length > 0 && (
+              <div className="flex items-center gap-2 mb-4">
+                <Calendar size={16} style={{ color: "#2dd4bf" }} />
+                <h2 className="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wider">
+                  Daily Entries
+                </h2>
+              </div>
+            )}
+
             <div className="space-y-3">
               {entries.map((entry) => {
                 const aboutKiran = entry.streams["about-kiran"];
@@ -626,69 +813,87 @@ export default function FenixJournalPage() {
                   (aboutKiran?.word_count || 0) + (buildJourney?.word_count || 0);
 
                 return (
-                  <button
+                  <div
                     key={entry.date}
-                    onClick={() => openEntry(entry.date)}
-                    className="w-full text-left rounded-xl p-5 transition-all hover:scale-[1.005]"
+                    className="rounded-xl p-5 transition-all"
                     style={{
                       backgroundColor: "var(--bg-card)",
                       border: "1px solid var(--border)",
                     }}
                   >
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <div
-                          className="w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold"
-                          style={{
-                            backgroundColor: "rgba(45, 212, 191, 0.12)",
-                            color: "#2dd4bf",
-                          }}
-                        >
-                          {dayNum ? `D${dayNum}` : "—"}
+                    <div className="flex items-start justify-between">
+                      <button
+                        onClick={() => openEntry(entry.date)}
+                        className="flex-1 text-left"
+                      >
+                        <div className="flex items-center gap-3 mb-3">
+                          <div
+                            className="w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold"
+                            style={{
+                              backgroundColor: "rgba(45, 212, 191, 0.12)",
+                              color: "#2dd4bf",
+                            }}
+                          >
+                            {dayNum ? `D${dayNum}` : "—"}
+                          </div>
+                          <div>
+                            <p className="font-semibold text-[var(--text-primary)]">
+                              {formatDate(entry.date)}
+                            </p>
+                            <p className="text-xs text-[var(--text-muted)]">
+                              {totalWords.toLocaleString()} words
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-semibold text-[var(--text-primary)]">
-                            {formatDate(entry.date)}
-                          </p>
-                          <p className="text-xs text-[var(--text-muted)]">
-                            {totalWords.toLocaleString()} words
-                          </p>
-                        </div>
-                      </div>
-                      <ChevronRight size={18} className="text-[var(--text-muted)] mt-2" />
-                    </div>
 
-                    {/* Stream previews */}
-                    <div className="grid grid-cols-2 gap-4 mt-2">
-                      {aboutKiran && (
-                        <div className="flex items-start gap-2">
-                          <User
-                            size={14}
-                            className="mt-0.5 flex-shrink-0"
-                            style={{ color: "#fb923c" }}
-                          />
-                          <p className="text-sm text-[var(--text-secondary)] line-clamp-2">
-                            {aboutKiran.preview}
-                          </p>
+                        {/* Stream previews */}
+                        <div className="grid grid-cols-2 gap-4 mt-2">
+                          {aboutKiran && (
+                            <div className="flex items-start gap-2">
+                              <User
+                                size={14}
+                                className="mt-0.5 flex-shrink-0"
+                                style={{ color: "#fb923c" }}
+                              />
+                              <p className="text-sm text-[var(--text-secondary)] line-clamp-2">
+                                {aboutKiran.preview}
+                              </p>
+                            </div>
+                          )}
+                          {buildJourney && (
+                            <div className="flex items-start gap-2">
+                              <Hammer
+                                size={14}
+                                className="mt-0.5 flex-shrink-0"
+                                style={{ color: "#60a5fa" }}
+                              />
+                              <p className="text-sm text-[var(--text-secondary)] line-clamp-2">
+                                {buildJourney.preview}
+                              </p>
+                            </div>
+                          )}
                         </div>
-                      )}
-                      {buildJourney && (
-                        <div className="flex items-start gap-2">
-                          <Hammer
-                            size={14}
-                            className="mt-0.5 flex-shrink-0"
-                            style={{ color: "#60a5fa" }}
-                          />
-                          <p className="text-sm text-[var(--text-secondary)] line-clamp-2">
-                            {buildJourney.preview}
-                          </p>
-                        </div>
-                      )}
+                      </button>
+
+                      <div className="flex items-center gap-1 ml-3 flex-shrink-0">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setEntryDeleteConfirm({ stream: "about-kiran", identifier: entry.date });
+                          }}
+                          className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                          title="Delete entry"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                        <ChevronRight size={18} className="text-[var(--text-muted)]" />
+                      </div>
                     </div>
-                  </button>
+                  </div>
                 );
               })}
             </div>
+            </>
           )}
         </>
       )}
@@ -723,6 +928,59 @@ export default function FenixJournalPage() {
           ) : (
             <div className="text-center py-20 text-[var(--text-muted)]">
               <p>Entry not found.</p>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* ─── THREAD DETAIL VIEW ────────────────────────────── */}
+      {view === "thread-detail" && (
+        <>
+          {threadDetailLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 size={24} className="animate-spin text-[var(--text-muted)]" />
+            </div>
+          ) : selectedThread ? (
+            <div
+              className="rounded-xl overflow-hidden"
+              style={{
+                backgroundColor: "var(--bg-card)",
+                border: "1px solid var(--border)",
+              }}
+            >
+              <div
+                className="px-5 py-3 flex items-center justify-between"
+                style={{ borderBottom: "1px solid var(--border)" }}
+              >
+                <div className="flex items-center gap-2">
+                  <Link2 size={16} style={{ color: "#34d399" }} />
+                  <span className="text-sm font-semibold text-[var(--text-primary)]">
+                    {selectedThread.title}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-[var(--text-muted)]">
+                    {selectedThread.word_count.toLocaleString()} words
+                    {selectedThread.date && ` · ${formatDate(selectedThread.date)}`}
+                  </span>
+                  <button
+                    onClick={() => setEntryDeleteConfirm({ stream: "connecting-threads", identifier: selectedThread.slug })}
+                    className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                    title="Delete thread"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              </div>
+              <div
+                className="px-6 py-5 text-sm leading-relaxed text-[var(--text-secondary)]"
+                style={{ maxHeight: "75vh", overflowY: "auto" }}
+                dangerouslySetInnerHTML={{ __html: renderMarkdown(selectedThread.content) }}
+              />
+            </div>
+          ) : (
+            <div className="text-center py-20 text-[var(--text-muted)]">
+              <p>Thread not found.</p>
             </div>
           )}
         </>

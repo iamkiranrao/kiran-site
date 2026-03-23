@@ -12,7 +12,7 @@ Endpoints:
 import os
 from utils.config import resolve_api_key
 from fastapi import APIRouter, HTTPException, Header
-from pydantic import BaseModel
+from models.content_audit import AuditRequest
 from typing import Optional
 
 from services.content_audit_service import (
@@ -23,33 +23,22 @@ from services.content_audit_service import (
     audit_all,
 )
 
-
-
-
 router = APIRouter()
-
-
-class AuditRequest(BaseModel):
-    file_path: str
-
 
 # ── Endpoints ──────────────────────────────────────────────────────
 
-
-@router.get("/rules")
+@router.get("/rules", response_model=dict)
 async def view_rules():
     """Return the current CONTENT-RULES.md contents."""
     return {"rules": get_rules()}
 
-
-@router.get("/files")
+@router.get("/files", response_model=dict)
 async def view_files():
     """Return list of all auditable site files."""
     files = list_auditable_files()
     return {"count": len(files), "files": files}
 
-
-@router.post("/audit")
+@router.post("/audit", response_model=dict)
 async def run_audit(
     req: AuditRequest,
     x_claude_key: Optional[str] = Header(None),
@@ -61,8 +50,7 @@ async def run_audit(
         raise HTTPException(status_code=404, detail=result["error"])
     return result
 
-
-@router.post("/audit-all")
+@router.post("/audit-all", response_model=dict)
 async def run_full_audit(
     x_claude_key: Optional[str] = Header(None),
 ):
@@ -70,8 +58,7 @@ async def run_full_audit(
     api_key = resolve_api_key(x_claude_key)
     return await audit_all(api_key)
 
-
-@router.get("/preview/{file_path:path}")
+@router.get("/preview/{file_path:path}", response_model=dict)
 async def preview_content(file_path: str):
     """Preview extracted text for a given file (what Claude would see)."""
     # Resolve relative to site root

@@ -24,11 +24,11 @@ import shutil
 import tempfile
 from pathlib import Path
 from utils.config import CLAUDE_MODEL, resolve_api_key
+from services.claude_client import create_client
 from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
+from models.wordweaver import CreateRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
 from typing import Optional
-
 
 # ── Resolve paths ─────────────────────────────────────────────────
 _BACKEND_DIR = Path(__file__).resolve().parent.parent  # backend/
@@ -36,8 +36,6 @@ SITE_ROOT = os.getenv(
     "KIRAN_SITE_LOCAL_FOLDER",
     str(_BACKEND_DIR.parent.parent),  # command-center/ → website root
 )
-
-
 
 from services.wordweaver_service import (
     BLOG_STEPS,
@@ -57,62 +55,11 @@ from services.git_handler import GitHandler
 
 router = APIRouter()
 
-
 # ── Request models ─────────────────────────────────────────────────
-
-class CreateRequest(BaseModel):
-    mode: str  # "blog" or "social"
-    theme: Optional[str] = None
-    angle: Optional[str] = None
-    series: Optional[str] = None
-
-
-class StepRequest(BaseModel):
-    user_input: Optional[str] = None
-
-
-class ApproveRequest(BaseModel):
-    decision: Optional[str] = "Approved"
-
-
-class ReviseRequest(BaseModel):
-    feedback: str
-
-
-class GoToStepRequest(BaseModel):
-    step: int
-
-
-class EditFinalRequest(BaseModel):
-    feedback: str
-
-
-class ThemeRequest(BaseModel):
-    name: str
-    description: str
-
-
-class PreviewRequest(BaseModel):
-    html_content: str
-    slug: str
-    card_html: Optional[str] = None
-
-
-class PublishRequest(BaseModel):
-    session_id: str
-    html_content: str
-    slug: str
-    card_html: Optional[str] = None
-
-
-class CrossPostRequest(BaseModel):
-    """Request to generate Medium/Substack-ready Markdown from a published post."""
-    session_id: str
-
 
 # ── Endpoints ──────────────────────────────────────────────────────
 
-@router.get("/themes")
+@router.get("/themes", response_model=dict)
 async def list_themes_endpoint():
     """List available themes and cross-cutting angles."""
     data = get_themes()
@@ -122,15 +69,13 @@ async def list_themes_endpoint():
         "count": len(data["themes"]),
     }
 
-
-@router.post("/themes")
+@router.post("/themes", response_model=dict)
 async def add_theme_endpoint(request: ThemeRequest):
     """Add a new theme to the library."""
     result = add_theme(request.name, request.description)
     return result
 
-
-@router.delete("/themes/{name}")
+@router.delete("/themes/{name}", response_model=dict)
 async def remove_theme_endpoint(name: str):
     """Remove a theme from the library."""
     result = remove_theme(name)
@@ -138,8 +83,7 @@ async def remove_theme_endpoint(name: str):
         raise HTTPException(status_code=404, detail=f"Theme '{name}' not found")
     return result
 
-
-@router.get("/steps/{mode}")
+@router.get("/steps/{mode}", response_model=dict)
 async def get_step_definitions(mode: str):
     """Return step definitions for blog or social mode."""
     if mode == "blog":
@@ -149,8 +93,7 @@ async def get_step_definitions(mode: str):
     else:
         raise HTTPException(status_code=400, detail=f"Unknown mode: {mode}")
 
-
-@router.post("/create")
+@router.post("/create", response_model=dict)
 async def create_wordweaver_session(request: CreateRequest):
     """Start a new WordWeaver session."""
     if request.mode not in ("blog", "social"):
@@ -175,14 +118,12 @@ async def create_wordweaver_session(request: CreateRequest):
         "steps": steps,
     }
 
-
-@router.get("/sessions")
+@router.get("/sessions", response_model=dict)
 async def get_sessions():
     """List all WordWeaver sessions."""
     return {"sessions": list_sessions()}
 
-
-@router.get("/sessions/{session_id}")
+@router.get("/sessions/{session_id}", response_model=dict)
 async def get_session_detail(session_id: str):
     """Get full session state."""
     state = get_session(session_id)
@@ -190,8 +131,7 @@ async def get_session_detail(session_id: str):
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
     return state
 
-
-@router.delete("/sessions/{session_id}")
+@router.delete("/sessions/{session_id}", response_model=dict)
 async def delete_session(session_id: str):
     """Delete a WordWeaver session and its data."""
     state = get_session(session_id)
@@ -204,7 +144,6 @@ async def delete_session(session_id: str):
         shutil.rmtree(session_dir)
 
     return {"deleted": session_id}
-
 
 @router.post("/sessions/{session_id}/step")
 async def execute_step(
@@ -240,8 +179,7 @@ async def execute_step(
         },
     )
 
-
-@router.post("/sessions/{session_id}/approve")
+@router.post("/sessions/{session_id}/approve", response_model=dict)
 async def approve_step(session_id: str, request: ApproveRequest):
     """Approve the current step's draft and advance."""
     state = get_session(session_id)
@@ -272,7 +210,6 @@ async def approve_step(session_id: str, request: ApproveRequest):
         "next_step": updated["current_step"],
         "status": updated["status"],
     }
-
 
 @router.post("/sessions/{session_id}/revise")
 async def revise_step(
@@ -308,8 +245,7 @@ async def revise_step(
         },
     )
 
-
-@router.post("/sessions/{session_id}/goto-step")
+@router.post("/sessions/{session_id}/goto-step", response_model=dict)
 async def goto_step(session_id: str, request: GoToStepRequest):
     """Navigate to a specific step (back or forward) to review or re-run it."""
     state = get_session(session_id)
@@ -343,10 +279,9 @@ async def goto_step(session_id: str, request: GoToStepRequest):
         "status": updated["status"],
     }
 
-
 # ── Review Phase: Edit, Preview, Revalidate ─────────────────────
 
-@router.post("/sessions/{session_id}/preview-content")
+@router.post("/sessions/{session_id}/preview-content", response_model=dict)
 async def preview_content(
     session_id: str,
     x_claude_key: str = Header(None, alias="X-Claude-Key"),
@@ -399,7 +334,6 @@ async def preview_content(
         "preview_url": f"file://{blog_path}",
     }
 
-
 @router.post("/sessions/{session_id}/edit-final")
 async def edit_final(
     session_id: str,
@@ -450,8 +384,7 @@ async def edit_final(
         },
     )
 
-
-@router.post("/sessions/{session_id}/approve-final")
+@router.post("/sessions/{session_id}/approve-final", response_model=dict)
 async def approve_final(
     session_id: str,
     x_claude_key: str = Header(None, alias="X-Claude-Key"),
@@ -534,17 +467,14 @@ async def approve_final(
         },
     )
 
-
 # ── HTML Assembly ──────────────────────────────────────────────
 
 def _load_blog_template() -> str:
-    """Load the blog post HTML template."""
     template_path = os.path.join(
         os.path.dirname(__file__), "..", "templates", "blog-template.html"
     )
     with open(template_path, "r", encoding="utf-8") as f:
         return f.read()
-
 
 async def _assemble_blog_html(state: dict, api_key: str) -> str:
     """Use Claude to assemble a complete HTML blog page using the site template.
@@ -553,7 +483,6 @@ async def _assemble_blog_html(state: dict, api_key: str) -> str:
     and asks Claude to fill in all the {{PLACEHOLDER}} sections with content
     from the 12 steps.
     """
-    import anthropic
     from datetime import datetime
 
     template = _load_blog_template()
@@ -589,7 +518,7 @@ async def _assemble_blog_html(state: dict, api_key: str) -> str:
         with open(rules_path, "r", encoding="utf-8") as f:
             content_rules = f.read()
 
-    client = anthropic.Anthropic(api_key=api_key)
+    client = create_client(api_key)
 
     # Use streaming to avoid timeout on large requests
     collected = []
@@ -672,10 +601,9 @@ Output ONLY the complete HTML page. No explanation, no markdown fences. Start wi
         html = html[:-3]
     return html.strip()
 
-
 # ── Preview (Local Save) ──────────────────────────────────────────
 
-@router.post("/sessions/{session_id}/preview")
+@router.post("/sessions/{session_id}/preview", response_model=dict)
 async def preview_post(
     session_id: str,
     request: PreviewRequest,
@@ -737,10 +665,9 @@ async def preview_post(
         "message": f"Saved locally at blog/{filename}. Preview the file, then Deploy to push to production.",
     }
 
-
 # ── Deploy (Push to Production) ──────────────────────────────────
 
-@router.post("/sessions/{session_id}/deploy")
+@router.post("/sessions/{session_id}/deploy", response_model=dict)
 async def deploy_post(session_id: str):
     """Push a locally-previewed blog post to production via git."""
     import re as _re
@@ -793,9 +720,7 @@ async def deploy_post(session_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Deploy failed: {str(e)}")
 
-
 def _generate_blog_card(html_content: str, slug: str) -> str:
-    """Auto-generate a blog-podcast.html card from the published blog HTML."""
     import re as _re
     from datetime import datetime as _dt
 
@@ -847,7 +772,6 @@ def _generate_blog_card(html_content: str, slug: str) -> str:
                     <a href="blog/{slug}.html" class="card-link">Read <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                 </article>
 """
-
 
 def _update_fenix_index_for_blog(html_content: str, slug: str):
     """Auto-add/update a blog entry in fenix-index.json when deploying."""
@@ -911,10 +835,9 @@ def _update_fenix_index_for_blog(html_content: str, slug: str):
         json.dump(index, f, indent=2, ensure_ascii=False)
         f.write("\n")
 
-
 # ── Cross-Post (Medium / Substack) ────────────────────────────────
 
-@router.post("/sessions/{session_id}/crosspost")
+@router.post("/sessions/{session_id}/crosspost", response_model=dict)
 async def generate_crosspost(
     session_id: str,
     x_claude_key: str = Header(None, alias="X-Claude-Key"),
@@ -972,7 +895,6 @@ async def generate_crosspost(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Cross-post generation failed: {str(e)}")
 
-
 async def _generate_crosspost_markdown(html_content: str, slug: str, api_key: str) -> dict:
     """Convert a published HTML blog post to clean Markdown for Medium/Substack.
 
@@ -982,7 +904,6 @@ async def _generate_crosspost_markdown(html_content: str, slug: str, api_key: st
     - Adds canonical link header and series footer
     - Exports SVG diagrams as light-mode PNGs
     """
-    import anthropic
     import re
 
     # Extract metadata from HTML
@@ -1012,7 +933,7 @@ async def _generate_crosspost_markdown(html_content: str, slug: str, api_key: st
     article_html = article_match.group(1) if article_match else ""
 
     # Use Claude to convert HTML to clean Markdown
-    client = anthropic.Anthropic(api_key=api_key)
+    client = create_client(api_key)
 
     diagram_instructions = ""
     if diagram_images:
@@ -1093,7 +1014,6 @@ Output ONLY the Markdown. No explanation, no code fences."""
 
     return {"markdown": markdown, "diagram_images": [d["filename"] for d in diagram_images]}
 
-
 async def _export_svg_diagrams(html_content: str, slug: str, diagram_images: list):
     """Export inline SVG diagrams as light-mode PNGs using Playwright."""
     import re
@@ -1132,10 +1052,9 @@ svg {{ max-width: 720px; width: 100%; }}
 
         await browser.close()
 
-
 # ── Legacy Publish (Direct) ──────────────────────────────────────
 
-@router.post("/publish")
+@router.post("/publish", response_model=dict)
 async def publish_post(request: PublishRequest):
     """(Legacy) Publish a completed blog post directly to the site."""
     state = get_session(request.session_id)

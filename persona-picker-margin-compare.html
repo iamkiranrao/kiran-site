@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Persona picker margin comparison tool. Test different spacing and margin values to optimize card layout and visual balance in the interface.">
+<title>Persona Picker   Margin Comparison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --persona-accent: #e0952a;
+    --bg-deep: #1a1410;
+    --bg-warm: #231c14;
+    --text-cream: #e8dcc8;
+    --text-muted: #a08868;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-cream);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========== COMPARISON TOGGLE ========== */
+  .compare-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(15, 12, 8, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+  .compare-bar .label {
+    font-size: 13px;
+    color: #a08868;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .toggle-group {
+    display: flex;
+    gap: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .toggle-btn {
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+  }
+  .toggle-btn.active {
+    background: rgba(224, 149, 42, 0.2);
+    color: #e0952a;
+  }
+  .toggle-btn:hover:not(.active) {
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.7);
+  }
+  .spec-readout {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    letter-spacing: 0.5px;
+  }
+  .spec-readout .highlight {
+    color: #e0952a;
+    font-weight: 600;
+  }
+
+  /* ========== FULL-BLEED HERO WITH PARALLAX ========== */
+  .hero {
+    width: 100%;
+    height: 85vh;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-deep);
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    will-change: transform;
+    object-fit: cover;
+    object-position: center center;
+    animation: kenBurns 25s ease-in-out infinite alternate;
+  }
+
+  @keyframes kenBurns {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.06) translate(-0.5%, 0.3%); }
+  }
+
+  .hero-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(26,20,16,0.5) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(transparent, var(--bg-deep));
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* ========== PERSONA SECTION ========== */
+  .persona-section {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 60px 100px;
+    position: relative;
+    transition: max-width 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                padding 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Layout variants */
+  .persona-section.layout-tight {
+    max-width: 1440px;
+    padding: 0 36px 100px;
+  }
+
+  .persona-section.layout-recommended {
+    max-width: 1440px;
+    padding: 0 40px 100px;
+  }
+
+  /* Dramatic lead-in block */
+  .lead-block {
+    text-align: center;
+    padding: 48px 0 44px;
+    position: relative;
+  }
+
+  .lead-hook {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 38px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.9s ease-out 0.3s forwards;
+  }
+  .lead-hook em {
+    font-style: italic;
+    color: #e0952a;
+    transition: color 0.6s ease;
+  }
+
+  .lead-cta {
+    font-size: 17px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    line-height: 1.6;
+    margin-bottom: 0;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.9s ease-out 0.55s forwards;
+  }
+
+  .lead-divider {
+    width: 48px;
+    height: 2px;
+    background: #e0952a;
+    margin: 20px auto 0;
+    border-radius: 1px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease-out 0.75s forwards;
+  }
+
+  .scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease-out 0.9s forwards;
+  }
+  .scroll-hint span {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-cream);
+    font-weight: 500;
+    opacity: 0.7;
+  }
+  .scroll-hint-arrow-wrap {
+    animation: bounceDown 2s ease-in-out infinite;
+  }
+  .scroll-hint-arrow {
+    width: 18px;
+    height: 18px;
+    border-right: 2px solid #e0952a;
+    border-bottom: 2px solid #e0952a;
+    transform: rotate(45deg);
+    opacity: 0.7;
+  }
+  @keyframes bounceDown {
+    0%, 100% { transform: translateY(-4px); }
+    50% { transform: translateY(4px); }
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========== CARD GRID   2x3 LANDSCAPE ========== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .card {
+    aspect-ratio: 16/10;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.4s ease;
+    border: 1px solid rgba(255,255,255,0.06);
+    opacity: 1;
+  }
+
+  .card:hover {
+    transform: translateY(-12px) scale(1.04);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 10px 20px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.18);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 2px solid transparent;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 10;
+    pointer-events: none;
+  }
+  .card:hover::before { opacity: 1; }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .card:hover::after { opacity: 1; }
+
+  .card-tag { transition: letter-spacing 0.4s ease, opacity 0.4s; }
+  .card:hover .card-tag { letter-spacing: 3.5px; }
+  .card-hook { transition: color 0.4s ease; }
+  .card:hover .card-hook { color: rgba(255,255,255,0.75); }
+  .card-divider { transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s; }
+  .card:hover .card-divider { width: 50px; opacity: 0.9; }
+
+  .card-bg { position: absolute; inset: 0; }
+
+  .card-character {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 42%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .card-character img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    filter: contrast(1.02) saturate(1.05);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), filter 0.5s;
+  }
+  .card:hover .card-character img {
+    transform: scale(1.08);
+    filter: contrast(1.05) saturate(1.1) brightness(1.05);
+  }
+
+  .card-character-fade {
+    position: absolute;
+    top: 0;
+    left: 32%;
+    width: 18%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .card-text {
+    position: absolute;
+    top: 0;
+    left: 40%;
+    right: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px 24px 16px 16px;
+    z-index: 2;
+  }
+
+  .card-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .card-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 2px;
+    letter-spacing: 0.3px;
+  }
+  .card-title {
+    font-size: 12px;
+    color: rgba(255,255,255,0.50);
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .card-divider {
+    width: 30px;
+    height: 2px;
+    margin-bottom: 12px;
+    border-radius: 1px;
+    opacity: 0.6;
+  }
+  .card-hook {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.55);
+    font-style: italic;
+    line-height: 1.55;
+    letter-spacing: 0.2px;
+  }
+
+  /* ========== SELECTED STATE ========== */
+  .card.selected {
+    border-color: rgba(255,255,255,0.2);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  }
+  .card.selected::after { opacity: 0.7; }
+
+  /* ========== PERSONA COLORS ========== */
+  .evaluator .card-bg { background: linear-gradient(135deg, #13182a 0%, #1a2240 40%, #1e2848 100%); }
+  .evaluator .card-tag { color: #7B9ACC; }
+  .evaluator .card-divider { background: #7B9ACC; }
+  .evaluator .card-character-fade { background: linear-gradient(to right, transparent, #1a2240); }
+  .evaluator::after { box-shadow: 0 0 40px rgba(123,154,204,0.25), 0 0 80px rgba(123,154,204,0.1); }
+  .evaluator::before { border-color: rgba(123,154,204,0.4); }
+  .evaluator .card-character { background: #13182a; }
+
+  .seeker .card-bg { background: linear-gradient(135deg, #1e1a0e 0%, #2c2614 40%, #342c16 100%); }
+  .seeker .card-tag { color: #D4A03C; }
+  .seeker .card-divider { background: #D4A03C; }
+  .seeker .card-character-fade { background: linear-gradient(to right, transparent, #2c2614); }
+  .seeker::after { box-shadow: 0 0 40px rgba(212,160,60,0.25), 0 0 80px rgba(212,160,60,0.1); }
+  .seeker::before { border-color: rgba(212,160,60,0.4); }
+  .seeker .card-character { background: #1e1a0e; }
+
+  .practitioner .card-bg { background: linear-gradient(135deg, #0f1e18 0%, #162a22 40%, #1a3228 100%); }
+  .practitioner .card-tag { color: #4DAF8B; }
+  .practitioner .card-divider { background: #4DAF8B; }
+  .practitioner .card-character-fade { background: linear-gradient(to right, transparent, #162a22); }
+  .practitioner::after { box-shadow: 0 0 40px rgba(77,175,139,0.25), 0 0 80px rgba(77,175,139,0.1); }
+  .practitioner::before { border-color: rgba(77,175,139,0.4); }
+  .practitioner .card-character { background: #0f1e18; }
+
+  .learner .card-bg { background: linear-gradient(135deg, #1a1326 0%, #241a34 40%, #2a1e3c 100%); }
+  .learner .card-tag { color: #A07ED4; }
+  .learner .card-divider { background: #A07ED4; }
+  .learner .card-character-fade { background: linear-gradient(to right, transparent, #241a34); }
+  .learner::after { box-shadow: 0 0 40px rgba(160,126,212,0.25), 0 0 80px rgba(160,126,212,0.1); }
+  .learner::before { border-color: rgba(160,126,212,0.4); }
+  .learner .card-character { background: #1a1326; }
+
+  .explorer .card-bg { background: linear-gradient(135deg, #241412 0%, #301c18 40%, #38201c 100%); }
+  .explorer .card-tag { color: #CC6B5A; }
+  .explorer .card-divider { background: #CC6B5A; }
+  .explorer .card-character-fade { background: linear-gradient(to right, transparent, #301c18); }
+  .explorer::after { box-shadow: 0 0 40px rgba(204,107,90,0.25), 0 0 80px rgba(204,107,90,0.1); }
+  .explorer::before { border-color: rgba(204,107,90,0.4); }
+  .explorer .card-character { background: #241412; }
+
+  .innercircle .card-bg { background: linear-gradient(135deg, #1c1810 0%, #28221a 40%, #302a1e 100%); }
+  .innercircle .card-tag { color: #C4A67A; }
+  .innercircle .card-divider { background: #C4A67A; }
+  .innercircle .card-character-fade { background: linear-gradient(to right, transparent, #28221a); }
+  .innercircle::after { box-shadow: 0 0 40px rgba(196,166,122,0.25), 0 0 80px rgba(196,166,122,0.1); }
+  .innercircle::before { border-color: rgba(196,166,122,0.4); }
+  .innercircle .card-character { background: #1c1810; }
+
+  /* ========== SELECTION TOAST ========== */
+  .selection-toast {
+    position: fixed;
+    bottom: 48px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(35, 28, 20, 0.96);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 24px 48px;
+    border-radius: 16px;
+    font-size: 18px;
+    color: var(--text-cream);
+    z-index: 100;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s;
+    opacity: 0;
+    pointer-events: none;
+    text-align: center;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+    letter-spacing: 0.3px;
+  }
+  .selection-toast.visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  .selection-toast .toast-persona {
+    font-weight: 600;
+    font-size: 20px;
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  /* ========== EDGE MARKERS (debug aid) ========== */
+  .edge-marker {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(224, 149, 42, 0.25);
+    z-index: 50;
+    pointer-events: none;
+    transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1), right 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .edge-marker.left { left: 60px; }
+  .edge-marker.right { right: 60px; }
+  .edge-marker.hidden { opacity: 0; }
+
+  .persona-section.layout-tight .edge-marker.left { left: 36px; }
+  .persona-section.layout-tight .edge-marker.right { right: 36px; }
+
+  .persona-section.layout-recommended .edge-marker.left { left: 40px; }
+  .persona-section.layout-recommended .edge-marker.right { right: 40px; }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1024px) {
+    .card-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .persona-section { padding: 24px 24px 60px; }
+  }
+
+  @media (max-width: 640px) {
+    .card-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+    .card { aspect-ratio: 16/9; }
+    .lead-hook { font-size: 26px; }
+    .lead-block { padding: 32px 0 32px; }
+    .persona-section { padding: 0 16px 60px; }
+    .hero { height: 50vh; }
+    .hero-image { height: 120%; object-position: center 60%; }
+  }
+</style>
+<link rel="canonical" href="https://kirangorapalli.com/persona-picker-margin-compare.html">
+</head>
+<body>
+
+<!-- ========== COMPARISON TOGGLE BAR ========== -->
+<div class="compare-bar">
+  <span class="label">Layout</span>
+  <div class="toggle-group">
+    <button class="toggle-btn active" onclick="setLayout('current')">Current (60px)</button>
+    <button class="toggle-btn" onclick="setLayout('recommended')" style="border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1);">Recommended (40px)</button>
+    <button class="toggle-btn" onclick="setLayout('tight')">Tight (36px)</button>
+  </div>
+  <span class="spec-readout" id="spec-readout">
+    max-width: <span class="highlight">1320px</span> &middot; padding: <span class="highlight">60px</span> &middot; card: <span class="highlight" id="card-width">~384 &times; 240</span>
+  </span>
+</div>
+
+<!-- ========== HERO ========== -->
+<div class="hero">
+  <img class="hero-image" src="images/final-hero-image3.png" alt="Painterly creative studio with a Bernese mountain dog sleeping in warm sunlight">
+  <div class="hero-vignette"></div>
+  <div class="hero-fade"></div>
+</div>
+
+<!-- ========== PERSONA PICKER SECTION ========== -->
+<div class="persona-section" id="persona-section">
+
+  <div class="lead-block">
+    <div class="lead-hook">This site <em>reshapes itself</em> around you.</div>
+    <div class="lead-cta">Choose a perspective below. The content, the tone, the whole experience shifts to match.</div>
+    <div class="lead-divider"></div>
+    <div class="scroll-hint">
+      <span>Pick your persona</span>
+      <div class="scroll-hint-arrow-wrap"><div class="scroll-hint-arrow"></div></div>
+    </div>
+  </div>
+
+  <div class="card-grid" id="card-grid">
+
+    <div class="card evaluator" data-persona="evaluator" data-accent="#7B9ACC" onclick="selectPersona(this)">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <img src="images/evaluator-hunter.png" alt="Hunter Voss   The Evaluator" loading="lazy">
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Evaluator</div>
+        <div class="card-name">Hunter Voss</div>
+        <div class="card-title">Talent Lead at FitCheck</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"I've got a Job to be Done   is Kiran my guy?"</div>
+      </div>
+    </div>
+
+    <div class="card seeker" data-persona="seeker" data-accent="#D4A03C" onclick="selectPersona(this)">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <img src="images/seeker-quest2.png" alt="Quest Parekh   The Seeker" loading="lazy">
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Seeker</div>
+        <div class="card-name">Quest Parekh</div>
+        <div class="card-title">Founder at GapBridge</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"I need a force multiplier, not another consultant."</div>
+      </div>
+    </div>
+
+    <div class="card practitioner" data-persona="practitioner" data-accent="#4DAF8B" onclick="selectPersona(this)">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <img src="images/practitioner-mei.png" alt="Mei Craft   The Practitioner" loading="lazy">
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Practitioner</div>
+        <div class="card-name">Mei Craft</div>
+        <div class="card-title">VP Product at Shipwright</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"Frameworks, first principles, and strong opinions   my kind of thing."</div>
+      </div>
+    </div>
+
+    <div class="card learner" data-persona="learner" data-accent="#A07ED4" onclick="selectPersona(this)">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <img src="images/learner-sage.png" alt="Sage Minto   The Learner" loading="lazy">
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Learner</div>
+        <div class="card-name">Sage Minto</div>
+        <div class="card-title">Associate PM at LadderUp</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"I learn best from war stories, not textbooks."</div>
+      </div>
+    </div>
+
+    <div class="card explorer" data-persona="explorer" data-accent="#CC6B5A" onclick="selectPersona(this)">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <img src="images/explorer-wren.png" alt="Wren Atlas   The Explorer" loading="lazy">
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Explorer</div>
+        <div class="card-name">Wren Atlas</div>
+        <div class="card-title">Freelance Curious</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"I followed a breadcrumb and now I'm curious."</div>
+      </div>
+    </div>
+
+    <div class="card innercircle" data-persona="innercircle" data-accent="#C4A67A" onclick="selectPersona(this)">
+      <div class="card-bg"></div>
+      <div class="card-character">
+        <img src="images/innercircle-kai.png" alt="Keshav Shivdasani   The Inner Circle" loading="lazy">
+      </div>
+      <div class="card-character-fade"></div>
+      <div class="card-text">
+        <div class="card-tag">The Inner Circle</div>
+        <div class="card-name">Keshav Shivdasani</div>
+        <div class="card-title">Old Friend</div>
+        <div class="card-divider"></div>
+        <div class="card-hook">"Skip the pitch   we go way back."</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="selection-toast" id="toast">
+  Welcome. You're viewing as <span class="toast-persona" id="toast-persona"></span>.
+</div>
+
+<script>
+  const layouts = {
+    current:     { cls: '',                   label: 'max-width: <span class="highlight">1320px</span> &middot; padding: <span class="highlight">60px</span>' },
+    recommended: { cls: 'layout-recommended', label: 'max-width: <span class="highlight">1440px</span> &middot; padding: <span class="highlight">40px</span> &middot; <span style="color:#5bbfba">Linear/Raycast range</span>' },
+    tight:       { cls: 'layout-tight',       label: 'max-width: <span class="highlight">1440px</span> &middot; padding: <span class="highlight">36px</span>' }
+  };
+
+  function setLayout(name) {
+    const section = document.getElementById('persona-section');
+    const readout = document.getElementById('spec-readout');
+
+    // Remove all layout classes, then apply the right one
+    section.classList.remove('layout-tight', 'layout-recommended');
+    if (layouts[name].cls) {
+      section.classList.add(layouts[name].cls);
+    }
+
+    // Toggle button active state
+    document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Update readout with label, then measure after transition
+    readout.innerHTML = layouts[name].label + ' &middot; card: <span class="highlight" id="card-width">measuring...</span>';
+
+    setTimeout(() => {
+      const grid = document.getElementById('card-grid');
+      const firstCard = grid.querySelector('.card');
+      const cardWidthEl = document.getElementById('card-width');
+      if (firstCard && cardWidthEl) {
+        const rect = firstCard.getBoundingClientRect();
+        cardWidthEl.textContent = `~${Math.round(rect.width)} \u00D7 ${Math.round(rect.height)}`;
+      }
+    }, 650);
+  }
+
+  // Initial measurement
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const firstCard = document.querySelector('.card');
+      if (firstCard) {
+        const rect = firstCard.getBoundingClientRect();
+        document.getElementById('card-width').textContent = `~${Math.round(rect.width)} \u00D7 ${Math.round(rect.height)}`;
+      }
+    }, 100);
+  });
+
+  // Parallax
+  (function() {
+    const hero = document.querySelector('.hero');
+    const heroImg = document.querySelector('.hero-image');
+    let ticking = false;
+    function updateParallax() {
+      const scrollY = window.scrollY;
+      const heroHeight = hero.offsetHeight;
+      if (scrollY <= heroHeight * 1.5) {
+        const progress = Math.min(scrollY / heroHeight, 1);
+        heroImg.style.opacity = 1 - (progress * 0.2);
+        heroImg.style.animationPlayState = progress > 0.1 ? 'paused' : 'running';
+      }
+      ticking = false;
+    }
+    window.addEventListener('scroll', function() {
+      if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+    }, { passive: true });
+  })();
+
+  function selectPersona(card) {
+    const persona = card.dataset.persona;
+    const accent = card.dataset.accent;
+    const name = card.querySelector('.card-tag').textContent;
+    localStorage.setItem('persona', persona);
+    localStorage.setItem('persona-accent', accent);
+    document.documentElement.style.setProperty('--persona-accent', accent);
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    const toast = document.getElementById('toast');
+    const toastPersona = document.getElementById('toast-persona');
+    toastPersona.textContent = name;
+    toastPersona.style.color = accent;
+    toast.classList.add('visible');
+    setTimeout(() => { toast.classList.remove('visible'); }, 5000);
+  }
+</script>
+
+</body>
+</html>

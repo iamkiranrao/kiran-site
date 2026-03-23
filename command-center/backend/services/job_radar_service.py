@@ -22,6 +22,7 @@ import json
 import hashlib
 import logging
 import re
+import tempfile
 from datetime import datetime, timezone, timedelta
 from typing import Optional
 from enum import Enum
@@ -94,8 +95,10 @@ def _load_json(path: str) -> list:
 
 def _save_json(path: str, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w") as f:
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(data, f, indent=2, default=str)
+    os.replace(tmp_path, path)
 
 
 def _job_id(company: str, title: str, url: str) -> str:
@@ -859,8 +862,21 @@ async def run_full_scan() -> dict:
 
     logger.info(f"Scan complete: {companies_scanned} ATS companies, {aggregators_scanned} aggregators, {len(new_jobs)} new jobs, {len(errors)} errors")
 
+    sorted_new = sorted(new_jobs, key=lambda j: -(j.get("rank_score", 0)))
+
+    # Push notification if new jobs found
+    if sorted_new:
+        try:
+            from services.notification_service import notify_job_match
+            notify_job_match(
+                new_job_count=len(sorted_new),
+                top_match=sorted_new[0] if sorted_new else None,
+            )
+        except Exception as e:
+            logger.warning("Failed to send job match notification: %s", e)
+
     return {
-        "new_jobs": sorted(new_jobs, key=lambda j: -(j.get("rank_score", 0))),
+        "new_jobs": sorted_new,
         "companies_scanned": companies_scanned,
         "aggregators_scanned": aggregators_scanned,
         "total_jobs": len(all_jobs),

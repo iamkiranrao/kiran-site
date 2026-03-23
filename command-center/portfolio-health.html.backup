@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Health Map — Standards & Compliance</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+  :root {
+    --bg: #09090b; --bg2: #18181b; --bg3: #27272a;
+    --border: #3f3f46; --border2: #52525b;
+    --text: #fafafa; --text2: #a1a1aa; --text3: #71717a;
+    --red: #f87171; --red-bg: rgba(239,68,68,0.1);
+    --amber: #fbbf24; --amber-bg: rgba(245,158,11,0.1);
+    --green: #34d399; --green-bg: rgba(16,185,129,0.1);
+    --blue: #60a5fa; --blue-bg: rgba(96,165,250,0.1);
+    --purple: #a78bfa; --purple-bg: rgba(167,139,250,0.1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+  /* Zone cards */
+  .zone-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .zone-card {
+    padding: 16px; border-radius: 12px; border: 1px solid var(--border);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .zone-card:hover { border-color: var(--border2); }
+  .zone-card.active { ring: 2px solid var(--blue); border-color: var(--blue); box-shadow: 0 0 0 2px rgba(96,165,250,0.3); }
+  .zone-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .zone-label { font-size: 13px; font-weight: 600; }
+  .zone-score { font-size: 28px; font-weight: 700; font-family: 'SF Mono', monospace; }
+  .zone-stats { display: flex; justify-content: space-between; font-size: 11px; color: var(--text3); margin-top: 8px; }
+
+  /* Progress bar */
+  .progress-bar { width: 100%; height: 6px; background: var(--bg3); border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 99px; transition: width 0.5s ease; }
+
+  /* Section bars */
+  .section-bars { background: rgba(24,24,27,0.5); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+  .section-bar { display: flex; align-items: center; gap: 12px; padding: 6px 0; font-size: 13px; }
+  .section-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+  .section-name { width: 180px; color: var(--text); font-weight: 500; }
+  .section-score { width: 36px; font-family: 'SF Mono', monospace; font-weight: 700; text-align: right; }
+  .section-bar-track { flex: 1; height: 8px; background: var(--bg3); border-radius: 99px; overflow: hidden; }
+  .section-bar-fill { height: 100%; border-radius: 99px; }
+  .section-files { width: 60px; text-align: right; color: var(--text3); }
+  .section-issues { width: 80px; text-align: right; color: var(--text3); }
+  .section-crit { width: 40px; text-align: right; color: var(--red); font-weight: 500; font-size: 12px; }
+
+  /* Main layout */
+  .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+  .heatmap-section { margin-bottom: 24px; }
+  .heatmap-section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 13px; font-weight: 600; color: var(--text2); }
+  .heatmap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+
+  /* Heat cell */
+  .heat-cell {
+    padding: 10px; border-radius: 10px; border: 1px solid rgba(63,63,70,0.5);
+    cursor: pointer; transition: all 0.15s; position: relative;
+  }
+  .heat-cell:hover { border-color: var(--border2); transform: translateY(-1px); }
+  .heat-cell.selected { border-color: var(--blue); box-shadow: 0 0 0 2px rgba(96,165,250,0.3); }
+  .heat-cell-name { font-size: 12px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 6px; }
+  .heat-cell-stats { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+  .heat-cell-score { font-size: 12px; font-family: 'SF Mono', monospace; font-weight: 700; }
+  .heat-cell-badge { font-size: 9px; font-weight: 600; }
+  .heat-cell-wrench { position: absolute; top: 6px; right: 6px; font-size: 10px; }
+
+  /* Detail panel */
+  .detail-panel {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px; position: sticky; top: 16px;
+  }
+  .detail-header { display: flex; justify-content: space-between; align-items: flex-start; }
+  .detail-path { font-size: 16px; font-weight: 600; color: var(--text); word-break: break-all; }
+  .detail-meta { font-size: 12px; color: var(--text3); margin-top: 4px; }
+  .detail-score { font-size: 36px; font-weight: 700; font-family: 'SF Mono', monospace; text-align: right; }
+  .detail-score-label { font-size: 11px; color: var(--text3); text-align: right; }
+
+  /* Badges */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 500; }
+  .badge-red { background: var(--red-bg); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+  .badge-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+  .badge-gray { background: rgba(63,63,70,0.3); color: var(--text3); border: 1px solid rgba(63,63,70,0.3); }
+  .badge-green { background: var(--green-bg); color: var(--green); border: 1px solid rgba(16,185,129,0.2); }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+
+  /* Violations */
+  .pillar-group { border: 1px solid rgba(63,63,70,0.5); border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+  .pillar-group-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px; background: rgba(39,39,42,0.5); cursor: pointer;
+    font-size: 13px; font-weight: 500; color: var(--text);
+  }
+  .pillar-group-header:hover { background: rgba(39,39,42,0.8); }
+  .violation-row { padding: 10px 14px; border-top: 1px solid rgba(39,39,42,0.5); font-size: 13px; }
+  .violation-header { display: flex; align-items: center; gap: 8px; }
+  .sev-badge { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+  .sev-critical { background: rgba(239,68,68,0.2); color: #fca5a5; }
+  .sev-warning { background: rgba(245,158,11,0.2); color: #fcd34d; }
+  .sev-info { background: rgba(63,63,70,0.3); color: var(--text3); }
+  .check-id { font-size: 11px; font-family: 'SF Mono', monospace; color: var(--text3); }
+  .violation-detail { color: var(--text2); margin-top: 4px; }
+  .violation-suggestion { color: var(--text3); font-size: 12px; margin-top: 2px; }
+
+  /* Critical files */
+  .critical-section { background: rgba(239,68,68,0.03); border: 1px solid rgba(239,68,68,0.15); border-radius: 12px; padding: 20px; margin-top: 24px; }
+  .critical-header { font-size: 12px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+  .critical-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px; border-radius: 8px; background: rgba(24,24,27,0.5);
+    border: 1px solid var(--border); margin-bottom: 6px; cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .critical-row:hover { border-color: rgba(239,68,68,0.3); }
+
+  /* Worst files */
+  .worst-section { background: rgba(24,24,27,0.5); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 24px; }
+  .worst-header { font-size: 12px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .worst-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: 8px; cursor: pointer; transition: background 0.15s;
+  }
+  .worst-row:hover { background: rgba(39,39,42,0.5); }
+  .worst-rank { font-size: 11px; color: var(--text3); font-family: 'SF Mono', monospace; width: 20px; text-align: right; }
+  .worst-bar-track { flex: 1; height: 6px; background: var(--bg3); border-radius: 99px; overflow: hidden; }
+  .worst-bar-fill { height: 100%; border-radius: 99px; }
+  .worst-score-val { font-family: 'SF Mono', monospace; font-weight: 700; font-size: 13px; width: 30px; }
+  .worst-name { font-size: 13px; color: var(--text2); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Empty state */
+  .empty-panel { text-align: center; padding: 60px 20px; color: var(--text3); }
+  .empty-icon { font-size: 32px; margin-bottom: 12px; }
+
+  /* Responsive */
+  @media (max-width: 1024px) { .main-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) { .zone-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .zone-grid { grid-template-columns: 1fr; } }
+
+  .filter-controls { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-size: 13px; }
+  .filter-controls label { color: var(--text3); cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .clear-filter { color: var(--blue); cursor: pointer; font-size: 12px; border: none; background: none; }
+  .clear-filter:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useMemo } = React;
+
+const API_URL = "http://localhost:8000";
+
+// ── Classification ──────────────────────────────────────────────
+function classifyFile(path) {
+  if (path.includes("node_modules/") || path.includes("coverage/")) return "node_modules";
+  if (path === "index.html" || path === "index.backup.html") return "homepage";
+  if (path.startsWith("teardowns/")) return "teardowns";
+  if (path.startsWith("blog/") || path === "blog-podcast.html") return "blog";
+  if (path === "studio.html" || path === "madlab.html" || path === "store.html") return "studio";
+  if (path.startsWith("prototypes/")) return "prototypes";
+  if (path.includes("wireframe") || path.includes("mockup") || path.includes("preview") ||
+      path.includes("tuner") || path.includes("margin-compare") ||
+      path.startsWith("persona-picker") || path.startsWith("persona-layout") ||
+      path === "hero-video-prototype.html" || path === "og-card-mockup.html" ||
+      path === "sparkline-preview.html") return "dev-tools";
+  return "pages";
+}
+
+const SECTION_META = {
+  homepage:      { label: "Homepage",              zone: "website",   icon: "🏠" },
+  teardowns:     { label: "Teardowns",             zone: "website",   icon: "🔍" },
+  blog:          { label: "Blog",                  zone: "website",   icon: "✍️" },
+  studio:        { label: "Studio / MadLab / Store",zone: "website",  icon: "🎨" },
+  pages:         { label: "Other Pages",           zone: "website",   icon: "📄" },
+  prototypes:    { label: "Prototypes",            zone: "prototype", icon: "🧪" },
+  "dev-tools":   { label: "Dev Tools & Wireframes",zone: "internal",  icon: "🛠️" },
+  "node_modules":{ label: "node_modules",          zone: "noise",     icon: "📦" },
+};
+
+const ZONE_META = {
+  website:   { label: "Published Website", color: "#60a5fa", bg: "rgba(96,165,250,0.08)",  border: "rgba(96,165,250,0.2)", desc: "Live on kirangorapalli.com" },
+  prototype: { label: "Prototypes & Apps", color: "#a78bfa", bg: "rgba(167,139,250,0.08)", border: "rgba(167,139,250,0.2)", desc: "Product demos" },
+  internal:  { label: "Internal / Dev Tools", color: "#a1a1aa", bg: "rgba(161,161,170,0.06)", border: "rgba(161,161,170,0.15)", desc: "Wireframes, mockups" },
+  noise:     { label: "Noise (node_modules)", color: "#71717a", bg: "rgba(113,113,122,0.04)", border: "rgba(113,113,122,0.1)", desc: "Should be excluded" },
+};
+
+function sectionZone(section) { return SECTION_META[section]?.zone || "internal"; }
+
+function healthScore(f) {
+  return Math.max(0, 100 - f.total_critical * 15 - f.total_warning * 5 - f.total_info * 1);
+}
+
+function scoreColor(s) {
+  if (s >= 80) return "#34d399";
+  if (s >= 60) return "#a3e635";
+  if (s >= 40) return "#fbbf24";
+  if (s >= 20) return "#fb923c";
+  return "#f87171";
+}
+
+function scoreBg(s) {
+  if (s >= 80) return "rgba(16,185,129,0.1)";
+  if (s >= 60) return "rgba(163,230,53,0.1)";
+  if (s >= 40) return "rgba(245,158,11,0.1)";
+  if (s >= 20) return "rgba(249,115,22,0.12)";
+  return "rgba(248,113,113,0.12)";
+}
+
+// ── Components ──────────────────────────────────────────────────
+
+function HeatCell({ file, selected, onClick }) {
+  const score = healthScore(file);
+  const name = file.relative_path.split("/").pop();
+  return (
+    <div
+      className={`heat-cell ${selected ? "selected" : ""}`}
+      style={{ background: scoreBg(score) }}
+      onClick={onClick}
+      title={file.relative_path}
+    >
+      <div className="progress-bar">
+        <div className="progress-fill" style={{ width: `${score}%`, background: scoreColor(score) }} />
+      </div>
+      <div className="heat-cell-name">{name}</div>
+      <div className="heat-cell-stats">
+        <span className="heat-cell-score" style={{ color: scoreColor(score) }}>{score}</span>
+        {file.total_critical > 0 && <span className="heat-cell-badge" style={{ color: "#f87171" }}>{file.total_critical}C</span>}
+        {file.total_warning > 0 && <span className="heat-cell-badge" style={{ color: "#fbbf24" }}>{file.total_warning}W</span>}
+      </div>
+      {file.auto_fixable_count > 0 && <span className="heat-cell-wrench">🔧</span>}
+    </div>
+  );
+}
+
+function FileDetailPanel({ file }) {
+  const score = healthScore(file);
+  const [expanded, setExpanded] = useState(null);
+  const zone = ZONE_META[sectionZone(classifyFile(file.relative_path))];
+
+  return (
+    <div className="detail-panel">
+      <div className="detail-header">
+        <div>
+          <div className="detail-path">{file.relative_path}</div>
+          <div className="detail-meta">
+            <span style={{ color: zone.color }}>{zone.label}</span> · {file.word_count.toLocaleString()} words
+          </div>
+        </div>
+        <div>
+          <div className="detail-score" style={{ color: scoreColor(score) }}>{score}</div>
+          <div className="detail-score-label">health score</div>
+        </div>
+      </div>
+
+      <div className="badges">
+        {file.total_critical > 0 && <span className="badge badge-red">✕ {file.total_critical} critical</span>}
+        {file.total_warning > 0 && <span className="badge badge-amber">⚠ {file.total_warning} warnings</span>}
+        {file.total_info > 0 && <span className="badge badge-gray">ℹ {file.total_info} info</span>}
+        {file.auto_fixable_count > 0 && <span className="badge badge-green">🔧 {file.auto_fixable_count} auto-fixable</span>}
+      </div>
+
+      <div>
+        {Object.entries(file.pillars).map(([pillar, data]) => {
+          if (data.critical + data.warning + data.info === 0) return null;
+          const isExpanded = expanded === pillar;
+          return (
+            <div key={pillar} className="pillar-group">
+              <div className="pillar-group-header" onClick={() => setExpanded(isExpanded ? null : pillar)}>
+                <span>{isExpanded ? "▼" : "▶"} {pillar.charAt(0).toUpperCase() + pillar.slice(1)}</span>
+                <span>
+                  {data.critical > 0 && <span style={{ color: "#f87171", marginRight: 8 }}>{data.critical}C</span>}
+                  {data.warning > 0 && <span style={{ color: "#fbbf24", marginRight: 8 }}>{data.warning}W</span>}
+                  {data.info > 0 && <span style={{ color: "#71717a" }}>{data.info}I</span>}
+                </span>
+              </div>
+              {isExpanded && data.violations.map((v, idx) => (
+                <div key={idx} className="violation-row">
+                  <div className="violation-header">
+                    <span className={`sev-badge sev-${v.severity}`}>{v.severity}</span>
+                    <span className="check-id">{v.check_id}</span>
+                    {v.auto_fixable && <span>🔧</span>}
+                  </div>
+                  <div className="violation-detail">{v.detail}</div>
+                  {v.suggestion && <div className="violation-suggestion">💡 {v.suggestion}</div>}
+                </div>
+              ))}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [pillarData, setPillarData] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [zoneFilter, setZoneFilter] = useState("all");
+  const [hideNoise, setHideNoise] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const pillars = ["authenticity", "content", "visual"];
+        const results = await Promise.all(
+          pillars.map(p => fetch(`${API_URL}/api/standards/${p}/details`).then(r => r.json()))
+        );
+        setPillarData(results);
+      } catch (err) {
+        setError("Failed to load standards data. Is the backend running on localhost:8000?");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const aggregatedFiles = useMemo(() => {
+    const fileMap = new Map();
+    for (const pillar of pillarData) {
+      for (const fr of pillar.file_reports) {
+        const key = fr.relative_path;
+        if (!fileMap.has(key)) {
+          fileMap.set(key, {
+            relative_path: key,
+            section: classifyFile(key),
+            word_count: fr.word_count,
+            pillars: {},
+            total_critical: 0, total_warning: 0, total_info: 0,
+            total_violations: 0, auto_fixable_count: 0,
+          });
+        }
+        const agg = fileMap.get(key);
+        agg.pillars[pillar.pillar] = {
+          critical: fr.critical_count, warning: fr.warning_count, info: fr.info_count,
+          violations: fr.violations,
+        };
+        agg.total_critical += fr.critical_count;
+        agg.total_warning += fr.warning_count;
+        agg.total_info += fr.info_count;
+        agg.total_violations += fr.critical_count + fr.warning_count + fr.info_count;
+        agg.auto_fixable_count += fr.violations.filter(v => v.auto_fixable).length;
+      }
+    }
+    return Array.from(fileMap.values()).filter(f => f.total_violations > 0);
+  }, [pillarData]);
+
+  const filteredFiles = useMemo(() => {
+    let files = aggregatedFiles;
+    if (hideNoise) files = files.filter(f => sectionZone(f.section) !== "noise");
+    if (zoneFilter !== "all") files = files.filter(f => sectionZone(f.section) === zoneFilter);
+    return files;
+  }, [aggregatedFiles, zoneFilter, hideNoise]);
+
+  const filesBySection = useMemo(() => {
+    const groups = new Map();
+    for (const f of filteredFiles) {
+      if (!groups.has(f.section)) groups.set(f.section, []);
+      groups.get(f.section).push(f);
+    }
+    for (const files of groups.values()) {
+      files.sort((a, b) => healthScore(a) - healthScore(b));
+    }
+    return groups;
+  }, [filteredFiles]);
+
+  const sectionOrder = ["homepage", "teardowns", "blog", "studio", "pages", "prototypes", "dev-tools", "node_modules"];
+
+  const sectionStats = useMemo(() => {
+    return sectionOrder
+      .filter(s => filesBySection.has(s))
+      .map(section => {
+        const files = filesBySection.get(section);
+        const scores = files.map(healthScore);
+        const avg = Math.round(scores.reduce((a,b) => a+b, 0) / scores.length);
+        return {
+          section, files: files.length, avgScore: avg,
+          totalViolations: files.reduce((a,f) => a + f.total_violations, 0),
+          criticals: files.reduce((a,f) => a + f.total_critical, 0),
+        };
+      });
+  }, [filesBySection]);
+
+  const zoneStats = useMemo(() => {
+    const stats = {};
+    for (const zone of ["website", "prototype", "internal", "noise"]) {
+      const files = aggregatedFiles.filter(f => sectionZone(f.section) === zone);
+      const scores = files.map(healthScore);
+      const avg = files.length ? Math.round(scores.reduce((a,b) => a+b, 0) / files.length) : 100;
+      stats[zone] = {
+        files: files.length, avgScore: avg,
+        criticals: files.reduce((a,f) => a + f.total_critical, 0),
+        violations: files.reduce((a,f) => a + f.total_violations, 0),
+      };
+    }
+    return stats;
+  }, [aggregatedFiles]);
+
+  if (loading) {
+    return (
+      <div className="container" style={{ textAlign: "center", paddingTop: 80 }}>
+        <div style={{ fontSize: 24, marginBottom: 12 }}>⏳</div>
+        <div style={{ color: "var(--text3)" }}>Scanning portfolio health…</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container" style={{ textAlign: "center", paddingTop: 80 }}>
+        <div style={{ fontSize: 32, marginBottom: 12 }}>⚠️</div>
+        <div style={{ color: "var(--text2)" }}>{error}</div>
+      </div>
+    );
+  }
+
+  const websiteCriticals = aggregatedFiles
+    .filter(f => sectionZone(f.section) === "website" && f.total_critical > 0)
+    .sort((a, b) => b.total_critical - a.total_critical);
+
+  const worstWebsite = aggregatedFiles
+    .filter(f => sectionZone(f.section) === "website")
+    .sort((a, b) => healthScore(a) - healthScore(b))
+    .slice(0, 10);
+
+  return (
+    <div className="container">
+      {/* Header */}
+      <div style={{ marginBottom: 24 }}>
+        <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>📊 Portfolio Health Map</h1>
+        <p style={{ fontSize: 13, color: "var(--text3)" }}>
+          Authenticity, Content & Visual violations across your website and projects.
+          All violations are on <strong style={{ color: "var(--blue)" }}>external user-facing pages</strong> — the Command Center dashboard (React/TSX) is not scanned by HTML checks.
+        </p>
+      </div>
+
+      {/* Zone summary cards */}
+      <div className="zone-grid">
+        {["website", "prototype", "internal", "noise"].map(zone => {
+          const s = zoneStats[zone];
+          const m = ZONE_META[zone];
+          const active = zoneFilter === zone;
+          return (
+            <div
+              key={zone}
+              className={`zone-card ${active ? "active" : ""}`}
+              style={{ background: m.bg, borderColor: active ? m.color : m.border }}
+              onClick={() => setZoneFilter(active ? "all" : zone)}
+            >
+              <div className="zone-card-header">
+                <span className="zone-label" style={{ color: m.color }}>{m.label}</span>
+                <span className="zone-score" style={{ color: scoreColor(s.avgScore) }}>{s.avgScore}</span>
+              </div>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${s.avgScore}%`, background: scoreColor(s.avgScore) }} />
+              </div>
+              <div className="zone-stats">
+                <span>{s.files} files</span>
+                <span>{s.violations} issues</span>
+                {s.criticals > 0 && <span style={{ color: "var(--red)" }}>{s.criticals} critical</span>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Controls */}
+      <div className="filter-controls">
+        <label>
+          <input type="checkbox" checked={hideNoise} onChange={e => setHideNoise(e.target.checked)} />
+          Hide node_modules ({zoneStats.noise.files} files, {zoneStats.noise.violations} violations)
+        </label>
+        {zoneFilter !== "all" && <button className="clear-filter" onClick={() => setZoneFilter("all")}>Clear filter</button>}
+      </div>
+
+      {/* Section health bars */}
+      <div className="section-bars">
+        <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text3)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 12 }}>
+          Section Health Overview
+        </div>
+        {sectionStats.map(s => (
+          <div key={s.section} className="section-bar">
+            <div className="section-dot" style={{ background: scoreColor(s.avgScore) }} />
+            <span className="section-name">{SECTION_META[s.section].icon} {SECTION_META[s.section].label}</span>
+            <span className="section-score" style={{ color: scoreColor(s.avgScore) }}>{s.avgScore}</span>
+            <div className="section-bar-track">
+              <div className="section-bar-fill" style={{ width: `${s.avgScore}%`, background: scoreColor(s.avgScore) }} />
+            </div>
+            <span className="section-files">{s.files} files</span>
+            <span className="section-issues">{s.totalViolations} issues</span>
+            <span className="section-crit">{s.criticals > 0 ? `${s.criticals}C` : ""}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Main: heatmap + detail */}
+      <div className="main-grid">
+        <div>
+          {sectionStats.map(({ section }) => {
+            const files = filesBySection.get(section);
+            if (!files) return null;
+            const meta = SECTION_META[section];
+            const zmeta = ZONE_META[meta.zone];
+            return (
+              <div key={section} className="heatmap-section">
+                <div className="heatmap-section-header">
+                  <span>{meta.icon}</span>
+                  <span style={{ color: zmeta.color }}>{meta.label}</span>
+                  <span style={{ color: "var(--text3)", fontWeight: 400 }}>({files.length} files)</span>
+                </div>
+                <div className="heatmap-grid">
+                  {files.map(f => (
+                    <HeatCell
+                      key={f.relative_path}
+                      file={f}
+                      selected={selectedFile?.relative_path === f.relative_path}
+                      onClick={() => setSelectedFile(f)}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div>
+          {selectedFile ? (
+            <FileDetailPanel file={selectedFile} />
+          ) : (
+            <div className="detail-panel empty-panel">
+              <div className="empty-icon">👁️</div>
+              <div>Click any file to see its violation details</div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Critical files on website */}
+      {websiteCriticals.length > 0 && (
+        <div className="critical-section">
+          <div className="critical-header">✕ Critical Issues on Published Website</div>
+          {websiteCriticals.map(f => {
+            const score = healthScore(f);
+            return (
+              <div key={f.relative_path} className="critical-row" onClick={() => setSelectedFile(f)}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span>📄</span>
+                  <span style={{ fontSize: 13, color: "var(--text)" }}>{f.relative_path}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <span style={{ fontSize: 12, color: "var(--red)", fontWeight: 500 }}>{f.total_critical} critical</span>
+                  <span style={{ fontSize: 12, color: "var(--amber)" }}>{f.total_warning}W</span>
+                  <span style={{ fontFamily: "'SF Mono', monospace", fontWeight: 700, color: scoreColor(score) }}>{score}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Worst website files */}
+      <div className="worst-section">
+        <div className="worst-header">🔧 Top 10 Website Files to Fix (Worst Health)</div>
+        {worstWebsite.map((f, i) => {
+          const score = healthScore(f);
+          return (
+            <div key={f.relative_path} className="worst-row" onClick={() => setSelectedFile(f)}>
+              <span className="worst-rank">{i + 1}.</span>
+              <div className="worst-bar-track">
+                <div className="worst-bar-fill" style={{ width: `${Math.max(score, 2)}%`, background: scoreColor(score) }} />
+              </div>
+              <span className="worst-score-val" style={{ color: scoreColor(score) }}>{score}</span>
+              <span className="worst-name" title={f.relative_path}>{f.relative_path}</span>
+              <div style={{ marginLeft: "auto", display: "flex", gap: 6 }}>
+                {f.total_critical > 0 && <span style={{ fontSize: 10, color: "var(--red)" }}>{f.total_critical}C</span>}
+                <span style={{ fontSize: 10, color: "var(--amber)" }}>{f.total_warning}W</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

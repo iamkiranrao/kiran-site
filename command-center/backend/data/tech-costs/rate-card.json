@@ -1,0 +1,14 @@
+{
+  "_comment": "Model pricing in USD per 1M tokens. Update when Anthropic/Voyage change rates.",
+  "anthropic": {
+    "claude-sonnet-4-20250514": {"input": 3.0, "output": 15.0},
+    "claude-opus-4-20250514": {"input": 15.0, "output": 75.0},
+    "claude-opus-4-6": {"input": 15.0, "output": 75.0},
+    "claude-haiku-3-5-20241022": {"input": 0.80, "output": 4.0},
+    "claude-sonnet-4-6": {"input": 3.0, "output": 15.0}
+  },
+  "voyage": {
+    "voyage-3-lite": {"input": 0.02, "output": 0.0},
+    "voyage-3": {"input": 0.06, "output": 0.0}
+  }
+}

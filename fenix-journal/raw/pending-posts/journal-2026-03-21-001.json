@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "Session capture as the single processing pipeline — not just narrative, everything",
+    "body": "Landed on a design for keeping cross-cutting documentation fresh. The problem: when I change Module X, product guides, Tools & Links, and Knowledge Library entries that reference Module X silently go stale. Nobody catches the ripple.\n\nExplored three approaches: startup check (age-based flags on backend boot), end-of-session checklist (Claude runs a cross-reference before wrapping up), and session capture expansion (enhance the existing capture skill to also update docs).\n\nThe breakthrough: session capture already reads the full transcript. It already generates journal entries. Why not also have it identify what files were touched, read those files for ground truth, and update any cross-cutting doc that references what changed? One trigger, reads everything, updates everything. No new habits, no new infrastructure. Just expanding a tool I already use.\n\nKey constraint: compaction is invisible. I don't get a warning. So any approach that depends on an end-of-session moment is unreliable. Session capture works because I trigger it when I'm ready — it's the best I can do given the constraint.\n\nThe enhanced capture would: read JSONL transcript + read all modified files + generate Fenix Journal entries (with more honest, critical observations) + post Kiran's Journal entries with full attributes + post action items + update product guides + update Tools & Links + rebuild Knowledge Library cache if needed.\n\nAlso had an important exchange about objectivity in Fenix Journal entries. Claude's initial critical observations projected its own failures onto my workflow. The honest critique goes both ways: Claude presents options sequentially instead of comparatively, withholds context about its own constraints until asked, and sometimes executes without adequate transparency. Future entries should be honest about both sides.",
+    "category": "architecture",
+    "tags": ["session-capture", "documentation", "freshness", "cross-cutting", "automation", "fenix-journal", "objectivity"],
+    "workstreams": ["fenix", "command-center"],
+    "decision": "Enhance session capture to be the single processing pipeline for all post-session updates.",
+    "alternatives_considered": "Startup freshness check (lightweight but shallow). End-of-session checklist (thorough but unreliable). Scheduled weekly task (catches drift but adds latency).",
+    "open_questions": "How heavy does the enhanced capture get with large sessions? Should startup check be built as lightweight supplement?"
+  }
+}

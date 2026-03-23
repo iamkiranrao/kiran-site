@@ -1,18 +1,21 @@
 """
-Product Guides Service — reads and serves product module guides
-from the fenix-journal/guides directory.
+Product Guides Service — reads and serves product module guides.
+Scans the docs/ module folder structure for guide files (those with
+YAML frontmatter containing a 'module:' field). Falls back to
+fenix-journal/guides/ for any guides not yet migrated.
 """
 
 import os
 import re
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 
-# ── Resolve guides root ─────────────────────────────────────
+# ── Resolve roots ─────────────────────────────────────
 _BACKEND_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _COMMAND_CENTER = os.path.dirname(_BACKEND_DIR)
 _REPO_ROOT = os.path.dirname(_COMMAND_CENTER)
-JOURNAL_ROOT = os.path.join(_REPO_ROOT, "fenix-journal")
-GUIDES_DIR = os.path.join(JOURNAL_ROOT, "guides")
+DOCS_DIR = os.path.join(_REPO_ROOT, "docs")
+# Legacy location (kept as fallback)
+LEGACY_GUIDES_DIR = os.path.join(_REPO_ROOT, "fenix-journal", "guides")
 
 
 def _read_file(path: str) -> Optional[str]:
@@ -76,25 +79,57 @@ def _has_real_content(section_text: str) -> bool:
     return not any(phrase in lower for phrase in placeholder_phrases)
 
 
+def _find_guide_files() -> List[str]:
+    """Find all guide files (those with 'module:' in YAML frontmatter) across docs/ tree."""
+    guide_files = []
+    seen_slugs = set()
+
+    # Scan docs/ recursively for guide files
+    if os.path.isdir(DOCS_DIR):
+        for root, dirs, files in os.walk(DOCS_DIR):
+            for fname in files:
+                if not fname.endswith(".md") or fname.startswith("_") or fname == "RESUME.md":
+                    continue
+                fpath = os.path.join(root, fname)
+                content = _read_file(fpath)
+                if content and "module:" in content[:500]:
+                    meta = _parse_frontmatter(content)
+                    slug = meta.get("module", "")
+                    if slug and slug not in seen_slugs:
+                        seen_slugs.add(slug)
+                        guide_files.append(fpath)
+
+    # Fallback: scan legacy location for any guides not yet found
+    if os.path.isdir(LEGACY_GUIDES_DIR):
+        for fname in os.listdir(LEGACY_GUIDES_DIR):
+            if not fname.endswith(".md") or fname.startswith("_"):
+                continue
+            fpath = os.path.join(LEGACY_GUIDES_DIR, fname)
+            content = _read_file(fpath)
+            if content:
+                meta = _parse_frontmatter(content)
+                slug = meta.get("module", fname.replace(".md", ""))
+                if slug not in seen_slugs:
+                    seen_slugs.add(slug)
+                    guide_files.append(fpath)
+
+    return sorted(guide_files)
+
+
 def list_guides() -> Dict:
     """List all product guides with metadata."""
-    if not os.path.isdir(GUIDES_DIR):
-        return {"guides": [], "total": 0}
+    guide_files = _find_guide_files()
 
     guides = []
-    for fname in sorted(os.listdir(GUIDES_DIR)):
-        if not fname.endswith(".md") or fname.startswith("_"):
-            continue
-
-        fpath = os.path.join(GUIDES_DIR, fname)
+    for fpath in guide_files:
         content = _read_file(fpath)
         if not content:
             continue
 
+        fname = os.path.basename(fpath)
         meta = _parse_frontmatter(content)
         sections = _extract_sections(content)
 
-        # Count sections with real content
         populated = sum(1 for v in sections.values() if _has_real_content(v))
         total_sections = len(sections)
 
@@ -114,42 +149,43 @@ def list_guides() -> Dict:
 
 
 def get_guide(slug: str) -> Optional[Dict]:
-    """Get the full content of a specific guide."""
-    fname = f"{slug}.md"
-
+    """Get the full content of a specific guide by slug."""
     # Prevent path traversal
     if "/" in slug or "\\" in slug or ".." in slug:
         return None
 
-    fpath = os.path.join(GUIDES_DIR, fname)
-    content = _read_file(fpath)
-    if not content:
-        return None
+    # Search all guide files for the matching slug
+    guide_files = _find_guide_files()
+    for fpath in guide_files:
+        content = _read_file(fpath)
+        if not content:
+            continue
+        meta = _parse_frontmatter(content)
+        file_slug = meta.get("module", os.path.basename(fpath).replace(".md", ""))
+        if file_slug == slug:
+            sections = _extract_sections(content)
+            body = content
+            if content.startswith("---"):
+                end = content.find("---", 3)
+                if end > 0:
+                    body = content[end + 3:].strip()
 
-    meta = _parse_frontmatter(content)
-    sections = _extract_sections(content)
+            populated = sum(1 for v in sections.values() if _has_real_content(v))
 
-    # Get body after frontmatter
-    body = content
-    if content.startswith("---"):
-        end = content.find("---", 3)
-        if end > 0:
-            body = content[end + 3:].strip()
+            return {
+                "slug": file_slug,
+                "title": meta.get("title", slug.replace("-", " ").title()),
+                "created": meta.get("created", ""),
+                "last_updated": meta.get("last_updated", ""),
+                "version": int(meta.get("version", 1)),
+                "word_count": _word_count(content),
+                "sections_populated": populated,
+                "sections_total": len(sections),
+                "content": body,
+                "sections": {k: {"content": v, "has_data": _has_real_content(v)} for k, v in sections.items()},
+            }
 
-    populated = sum(1 for v in sections.values() if _has_real_content(v))
-
-    return {
-        "slug": meta.get("module", slug),
-        "title": meta.get("title", slug.replace("-", " ").title()),
-        "created": meta.get("created", ""),
-        "last_updated": meta.get("last_updated", ""),
-        "version": int(meta.get("version", 1)),
-        "word_count": _word_count(content),
-        "sections_populated": populated,
-        "sections_total": len(sections),
-        "content": body,
-        "sections": {k: {"content": v, "has_data": _has_real_content(v)} for k, v in sections.items()},
-    }
+    return None
 
 
 def get_guides_stats() -> Dict:
