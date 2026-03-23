@@ -27,6 +27,9 @@ VALID_WORKSTREAMS = [
 ]
 
 
+VALID_OWNERS = ["kiran", "claude", "joint", ""]
+
+
 class ActionItemCreate(BaseModel):
     title: str
     description: str = ""
@@ -36,6 +39,7 @@ class ActionItemCreate(BaseModel):
     due_date: Optional[str] = None              # ISO date string if time-sensitive
     tags: List[str] = []
     blocked_by: Optional[str] = None            # Description of what's blocking this
+    owner: str = ""                             # kiran, claude, joint, or "" (unassigned)
 
 
 class ActionItemUpdate(BaseModel):
@@ -50,3 +54,4 @@ class ActionItemUpdate(BaseModel):
     blocked_by: Optional[str] = None
     completed_at: Optional[str] = None
     notes: Optional[str] = None
+    owner: Optional[str] = None

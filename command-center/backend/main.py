@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from starlette.middleware.base import BaseHTTPMiddleware
 from dotenv import load_dotenv
 
 from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs
@@ -91,6 +92,42 @@ async def generic_cc_handler(request: Request, exc: CommandCenterError):
         "title": exc.message,
         "detail": exc.detail or exc.message,
     })
+
+# ── API Key authentication middleware ─────────────────────────
+# Localhost requests (from CC frontend) pass through freely.
+# External requests (via Cloudflare Tunnel) must include X-API-Key header.
+CC_API_KEY = os.getenv("CC_API_KEY")
+
+class APIKeyMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        # Allow localhost/internal requests without auth
+        client_host = request.client.host if request.client else ""
+        if client_host in ("127.0.0.1", "::1", "localhost"):
+            return await call_next(request)
+
+        # Allow health check without auth
+        if request.url.path in ("/health", "/api/health"):
+            return await call_next(request)
+
+        # Allow CORS preflight without auth
+        if request.method == "OPTIONS":
+            return await call_next(request)
+
+        # Require API key for all other external requests
+        if CC_API_KEY:
+            provided_key = request.headers.get("X-API-Key")
+            if provided_key != CC_API_KEY:
+                return JSONResponse(
+                    status_code=401,
+                    content={"detail": "Invalid or missing API key"},
+                )
+
+        return await call_next(request)
+
+if CC_API_KEY:
+    app.add_middleware(APIKeyMiddleware)
+else:
+    print("[WARN] CC_API_KEY not set — API is unauthenticated!", file=sys.stderr)
 
 # CORS
 cors_origins = [o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")]
