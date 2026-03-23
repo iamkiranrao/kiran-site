@@ -1,11 +1,1 @@
-{
-  "endpoint": "/api/action-items/",
-  "payload": {
-    "title": "Update persona-picker product guide with current persona IDs and names",
-    "description": "fenix-journal/guides/persona-picker.md still lists old persona IDs (engineer, pm, designer) and an old 6-persona cast from an earlier iteration. Needs to be updated to match the current cast: evaluator (Merritt Hunter), seeker (Phil Thevoid), practitioner (Drew Skematics), learner (Paige Turner), technologist (Ray Turing), innercircle (Keshav Shivdasani). The docs/PERSONA-PICKER.md was updated Mar 23 but the product guide diverges more deeply.",
-    "workstream": "cross-cutting",
-    "priority": "low",
-    "source": "session-capture-drift-check",
-    "status": "todo"
-  }
-}
+{"title":"Light-theme contrast audit for 6 persona accent colors","description":"All 6 persona accent colors were audited against dark backgrounds (WCAG AA passed). Light theme needs the same check. Warm Gunmetal (#8A8580) is the most likely to fail.","workstream":"persona-picker","priority":"medium","source":"session","status":"todo"}

@@ -1,11 +1,1 @@
-{
-  "endpoint": "/api/action-items/",
-  "payload": {
-    "title": "Verify March 11 product guides against current code",
-    "description": "Six guides from March 11 (WordWeaver, Resume Pipeline, Job Central, MadLab, Feedback, Knowledge Library) haven't been verified as still-accurate against current code. Carried forward from March 21 session.",
-    "workstream": "cross-cutting",
-    "priority": "medium",
-    "source": "session",
-    "status": "todo"
-  }
-}
+{"title":"Build two-column persona unlock component (Track 2 shell)","description":"Replace current Fenix intro section with two-column component. Left column: persona acknowledgment + 2-3 functional unlocks. Right column: persona-relevant Fenix intro. Renders conditionally based on localStorage persona value.","workstream":"persona-picker","priority":"high","source":"session","status":"todo"}

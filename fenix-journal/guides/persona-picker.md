@@ -2,7 +2,7 @@
 module: persona-picker
 title: Persona Picker
 created: 2026-03-20
-last_updated: 2026-03-20
+last_updated: 2026-03-23
 version: 1
 ---
 
@@ -157,14 +157,12 @@ Validated that 6 is the optimal number: enough diversity to cover target audienc
 **One-Time Selection, Not Persistent Toggle**
 Persona selection happens once (on landing page) and persists in localStorage for the entire session. No "Change Persona" button on every page (this creates decision fatigue and undermines the personalization intent). If user wants to reset, they can clear localStorage manually or start a new browser session.
 
-**Full Site Personalization Over Hero Section Only**
-Rather than personalizing just the hero image, extended personalization to:
-- Content card order (reorder sections to match persona interests)
-- Fenix chat system prompt (adjust tone and depth)
-- Accent color throughout (links, buttons, headers)
-- Portfolio case study selection (show relevant examples first)
-
-This depth of personalization justifies asking for persona selection upfront.
+**Personalization Scoped to Fenix + Visual Touches (March 23, 2026)**
+index.html is a universal page — same for everyone. Personalization is scoped to:
+- Fenix chat agent (greeting, prompts, tone, depth, accent color in widget)
+- Track 1 visual touches (tagline swap, card reorder, accent color thread, etc.)
+- Track 2 functional unlocks (per-persona exclusive features in a two-column component)
+Content reordering across the full site was considered and rejected — the content speaks for itself, and Fenix is where personalization has the highest leverage.
 
 **Target: 30-50 Hand-Picked, Not Viral**
 Persona Picker is NOT designed for viral scale or mass traffic. It's a bespoke recruitment tool for hand-picked contacts at dream companies. This shapes every decision: high visual quality (not optimized for mobile), narrow targeting (specific personas), manual outreach (emails with personalized links pre-selecting a persona).

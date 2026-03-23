@@ -1,11 +1,1 @@
-{
-  "endpoint": "/api/action-items/",
-  "payload": {
-    "title": "Fix session-capture skill mount to use enhanced version",
-    "description": "The read-only .skills/ mount has the old session-capture SKILL.md (transcript + journal only). The enhanced version (CC API posts, action items, ACTION-TRACKER, docs drift) lives in .claude-skills/session-capture/SKILL.md but isn't what Cowork loads. Need to figure out how to sync the workspace skill to the mounted location, or change how the skill is loaded.",
-    "workstream": "fenix",
-    "priority": "high",
-    "source": "session",
-    "status": "todo"
-  }
-}
+{"title":"Set up Cal.com with event types for persona unlocks","description":"3 event types needed: Intro Conversation (Evaluator, 30 min), Technical Pairing (Technologist, 45 min). Also activate ADPList profile for Learner mentorship booking.","workstream":"persona-picker","priority":"medium","source":"session","status":"todo"}

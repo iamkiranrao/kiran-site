@@ -1,11 +1,1 @@
-{
-  "endpoint": "/api/action-items/",
-  "payload": {
-    "title": "Post pending CC API payloads when backend is running",
-    "description": "CC backend was down during session capture. Journal entries (2) and action items (4) saved to fenix-journal/raw/pending-posts/. Need to POST these when the backend is next available.",
-    "workstream": "command-center",
-    "priority": "medium",
-    "source": "session",
-    "status": "todo"
-  }
-}
+{"title":"Create content for Track 2 Tier 2 unlocks","description":"Content assets that do not exist yet: fractional engagement brief (Seeker), PM starter kit (Learner), architecture decision records (Technologist), teardown director commentary for 2 teardowns (Practitioner), founder-framed case studies (Seeker), reference sheet (Evaluator). Estimated 12-16 hrs.","workstream":"persona-picker","priority":"medium","source":"session","status":"todo"}

@@ -1,11 +1,1 @@
-{
-  "endpoint": "/api/action-items/",
-  "payload": {
-    "title": "Wire persona picker as site entry point",
-    "description": "persona-picker-v4-production.html is live but standalone. Needs to be wired as the site's first-time visitor entry point (index routing or redirect). Decide whether it replaces index.html or is routed via a cookie/localStorage check.",
-    "workstream": "site-homepage",
-    "priority": "high",
-    "source": "session",
-    "status": "todo"
-  }
-}
+{"title":"Build Track 1 persona visual touches on index.html","description":"8 items totaling ~14-16 hrs: hero tagline swap, about section copy swap, competencies grid reorder, work card order, persona accent color thread through CSS custom properties, Fenix greeting tooltip, contact CTA subtext, viewing-as indicator. All pure frontend JS/CSS, zero backend dependencies. See PERSONA-PICKER.md Section 10 for full spec.","workstream":"persona-picker","priority":"high","source":"session","status":"todo"}
