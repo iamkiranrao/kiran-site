@@ -49,3 +49,7 @@ node_modules/
 
 # Legacy Netlify site (no longer needed)
 site/
+
+# Scannibal embedded repos
+prototypes/scannibal/api/
+prototypes/scannibal/app/
