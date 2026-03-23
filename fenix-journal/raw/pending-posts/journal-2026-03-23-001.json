@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "Persona Revision: Explorer → Technologist + Practitioner Goes Multi-Disciplinary",
+    "body": "I revisited the persona picker from first principles. The Explorer persona — 'just browsing, no agenda' — was the weakest of the six. It's the absence of intent, not a lens. Casual browsers won't use a persona picker anyway; the picker self-selects for people with purpose. Meanwhile, I had a genuine gap: CTOs, AI leads, and tech leads who want to evaluate whether I can actually build with AI, not just talk about it. That audience falls between Evaluator (too business-oriented) and Practitioner (too PM-focused). So I replaced Explorer with The Technologist — Ray Turing. The hook: 'Lots of people talk about AI. Show me you can actually build with it.' Simultaneously, I reframed Practitioner from 'Product Leader / PM' to 'Product · Design · Data' to absorb UX designers and data/analytics folks without adding a 7th persona. The rule I landed on for 'does this deserve its own persona': (1) Do they have a question no existing persona covers? (2) Do they need fundamentally different content surfaced? (3) Are they a large enough audience? If no to any, it's a content problem, not a persona problem.",
+    "category": "product-philosophy",
+    "tags": ["persona-strategy", "visitor-segmentation", "site-architecture", "ai-positioning"],
+    "workstreams": ["persona-picker", "site-homepage"],
+    "decision": "Replace Explorer with Technologist (Ray Turing). Reframe Practitioner as multi-disciplinary (Product · Design · Data) to absorb UX and analytics visitors without adding personas.",
+    "alternatives_considered": "Adding a 7th persona for UX designers (rejected: fragments craft peers, 7 options = decision fatigue). Swapping Learner for UX persona (rejected: loses growth/mentorship brand). Adding data/analytics persona (rejected: fails the 'distinct question' test — data visitors always map to an existing persona).",
+    "open_questions": "Does the Practitioner copy land for designers in practice? The teardown content needs to go deeper on experience decisions, not just strategy, for UX visitors to feel served."
+  }
+}

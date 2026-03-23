@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/action-items/",
+  "payload": {
+    "title": "Wire persona picker as site entry point",
+    "description": "persona-picker-v4-production.html is live but standalone. Needs to be wired as the site's first-time visitor entry point (index routing or redirect). Decide whether it replaces index.html or is routed via a cookie/localStorage check.",
+    "workstream": "site-homepage",
+    "priority": "high",
+    "source": "session",
+    "status": "todo"
+  }
+}

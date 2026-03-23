@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/action-items/",
+  "payload": {
+    "title": "Verify March 11 product guides against current code",
+    "description": "Six guides from March 11 (WordWeaver, Resume Pipeline, Job Central, MadLab, Feedback, Knowledge Library) haven't been verified as still-accurate against current code. Carried forward from March 21 session.",
+    "workstream": "cross-cutting",
+    "priority": "medium",
+    "source": "session",
+    "status": "todo"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/action-items/",
+  "payload": {
+    "title": "Post pending CC API payloads when backend is running",
+    "description": "CC backend was down during session capture. Journal entries (2) and action items (4) saved to fenix-journal/raw/pending-posts/. Need to POST these when the backend is next available.",
+    "workstream": "command-center",
+    "priority": "medium",
+    "source": "session",
+    "status": "todo"
+  }
+}

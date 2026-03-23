@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "Cloudflare Deployment: Make the Implicit Explicit",
+    "body": "The site had been deploying via manual Wrangler CLI from my Mac, which worked. When we set up GitHub-triggered CI/CD, it broke with 'Asset too large' — the deploy was uploading 754 files / 60MB because there was no wrangler.toml and no .assetsignore. The fix was two files: wrangler.toml for explicit config and .assetsignore to exclude command-center, prototypes, fenix-journal, and other non-site directories. Payload dropped from 754 files to 62 files, 60MB to 20MB. The lesson: when a deployment suddenly starts failing after months of working, the problem is rarely in the code you just changed. It's in the implicit assumptions of the pipeline meeting a threshold for the first time. The fix is always to make the implicit explicit.",
+    "category": "architecture",
+    "tags": ["cloudflare", "deployment", "infrastructure", "wrangler", "ci-cd"],
+    "workstreams": ["infrastructure", "site-homepage"],
+    "decision": "Added wrangler.toml and .assetsignore to make Cloudflare deployment deterministic. Site files only — everything else excluded.",
+    "alternatives_considered": "Could have restructured the repo to put site files in a subdirectory. Decided against it — .assetsignore is less disruptive and achieves the same result.",
+    "open_questions": "None — this is resolved."
+  }
+}
