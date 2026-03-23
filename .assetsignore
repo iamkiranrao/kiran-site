@@ -1,0 +1,65 @@
+# Non-site directories — exclude from Cloudflare Workers static assets
+command-center/
+prototypes/
+fenix-journal/
+fenix-backend/
+archive/
+template_previews/
+editable_templates/
+docs/
+scripts/
+
+# Build/config artifacts
+.wrangler/
+.githooks/
+.github/
+.claude-skills/
+.git/
+node_modules/
+
+# Backup and working files
+*.backup
+*.backup.*
+*.backup.js
+*.backup.css
+*.backup.html
+*.docx
+*.zip
+*.md
+
+# OS files
+.DS_Store
+Thumbs.db
+.fuse_hidden*
+
+# Config files (not needed as assets)
+.gitignore
+.assetsignore
+wrangler.toml
+translations.js
+
+# Non-site files in root
+*.py
+*.xlsx
+*.skill
+*.json
+zizyJLV7
+
+# Prototype/preview HTML files (not production)
+sparkline-preview.html
+diagram-preview.html
+hero-tuner.html
+hero-video-prototype.html
+og-card-mockup.html
+persona-layout-v2-wireframe.html
+persona-layout-wireframe.html
+persona-picker-margin-compare.html
+persona-picker-mockup.html
+persona-picker-v2.html
+persona-picker-v3-backup.html
+persona-picker-v3-portrait.html
+persona-picker.html
+persona-picker-v4-production.html.backup
+
+# Image originals (compressed versions exist)
+images/originals-v4/
