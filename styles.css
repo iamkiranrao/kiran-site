@@ -2320,7 +2320,20 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     --morph-pill-pause: 800ms;
 }
 
-/* Picker mode: show picker, hide homepage content */
+/* ============================================
+   MORPH CHOREOGRAPHY — Cinematic transition
+   View Transitions API + staggered CSS groups
+   Apple easing: cubic-bezier(0.4, 0.0, 0.2, 1.0)
+   ============================================ */
+
+/* --- Easing tokens --- */
+:root {
+    --ease-cinematic: cubic-bezier(0.4, 0.0, 0.2, 1.0);
+    --ease-decel: cubic-bezier(0.0, 0.0, 0.2, 1.0);
+    --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --- Picker mode: hide homepage, show picker --- */
 .picker-mode #persona-picker-section {
     display: block;
 }
@@ -2334,13 +2347,14 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 .picker-mode .ai-assistant-wrapper {
     opacity: 0;
     pointer-events: none;
-    max-height: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
     overflow: hidden;
-    margin: 0;
-    padding: 0;
+    clip: rect(0,0,0,0);
 }
 
-/* Returning visitor: hide picker, show everything */
+/* --- Returning visitor: skip straight to homepage --- */
 .persona-active #persona-picker-section {
     display: none;
 }
@@ -2354,63 +2368,160 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 .persona-active .ai-assistant-wrapper {
     opacity: 1;
     pointer-events: auto;
-    max-height: none;
+    position: static;
+    width: auto;
+    height: auto;
     overflow: visible;
+    clip: auto;
 }
 
-/* Phase 1: Cards dissolve */
-.morph-phase-1 .persona-picker-inline .card {
-    opacity: 0 !important;
-    transform: scale(0.95) !important;
-    transition: opacity 0.4s ease, transform 0.4s ease !important;
+/* --- Card exit: staggered blur + scale + fade --- */
+.morph-cards-exit .persona-picker-inline .card {
+    animation: cardDissolve 0.45s var(--ease-cinematic) forwards;
+}
+.morph-cards-exit .persona-picker-inline .card:nth-child(1) { animation-delay: 0s; }
+.morph-cards-exit .persona-picker-inline .card:nth-child(2) { animation-delay: 0.06s; }
+.morph-cards-exit .persona-picker-inline .card:nth-child(3) { animation-delay: 0.12s; }
+.morph-cards-exit .persona-picker-inline .card:nth-child(4) { animation-delay: 0.15s; }
+.morph-cards-exit .persona-picker-inline .card:nth-child(5) { animation-delay: 0.21s; }
+.morph-cards-exit .persona-picker-inline .card:nth-child(6) { animation-delay: 0.27s; }
+
+/* Lead text fades with cards */
+.morph-cards-exit .persona-picker-inline .lead-hook,
+.morph-cards-exit .persona-picker-inline .lead-cta,
+.morph-cards-exit .persona-picker-inline .lead-divider,
+.morph-cards-exit .persona-picker-inline .scroll-hint {
+    animation: softFadeOut 0.4s var(--ease-cinematic) forwards;
 }
 
-/* Phase 2: Hero reshapes */
-.morph-phase-2 .hero-image {
-    transition: aspect-ratio 0.6s ease;
+@keyframes cardDissolve {
+    0%   { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+    100% { opacity: 0; transform: scale(0.92) translateY(-12px); filter: blur(8px); }
 }
 
-/* Phase 3: Accent draws + pill emphasis + hero text appears */
-.morph-phase-3 .viewing-as-pill {
-    animation: pillLand 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+@keyframes softFadeOut {
+    0%   { opacity: 1; }
+    100% { opacity: 0; filter: blur(4px); }
 }
 
-.morph-phase-3 .hero-text {
-    animation: heroTextReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+/* --- Accent border draws in via scaleX --- */
+.morph-accent-draw .accent-frame-medium::before {
+    animation: accentDraw 0.7s var(--ease-decel) forwards !important;
+    transform-origin: left center;
+}
+
+@keyframes accentDraw {
+    0%   { transform: scaleX(0); opacity: 0; }
+    30%  { opacity: 1; }
+    100% { transform: scaleX(1); opacity: 1; }
+}
+
+/* --- Nav entrance: drops from above --- */
+.morph-reveal nav {
+    animation: navDrop 0.5s var(--ease-decel) forwards;
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+}
+
+@keyframes navDrop {
+    0%   { opacity: 0; transform: translateY(-20px); filter: blur(4px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* --- Pill lands with subtle overshoot --- */
+.morph-reveal .viewing-as-pill {
+    animation: pillLand 0.55s var(--ease-overshoot) 0.15s forwards;
     opacity: 0;
 }
 
 @keyframes pillLand {
-    0% { opacity: 0; transform: translateY(-10px); }
-    100% { opacity: 1; transform: translateY(0); }
+    0%   { opacity: 0; transform: translateY(-8px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@keyframes heroTextReveal {
-    0% { opacity: 0; transform: translateY(15px); }
-    100% { opacity: 1; transform: translateY(0); }
+/* --- Hero text emerges from blur with depth --- */
+.morph-reveal .hero-text {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    pointer-events: auto !important;
 }
 
-/* Phase 4: Content materializes */
-.morph-phase-4 nav,
-.morph-phase-4 .hero-text,
-.morph-phase-4 .about-section,
-.morph-phase-4 #work,
-.morph-phase-4 .contact-cta,
-.morph-phase-4 footer,
-.morph-phase-4 .ai-assistant-wrapper {
-    opacity: 1;
-    pointer-events: auto;
-    max-height: none;
-    overflow: visible;
-    animation: contentMaterialize 0.5s ease forwards;
+.morph-reveal .hero-text > h1 {
+    animation: textEmerge 0.6s var(--ease-decel) 0.1s forwards;
+    opacity: 0;
 }
 
-@keyframes contentMaterialize {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.morph-reveal .hero-text .hero-tagline {
+    animation: textEmerge 0.6s var(--ease-decel) 0.22s forwards;
+    opacity: 0;
 }
 
-/* Morph complete: everything stable */
+.morph-reveal .hero-text .hero-bottom-row {
+    animation: textEmerge 0.55s var(--ease-decel) 0.34s forwards;
+    opacity: 0;
+}
+
+@keyframes textEmerge {
+    0%   { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+    60%  { filter: blur(1px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* --- Below-fold content materializes --- */
+.morph-content-in .about-section {
+    animation: contentRise 0.6s var(--ease-decel) 0s forwards;
+}
+.morph-content-in #work {
+    animation: contentRise 0.6s var(--ease-decel) 0.08s forwards;
+}
+.morph-content-in .contact-cta {
+    animation: contentRise 0.6s var(--ease-decel) 0.16s forwards;
+}
+.morph-content-in footer {
+    animation: contentRise 0.6s var(--ease-decel) 0.24s forwards;
+}
+
+.morph-content-in .about-section,
+.morph-content-in #work,
+.morph-content-in .contact-cta,
+.morph-content-in footer {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    pointer-events: auto !important;
+}
+
+.morph-content-in .ai-assistant-wrapper {
+    animation: fabFadeIn 0.4s var(--ease-decel) 0.3s forwards;
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    pointer-events: auto !important;
+    opacity: 0;
+}
+
+@keyframes contentRise {
+    0%   { opacity: 0; transform: translateY(30px); filter: blur(4px); }
+    50%  { filter: blur(1px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes fabFadeIn {
+    0%   { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* --- Morph complete: stable state, all animations done --- */
 .morph-complete nav,
 .morph-complete .hero-text,
 .morph-complete .about-section,
@@ -2420,11 +2531,16 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 .morph-complete .ai-assistant-wrapper {
     opacity: 1;
     pointer-events: auto;
-    max-height: none;
+    position: static;
+    width: auto;
+    height: auto;
     overflow: visible;
+    clip: auto;
+    filter: none;
+    transform: none;
 }
 
-/* Reverse morph */
+/* --- Reverse morph: back to picker --- */
 .morph-reverse nav,
 .morph-reverse .hero-text,
 .morph-reverse .about-section,
@@ -2432,13 +2548,27 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 .morph-reverse .contact-cta,
 .morph-reverse footer,
 .morph-reverse .ai-assistant-wrapper {
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
+    animation: cinematicFadeOut 0.5s var(--ease-cinematic) forwards;
+}
+
+@keyframes cinematicFadeOut {
+    0%   { opacity: 1; transform: translateY(0); filter: blur(0); }
+    100% { opacity: 0; transform: translateY(-10px); filter: blur(6px); }
+}
+
+/* --- View Transitions API customization --- */
+::view-transition-old(root) {
+    animation: 0.4s var(--ease-cinematic) both vtFadeOut;
+}
+::view-transition-new(root) {
+    animation: 0.5s var(--ease-decel) both vtFadeIn;
+}
+
+@keyframes vtFadeOut {
+    to { opacity: 0; filter: blur(4px); }
+}
+@keyframes vtFadeIn {
+    from { opacity: 0; filter: blur(4px); }
 }
 
 
@@ -2734,17 +2864,28 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
         animation: none !important;
     }
 
-    .morph-phase-1 .persona-picker-inline .card,
-    .morph-phase-4 nav,
-    .morph-phase-4 .hero-text,
-    .morph-phase-4 .about-section,
-    .morph-phase-4 #work,
-    .morph-phase-4 .contact-cta,
-    .morph-phase-4 footer,
-    .morph-phase-4 .ai-assistant-wrapper {
+    .morph-cards-exit .persona-picker-inline .card,
+    .morph-reveal nav,
+    .morph-reveal .hero-text,
+    .morph-reveal .hero-text > h1,
+    .morph-reveal .hero-text .hero-tagline,
+    .morph-reveal .hero-text .hero-bottom-row,
+    .morph-reveal .viewing-as-pill,
+    .morph-content-in .about-section,
+    .morph-content-in #work,
+    .morph-content-in .contact-cta,
+    .morph-content-in footer,
+    .morph-content-in .ai-assistant-wrapper,
+    .morph-reverse nav,
+    .morph-reverse .hero-text,
+    .morph-reverse .about-section,
+    .morph-reverse #work,
+    .morph-reverse .contact-cta,
+    .morph-reverse footer {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
+        filter: none !important;
     }
 }
 
