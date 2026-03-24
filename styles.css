@@ -2760,7 +2760,6 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 }
 
 .unlock-content {
-    flex: 1;
     min-width: 0;
 }
 
