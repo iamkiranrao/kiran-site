@@ -545,10 +545,22 @@
     var unlocksList = document.querySelector('.fenix-intro-unlocks');
     if (unlocksList && config.unlocks) {
       unlocksList.innerHTML = '';
+
+      // Avatar + heading row
+      var headingRow = document.createElement('div');
+      headingRow.className = 'unlock-heading-row';
+      if (config.image) {
+        var avatar = document.createElement('img');
+        avatar.className = 'unlock-avatar';
+        avatar.src = config.image;
+        avatar.alt = config.character;
+        headingRow.appendChild(avatar);
+      }
       var heading = document.createElement('p');
       heading.className = 'unlock-heading';
       heading.innerHTML = 'As <span style="color:' + config.accent + '">' + config.name + '</span>, here\'s what\'s unlocked:';
-      unlocksList.appendChild(heading);
+      headingRow.appendChild(heading);
+      unlocksList.appendChild(headingRow);
 
       config.unlocks.forEach(function (unlock) {
         var item = document.createElement('a');
