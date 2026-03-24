@@ -2663,8 +2663,7 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
 }
 
 .fenix-intro-divider {
@@ -2738,9 +2737,10 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 
 /* Unlock items */
 .unlock-layout {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 1.5rem;
+    padding-left: 3rem;
 }
 
 .unlock-avatar {
@@ -2811,7 +2811,7 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     }
     .fenix-intro-left { padding: 0; margin-bottom: 2rem; }
     .unlock-avatar { width: 80px; height: 80px; }
-    .unlock-layout { gap: 1rem; }
+    .unlock-layout { gap: 1rem; padding-left: 0; }
     .fenix-intro-divider { width: 100%; height: 1px; }
     .fenix-intro-right { padding-left: 0; padding-top: 2rem; }
 }
