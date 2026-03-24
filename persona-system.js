@@ -60,7 +60,7 @@
       ],
       metrics: [
         { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
-        { value: '199', label: 'Commits, one at a time' },
+        { value: '199', label: 'Commits, one at a time', live: true },
         { value: '4,279', label: 'Lines of CSS, by hand' },
         { value: '3', label: 'AI systems wired in' },
         { value: '0', label: 'Times I asked for permission' }
@@ -168,7 +168,7 @@
         { label: 'Direct line', desc: 'WhatsApp. No forms.', icon: 'phone', link: '#' }
       ],
       metrics: [
-        { value: '199', label: 'Commits since February' },
+        { value: '199', label: 'Commits since February', live: true },
         { value: '~6 wks', label: 'Start to what you\'re looking at' },
         { value: '70', label: 'Hand-picked assets' },
         { value: '3am', label: 'Average commit time' },
@@ -624,49 +624,65 @@
       card.appendChild(valueSpan);
       card.appendChild(labelSpan);
 
-      // Hover-increment: only on pure numeric values (no ~, +, am, commas-with-letters)
-      var cleanVal = String(metric.value).replace(/,/g, '');
-      var numericVal = parseInt(cleanVal, 10);
-      if (!isNaN(numericVal) && String(numericVal) === cleanVal) {
-        initHoverIncrement(card, valueSpan, numericVal, metric.value);
+      // Split-flap: one flip on the "live" metric to show the site is alive
+      if (metric.live) {
+        initSplitFlap(card, valueSpan, parseInt(String(metric.value).replace(/,/g, ''), 10));
       }
 
       grid.appendChild(card);
     });
   }
 
-  function initHoverIncrement(card, valueSpan, startNum, displayVal) {
-    var hoverTimer = null;
-    var tickTimer = null;
-    var currentNum = startNum;
+  // Single split-flap flip — airport terminal style
+  // Fires once after a delay when the section scrolls into view
+  function initSplitFlap(card, valueSpan, startNum) {
+    var hasFlipped = false;
 
-    card.addEventListener('mouseenter', function () {
-      currentNum = startNum;
-      // Wait 1.5s before starting to tick
-      hoverTimer = setTimeout(function () {
-        tickTimer = setInterval(function () {
-          currentNum++;
-          // Format with commas if the original had them
-          valueSpan.textContent = displayVal.indexOf(',') !== -1
-            ? currentNum.toLocaleString()
-            : String(currentNum);
-          valueSpan.classList.remove('number-tick');
-          // Force reflow to restart animation
-          void valueSpan.offsetWidth;
-          valueSpan.classList.add('number-tick');
-        }, 800);
-      }, 1500);
-    });
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !hasFlipped) {
+          hasFlipped = true;
+          // Pause, then flip once
+          setTimeout(function () {
+            var nextNum = startNum + 1;
+            var nextVal = nextNum.toLocaleString();
 
-    card.addEventListener('mouseleave', function () {
-      clearTimeout(hoverTimer);
-      clearInterval(tickTimer);
-      hoverTimer = null;
-      tickTimer = null;
-      // Reset to original value
-      valueSpan.textContent = displayVal;
-      valueSpan.classList.remove('number-tick');
-    });
+            // Build the flip container
+            var flipWrap = document.createElement('span');
+            flipWrap.className = 'split-flap';
+
+            var current = document.createElement('span');
+            current.className = 'flap-current';
+            current.textContent = valueSpan.textContent;
+
+            var next = document.createElement('span');
+            next.className = 'flap-next';
+            next.textContent = nextVal;
+
+            flipWrap.appendChild(current);
+            flipWrap.appendChild(next);
+
+            // Swap the static text for the flip mechanism
+            valueSpan.textContent = '';
+            valueSpan.appendChild(flipWrap);
+
+            // Trigger the flip
+            requestAnimationFrame(function () {
+              flipWrap.classList.add('flipping');
+            });
+
+            // After animation, clean up to static text
+            setTimeout(function () {
+              valueSpan.textContent = nextVal;
+            }, 600);
+          }, 2000);
+
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    observer.observe(card);
   }
 
   // ── C4: Fenix Intro Shell — Build Content ──────────
