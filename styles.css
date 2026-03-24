@@ -2375,50 +2375,53 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     clip: auto;
 }
 
-/* --- Card exit: staggered blur + scale + fade --- */
+/* --- Act 1: Card exit — slower, wider stagger, more travel --- */
 .morph-cards-exit .persona-picker-inline .card {
-    animation: cardDissolve 0.45s var(--ease-cinematic) forwards;
+    animation: cardDissolve 0.6s var(--ease-cinematic) forwards;
 }
+/* Stagger: 0.1s between cards = 0.5s cascade across 6 cards */
 .morph-cards-exit .persona-picker-inline .card:nth-child(1) { animation-delay: 0s; }
-.morph-cards-exit .persona-picker-inline .card:nth-child(2) { animation-delay: 0.06s; }
-.morph-cards-exit .persona-picker-inline .card:nth-child(3) { animation-delay: 0.12s; }
-.morph-cards-exit .persona-picker-inline .card:nth-child(4) { animation-delay: 0.15s; }
-.morph-cards-exit .persona-picker-inline .card:nth-child(5) { animation-delay: 0.21s; }
-.morph-cards-exit .persona-picker-inline .card:nth-child(6) { animation-delay: 0.27s; }
+.morph-cards-exit .persona-picker-inline .card:nth-child(2) { animation-delay: 0.1s; }
+.morph-cards-exit .persona-picker-inline .card:nth-child(3) { animation-delay: 0.2s; }
+.morph-cards-exit .persona-picker-inline .card:nth-child(4) { animation-delay: 0.25s; }
+.morph-cards-exit .persona-picker-inline .card:nth-child(5) { animation-delay: 0.35s; }
+.morph-cards-exit .persona-picker-inline .card:nth-child(6) { animation-delay: 0.45s; }
 
-/* Lead text fades with cards */
+/* Lead text fades slightly before cards finish */
 .morph-cards-exit .persona-picker-inline .lead-hook,
 .morph-cards-exit .persona-picker-inline .lead-cta,
 .morph-cards-exit .persona-picker-inline .lead-divider,
 .morph-cards-exit .persona-picker-inline .scroll-hint {
-    animation: softFadeOut 0.4s var(--ease-cinematic) forwards;
+    animation: softFadeOut 0.5s var(--ease-cinematic) forwards;
 }
 
 @keyframes cardDissolve {
     0%   { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-    100% { opacity: 0; transform: scale(0.92) translateY(-12px); filter: blur(8px); }
+    40%  { opacity: 0.6; transform: scale(0.97) translateY(-6px); filter: blur(2px); }
+    100% { opacity: 0; transform: scale(0.88) translateY(-20px); filter: blur(12px); }
 }
 
 @keyframes softFadeOut {
-    0%   { opacity: 1; }
-    100% { opacity: 0; filter: blur(4px); }
+    0%   { opacity: 1; filter: blur(0); }
+    100% { opacity: 0; filter: blur(6px); }
 }
 
-/* --- Accent border draws in via scaleX --- */
+/* --- Accent border draws in via scaleX — first thing visible, sets the tone --- */
 .morph-accent-draw .accent-frame-medium::before {
-    animation: accentDraw 0.7s var(--ease-decel) forwards !important;
+    animation: accentDraw 1s var(--ease-decel) forwards !important;
     transform-origin: left center;
 }
 
 @keyframes accentDraw {
     0%   { transform: scaleX(0); opacity: 0; }
-    30%  { opacity: 1; }
+    15%  { opacity: 1; }
     100% { transform: scaleX(1); opacity: 1; }
 }
 
-/* --- Nav entrance: drops from above --- */
+/* --- Nav entrance: drops in while accent border is drawing --- */
 .morph-reveal nav {
-    animation: navDrop 0.5s var(--ease-decel) forwards;
+    animation: navDrop 0.6s var(--ease-decel) 0.2s forwards;
+    opacity: 0;
     position: static !important;
     width: auto !important;
     height: auto !important;
@@ -2427,22 +2430,23 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 }
 
 @keyframes navDrop {
-    0%   { opacity: 0; transform: translateY(-20px); filter: blur(4px); }
+    0%   { opacity: 0; transform: translateY(-24px); filter: blur(6px); }
+    50%  { filter: blur(1px); }
     100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
-/* --- Pill lands with subtle overshoot --- */
+/* --- Pill lands with overshoot — the persona name is the reveal --- */
 .morph-reveal .viewing-as-pill {
-    animation: pillLand 0.55s var(--ease-overshoot) 0.15s forwards;
+    animation: pillLand 0.6s var(--ease-overshoot) 0.5s forwards;
     opacity: 0;
 }
 
 @keyframes pillLand {
-    0%   { opacity: 0; transform: translateY(-8px) scale(0.9); }
+    0%   { opacity: 0; transform: translateY(-10px) scale(0.85); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* --- Hero text emerges from blur with depth --- */
+/* --- Hero text emerges from blur — each line gets its own moment --- */
 .morph-reveal .hero-text {
     position: static !important;
     width: auto !important;
@@ -2452,39 +2456,49 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     pointer-events: auto !important;
 }
 
+/* "Kiran Gorapalli" — arrives first, anchors the page */
 .morph-reveal .hero-text > h1 {
-    animation: textEmerge 0.6s var(--ease-decel) 0.1s forwards;
+    animation: textEmerge 0.7s var(--ease-decel) 0.35s forwards;
     opacity: 0;
 }
 
+/* Tagline — THE payoff moment. Wider delay so it lands on its own. */
 .morph-reveal .hero-text .hero-tagline {
-    animation: textEmerge 0.6s var(--ease-decel) 0.22s forwards;
+    animation: taglineEmerge 0.8s var(--ease-decel) 0.7s forwards;
     opacity: 0;
 }
 
+/* Location + scroll — quiet finish to the above-fold reveal */
 .morph-reveal .hero-text .hero-bottom-row {
-    animation: textEmerge 0.55s var(--ease-decel) 0.34s forwards;
+    animation: textEmerge 0.6s var(--ease-decel) 1.05s forwards;
     opacity: 0;
 }
 
 @keyframes textEmerge {
-    0%   { opacity: 0; transform: translateY(18px); filter: blur(6px); }
-    60%  { filter: blur(1px); }
+    0%   { opacity: 0; transform: translateY(20px); filter: blur(8px); }
+    50%  { filter: blur(2px); }
     100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
-/* --- Below-fold content materializes --- */
+/* Tagline gets its own keyframes — slightly more travel, slower blur clear */
+@keyframes taglineEmerge {
+    0%   { opacity: 0; transform: translateY(24px); filter: blur(10px); }
+    40%  { opacity: 0.7; filter: blur(3px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* --- Act 3: Below-fold content materializes — wider stagger --- */
 .morph-content-in .about-section {
-    animation: contentRise 0.6s var(--ease-decel) 0s forwards;
+    animation: contentRise 0.7s var(--ease-decel) 0s forwards;
 }
 .morph-content-in #work {
-    animation: contentRise 0.6s var(--ease-decel) 0.08s forwards;
+    animation: contentRise 0.7s var(--ease-decel) 0.15s forwards;
 }
 .morph-content-in .contact-cta {
-    animation: contentRise 0.6s var(--ease-decel) 0.16s forwards;
+    animation: contentRise 0.7s var(--ease-decel) 0.3s forwards;
 }
 .morph-content-in footer {
-    animation: contentRise 0.6s var(--ease-decel) 0.24s forwards;
+    animation: contentRise 0.7s var(--ease-decel) 0.45s forwards;
 }
 
 .morph-content-in .about-section,
@@ -2500,7 +2514,7 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 }
 
 .morph-content-in .ai-assistant-wrapper {
-    animation: fabFadeIn 0.4s var(--ease-decel) 0.3s forwards;
+    animation: fabFadeIn 0.5s var(--ease-decel) 0.5s forwards;
     position: static !important;
     width: auto !important;
     height: auto !important;
@@ -2511,13 +2525,13 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 }
 
 @keyframes contentRise {
-    0%   { opacity: 0; transform: translateY(30px); filter: blur(4px); }
-    50%  { filter: blur(1px); }
+    0%   { opacity: 0; transform: translateY(35px); filter: blur(6px); }
+    45%  { filter: blur(1px); }
     100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 @keyframes fabFadeIn {
-    0%   { opacity: 0; transform: scale(0.8); }
+    0%   { opacity: 0; transform: scale(0.7); }
     100% { opacity: 1; transform: scale(1); }
 }
 
