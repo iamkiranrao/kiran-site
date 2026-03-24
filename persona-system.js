@@ -14,6 +14,7 @@
     evaluator: {
       accent: '#7B9ACC',
       name: 'The Evaluator',
+      image: 'images/evaluator-merritt.webp',
       character: 'Merritt Hunter',
       title: 'Recruiter / Hiring Manager',
       tagline: 'Builder of Products People Love',
@@ -33,6 +34,7 @@
     seeker: {
       accent: '#8A8580',
       name: 'The Seeker',
+      image: 'images/seeker-phil.webp',
       character: 'Phil Thevoid',
       title: 'Founder / Needs a Product Leader',
       tagline: 'Builder Who Turns Vision into Product',
@@ -52,6 +54,7 @@
     practitioner: {
       accent: '#4DAF8B',
       name: 'The Practitioner',
+      image: 'images/practitioner-drew.webp',
       character: 'Drew Skematics',
       title: 'Product · Design · Data',
       tagline: 'Builder Who Thinks in Tradeoffs',
@@ -71,6 +74,7 @@
     learner: {
       accent: '#A07ED4',
       name: 'The Learner',
+      image: 'images/learner-paige.webp',
       character: 'Paige Turner',
       title: 'Aspiring PM / Career Grower',
       tagline: 'Builder Who Thinks Out Loud',
@@ -90,6 +94,7 @@
     technologist: {
       accent: '#cb5c72',
       name: 'The Technologist',
+      image: 'images/technologist-ray.webp',
       character: 'Ray Turing',
       title: 'CTO / AI Lead / Tech Lead',
       tagline: 'Builder Who Ships with AI',
@@ -109,6 +114,7 @@
     innercircle: {
       accent: '#cb6923',
       name: 'The Inner Circle',
+      image: 'images/innercircle-keshav.webp',
       character: 'Keshav Shivdasani',
       title: 'Old Friend',
       tagline: 'Builder of Weird and Wonderful Things',
@@ -165,7 +171,8 @@
     var config = getPersonaConfig(persona);
 
     if (config) {
-      pill.innerHTML = '<span class="pill-label">Viewing as</span> <span class="pill-persona-name">' + config.name + '</span>';
+      var avatarHtml = config.image ? '<img class="pill-avatar" src="' + config.image + '" alt="' + config.character + '">' : '';
+      pill.innerHTML = avatarHtml + '<span class="pill-label">Viewing as</span> <span class="pill-persona-name">' + config.name + '</span>';
       pill.style.borderColor = config.accent;
       pill.querySelector('.pill-persona-name').style.color = config.accent;
       pill.addEventListener('click', function () {
@@ -361,7 +368,8 @@
   function updateNavPill(config) {
     var pill = document.querySelector('.viewing-as-pill');
     if (!pill) return;
-    pill.innerHTML = '<span class="pill-label">Viewing as</span> <span class="pill-persona-name">' + config.name + '</span>';
+    var avatarHtml = config.image ? '<img class="pill-avatar" src="' + config.image + '" alt="' + config.character + '">' : '';
+    pill.innerHTML = avatarHtml + '<span class="pill-label">Viewing as</span> <span class="pill-persona-name">' + config.name + '</span>';
     pill.classList.remove('unpicked');
     pill.style.borderColor = config.accent;
     var nameEl = pill.querySelector('.pill-persona-name');
