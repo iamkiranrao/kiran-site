@@ -258,56 +258,67 @@
     var body = document.body;
     var pickerSection = document.getElementById('persona-picker-section');
 
-    // ── Act 1: Cards dissolve with staggered blur (450ms total) ──
+    // ── Act 1: Cards dissolve with staggered blur ──
+    // Last card starts at 0.45s + 0.6s duration = ~1.05s total
     body.classList.add('morph-cards-exit');
 
     // Smooth scroll to top during card exit
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
+    // ── Dramatic pause: wait for cards to fully dissolve + scroll ──
     setTimeout(function () {
-      // Snap to top before reveal
+      // Snap to top
       window.scrollTo({ top: 0, behavior: 'instant' });
 
       // Hide picker section
       if (pickerSection) pickerSection.style.display = 'none';
 
-      // Perform the DOM state change — use View Transitions API if available
-      var doReveal = function () {
-        // Switch body state
-        body.classList.remove('picker-mode', 'morph-cards-exit');
-        body.classList.add('persona-active', 'accent-frame-medium');
+      // ── Beat: 300ms of just the hero image. Stillness. ──
+      body.classList.remove('morph-cards-exit');
 
-        // ── Act 2: Above-fold reveal (nav, accent border, hero text) ──
-        body.classList.add('morph-reveal', 'morph-accent-draw');
+      setTimeout(function () {
+        // Perform the DOM state change
+        var doReveal = function () {
+          // Switch body state
+          body.classList.remove('picker-mode');
+          body.classList.add('persona-active', 'accent-frame-medium');
 
-        // Update nav pill
-        updateNavPill(config);
+          // ── Act 2: Above-fold reveal ──
+          // Accent border draws first (1s), nav drops at 0.2s,
+          // pill at 0.5s, name at 0.35s, tagline at 0.7s, location at 1.05s
+          body.classList.add('morph-reveal', 'morph-accent-draw');
 
-        // Toast after pill lands
-        setTimeout(function () {
-          showPersonaToast(config);
-        }, 350);
+          // Update nav pill content (will animate in via CSS delay)
+          updateNavPill(config);
 
-        // ── Act 3: Below-fold content materializes (staggered) ──
-        setTimeout(function () {
-          body.classList.add('morph-content-in');
-
-          // ── Cleanup: remove animation classes, settle to final state ──
+          // Toast AFTER the tagline has landed — the tagline is the payoff
           setTimeout(function () {
-            body.classList.remove('morph-reveal', 'morph-accent-draw', 'morph-content-in');
-            body.classList.add('morph-complete');
-          }, 700);
-        }, 400);
-      };
+            showPersonaToast(config);
+          }, 1200);
 
-      // Use View Transitions API for the big state swap (if supported)
-      if (document.startViewTransition) {
-        document.startViewTransition(doReveal);
-      } else {
-        doReveal();
-      }
+          // ── Beat: let above-fold breathe before below-fold ──
+          setTimeout(function () {
+            // ── Act 3: Below-fold content materializes ──
+            body.classList.add('morph-content-in');
 
-    }, 550); // Wait for card dissolve + scroll
+            // ── Cleanup after all animations settle ──
+            setTimeout(function () {
+              body.classList.remove('morph-reveal', 'morph-accent-draw', 'morph-content-in');
+              body.classList.add('morph-complete');
+            }, 1200);
+          }, 1600);
+        };
+
+        // Use View Transitions API for the state swap
+        if (document.startViewTransition) {
+          document.startViewTransition(doReveal);
+        } else {
+          doReveal();
+        }
+
+      }, 300); // 300ms beat of stillness
+
+    }, 1100); // Wait for card cascade to finish (0.45s delay + 0.6s anim)
   }
 
   function triggerMorphReverse() {
