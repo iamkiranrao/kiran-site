@@ -2662,6 +2662,175 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 
 
 /* ============================================
+   C10: MANIFESTO VIDEO — Full-Width Cinematic
+   ============================================ */
+
+.manifesto-section {
+    background: var(--bg-primary);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.manifesto-container {
+    max-width: 100%;
+    margin: 0;
+}
+
+.manifesto-video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    background: #0a0a0a;
+    overflow: hidden;
+}
+
+.manifesto-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 10, 10, 0.3) 0%,
+        rgba(10, 10, 10, 0.6) 100%
+    );
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.persona-active .manifesto-placeholder {
+    border-top-color: color-mix(in srgb, var(--persona-accent) 30%, transparent);
+    border-bottom-color: color-mix(in srgb, var(--persona-accent) 30%, transparent);
+}
+
+.manifesto-play-btn {
+    color: var(--text-secondary);
+    opacity: 0.6;
+    transition: opacity 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.manifesto-play-btn:hover {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+.persona-active .manifesto-play-btn:hover {
+    color: var(--persona-accent);
+}
+
+.manifesto-tagline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    font-style: italic;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    letter-spacing: 0.02em;
+}
+
+.manifesto-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .manifesto-video-wrap {
+        aspect-ratio: 16 / 9;
+    }
+}
+
+
+/* ============================================
+   C11: BY THE NUMBERS — Impact Metrics
+   ============================================ */
+
+.numbers-section {
+    background: var(--bg-primary);
+    padding: 3rem 4rem 4rem;
+}
+
+.numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 2rem auto 0;
+}
+
+.number-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.persona-active .number-card {
+    border-color: color-mix(in srgb, var(--persona-accent) 20%, var(--border));
+}
+
+.persona-active .number-card:hover {
+    border-color: var(--persona-accent);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--persona-accent) 15%, transparent);
+}
+
+.number-value {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.persona-active .number-value {
+    color: var(--persona-accent);
+}
+
+.number-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.3;
+}
+
+@media (max-width: 1024px) {
+    .numbers-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .numbers-section {
+        padding: 2.5rem 2.5rem 3rem;
+    }
+    .numbers-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .numbers-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    .number-card {
+        padding: 1rem 0.75rem;
+    }
+}
+
+
+/* ============================================
    C4: FENIX INTRO ZONE — Two-Column
    ============================================ */
 
