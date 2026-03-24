@@ -546,29 +546,36 @@
     if (unlocksList && config.unlocks) {
       unlocksList.innerHTML = '';
 
-      // Avatar + heading row
-      var headingRow = document.createElement('div');
-      headingRow.className = 'unlock-heading-row';
+      // Two-column layout: large avatar | text content
+      var unlockLayout = document.createElement('div');
+      unlockLayout.className = 'unlock-layout';
+
       if (config.image) {
         var avatar = document.createElement('img');
         avatar.className = 'unlock-avatar';
         avatar.src = config.image;
         avatar.alt = config.character;
-        headingRow.appendChild(avatar);
+        unlockLayout.appendChild(avatar);
       }
+
+      var unlockContent = document.createElement('div');
+      unlockContent.className = 'unlock-content';
+
       var heading = document.createElement('p');
       heading.className = 'unlock-heading';
       heading.innerHTML = 'As <span style="color:' + config.accent + '">' + config.name + '</span>, here\'s what\'s unlocked:';
-      headingRow.appendChild(heading);
-      unlocksList.appendChild(headingRow);
+      unlockContent.appendChild(heading);
 
       config.unlocks.forEach(function (unlock) {
         var item = document.createElement('a');
         item.className = 'unlock-item';
         item.href = unlock.link;
         item.innerHTML = '<span class="unlock-label">' + unlock.label + '</span><span class="unlock-desc">' + unlock.desc + '</span>';
-        unlocksList.appendChild(item);
+        unlockContent.appendChild(item);
       });
+
+      unlockLayout.appendChild(unlockContent);
+      unlocksList.appendChild(unlockLayout);
     }
 
     // Right column: Fenix greeting
