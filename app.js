@@ -58,21 +58,23 @@ window.addEventListener('load', () => {
 
 const themeToggle = document.getElementById('themeToggle');
 const html = document.documentElement;
-const moonIcon = document.querySelector('.moon-icon');
-const sunIcon = document.querySelector('.sun-icon');
+const moonIcon = document.querySelector('.wf-moon-icon');
+const sunIcon = document.querySelector('.wf-sun-icon');
 
 const currentTheme = localStorage.getItem('theme') || 'dark';
 html.setAttribute('data-theme', currentTheme);
 
-if (currentTheme === 'dark') {
-    moonIcon.style.display = 'none';
-    sunIcon.style.display = 'block';
-} else {
-    moonIcon.style.display = 'block';
-    sunIcon.style.display = 'none';
+if (moonIcon && sunIcon) {
+    if (currentTheme === 'dark') {
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
+    } else {
+        moonIcon.style.display = 'block';
+        sunIcon.style.display = 'none';
+    }
 }
 
-themeToggle.addEventListener('click', () => {
+if (themeToggle) themeToggle.addEventListener('click', () => {
     const theme = html.getAttribute('data-theme');
     const newTheme = theme === 'light' ? 'dark' : 'light';
     html.setAttribute('data-theme', newTheme);
