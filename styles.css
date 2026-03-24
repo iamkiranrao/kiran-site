@@ -1787,3 +1787,941 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
         scroll-behavior: auto !important;
     }
 }
+
+
+/* ============================================
+   PERSONA ACCENT SYSTEM
+   All driven by --persona-accent CSS variable.
+   When no persona is set, the variable is unset
+   and all rules fall back to neutral defaults.
+   ============================================ */
+
+/* ── C1: Nav — Viewing As Pill ──────────────── */
+.nav-container {
+    justify-content: space-between;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.viewing-as-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.1rem;
+    background: transparent;
+    border: 1.5px solid var(--persona-accent, var(--border));
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: border-color 0.3s ease, opacity 0.3s ease;
+}
+
+.viewing-as-pill:hover {
+    opacity: 0.8;
+}
+
+.pill-label {
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.pill-persona-name {
+    font-weight: 600;
+    color: var(--persona-accent, var(--text-primary));
+}
+
+.pill-action {
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.viewing-as-pill.unpicked {
+    border-color: var(--border);
+}
+
+.viewing-as-pill.unpicked .pill-label {
+    color: var(--text-muted);
+}
+
+
+/* ── C1: Accent Frame — Medium (3px top border) ─── */
+.accent-frame-medium::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--persona-accent, transparent);
+    z-index: 1001;
+    pointer-events: none;
+}
+
+/* ── C1: Accent Frame — Full (top + fading sides) ─ */
+.accent-frame-full::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--persona-accent, transparent);
+    z-index: 1001;
+    pointer-events: none;
+}
+
+.accent-frame-full::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    border-left: 1px solid var(--persona-accent, transparent);
+    border-right: 1px solid var(--persona-accent, transparent);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    z-index: 1001;
+    pointer-events: none;
+}
+
+
+/* ── Accent: Section Dividers ──────────────────── */
+.persona-active .divider {
+    background: var(--persona-accent, var(--border));
+}
+
+.persona-active .about-divider-vertical {
+    background: var(--persona-accent, var(--border));
+}
+
+.persona-active .footer-divider {
+    background: var(--persona-accent, var(--border));
+}
+
+
+/* ── Accent: Section Labels with dot prefix ────── */
+.persona-active .section-label {
+    color: var(--persona-accent, var(--text-primary));
+}
+
+.persona-active .section-label::before {
+    content: '— ';
+    color: var(--persona-accent, var(--text-primary));
+}
+
+
+/* ── Accent: Scroll Indicator Arrow ────────────── */
+.persona-active .scroll-indicator-arrow {
+    color: var(--persona-accent, var(--text-primary));
+}
+
+
+/* ── Accent: Hero Tagline ──────────────────────── */
+.persona-active .hero-tagline {
+    color: var(--persona-accent, #918a80);
+}
+
+
+/* ── Accent: Work Card Hover — Border/Glow ─────── */
+.persona-active .work-card {
+    transition: opacity 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+
+.persona-active .work-card:hover {
+    opacity: 1;
+    border-color: var(--persona-accent, transparent);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--persona-accent) 25%, transparent);
+}
+
+
+/* ── Accent: Competency Tile Hover — Border ────── */
+.persona-active .competency {
+    transition: border-color 0.3s ease;
+}
+
+.persona-active .competency:hover {
+    border-top-color: var(--persona-accent, var(--border));
+}
+
+
+/* ── C9: Toast Accent Border ───────────────────── */
+.persona-active .toast {
+    border: 2px solid var(--persona-accent, transparent);
+}
+
+
+/* ── Accent: Fenix Logo Ring + Glow (C4 + FAB) ── */
+.persona-active .fenix-intro-logo {
+    border: 3px solid var(--persona-accent, #003a54);
+    border-radius: 50%;
+    box-shadow: 0 0 20px color-mix(in srgb, var(--persona-accent) 40%, transparent),
+                0 0 40px color-mix(in srgb, var(--persona-accent) 15%, transparent);
+    animation: fenixGlowPulse 2s ease-in-out 1;
+}
+
+.persona-accent-ring {
+    border-color: var(--persona-accent, #003a54) !important;
+    box-shadow: 0 0 16px color-mix(in srgb, var(--persona-accent) 40%, transparent),
+                0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+@keyframes fenixGlowPulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--persona-accent) 50%, transparent); }
+    50% { box-shadow: 0 0 30px 8px color-mix(in srgb, var(--persona-accent) 30%, transparent); }
+    100% { box-shadow: 0 0 20px color-mix(in srgb, var(--persona-accent) 40%, transparent),
+                       0 0 40px color-mix(in srgb, var(--persona-accent) 15%, transparent); }
+}
+
+
+/* ── Contact Subtext ───────────────────────────── */
+.contact-subtext {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+
+/* ============================================
+   C2: PERSONA PICKER — INLINE IN INDEX.HTML
+   Styles adapted from persona-picker-v4-production
+   ============================================ */
+
+.persona-picker-inline {
+    padding: 0;
+    background: var(--bg-primary);
+}
+
+.persona-picker-inline .persona-section {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+}
+
+.persona-picker-inline .lead-block {
+    text-align: center;
+    padding: 48px 0 44px;
+}
+
+.persona-picker-inline .lead-glass {
+    display: inline-block;
+    padding: 32px 48px;
+    border-radius: 20px;
+    background: rgba(10, 10, 10, 0.35);
+    backdrop-filter: blur(16px) saturate(1.3);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    border: 1px solid var(--border-light);
+}
+
+[data-theme="light"] .persona-picker-inline .lead-glass {
+    background: rgba(245, 243, 240, 0.6);
+    border-color: var(--border);
+}
+
+.persona-picker-inline .lead-hook {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: pickerFadeUp 0.9s ease-out 0.3s forwards;
+}
+
+.persona-picker-inline .lead-hook em {
+    font-style: italic;
+    background: linear-gradient(90deg, #e0952a 0%, #f0b050 25%, #e0952a 50%, #d4822a 75%, #e0952a 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.persona-picker-inline .lead-cta {
+    font-size: 17px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: pickerFadeUp 0.9s ease-out 0.55s forwards;
+}
+
+.persona-picker-inline .lead-divider {
+    width: 48px;
+    height: 2px;
+    background: #e0952a;
+    margin: 20px auto 0;
+    border-radius: 1px;
+    opacity: 0;
+    animation: pickerFadeUp 0.9s ease-out 0.75s forwards;
+}
+
+.persona-picker-inline .scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 24px;
+    opacity: 0;
+    animation: pickerFadeUp 0.9s ease-out 0.9s forwards;
+}
+
+.persona-picker-inline .scroll-hint span {
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    font-weight: 500;
+    opacity: 0.7;
+}
+
+.persona-picker-inline .scroll-hint-arrow-wrap {
+    animation: pickerBounce 2s ease-in-out infinite;
+}
+
+.persona-picker-inline .scroll-hint-arrow {
+    width: 18px;
+    height: 18px;
+    border-right: 2px solid #e0952a;
+    border-bottom: 2px solid #e0952a;
+    transform: rotate(45deg);
+    opacity: 0.7;
+}
+
+@keyframes pickerFadeUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pickerBounce {
+    0%, 100% { transform: translateY(-4px); }
+    50% { transform: translateY(4px); }
+}
+
+/* ── Persona Card Grid ─────────────────────────── */
+.persona-picker-inline .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.persona-picker-inline .card {
+    aspect-ratio: 3/4;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.14);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+[data-theme="light"] .persona-picker-inline .card {
+    border-color: var(--border);
+}
+
+.persona-picker-inline .card:nth-child(1) { animation: pickerCardIn 0.6s ease-out 0.6s forwards; }
+.persona-picker-inline .card:nth-child(2) { animation: pickerCardIn 0.6s ease-out 0.72s forwards; }
+.persona-picker-inline .card:nth-child(3) { animation: pickerCardIn 0.6s ease-out 0.84s forwards; }
+.persona-picker-inline .card:nth-child(4) { animation: pickerCardIn 0.6s ease-out 0.96s forwards; }
+.persona-picker-inline .card:nth-child(5) { animation: pickerCardIn 0.6s ease-out 1.08s forwards; }
+.persona-picker-inline .card:nth-child(6) { animation: pickerCardIn 0.6s ease-out 1.2s forwards; }
+
+@keyframes pickerCardIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.persona-picker-inline .card-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.persona-picker-inline .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+    filter: contrast(1.02) saturate(1.05);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s;
+}
+
+.persona-picker-inline .card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(to top, var(--card-tint, rgba(0,0,0,0.75)) 0%, rgba(0,0,0,0.35) 50%, transparent 100%);
+    z-index: 1;
+}
+
+.persona-picker-inline .card-glass {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 18px 22px 22px;
+    background: rgba(10, 8, 6, 0.45);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1.5px solid rgba(255,255,255,0.18);
+    transition: background 0.5s ease, border-top-color 0.4s ease;
+}
+
+[data-theme="light"] .persona-picker-inline .card-glass {
+    background: rgba(245, 243, 240, 0.7);
+    border-top-color: var(--border);
+}
+
+.persona-picker-inline .card-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    color: var(--card-accent, var(--text-muted));
+    opacity: 0.85;
+    transition: opacity 0.4s ease;
+}
+
+.persona-picker-inline .card-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    transition: margin-bottom 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-theme="light"] .persona-picker-inline .card-name {
+    color: #fff;
+}
+
+.persona-picker-inline .card-hook {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.65);
+    font-style: italic;
+    line-height: 1.55;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease 0.1s, margin-top 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover states */
+.persona-picker-inline .card:hover .card-image img {
+    transform: scale(1.06);
+    filter: contrast(1.05) saturate(1.1) brightness(1.05);
+}
+
+.persona-picker-inline .card:hover .card-name {
+    margin-bottom: 8px;
+}
+
+.persona-picker-inline .card:hover .card-hook {
+    max-height: 80px;
+    opacity: 1;
+}
+
+.persona-picker-inline .card:hover .card-glass {
+    background: rgba(10, 8, 6, 0.62);
+    border-top-color: var(--card-accent);
+}
+
+/* Selected state */
+.persona-picker-inline .card.selected .card-hook {
+    max-height: 80px;
+    opacity: 1;
+}
+
+.persona-picker-inline .card.selected .card-name {
+    margin-bottom: 8px;
+}
+
+.persona-picker-inline .card.selected .card-glass {
+    border-top-color: var(--card-accent);
+}
+
+/* Persona-specific accent colors */
+.persona-picker-inline .evaluator { --card-accent: #7B9ACC; --card-tint: rgba(13, 20, 38, 0.78); }
+.persona-picker-inline .evaluator .card-title { color: #7B9ACC; }
+.persona-picker-inline .seeker { --card-accent: #8A8580; --card-tint: rgba(14, 13, 12, 0.78); }
+.persona-picker-inline .seeker .card-title { color: #8A8580; }
+.persona-picker-inline .practitioner { --card-accent: #4DAF8B; --card-tint: rgba(8, 22, 16, 0.78); }
+.persona-picker-inline .practitioner .card-title { color: #4DAF8B; }
+.persona-picker-inline .learner { --card-accent: #A07ED4; --card-tint: rgba(18, 12, 30, 0.78); }
+.persona-picker-inline .learner .card-title { color: #A07ED4; }
+.persona-picker-inline .technologist { --card-accent: #cb5c72; --card-tint: rgba(28, 10, 14, 0.78); }
+.persona-picker-inline .technologist .card-title { color: #cb5c72; }
+.persona-picker-inline .innercircle { --card-accent: #cb6923; --card-tint: rgba(28, 14, 6, 0.78); }
+.persona-picker-inline .innercircle .card-title { color: #cb6923; }
+
+/* Focus state */
+.persona-picker-inline .card:focus-visible {
+    outline: 2px solid var(--card-accent);
+    outline-offset: 3px;
+}
+
+.persona-picker-inline .card:focus-visible .card-hook {
+    max-height: 80px;
+    opacity: 1;
+}
+
+/* Responsive picker */
+@media (max-width: 1024px) {
+    .persona-picker-inline .card-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .persona-picker-inline .persona-section { padding: 0 24px 60px; }
+    .persona-picker-inline .lead-hook { font-size: 32px; }
+}
+
+@media (max-width: 640px) {
+    .persona-picker-inline .card-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .persona-picker-inline .card-glass { padding: 14px 16px 18px; }
+    .persona-picker-inline .card-name { font-size: 17px; }
+    .persona-picker-inline .card-title { font-size: 9px; letter-spacing: 1.5px; }
+    .persona-picker-inline .lead-hook { font-size: 26px; }
+    .persona-picker-inline .lead-cta { font-size: 15px; }
+    .persona-picker-inline .lead-glass { padding: 20px; border-radius: 16px; }
+    .persona-picker-inline .lead-block { padding: 28px 0; }
+}
+
+
+/* ============================================
+   C2: MORPH CHOREOGRAPHY
+   Phase transitions when persona is selected.
+   --morph-pill-pause controls emphasis duration.
+   ============================================ */
+
+:root {
+    --morph-pill-pause: 800ms;
+}
+
+/* Picker mode: show picker, hide homepage content */
+.picker-mode #persona-picker-section {
+    display: block;
+}
+
+.picker-mode .about-section,
+.picker-mode #work,
+.picker-mode .contact-cta,
+.picker-mode footer {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Returning visitor: hide picker */
+.persona-active #persona-picker-section {
+    display: none;
+}
+
+.persona-active .about-section,
+.persona-active #work,
+.persona-active .contact-cta,
+.persona-active footer {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Phase 1: Cards dissolve */
+.morph-phase-1 .persona-picker-inline .card {
+    opacity: 0 !important;
+    transform: scale(0.95) !important;
+    transition: opacity 0.4s ease, transform 0.4s ease !important;
+}
+
+/* Phase 2: Hero reshapes */
+.morph-phase-2 .hero-image {
+    transition: aspect-ratio 0.6s ease;
+}
+
+/* Phase 3: Accent draws + pill emphasis */
+.morph-phase-3 .viewing-as-pill {
+    animation: pillLand 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes pillLand {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Phase 4: Content materializes */
+.morph-phase-4 .about-section,
+.morph-phase-4 #work,
+.morph-phase-4 .contact-cta,
+.morph-phase-4 footer {
+    opacity: 1;
+    pointer-events: auto;
+    animation: contentMaterialize 0.5s ease forwards;
+}
+
+@keyframes contentMaterialize {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Morph complete: everything stable */
+.morph-complete .about-section,
+.morph-complete #work,
+.morph-complete .contact-cta,
+.morph-complete footer {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Reverse morph */
+.morph-reverse .about-section,
+.morph-reverse #work,
+.morph-reverse .contact-cta,
+.morph-reverse footer {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+
+/* ============================================
+   C4: FENIX INTRO ZONE — Two-Column
+   ============================================ */
+
+.fenix-intro-zone {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    min-height: 280px;
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--persona-accent, var(--border));
+    border-bottom: 1px solid var(--persona-accent, var(--border));
+    margin: 0 4rem;
+}
+
+.fenix-intro-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 3rem;
+}
+
+.fenix-intro-divider {
+    width: 1px;
+    background: var(--persona-accent, var(--border));
+    flex-shrink: 0;
+}
+
+.fenix-intro-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 3rem;
+    text-align: center;
+}
+
+.fenix-intro-logo-wrap {
+    margin-bottom: 1rem;
+}
+
+.fenix-intro-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 2px solid #003a54;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fenix-intro-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.fenix-intro-greeting {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    max-width: 400px;
+}
+
+.fenix-intro-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.fenix-chip {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.fenix-chip:hover {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    border-color: var(--text-primary);
+}
+
+/* Unlock items */
+.unlock-heading,
+.unlock-heading-default {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+}
+
+.unlock-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: opacity 0.2s ease;
+}
+
+.unlock-item:hover {
+    opacity: 0.7;
+}
+
+.unlock-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.unlock-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* C4 Responsive */
+@media (max-width: 768px) {
+    .fenix-intro-zone {
+        flex-direction: column;
+        padding: 2rem 1.5rem;
+        margin: 0 1.5rem;
+    }
+    .fenix-intro-left { padding-right: 0; margin-bottom: 2rem; }
+    .fenix-intro-divider { width: 100%; height: 1px; }
+    .fenix-intro-right { padding-left: 0; padding-top: 2rem; }
+}
+
+
+/* ============================================
+   C7: FOOTER — Quotes Component
+   ============================================ */
+
+.footer-quotes {
+    margin-bottom: 2rem;
+    text-align: center;
+    min-height: 0;
+}
+
+.footer-quote-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 0.5rem;
+}
+
+.footer-quote-source {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: normal;
+}
+
+
+/* ============================================
+   C8: FENIX SUBPAGE MODULE — Full + Slim
+   ============================================ */
+
+.fenix-subpage-module {
+    position: relative;
+    z-index: 100;
+    margin-top: 80px; /* below fixed nav */
+    transition: all 0.4s ease;
+}
+
+/* Full module */
+.fenix-subpage-full .fenix-subpage-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1rem 2rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--persona-accent, var(--border));
+}
+
+.fenix-subpage-logo-wrap {
+    flex-shrink: 0;
+}
+
+.fenix-subpage-logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 2px solid var(--persona-accent, #003a54);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--persona-accent, #003a54) 30%, transparent);
+}
+
+.fenix-subpage-content {
+    flex: 1;
+}
+
+.fenix-subpage-greeting {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.fenix-subpage-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.fenix-subpage-dismiss {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.fenix-subpage-dismiss:hover {
+    color: var(--text-primary);
+}
+
+/* Dismissed state — hide module */
+.fenix-subpage-module.dismissed {
+    display: none;
+}
+
+/* Slim bar variant */
+.fenix-subpage-slim .fenix-subpage-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 2rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--persona-accent, var(--border));
+    max-height: 80px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.fenix-subpage-slim.auto-collapsed .fenix-subpage-inner {
+    max-height: 0;
+    padding: 0 2rem;
+    border-bottom-width: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .fenix-subpage-full .fenix-subpage-inner {
+        padding: 0.75rem 1.5rem;
+    }
+    .fenix-subpage-logo { width: 36px; height: 36px; }
+    .fenix-subpage-greeting { font-size: 0.85rem; }
+}
+
+
+/* ============================================
+   REDUCED MOTION — Persona system
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .persona-picker-inline .card,
+    .persona-picker-inline .lead-hook,
+    .persona-picker-inline .lead-cta,
+    .persona-picker-inline .lead-divider,
+    .persona-picker-inline .scroll-hint {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .persona-picker-inline .lead-hook em {
+        animation: none !important;
+        -webkit-text-fill-color: #e0952a;
+    }
+
+    .fenix-intro-logo {
+        animation: none !important;
+    }
+
+    .morph-phase-1 .persona-picker-inline .card,
+    .morph-phase-4 .about-section,
+    .morph-phase-4 #work,
+    .morph-phase-4 .contact-cta,
+    .morph-phase-4 footer {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+
+/* ============================================
+   NAV — responsive updates for pill
+   ============================================ */
+
+@media (max-width: 768px) {
+    .viewing-as-pill {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+    .pill-label { font-size: 0.7rem; }
+}
+
+@media (max-width: 480px) {
+    .viewing-as-pill {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.7rem;
+        gap: 0.25rem;
+    }
+}
