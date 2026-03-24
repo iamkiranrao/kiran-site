@@ -2370,13 +2370,23 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     transition: aspect-ratio 0.6s ease;
 }
 
-/* Phase 3: Accent draws + pill emphasis */
+/* Phase 3: Accent draws + pill emphasis + hero text appears */
 .morph-phase-3 .viewing-as-pill {
     animation: pillLand 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+.morph-phase-3 .hero-text {
+    animation: heroTextReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+    opacity: 0;
+}
+
 @keyframes pillLand {
     0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroTextReveal {
+    0% { opacity: 0; transform: translateY(15px); }
     100% { opacity: 1; transform: translateY(0); }
 }
 
