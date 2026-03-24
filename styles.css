@@ -2661,7 +2661,8 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-right: 2rem;
+    align-items: center;
+    padding: 0 1.5rem;
 }
 
 .fenix-intro-divider {
@@ -2738,8 +2739,6 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    max-width: 480px;
-    margin: 0 auto;
 }
 
 .unlock-avatar {
@@ -2809,7 +2808,7 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
         padding: 2rem 1.5rem;
         margin: 0 1.5rem;
     }
-    .fenix-intro-left { padding-right: 0; margin-bottom: 2rem; }
+    .fenix-intro-left { padding: 0; margin-bottom: 2rem; }
     .unlock-avatar { width: 80px; height: 80px; }
     .unlock-layout { gap: 1rem; }
     .fenix-intro-divider { width: 100%; height: 1px; }
