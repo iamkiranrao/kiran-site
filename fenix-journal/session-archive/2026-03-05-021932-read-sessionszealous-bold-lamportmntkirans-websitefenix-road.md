@@ -1022,7 +1022,7 @@ Now I need to update all these locations. The changes are:
 
 ### Claude `06:27`
 
-Now fix the `<title>` tag which has " - Kiran Gorapalli" suffix:
+Now fix the `<title>` tag which has " - Kiran Rao" suffix:
 
 ---
 

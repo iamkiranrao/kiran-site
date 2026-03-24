@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/action-items/",
+  "payload": {
+    "title": "Map warm network against 9 target companies",
+    "description": "Use LinkedIn to identify 1st and 2nd degree connections at Apple, Anthropic, Adobe, OpenAI, Google, Airbnb, Uber, Microsoft, Netflix. This is the highest-ROI GTM activity and currently uninvested.",
+    "workstream": "career",
+    "priority": "high",
+    "source": "session",
+    "status": "todo"
+  }
+}

@@ -626,9 +626,9 @@ Can you check where your backend is hosted so we can trigger the redeploy?
 ### Kiran `23:42`
 
 Platform Architecture — System Context for AI Sessions
-This document contains everything an AI assistant needs to understand the architecture, codebase, conventions, and constraints of Kiran Gorapalli's personal platform. Paste this into any new session as context.
+This document contains everything an AI assistant needs to understand the architecture, codebase, conventions, and constraints of Kiran Rao's personal platform. Paste this into any new session as context.
 1. Platform Overview
-kirangorapalli.com is a personal brand platform for Kiran Gorapalli, a Senior Product Manager with 10+ years in insurance technology and AI. The platform has three main components:
+kirangorapalli.com is a personal brand platform for Kiran Rao, a Senior Product Manager with 10+ years in insurance technology and AI. The platform has three main components:
 1. Portfolio Website — Static HTML/CSS/JS site hosted on Cloudflare Pages (domain: kirangorapalli.com)
 2. Fenix Backend — FastAPI serverless API on Vercel (domain: api.kirangorapalli.com, repo: iamkiranrao/fenix-backend). Fenix is the AI assistant embedded on the site.
 3. Command Center — Internal admin tool (Next.js frontend + FastAPI backend, runs locally). Used for content creation, Fenix training, analytics, and publishing workflows.
@@ -1664,7 +1664,7 @@ Now I have a clear picture of your site's voice and structure. Here's my take:
 
 **The Hero Loop (10–15 seconds)**
 
-This video isn't really about conveying information — it's about creating a *feeling*. Visitors land on your page, see "Kiran Gorapalli / Builder of Products People Love," and the video should reinforce that energy without competing with the text already on screen.
+This video isn't really about conveying information — it's about creating a *feeling*. Visitors land on your page, see "Kiran Rao / Builder of Products People Love," and the video should reinforce that energy without competing with the text already on screen.
 
 What works here: your avatar in a warm, confident, natural posture — maybe a subtle nod, a slight smile, a relaxed gesture like you're mid-conversation. No spoken words. Think of it as an animated headshot with presence. The warm brown tones of your current placeholder gradient set the mood — keep the lighting and palette in that range. Optionally, some gentle ambient motion in the background (a soft gradient shift, subtle particles, or a blurred cityscape evoking San Francisco).
 
@@ -2670,7 +2670,7 @@ Summary:
    - Test cleanup: There are test entries in both `site_feedback` and `testimonials` Supabase tables from verification testing.
 
 8. Current Work:
-   The most recently completed work was building and deploying the "Builder's Workshop" hero video prototype (`hero-video-prototype.html`). The prototype was pushed to the live site (commit `705520d`) and a screenshot was successfully captured showing the animation running at `https://kirangorapalli.com/hero-video-prototype`. The screenshot shows a dark background with warm amber connection nodes, grid lines, and floating UI component wireframes, with the hero text ("Kiran Gorapalli / Builder of Products People Love / San Francisco, California") overlaid at the bottom with a gradient fade for readability. The user had just said "yes" to building this prototype and it has been deployed but the user hasn't yet given feedback on the visual result.
+   The most recently completed work was building and deploying the "Builder's Workshop" hero video prototype (`hero-video-prototype.html`). The prototype was pushed to the live site (commit `705520d`) and a screenshot was successfully captured showing the animation running at `https://kirangorapalli.com/hero-video-prototype`. The screenshot shows a dark background with warm amber connection nodes, grid lines, and floating UI component wireframes, with the hero text ("Kiran Rao / Builder of Products People Love / San Francisco, California") overlaid at the bottom with a gradient fade for readability. The user had just said "yes" to building this prototype and it has been deployed but the user hasn't yet given feedback on the visual result.
 
 9. Optional Next Step:
    Wait for user feedback on the prototype visible at `https://kirangorapalli.com/hero-video-prototype`. The user said "yes" to building it and it's now live. Based on their reaction, potential next steps include:

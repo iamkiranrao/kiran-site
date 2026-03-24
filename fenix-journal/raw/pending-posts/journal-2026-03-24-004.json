@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "Site WHY Codified: Changing the Rules of a Broken Game",
+    "body": "The foundational motivation behind the site was captured in SITE-WHY.md. The site exists because the hiring system is adversarial to non-traditional paths, existing platforms cannot convey how someone thinks, and I decided to build my own space that demonstrates capability through the work itself. Two specific challenges: never built the interview muscle because reputation always pulled me in, and the banking label triggers dismissal despite my work being on digital experiences at massive scale. The AI positioning is deliberate — the site itself IS the proof of building with AI.",
+    "category": "brand-identity",
+    "tags": ["site-why", "motivation", "career", "banking-stigma"],
+    "workstreams": ["site-homepage", "career", "cross-cutting"],
+    "decision": "Codified the site WHY as a reference document for all future sessions.",
+    "alternatives_considered": "Keeping the WHY implicit. But different sessions were drifting toward different frames.",
+    "open_questions": "Tension between authenticity and momentum — wanting to represent authentically can become perfectionism that delays shipping."
+  }
+}

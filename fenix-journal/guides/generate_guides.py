@@ -171,7 +171,7 @@ def build_guide_prompt(module: Dict, relevant_sessions: List[Dict]) -> str:
 
     excerpts_text = "\n".join(session_excerpts)
 
-    return f"""You are writing a product guide for a module called "{module['name']}" in Kiran Gorapalli's Command Center.
+    return f"""You are writing a product guide for a module called "{module['name']}" in Kiran Rao's Command Center.
 
 Module description: {module['description']}
 

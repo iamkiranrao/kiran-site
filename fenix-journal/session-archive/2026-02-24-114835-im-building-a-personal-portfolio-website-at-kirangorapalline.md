@@ -40,7 +40,7 @@ Key design decisions still needed:
 * Which companies to start with
 * How company page should be organized (filtering, categories)
 I want to run one end-to-end iteration on a single company/product to test if the structure works before scaling. Help me pick a company, build the pages, and see how it feels. Don't over-engineer it - we'll iterate.
-Deploy workflow: Working files in root, copies in site/ subdirectory. Always sync to site/ before pushing. Git config: user.name="Kiran Gorapalli", user.email="kiranrao@gmail.com". Update app.js cardConfig and mobile menus across all pages when wiring new pages.
+Deploy workflow: Working files in root, copies in site/ subdirectory. Always sync to site/ before pushing. Git config: user.name="Kiran Rao", user.email="kiranrao@gmail.com". Update app.js cardConfig and mobile menus across all pages when wiring new pages.
 
 ---
 
@@ -377,7 +377,7 @@ Summary:
    - Breadcrumb navigation for teardown hierarchy
    - No em dashes (hyphens only), understated authentic copy
    - Deploy workflow: Working files in root, copies in site/ subdirectory, always sync
-   - Git config: user.name="Kiran Gorapalli", user.email="kiranrao@gmail.com"
+   - Git config: user.name="Kiran Rao", user.email="kiranrao@gmail.com"
    - Version: v1.0.23
 
 3. Files and Code Sections:
@@ -880,7 +880,7 @@ Summary:
    - Breadcrumb navigation for teardown hierarchy
    - No em dashes (hyphens only), understated authentic copy style
    - Deploy workflow: Working files in root, copies in site/ subdirectory, always sync both
-   - Git config: user.name="Kiran Gorapalli", user.email="kiranrao@gmail.com"
+   - Git config: user.name="Kiran Rao", user.email="kiranrao@gmail.com"
    - Version: v1.0.23
    - Base path: `/sessions/optimistic-zen-darwin/mnt/Kiran's Website/`
 
@@ -2091,7 +2091,7 @@ Summary:
    - Breadcrumb navigation for teardown hierarchy
    - No em dashes (hyphens only), understated authentic copy style
    - Deploy workflow: Working files in root, copies in site/ subdirectory, always sync both
-   - Git config: user.name="Kiran Gorapalli", user.email="kiranrao@gmail.com"
+   - Git config: user.name="Kiran Rao", user.email="kiranrao@gmail.com"
    - 8-step co-creation workflow with verification, AI-detection, and production UI accuracy checks at each step
    - Base path: `/sessions/optimistic-zen-darwin/mnt/Kiran's Website/`
 

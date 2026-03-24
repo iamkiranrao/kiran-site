@@ -842,13 +842,13 @@ That said, let me double-check — the `contact-link` CTA did already have gener
 
 ### Kiran `09:57`
 
-Other than builder of product people love I want all other text on the website to be the same as the text color for Kiran Gorapalli.
+Other than builder of product people love I want all other text on the website to be the same as the text color for Kiran Rao.
 
 ---
 
 ### Claude `09:57`
 
-So "Kiran Gorapalli" (h1) uses `var(--text-primary)` — the off-white `#f0e6d3`. The tagline "Builder of Products People Love" uses `var(--text-secondary)` — the dimmer `#a09882`. The user wants everything except the tagline to match `--text-primary`.
+So "Kiran Rao" (h1) uses `var(--text-primary)` — the off-white `#f0e6d3`. The tagline "Builder of Products People Love" uses `var(--text-secondary)` — the dimmer `#a09882`. The user wants everything except the tagline to match `--text-primary`.
 
 The simplest fix: change `--text-secondary` to match `--text-primary` in the dark mode root, then give the tagline its own unique color.
 
@@ -862,7 +862,7 @@ Now give the tagline its own distinct softer color so it stays differentiated:
 
 ### Claude `09:58`
 
-Done. Now all text across the site matches the same off-white retro color (`#f0e6d3`) as "Kiran Gorapalli," while "Builder of Products People Love" keeps its softer muted tone (`#a09882`) to stay distinct. Push and take a look!
+Done. Now all text across the site matches the same off-white retro color (`#f0e6d3`) as "Kiran Rao," while "Builder of Products People Love" keeps its softer muted tone (`#a09882`) to stay distinct. Push and take a look!
 
 ---
 
@@ -1039,19 +1039,19 @@ Done — light mode text, icons, and buttons are now a warm ashy charcoal (`#3a3
 
 ### Kiran `10:11`
 
-San Francisco, California, Scoll down, ABout Me, What I do need to be the same color as Kiran Gorapalli
+San Francisco, California, Scoll down, ABout Me, What I do need to be the same color as Kiran Rao
 
 ---
 
 ### Claude `10:11`
 
-Those elements use `var(--text-secondary)` while "Kiran Gorapalli" uses `var(--text-primary)`. Let me update them:
+Those elements use `var(--text-secondary)` while "Kiran Rao" uses `var(--text-primary)`. Let me update them:
 
 ---
 
 ### Claude `10:12`
 
-Done — (San Francisco, California), Scroll Down, (About Me), and (What I Do) are all now `var(--text-primary)`, matching "Kiran Gorapalli" in both dark and light mode. Push and check it out!
+Done — (San Francisco, California), Scroll Down, (About Me), and (What I Do) are all now `var(--text-primary)`, matching "Kiran Rao" in both dark and light mode. Push and check it out!
 
 ---
 
@@ -2010,7 +2010,7 @@ Pushed — **v1.0.4**. Here's what changed:
 ### Kiran `11:42`
 
 On mobile the version number and last updated date are not showing.
-Also on mobile there is a big gap on page load between the menu button and Kiran Gorapalli. It needs to be reduced significantly. And now you have a big gap after the video and "Forged in product.
+Also on mobile there is a big gap on page load between the menu button and Kiran Rao. It needs to be reduced significantly. And now you have a big gap after the video and "Forged in product.
 Change the word curiosity customer obsession
 
 ---
@@ -2062,7 +2062,7 @@ Now change "curiosity" to "customer obsession":
 Pushed — **v1.0.5**. Here's everything:
 
 - **Version/date visible on mobile** — no longer hidden, shows at 0.6rem
-- **Reduced gap** between nav and "Kiran Gorapalli" — hero padding cut from 5rem to 3.5rem, plus `min-height: auto` so the hero doesn't stretch to fill the viewport
+- **Reduced gap** between nav and "Kiran Rao" — hero padding cut from 5rem to 3.5rem, plus `min-height: auto` so the hero doesn't stretch to fill the viewport
 - **Gap after video fixed** — same `min-height: auto` fix prevents the hero from forcing extra space
 - **Copy updated** — "Forged in product, fueled by customer obsession."
 
@@ -2157,7 +2157,7 @@ Let me chronologically analyze the conversation from the beginning of this sessi
 
 6. Increased all button font sizes by 7% - menu button 1.1→1.18rem, copy link 0.85→0.91rem, contact link 1→1.07rem, etc.
 
-7. Made all text match Kiran Gorapalli's color except "Builder of Products People Love" - changed `--text-secondary` to match `--text-primary` (#f0e6d3), gave tagline hardcoded `#a09882`.
+7. Made all text match Kiran Rao's color except "Builder of Products People Love" - changed `--text-secondary` to match `--text-primary` (#f0e6d3), gave tagline hardcoded `#a09882`.
 
 8. Made San Francisco, Scroll Down, About Me, What I Do same size (1.375rem) and weight (700) as location.
 
@@ -2366,7 +2366,7 @@ Summary:
    - "What is the menu font size?"
    - "Increase it by 7% . Apply this to all buttons."
    - "didn't want to change the size of the buttons - did they change. Only wanted the font to be more igger"
-   - "Other than builder of product people love I want all other text on the website to be the same as the text color for Kiran Gorapalli."
+   - "Other than builder of product people love I want all other text on the website to be the same as the text color for Kiran Rao."
    - "Increase the weight and text size of (San Francisc, California and Scroll down by 10%"
    - "Make 'builder of product people love' in a retro soft grey that compliments the off white"
    - "make it more gray it looks too much like white."
@@ -2375,7 +2375,7 @@ Summary:
    - "The linkedin and youtube logos got messed up Check all the 6 social icons and make sure you have the best most legible icons possible."
    - "can you make the white background in the light mode a little softer its too bright"
    - "The black in light more in the text and in the icons, buttons etc is too dark, make it a more ashy black that goes with the retro theme."
-   - "San Francisco, California, Scoll down, ABout Me, What I do need to be the same color as Kiran Gorapalli"
+   - "San Francisco, California, Scoll down, ABout Me, What I do need to be the same color as Kiran Rao"
    - "[image]Can you make the about me section look more like the screenshot I am attaching?"
    - LinkedIn about me text (long) asking for synthesis into catchy tagline
    - "I already used builder of product people love. don't want to be repetitive. Can you come up with more options?"
@@ -2406,7 +2406,7 @@ Summary:
    - "Forged in product, fueled by curiosity lets use that. push changes to production"
    - "in mobile there is a big black gap between Builder of product people love and san francisco, california - can you fix it?"
    - "On mobile: Now the video got pushed down. And there is still a bigger gap... Also on all device can you make the logo on the top left corer of the page the same size as the menu button?"
-   - "On mobile the version number and last updated date are not showing. Also on mobile there is a big gap on page load between the menu button and Kiran Gorapalli... Also on all device change the word curiosity to customer obsession"
+   - "On mobile the version number and last updated date are not showing. Also on mobile there is a big gap on page load between the menu button and Kiran Rao... Also on all device change the word curiosity to customer obsession"
    - "Bring the downward point arrow next right next to (what I do)... Also make sure About Me and What I do are the same font size and color. Also update Digital Design, Art Director, Interaction Design and Motion Design to match the same font size and color"
    - "Change Digital Design to Product Strategy, Change Art Direction to AI Integration, Change Interaction Design to Digital Transformation and change Motion Design to Growth and Adoption. Come up some punch text..."
    - "give me a few more options for AI integration" (MOST RECENT)
@@ -5773,7 +5773,7 @@ Summary:
 
    - **`/sessions/charming-stoic-meitner/mnt/Kiran's Website/rss.xml`** — RSS 2.0 feed
      - Contains 5 release note entries (v1.0.8 through v1.0.19)
-     - Channel: "Kiran Gorapalli - Release Notes & Blog"
+     - Channel: "Kiran Rao - Release Notes & Blog"
      - Feed URL: https://kirangorapalli.netlify.app/rss.xml
 
    - **`/sessions/charming-stoic-meitner/mnt/.claude/commands/update-rss.md`** — On-demand RSS update shortcut
@@ -6687,7 +6687,7 @@ Summary:
    - **Love/like smiley faces identical**: Both had similar curve smiles. Fixed by giving "love" heart-shaped diamond eyes and a filled open-mouth grin.
    - **Submit Testimonial button spanning full width**: The button inside a flex-column form stretched to 100%. Fixed by adding `align-self: center; width: auto;` to `.feedback-submit`.
    - **Git lock file**: `index.lock` couldn't be removed (operation not permitted). Workaround: cloned repo to a fresh temp directory `/sessions/charming-stoic-meitner/kiran-site-push/` and pushed from there.
-   - **Git author identity unknown**: Solved with `-c user.name="Kiran Gorapalli" -c user.email="kiranrao@gmail.com"` flags.
+   - **Git author identity unknown**: Solved with `-c user.name="Kiran Rao" -c user.email="kiranrao@gmail.com"` flags.
    - **Work card handlers only covered 4 cards**: `cardTitles` array had 4 entries but 8 cards existed. Cards 5-8 showed `undefined`. Fixed by creating `cardConfig` array with all 8 entries.
    - **Feedback form only console.logged**: Wasn't wired to any backend. Fixed by wrapping in a `<form>` with `data-netlify="true"` and submitting via fetch POST.
    - **Empty #releases section creating dead space**: Was a `<section>` with 4rem top+bottom padding (128px empty space). Changed to `<div>` with no padding.
@@ -7324,7 +7324,7 @@ Pushed. Here's your continuation prompt — paste this into a fresh chat tomorro
 > **Repo:** https://github.com/iamkiranrao/kiran-site (files are in the `site/` directory)
 > **Live:** kirangorapalli.netlify.app
 > **Stack:** Static HTML/CSS/JS, no build tools, hosted on Netlify, Netlify Forms for feedback + testimonials
-> **Git push workflow:** Clone repo to a temp dir, copy files from my local folder to `site/`, commit with `user.name="Kiran Gorapalli"` and `user.email="kiranrao@gmail.com"`, push.
+> **Git push workflow:** Clone repo to a temp dir, copy files from my local folder to `site/`, commit with `user.name="Kiran Rao"` and `user.email="kiranrao@gmail.com"`, push.
 > 
 > **Design language:** Dark theme (#0a0a0a bg, #f0e6d3 text), Inter font, styled after Framer "Bent" template. Two-column layouts with vertical dividers. Responsive at 1400+, 1200, 1024, 768, 480.
 > 
@@ -7380,7 +7380,7 @@ Here's the updated prompt with the third goal added:
 > **Repo:** https://github.com/iamkiranrao/kiran-site (files are in the `site/` directory)
 > **Live:** kirangorapalli.netlify.app
 > **Stack:** Static HTML/CSS/JS, no build tools, hosted on Netlify, Netlify Forms for feedback + testimonials
-> **Git push workflow:** Clone repo to a temp dir, copy files from my local folder to `site/`, commit with `user.name="Kiran Gorapalli"` and `user.email="kiranrao@gmail.com"`, push.
+> **Git push workflow:** Clone repo to a temp dir, copy files from my local folder to `site/`, commit with `user.name="Kiran Rao"` and `user.email="kiranrao@gmail.com"`, push.
 > 
 > **Design language:** Dark theme (#0a0a0a bg, #f0e6d3 text), Inter font, styled after Framer "Bent" template. Two-column layouts with vertical dividers. Responsive at 1400+, 1200, 1024, 768, 480.
 > 

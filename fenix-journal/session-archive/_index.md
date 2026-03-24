@@ -1,12 +1,14 @@
 # Session Archive Index
 
-*Last updated: 2026-03-23 21:40 UTC*
+*Last updated: 2026-03-24 08:36 UTC*
 
-**Total sessions:** 80
+**Total sessions:** 82
 
 | Date | Title | Messages | Words | File |
 |------|-------|----------|-------|------|
-| 2026-03-23 | I Want To Have A Strategy Session About | 37 | 7397 | `2026-03-23-210116-i-want-to-have-a-strategy-session-about.md` |
+| 2026-03-24 | Read These Files First | 297 | 22121 | `2026-03-24-055053-read-these-files-first.md` |
+| 2026-03-24 | Continuation Prompt Work Card Strategy Deep Dive | 141 | 31435 | `2026-03-24-004817-continuation-prompt-work-card-strategy-deep-dive.md` |
+| 2026-03-23 | I Want To Have A Strategy Session About | 89 | 16866 | `2026-03-23-210116-i-want-to-have-a-strategy-session-about.md` |
 | 2026-03-21 | Consume This | 262 | 31597 | `2026-03-21-214343-consume-this.md` |
 | 2026-03-21 | Gameplan System Wiring Help Center | 145 | 15583 | `2026-03-21-020434-gameplan-system-wiring-help-center.md` |
 | 2026-03-20 | Heres Your Continuation Prompt | 236 | 22844 | `2026-03-20-122335-heres-your-continuation-prompt.md` |

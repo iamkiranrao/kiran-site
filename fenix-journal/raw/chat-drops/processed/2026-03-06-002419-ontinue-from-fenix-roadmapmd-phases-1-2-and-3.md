@@ -698,7 +698,7 @@ Want to try that now?
 hat restaurant bot thing
 I don't have details on a restaurant bot in Kiran's work. You might be thinking of his Insurance AI Assistant — that's the conversational bot I know about that handles multi-step processes.
 Could you be more specific about what you remember? Was it part of a teardown, a prototype, or something else? I can help clarify once I know what you're referring to.
-MadLab - Kiran GorapalliInsurance AI Assistant - MadLab | Kiran GorapalliTurboTax Teardown - Kiran Gorapalli
+MadLab - Kiran RaoInsurance AI Assistant - MadLab | Kiran RaoTurboTax Teardown - Kiran Rao
 
 ---
 
@@ -1072,7 +1072,7 @@ Jurassic Bites is Kiran's restaurant reservation chatbot built on Google Dialogf
 The bot handles 17 different intents and can extract dates, times, and party sizes from natural language pretty smoothly. But Kiran built it specifically to demonstrate Dialogflow's limitations: it can't maintain real conversational memory or handle dynamic responses that go beyond pre-written scripts.
 It's a working prototype that you can actually chat with, not just a concept. The project details break down the technical implementation and what he learned about where current chatbot tech hits walls.
 Want me to go deeper on the specific technical challenges he uncovered?
-Jurassic Bites - MadLab | Kiran GorapalliOnboardly - MadLab | Kiran GorapalliMadLab - Kiran Gorapalli
+Jurassic Bites - MadLab | Kiran RaoOnboardly - MadLab | Kiran RaoMadLab - Kiran Rao
 
 ---
 

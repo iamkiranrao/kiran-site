@@ -314,7 +314,7 @@ body {
 <section class="hero">
     <canvas id="workshopCanvas"></canvas>
     <div class="hero-text">
-        <h1>Kiran Gorapalli</h1>
+        <h1>Kiran Rao</h1>
         <p class="hero-tagline">Builder of Products People Love</p>
         <div class="hero-bottom-row">
             <p class="hero-location">(San Francisco, California)</p>

@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/action-items/",
+  "payload": {
+    "title": "Set up Cal.com with intro call and pairing session event types",
+    "description": "Frictionless contact is critical for conversion. Need at least an Intro Conversation (30 min) event type for Evaluator persona. Technical Pairing (45 min) for Technologist.",
+    "workstream": "site-homepage",
+    "priority": "medium",
+    "source": "session",
+    "status": "todo"
+  }
+}

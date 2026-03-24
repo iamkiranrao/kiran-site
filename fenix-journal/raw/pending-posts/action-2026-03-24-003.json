@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/action-items/",
+  "payload": {
+    "title": "Make work card buttons functional (navigate to actual pages)",
+    "description": "All 8 work card buttons currently use alert() placeholders. They need to navigate to their respective pages. Critical for 60-second scan experience — broken cards kill credibility.",
+    "workstream": "site-homepage",
+    "priority": "high",
+    "source": "session",
+    "status": "todo"
+  }
+}

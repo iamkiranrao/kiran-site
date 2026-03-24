@@ -1,0 +1,10 @@
+{
+  "title": "The 8 work cards might not be the right 8 — deep evaluation underway",
+  "body": "We ran a framework-driven analysis on the work cards using three lenses: Persona Pull, Differentiation, and JTBD Completion. Four cards scored weak: Store (zero persona alignment), Causes (no persona JTBD), Learning & Certs (passive credentials list that undermines the 'work speaks for itself' ethos), and Studio (blurry line with MadLab). Four potential replacements surfaced: Under the Hood (how the site was built — highest differentiation, fills the Technologist gap), Frameworks & Tools (reusable artifacts practitioners bookmark and share), /Now (what I'm working on — serves Inner Circle and Seeker), and Learn With Me (active mentorship replacing passive credentials). The proposed lineup keeps 8 cards but with dramatically better persona coverage. Not locked yet — I need to sit with this before deciding.",
+  "category": "product-philosophy",
+  "tags": ["work-cards", "persona-alignment", "index-html", "information-architecture"],
+  "workstreams": ["site-homepage", "persona-picker"],
+  "decision": "IN PROGRESS — analysis complete, awaiting my final call",
+  "alternatives_considered": "Keep all 8 as-is and just reorder per persona. But reordering weak cards still leaves weak cards.",
+  "open_questions": "Does MadLab absorb Studio cleanly? Is the Evaluator underserved with only one direct card? Three new cards need content that doesn't exist yet — is that realistic?"
+}

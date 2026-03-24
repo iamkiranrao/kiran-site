@@ -33,7 +33,7 @@ function applyTranslations(lang) {
     });
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc && lang !== 'en') metaDesc.content = `${t.tagline} - ${t.location}`;
-    if (lang !== 'en') document.title = `Kiran Gorapalli - ${t.tagline}`;
+    if (lang !== 'en') document.title = `Kiran Rao - ${t.tagline}`;
 }
 
 let currentLang = detectLanguage();
@@ -100,7 +100,7 @@ const shareLinkInput = document.getElementById('shareLink');
 const copyLinkBtn = document.getElementById('copyLinkBtn');
 
 const shareData = {
-    title: 'Kiran Gorapalli - Builder of Products People Love',
+    title: 'Kiran Rao - Builder of Products People Love',
     text: 'Check out my portfolio showcasing product management, design, and innovation.',
     url: window.location.href
 };

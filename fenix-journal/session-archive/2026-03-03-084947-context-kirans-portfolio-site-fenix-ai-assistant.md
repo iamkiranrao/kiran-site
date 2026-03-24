@@ -641,7 +641,7 @@ Summary:
      - The main chat pipeline. Contains system prompt, persona inference, conversation management, nudge engine, training queue, and streaming logic.
      - **System prompt rewrite** (FENIX_BASE_PROMPT, lines 113-153):
      ```python
-     FENIX_BASE_PROMPT = """You are Fenix, an AI assistant on Kiran Gorapalli's portfolio site (kirangorapalli.com).
+     FENIX_BASE_PROMPT = """You are Fenix, an AI assistant on Kiran Rao's portfolio site (kirangorapalli.com).
 
      ## Who You Are
      - You are Fenix — a distinct assistant, NOT Kiran himself
@@ -680,7 +680,7 @@ Summary:
 
      ## Tone Examples
      Good: "Kiran led the GEICO mobile redesign — the [teardown](URL) covers how he reduced quote-to-bind friction through discovery research."
-     Bad: "Based on the available information, Kiran Gorapalli has extensive experience with the GEICO mobile application redesign project, which involved various aspects of the user experience. You can read more in the [GEICO Mobile App Teardown](URL1). Also see the [Career Highlights](URL2) and [Studio](URL3) pages."
+     Bad: "Based on the available information, Kiran Rao has extensive experience with the GEICO mobile application redesign project, which involved various aspects of the user experience. You can read more in the [GEICO Mobile App Teardown](URL1). Also see the [Career Highlights](URL2) and [Studio](URL3) pages."
      """
      ```
 
@@ -719,7 +719,7 @@ Summary:
 
 4. Errors and Fixes:
    - **Git HEAD.lock preventing commits**: Stale lock file from previous git process. Fixed by deleting `/sessions/hopeful-clever-babbage/mnt/Kiran's Website/.git/HEAD.lock` (required `allow_cowork_file_delete` permission).
-   - **Git author identity unknown on fenix-backend-repo**: New clone had no git config. Fixed with `git config user.email "kiranrao@gmail.com"` and `git config user.name "Kiran Gorapalli"`.
+   - **Git author identity unknown on fenix-backend-repo**: New clone had no git config. Fixed with `git config user.email "kiranrao@gmail.com"` and `git config user.name "Kiran Rao"`.
    - **FENIX-ITERATION.md gitignored**: The `.gitignore` excluded it. Removed from `git add` and committed without it.
    - **VM proxy blocks Supabase API calls**: `curl` to Supabase returns 403 due to `https_proxy` allowlist. Switched to using the Supabase SQL editor in the browser.
    - **Supabase SQL editor text replacement**: `cmd+a` + type didn't always replace in the code editor. Required clicking into the editor area first, then cmd+a.
@@ -820,7 +820,7 @@ The widget is open fresh with the updated welcome text and randomized pills. Let
 RAG retrieval is now fully working. Fenix returns:
 - Rich content from the Airbnb teardown (wireframes, competitive analysis, Hotels.com comparison, marketplace dynamics)
 - An offer to "dig deeper into specific redesign concepts or competitive analysis"
-- **Two citation chips**: "Airbnb Mobile App Teardown: When Trust Breaks Down" and "Kiran Gorapalli - Builder of Products People Love"
+- **Two citation chips**: "Airbnb Mobile App Teardown: When Trust Breaks Down" and "Kiran Rao - Builder of Products People Love"
 
 The response is still a bit long though (the 80-word cap isn't being honored perfectly, but that's a prompt tuning issue for later). The core RAG issue is **resolved**.
 

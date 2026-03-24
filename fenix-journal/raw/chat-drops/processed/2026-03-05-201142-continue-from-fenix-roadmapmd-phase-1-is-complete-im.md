@@ -801,7 +801,7 @@ Summary:
 4. Errors and Fixes:
    - **pg_trgm extension ordering error**: Running `003_conversation_logging.sql` failed with `ERROR: 42704: operator class "gin_trgm_ops" does not exist for access method "gin"` because the trigram index (line 68-69) was defined before the extension creation (line 75). Fix: Run `CREATE EXTENSION IF NOT EXISTS pg_trgm;` as a separate query first, then re-run the full migration.
    - **RLS policy already exists error**: Second run of migration hit `ERROR: 42710: policy "service_role_full_access_training_data" for table "training_data" already exists` because the policy was created on the first run. This was expected/harmless — everything else had already succeeded.
-   - **Git author identity error**: Initial commit attempt failed with `Author identity unknown`. Fixed by passing `-c user.name="Kiran Gorapalli" -c user.email="kiranrao@gmail.com"` to the git commit command.
+   - **Git author identity error**: Initial commit attempt failed with `Author identity unknown`. Fixed by passing `-c user.name="Kiran Rao" -c user.email="kiranrao@gmail.com"` to the git commit command.
    - **Supabase "destructive operation" warning**: User got a warning about `DROP TRIGGER IF EXISTS` in the migration. Confirmed this was safe — standard idempotent pattern for trigger recreation.
 
 5. Problem Solving:

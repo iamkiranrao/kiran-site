@@ -24,7 +24,7 @@ total_words: 45352
 
 We've been going for a while and context is getting heavy. I'd recommend starting a fresh chat for the Career Highlights page. It's a big enough build that it deserves clean context.
 Before you do, here's what to paste into the new session to get up to speed fast:
-Site info: Static HTML/CSS/JS, no build tools, hosted on Netlify. Repo: `github.com/iamkiranrao/kiran-site`, files in `site/` folder. Dark theme (`#0a0a0a` bg, `#f0e6d3` text, Inter font). Git config: `user.name="Kiran Gorapalli"` `user.email="kiranrao@gmail.com"`.
+Site info: Static HTML/CSS/JS, no build tools, hosted on Netlify. Repo: `github.com/iamkiranrao/kiran-site`, files in `site/` folder. Dark theme (`#0a0a0a` bg, `#f0e6d3` text, Inter font). Git config: `user.name="Kiran Rao"` `user.email="kiranrao@gmail.com"`.
 What exists: The strategy doc at `Site Strategy v2` has wireframe-level designs for all 8 work card pages, including Career Highlights (section 2.1). It describes the layout, card template per role, filter pills, and interaction patterns. The shared template spec covers nav, breadcrumb, hero banner, two-column intro, content grid, contact CTA, footer, and Fenix FAB.
 Current version: v1.0.22. The site just went through a full audit cleanup (toasts, accessibility, SEO, Medium-to-Substack swap, OG image, 404 page, robots/sitemap).
 Rules: Never use em dashes. Hyphens are fine when needed. Kiran values authentic, understated copy. Not boastful.
@@ -1287,14 +1287,14 @@ Current work: User's last message raises the concern about vertical scroll with 
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran Gorapalli) wants to build a Career Highlights page for their portfolio site (kirangorapalli.netlify.app). It should be a pictorial timeline of their career from most recent to first job, with initiative cards under each company showing the work they did. The page needs:
+   The user (Kiran Rao) wants to build a Career Highlights page for their portfolio site (kirangorapalli.netlify.app). It should be a pictorial timeline of their career from most recent to first job, with initiative cards under each company showing the work they did. The page needs:
    - A sparkline timeline hero banner showing career progression
    - A discretion notice explaining why content is gated
    - A blur overlay + access code system (per-person codes with configurable expiry via Netlify Functions)
    - Initiative cards for each role using a "Problem / Bet / What Shipped / Outcome" framework
    - The page must match the existing dark theme site design system
 
-   **Site rules:** Never use em dashes (hyphens fine). Kiran values authentic, understated copy - not boastful. Git config: user.name="Kiran Gorapalli" user.email="kiranrao@gmail.com". Current version: v1.0.22.
+   **Site rules:** Never use em dashes (hyphens fine). Kiran values authentic, understated copy - not boastful. Git config: user.name="Kiran Rao" user.email="kiranrao@gmail.com". Current version: v1.0.22.
 
 2. Key Technical Concepts:
    - Static HTML/CSS/JS site, no build tools, hosted on Netlify
@@ -2347,7 +2347,7 @@ Important user preferences observed:
 
 Summary:
 1. Primary Request and Intent:
-   Kiran Gorapalli is building a Career Highlights page for their portfolio site (kirangorapalli.netlify.app). The page is a pictorial timeline of their career with collapsible initiative cards under each company. This session focused on:
+   Kiran Rao is building a Career Highlights page for their portfolio site (kirangorapalli.netlify.app). The page is a pictorial timeline of their career with collapsible initiative cards under each company. This session focused on:
    - Converting initiative cards from always-visible to collapsed-by-default (expand on click) to manage vertical scroll
    - Adding image gallery placeholders to all cards
    - Removing the breadcrumb navigation
@@ -2365,7 +2365,7 @@ Summary:
    - Rebuilding WF Virtual Channels initiatives (5 cards) from resume bullets
    - **Most recent**: Adding 3 more initiatives: "Alerts Next Gen", "Digital Redesign and Replatforming", "Managed Student Loans Digital Roadmap"
 
-   **Site rules**: Never use em dashes (hyphens fine). Understated, authentic copy. Git config: user.name="Kiran Gorapalli" user.email="kiranrao@gmail.com".
+   **Site rules**: Never use em dashes (hyphens fine). Understated, authentic copy. Git config: user.name="Kiran Rao" user.email="kiranrao@gmail.com".
 
 2. Key Technical Concepts:
    - Static HTML/CSS/JS site hosted on Netlify, no build tools
@@ -3330,7 +3330,7 @@ Here's your prompt to pick this up tomorrow:
 
 **Prompt for next session:**
 
-> I'm continuing work on my Career Highlights page at kirangorapalli.netlify.app. The site is a static HTML/CSS/JS portfolio hosted on Netlify (repo: github.com/iamkiranrao/kiran-site, files under `site/` subdirectory). Git config: user.name="Kiran Gorapalli" user.email="kiranrao@gmail.com". To push, clone to /tmp and copy files into the `site/` folder since .git/index.lock can't be removed.
+> I'm continuing work on my Career Highlights page at kirangorapalli.netlify.app. The site is a static HTML/CSS/JS portfolio hosted on Netlify (repo: github.com/iamkiranrao/kiran-site, files under `site/` subdirectory). Git config: user.name="Kiran Rao" user.email="kiranrao@gmail.com". To push, clone to /tmp and copy files into the `site/` folder since .git/index.lock can't be removed.
 >
 > **Site rules:** No em dashes (hyphens fine). Understated, authentic copy. Inter font. Dark theme `#0a0a0a` bg / `#f0e6d3` text, light mode via `[data-theme="light"]` with `#f5f3f0` bg.
 >
@@ -3424,7 +3424,7 @@ Summary:
    - Pushing to production via Netlify/GitHub
    - **Most recent pending request**: "reduce the weight of the frame by 1/2" (border from 12px to 6px)
 
-   **Site rules**: No em dashes (hyphens fine). Understated, authentic copy. Git config: user.name="Kiran Gorapalli" user.email="kiranrao@gmail.com". To push: clone to /tmp, copy files into `site/` subdirectory.
+   **Site rules**: No em dashes (hyphens fine). Understated, authentic copy. Git config: user.name="Kiran Rao" user.email="kiranrao@gmail.com". To push: clone to /tmp, copy files into `site/` subdirectory.
 
 2. Key Technical Concepts:
    - Static HTML/CSS/JS site hosted on Netlify, no build tools
@@ -4037,7 +4037,7 @@ Here's your continuation prompt for tomorrow:
 > - Set CAREER_CODES and CAREER_SALT env vars in Netlify
 > - Clean up unused `.hero-subtitle` CSS in styles.css
 > 
-> **Site rules:** No em dashes (hyphens are fine). Understated, authentic copy. Dark theme: #0a0a0a bg, #f0e6d3 text, Inter font. Light mode via [data-theme="light"] with #f5f3f0 bg. Git config: user.name="Kiran Gorapalli" user.email="kiranrao@gmail.com". To push: clone to /tmp, copy files into `site/` subdirectory, commit, push.
+> **Site rules:** No em dashes (hyphens are fine). Understated, authentic copy. Dark theme: #0a0a0a bg, #f0e6d3 text, Inter font. Light mode via [data-theme="light"] with #f5f3f0 bg. Git config: user.name="Kiran Rao" user.email="kiranrao@gmail.com". To push: clone to /tmp, copy files into `site/` subdirectory, commit, push.
 > 
 > The main file is `career-highlights.html` (~3600+ lines) with all HTML, CSS, and JS inline. Other key files: `index.html`, `styles.css`, `app.js`.
 
@@ -4088,7 +4088,7 @@ Here's your continuation prompt for tomorrow:
 > - Set CAREER_CODES and CAREER_SALT env vars in Netlify
 > - Clean up unused `.hero-subtitle` CSS in styles.css
 >
-> **Site rules:** No em dashes (hyphens fine). Understated, authentic copy. Dark theme: #0a0a0a bg, #f0e6d3 text, Inter font. Light mode via `[data-theme="light"]` with #f5f3f0 bg. Git config: user.name="Kiran Gorapalli" user.email="kiranrao@gmail.com".
+> **Site rules:** No em dashes (hyphens fine). Understated, authentic copy. Dark theme: #0a0a0a bg, #f0e6d3 text, Inter font. Light mode via `[data-theme="light"]` with #f5f3f0 bg. Git config: user.name="Kiran Rao" user.email="kiranrao@gmail.com".
 
 ---
 
@@ -4732,7 +4732,7 @@ PAT is still expired. The commit is ready at `/tmp/kiran-deploy` — you'll need
 > - Single file: `career-highlights.html` (~3700 lines, all HTML/CSS/JS inline)
 > - Other files: `index.html`, `styles.css`, `app.js`
 > - Hosted on Netlify via GitHub repo `iamkiranrao/kiran-site.git` (files go in `site/` subdirectory)
-> - Git config: user.name="Kiran Gorapalli" user.email="kiranrao@gmail.com"
+> - Git config: user.name="Kiran Rao" user.email="kiranrao@gmail.com"
 > - To push: clone to /tmp, copy files into `site/`, commit, push. **PAT is expired — I need to provide a new one.**
 >
 > **Page structure (top to bottom):**
@@ -4949,7 +4949,7 @@ Summary:
    - Improving gate UX (more visible blurred content, prompt at top of gated section)
    - Full code review for stability, maintainability, and mobile rendering issues
 
-   **Site rules**: No em dashes (hyphens fine). Understated, authentic copy. Git config: user.name="Kiran Gorapalli" user.email="kiranrao@gmail.com". To push: clone to /tmp, copy files into `site/` subdirectory. **Working PAT**: `ghp_[REDACTED]`
+   **Site rules**: No em dashes (hyphens fine). Understated, authentic copy. Git config: user.name="Kiran Rao" user.email="kiranrao@gmail.com". To push: clone to /tmp, copy files into `site/` subdirectory. **Working PAT**: `ghp_[REDACTED]`
 
 2. Key Technical Concepts:
    - Static HTML/CSS/JS site hosted on Netlify via GitHub repo `iamkiranrao/kiran-site.git`
@@ -5555,7 +5555,7 @@ Pushed to production. The code review fixes are now live — 59 lines of dead co
 lets work on some issues I'm seeing on mobile together I'm attaching a screenshot.
 
 there is a weird black bar on the top left corner of the page
-And the dark mode icon is touching the top of Kiran Gorapalli. there needs to be a small gap so there is no overlap.
+And the dark mode icon is touching the top of Kiran Rao. there needs to be a small gap so there is no overlap.
 
 ---
 
@@ -5634,13 +5634,13 @@ Now I see the issue clearly. The hero-text has `padding: 3.5rem 1.5rem 1.5rem` a
 Let me fix both issues now:
 
 1. **Black bar** - Hide the skip-link more aggressively so it can't peek through
-2. **Theme toggle touching "Kiran Gorapalli"** - Add more top padding to hero-text on mobile so nav icons don't overlap the name
+2. **Theme toggle touching "Kiran Rao"** - Add more top padding to hero-text on mobile so nav icons don't overlap the name
 
 ---
 
 ### Claude `16:14`
 
-Now fix the gap between the nav icons and "Kiran Gorapalli" on mobile by increasing the hero-text top padding:
+Now fix the gap between the nav icons and "Kiran Rao" on mobile by increasing the hero-text top padding:
 
 ---
 
@@ -5652,7 +5652,7 @@ The hero-text has `padding: 3.5rem 1.5rem 1.5rem` on mobile. The nav at `1rem` p
 
 ### Claude `16:14`
 
-Both fixes applied. The black bar should be gone (skip-link now fully clipped when not focused), and there's now proper spacing between the nav icons and the "Kiran Gorapalli" heading on mobile. Want me to push this to production?
+Both fixes applied. The black bar should be gone (skip-link now fully clipped when not focused), and there's now proper spacing between the nav icons and the "Kiran Rao" heading on mobile. Want me to push this to production?
 
 ---
 
@@ -6744,7 +6744,7 @@ The conversation started with a detailed summary from previous sessions covering
 
 4. **Mobile fix: Homepage black bar + nav overlap** (from screenshot)
    - Black bar: skip-link was `position: absolute; top: -40px` which could peek through. Fixed by changing to `top: -100px` and adding `clip: rect(0, 0, 0, 0); overflow: hidden;` (undone on `:focus`)
-   - Nav overlapping "Kiran Gorapalli": hero-text had `padding: 3.5rem` top on mobile (768px), but fixed nav is ~72px tall. Changed to `padding: 5rem 1.5rem 1.5rem`
+   - Nav overlapping "Kiran Rao": hero-text had `padding: 3.5rem` top on mobile (768px), but fixed nav is ~72px tall. Changed to `padding: 5rem 1.5rem 1.5rem`
 
 5. **Mobile fix: Career Highlights page** (from screenshot)
    - Black bar: same skip-link fix applies globally via styles.css
@@ -6794,7 +6794,7 @@ The conversation started with a detailed summary from previous sessions covering
 **Site rules from previous sessions:**
 - No em dashes (hyphens fine)
 - Understated, authentic copy
-- Git config: user.name="Kiran Gorapalli", user.email="kiranrao@gmail.com"
+- Git config: user.name="Kiran Rao", user.email="kiranrao@gmail.com"
 - Push workflow: clone to /tmp, copy files into `site/` subdirectory
 - Working PAT: `ghp_[REDACTED]`
 
@@ -6812,7 +6812,7 @@ Summary:
    - Restyling initiative tags as square labels (4px radius, subtle background fill, uppercase, no border)
    - Updating gate prompt and discretion notice text with LinkedIn CTA and icon
 
-   **Site rules**: No em dashes (hyphens fine). Understated, authentic copy. Git config: user.name="Kiran Gorapalli" user.email="kiranrao@gmail.com". To push: clone to /tmp, copy files into `site/` subdirectory. **Working PAT**: `ghp_[REDACTED]`
+   **Site rules**: No em dashes (hyphens fine). Understated, authentic copy. Git config: user.name="Kiran Rao" user.email="kiranrao@gmail.com". To push: clone to /tmp, copy files into `site/` subdirectory. **Working PAT**: `ghp_[REDACTED]`
 
 2. Key Technical Concepts:
    - Static HTML/CSS/JS site hosted on Netlify via GitHub repo `iamkiranrao/kiran-site.git`

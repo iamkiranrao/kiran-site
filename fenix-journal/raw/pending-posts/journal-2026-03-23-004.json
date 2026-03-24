@@ -1,0 +1,10 @@
+{
+  "title": "Site-building metrics beat career stats — the artifact IS the proof",
+  "body": "I pushed back on career stats for the By the Numbers section. The initial proposal was years of experience, products shipped, team sizes — and those numbers are real. But they belong in Career Highlights and Fenix, not in a section that's supposed to demonstrate what this site is. The site's thesis is 'workshop, not resume.' Career stats are resume energy. Site-building stats — AI tools used, image compression ratios, build hours — those demonstrate capability through the thing the visitor is literally standing inside. Open kitchen effect. You don't need to tell someone you're a good chef if they can watch you cook.",
+  "category": "brand-identity",
+  "tags": ["by-the-numbers", "personalization", "metrics", "brand"],
+  "workstreams": ["site-homepage", "persona-picker"],
+  "decision": "By the Numbers section uses site-building metrics, not career stats. 2 universal anchors + 2 persona-specific stats, all about the build.",
+  "alternatives_considered": "Career stats with persona-specific framing (years, products, team sizes). Rejected as commodity signals that exist elsewhere on the site.",
+  "open_questions": "Need to identify actual numbers — some can be mined from git/docs, others need my input (build hours, coffee count)."
+}

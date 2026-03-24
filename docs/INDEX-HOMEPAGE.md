@@ -29,7 +29,7 @@
 - Mobile: hamburger menu + responsive pill sizing at 768px and 480px
 
 ### 2. Hero Section ✅
-- **H1:** "Kiran Gorapalli"
+- **H1:** "Kiran Rao"
 - **Tagline:** "Builder of Products People Love" — ✅ persona-swappable via `PERSONA_CONFIG.tagline`, renders in accent color.
 - **Location:** "(San Francisco, California)"
 - **Single-page morph:** ✅ 3-act choreography (cards exit → above-fold reveal → below-fold materialize). View Transitions API.

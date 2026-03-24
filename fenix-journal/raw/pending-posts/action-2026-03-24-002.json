@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/action-items/",
+  "payload": {
+    "title": "Choose first teardown target company and product/feature",
+    "description": "Select the company where Kiran has both genuine product insight AND a warm network connection. Write the first teardown as the GTM distribution engine test.",
+    "workstream": "site-teardowns",
+    "priority": "high",
+    "source": "session",
+    "status": "todo"
+  }
+}

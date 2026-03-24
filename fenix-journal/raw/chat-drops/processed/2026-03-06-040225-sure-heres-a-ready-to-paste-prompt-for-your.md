@@ -157,7 +157,7 @@ Let me navigate to the training page and verify it loads.
 
 ### Claude `04:19`
 
-The page title is "Command Center — Kiran Gorapalli" and it loaded at the training route. Let me take a screenshot to verify the UI.
+The page title is "Command Center — Kiran Rao" and it loaded at the training route. Let me take a screenshot to verify the UI.
 
 ---
 
@@ -732,7 +732,7 @@ All three tests pass:
 
 1. **Training data question** ("favorite programming language") → Fenix answered from training data with Python + JS/TS
 2. **Training interview question** ("build vs buy") → Fenix pulled the fintech analytics story from the training interview
-3. **Site content question** ("what teardowns") → Fenix answered from **site content** — mentions the GEICO Mobile App Teardown, the Insurance AI Assistant prototype, and cites "Onboardly - MadLab" and "Kiran Gorapalli" pages. Training data did **not** override site content.
+3. **Site content question** ("what teardowns") → Fenix answered from **site content** — mentions the GEICO Mobile App Teardown, the Insurance AI Assistant prototype, and cites "Onboardly - MadLab" and "Kiran Rao" pages. Training data did **not** override site content.
 
 All exit criteria met. Let me update the roadmap.
 

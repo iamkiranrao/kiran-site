@@ -56,7 +56,7 @@ CARDS = [
         "title": "Demystifying Apple Pay",
         "subtitle": "A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go'",
         "badge": "Demystified Series",
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": "~12 min",
     },
     {
@@ -64,7 +64,7 @@ CARDS = [
         "title": "The Bank That Got 213,000 Employees to Actually Use AI",
         "subtitle": "By Not Calling It AI",
         "badge": "Case Study",
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": "~7 min",
     },
     {
@@ -72,7 +72,7 @@ CARDS = [
         "title": "Airbnb Teardowns",
         "subtitle": "How I'd've Built It",
         "badge": None,
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": None,
     },
     {
@@ -80,7 +80,7 @@ CARDS = [
         "title": "Airbnb Mobile App Teardown",
         "subtitle": "When Trust Breaks Down",
         "badge": "How I'd've Built It",
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": None,
     },
     {
@@ -88,7 +88,7 @@ CARDS = [
         "title": "GEICO Teardowns",
         "subtitle": "How I'd've Built It",
         "badge": None,
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": None,
     },
     {
@@ -96,7 +96,7 @@ CARDS = [
         "title": "GEICO Mobile App Teardown",
         "subtitle": None,
         "badge": "How I'd've Built It",
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": None,
     },
     {
@@ -104,7 +104,7 @@ CARDS = [
         "title": "Meta Teardowns",
         "subtitle": "How I'd've Built It",
         "badge": None,
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": None,
     },
     {
@@ -112,7 +112,7 @@ CARDS = [
         "title": "Instagram Teardown",
         "subtitle": None,
         "badge": "How I'd've Built It",
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": None,
     },
     {
@@ -120,7 +120,7 @@ CARDS = [
         "title": "Blog & Podcast",
         "subtitle": "Product thinking, demystified",
         "badge": None,
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": None,
     },
     {
@@ -128,7 +128,7 @@ CARDS = [
         "title": "How I'd've Built It",
         "subtitle": "Product teardowns that go beyond the surface",
         "badge": None,
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": None,
     },
     {
@@ -136,7 +136,7 @@ CARDS = [
         "title": "MadLab",
         "subtitle": "Working prototypes. Real product thinking.",
         "badge": None,
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": None,
     },
     {
@@ -144,7 +144,7 @@ CARDS = [
         "title": "Studio",
         "subtitle": "Creative experiments and passion projects",
         "badge": None,
-        "author": "Kiran Gorapalli",
+        "author": "Kiran Rao",
         "read_time": None,
     },
 ]

@@ -3,16 +3,16 @@ module: persona-picker
 title: Persona Picker
 created: 2026-03-20
 last_updated: 2026-03-23
-version: 1
+version: 1.1
 ---
 
 # Persona Picker
 
 ## Overview
 
-Persona Picker is a one-time conversion tool on the kirangorapalli.com landing page that asks visitors to select one of 6 illustrated personas. Each persona represents a different archetype (role, industry, career stage) within Kiran's target audience. Selection personalizes the entire site experience — content order, Fenix chat behavior, accent colors, and contextual framing all adapt to the chosen persona.
+Persona Picker is a one-time conversion tool on the kirangorapalli.com landing page that asks visitors to select one of 6 illustrated personas. Each persona represents a different archetype (role, industry, career stage) within Kiran's target audience. Selection personalizes the Fenix chat agent experience — greeting, suggested prompts, tone, depth, and accent color in the widget. The main site (index.html) is universal; persona-driven customization lives in Fenix.
 
-The tool targets 30-50 hand-picked people at dream companies: Anthropic, Apple, Google, Disney, Pixar, Adobe. It's designed for high-touch recruitment and relationship-building, not mass traffic conversion.
+The tool serves anyone who visits the site — it's the front door to a personalized guide experience, not a recruitment-specific funnel. The 6 personas are: Evaluator (Merritt), Seeker (Phil), Practitioner (Drew), Learner (Paige), Technologist (Ray Turing — replaced Explorer in Mar 2026), and Inner Circle (Keshav). Practitioner was reframed from PM-specific to cross-disciplinary ("Product · Design · Data").
 
 Persona Picker is built with vanilla HTML/CSS/JS (zero dependencies) for maximum performance and hosting flexibility. Character portraits are Midjourney-generated, optimized as WebP with PNG fallbacks. Visual design uses glassmorphism (backdrop-filter blur) with persona-specific accent lighting.
 

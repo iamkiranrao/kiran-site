@@ -704,7 +704,7 @@ Summary:
    - Expandable card pattern: `.cert-card.open` spans `grid-column: 1 / -1`, detail section uses `max-height: 0` → `2000px` transition
    - Mobile menu pattern: `.mobile-menu.active`, body overflow hidden, Escape key to close
    - Deploy workflow: working files in root, clean copies in `site/` subdirectory with `.gitignore` filtering out backups/docs
-   - Git config: user.name="Kiran Gorapalli", user.email="kiranrao@gmail.com"
+   - Git config: user.name="Kiran Rao", user.email="kiranrao@gmail.com"
    - Site rules: No em dashes (hyphens only), understated authentic copy, Inter font family
    - Tab UI pattern (blog-podcast.html): ARIA roles (tablist, tab, tabpanel), keyboard arrow navigation, opacity fade transitions
    - Card config array in app.js maps work cards to destinations: `{ title: '...', link: '...', sameTab: true }`
@@ -1256,7 +1256,7 @@ Now let me add all the relevant files and commit. I need to be careful to add th
 
 ### Claude `09:56`
 
-The git config from the summary mentioned user.name="Kiran Gorapalli" and user.email="kiranrao@gmail.com". Let me set it locally and commit:
+The git config from the summary mentioned user.name="Kiran Rao" and user.email="kiranrao@gmail.com". Let me set it locally and commit:
 
 ---
 
@@ -1592,7 +1592,7 @@ Summary:
    - Shared `styles.css` provides CSS variables (--bg-primary, --text-primary, --text-secondary, --text-muted, --border)
    - Dark/light theme toggle via `data-theme="light"` on `<html>`, persisted to localStorage
    - Deploy workflow: working files in root, copies in `site/` subdirectory; Netlify likely deploys from `site/` (despite netlify.toml saying `publish = "."`)
-   - Git config: user.name="Kiran Gorapalli", user.email="kiranrao@gmail.com"
+   - Git config: user.name="Kiran Rao", user.email="kiranrao@gmail.com"
    - Site rules: No em dashes (hyphens only), understated authentic copy, Inter font family
    - Mobile menu consistency: all pages must have identical `<ul class="mobile-nav-links">` block
    - Card config array in app.js maps homepage work cards to destinations
@@ -2337,7 +2337,7 @@ Copy this into your new chat:
 >
 > **I want to run one end-to-end iteration** on a single company/product to test if the structure works before scaling. Help me pick a company, build the pages, and see how it feels. Don't over-engineer it - we'll iterate.
 >
-> **Deploy workflow:** Working files in root, copies in site/ subdirectory. Always sync to site/ before pushing. Git config: user.name="Kiran Gorapalli", user.email="kiranrao@gmail.com". Update app.js cardConfig and mobile menus across all pages when wiring new pages.
+> **Deploy workflow:** Working files in root, copies in site/ subdirectory. Always sync to site/ before pushing. Git config: user.name="Kiran Rao", user.email="kiranrao@gmail.com". Update app.js cardConfig and mobile menus across all pages when wiring new pages.
 
 ---
 
@@ -2412,7 +2412,7 @@ All clear - nothing unpushed. The audit already passed (version consistency, mob
 >
 > **I want to run one end-to-end iteration** on a single company/product to test if the structure works before scaling. Help me pick a company, build the pages, and see how it feels. Don't over-engineer it - we'll iterate.
 >
-> **Deploy workflow:** Working files in root, copies in site/ subdirectory. Always sync to site/ before pushing. Git config: user.name="Kiran Gorapalli", user.email="kiranrao@gmail.com". Update app.js cardConfig and mobile menus across all pages when wiring new pages.
+> **Deploy workflow:** Working files in root, copies in site/ subdirectory. Always sync to site/ before pushing. Git config: user.name="Kiran Rao", user.email="kiranrao@gmail.com". Update app.js cardConfig and mobile menus across all pages when wiring new pages.
 
 ---
 
@@ -2538,7 +2538,7 @@ Everything is pushed. Here's your prompt:
 >
 > Think about the best approach - whether it's a build script, a simple config file that maps persona images to teardown pages, a CLI tool, or something else. I want it lightweight and maintainable, not over-engineered. Consider that each teardown page is a standalone HTML file with inline CSS/JS.
 >
-> **Deploy workflow:** Working files in root, copies in `site/` subdirectory. Always sync to `site/` before pushing. Git config: user.name="Kiran Gorapalli", user.email="kiranrao@gmail.com".
+> **Deploy workflow:** Working files in root, copies in `site/` subdirectory. Always sync to `site/` before pushing. Git config: user.name="Kiran Rao", user.email="kiranrao@gmail.com".
 
 ---
 

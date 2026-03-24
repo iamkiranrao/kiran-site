@@ -803,7 +803,7 @@ Let me chronologically analyze the entire conversation to build a comprehensive 
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran Gorapalli) requested a multi-part system for capturing, archiving, and distilling knowledge from Claude chat and cowork session transcripts. The specific requests were:
+   The user (Kiran Rao) requested a multi-part system for capturing, archiving, and distilling knowledge from Claude chat and cowork session transcripts. The specific requests were:
    
    a. **Session Capture Skill**: A Claude skill that can be invoked in any Cowork/Chat session to parse JSONL transcript files from `.claude/projects/`, format them as markdown with timestamps, and save them to Fenix Journal's `chat-drops/` folder (for Fenix to process) and a permanent `session-archive/` folder (for browsing/search/deletion).
    
@@ -2046,7 +2046,7 @@ Let me now compile all the details needed for the summary.
 Summary:
 1. Primary Request and Intent:
    
-   The user (Kiran Gorapalli) is building a multi-layered knowledge system around his Claude session data for the Fenix AI product. This session continued from a compacted conversation and focused on:
+   The user (Kiran Rao) is building a multi-layered knowledge system around his Claude session data for the Fenix AI product. This session continued from a compacted conversation and focused on:
 
    a. **Capturing Chat session history**: Export Chat sessions from claude.ai (since the session-capture skill only works in Cowork mode) via the data export feature, parse the exported JSON into the same markdown format as Cowork sessions.
 

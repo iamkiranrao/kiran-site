@@ -962,23 +962,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1049,23 +1049,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1094,23 +1094,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1217,23 +1217,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1262,23 +1262,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1307,23 +1307,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1420,23 +1420,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1465,23 +1465,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1510,23 +1510,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1700,23 +1700,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1745,23 +1745,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1790,23 +1790,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1882,23 +1882,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -1998,23 +1998,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -2043,23 +2043,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -2088,23 +2088,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -2180,23 +2180,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -2231,23 +2231,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -2299,23 +2299,23 @@ Generating embeddings...
 Storing in Supabase...
   [DB] Stored: Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go'
   [DB] Stored: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI
-  [WARN] Failed to store Blog & Podcast - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (40a41034-3332-5f91-a24f-24cb496c8715, hub-page, Blog & Podcast - Kiran Gorapalli, /blog-podcast.html, Blog & Podcast - Kiran Gorapalli Skip to main content \n \n Menu \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:46.383002+00, 2026-03-03 01:53:46.383002+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: Career Highlights - Kiran Gorapalli
-  [DB] Stored: Causes - Kiran Gorapalli
-  [WARN] Failed to store How I'd've Built It - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (941ed464-259d-5e3e-9adb-561d51026e18, hub-page, How I'd've Built It - Kiran Gorapalli, /how-id-built-it.html, How I'd've Built It - Kiran Gorapalli Skip to main content \n \n M..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.051252+00, 2026-03-03 01:53:47.051252+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [WARN] Failed to store Kiran Gorapalli - Builder of Products People Love: 400 {"code":"23514","details":"Failing row contains (7cd2e22c-b767-5b82-a8ac-895138d72a78, homepage, Kiran Gorapalli - Builder of Products People Love, /index.html, Kiran Gorapalli - Builder of Products People Love Skip to main c..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.283985+00, 2026-03-03 01:53:47.283985+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: Learning & Certifications - Kiran Gorapalli
-  [WARN] Failed to store MadLab - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (54b872b9-ff93-5c0c-b7c3-0dbe451003cf, hub-page, MadLab - Kiran Gorapalli, /madlab.html, MadLab - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.742331+00, 2026-03-03 01:53:47.742331+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Gorapalli
-  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Gorapalli
-  [WARN] Failed to store Store - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (cb606fa1-7c32-51b0-b659-33a7a6d2a445, hub-page, Store - Kiran Gorapalli, /store.html, Store - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n ..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.317316+00, 2026-03-03 01:53:48.317316+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [WARN] Failed to store Studio - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (e0b800b3-1335-5be1-af16-5dc5fb95e0ec, hub-page, Studio - Kiran Gorapalli, /studio.html, Studio - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.502343+00, 2026-03-03 01:53:48.502343+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli
-  [WARN] Failed to store Airbnb Teardowns - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (2c774197-6708-5547-a7ef-302eddf397c4, teardown-hub, Airbnb Teardowns - Kiran Gorapalli, /teardowns/airbnb.html, Airbnb Teardowns - Kiran Gorapalli Skip to main content \n \n Menu..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.864754+00, 2026-03-03 01:53:48.864754+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: GEICO Mobile App Teardown - Kiran Gorapalli
-  [WARN] Failed to store GEICO Teardowns - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (8e50f36c-9935-5b39-84dc-623c7dc9f1dc, teardown-hub, GEICO Teardowns - Kiran Gorapalli, /teardowns/geico.html, GEICO Teardowns - Kiran Gorapalli Skip to main content \n \n Menu ..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"insurance\\\", \\..., null, null, null, 2026-03-03 01:53:49.485427+00, 2026-03-03 01:53:49.485427+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: Instagram Teardown - Kiran Gorapalli
-  [WARN] Failed to store Meta Teardowns - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (6a14c226-8801-546b-a04b-54be8e1fa32c, teardown-hub, Meta Teardowns - Kiran Gorapalli, /teardowns/meta.html, Meta Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"social-media\\\"..., null, null, null, 2026-03-03 01:53:49.876461+00, 2026-03-03 01:53:49.876461+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [WARN] Failed to store Blog & Podcast - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (40a41034-3332-5f91-a24f-24cb496c8715, hub-page, Blog & Podcast - Kiran Rao, /blog-podcast.html, Blog & Podcast - Kiran Rao Skip to main content \n \n Menu \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:46.383002+00, 2026-03-03 01:53:46.383002+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: Career Highlights - Kiran Rao
+  [DB] Stored: Causes - Kiran Rao
+  [WARN] Failed to store How I'd've Built It - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (941ed464-259d-5e3e-9adb-561d51026e18, hub-page, How I'd've Built It - Kiran Rao, /how-id-built-it.html, How I'd've Built It - Kiran Rao Skip to main content \n \n M..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.051252+00, 2026-03-03 01:53:47.051252+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [WARN] Failed to store Kiran Rao - Builder of Products People Love: 400 {"code":"23514","details":"Failing row contains (7cd2e22c-b767-5b82-a8ac-895138d72a78, homepage, Kiran Rao - Builder of Products People Love, /index.html, Kiran Rao - Builder of Products People Love Skip to main c..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.283985+00, 2026-03-03 01:53:47.283985+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: Learning & Certifications - Kiran Rao
+  [WARN] Failed to store MadLab - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (54b872b9-ff93-5c0c-b7c3-0dbe451003cf, hub-page, MadLab - Kiran Rao, /madlab.html, MadLab - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.742331+00, 2026-03-03 01:53:47.742331+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Rao
+  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Rao
+  [WARN] Failed to store Store - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (cb606fa1-7c32-51b0-b659-33a7a6d2a445, hub-page, Store - Kiran Rao, /store.html, Store - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n ..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.317316+00, 2026-03-03 01:53:48.317316+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [WARN] Failed to store Studio - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (e0b800b3-1335-5be1-af16-5dc5fb95e0ec, hub-page, Studio - Kiran Rao, /studio.html, Studio - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.502343+00, 2026-03-03 01:53:48.502343+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao
+  [WARN] Failed to store Airbnb Teardowns - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (2c774197-6708-5547-a7ef-302eddf397c4, teardown-hub, Airbnb Teardowns - Kiran Rao, /teardowns/airbnb.html, Airbnb Teardowns - Kiran Rao Skip to main content \n \n Menu..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.864754+00, 2026-03-03 01:53:48.864754+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: GEICO Mobile App Teardown - Kiran Rao
+  [WARN] Failed to store GEICO Teardowns - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (8e50f36c-9935-5b39-84dc-623c7dc9f1dc, teardown-hub, GEICO Teardowns - Kiran Rao, /teardowns/geico.html, GEICO Teardowns - Kiran Rao Skip to main content \n \n Menu ..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"insurance\\\", \\..., null, null, null, 2026-03-03 01:53:49.485427+00, 2026-03-03 01:53:49.485427+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: Instagram Teardown - Kiran Rao
+  [WARN] Failed to store Meta Teardowns - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (6a14c226-8801-546b-a04b-54be8e1fa32c, teardown-hub, Meta Teardowns - Kiran Rao, /teardowns/meta.html, Meta Teardowns - Kiran Rao Skip to main content \n \n Menu \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"social-media\\\"..., null, null, null, 2026-03-03 01:53:49.876461+00, 2026-03-03 01:53:49.876461+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
   [DB] Clearing existing embeddings...
   [WARN] Batch insert failed: 400 {"code":"22000","details":null,"hint":null,"message":"expected 1536 dimensions, not 512"}
   [WARN] Batch insert failed: 400 {"code":"22000","details":null,"hint":null,"message":"expected 1536 dimensions, not 512"}
@@ -2524,1042 +2524,1042 @@ Dimensions: 1024
     {
       "id": "9c928502-84e9-46e5-9bd2-280b2efe80a5",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Blog & Podcast",
       "tokens": 43,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership Blog Podcast 28 Feb 2026 Deep Dive Demystifying Apple Pay"
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership Blog Podcast 28 Feb 2026 Deep Dive Demystifying Apple Pay"
     },
     {
       "id": "dd47165e-fe64-4ede-8722-cb0fc6cdd220",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Demystifying Apple Pay",
       "tokens": 103,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Demystifying Apple Pay.\n\nA Payment PM's guide to what it actually takes to deploy 'just tap and go' - from device hardware to issuing bank, plus what t..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Demystifying Apple Pay.\n\nA Payment PM's guide to what it actually takes to deploy 'just tap and go' - from device hardware to issuing bank, plus what t..."
     },
     {
       "id": "a43e84d7-97ee-47fe-ad47-92c76b5c8f3f",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI",
       "tokens": 100,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\n\n95% of AI pilots fail. Bank of America landed in the other five - not w..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\n\n95% of AI pilots fail. Bank of America landed in the other five - not w..."
     },
     {
       "id": "7ba1b966-0cc6-4e0d-950c-ad5b75615b41",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "The product manager's job isn't to have the best ideas",
       "tokens": 91,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: The product manager's job isn't to have the best ideas.\n\nMost PMs think their value is in ideation. It's not. Your value is in creating the conditions ..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: The product manager's job isn't to have the best ideas.\n\nMost PMs think their value is in ideation. It's not. Your value is in creating the conditions ..."
     },
     {
       "id": "b3f16892-013f-47cd-9d2b-769d3585cff6",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "AI features that actually stick - lessons from three launches",
       "tokens": 82,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: AI features that actually stick - lessons from three launches.\n\nI've shipped AI features that users loved and ones they ignored. The difference was nev..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: AI features that actually stick - lessons from three launches.\n\nI've shipped AI features that users loved and ones they ignored. The difference was nev..."
     },
     {
       "id": "f5762841-defc-4e28-9cea-68a106881669",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Why I still write PRDs (and why you probably should too)",
       "tokens": 92,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Why I still write PRDs (and why you probably should too).\n\nThe product world has moved on from long documents. I think that's a mistake. Here's the cas..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Why I still write PRDs (and why you probably should too).\n\nThe product world has moved on from long documents. I think that's a mistake. Here's the cas..."
     },
     {
       "id": "ec65462a-5695-4209-ad0a-6a0c402b3520",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Building for trust in fintech - what banking taught me about product",
       "tokens": 94,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Building for trust in fintech - what banking taught me about product.\n\nUsers don't read your security page. They feel trust through micro-interactions,..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Building for trust in fintech - what banking taught me about product.\n\nUsers don't read your security page. They feel trust through micro-interactions,..."
     },
     {
       "id": "3779433b-e123-4005-986f-e3d1b02cb2e4",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "The zero-to-one problem - why most product orgs can't do it",
       "tokens": 86,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: The zero-to-one problem - why most product orgs can't do it.\n\nScaling a product and building one from nothing require completely different muscles. I b..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: The zero-to-one problem - why most product orgs can't do it.\n\nScaling a product and building one from nothing require completely different muscles. I b..."
     },
     {
       "id": "64e643b0-6c9f-4971-a68e-cf54ba92f564",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "What engineers wish their PM knew",
       "tokens": 81,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: What engineers wish their PM knew.\n\nI sat down with three senior engineers I've worked with and asked them to be brutally honest about what PMs get wro..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: What engineers wish their PM knew.\n\nI sat down with three senior engineers I've worked with and asked them to be brutally honest about what PMs get wro..."
     },
     {
       "id": "261b4ba8-8544-42fb-b61b-1031b50111b4",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Mobile-first is dead. What comes next?",
       "tokens": 86,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Mobile-first is dead. What comes next?.\n\nThe mobile-first era shaped how I think about product. But the next wave of product thinking isn't about scree..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Mobile-first is dead. What comes next?.\n\nThe mobile-first era shaped how I think about product. But the next wave of product thinking isn't about scree..."
     },
     {
       "id": "a9fc296a-ee67-459a-bb10-80799e94b3cd",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Why I'm starting a podcast (and what I hope to get wrong)",
       "tokens": 89,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Why I'm starting a podcast (and what I hope to get wrong).\n\nA first episode about why I'm doing this, what I plan to explore, and why being wrong in pu..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Why I'm starting a podcast (and what I hope to get wrong).\n\nA first episode about why I'm doing this, what I plan to explore, and why being wrong in pu..."
     },
     {
       "id": "0b7611df-1404-4371-88d0-b8685ea02ad2",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
+      "text_preview": "Page: Blog & Podcast - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
     },
     {
       "id": "4119c1de-7acc-4f59-a057-37681aa58316",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Career Highlights",
       "tokens": 208,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Career Highlights.\n\n15+ years. The best proof isn't a resume - it's the work. Here's mine. Each card below has details of the initiatives I led. Ope..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Career Highlights.\n\n15+ years. The best proof isn't a resume - it's the work. Here's mine. Each card below has details of the initiatives I led. Ope..."
     },
     {
       "id": "d87fd4fb-2af0-45b2-8e1e-79bc4269f904",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product",
       "tokens": 504,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product.\n\nAvatour AI - AR/VR Startup \u00b7 Oct 2025 - Present Information shared with explicit permission Pivoted from live inspections to AI-assi..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product.\n\nAvatour AI - AR/VR Startup \u00b7 Oct 2025 - Present Information shared with explicit permission Pivoted from live inspections to AI-assi..."
     },
     {
       "id": "9ed93bf7-fa34-43ff-8156-159bdcc9c632",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product",
       "tokens": 92,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product.\n\nSome of it involved strategic work that requires care in how I share it. I've gated the detail behind a simple access code out of re..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product.\n\nSome of it involved strategic work that requires care in how I share it. I've gated the detail behind a simple access code out of re..."
     },
     {
       "id": "e2a25a26-ba34-4621-b00e-c4092269196a",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 510,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nWells Fargo - Strategy, Digital & AI \u00b7 Nov 2023 - Oct 2025 Expanded consumer mobile app base 18M to 32M ; JD Pow..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nWells Fargo - Strategy, Digital & AI \u00b7 Nov 2023 - Oct 2025 Expanded consumer mobile app base 18M to 32M ; JD Pow..."
     },
     {
       "id": "31f763f7-225e-4773-8063-f22b700bc65c",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nSupport call volume was rising, and the assistant wasn't absorbing the load it was designed to handle. Customers..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nSupport call volume was rising, and the assistant wasn't absorbing the load it was designed to handle. Customers..."
     },
     {
       "id": "bd1b2285-22ed-4248-b048-bbb88546f9b3",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 448,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nThe app needed to become a storefront, not just a dashboard. What Shipped Embedded marketplace within the mobile..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nThe app needed to become a storefront, not just a dashboard. What Shipped Embedded marketplace within the mobile..."
     },
     {
       "id": "e6794014-b863-403a-86d9-fb7a1c60a37f",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 501,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nThe Outcome 34% average increase in feature adoption for launches using the toolkit. Reduced time-to-first-use b..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nThe Outcome 34% average increase in feature adoption for launches using the toolkit. Reduced time-to-first-use b..."
     },
     {
       "id": "137a0d1c-e00c-4d89-b578-61024c10fd31",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 507,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nOne-size-fits-all was leaving value on the table. The Bet If we segmented users by lifecycle stage, product port..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nOne-size-fits-all was leaving value on the table. The Bet If we segmented users by lifecycle stage, product port..."
     },
     {
       "id": "d703de7a-7792-4caa-a823-b8cacfb92065",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 495,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\n\"Design\" and \"look and feel\" negative mentions in reviews dropped 45%. The updated design system reduced new scr..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\n\"Design\" and \"look and feel\" negative mentions in reviews dropped 45%. The updated design system reduced new scr..."
     },
     {
       "id": "5c217bcc-f231-47d8-ab8a-d1b02518b173",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 519,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nCustomers were disabling notifications entirely, which meant they missed fraud alerts, payment confirmations, an..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nCustomers were disabling notifications entirely, which meant they missed fraud alerts, payment confirmations, an..."
     },
     {
       "id": "0cbfb20c-f99f-457c-8a20-803d2c2e9e2b",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 165,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nMonthly financial health summary with personalized recommendations. Integration with Fargo assistant for convers..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nMonthly financial health summary with personalized recommendations. Integration with Fargo assistant for convers..."
     },
     {
       "id": "6ca414e5-7952-410f-82d7-838f535631b7",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 521,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nFirst Republic \u00b7 Apr 2016 - Oct 2023 Directed 22 PMs and $20M portfolio moderni..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nFirst Republic \u00b7 Apr 2016 - Oct 2023 Directed 22 PMs and $20M portfolio moderni..."
     },
     {
       "id": "ba6bb225-9059-43b5-b520-3a1478935b4c",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 448,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nCompetitors offered instant provisioning. The Bet Same-day card provisioning wo..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nCompetitors offered instant provisioning. The Bet Same-day card provisioning wo..."
     },
     {
       "id": "75ade920-e64a-4418-a089-5a3c325ffa72",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe Outcome 18% YoY revenue growth post-migration. New product launch cycle dro..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe Outcome 18% YoY revenue growth post-migration. New product launch cycle dro..."
     },
     {
       "id": "4b98a18c-a3fa-4f70-acbf-541a31ff7e4e",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nAccount opening, document collection, investment preferences, and advisor commu..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nAccount opening, document collection, investment preferences, and advisor commu..."
     },
     {
       "id": "b62cb718-5bb1-4fb9-918e-d6561869ca6c",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 528,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nPersists across sessions until toggled off. Quick-reveal with biometric tap for..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nPersists across sessions until toggled off. Quick-reveal with biometric tap for..."
     },
     {
       "id": "8c4c8bdc-2a0e-456d-a267-86b5b69dff88",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 533,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe process took days of scheduling and was especially frustrating for busy pro..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe process took days of scheduling and was especially frustrating for busy pro..."
     },
     {
       "id": "e6fd67a0-c612-4f9d-aeeb-3d6c2ac19923",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 144,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nIntegrated CRM notes and follow-up tracking. The Outcome 30% improvement in RM ..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nIntegrated CRM notes and follow-up tracking. The Outcome 30% improvement in RM ..."
     },
     {
       "id": "a6e8cc37-1c7a-4939-80f9-682aafbbc39a",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nWells Fargo - Virtual Channels \u00b7 Aug 2012 - Apr 2016 Led mobile-first innovation for payments and ..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nWells Fargo - Virtual Channels \u00b7 Aug 2012 - Apr 2016 Led mobile-first innovation for payments and ..."
     },
     {
       "id": "915b9325-91a0-4e73-b0c0-2cb2068097ef",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 527,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nAccount takeover attempts were rising, regulatory pressure was increasing, and the bank had no con..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nAccount takeover attempts were rising, regulatory pressure was increasing, and the bank had no con..."
     },
     {
       "id": "70a89c0d-18ba-46e9-833d-91db3355d1cb",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nSupport for both authentication and transaction signing. The Outcome 60%+ biometric adoption among..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nSupport for both authentication and transaction signing. The Outcome 60%+ biometric adoption among..."
     },
     {
       "id": "8249797d-5f6d-4fdc-876a-fb2c43b4ecd0",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 479,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nCustomers who lost or forgot their card had no way to access cash. The ATM experience hadn't evolv..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nCustomers who lost or forgot their card had no way to access cash. The ATM experience hadn't evolv..."
     },
     {
       "id": "52c20029-ba01-4d98-b530-2b2d4df1a303",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 517,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nPriority escalation for security-related alerts. Outcome Faster alert delivery, higher customer en..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nPriority escalation for security-related alerts. Outcome Faster alert delivery, higher customer en..."
     },
     {
       "id": "90e3c96c-7136-4986-8770-dc207edf7854",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 221,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nBet A dedicated digital roadmap for student loans would reduce servicing costs, improve borrower s..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nBet A dedicated digital roadmap for student loans would reduce servicing costs, improve borrower s..."
     },
     {
       "id": "9a1eddc6-0241-42f2-9778-8f0ed0bb668d",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 406,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nMagley & Associates \u00b7 2002 - 2012 Led a team of 30+ consultants designing strategies and executing programs t..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nMagley & Associates \u00b7 2002 - 2012 Led a team of 30+ consultants designing strategies and executing programs t..."
     },
     {
       "id": "466d15b3-1d0e-43c0-968f-87a74aee39e8",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 401,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nOutcome 45% app adoption. The mobile app became one of the top 10 downloaded apps in both Google Play and the..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nOutcome 45% app adoption. The mobile app became one of the top 10 downloaded apps in both Google Play and the..."
     },
     {
       "id": "27ff0596-c411-474c-9058-42c4bf735909",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 523,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nOutcome 38% increase in Bill Pay adoption. Consolidated Wachovia's standing as the 4th best online banking pl..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nOutcome 38% increase in Bill Pay adoption. Consolidated Wachovia's standing as the 4th best online banking pl..."
     },
     {
       "id": "37675aa7-1598-4aeb-892a-364803626f2e",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 284,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nMessenger had a large user base but needed product evolution to stay competitive. Engagement opportunities wi..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nMessenger had a large user base but needed product evolution to stay competitive. Engagement opportunities wi..."
     },
     {
       "id": "3b3624d4-b85f-42ef-8cb9-101f85076a3a",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Earlier Roles",
       "tokens": 76,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Earlier Roles.\n\nBefore 2008 \u00b7 Your early career story Your early career You mentioned roles going back to your first job as a kid. Share whatever yo..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Earlier Roles.\n\nBefore 2008 \u00b7 Your early career story Your early career You mentioned roles going back to your first job as a kid. Share whatever yo..."
     },
     {
       "id": "8390eb74-7097-4a6e-9551-c6a7e65fd5c1",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Let's talk",
       "tokens": 27,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Let's talk.\n\nGet in Touch This content is access-controlled"
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Let's talk.\n\nGet in Touch This content is access-controlled"
     },
     {
       "id": "6abba80f-ced8-491e-a95c-730b913f7ff8",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "This content is access-controlled",
       "tokens": 59,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: This content is access-controlled.\n\nReach out on LinkedIn for a code. Unlock v1.0.24 \u00b7 Updated Feb 24, 2026 \u00b7 RSS \u00a9 2026 Kiran Gorapalli. All rights..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: This content is access-controlled.\n\nReach out on LinkedIn for a code. Unlock v1.0.24 \u00b7 Updated Feb 24, 2026 \u00b7 RSS \u00a9 2026 Kiran Rao. All rights..."
     },
     {
       "id": "647375c7-d325-4290-9e6c-c5f933ce0ecd",
       "content_id": "causes",
-      "title": "Causes - Kiran Gorapalli",
+      "title": "Causes - Kiran Rao",
       "section": "",
       "tokens": 501,
-      "text_preview": "Page: Causes - Kiran Gorapalli.\n\nCauses - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n ..."
+      "text_preview": "Page: Causes - Kiran Rao.\n\nCauses - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n ..."
     },
     {
       "id": "0b1ace55-da2e-4a21-9411-6c82b7b03947",
       "content_id": "causes",
-      "title": "Causes - Kiran Gorapalli",
+      "title": "Causes - Kiran Rao",
       "section": "",
       "tokens": 244,
-      "text_preview": "Page: Causes - Kiran Gorapalli.\n\nIt's also championed by my hero, Sir David Attenborough, whose work taught me to see the natural world differently. Today it's a cause my daughter and I share. We're b..."
+      "text_preview": "Page: Causes - Kiran Rao.\n\nIt's also championed by my hero, Sir David Attenborough, whose work taught me to see the natural world differently. Today it's a cause my daughter and I share. We're b..."
     },
     {
       "id": "c85808e7-42ce-4135-a457-be5a4a89ad0e",
       "content_id": "how-id-built-it",
-      "title": "How I'd've Built It - Kiran Gorapalli",
+      "title": "How I'd've Built It - Kiran Rao",
       "section": "How I'd've Built It",
       "tokens": 156,
-      "text_preview": "Page: How I'd've Built It - Kiran Gorapalli. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of the apps we all use I pick apart products I use daily - what works, what doesn't, and wha..."
+      "text_preview": "Page: How I'd've Built It - Kiran Rao. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of the apps we all use I pick apart products I use daily - what works, what doesn't, and wha..."
     },
     {
       "id": "a94dbd15-af81-4541-92bd-70c5c31a8219",
       "content_id": "how-id-built-it",
-      "title": "How I'd've Built It - Kiran Gorapalli",
+      "title": "How I'd've Built It - Kiran Rao",
       "section": "Sign in to view teardowns",
       "tokens": 63,
-      "text_preview": "Page: How I'd've Built It - Kiran Gorapalli. Section: Sign in to view teardowns.\n\nEnter your email and we'll send you a magic login link. No password needed. Send Login Link v1.0.24 \u00b7 Updated Feb 28, ..."
+      "text_preview": "Page: How I'd've Built It - Kiran Rao. Section: Sign in to view teardowns.\n\nEnter your email and we'll send you a magic login link. No password needed. Send Login Link v1.0.24 \u00b7 Updated Feb 28, ..."
     },
     {
       "id": "69d4b4e7-be63-4957-95a7-80f86185f6f6",
       "content_id": "how-id-built-it",
-      "title": "How I'd've Built It - Kiran Gorapalli",
+      "title": "How I'd've Built It - Kiran Rao",
       "section": "_summary",
       "tokens": 42,
-      "text_preview": "Page: How I'd've Built It - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
+      "text_preview": "Page: How I'd've Built It - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
     },
     {
       "id": "99ac7ef7-4171-4f0f-b07d-fa245c875022",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Let's talk",
       "tokens": 36,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Let's talk.\n\n\u00d7 Email WhatsApp LinkedIn Twitter Facebook SMS Copy Kiran Gorapalli"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Let's talk.\n\n\u00d7 Email WhatsApp LinkedIn Twitter Facebook SMS Copy Kiran Rao"
     },
     {
       "id": "3adeb342-a648-456f-a57b-004b26cfcb0f",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
-      "section": "Kiran Gorapalli",
+      "title": "Kiran Rao - Builder of Products People Love",
+      "section": "Kiran Rao",
       "tokens": 56,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Kiran Gorapalli.\n\nBuilder of Products People Love (San Francisco, California) \u2198 Scroll Down Video coming soon Equal parts strategist, ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Kiran Rao.\n\nBuilder of Products People Love (San Francisco, California) \u2198 Scroll Down Video coming soon Equal parts strategist, ..."
     },
     {
       "id": "9658a291-a37d-438e-96dd-cbe549c84bdc",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Equal parts strategist, storyteller, and builder.",
       "tokens": 93,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Equal parts strategist, storyteller, and builder..\n\n(About) I lead product teams, geek out about AI, and believe the best work happens..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Equal parts strategist, storyteller, and builder..\n\n(About) I lead product teams, geek out about AI, and believe the best work happens..."
     },
     {
       "id": "2f44c47c-a74b-4abc-9927-b935a661322b",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Product Strategy",
       "tokens": 56,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Product Strategy.\n\nI turn ambiguity into clarity. Define the vision, align stakeholders, and build roadmaps that ship outcomes, not ju..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Product Strategy.\n\nI turn ambiguity into clarity. Define the vision, align stakeholders, and build roadmaps that ship outcomes, not ju..."
     },
     {
       "id": "4f23e842-38b6-4129-9fe3-8b3880471011",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "AI Integration",
       "tokens": 56,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: AI Integration.\n\nI translate what AI makes possible into what customers actually need, then make sure it ships, scales, and earns trus..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: AI Integration.\n\nI translate what AI makes possible into what customers actually need, then make sure it ships, scales, and earns trus..."
     },
     {
       "id": "80be1fe9-1d32-48c9-b536-e560883f0774",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Digital Transformation",
       "tokens": 63,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Digital Transformation.\n\nI modernize platforms and reimagine workflows by migrating legacy systems to scalable, customer-centric produ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Digital Transformation.\n\nI modernize platforms and reimagine workflows by migrating legacy systems to scalable, customer-centric produ..."
     },
     {
       "id": "317d4e85-4dd3-422d-b4cc-35ed75664e7b",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Growth & Adoption",
       "tokens": 59,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Growth & Adoption.\n\nI obsess over the metrics that matter: activating users, reducing friction, and scaling products from early tracti..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Growth & Adoption.\n\nI obsess over the metrics that matter: activating users, reducing friction, and scaling products from early tracti..."
     },
     {
       "id": "ae29072d-a889-4db8-a738-c056d22ed6b5",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Go-to-Market Strategy",
       "tokens": 62,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Go-to-Market Strategy.\n\nI take products from ready to revenue by aligning positioning, pricing, and distribution into go-to-market pla..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Go-to-Market Strategy.\n\nI take products from ready to revenue by aligning positioning, pricing, and distribution into go-to-market pla..."
     },
     {
       "id": "f1ddac65-ca4a-460d-8a8b-b18831698cfc",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Delivery & Execution",
       "tokens": 91,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Delivery & Execution.\n\nI drive cross-functional teams from backlog to launch - managing scope, unblocking dependencies, and holding th..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Delivery & Execution.\n\nI drive cross-functional teams from backlog to launch - managing scope, unblocking dependencies, and holding th..."
     },
     {
       "id": "b1fb3e83-bf88-429f-9aef-9f71a64809cf",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Fenix is my AI assistant, here to help you navigate this site and experience it in a way that's right for you.",
       "tokens": 145,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Fenix is my AI assistant, here to help you navigate this site and experience it in a way that's right for you..\n\nMost commonly asked q..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Fenix is my AI assistant, here to help you navigate this site and experience it in a way that's right for you..\n\nMost commonly asked q..."
     },
     {
       "id": "261be5bf-3934-4bb9-a336-549334b28317",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Career Highlights",
       "tokens": 84,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Career Highlights.\n\nWhat I've accomplished during my product journey so far. From 0-to-1 launches and platform-scale transformations, ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Career Highlights.\n\nWhat I've accomplished during my product journey so far. From 0-to-1 launches and platform-scale transformations, ..."
     },
     {
       "id": "ccbcdc30-002c-4fc5-b3ee-e371b712e59f",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "How I'd've Built It",
       "tokens": 59,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of popular applications. What I'd keep, what I'd kill, and what I'd build differ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of popular applications. What I'd keep, what I'd kill, and what I'd build differ..."
     },
     {
       "id": "eb7f52b9-6eb9-4ed4-800a-74bc31938f6d",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "MadLab",
       "tokens": 50,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: MadLab.\n\nApps, tools, and prototypes built from scratch. My sandbox for tinkering and experimentation. Prototypes Apps Experiments Stu..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: MadLab.\n\nApps, tools, and prototypes built from scratch. My sandbox for tinkering and experimentation. Prototypes Apps Experiments Stu..."
     },
     {
       "id": "e8d005df-09cc-4f88-b60c-1e40383fb940",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Studio",
       "tokens": 54,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Studio.\n\nMy creative playground. Art, video, and experiments born from curiosity and wherever the rabbit holes lead. AI Art Video Cont..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Studio.\n\nMy creative playground. Art, video, and experiments born from curiosity and wherever the rabbit holes lead. AI Art Video Cont..."
     },
     {
       "id": "8dbcd62e-fd61-490d-8b07-8e5488a77135",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Blog & Podcast",
       "tokens": 65,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership. Plus conversations with builders and operators who are shaping wha..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership. Plus conversations with builders and operators who are shaping wha..."
     },
     {
       "id": "88bc21ab-b8b7-4790-b877-e15299c0ef45",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Learning & Certifications",
       "tokens": 63,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Learning & Certifications.\n\nLifelong learner. The real value isn't the credential. It's the new lens it gives you on problems you thou..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Learning & Certifications.\n\nLifelong learner. The real value isn't the credential. It's the new lens it gives you on problems you thou..."
     },
     {
       "id": "566bd518-f1b3-4c19-bb9b-228d7b09d9aa",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Causes",
       "tokens": 43,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Causes.\n\nWhere I put my time and energy when its not about work and play. Nonprofits Giving Back Impact Store"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Causes.\n\nWhere I put my time and energy when its not about work and play. Nonprofits Giving Back Impact Store"
     },
     {
       "id": "28546a0b-fed1-42c8-88f5-4a2b402dde78",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Store",
       "tokens": 60,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Store.\n\nCurated merch, templates, and digital resources. Tools and goods for builders, makers, and anyone who ships. Coming soon. Merc..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Store.\n\nCurated merch, templates, and digital resources. Tools and goods for builders, makers, and anyone who ships. Coming soon. Merc..."
     },
     {
       "id": "255c9ef4-c3e8-4291-81ca-c8db61700da1",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Let's talk",
       "tokens": 111,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Let's talk.\n\nGet in Touch How do you like this site? Don't fill this out: Send Feedback Thanks for your feedback! Worked with me? Leav..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Let's talk.\n\nGet in Touch How do you like this site? Don't fill this out: Send Feedback Thanks for your feedback! Worked with me? Leav..."
     },
     {
       "id": "b18c4fad-3ffb-48e0-9cbc-c3dd6fd6d1e2",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "_summary",
       "tokens": 45,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love.\nType: homepage.\nURL: https://kirangorapalli.com/index.html\n\nSummary: Main landing page with work cards linking to all sections"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love.\nType: homepage.\nURL: https://kirangorapalli.com/index.html\n\nSummary: Main landing page with work cards linking to all sections"
     },
     {
       "id": "cd26d492-6b21-46f0-b368-3d928163f5a1",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 502,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nLearning & Certifications - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nLearning & Certifications - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
     },
     {
       "id": "f59cfedd-5056-4d08-8725-f5d1c4c641ba",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 461,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nSharpened my ability to frame data as a story that informs product and business strategy. Skills Covered \n \n SQL Excel Tableau Power BI Python Data ..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nSharpened my ability to frame data as a story that informs product and business strategy. Skills Covered \n \n SQL Excel Tableau Power BI Python Data ..."
     },
     {
       "id": "235b426c-9857-4720-a609-5ff9beb069ba",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 487,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nSharpened my ability to connect product decisions to broader business strategy and communicate them in terms leadership teams actually care about. S..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nSharpened my ability to connect product decisions to broader business strategy and communicate them in terms leadership teams actually care about. S..."
     },
     {
       "id": "6e4c2993-75fe-44a7-b901-3602ac250c11",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 476,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nChanged how I break down ambiguous product challenges and present solutions to stakeholders with clarity and conviction. Skills Covered \n \n Structur..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nChanged how I break down ambiguous product challenges and present solutions to stakeholders with clarity and conviction. Skills Covered \n \n Structur..."
     },
     {
       "id": "45444b1d-5335-4029-9293-98a48b786839",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 421,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nThe Prosci 3-Phase Process (Prepare Approach, Manage Change, Sustain Outcomes) and ADKAR model (Awareness, Desire, Knowledge, Ability, Reinforcement..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nThe Prosci 3-Phase Process (Prepare Approach, Manage Change, Sustain Outcomes) and ADKAR model (Awareness, Desire, Knowledge, Ability, Reinforcement..."
     },
     {
       "id": "c93c62a5-e9aa-4baa-8676-5e4b643e2a4b",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 480,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nGave me the framework to drive API strategy conversations with engineering and think about developer experience as a core product concern. Skills Co..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nGave me the framework to drive API strategy conversations with engineering and think about developer experience as a core product concern. Skills Co..."
     },
     {
       "id": "5989fd80-4c67-4977-a4ff-ee60e1ec42dd",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 467,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nCovered data transformation with BigQuery and Cloud Storage, AI and ML capabilities through Vertex AI, and infrastructure modernization with GKE and..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nCovered data transformation with BigQuery and Cloud Storage, AI and ML capabilities through Vertex AI, and infrastructure modernization with GKE and..."
     },
     {
       "id": "dc88b781-e1e7-492e-bc7e-1cdbab3ee7b0",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "MadLab",
       "tokens": 30,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: MadLab.\n\nApps, tools, and prototypes built from scratch Chatbots & AI Assistants"
+      "text_preview": "Page: MadLab - Kiran Rao. Section: MadLab.\n\nApps, tools, and prototypes built from scratch Chatbots & AI Assistants"
     },
     {
       "id": "51a78dd8-a707-49a0-a5fe-a8ec50cc2ac1",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Chatbots & AI Assistants",
       "tokens": 118,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Chatbots & AI Assistants.\n\n2 projects \ud83c\udfe0 Live Insurance AI Assistant A chatbot that handles multi-step insurance claims without losing the thread. Walks you thr..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Chatbots & AI Assistants.\n\n2 projects \ud83c\udfe0 Live Insurance AI Assistant A chatbot that handles multi-step insurance claims without losing the thread. Walks you thr..."
     },
     {
       "id": "815fdc89-bdcb-4f08-ac8a-7ecf22537c52",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Agentic AI",
       "tokens": 124,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Agentic AI.\n\n2 projects \ud83d\udd0d In Active Dev Research Assistant Agent Give it a topic. It autonomously searches the web, reads what it finds, synthesises sources, a..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Agentic AI.\n\n2 projects \ud83d\udd0d In Active Dev Research Assistant Agent Give it a topic. It autonomously searches the web, reads what it finds, synthesises sources, a..."
     },
     {
       "id": "02e8e50a-e390-4ea1-934c-1ba08f316a6a",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Voice & Audio AI",
       "tokens": 112,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Voice & Audio AI.\n\n2 projects \ud83c\udf99 In Analysis Voice Note Summariser Record a voice memo, get it transcribed instantly, and receive an AI summary with key action ..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Voice & Audio AI.\n\n2 projects \ud83c\udf99 In Analysis Voice Note Summariser Record a voice memo, get it transcribed instantly, and receive an AI summary with key action ..."
     },
     {
       "id": "75210edf-cb91-4176-afe4-2ce55cfc7d61",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Computer Vision",
       "tokens": 112,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Computer Vision.\n\n2 projects \ud83d\udc41 In Active Dev Design Screenshot Analyser Upload any UI screenshot and get an AI breakdown of layout, colour palette, typography,..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Computer Vision.\n\n2 projects \ud83d\udc41 In Active Dev Design Screenshot Analyser Upload any UI screenshot and get an AI breakdown of layout, colour palette, typography,..."
     },
     {
       "id": "99e89cc0-bea2-4707-b97a-929071d693fc",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Browser Extensions",
       "tokens": 123,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Browser Extensions.\n\n2 projects \u2702 Backlog Content Summariser Extension Highlight any text on the web, get an instant AI summary. Adjust length and tone. Works ..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Browser Extensions.\n\n2 projects \u2702 Backlog Content Summariser Extension Highlight any text on the web, get an instant AI summary. Adjust length and tone. Works ..."
     },
     {
       "id": "444bbc0b-11bf-483a-a0d6-948774a2d674",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Data & Visualisations",
       "tokens": 114,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Data & Visualisations.\n\n2 projects \ud83d\udcc8 In Analysis AI Market Trends Dashboard Scrapes AI news, GitHub trends, and funding data. Interactive charts showing which ..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Data & Visualisations.\n\n2 projects \ud83d\udcc8 In Analysis AI Market Trends Dashboard Scrapes AI news, GitHub trends, and funding data. Interactive charts showing which ..."
     },
     {
       "id": "6a5f724d-5be0-4630-bdaa-46b57db23bdd",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Automations & Workflows",
       "tokens": 125,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Automations & Workflows.\n\n2 projects \u2699 Backlog Email Digest Automator Automated pipeline that curates your inbox, summarises what matters, and delivers a clean..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Automations & Workflows.\n\n2 projects \u2699 Backlog Email Digest Automator Automated pipeline that curates your inbox, summarises what matters, and delivers a clean..."
     },
     {
       "id": "2e91a7f0-45d2-4422-b440-9fb311785b69",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: MadLab - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
+      "text_preview": "Page: MadLab - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
     },
     {
       "id": "4c1fccd5-8a47-46f2-a0ff-1001114c4867",
       "content_id": "index-insurance-chatbot-prototypes",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "",
       "tokens": 183,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli.\n\nInsurance AI Assistant - MadLab | Kiran Gorapalli \n \n \u2190 MadLab \n \n Insurance AI Assistant \n \n LangGraph State Machine - Multi-Step Claim Flow ..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\n\nInsurance AI Assistant - MadLab | Kiran Rao \n \n \u2190 MadLab \n \n Insurance AI Assistant \n \n LangGraph State Machine - Multi-Step Claim Flow ..."
     },
     {
       "id": "596da23b-f0be-4a32-8a33-f239a8a7c2d4",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "Insurance AI Assistant",
       "tokens": 93,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: Insurance AI Assistant.\n\nA chatbot that walks you through filing an insurance claim without losing track of anything. It remembers wha..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: Insurance AI Assistant.\n\nA chatbot that walks you through filing an insurance claim without losing track of anything. It remembers wha..."
     },
     {
       "id": "350d89d5-5a54-43b6-aaea-466d0903e8a6",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "The Problem",
       "tokens": 112,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: The Problem.\n\nInsurance companies answer the same questions millions of times - filing claims, looking up policies, sorting out billin..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: The Problem.\n\nInsurance companies answer the same questions millions of times - filing claims, looking up policies, sorting out billin..."
     },
     {
       "id": "65ce4009-ad1f-4f01-8a59-f301eab703cc",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "System Architecture",
       "tokens": 208,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: System Architecture.\n\nMost chatbots follow a rigid script - if the conversation goes sideways, they're lost. This one uses LangGraph t..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: System Architecture.\n\nMost chatbots follow a rigid script - if the conversation goes sideways, they're lost. This one uses LangGraph t..."
     },
     {
       "id": "4dd39ac9-dc57-43c5-8d69-7516afa0e47a",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "Try It Yourself",
       "tokens": 90,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: Try It Yourself.\n\nThe prototype includes a mock policy database. Use any of these test policy numbers to interact with the system: Pol..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: Try It Yourself.\n\nThe prototype includes a mock policy database. Use any of these test policy numbers to interact with the system: Pol..."
     },
     {
       "id": "7b161596-31af-4103-a907-1496a2d2579a",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "Related",
       "tokens": 64,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: Related.\n\nGEICO Mobile App Teardown - the product analysis behind this prototype \u2190 Back to MadLab Launch Prototype v1.0.24 \u00b7 Updated F..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: Related.\n\nGEICO Mobile App Teardown - the product analysis behind this prototype \u2190 Back to MadLab Launch Prototype v1.0.24 \u00b7 Updated F..."
     },
     {
       "id": "cf750ce8-f479-4d69-99d9-206af1ea38c1",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "_summary",
       "tokens": 137,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli.\nType: prototype.\nURL: https://kirangorapalli.com/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\nType: prototype.\nURL: https://kirangorapalli.com/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
     },
     {
       "id": "3c214c14-92c0-4492-b31f-ce02a8407313",
       "content_id": "store",
-      "title": "Store - Kiran Gorapalli",
+      "title": "Store - Kiran Rao",
       "section": "",
       "tokens": 471,
-      "text_preview": "Page: Store - Kiran Gorapalli.\n\nStore - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n \u2198 ..."
+      "text_preview": "Page: Store - Kiran Rao.\n\nStore - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n \u2198 ..."
     },
     {
       "id": "624a52f2-57ce-4ac9-b082-234fb337e0a1",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Studio",
       "tokens": 34,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Studio.\n\nMy creative playground - art, video, and experiments born from curiosity UI/UX Concepts"
+      "text_preview": "Page: Studio - Kiran Rao. Section: Studio.\n\nMy creative playground - art, video, and experiments born from curiosity UI/UX Concepts"
     },
     {
       "id": "d535bff5-ac0a-467d-952f-f768931eb2c5",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "UI/UX Concepts",
       "tokens": 119,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: UI/UX Concepts.\n\n2 projects \ud83c\udfa8 In Active Dev Design System Companion Interactive design system explorer showing components, colour palettes, spacing scales, and..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: UI/UX Concepts.\n\n2 projects \ud83c\udfa8 In Active Dev Design System Companion Interactive design system explorer showing components, colour palettes, spacing scales, and..."
     },
     {
       "id": "797cdc64-1a10-47c2-980c-ca2b61e7a1f9",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Motion Graphics",
       "tokens": 112,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Motion Graphics.\n\n2 projects \ud83c\udfac In Analysis AI Explainer Series Short animated videos breaking down how LLMs, RAG, and agents actually work. Kinetic typography ..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Motion Graphics.\n\n2 projects \ud83c\udfac In Analysis AI Explainer Series Short animated videos breaking down how LLMs, RAG, and agents actually work. Kinetic typography ..."
     },
     {
       "id": "20933aac-cb80-4399-b9dc-20e4f454af61",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "AI Art & Designs",
       "tokens": 129,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: AI Art & Designs.\n\n2 projects \ud83c\udf0c In Active Dev Future of Work Series Curated collection of AI-generated images exploring how we will work with AI - consistent s..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: AI Art & Designs.\n\n2 projects \ud83c\udf0c In Active Dev Future of Work Series Curated collection of AI-generated images exploring how we will work with AI - consistent s..."
     },
     {
       "id": "079f7358-d0ab-4b5d-9294-6f7f8d14f538",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Music & Soundscapes",
       "tokens": 126,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Music & Soundscapes.\n\n2 projects \ud83c\udfb5 In Analysis Podcast Theme Suite Original podcast intros, outros, and transitions across different moods - professional, indi..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Music & Soundscapes.\n\n2 projects \ud83c\udfb5 In Analysis Podcast Theme Suite Original podcast intros, outros, and transitions across different moods - professional, indi..."
     },
     {
       "id": "cae43ee0-3406-49de-bd70-b1f08e0bc322",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "3D & Renders",
       "tokens": 111,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: 3D & Renders.\n\n2 projects \ud83d\udce6 Backlog Product Visualisation Series 3D renders of imagined tech products - sleek hardware, future interfaces - with professional l..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: 3D & Renders.\n\n2 projects \ud83d\udce6 Backlog Product Visualisation Series 3D renders of imagined tech products - sleek hardware, future interfaces - with professional l..."
     },
     {
       "id": "bc8dc3cb-d07d-4142-86d0-e5455804240d",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Photography & Styling",
       "tokens": 124,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Photography & Styling.\n\n2 projects \ud83d\udcf7 In Analysis Colour Psychology Study Curated photo series exploring how colour influences mood and perception. Before/after..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Photography & Styling.\n\n2 projects \ud83d\udcf7 In Analysis Colour Psychology Study Curated photo series exploring how colour influences mood and perception. Before/after..."
     },
     {
       "id": "e6f6d9aa-13c3-466d-91b8-f7e8d518960b",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Digital Illustrations",
       "tokens": 142,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Digital Illustrations.\n\n2 projects \ud83d\udc68\u200d\ud83d\udcbc Backlog Tech Archetype Characters Illustrated character portraits personifying tech roles - the DevOps engineer, the PM,..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Digital Illustrations.\n\n2 projects \ud83d\udc68\u200d\ud83d\udcbc Backlog Tech Archetype Characters Illustrated character portraits personifying tech roles - the DevOps engineer, the PM,..."
     },
     {
       "id": "3c1fc789-d0d2-44d0-91e8-62dc0c755de6",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "_summary",
       "tokens": 39,
-      "text_preview": "Page: Studio - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
+      "text_preview": "Page: Studio - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
     },
     {
       "id": "b7e3eb89-5b74-4885-9d89-6843c98070ed",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 447,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nAirbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nAirbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home..."
     },
     {
       "id": "5ce997ef-6aba-49bc-9f72-bd7d8fc14cdd",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 515,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nThis teardown examines how Airbnb's mobile experience could better serve its most valuable users. Platform Focus \n \n iOS Mo..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nThis teardown examines how Airbnb's mobile experience could better serve its most valuable users. Platform Focus \n \n iOS Mo..."
     },
     {
       "id": "45ca8acb-18ab-482b-813f-fabb62b5beac",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 271,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nHow I identified this persona: I spent about an hour reading through recent App Store reviews and Reddit threads about Airb..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nHow I identified this persona: I spent about an hour reading through recent App Store reviews and Reddit threads about Airb..."
     },
     {
       "id": "ac1ba820-da7d-4a7a-b1d0-3ad6539abcc6",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nAnd what does 'ski access' even mean here?\" \n \n Pain Point Filters don't work intuitively; \"amenities\" section is overwhelm..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nAnd what does 'ski access' even mean here?\" \n \n Pain Point Filters don't work intuitively; \"amenities\" section is overwhelm..."
     },
     {
       "id": "959c6d58-6ea2-49d7-af32-22973a0d66b8",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 502,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nPhoto Quality Standards \n \n Whatever Airbnb is doing to enforce photo quality works. Even mediocre listings have decent pho..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nPhoto Quality Standards \n \n Whatever Airbnb is doing to enforce photo quality works. Even mediocre listings have decent pho..."
     },
     {
       "id": "4a3f80f2-73b8-43ba-af0a-a07c9fbae27c",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 518,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nShow average response times prominently on listings, updated monthly. This is just basic marketplace transparency. Cancella..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nShow average response times prominently on listings, updated monthly. This is just basic marketplace transparency. Cancella..."
     },
     {
       "id": "3e362f3c-1a5a-4b44-9ce7-b79672126df7",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 501,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nSets expectations before she messages them. This host is way better than average - worth the premium. Precedent: Uber drive..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nSets expectations before she messages them. This host is way better than average - worth the premium. Precedent: Uber drive..."
     },
     {
       "id": "b3893aa8-74ba-4f35-96df-5919145cb8ad",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 292,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nBased on their Q3 2023 earnings call showing 113.2M nights booked globally, if even 3% of repeat users start dual-booking d..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nBased on their Q3 2023 earnings call showing 113.2M nights booked globally, if even 3% of repeat users start dual-booking d..."
     },
     {
       "id": "734a3b16-6711-4b31-9dc3-ae11087b6636",
       "content_id": "airbnb-teardowns",
-      "title": "Airbnb Teardowns - Kiran Gorapalli",
+      "title": "Airbnb Teardowns - Kiran Rao",
       "section": "",
       "tokens": 202,
-      "text_preview": "Page: Airbnb Teardowns - Kiran Gorapalli.\n\nAirbnb Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built ..."
+      "text_preview": "Page: Airbnb Teardowns - Kiran Rao.\n\nAirbnb Teardowns - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built ..."
     },
     {
       "id": "65539936-5e08-4442-a0ac-d6598e046145",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 444,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nGEICO Mobile App Teardown - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nGEICO Mobile App Teardown - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
     },
     {
       "id": "6ef0ba04-fc1d-415c-93d4-7047f5e5146b",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 508,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nThe app does two jobs: keep people from leaving, and keep them off the phone to save money. Parent Company \n \n Berkshire Hathaway \n \n \n \n App Store ..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nThe app does two jobs: keep people from leaving, and keep them off the phone to save money. Parent Company \n \n Berkshire Hathaway \n \n \n \n App Store ..."
     },
     {
       "id": "8b5fb992-2adb-4b03-b7be-bc6bea315258",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 498,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nThis is what the app is for. Try Assistant \n \n Taps the chat icon, types: \"I got charged twice this month and I don't know why.\" Full sentence, natu..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nThis is what the app is for. Try Assistant \n \n Taps the chat icon, types: \"I got charged twice this month and I don't know why.\" Full sentence, natu..."
     },
     {
       "id": "b8e2c895-88fc-4999-be2a-077cdaa8f2cb",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 514,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nThey come because something is wrong and they need it fixed. The assistant solves the easy jobs nobody needed help with and fails at the hard jobs e..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nThey come because something is wrong and they need it fixed. The assistant solves the easy jobs nobody needed help with and fails at the hard jobs e..."
     },
     {
       "id": "a81623f8-fdb5-4f59-b42e-39dec5d00e47",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nSmart escalation with context \n \n When the AI can't resolve, it hands off to a human with the full transcript, policy details, and issue summary. Th..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nSmart escalation with context \n \n When the AI can't resolve, it hands off to a human with the full transcript, policy details, and issue summary. Th..."
     },
     {
       "id": "3bd150e5-d925-4a79-a239-9ec308bb4842",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nEstimated wait drops because the agent already knows the issue before answering. Section 04 \n \n The Business Case \n \n \n Executive Summary \n \n This i..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nEstimated wait drops because the agent already knows the issue before answering. Section 04 \n \n The Business Case \n \n \n Executive Summary \n \n This i..."
     },
     {
       "id": "d963c5b3-e09a-462e-9d8e-1dd405481d25",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 327,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nBut those benchmarks come from companies building new systems, not retrofitting legacy ones. I can't see GEICO's internals. A PM there would know wh..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nBut those benchmarks come from companies building new systems, not retrofitting legacy ones. I can't see GEICO's internals. A PM there would know wh..."
     },
     {
       "id": "0b2f379a-59ef-4972-9eba-ef4ea0e1b9a7",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 168,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
     },
     {
       "id": "3ce4f38c-0f09-410e-81f7-17c4baa01176",
       "content_id": "geico-hub",
-      "title": "GEICO Teardowns - Kiran Gorapalli",
+      "title": "GEICO Teardowns - Kiran Rao",
       "section": "",
       "tokens": 202,
-      "text_preview": "Page: GEICO Teardowns - Kiran Gorapalli.\n\nGEICO Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It..."
+      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\n\nGEICO Teardowns - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It..."
     },
     {
       "id": "17e2654f-1b57-4e72-87ae-9ec926febb91",
       "content_id": "geico-hub",
-      "title": "GEICO Teardowns - Kiran Gorapalli",
+      "title": "GEICO Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 57,
-      "text_preview": "Page: GEICO Teardowns - Kiran Gorapalli.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
+      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
     },
     {
       "id": "556c82e7-dd5d-40ff-b333-aec5901c43dc",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 416,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nInstagram Teardown - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Bu..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nInstagram Teardown - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Bu..."
     },
     {
       "id": "67b4f33b-d96a-43c1-89d0-d169c19f3d18",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 498,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nNow it's Meta's main way to keep under-35s engaged, mostly through algorithmically chosen videos and content instead of what they actually followed. MAU \n ..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nNow it's Meta's main way to keep under-35s engaged, mostly through algorithmically chosen videos and content instead of what they actually followed. MAU \n ..."
     },
     {
       "id": "2c7514c9-c5aa-439b-8f3b-d16c11c1f462",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 480,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nMuscle memory. Already lost agency before looking at a single post. Scroll \n \n Same 20 accounts in the feed. A Reel from someone she doesn't follow. Three ..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nMuscle memory. Already lost agency before looking at a single post. Scroll \n \n Same 20 accounts in the feed. A Reel from someone she doesn't follow. Three ..."
     },
     {
       "id": "310ad684-69ec-4ece-a074-ca936cae59f5",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nThe patterns were clear but the priority wasn't obvious - so I want to be transparent about what I chose to focus on and what I dropped. I initially consid..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nThe patterns were clear but the priority wasn't obvious - so I want to be transparent about what I chose to focus on and what I dropped. I initially consid..."
     },
     {
       "id": "056bab45-1cee-44b6-8cf2-56f32e885146",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 509,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nDaily briefing \n \n I almost didn't include this one. A finite, scrollable card stack of top posts from your Following list - like Stories but for posts. It..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nDaily briefing \n \n I almost didn't include this one. A finite, scrollable card stack of top posts from your Following list - like Stories but for posts. It..."
     },
     {
       "id": "00e655e3-5461-4a86-b78f-358c5b8ff395",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 504,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nRetention \n \n +10-15% \n \n Daily opens for Following-mode users \n \n If users feel better about the app, they open it more. Not longer sessions - more sessio..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nRetention \n \n +10-15% \n \n Daily opens for Following-mode users \n \n If users feel better about the app, they open it more. Not longer sessions - more sessio..."
     },
     {
       "id": "513c2abb-c212-454e-aa92-50b68c140625",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 92,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nIf I had access to Meta's internal session data, the business case section would look different. The personas are composites based on review patterns, not ..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nIf I had access to Meta's internal session data, the business case section would look different. The personas are composites based on review patterns, not ..."
     },
     {
       "id": "e7bc2d95-3cb0-42f1-822f-e2692d179748",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 155,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
     },
     {
       "id": "51949a82-db29-4007-b97b-bf97a2315359",
       "content_id": "meta-hub",
-      "title": "Meta Teardowns - Kiran Gorapalli",
+      "title": "Meta Teardowns - Kiran Rao",
       "section": "",
       "tokens": 218,
-      "text_preview": "Page: Meta Teardowns - Kiran Gorapalli.\n\nMeta Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n..."
+      "text_preview": "Page: Meta Teardowns - Kiran Rao.\n\nMeta Teardowns - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n..."
     },
     {
       "id": "6256978f-d66b-497d-9de4-094d7abf7860",
       "content_id": "meta-hub",
-      "title": "Meta Teardowns - Kiran Gorapalli",
+      "title": "Meta Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 63,
-      "text_preview": "Page: Meta Teardowns - Kiran Gorapalli.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
+      "text_preview": "Page: Meta Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
     }
   ]
 }%                                                                                                                      kiran@mac fenix-backend %
@@ -4002,23 +4002,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -4047,23 +4047,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -4092,23 +4092,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -4184,23 +4184,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -4235,23 +4235,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -4303,23 +4303,23 @@ Generating embeddings...
 Storing in Supabase...
   [DB] Stored: Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go'
   [DB] Stored: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI
-  [WARN] Failed to store Blog & Podcast - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (40a41034-3332-5f91-a24f-24cb496c8715, hub-page, Blog & Podcast - Kiran Gorapalli, /blog-podcast.html, Blog & Podcast - Kiran Gorapalli Skip to main content \n \n Menu \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:46.383002+00, 2026-03-03 01:53:46.383002+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: Career Highlights - Kiran Gorapalli
-  [DB] Stored: Causes - Kiran Gorapalli
-  [WARN] Failed to store How I'd've Built It - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (941ed464-259d-5e3e-9adb-561d51026e18, hub-page, How I'd've Built It - Kiran Gorapalli, /how-id-built-it.html, How I'd've Built It - Kiran Gorapalli Skip to main content \n \n M..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.051252+00, 2026-03-03 01:53:47.051252+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [WARN] Failed to store Kiran Gorapalli - Builder of Products People Love: 400 {"code":"23514","details":"Failing row contains (7cd2e22c-b767-5b82-a8ac-895138d72a78, homepage, Kiran Gorapalli - Builder of Products People Love, /index.html, Kiran Gorapalli - Builder of Products People Love Skip to main c..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.283985+00, 2026-03-03 01:53:47.283985+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: Learning & Certifications - Kiran Gorapalli
-  [WARN] Failed to store MadLab - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (54b872b9-ff93-5c0c-b7c3-0dbe451003cf, hub-page, MadLab - Kiran Gorapalli, /madlab.html, MadLab - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.742331+00, 2026-03-03 01:53:47.742331+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Gorapalli
-  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Gorapalli
-  [WARN] Failed to store Store - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (cb606fa1-7c32-51b0-b659-33a7a6d2a445, hub-page, Store - Kiran Gorapalli, /store.html, Store - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n ..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.317316+00, 2026-03-03 01:53:48.317316+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [WARN] Failed to store Studio - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (e0b800b3-1335-5be1-af16-5dc5fb95e0ec, hub-page, Studio - Kiran Gorapalli, /studio.html, Studio - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.502343+00, 2026-03-03 01:53:48.502343+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli
-  [WARN] Failed to store Airbnb Teardowns - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (2c774197-6708-5547-a7ef-302eddf397c4, teardown-hub, Airbnb Teardowns - Kiran Gorapalli, /teardowns/airbnb.html, Airbnb Teardowns - Kiran Gorapalli Skip to main content \n \n Menu..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.864754+00, 2026-03-03 01:53:48.864754+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: GEICO Mobile App Teardown - Kiran Gorapalli
-  [WARN] Failed to store GEICO Teardowns - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (8e50f36c-9935-5b39-84dc-623c7dc9f1dc, teardown-hub, GEICO Teardowns - Kiran Gorapalli, /teardowns/geico.html, GEICO Teardowns - Kiran Gorapalli Skip to main content \n \n Menu ..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"insurance\\\", \\..., null, null, null, 2026-03-03 01:53:49.485427+00, 2026-03-03 01:53:49.485427+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
-  [DB] Stored: Instagram Teardown - Kiran Gorapalli
-  [WARN] Failed to store Meta Teardowns - Kiran Gorapalli: 400 {"code":"23514","details":"Failing row contains (6a14c226-8801-546b-a04b-54be8e1fa32c, teardown-hub, Meta Teardowns - Kiran Gorapalli, /teardowns/meta.html, Meta Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"social-media\\\"..., null, null, null, 2026-03-03 01:53:49.876461+00, 2026-03-03 01:53:49.876461+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [WARN] Failed to store Blog & Podcast - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (40a41034-3332-5f91-a24f-24cb496c8715, hub-page, Blog & Podcast - Kiran Rao, /blog-podcast.html, Blog & Podcast - Kiran Rao Skip to main content \n \n Menu \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:46.383002+00, 2026-03-03 01:53:46.383002+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: Career Highlights - Kiran Rao
+  [DB] Stored: Causes - Kiran Rao
+  [WARN] Failed to store How I'd've Built It - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (941ed464-259d-5e3e-9adb-561d51026e18, hub-page, How I'd've Built It - Kiran Rao, /how-id-built-it.html, How I'd've Built It - Kiran Rao Skip to main content \n \n M..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.051252+00, 2026-03-03 01:53:47.051252+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [WARN] Failed to store Kiran Rao - Builder of Products People Love: 400 {"code":"23514","details":"Failing row contains (7cd2e22c-b767-5b82-a8ac-895138d72a78, homepage, Kiran Rao - Builder of Products People Love, /index.html, Kiran Rao - Builder of Products People Love Skip to main c..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.283985+00, 2026-03-03 01:53:47.283985+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: Learning & Certifications - Kiran Rao
+  [WARN] Failed to store MadLab - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (54b872b9-ff93-5c0c-b7c3-0dbe451003cf, hub-page, MadLab - Kiran Rao, /madlab.html, MadLab - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:47.742331+00, 2026-03-03 01:53:47.742331+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Rao
+  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Rao
+  [WARN] Failed to store Store - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (cb606fa1-7c32-51b0-b659-33a7a6d2a445, hub-page, Store - Kiran Rao, /store.html, Store - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n ..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.317316+00, 2026-03-03 01:53:48.317316+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [WARN] Failed to store Studio - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (e0b800b3-1335-5be1-af16-5dc5fb95e0ec, hub-page, Studio - Kiran Rao, /studio.html, Studio - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.502343+00, 2026-03-03 01:53:48.502343+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao
+  [WARN] Failed to store Airbnb Teardowns - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (2c774197-6708-5547-a7ef-302eddf397c4, teardown-hub, Airbnb Teardowns - Kiran Rao, /teardowns/airbnb.html, Airbnb Teardowns - Kiran Rao Skip to main content \n \n Menu..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"\\\", \\\"company\\..., null, null, null, 2026-03-03 01:53:48.864754+00, 2026-03-03 01:53:48.864754+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: GEICO Mobile App Teardown - Kiran Rao
+  [WARN] Failed to store GEICO Teardowns - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (8e50f36c-9935-5b39-84dc-623c7dc9f1dc, teardown-hub, GEICO Teardowns - Kiran Rao, /teardowns/geico.html, GEICO Teardowns - Kiran Rao Skip to main content \n \n Menu ..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"insurance\\\", \\..., null, null, null, 2026-03-03 01:53:49.485427+00, 2026-03-03 01:53:49.485427+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
+  [DB] Stored: Instagram Teardown - Kiran Rao
+  [WARN] Failed to store Meta Teardowns - Kiran Rao: 400 {"code":"23514","details":"Failing row contains (6a14c226-8801-546b-a04b-54be8e1fa32c, teardown-hub, Meta Teardowns - Kiran Rao, /teardowns/meta.html, Meta Teardowns - Kiran Rao Skip to main content \n \n Menu \n..., \"{\\\"skills\\\": [], \\\"themes\\\": [], \\\"industry\\\": \\\"social-media\\\"..., null, null, null, 2026-03-03 01:53:49.876461+00, 2026-03-03 01:53:49.876461+00).","hint":null,"message":"new row for relation \"content_registry\" violates check constraint \"content_registry_content_type_check\""}
   [DB] Clearing existing embeddings...
   [WARN] Batch insert failed: 400 {"code":"22000","details":null,"hint":null,"message":"expected 1536 dimensions, not 512"}
   [WARN] Batch insert failed: 400 {"code":"22000","details":null,"hint":null,"message":"expected 1536 dimensions, not 512"}
@@ -4528,1042 +4528,1042 @@ Dimensions: 1024
     {
       "id": "9c928502-84e9-46e5-9bd2-280b2efe80a5",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Blog & Podcast",
       "tokens": 43,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership Blog Podcast 28 Feb 2026 Deep Dive Demystifying Apple Pay"
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership Blog Podcast 28 Feb 2026 Deep Dive Demystifying Apple Pay"
     },
     {
       "id": "dd47165e-fe64-4ede-8722-cb0fc6cdd220",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Demystifying Apple Pay",
       "tokens": 103,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Demystifying Apple Pay.\n\nA Payment PM's guide to what it actually takes to deploy 'just tap and go' - from device hardware to issuing bank, plus what t..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Demystifying Apple Pay.\n\nA Payment PM's guide to what it actually takes to deploy 'just tap and go' - from device hardware to issuing bank, plus what t..."
     },
     {
       "id": "a43e84d7-97ee-47fe-ad47-92c76b5c8f3f",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI",
       "tokens": 100,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\n\n95% of AI pilots fail. Bank of America landed in the other five - not w..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\n\n95% of AI pilots fail. Bank of America landed in the other five - not w..."
     },
     {
       "id": "7ba1b966-0cc6-4e0d-950c-ad5b75615b41",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "The product manager's job isn't to have the best ideas",
       "tokens": 91,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: The product manager's job isn't to have the best ideas.\n\nMost PMs think their value is in ideation. It's not. Your value is in creating the conditions ..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: The product manager's job isn't to have the best ideas.\n\nMost PMs think their value is in ideation. It's not. Your value is in creating the conditions ..."
     },
     {
       "id": "b3f16892-013f-47cd-9d2b-769d3585cff6",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "AI features that actually stick - lessons from three launches",
       "tokens": 82,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: AI features that actually stick - lessons from three launches.\n\nI've shipped AI features that users loved and ones they ignored. The difference was nev..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: AI features that actually stick - lessons from three launches.\n\nI've shipped AI features that users loved and ones they ignored. The difference was nev..."
     },
     {
       "id": "f5762841-defc-4e28-9cea-68a106881669",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Why I still write PRDs (and why you probably should too)",
       "tokens": 92,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Why I still write PRDs (and why you probably should too).\n\nThe product world has moved on from long documents. I think that's a mistake. Here's the cas..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Why I still write PRDs (and why you probably should too).\n\nThe product world has moved on from long documents. I think that's a mistake. Here's the cas..."
     },
     {
       "id": "ec65462a-5695-4209-ad0a-6a0c402b3520",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Building for trust in fintech - what banking taught me about product",
       "tokens": 94,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Building for trust in fintech - what banking taught me about product.\n\nUsers don't read your security page. They feel trust through micro-interactions,..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Building for trust in fintech - what banking taught me about product.\n\nUsers don't read your security page. They feel trust through micro-interactions,..."
     },
     {
       "id": "3779433b-e123-4005-986f-e3d1b02cb2e4",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "The zero-to-one problem - why most product orgs can't do it",
       "tokens": 86,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: The zero-to-one problem - why most product orgs can't do it.\n\nScaling a product and building one from nothing require completely different muscles. I b..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: The zero-to-one problem - why most product orgs can't do it.\n\nScaling a product and building one from nothing require completely different muscles. I b..."
     },
     {
       "id": "64e643b0-6c9f-4971-a68e-cf54ba92f564",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "What engineers wish their PM knew",
       "tokens": 81,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: What engineers wish their PM knew.\n\nI sat down with three senior engineers I've worked with and asked them to be brutally honest about what PMs get wro..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: What engineers wish their PM knew.\n\nI sat down with three senior engineers I've worked with and asked them to be brutally honest about what PMs get wro..."
     },
     {
       "id": "261b4ba8-8544-42fb-b61b-1031b50111b4",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Mobile-first is dead. What comes next?",
       "tokens": 86,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Mobile-first is dead. What comes next?.\n\nThe mobile-first era shaped how I think about product. But the next wave of product thinking isn't about scree..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Mobile-first is dead. What comes next?.\n\nThe mobile-first era shaped how I think about product. But the next wave of product thinking isn't about scree..."
     },
     {
       "id": "a9fc296a-ee67-459a-bb10-80799e94b3cd",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Why I'm starting a podcast (and what I hope to get wrong)",
       "tokens": 89,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Why I'm starting a podcast (and what I hope to get wrong).\n\nA first episode about why I'm doing this, what I plan to explore, and why being wrong in pu..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Why I'm starting a podcast (and what I hope to get wrong).\n\nA first episode about why I'm doing this, what I plan to explore, and why being wrong in pu..."
     },
     {
       "id": "0b7611df-1404-4371-88d0-b8685ea02ad2",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
+      "text_preview": "Page: Blog & Podcast - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
     },
     {
       "id": "4119c1de-7acc-4f59-a057-37681aa58316",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Career Highlights",
       "tokens": 208,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Career Highlights.\n\n15+ years. The best proof isn't a resume - it's the work. Here's mine. Each card below has details of the initiatives I led. Ope..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Career Highlights.\n\n15+ years. The best proof isn't a resume - it's the work. Here's mine. Each card below has details of the initiatives I led. Ope..."
     },
     {
       "id": "d87fd4fb-2af0-45b2-8e1e-79bc4269f904",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product",
       "tokens": 504,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product.\n\nAvatour AI - AR/VR Startup \u00b7 Oct 2025 - Present Information shared with explicit permission Pivoted from live inspections to AI-assi..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product.\n\nAvatour AI - AR/VR Startup \u00b7 Oct 2025 - Present Information shared with explicit permission Pivoted from live inspections to AI-assi..."
     },
     {
       "id": "9ed93bf7-fa34-43ff-8156-159bdcc9c632",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product",
       "tokens": 92,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product.\n\nSome of it involved strategic work that requires care in how I share it. I've gated the detail behind a simple access code out of re..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product.\n\nSome of it involved strategic work that requires care in how I share it. I've gated the detail behind a simple access code out of re..."
     },
     {
       "id": "e2a25a26-ba34-4621-b00e-c4092269196a",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 510,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nWells Fargo - Strategy, Digital & AI \u00b7 Nov 2023 - Oct 2025 Expanded consumer mobile app base 18M to 32M ; JD Pow..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nWells Fargo - Strategy, Digital & AI \u00b7 Nov 2023 - Oct 2025 Expanded consumer mobile app base 18M to 32M ; JD Pow..."
     },
     {
       "id": "31f763f7-225e-4773-8063-f22b700bc65c",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nSupport call volume was rising, and the assistant wasn't absorbing the load it was designed to handle. Customers..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nSupport call volume was rising, and the assistant wasn't absorbing the load it was designed to handle. Customers..."
     },
     {
       "id": "bd1b2285-22ed-4248-b048-bbb88546f9b3",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 448,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nThe app needed to become a storefront, not just a dashboard. What Shipped Embedded marketplace within the mobile..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nThe app needed to become a storefront, not just a dashboard. What Shipped Embedded marketplace within the mobile..."
     },
     {
       "id": "e6794014-b863-403a-86d9-fb7a1c60a37f",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 501,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nThe Outcome 34% average increase in feature adoption for launches using the toolkit. Reduced time-to-first-use b..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nThe Outcome 34% average increase in feature adoption for launches using the toolkit. Reduced time-to-first-use b..."
     },
     {
       "id": "137a0d1c-e00c-4d89-b578-61024c10fd31",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 507,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nOne-size-fits-all was leaving value on the table. The Bet If we segmented users by lifecycle stage, product port..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nOne-size-fits-all was leaving value on the table. The Bet If we segmented users by lifecycle stage, product port..."
     },
     {
       "id": "d703de7a-7792-4caa-a823-b8cacfb92065",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 495,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\n\"Design\" and \"look and feel\" negative mentions in reviews dropped 45%. The updated design system reduced new scr..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\n\"Design\" and \"look and feel\" negative mentions in reviews dropped 45%. The updated design system reduced new scr..."
     },
     {
       "id": "5c217bcc-f231-47d8-ab8a-d1b02518b173",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 519,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nCustomers were disabling notifications entirely, which meant they missed fraud alerts, payment confirmations, an..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nCustomers were disabling notifications entirely, which meant they missed fraud alerts, payment confirmations, an..."
     },
     {
       "id": "0cbfb20c-f99f-457c-8a20-803d2c2e9e2b",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 165,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nMonthly financial health summary with personalized recommendations. Integration with Fargo assistant for convers..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nMonthly financial health summary with personalized recommendations. Integration with Fargo assistant for convers..."
     },
     {
       "id": "6ca414e5-7952-410f-82d7-838f535631b7",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 521,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nFirst Republic \u00b7 Apr 2016 - Oct 2023 Directed 22 PMs and $20M portfolio moderni..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nFirst Republic \u00b7 Apr 2016 - Oct 2023 Directed 22 PMs and $20M portfolio moderni..."
     },
     {
       "id": "ba6bb225-9059-43b5-b520-3a1478935b4c",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 448,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nCompetitors offered instant provisioning. The Bet Same-day card provisioning wo..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nCompetitors offered instant provisioning. The Bet Same-day card provisioning wo..."
     },
     {
       "id": "75ade920-e64a-4418-a089-5a3c325ffa72",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe Outcome 18% YoY revenue growth post-migration. New product launch cycle dro..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe Outcome 18% YoY revenue growth post-migration. New product launch cycle dro..."
     },
     {
       "id": "4b98a18c-a3fa-4f70-acbf-541a31ff7e4e",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nAccount opening, document collection, investment preferences, and advisor commu..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nAccount opening, document collection, investment preferences, and advisor commu..."
     },
     {
       "id": "b62cb718-5bb1-4fb9-918e-d6561869ca6c",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 528,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nPersists across sessions until toggled off. Quick-reveal with biometric tap for..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nPersists across sessions until toggled off. Quick-reveal with biometric tap for..."
     },
     {
       "id": "8c4c8bdc-2a0e-456d-a267-86b5b69dff88",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 533,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe process took days of scheduling and was especially frustrating for busy pro..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe process took days of scheduling and was especially frustrating for busy pro..."
     },
     {
       "id": "e6fd67a0-c612-4f9d-aeeb-3d6c2ac19923",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 144,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nIntegrated CRM notes and follow-up tracking. The Outcome 30% improvement in RM ..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nIntegrated CRM notes and follow-up tracking. The Outcome 30% improvement in RM ..."
     },
     {
       "id": "a6e8cc37-1c7a-4939-80f9-682aafbbc39a",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nWells Fargo - Virtual Channels \u00b7 Aug 2012 - Apr 2016 Led mobile-first innovation for payments and ..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nWells Fargo - Virtual Channels \u00b7 Aug 2012 - Apr 2016 Led mobile-first innovation for payments and ..."
     },
     {
       "id": "915b9325-91a0-4e73-b0c0-2cb2068097ef",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 527,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nAccount takeover attempts were rising, regulatory pressure was increasing, and the bank had no con..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nAccount takeover attempts were rising, regulatory pressure was increasing, and the bank had no con..."
     },
     {
       "id": "70a89c0d-18ba-46e9-833d-91db3355d1cb",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nSupport for both authentication and transaction signing. The Outcome 60%+ biometric adoption among..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nSupport for both authentication and transaction signing. The Outcome 60%+ biometric adoption among..."
     },
     {
       "id": "8249797d-5f6d-4fdc-876a-fb2c43b4ecd0",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 479,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nCustomers who lost or forgot their card had no way to access cash. The ATM experience hadn't evolv..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nCustomers who lost or forgot their card had no way to access cash. The ATM experience hadn't evolv..."
     },
     {
       "id": "52c20029-ba01-4d98-b530-2b2d4df1a303",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 517,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nPriority escalation for security-related alerts. Outcome Faster alert delivery, higher customer en..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nPriority escalation for security-related alerts. Outcome Faster alert delivery, higher customer en..."
     },
     {
       "id": "90e3c96c-7136-4986-8770-dc207edf7854",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 221,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nBet A dedicated digital roadmap for student loans would reduce servicing costs, improve borrower s..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nBet A dedicated digital roadmap for student loans would reduce servicing costs, improve borrower s..."
     },
     {
       "id": "9a1eddc6-0241-42f2-9778-8f0ed0bb668d",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 406,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nMagley & Associates \u00b7 2002 - 2012 Led a team of 30+ consultants designing strategies and executing programs t..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nMagley & Associates \u00b7 2002 - 2012 Led a team of 30+ consultants designing strategies and executing programs t..."
     },
     {
       "id": "466d15b3-1d0e-43c0-968f-87a74aee39e8",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 401,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nOutcome 45% app adoption. The mobile app became one of the top 10 downloaded apps in both Google Play and the..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nOutcome 45% app adoption. The mobile app became one of the top 10 downloaded apps in both Google Play and the..."
     },
     {
       "id": "27ff0596-c411-474c-9058-42c4bf735909",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 523,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nOutcome 38% increase in Bill Pay adoption. Consolidated Wachovia's standing as the 4th best online banking pl..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nOutcome 38% increase in Bill Pay adoption. Consolidated Wachovia's standing as the 4th best online banking pl..."
     },
     {
       "id": "37675aa7-1598-4aeb-892a-364803626f2e",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 284,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nMessenger had a large user base but needed product evolution to stay competitive. Engagement opportunities wi..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nMessenger had a large user base but needed product evolution to stay competitive. Engagement opportunities wi..."
     },
     {
       "id": "3b3624d4-b85f-42ef-8cb9-101f85076a3a",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Earlier Roles",
       "tokens": 76,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Earlier Roles.\n\nBefore 2008 \u00b7 Your early career story Your early career You mentioned roles going back to your first job as a kid. Share whatever yo..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Earlier Roles.\n\nBefore 2008 \u00b7 Your early career story Your early career You mentioned roles going back to your first job as a kid. Share whatever yo..."
     },
     {
       "id": "8390eb74-7097-4a6e-9551-c6a7e65fd5c1",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Let's talk",
       "tokens": 27,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Let's talk.\n\nGet in Touch This content is access-controlled"
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Let's talk.\n\nGet in Touch This content is access-controlled"
     },
     {
       "id": "6abba80f-ced8-491e-a95c-730b913f7ff8",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "This content is access-controlled",
       "tokens": 59,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: This content is access-controlled.\n\nReach out on LinkedIn for a code. Unlock v1.0.24 \u00b7 Updated Feb 24, 2026 \u00b7 RSS \u00a9 2026 Kiran Gorapalli. All rights..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: This content is access-controlled.\n\nReach out on LinkedIn for a code. Unlock v1.0.24 \u00b7 Updated Feb 24, 2026 \u00b7 RSS \u00a9 2026 Kiran Rao. All rights..."
     },
     {
       "id": "647375c7-d325-4290-9e6c-c5f933ce0ecd",
       "content_id": "causes",
-      "title": "Causes - Kiran Gorapalli",
+      "title": "Causes - Kiran Rao",
       "section": "",
       "tokens": 501,
-      "text_preview": "Page: Causes - Kiran Gorapalli.\n\nCauses - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n ..."
+      "text_preview": "Page: Causes - Kiran Rao.\n\nCauses - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n ..."
     },
     {
       "id": "0b1ace55-da2e-4a21-9411-6c82b7b03947",
       "content_id": "causes",
-      "title": "Causes - Kiran Gorapalli",
+      "title": "Causes - Kiran Rao",
       "section": "",
       "tokens": 244,
-      "text_preview": "Page: Causes - Kiran Gorapalli.\n\nIt's also championed by my hero, Sir David Attenborough, whose work taught me to see the natural world differently. Today it's a cause my daughter and I share. We're b..."
+      "text_preview": "Page: Causes - Kiran Rao.\n\nIt's also championed by my hero, Sir David Attenborough, whose work taught me to see the natural world differently. Today it's a cause my daughter and I share. We're b..."
     },
     {
       "id": "c85808e7-42ce-4135-a457-be5a4a89ad0e",
       "content_id": "how-id-built-it",
-      "title": "How I'd've Built It - Kiran Gorapalli",
+      "title": "How I'd've Built It - Kiran Rao",
       "section": "How I'd've Built It",
       "tokens": 156,
-      "text_preview": "Page: How I'd've Built It - Kiran Gorapalli. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of the apps we all use I pick apart products I use daily - what works, what doesn't, and wha..."
+      "text_preview": "Page: How I'd've Built It - Kiran Rao. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of the apps we all use I pick apart products I use daily - what works, what doesn't, and wha..."
     },
     {
       "id": "a94dbd15-af81-4541-92bd-70c5c31a8219",
       "content_id": "how-id-built-it",
-      "title": "How I'd've Built It - Kiran Gorapalli",
+      "title": "How I'd've Built It - Kiran Rao",
       "section": "Sign in to view teardowns",
       "tokens": 63,
-      "text_preview": "Page: How I'd've Built It - Kiran Gorapalli. Section: Sign in to view teardowns.\n\nEnter your email and we'll send you a magic login link. No password needed. Send Login Link v1.0.24 \u00b7 Updated Feb 28, ..."
+      "text_preview": "Page: How I'd've Built It - Kiran Rao. Section: Sign in to view teardowns.\n\nEnter your email and we'll send you a magic login link. No password needed. Send Login Link v1.0.24 \u00b7 Updated Feb 28, ..."
     },
     {
       "id": "69d4b4e7-be63-4957-95a7-80f86185f6f6",
       "content_id": "how-id-built-it",
-      "title": "How I'd've Built It - Kiran Gorapalli",
+      "title": "How I'd've Built It - Kiran Rao",
       "section": "_summary",
       "tokens": 42,
-      "text_preview": "Page: How I'd've Built It - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
+      "text_preview": "Page: How I'd've Built It - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
     },
     {
       "id": "99ac7ef7-4171-4f0f-b07d-fa245c875022",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Let's talk",
       "tokens": 36,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Let's talk.\n\n\u00d7 Email WhatsApp LinkedIn Twitter Facebook SMS Copy Kiran Gorapalli"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Let's talk.\n\n\u00d7 Email WhatsApp LinkedIn Twitter Facebook SMS Copy Kiran Rao"
     },
     {
       "id": "3adeb342-a648-456f-a57b-004b26cfcb0f",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
-      "section": "Kiran Gorapalli",
+      "title": "Kiran Rao - Builder of Products People Love",
+      "section": "Kiran Rao",
       "tokens": 56,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Kiran Gorapalli.\n\nBuilder of Products People Love (San Francisco, California) \u2198 Scroll Down Video coming soon Equal parts strategist, ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Kiran Rao.\n\nBuilder of Products People Love (San Francisco, California) \u2198 Scroll Down Video coming soon Equal parts strategist, ..."
     },
     {
       "id": "9658a291-a37d-438e-96dd-cbe549c84bdc",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Equal parts strategist, storyteller, and builder.",
       "tokens": 93,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Equal parts strategist, storyteller, and builder..\n\n(About) I lead product teams, geek out about AI, and believe the best work happens..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Equal parts strategist, storyteller, and builder..\n\n(About) I lead product teams, geek out about AI, and believe the best work happens..."
     },
     {
       "id": "2f44c47c-a74b-4abc-9927-b935a661322b",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Product Strategy",
       "tokens": 56,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Product Strategy.\n\nI turn ambiguity into clarity. Define the vision, align stakeholders, and build roadmaps that ship outcomes, not ju..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Product Strategy.\n\nI turn ambiguity into clarity. Define the vision, align stakeholders, and build roadmaps that ship outcomes, not ju..."
     },
     {
       "id": "4f23e842-38b6-4129-9fe3-8b3880471011",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "AI Integration",
       "tokens": 56,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: AI Integration.\n\nI translate what AI makes possible into what customers actually need, then make sure it ships, scales, and earns trus..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: AI Integration.\n\nI translate what AI makes possible into what customers actually need, then make sure it ships, scales, and earns trus..."
     },
     {
       "id": "80be1fe9-1d32-48c9-b536-e560883f0774",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Digital Transformation",
       "tokens": 63,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Digital Transformation.\n\nI modernize platforms and reimagine workflows by migrating legacy systems to scalable, customer-centric produ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Digital Transformation.\n\nI modernize platforms and reimagine workflows by migrating legacy systems to scalable, customer-centric produ..."
     },
     {
       "id": "317d4e85-4dd3-422d-b4cc-35ed75664e7b",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Growth & Adoption",
       "tokens": 59,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Growth & Adoption.\n\nI obsess over the metrics that matter: activating users, reducing friction, and scaling products from early tracti..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Growth & Adoption.\n\nI obsess over the metrics that matter: activating users, reducing friction, and scaling products from early tracti..."
     },
     {
       "id": "ae29072d-a889-4db8-a738-c056d22ed6b5",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Go-to-Market Strategy",
       "tokens": 62,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Go-to-Market Strategy.\n\nI take products from ready to revenue by aligning positioning, pricing, and distribution into go-to-market pla..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Go-to-Market Strategy.\n\nI take products from ready to revenue by aligning positioning, pricing, and distribution into go-to-market pla..."
     },
     {
       "id": "f1ddac65-ca4a-460d-8a8b-b18831698cfc",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Delivery & Execution",
       "tokens": 91,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Delivery & Execution.\n\nI drive cross-functional teams from backlog to launch - managing scope, unblocking dependencies, and holding th..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Delivery & Execution.\n\nI drive cross-functional teams from backlog to launch - managing scope, unblocking dependencies, and holding th..."
     },
     {
       "id": "b1fb3e83-bf88-429f-9aef-9f71a64809cf",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Fenix is my AI assistant, here to help you navigate this site and experience it in a way that's right for you.",
       "tokens": 145,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Fenix is my AI assistant, here to help you navigate this site and experience it in a way that's right for you..\n\nMost commonly asked q..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Fenix is my AI assistant, here to help you navigate this site and experience it in a way that's right for you..\n\nMost commonly asked q..."
     },
     {
       "id": "261be5bf-3934-4bb9-a336-549334b28317",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Career Highlights",
       "tokens": 84,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Career Highlights.\n\nWhat I've accomplished during my product journey so far. From 0-to-1 launches and platform-scale transformations, ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Career Highlights.\n\nWhat I've accomplished during my product journey so far. From 0-to-1 launches and platform-scale transformations, ..."
     },
     {
       "id": "ccbcdc30-002c-4fc5-b3ee-e371b712e59f",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "How I'd've Built It",
       "tokens": 59,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of popular applications. What I'd keep, what I'd kill, and what I'd build differ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of popular applications. What I'd keep, what I'd kill, and what I'd build differ..."
     },
     {
       "id": "eb7f52b9-6eb9-4ed4-800a-74bc31938f6d",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "MadLab",
       "tokens": 50,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: MadLab.\n\nApps, tools, and prototypes built from scratch. My sandbox for tinkering and experimentation. Prototypes Apps Experiments Stu..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: MadLab.\n\nApps, tools, and prototypes built from scratch. My sandbox for tinkering and experimentation. Prototypes Apps Experiments Stu..."
     },
     {
       "id": "e8d005df-09cc-4f88-b60c-1e40383fb940",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Studio",
       "tokens": 54,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Studio.\n\nMy creative playground. Art, video, and experiments born from curiosity and wherever the rabbit holes lead. AI Art Video Cont..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Studio.\n\nMy creative playground. Art, video, and experiments born from curiosity and wherever the rabbit holes lead. AI Art Video Cont..."
     },
     {
       "id": "8dbcd62e-fd61-490d-8b07-8e5488a77135",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Blog & Podcast",
       "tokens": 65,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership. Plus conversations with builders and operators who are shaping wha..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership. Plus conversations with builders and operators who are shaping wha..."
     },
     {
       "id": "88bc21ab-b8b7-4790-b877-e15299c0ef45",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Learning & Certifications",
       "tokens": 63,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Learning & Certifications.\n\nLifelong learner. The real value isn't the credential. It's the new lens it gives you on problems you thou..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Learning & Certifications.\n\nLifelong learner. The real value isn't the credential. It's the new lens it gives you on problems you thou..."
     },
     {
       "id": "566bd518-f1b3-4c19-bb9b-228d7b09d9aa",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Causes",
       "tokens": 43,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Causes.\n\nWhere I put my time and energy when its not about work and play. Nonprofits Giving Back Impact Store"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Causes.\n\nWhere I put my time and energy when its not about work and play. Nonprofits Giving Back Impact Store"
     },
     {
       "id": "28546a0b-fed1-42c8-88f5-4a2b402dde78",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Store",
       "tokens": 60,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Store.\n\nCurated merch, templates, and digital resources. Tools and goods for builders, makers, and anyone who ships. Coming soon. Merc..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Store.\n\nCurated merch, templates, and digital resources. Tools and goods for builders, makers, and anyone who ships. Coming soon. Merc..."
     },
     {
       "id": "255c9ef4-c3e8-4291-81ca-c8db61700da1",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Let's talk",
       "tokens": 111,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Let's talk.\n\nGet in Touch How do you like this site? Don't fill this out: Send Feedback Thanks for your feedback! Worked with me? Leav..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Let's talk.\n\nGet in Touch How do you like this site? Don't fill this out: Send Feedback Thanks for your feedback! Worked with me? Leav..."
     },
     {
       "id": "b18c4fad-3ffb-48e0-9cbc-c3dd6fd6d1e2",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "_summary",
       "tokens": 45,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love.\nType: homepage.\nURL: https://kirangorapalli.com/index.html\n\nSummary: Main landing page with work cards linking to all sections"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love.\nType: homepage.\nURL: https://kirangorapalli.com/index.html\n\nSummary: Main landing page with work cards linking to all sections"
     },
     {
       "id": "cd26d492-6b21-46f0-b368-3d928163f5a1",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 502,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nLearning & Certifications - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nLearning & Certifications - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
     },
     {
       "id": "f59cfedd-5056-4d08-8725-f5d1c4c641ba",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 461,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nSharpened my ability to frame data as a story that informs product and business strategy. Skills Covered \n \n SQL Excel Tableau Power BI Python Data ..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nSharpened my ability to frame data as a story that informs product and business strategy. Skills Covered \n \n SQL Excel Tableau Power BI Python Data ..."
     },
     {
       "id": "235b426c-9857-4720-a609-5ff9beb069ba",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 487,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nSharpened my ability to connect product decisions to broader business strategy and communicate them in terms leadership teams actually care about. S..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nSharpened my ability to connect product decisions to broader business strategy and communicate them in terms leadership teams actually care about. S..."
     },
     {
       "id": "6e4c2993-75fe-44a7-b901-3602ac250c11",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 476,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nChanged how I break down ambiguous product challenges and present solutions to stakeholders with clarity and conviction. Skills Covered \n \n Structur..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nChanged how I break down ambiguous product challenges and present solutions to stakeholders with clarity and conviction. Skills Covered \n \n Structur..."
     },
     {
       "id": "45444b1d-5335-4029-9293-98a48b786839",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 421,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nThe Prosci 3-Phase Process (Prepare Approach, Manage Change, Sustain Outcomes) and ADKAR model (Awareness, Desire, Knowledge, Ability, Reinforcement..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nThe Prosci 3-Phase Process (Prepare Approach, Manage Change, Sustain Outcomes) and ADKAR model (Awareness, Desire, Knowledge, Ability, Reinforcement..."
     },
     {
       "id": "c93c62a5-e9aa-4baa-8676-5e4b643e2a4b",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 480,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nGave me the framework to drive API strategy conversations with engineering and think about developer experience as a core product concern. Skills Co..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nGave me the framework to drive API strategy conversations with engineering and think about developer experience as a core product concern. Skills Co..."
     },
     {
       "id": "5989fd80-4c67-4977-a4ff-ee60e1ec42dd",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 467,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nCovered data transformation with BigQuery and Cloud Storage, AI and ML capabilities through Vertex AI, and infrastructure modernization with GKE and..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nCovered data transformation with BigQuery and Cloud Storage, AI and ML capabilities through Vertex AI, and infrastructure modernization with GKE and..."
     },
     {
       "id": "dc88b781-e1e7-492e-bc7e-1cdbab3ee7b0",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "MadLab",
       "tokens": 30,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: MadLab.\n\nApps, tools, and prototypes built from scratch Chatbots & AI Assistants"
+      "text_preview": "Page: MadLab - Kiran Rao. Section: MadLab.\n\nApps, tools, and prototypes built from scratch Chatbots & AI Assistants"
     },
     {
       "id": "51a78dd8-a707-49a0-a5fe-a8ec50cc2ac1",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Chatbots & AI Assistants",
       "tokens": 118,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Chatbots & AI Assistants.\n\n2 projects \ud83c\udfe0 Live Insurance AI Assistant A chatbot that handles multi-step insurance claims without losing the thread. Walks you thr..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Chatbots & AI Assistants.\n\n2 projects \ud83c\udfe0 Live Insurance AI Assistant A chatbot that handles multi-step insurance claims without losing the thread. Walks you thr..."
     },
     {
       "id": "815fdc89-bdcb-4f08-ac8a-7ecf22537c52",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Agentic AI",
       "tokens": 124,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Agentic AI.\n\n2 projects \ud83d\udd0d In Active Dev Research Assistant Agent Give it a topic. It autonomously searches the web, reads what it finds, synthesises sources, a..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Agentic AI.\n\n2 projects \ud83d\udd0d In Active Dev Research Assistant Agent Give it a topic. It autonomously searches the web, reads what it finds, synthesises sources, a..."
     },
     {
       "id": "02e8e50a-e390-4ea1-934c-1ba08f316a6a",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Voice & Audio AI",
       "tokens": 112,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Voice & Audio AI.\n\n2 projects \ud83c\udf99 In Analysis Voice Note Summariser Record a voice memo, get it transcribed instantly, and receive an AI summary with key action ..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Voice & Audio AI.\n\n2 projects \ud83c\udf99 In Analysis Voice Note Summariser Record a voice memo, get it transcribed instantly, and receive an AI summary with key action ..."
     },
     {
       "id": "75210edf-cb91-4176-afe4-2ce55cfc7d61",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Computer Vision",
       "tokens": 112,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Computer Vision.\n\n2 projects \ud83d\udc41 In Active Dev Design Screenshot Analyser Upload any UI screenshot and get an AI breakdown of layout, colour palette, typography,..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Computer Vision.\n\n2 projects \ud83d\udc41 In Active Dev Design Screenshot Analyser Upload any UI screenshot and get an AI breakdown of layout, colour palette, typography,..."
     },
     {
       "id": "99e89cc0-bea2-4707-b97a-929071d693fc",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Browser Extensions",
       "tokens": 123,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Browser Extensions.\n\n2 projects \u2702 Backlog Content Summariser Extension Highlight any text on the web, get an instant AI summary. Adjust length and tone. Works ..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Browser Extensions.\n\n2 projects \u2702 Backlog Content Summariser Extension Highlight any text on the web, get an instant AI summary. Adjust length and tone. Works ..."
     },
     {
       "id": "444bbc0b-11bf-483a-a0d6-948774a2d674",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Data & Visualisations",
       "tokens": 114,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Data & Visualisations.\n\n2 projects \ud83d\udcc8 In Analysis AI Market Trends Dashboard Scrapes AI news, GitHub trends, and funding data. Interactive charts showing which ..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Data & Visualisations.\n\n2 projects \ud83d\udcc8 In Analysis AI Market Trends Dashboard Scrapes AI news, GitHub trends, and funding data. Interactive charts showing which ..."
     },
     {
       "id": "6a5f724d-5be0-4630-bdaa-46b57db23bdd",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Automations & Workflows",
       "tokens": 125,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Automations & Workflows.\n\n2 projects \u2699 Backlog Email Digest Automator Automated pipeline that curates your inbox, summarises what matters, and delivers a clean..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Automations & Workflows.\n\n2 projects \u2699 Backlog Email Digest Automator Automated pipeline that curates your inbox, summarises what matters, and delivers a clean..."
     },
     {
       "id": "2e91a7f0-45d2-4422-b440-9fb311785b69",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: MadLab - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
+      "text_preview": "Page: MadLab - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
     },
     {
       "id": "4c1fccd5-8a47-46f2-a0ff-1001114c4867",
       "content_id": "index-insurance-chatbot-prototypes",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "",
       "tokens": 183,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli.\n\nInsurance AI Assistant - MadLab | Kiran Gorapalli \n \n \u2190 MadLab \n \n Insurance AI Assistant \n \n LangGraph State Machine - Multi-Step Claim Flow ..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\n\nInsurance AI Assistant - MadLab | Kiran Rao \n \n \u2190 MadLab \n \n Insurance AI Assistant \n \n LangGraph State Machine - Multi-Step Claim Flow ..."
     },
     {
       "id": "596da23b-f0be-4a32-8a33-f239a8a7c2d4",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "Insurance AI Assistant",
       "tokens": 93,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: Insurance AI Assistant.\n\nA chatbot that walks you through filing an insurance claim without losing track of anything. It remembers wha..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: Insurance AI Assistant.\n\nA chatbot that walks you through filing an insurance claim without losing track of anything. It remembers wha..."
     },
     {
       "id": "350d89d5-5a54-43b6-aaea-466d0903e8a6",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "The Problem",
       "tokens": 112,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: The Problem.\n\nInsurance companies answer the same questions millions of times - filing claims, looking up policies, sorting out billin..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: The Problem.\n\nInsurance companies answer the same questions millions of times - filing claims, looking up policies, sorting out billin..."
     },
     {
       "id": "65ce4009-ad1f-4f01-8a59-f301eab703cc",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "System Architecture",
       "tokens": 208,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: System Architecture.\n\nMost chatbots follow a rigid script - if the conversation goes sideways, they're lost. This one uses LangGraph t..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: System Architecture.\n\nMost chatbots follow a rigid script - if the conversation goes sideways, they're lost. This one uses LangGraph t..."
     },
     {
       "id": "4dd39ac9-dc57-43c5-8d69-7516afa0e47a",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "Try It Yourself",
       "tokens": 90,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: Try It Yourself.\n\nThe prototype includes a mock policy database. Use any of these test policy numbers to interact with the system: Pol..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: Try It Yourself.\n\nThe prototype includes a mock policy database. Use any of these test policy numbers to interact with the system: Pol..."
     },
     {
       "id": "7b161596-31af-4103-a907-1496a2d2579a",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "Related",
       "tokens": 64,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: Related.\n\nGEICO Mobile App Teardown - the product analysis behind this prototype \u2190 Back to MadLab Launch Prototype v1.0.24 \u00b7 Updated F..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: Related.\n\nGEICO Mobile App Teardown - the product analysis behind this prototype \u2190 Back to MadLab Launch Prototype v1.0.24 \u00b7 Updated F..."
     },
     {
       "id": "cf750ce8-f479-4d69-99d9-206af1ea38c1",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "_summary",
       "tokens": 137,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli.\nType: prototype.\nURL: https://kirangorapalli.com/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\nType: prototype.\nURL: https://kirangorapalli.com/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
     },
     {
       "id": "3c214c14-92c0-4492-b31f-ce02a8407313",
       "content_id": "store",
-      "title": "Store - Kiran Gorapalli",
+      "title": "Store - Kiran Rao",
       "section": "",
       "tokens": 471,
-      "text_preview": "Page: Store - Kiran Gorapalli.\n\nStore - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n \u2198 ..."
+      "text_preview": "Page: Store - Kiran Rao.\n\nStore - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n \u2198 ..."
     },
     {
       "id": "624a52f2-57ce-4ac9-b082-234fb337e0a1",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Studio",
       "tokens": 34,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Studio.\n\nMy creative playground - art, video, and experiments born from curiosity UI/UX Concepts"
+      "text_preview": "Page: Studio - Kiran Rao. Section: Studio.\n\nMy creative playground - art, video, and experiments born from curiosity UI/UX Concepts"
     },
     {
       "id": "d535bff5-ac0a-467d-952f-f768931eb2c5",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "UI/UX Concepts",
       "tokens": 119,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: UI/UX Concepts.\n\n2 projects \ud83c\udfa8 In Active Dev Design System Companion Interactive design system explorer showing components, colour palettes, spacing scales, and..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: UI/UX Concepts.\n\n2 projects \ud83c\udfa8 In Active Dev Design System Companion Interactive design system explorer showing components, colour palettes, spacing scales, and..."
     },
     {
       "id": "797cdc64-1a10-47c2-980c-ca2b61e7a1f9",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Motion Graphics",
       "tokens": 112,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Motion Graphics.\n\n2 projects \ud83c\udfac In Analysis AI Explainer Series Short animated videos breaking down how LLMs, RAG, and agents actually work. Kinetic typography ..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Motion Graphics.\n\n2 projects \ud83c\udfac In Analysis AI Explainer Series Short animated videos breaking down how LLMs, RAG, and agents actually work. Kinetic typography ..."
     },
     {
       "id": "20933aac-cb80-4399-b9dc-20e4f454af61",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "AI Art & Designs",
       "tokens": 129,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: AI Art & Designs.\n\n2 projects \ud83c\udf0c In Active Dev Future of Work Series Curated collection of AI-generated images exploring how we will work with AI - consistent s..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: AI Art & Designs.\n\n2 projects \ud83c\udf0c In Active Dev Future of Work Series Curated collection of AI-generated images exploring how we will work with AI - consistent s..."
     },
     {
       "id": "079f7358-d0ab-4b5d-9294-6f7f8d14f538",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Music & Soundscapes",
       "tokens": 126,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Music & Soundscapes.\n\n2 projects \ud83c\udfb5 In Analysis Podcast Theme Suite Original podcast intros, outros, and transitions across different moods - professional, indi..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Music & Soundscapes.\n\n2 projects \ud83c\udfb5 In Analysis Podcast Theme Suite Original podcast intros, outros, and transitions across different moods - professional, indi..."
     },
     {
       "id": "cae43ee0-3406-49de-bd70-b1f08e0bc322",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "3D & Renders",
       "tokens": 111,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: 3D & Renders.\n\n2 projects \ud83d\udce6 Backlog Product Visualisation Series 3D renders of imagined tech products - sleek hardware, future interfaces - with professional l..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: 3D & Renders.\n\n2 projects \ud83d\udce6 Backlog Product Visualisation Series 3D renders of imagined tech products - sleek hardware, future interfaces - with professional l..."
     },
     {
       "id": "bc8dc3cb-d07d-4142-86d0-e5455804240d",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Photography & Styling",
       "tokens": 124,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Photography & Styling.\n\n2 projects \ud83d\udcf7 In Analysis Colour Psychology Study Curated photo series exploring how colour influences mood and perception. Before/after..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Photography & Styling.\n\n2 projects \ud83d\udcf7 In Analysis Colour Psychology Study Curated photo series exploring how colour influences mood and perception. Before/after..."
     },
     {
       "id": "e6f6d9aa-13c3-466d-91b8-f7e8d518960b",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Digital Illustrations",
       "tokens": 142,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Digital Illustrations.\n\n2 projects \ud83d\udc68\u200d\ud83d\udcbc Backlog Tech Archetype Characters Illustrated character portraits personifying tech roles - the DevOps engineer, the PM,..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Digital Illustrations.\n\n2 projects \ud83d\udc68\u200d\ud83d\udcbc Backlog Tech Archetype Characters Illustrated character portraits personifying tech roles - the DevOps engineer, the PM,..."
     },
     {
       "id": "3c1fc789-d0d2-44d0-91e8-62dc0c755de6",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "_summary",
       "tokens": 39,
-      "text_preview": "Page: Studio - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
+      "text_preview": "Page: Studio - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
     },
     {
       "id": "b7e3eb89-5b74-4885-9d89-6843c98070ed",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 447,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nAirbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nAirbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home..."
     },
     {
       "id": "5ce997ef-6aba-49bc-9f72-bd7d8fc14cdd",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 515,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nThis teardown examines how Airbnb's mobile experience could better serve its most valuable users. Platform Focus \n \n iOS Mo..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nThis teardown examines how Airbnb's mobile experience could better serve its most valuable users. Platform Focus \n \n iOS Mo..."
     },
     {
       "id": "45ca8acb-18ab-482b-813f-fabb62b5beac",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 271,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nHow I identified this persona: I spent about an hour reading through recent App Store reviews and Reddit threads about Airb..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nHow I identified this persona: I spent about an hour reading through recent App Store reviews and Reddit threads about Airb..."
     },
     {
       "id": "ac1ba820-da7d-4a7a-b1d0-3ad6539abcc6",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nAnd what does 'ski access' even mean here?\" \n \n Pain Point Filters don't work intuitively; \"amenities\" section is overwhelm..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nAnd what does 'ski access' even mean here?\" \n \n Pain Point Filters don't work intuitively; \"amenities\" section is overwhelm..."
     },
     {
       "id": "959c6d58-6ea2-49d7-af32-22973a0d66b8",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 502,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nPhoto Quality Standards \n \n Whatever Airbnb is doing to enforce photo quality works. Even mediocre listings have decent pho..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nPhoto Quality Standards \n \n Whatever Airbnb is doing to enforce photo quality works. Even mediocre listings have decent pho..."
     },
     {
       "id": "4a3f80f2-73b8-43ba-af0a-a07c9fbae27c",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 518,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nShow average response times prominently on listings, updated monthly. This is just basic marketplace transparency. Cancella..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nShow average response times prominently on listings, updated monthly. This is just basic marketplace transparency. Cancella..."
     },
     {
       "id": "3e362f3c-1a5a-4b44-9ce7-b79672126df7",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 501,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nSets expectations before she messages them. This host is way better than average - worth the premium. Precedent: Uber drive..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nSets expectations before she messages them. This host is way better than average - worth the premium. Precedent: Uber drive..."
     },
     {
       "id": "b3893aa8-74ba-4f35-96df-5919145cb8ad",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 292,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nBased on their Q3 2023 earnings call showing 113.2M nights booked globally, if even 3% of repeat users start dual-booking d..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nBased on their Q3 2023 earnings call showing 113.2M nights booked globally, if even 3% of repeat users start dual-booking d..."
     },
     {
       "id": "734a3b16-6711-4b31-9dc3-ae11087b6636",
       "content_id": "airbnb-teardowns",
-      "title": "Airbnb Teardowns - Kiran Gorapalli",
+      "title": "Airbnb Teardowns - Kiran Rao",
       "section": "",
       "tokens": 202,
-      "text_preview": "Page: Airbnb Teardowns - Kiran Gorapalli.\n\nAirbnb Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built ..."
+      "text_preview": "Page: Airbnb Teardowns - Kiran Rao.\n\nAirbnb Teardowns - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built ..."
     },
     {
       "id": "65539936-5e08-4442-a0ac-d6598e046145",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 444,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nGEICO Mobile App Teardown - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nGEICO Mobile App Teardown - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
     },
     {
       "id": "6ef0ba04-fc1d-415c-93d4-7047f5e5146b",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 508,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nThe app does two jobs: keep people from leaving, and keep them off the phone to save money. Parent Company \n \n Berkshire Hathaway \n \n \n \n App Store ..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nThe app does two jobs: keep people from leaving, and keep them off the phone to save money. Parent Company \n \n Berkshire Hathaway \n \n \n \n App Store ..."
     },
     {
       "id": "8b5fb992-2adb-4b03-b7be-bc6bea315258",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 498,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nThis is what the app is for. Try Assistant \n \n Taps the chat icon, types: \"I got charged twice this month and I don't know why.\" Full sentence, natu..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nThis is what the app is for. Try Assistant \n \n Taps the chat icon, types: \"I got charged twice this month and I don't know why.\" Full sentence, natu..."
     },
     {
       "id": "b8e2c895-88fc-4999-be2a-077cdaa8f2cb",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 514,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nThey come because something is wrong and they need it fixed. The assistant solves the easy jobs nobody needed help with and fails at the hard jobs e..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nThey come because something is wrong and they need it fixed. The assistant solves the easy jobs nobody needed help with and fails at the hard jobs e..."
     },
     {
       "id": "a81623f8-fdb5-4f59-b42e-39dec5d00e47",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nSmart escalation with context \n \n When the AI can't resolve, it hands off to a human with the full transcript, policy details, and issue summary. Th..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nSmart escalation with context \n \n When the AI can't resolve, it hands off to a human with the full transcript, policy details, and issue summary. Th..."
     },
     {
       "id": "3bd150e5-d925-4a79-a239-9ec308bb4842",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nEstimated wait drops because the agent already knows the issue before answering. Section 04 \n \n The Business Case \n \n \n Executive Summary \n \n This i..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nEstimated wait drops because the agent already knows the issue before answering. Section 04 \n \n The Business Case \n \n \n Executive Summary \n \n This i..."
     },
     {
       "id": "d963c5b3-e09a-462e-9d8e-1dd405481d25",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 327,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nBut those benchmarks come from companies building new systems, not retrofitting legacy ones. I can't see GEICO's internals. A PM there would know wh..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nBut those benchmarks come from companies building new systems, not retrofitting legacy ones. I can't see GEICO's internals. A PM there would know wh..."
     },
     {
       "id": "0b2f379a-59ef-4972-9eba-ef4ea0e1b9a7",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 168,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
     },
     {
       "id": "3ce4f38c-0f09-410e-81f7-17c4baa01176",
       "content_id": "geico-hub",
-      "title": "GEICO Teardowns - Kiran Gorapalli",
+      "title": "GEICO Teardowns - Kiran Rao",
       "section": "",
       "tokens": 202,
-      "text_preview": "Page: GEICO Teardowns - Kiran Gorapalli.\n\nGEICO Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It..."
+      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\n\nGEICO Teardowns - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It..."
     },
     {
       "id": "17e2654f-1b57-4e72-87ae-9ec926febb91",
       "content_id": "geico-hub",
-      "title": "GEICO Teardowns - Kiran Gorapalli",
+      "title": "GEICO Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 57,
-      "text_preview": "Page: GEICO Teardowns - Kiran Gorapalli.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
+      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
     },
     {
       "id": "556c82e7-dd5d-40ff-b333-aec5901c43dc",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 416,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nInstagram Teardown - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Bu..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nInstagram Teardown - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Bu..."
     },
     {
       "id": "67b4f33b-d96a-43c1-89d0-d169c19f3d18",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 498,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nNow it's Meta's main way to keep under-35s engaged, mostly through algorithmically chosen videos and content instead of what they actually followed. MAU \n ..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nNow it's Meta's main way to keep under-35s engaged, mostly through algorithmically chosen videos and content instead of what they actually followed. MAU \n ..."
     },
     {
       "id": "2c7514c9-c5aa-439b-8f3b-d16c11c1f462",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 480,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nMuscle memory. Already lost agency before looking at a single post. Scroll \n \n Same 20 accounts in the feed. A Reel from someone she doesn't follow. Three ..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nMuscle memory. Already lost agency before looking at a single post. Scroll \n \n Same 20 accounts in the feed. A Reel from someone she doesn't follow. Three ..."
     },
     {
       "id": "310ad684-69ec-4ece-a074-ca936cae59f5",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nThe patterns were clear but the priority wasn't obvious - so I want to be transparent about what I chose to focus on and what I dropped. I initially consid..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nThe patterns were clear but the priority wasn't obvious - so I want to be transparent about what I chose to focus on and what I dropped. I initially consid..."
     },
     {
       "id": "056bab45-1cee-44b6-8cf2-56f32e885146",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 509,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nDaily briefing \n \n I almost didn't include this one. A finite, scrollable card stack of top posts from your Following list - like Stories but for posts. It..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nDaily briefing \n \n I almost didn't include this one. A finite, scrollable card stack of top posts from your Following list - like Stories but for posts. It..."
     },
     {
       "id": "00e655e3-5461-4a86-b78f-358c5b8ff395",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 504,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nRetention \n \n +10-15% \n \n Daily opens for Following-mode users \n \n If users feel better about the app, they open it more. Not longer sessions - more sessio..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nRetention \n \n +10-15% \n \n Daily opens for Following-mode users \n \n If users feel better about the app, they open it more. Not longer sessions - more sessio..."
     },
     {
       "id": "513c2abb-c212-454e-aa92-50b68c140625",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 92,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nIf I had access to Meta's internal session data, the business case section would look different. The personas are composites based on review patterns, not ..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nIf I had access to Meta's internal session data, the business case section would look different. The personas are composites based on review patterns, not ..."
     },
     {
       "id": "e7bc2d95-3cb0-42f1-822f-e2692d179748",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 155,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
     },
     {
       "id": "51949a82-db29-4007-b97b-bf97a2315359",
       "content_id": "meta-hub",
-      "title": "Meta Teardowns - Kiran Gorapalli",
+      "title": "Meta Teardowns - Kiran Rao",
       "section": "",
       "tokens": 218,
-      "text_preview": "Page: Meta Teardowns - Kiran Gorapalli.\n\nMeta Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n..."
+      "text_preview": "Page: Meta Teardowns - Kiran Rao.\n\nMeta Teardowns - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n..."
     },
     {
       "id": "6256978f-d66b-497d-9de4-094d7abf7860",
       "content_id": "meta-hub",
-      "title": "Meta Teardowns - Kiran Gorapalli",
+      "title": "Meta Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 63,
-      "text_preview": "Page: Meta Teardowns - Kiran Gorapalli.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
+      "text_preview": "Page: Meta Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
     }
   ]
 }%                                                                                                                      kiran@mac fenix-backend % cd ~/Kiran\'s\ Website/fenix-backend
@@ -5579,23 +5579,23 @@ Pages to process: 19
 
   [CHUNK] Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go': 13 chunks
   [CHUNK] The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI: 10 chunks
-  [CHUNK] Blog & Podcast - Kiran Gorapalli: 12 chunks
-  [CHUNK] Career Highlights - Kiran Gorapalli: 31 chunks
-  [CHUNK] Causes - Kiran Gorapalli: 2 chunks
-  [CHUNK] How I'd've Built It - Kiran Gorapalli: 3 chunks
-  [CHUNK] Kiran Gorapalli - Builder of Products People Love: 20 chunks
-  [CHUNK] Learning & Certifications - Kiran Gorapalli: 7 chunks
-  [CHUNK] MadLab - Kiran Gorapalli: 9 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 1 chunks
-  [CHUNK] Insurance AI Assistant - MadLab | Kiran Gorapalli: 6 chunks
-  [CHUNK] Store - Kiran Gorapalli: 1 chunks
-  [CHUNK] Studio - Kiran Gorapalli: 9 chunks
-  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli: 8 chunks
-  [CHUNK] Airbnb Teardowns - Kiran Gorapalli: 1 chunks
-  [CHUNK] GEICO Mobile App Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] GEICO Teardowns - Kiran Gorapalli: 2 chunks
-  [CHUNK] Instagram Teardown - Kiran Gorapalli: 8 chunks
-  [CHUNK] Meta Teardowns - Kiran Gorapalli: 2 chunks
+  [CHUNK] Blog & Podcast - Kiran Rao: 12 chunks
+  [CHUNK] Career Highlights - Kiran Rao: 31 chunks
+  [CHUNK] Causes - Kiran Rao: 2 chunks
+  [CHUNK] How I'd've Built It - Kiran Rao: 3 chunks
+  [CHUNK] Kiran Rao - Builder of Products People Love: 20 chunks
+  [CHUNK] Learning & Certifications - Kiran Rao: 7 chunks
+  [CHUNK] MadLab - Kiran Rao: 9 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 1 chunks
+  [CHUNK] Insurance AI Assistant - MadLab | Kiran Rao: 6 chunks
+  [CHUNK] Store - Kiran Rao: 1 chunks
+  [CHUNK] Studio - Kiran Rao: 9 chunks
+  [CHUNK] Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao: 8 chunks
+  [CHUNK] Airbnb Teardowns - Kiran Rao: 1 chunks
+  [CHUNK] GEICO Mobile App Teardown - Kiran Rao: 8 chunks
+  [CHUNK] GEICO Teardowns - Kiran Rao: 2 chunks
+  [CHUNK] Instagram Teardown - Kiran Rao: 8 chunks
+  [CHUNK] Meta Teardowns - Kiran Rao: 2 chunks
 
 Total chunks: 153
 Estimated total tokens: 41,128
@@ -5647,23 +5647,23 @@ Generating embeddings...
 Storing in Supabase...
   [DB] Stored: Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go'
   [DB] Stored: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI
-  [DB] Stored: Blog & Podcast - Kiran Gorapalli
-  [DB] Stored: Career Highlights - Kiran Gorapalli
-  [DB] Stored: Causes - Kiran Gorapalli
-  [DB] Stored: How I'd've Built It - Kiran Gorapalli
-  [DB] Stored: Kiran Gorapalli - Builder of Products People Love
-  [DB] Stored: Learning & Certifications - Kiran Gorapalli
-  [DB] Stored: MadLab - Kiran Gorapalli
-  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Gorapalli
-  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Gorapalli
-  [DB] Stored: Store - Kiran Gorapalli
-  [DB] Stored: Studio - Kiran Gorapalli
-  [DB] Stored: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli
-  [DB] Stored: Airbnb Teardowns - Kiran Gorapalli
-  [DB] Stored: GEICO Mobile App Teardown - Kiran Gorapalli
-  [DB] Stored: GEICO Teardowns - Kiran Gorapalli
-  [DB] Stored: Instagram Teardown - Kiran Gorapalli
-  [DB] Stored: Meta Teardowns - Kiran Gorapalli
+  [DB] Stored: Blog & Podcast - Kiran Rao
+  [DB] Stored: Career Highlights - Kiran Rao
+  [DB] Stored: Causes - Kiran Rao
+  [DB] Stored: How I'd've Built It - Kiran Rao
+  [DB] Stored: Kiran Rao - Builder of Products People Love
+  [DB] Stored: Learning & Certifications - Kiran Rao
+  [DB] Stored: MadLab - Kiran Rao
+  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Rao
+  [DB] Stored: Insurance AI Assistant - MadLab | Kiran Rao
+  [DB] Stored: Store - Kiran Rao
+  [DB] Stored: Studio - Kiran Rao
+  [DB] Stored: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao
+  [DB] Stored: Airbnb Teardowns - Kiran Rao
+  [DB] Stored: GEICO Mobile App Teardown - Kiran Rao
+  [DB] Stored: GEICO Teardowns - Kiran Rao
+  [DB] Stored: Instagram Teardown - Kiran Rao
+  [DB] Stored: Meta Teardowns - Kiran Rao
   [DB] Clearing existing embeddings...
   [WARN] Batch insert failed: 409 {"code":"23503","details":"Key (content_registry_id)=(b9959c8b-e043-591c-8249-32a32ae6c73b) is not present in table \"content_registry\".","hint":null,"message":"insert or update on table \"content_em
   [WARN] Batch insert failed: 409 {"code":"23503","details":"Key (content_registry_id)=(b9959c8b-e043-591c-8249-32a32ae6c73b) is not present in table \"content_registry\".","hint":null,"message":"insert or update on table \"content_em
@@ -5866,1042 +5866,1042 @@ Dimensions: 512
     {
       "id": "efe87ffd-1cff-45f0-a34b-5faf6fa6ad66",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Blog & Podcast",
       "tokens": 43,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership Blog Podcast 28 Feb 2026 Deep Dive Demystifying Apple Pay"
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership Blog Podcast 28 Feb 2026 Deep Dive Demystifying Apple Pay"
     },
     {
       "id": "51daa83a-68dc-4561-b9cd-ed599ad8853c",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Demystifying Apple Pay",
       "tokens": 103,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Demystifying Apple Pay.\n\nA Payment PM's guide to what it actually takes to deploy 'just tap and go' - from device hardware to issuing bank, plus what t..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Demystifying Apple Pay.\n\nA Payment PM's guide to what it actually takes to deploy 'just tap and go' - from device hardware to issuing bank, plus what t..."
     },
     {
       "id": "b36d60b1-0292-4685-b20f-4138fc442b90",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI",
       "tokens": 100,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\n\n95% of AI pilots fail. Bank of America landed in the other five - not w..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\n\n95% of AI pilots fail. Bank of America landed in the other five - not w..."
     },
     {
       "id": "c9dfa904-c6a6-45af-bb63-a375dfda13e8",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "The product manager's job isn't to have the best ideas",
       "tokens": 91,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: The product manager's job isn't to have the best ideas.\n\nMost PMs think their value is in ideation. It's not. Your value is in creating the conditions ..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: The product manager's job isn't to have the best ideas.\n\nMost PMs think their value is in ideation. It's not. Your value is in creating the conditions ..."
     },
     {
       "id": "760c6e33-1126-4f03-ab6e-ac35f7d2831d",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "AI features that actually stick - lessons from three launches",
       "tokens": 82,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: AI features that actually stick - lessons from three launches.\n\nI've shipped AI features that users loved and ones they ignored. The difference was nev..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: AI features that actually stick - lessons from three launches.\n\nI've shipped AI features that users loved and ones they ignored. The difference was nev..."
     },
     {
       "id": "d207576d-ffb9-4112-a044-74aeeaa7f9d3",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Why I still write PRDs (and why you probably should too)",
       "tokens": 92,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Why I still write PRDs (and why you probably should too).\n\nThe product world has moved on from long documents. I think that's a mistake. Here's the cas..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Why I still write PRDs (and why you probably should too).\n\nThe product world has moved on from long documents. I think that's a mistake. Here's the cas..."
     },
     {
       "id": "b990a681-7062-4e73-b0cc-947a72043532",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Building for trust in fintech - what banking taught me about product",
       "tokens": 94,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Building for trust in fintech - what banking taught me about product.\n\nUsers don't read your security page. They feel trust through micro-interactions,..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Building for trust in fintech - what banking taught me about product.\n\nUsers don't read your security page. They feel trust through micro-interactions,..."
     },
     {
       "id": "4aee6819-5b26-4e5c-aa0a-6ab7e6863a87",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "The zero-to-one problem - why most product orgs can't do it",
       "tokens": 86,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: The zero-to-one problem - why most product orgs can't do it.\n\nScaling a product and building one from nothing require completely different muscles. I b..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: The zero-to-one problem - why most product orgs can't do it.\n\nScaling a product and building one from nothing require completely different muscles. I b..."
     },
     {
       "id": "034331a4-7a68-4e30-8cc4-fc9353902fb4",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "What engineers wish their PM knew",
       "tokens": 81,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: What engineers wish their PM knew.\n\nI sat down with three senior engineers I've worked with and asked them to be brutally honest about what PMs get wro..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: What engineers wish their PM knew.\n\nI sat down with three senior engineers I've worked with and asked them to be brutally honest about what PMs get wro..."
     },
     {
       "id": "4ce6726e-31e6-460a-92ed-4f2176192bef",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Mobile-first is dead. What comes next?",
       "tokens": 86,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Mobile-first is dead. What comes next?.\n\nThe mobile-first era shaped how I think about product. But the next wave of product thinking isn't about scree..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Mobile-first is dead. What comes next?.\n\nThe mobile-first era shaped how I think about product. But the next wave of product thinking isn't about scree..."
     },
     {
       "id": "cb0b0c9b-c1c4-4c4d-85ce-8c5c645c58e4",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "Why I'm starting a podcast (and what I hope to get wrong)",
       "tokens": 89,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli. Section: Why I'm starting a podcast (and what I hope to get wrong).\n\nA first episode about why I'm doing this, what I plan to explore, and why being wrong in pu..."
+      "text_preview": "Page: Blog & Podcast - Kiran Rao. Section: Why I'm starting a podcast (and what I hope to get wrong).\n\nA first episode about why I'm doing this, what I plan to explore, and why being wrong in pu..."
     },
     {
       "id": "17866127-2b99-4186-a92c-3000de52e901",
       "content_id": "blog-podcast",
-      "title": "Blog & Podcast - Kiran Gorapalli",
+      "title": "Blog & Podcast - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: Blog & Podcast - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
+      "text_preview": "Page: Blog & Podcast - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
     },
     {
       "id": "b3b69bc3-6247-4dc0-9436-476c113c9ed0",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Career Highlights",
       "tokens": 208,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Career Highlights.\n\n15+ years. The best proof isn't a resume - it's the work. Here's mine. Each card below has details of the initiatives I led. Ope..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Career Highlights.\n\n15+ years. The best proof isn't a resume - it's the work. Here's mine. Each card below has details of the initiatives I led. Ope..."
     },
     {
       "id": "65d90db1-3d5f-4a92-b5c3-32e2a210b1b1",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product",
       "tokens": 504,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product.\n\nAvatour AI - AR/VR Startup \u00b7 Oct 2025 - Present Information shared with explicit permission Pivoted from live inspections to AI-assi..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product.\n\nAvatour AI - AR/VR Startup \u00b7 Oct 2025 - Present Information shared with explicit permission Pivoted from live inspections to AI-assi..."
     },
     {
       "id": "89f46ad2-8cec-449f-b82c-92bcb63c967c",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product",
       "tokens": 92,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product.\n\nSome of it involved strategic work that requires care in how I share it. I've gated the detail behind a simple access code out of re..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product.\n\nSome of it involved strategic work that requires care in how I share it. I've gated the detail behind a simple access code out of re..."
     },
     {
       "id": "07c0e42e-95b0-424d-90c7-924c797a9848",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 510,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nWells Fargo - Strategy, Digital & AI \u00b7 Nov 2023 - Oct 2025 Expanded consumer mobile app base 18M to 32M ; JD Pow..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nWells Fargo - Strategy, Digital & AI \u00b7 Nov 2023 - Oct 2025 Expanded consumer mobile app base 18M to 32M ; JD Pow..."
     },
     {
       "id": "f872e1dc-4c44-4467-a3dc-6ccb096f2fb6",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nSupport call volume was rising, and the assistant wasn't absorbing the load it was designed to handle. Customers..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nSupport call volume was rising, and the assistant wasn't absorbing the load it was designed to handle. Customers..."
     },
     {
       "id": "e540de3f-1514-4f5c-927f-68ed52d8378d",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 448,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nThe app needed to become a storefront, not just a dashboard. What Shipped Embedded marketplace within the mobile..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nThe app needed to become a storefront, not just a dashboard. What Shipped Embedded marketplace within the mobile..."
     },
     {
       "id": "867a9c31-2d60-494c-aa4b-837d03cb663b",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 501,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nThe Outcome 34% average increase in feature adoption for launches using the toolkit. Reduced time-to-first-use b..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nThe Outcome 34% average increase in feature adoption for launches using the toolkit. Reduced time-to-first-use b..."
     },
     {
       "id": "aad081e0-aa0d-4ec2-8fa6-3e7e730dca06",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 507,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nOne-size-fits-all was leaving value on the table. The Bet If we segmented users by lifecycle stage, product port..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nOne-size-fits-all was leaving value on the table. The Bet If we segmented users by lifecycle stage, product port..."
     },
     {
       "id": "79d7cbc0-77c5-44a0-b57f-b824b6b8d524",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 495,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\n\"Design\" and \"look and feel\" negative mentions in reviews dropped 45%. The updated design system reduced new scr..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\n\"Design\" and \"look and feel\" negative mentions in reviews dropped 45%. The updated design system reduced new scr..."
     },
     {
       "id": "c715ebdd-eba1-41b6-b949-630df9553edb",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 519,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nCustomers were disabling notifications entirely, which meant they missed fraud alerts, payment confirmations, an..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nCustomers were disabling notifications entirely, which meant they missed fraud alerts, payment confirmations, an..."
     },
     {
       "id": "7901c569-f624-49a2-8d59-55c8e69620e6",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "VP of Product, Mobile & AI Growth",
       "tokens": 165,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: VP of Product, Mobile & AI Growth.\n\nMonthly financial health summary with personalized recommendations. Integration with Fargo assistant for convers..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: VP of Product, Mobile & AI Growth.\n\nMonthly financial health summary with personalized recommendations. Integration with Fargo assistant for convers..."
     },
     {
       "id": "6b7e274a-a027-492f-be55-bf52c1320891",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 521,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nFirst Republic \u00b7 Apr 2016 - Oct 2023 Directed 22 PMs and $20M portfolio moderni..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nFirst Republic \u00b7 Apr 2016 - Oct 2023 Directed 22 PMs and $20M portfolio moderni..."
     },
     {
       "id": "b328e535-b66a-409a-9da2-dc13a0ec1fb5",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 448,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nCompetitors offered instant provisioning. The Bet Same-day card provisioning wo..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nCompetitors offered instant provisioning. The Bet Same-day card provisioning wo..."
     },
     {
       "id": "df435d26-a297-45a6-9e8a-39dda5ec04d7",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe Outcome 18% YoY revenue growth post-migration. New product launch cycle dro..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe Outcome 18% YoY revenue growth post-migration. New product launch cycle dro..."
     },
     {
       "id": "9cf0b6c5-466d-4251-a564-9f095c0d3bac",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nAccount opening, document collection, investment preferences, and advisor commu..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nAccount opening, document collection, investment preferences, and advisor commu..."
     },
     {
       "id": "4ef392b6-2428-4fae-ac91-5fa33dc1ae5b",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 528,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nPersists across sessions until toggled off. Quick-reveal with biometric tap for..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nPersists across sessions until toggled off. Quick-reveal with biometric tap for..."
     },
     {
       "id": "74b28ecc-379c-4d7a-87be-777ee5b123e9",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 533,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe process took days of scheduling and was especially frustrating for busy pro..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nThe process took days of scheduling and was especially frustrating for busy pro..."
     },
     {
       "id": "a7cd7dfd-2eb3-4196-a19c-b3c0e6d3825d",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Director, Product Management Manager - Payments & Digital Channels",
       "tokens": 144,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nIntegrated CRM notes and follow-up tracking. The Outcome 30% improvement in RM ..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Director, Product Management Manager - Payments & Digital Channels.\n\nIntegrated CRM notes and follow-up tracking. The Outcome 30% improvement in RM ..."
     },
     {
       "id": "69492034-a23d-4c6e-9a08-4adfb100bac5",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nWells Fargo - Virtual Channels \u00b7 Aug 2012 - Apr 2016 Led mobile-first innovation for payments and ..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nWells Fargo - Virtual Channels \u00b7 Aug 2012 - Apr 2016 Led mobile-first innovation for payments and ..."
     },
     {
       "id": "a699efff-3ca6-4bea-935c-e043e0833cc7",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 527,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nAccount takeover attempts were rising, regulatory pressure was increasing, and the bank had no con..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nAccount takeover attempts were rising, regulatory pressure was increasing, and the bank had no con..."
     },
     {
       "id": "1d79b138-97bb-4387-82ba-94e5266592cb",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 516,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nSupport for both authentication and transaction signing. The Outcome 60%+ biometric adoption among..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nSupport for both authentication and transaction signing. The Outcome 60%+ biometric adoption among..."
     },
     {
       "id": "7e85f989-ed26-4fa7-ba6c-f0b2e67fd580",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 479,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nCustomers who lost or forgot their card had no way to access cash. The ATM experience hadn't evolv..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nCustomers who lost or forgot their card had no way to access cash. The ATM experience hadn't evolv..."
     },
     {
       "id": "9ede2cb9-6e00-4400-9f77-e41c4ea6471f",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 517,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nPriority escalation for security-related alerts. Outcome Faster alert delivery, higher customer en..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nPriority escalation for security-related alerts. Outcome Faster alert delivery, higher customer en..."
     },
     {
       "id": "c0b2e011-466f-4852-b97b-806171b0b018",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "AVP - Digital Product Manager (Auth and Mobile)",
       "tokens": 221,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nBet A dedicated digital roadmap for student loans would reduce servicing costs, improve borrower s..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: AVP - Digital Product Manager (Auth and Mobile).\n\nBet A dedicated digital roadmap for student loans would reduce servicing costs, improve borrower s..."
     },
     {
       "id": "4a6d5662-9ea2-457a-9f03-6379e4bbb36c",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 406,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nMagley & Associates \u00b7 2002 - 2012 Led a team of 30+ consultants designing strategies and executing programs t..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nMagley & Associates \u00b7 2002 - 2012 Led a team of 30+ consultants designing strategies and executing programs t..."
     },
     {
       "id": "15415f20-d944-4511-861f-821e8891d044",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 401,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nOutcome 45% app adoption. The mobile app became one of the top 10 downloaded apps in both Google Play and the..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nOutcome 45% app adoption. The mobile app became one of the top 10 downloaded apps in both Google Play and the..."
     },
     {
       "id": "188802ac-840b-4001-a1be-856f7d2c6901",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 523,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nOutcome 38% increase in Bill Pay adoption. Consolidated Wachovia's standing as the 4th best online banking pl..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nOutcome 38% increase in Bill Pay adoption. Consolidated Wachovia's standing as the 4th best online banking pl..."
     },
     {
       "id": "69b27726-81dd-4e20-9636-aef896d7dbff",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Senior Consultant - Tech Innovations",
       "tokens": 284,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Senior Consultant - Tech Innovations.\n\nMessenger had a large user base but needed product evolution to stay competitive. Engagement opportunities wi..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Senior Consultant - Tech Innovations.\n\nMessenger had a large user base but needed product evolution to stay competitive. Engagement opportunities wi..."
     },
     {
       "id": "7f47a200-617b-44cd-90df-f47c514d1ae1",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Earlier Roles",
       "tokens": 76,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Earlier Roles.\n\nBefore 2008 \u00b7 Your early career story Your early career You mentioned roles going back to your first job as a kid. Share whatever yo..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Earlier Roles.\n\nBefore 2008 \u00b7 Your early career story Your early career You mentioned roles going back to your first job as a kid. Share whatever yo..."
     },
     {
       "id": "f576201c-a201-4446-9ee0-c415419611e7",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "Let's talk",
       "tokens": 27,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: Let's talk.\n\nGet in Touch This content is access-controlled"
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: Let's talk.\n\nGet in Touch This content is access-controlled"
     },
     {
       "id": "c99615b1-1791-4072-aab2-a93c855565be",
       "content_id": "career-highlights",
-      "title": "Career Highlights - Kiran Gorapalli",
+      "title": "Career Highlights - Kiran Rao",
       "section": "This content is access-controlled",
       "tokens": 59,
-      "text_preview": "Page: Career Highlights - Kiran Gorapalli. Section: This content is access-controlled.\n\nReach out on LinkedIn for a code. Unlock v1.0.24 \u00b7 Updated Feb 24, 2026 \u00b7 RSS \u00a9 2026 Kiran Gorapalli. All rights..."
+      "text_preview": "Page: Career Highlights - Kiran Rao. Section: This content is access-controlled.\n\nReach out on LinkedIn for a code. Unlock v1.0.24 \u00b7 Updated Feb 24, 2026 \u00b7 RSS \u00a9 2026 Kiran Rao. All rights..."
     },
     {
       "id": "916dbce0-c363-471b-8495-7792d4466e41",
       "content_id": "causes",
-      "title": "Causes - Kiran Gorapalli",
+      "title": "Causes - Kiran Rao",
       "section": "",
       "tokens": 501,
-      "text_preview": "Page: Causes - Kiran Gorapalli.\n\nCauses - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n ..."
+      "text_preview": "Page: Causes - Kiran Rao.\n\nCauses - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n ..."
     },
     {
       "id": "f7c4866f-4a5b-402d-82e6-a6b970140cc9",
       "content_id": "causes",
-      "title": "Causes - Kiran Gorapalli",
+      "title": "Causes - Kiran Rao",
       "section": "",
       "tokens": 244,
-      "text_preview": "Page: Causes - Kiran Gorapalli.\n\nIt's also championed by my hero, Sir David Attenborough, whose work taught me to see the natural world differently. Today it's a cause my daughter and I share. We're b..."
+      "text_preview": "Page: Causes - Kiran Rao.\n\nIt's also championed by my hero, Sir David Attenborough, whose work taught me to see the natural world differently. Today it's a cause my daughter and I share. We're b..."
     },
     {
       "id": "5ec9eb26-cf3d-47f6-91ec-e23c2f53fd6d",
       "content_id": "how-id-built-it",
-      "title": "How I'd've Built It - Kiran Gorapalli",
+      "title": "How I'd've Built It - Kiran Rao",
       "section": "How I'd've Built It",
       "tokens": 156,
-      "text_preview": "Page: How I'd've Built It - Kiran Gorapalli. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of the apps we all use I pick apart products I use daily - what works, what doesn't, and wha..."
+      "text_preview": "Page: How I'd've Built It - Kiran Rao. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of the apps we all use I pick apart products I use daily - what works, what doesn't, and wha..."
     },
     {
       "id": "cac7e107-5dc9-4acd-bbc1-2f3d3626955f",
       "content_id": "how-id-built-it",
-      "title": "How I'd've Built It - Kiran Gorapalli",
+      "title": "How I'd've Built It - Kiran Rao",
       "section": "Sign in to view teardowns",
       "tokens": 63,
-      "text_preview": "Page: How I'd've Built It - Kiran Gorapalli. Section: Sign in to view teardowns.\n\nEnter your email and we'll send you a magic login link. No password needed. Send Login Link v1.0.24 \u00b7 Updated Feb 28, ..."
+      "text_preview": "Page: How I'd've Built It - Kiran Rao. Section: Sign in to view teardowns.\n\nEnter your email and we'll send you a magic login link. No password needed. Send Login Link v1.0.24 \u00b7 Updated Feb 28, ..."
     },
     {
       "id": "6288ed3f-ff04-4aa1-a0d7-dcfbc4bfac10",
       "content_id": "how-id-built-it",
-      "title": "How I'd've Built It - Kiran Gorapalli",
+      "title": "How I'd've Built It - Kiran Rao",
       "section": "_summary",
       "tokens": 42,
-      "text_preview": "Page: How I'd've Built It - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
+      "text_preview": "Page: How I'd've Built It - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
     },
     {
       "id": "2ea1a0ff-70c8-4e30-8adb-5cf6f398d867",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Let's talk",
       "tokens": 36,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Let's talk.\n\n\u00d7 Email WhatsApp LinkedIn Twitter Facebook SMS Copy Kiran Gorapalli"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Let's talk.\n\n\u00d7 Email WhatsApp LinkedIn Twitter Facebook SMS Copy Kiran Rao"
     },
     {
       "id": "b9cbd76b-943b-4ee1-ad2f-a2c459d3994e",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
-      "section": "Kiran Gorapalli",
+      "title": "Kiran Rao - Builder of Products People Love",
+      "section": "Kiran Rao",
       "tokens": 56,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Kiran Gorapalli.\n\nBuilder of Products People Love (San Francisco, California) \u2198 Scroll Down Video coming soon Equal parts strategist, ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Kiran Rao.\n\nBuilder of Products People Love (San Francisco, California) \u2198 Scroll Down Video coming soon Equal parts strategist, ..."
     },
     {
       "id": "a6bdd9cd-ea3a-42d0-9733-b2948fe1868b",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Equal parts strategist, storyteller, and builder.",
       "tokens": 93,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Equal parts strategist, storyteller, and builder..\n\n(About) I lead product teams, geek out about AI, and believe the best work happens..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Equal parts strategist, storyteller, and builder..\n\n(About) I lead product teams, geek out about AI, and believe the best work happens..."
     },
     {
       "id": "20739b6f-9395-4f27-aa1b-8522f0bd40e2",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Product Strategy",
       "tokens": 56,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Product Strategy.\n\nI turn ambiguity into clarity. Define the vision, align stakeholders, and build roadmaps that ship outcomes, not ju..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Product Strategy.\n\nI turn ambiguity into clarity. Define the vision, align stakeholders, and build roadmaps that ship outcomes, not ju..."
     },
     {
       "id": "dfe88a2b-02c2-40d6-9554-241de56c0c0c",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "AI Integration",
       "tokens": 56,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: AI Integration.\n\nI translate what AI makes possible into what customers actually need, then make sure it ships, scales, and earns trus..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: AI Integration.\n\nI translate what AI makes possible into what customers actually need, then make sure it ships, scales, and earns trus..."
     },
     {
       "id": "d6a11a17-002d-45d5-a8d8-76615ee50988",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Digital Transformation",
       "tokens": 63,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Digital Transformation.\n\nI modernize platforms and reimagine workflows by migrating legacy systems to scalable, customer-centric produ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Digital Transformation.\n\nI modernize platforms and reimagine workflows by migrating legacy systems to scalable, customer-centric produ..."
     },
     {
       "id": "0ff5a758-cfa0-41e8-8cbd-9c8d98f74c93",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Growth & Adoption",
       "tokens": 59,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Growth & Adoption.\n\nI obsess over the metrics that matter: activating users, reducing friction, and scaling products from early tracti..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Growth & Adoption.\n\nI obsess over the metrics that matter: activating users, reducing friction, and scaling products from early tracti..."
     },
     {
       "id": "723e7894-ff49-4b11-853c-fa4f1c08cbb3",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Go-to-Market Strategy",
       "tokens": 62,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Go-to-Market Strategy.\n\nI take products from ready to revenue by aligning positioning, pricing, and distribution into go-to-market pla..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Go-to-Market Strategy.\n\nI take products from ready to revenue by aligning positioning, pricing, and distribution into go-to-market pla..."
     },
     {
       "id": "24fc7f05-68d1-4023-abfa-589511258190",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Delivery & Execution",
       "tokens": 91,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Delivery & Execution.\n\nI drive cross-functional teams from backlog to launch - managing scope, unblocking dependencies, and holding th..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Delivery & Execution.\n\nI drive cross-functional teams from backlog to launch - managing scope, unblocking dependencies, and holding th..."
     },
     {
       "id": "a3df97b6-53ff-4ae6-9c8f-c43af183e78b",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Fenix is my AI assistant, here to help you navigate this site and experience it in a way that's right for you.",
       "tokens": 145,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Fenix is my AI assistant, here to help you navigate this site and experience it in a way that's right for you..\n\nMost commonly asked q..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Fenix is my AI assistant, here to help you navigate this site and experience it in a way that's right for you..\n\nMost commonly asked q..."
     },
     {
       "id": "dc9e932e-148a-41e6-8d34-be4ee9b07950",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Career Highlights",
       "tokens": 84,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Career Highlights.\n\nWhat I've accomplished during my product journey so far. From 0-to-1 launches and platform-scale transformations, ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Career Highlights.\n\nWhat I've accomplished during my product journey so far. From 0-to-1 launches and platform-scale transformations, ..."
     },
     {
       "id": "e8bbe496-843e-4b75-8829-93c1cf8547f2",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "How I'd've Built It",
       "tokens": 59,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of popular applications. What I'd keep, what I'd kill, and what I'd build differ..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: How I'd've Built It.\n\nProduct teardowns and redesigns of popular applications. What I'd keep, what I'd kill, and what I'd build differ..."
     },
     {
       "id": "6c6076f4-a10a-45d5-9470-a28512b48676",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "MadLab",
       "tokens": 50,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: MadLab.\n\nApps, tools, and prototypes built from scratch. My sandbox for tinkering and experimentation. Prototypes Apps Experiments Stu..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: MadLab.\n\nApps, tools, and prototypes built from scratch. My sandbox for tinkering and experimentation. Prototypes Apps Experiments Stu..."
     },
     {
       "id": "a5ffbb72-fec1-43df-96ac-4584b4e6be04",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Studio",
       "tokens": 54,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Studio.\n\nMy creative playground. Art, video, and experiments born from curiosity and wherever the rabbit holes lead. AI Art Video Cont..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Studio.\n\nMy creative playground. Art, video, and experiments born from curiosity and wherever the rabbit holes lead. AI Art Video Cont..."
     },
     {
       "id": "f3385769-d764-44f3-8f03-81265d63826d",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Blog & Podcast",
       "tokens": 65,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership. Plus conversations with builders and operators who are shaping wha..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Blog & Podcast.\n\nLong-form thinking on product, AI, and leadership. Plus conversations with builders and operators who are shaping wha..."
     },
     {
       "id": "ebcc8d99-508f-43fd-aac6-3b0bc074c555",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Learning & Certifications",
       "tokens": 63,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Learning & Certifications.\n\nLifelong learner. The real value isn't the credential. It's the new lens it gives you on problems you thou..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Learning & Certifications.\n\nLifelong learner. The real value isn't the credential. It's the new lens it gives you on problems you thou..."
     },
     {
       "id": "6d7a173a-c25d-4ea0-b2e3-068beefb1ed8",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Causes",
       "tokens": 43,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Causes.\n\nWhere I put my time and energy when its not about work and play. Nonprofits Giving Back Impact Store"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Causes.\n\nWhere I put my time and energy when its not about work and play. Nonprofits Giving Back Impact Store"
     },
     {
       "id": "613161f6-144b-453d-866f-97bbc988b6fb",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Store",
       "tokens": 60,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Store.\n\nCurated merch, templates, and digital resources. Tools and goods for builders, makers, and anyone who ships. Coming soon. Merc..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Store.\n\nCurated merch, templates, and digital resources. Tools and goods for builders, makers, and anyone who ships. Coming soon. Merc..."
     },
     {
       "id": "bacfa22c-7631-41a2-bf65-86305dfd8e99",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "Let's talk",
       "tokens": 111,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love. Section: Let's talk.\n\nGet in Touch How do you like this site? Don't fill this out: Send Feedback Thanks for your feedback! Worked with me? Leav..."
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love. Section: Let's talk.\n\nGet in Touch How do you like this site? Don't fill this out: Send Feedback Thanks for your feedback! Worked with me? Leav..."
     },
     {
       "id": "5f9ec32f-b88e-4816-8328-0efa12117877",
       "content_id": "homepage",
-      "title": "Kiran Gorapalli - Builder of Products People Love",
+      "title": "Kiran Rao - Builder of Products People Love",
       "section": "_summary",
       "tokens": 45,
-      "text_preview": "Page: Kiran Gorapalli - Builder of Products People Love.\nType: homepage.\nURL: https://kirangorapalli.com/index.html\n\nSummary: Main landing page with work cards linking to all sections"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love.\nType: homepage.\nURL: https://kirangorapalli.com/index.html\n\nSummary: Main landing page with work cards linking to all sections"
     },
     {
       "id": "9f29e992-f82b-4ae3-90da-7275402aab8b",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 502,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nLearning & Certifications - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nLearning & Certifications - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
     },
     {
       "id": "e412eb52-f313-4123-aa1a-3427d3f91d1c",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 461,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nSharpened my ability to frame data as a story that informs product and business strategy. Skills Covered \n \n SQL Excel Tableau Power BI Python Data ..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nSharpened my ability to frame data as a story that informs product and business strategy. Skills Covered \n \n SQL Excel Tableau Power BI Python Data ..."
     },
     {
       "id": "b6d7a893-96ac-41c9-949d-0a87e4cefc19",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 487,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nSharpened my ability to connect product decisions to broader business strategy and communicate them in terms leadership teams actually care about. S..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nSharpened my ability to connect product decisions to broader business strategy and communicate them in terms leadership teams actually care about. S..."
     },
     {
       "id": "46d699ca-5add-4c17-b4df-7ddcc5116191",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 476,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nChanged how I break down ambiguous product challenges and present solutions to stakeholders with clarity and conviction. Skills Covered \n \n Structur..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nChanged how I break down ambiguous product challenges and present solutions to stakeholders with clarity and conviction. Skills Covered \n \n Structur..."
     },
     {
       "id": "ccb2c2bb-3dd9-4fd7-8973-e9c94973fdcf",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 421,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nThe Prosci 3-Phase Process (Prepare Approach, Manage Change, Sustain Outcomes) and ADKAR model (Awareness, Desire, Knowledge, Ability, Reinforcement..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nThe Prosci 3-Phase Process (Prepare Approach, Manage Change, Sustain Outcomes) and ADKAR model (Awareness, Desire, Knowledge, Ability, Reinforcement..."
     },
     {
       "id": "9a0ff5c7-c5cb-49e1-b592-408115d39382",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 480,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nGave me the framework to drive API strategy conversations with engineering and think about developer experience as a core product concern. Skills Co..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nGave me the framework to drive API strategy conversations with engineering and think about developer experience as a core product concern. Skills Co..."
     },
     {
       "id": "611aff22-674d-4dcd-891a-2e2ea94919af",
       "content_id": "learning",
-      "title": "Learning & Certifications - Kiran Gorapalli",
+      "title": "Learning & Certifications - Kiran Rao",
       "section": "",
       "tokens": 467,
-      "text_preview": "Page: Learning & Certifications - Kiran Gorapalli.\n\nCovered data transformation with BigQuery and Cloud Storage, AI and ML capabilities through Vertex AI, and infrastructure modernization with GKE and..."
+      "text_preview": "Page: Learning & Certifications - Kiran Rao.\n\nCovered data transformation with BigQuery and Cloud Storage, AI and ML capabilities through Vertex AI, and infrastructure modernization with GKE and..."
     },
     {
       "id": "6aaf8f8a-7029-4eaa-ad26-546a654f26a8",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "MadLab",
       "tokens": 30,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: MadLab.\n\nApps, tools, and prototypes built from scratch Chatbots & AI Assistants"
+      "text_preview": "Page: MadLab - Kiran Rao. Section: MadLab.\n\nApps, tools, and prototypes built from scratch Chatbots & AI Assistants"
     },
     {
       "id": "d8ab7ddf-7d55-4a3f-ad15-c19b5148ee76",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Chatbots & AI Assistants",
       "tokens": 118,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Chatbots & AI Assistants.\n\n2 projects \ud83c\udfe0 Live Insurance AI Assistant A chatbot that handles multi-step insurance claims without losing the thread. Walks you thr..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Chatbots & AI Assistants.\n\n2 projects \ud83c\udfe0 Live Insurance AI Assistant A chatbot that handles multi-step insurance claims without losing the thread. Walks you thr..."
     },
     {
       "id": "cf6cd669-6354-42fa-80fd-6d14453c5d63",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Agentic AI",
       "tokens": 124,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Agentic AI.\n\n2 projects \ud83d\udd0d In Active Dev Research Assistant Agent Give it a topic. It autonomously searches the web, reads what it finds, synthesises sources, a..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Agentic AI.\n\n2 projects \ud83d\udd0d In Active Dev Research Assistant Agent Give it a topic. It autonomously searches the web, reads what it finds, synthesises sources, a..."
     },
     {
       "id": "32607fb4-b499-4e9b-82bb-8254970c8e85",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Voice & Audio AI",
       "tokens": 112,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Voice & Audio AI.\n\n2 projects \ud83c\udf99 In Analysis Voice Note Summariser Record a voice memo, get it transcribed instantly, and receive an AI summary with key action ..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Voice & Audio AI.\n\n2 projects \ud83c\udf99 In Analysis Voice Note Summariser Record a voice memo, get it transcribed instantly, and receive an AI summary with key action ..."
     },
     {
       "id": "556168fa-4009-479f-a337-f1e62bae19d0",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Computer Vision",
       "tokens": 112,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Computer Vision.\n\n2 projects \ud83d\udc41 In Active Dev Design Screenshot Analyser Upload any UI screenshot and get an AI breakdown of layout, colour palette, typography,..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Computer Vision.\n\n2 projects \ud83d\udc41 In Active Dev Design Screenshot Analyser Upload any UI screenshot and get an AI breakdown of layout, colour palette, typography,..."
     },
     {
       "id": "ca2a50c0-7325-4b78-916c-235ee87fadc0",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Browser Extensions",
       "tokens": 123,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Browser Extensions.\n\n2 projects \u2702 Backlog Content Summariser Extension Highlight any text on the web, get an instant AI summary. Adjust length and tone. Works ..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Browser Extensions.\n\n2 projects \u2702 Backlog Content Summariser Extension Highlight any text on the web, get an instant AI summary. Adjust length and tone. Works ..."
     },
     {
       "id": "c7a69627-8195-4b88-9c25-2fd36276e8a2",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Data & Visualisations",
       "tokens": 114,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Data & Visualisations.\n\n2 projects \ud83d\udcc8 In Analysis AI Market Trends Dashboard Scrapes AI news, GitHub trends, and funding data. Interactive charts showing which ..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Data & Visualisations.\n\n2 projects \ud83d\udcc8 In Analysis AI Market Trends Dashboard Scrapes AI news, GitHub trends, and funding data. Interactive charts showing which ..."
     },
     {
       "id": "1607b77d-b40d-4b04-bece-9cf9a7cca8f2",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "Automations & Workflows",
       "tokens": 125,
-      "text_preview": "Page: MadLab - Kiran Gorapalli. Section: Automations & Workflows.\n\n2 projects \u2699 Backlog Email Digest Automator Automated pipeline that curates your inbox, summarises what matters, and delivers a clean..."
+      "text_preview": "Page: MadLab - Kiran Rao. Section: Automations & Workflows.\n\n2 projects \u2699 Backlog Email Digest Automator Automated pipeline that curates your inbox, summarises what matters, and delivers a clean..."
     },
     {
       "id": "1cc6b387-e3aa-4992-b149-bb5d1e27b5c8",
       "content_id": "madlab",
-      "title": "MadLab - Kiran Gorapalli",
+      "title": "MadLab - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: MadLab - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
+      "text_preview": "Page: MadLab - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
     },
     {
       "id": "12f7b67f-00df-41e3-8ca3-07890f090e81",
       "content_id": "index-insurance-chatbot-prototypes",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "",
       "tokens": 183,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli.\n\nInsurance AI Assistant - MadLab | Kiran Gorapalli \n \n \u2190 MadLab \n \n Insurance AI Assistant \n \n LangGraph State Machine - Multi-Step Claim Flow ..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\n\nInsurance AI Assistant - MadLab | Kiran Rao \n \n \u2190 MadLab \n \n Insurance AI Assistant \n \n LangGraph State Machine - Multi-Step Claim Flow ..."
     },
     {
       "id": "6b911cc6-6486-4b71-a5ff-1f866afabfa2",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "Insurance AI Assistant",
       "tokens": 93,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: Insurance AI Assistant.\n\nA chatbot that walks you through filing an insurance claim without losing track of anything. It remembers wha..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: Insurance AI Assistant.\n\nA chatbot that walks you through filing an insurance claim without losing track of anything. It remembers wha..."
     },
     {
       "id": "8b79865b-f177-495f-a9a4-31aa10cfae7a",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "The Problem",
       "tokens": 112,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: The Problem.\n\nInsurance companies answer the same questions millions of times - filing claims, looking up policies, sorting out billin..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: The Problem.\n\nInsurance companies answer the same questions millions of times - filing claims, looking up policies, sorting out billin..."
     },
     {
       "id": "812b010f-c3eb-40f7-bc38-9c8a604dc340",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "System Architecture",
       "tokens": 208,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: System Architecture.\n\nMost chatbots follow a rigid script - if the conversation goes sideways, they're lost. This one uses LangGraph t..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: System Architecture.\n\nMost chatbots follow a rigid script - if the conversation goes sideways, they're lost. This one uses LangGraph t..."
     },
     {
       "id": "400586ad-f214-41f0-b271-2442823bbe46",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "Try It Yourself",
       "tokens": 90,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: Try It Yourself.\n\nThe prototype includes a mock policy database. Use any of these test policy numbers to interact with the system: Pol..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: Try It Yourself.\n\nThe prototype includes a mock policy database. Use any of these test policy numbers to interact with the system: Pol..."
     },
     {
       "id": "b4cf7dfb-31b9-4feb-8ead-cc164fadd7ca",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "Related",
       "tokens": 64,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli. Section: Related.\n\nGEICO Mobile App Teardown - the product analysis behind this prototype \u2190 Back to MadLab Launch Prototype v1.0.24 \u00b7 Updated F..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao. Section: Related.\n\nGEICO Mobile App Teardown - the product analysis behind this prototype \u2190 Back to MadLab Launch Prototype v1.0.24 \u00b7 Updated F..."
     },
     {
       "id": "0a4ec2d5-5e89-4c78-b659-d1d47fafcfa4",
       "content_id": "insurance-chatbot",
-      "title": "Insurance AI Assistant - MadLab | Kiran Gorapalli",
+      "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "_summary",
       "tokens": 137,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Gorapalli.\nType: prototype.\nURL: https://kirangorapalli.com/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\nType: prototype.\nURL: https://kirangorapalli.com/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
     },
     {
       "id": "ce797755-554d-480e-8af3-23a748721cdf",
       "content_id": "store",
-      "title": "Store - Kiran Gorapalli",
+      "title": "Store - Kiran Rao",
       "section": "",
       "tokens": 471,
-      "text_preview": "Page: Store - Kiran Gorapalli.\n\nStore - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n \u2198 ..."
+      "text_preview": "Page: Store - Kiran Rao.\n\nStore - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n \n \u2198 MadLab \n \n \u2198 ..."
     },
     {
       "id": "19da760a-8125-4a72-89e0-ad7e2f087639",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Studio",
       "tokens": 34,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Studio.\n\nMy creative playground - art, video, and experiments born from curiosity UI/UX Concepts"
+      "text_preview": "Page: Studio - Kiran Rao. Section: Studio.\n\nMy creative playground - art, video, and experiments born from curiosity UI/UX Concepts"
     },
     {
       "id": "96457442-8a7b-4817-bbc8-80de11eb1344",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "UI/UX Concepts",
       "tokens": 119,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: UI/UX Concepts.\n\n2 projects \ud83c\udfa8 In Active Dev Design System Companion Interactive design system explorer showing components, colour palettes, spacing scales, and..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: UI/UX Concepts.\n\n2 projects \ud83c\udfa8 In Active Dev Design System Companion Interactive design system explorer showing components, colour palettes, spacing scales, and..."
     },
     {
       "id": "f4bdc782-68cf-45a0-b21d-c77f811c6626",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Motion Graphics",
       "tokens": 112,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Motion Graphics.\n\n2 projects \ud83c\udfac In Analysis AI Explainer Series Short animated videos breaking down how LLMs, RAG, and agents actually work. Kinetic typography ..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Motion Graphics.\n\n2 projects \ud83c\udfac In Analysis AI Explainer Series Short animated videos breaking down how LLMs, RAG, and agents actually work. Kinetic typography ..."
     },
     {
       "id": "a3e66b2c-9c7d-4e55-b420-3dfd2445d1c7",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "AI Art & Designs",
       "tokens": 129,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: AI Art & Designs.\n\n2 projects \ud83c\udf0c In Active Dev Future of Work Series Curated collection of AI-generated images exploring how we will work with AI - consistent s..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: AI Art & Designs.\n\n2 projects \ud83c\udf0c In Active Dev Future of Work Series Curated collection of AI-generated images exploring how we will work with AI - consistent s..."
     },
     {
       "id": "1411f42c-40a5-42bf-9e07-86acb79fd40c",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Music & Soundscapes",
       "tokens": 126,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Music & Soundscapes.\n\n2 projects \ud83c\udfb5 In Analysis Podcast Theme Suite Original podcast intros, outros, and transitions across different moods - professional, indi..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Music & Soundscapes.\n\n2 projects \ud83c\udfb5 In Analysis Podcast Theme Suite Original podcast intros, outros, and transitions across different moods - professional, indi..."
     },
     {
       "id": "b03e4c99-9da9-4ec2-b4d5-85b2080451fe",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "3D & Renders",
       "tokens": 111,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: 3D & Renders.\n\n2 projects \ud83d\udce6 Backlog Product Visualisation Series 3D renders of imagined tech products - sleek hardware, future interfaces - with professional l..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: 3D & Renders.\n\n2 projects \ud83d\udce6 Backlog Product Visualisation Series 3D renders of imagined tech products - sleek hardware, future interfaces - with professional l..."
     },
     {
       "id": "5f0b9588-e931-465c-a42c-c326c19e8291",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Photography & Styling",
       "tokens": 124,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Photography & Styling.\n\n2 projects \ud83d\udcf7 In Analysis Colour Psychology Study Curated photo series exploring how colour influences mood and perception. Before/after..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Photography & Styling.\n\n2 projects \ud83d\udcf7 In Analysis Colour Psychology Study Curated photo series exploring how colour influences mood and perception. Before/after..."
     },
     {
       "id": "1e418fa9-d474-4360-aaff-1b6a0c0cd683",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "Digital Illustrations",
       "tokens": 142,
-      "text_preview": "Page: Studio - Kiran Gorapalli. Section: Digital Illustrations.\n\n2 projects \ud83d\udc68\u200d\ud83d\udcbc Backlog Tech Archetype Characters Illustrated character portraits personifying tech roles - the DevOps engineer, the PM,..."
+      "text_preview": "Page: Studio - Kiran Rao. Section: Digital Illustrations.\n\n2 projects \ud83d\udc68\u200d\ud83d\udcbc Backlog Tech Archetype Characters Illustrated character portraits personifying tech roles - the DevOps engineer, the PM,..."
     },
     {
       "id": "86bcfa92-d3b2-477d-ab1f-2a0630bb79bb",
       "content_id": "studio",
-      "title": "Studio - Kiran Gorapalli",
+      "title": "Studio - Kiran Rao",
       "section": "_summary",
       "tokens": 39,
-      "text_preview": "Page: Studio - Kiran Gorapalli.\nType: hub-page.\nURL: https://kirangorapalli.com/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
+      "text_preview": "Page: Studio - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
     },
     {
       "id": "fa2243a3-9df7-4173-b846-31d2ee6e0cd7",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 447,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nAirbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nAirbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home..."
     },
     {
       "id": "fd45e1b2-6847-4396-b4b0-cb8e72b24c31",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 515,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nThis teardown examines how Airbnb's mobile experience could better serve its most valuable users. Platform Focus \n \n iOS Mo..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nThis teardown examines how Airbnb's mobile experience could better serve its most valuable users. Platform Focus \n \n iOS Mo..."
     },
     {
       "id": "2409e35a-0c0c-423c-9b96-ac56e312c2f5",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 271,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nHow I identified this persona: I spent about an hour reading through recent App Store reviews and Reddit threads about Airb..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nHow I identified this persona: I spent about an hour reading through recent App Store reviews and Reddit threads about Airb..."
     },
     {
       "id": "e29c54ad-20c2-4fdb-a339-417d636dc7a4",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nAnd what does 'ski access' even mean here?\" \n \n Pain Point Filters don't work intuitively; \"amenities\" section is overwhelm..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nAnd what does 'ski access' even mean here?\" \n \n Pain Point Filters don't work intuitively; \"amenities\" section is overwhelm..."
     },
     {
       "id": "9ecad11d-269a-40d4-8bbb-9cfe682cba82",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 502,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nPhoto Quality Standards \n \n Whatever Airbnb is doing to enforce photo quality works. Even mediocre listings have decent pho..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nPhoto Quality Standards \n \n Whatever Airbnb is doing to enforce photo quality works. Even mediocre listings have decent pho..."
     },
     {
       "id": "9c313ed0-47d6-48de-92b0-6af23c55c886",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 518,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nShow average response times prominently on listings, updated monthly. This is just basic marketplace transparency. Cancella..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nShow average response times prominently on listings, updated monthly. This is just basic marketplace transparency. Cancella..."
     },
     {
       "id": "d9b4bf30-a6b2-486c-b085-c79000e87dbe",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 501,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nSets expectations before she messages them. This host is way better than average - worth the premium. Precedent: Uber drive..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nSets expectations before she messages them. This host is way better than average - worth the premium. Precedent: Uber drive..."
     },
     {
       "id": "2042bcd4-c926-475d-a7d9-d41a918dc0aa",
       "content_id": "airbnb-mobile-teardowns",
-      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli",
+      "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "section": "",
       "tokens": 292,
-      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Gorapalli.\n\nBased on their Q3 2023 earnings call showing 113.2M nights booked globally, if even 3% of repeat users start dual-booking d..."
+      "text_preview": "Page: Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao.\n\nBased on their Q3 2023 earnings call showing 113.2M nights booked globally, if even 3% of repeat users start dual-booking d..."
     },
     {
       "id": "69b592f9-8668-467e-96f6-5acd5b3f8981",
       "content_id": "airbnb-teardowns",
-      "title": "Airbnb Teardowns - Kiran Gorapalli",
+      "title": "Airbnb Teardowns - Kiran Rao",
       "section": "",
       "tokens": 202,
-      "text_preview": "Page: Airbnb Teardowns - Kiran Gorapalli.\n\nAirbnb Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built ..."
+      "text_preview": "Page: Airbnb Teardowns - Kiran Rao.\n\nAirbnb Teardowns - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built ..."
     },
     {
       "id": "bde969f9-7a10-4917-9362-02839fdba028",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 444,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nGEICO Mobile App Teardown - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nGEICO Mobile App Teardown - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198..."
     },
     {
       "id": "e3b4f6d5-2279-4c65-bca7-1074f8d2623d",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 508,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nThe app does two jobs: keep people from leaving, and keep them off the phone to save money. Parent Company \n \n Berkshire Hathaway \n \n \n \n App Store ..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nThe app does two jobs: keep people from leaving, and keep them off the phone to save money. Parent Company \n \n Berkshire Hathaway \n \n \n \n App Store ..."
     },
     {
       "id": "0e241bb0-c9cb-4660-b6a5-12fb19dc5784",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 498,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nThis is what the app is for. Try Assistant \n \n Taps the chat icon, types: \"I got charged twice this month and I don't know why.\" Full sentence, natu..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nThis is what the app is for. Try Assistant \n \n Taps the chat icon, types: \"I got charged twice this month and I don't know why.\" Full sentence, natu..."
     },
     {
       "id": "6c81e110-ff92-43fd-8ee5-29402aa7cc47",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 514,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nThey come because something is wrong and they need it fixed. The assistant solves the easy jobs nobody needed help with and fails at the hard jobs e..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nThey come because something is wrong and they need it fixed. The assistant solves the easy jobs nobody needed help with and fails at the hard jobs e..."
     },
     {
       "id": "27dd3492-39d9-4430-b754-1db1732bccd6",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nSmart escalation with context \n \n When the AI can't resolve, it hands off to a human with the full transcript, policy details, and issue summary. Th..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nSmart escalation with context \n \n When the AI can't resolve, it hands off to a human with the full transcript, policy details, and issue summary. Th..."
     },
     {
       "id": "acd9fb4e-89e4-4edd-9a3d-d9b26441a88c",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nEstimated wait drops because the agent already knows the issue before answering. Section 04 \n \n The Business Case \n \n \n Executive Summary \n \n This i..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nEstimated wait drops because the agent already knows the issue before answering. Section 04 \n \n The Business Case \n \n \n Executive Summary \n \n This i..."
     },
     {
       "id": "dc45a59c-29fa-4a03-8670-151847c23fdf",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "",
       "tokens": 327,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\n\nBut those benchmarks come from companies building new systems, not retrofitting legacy ones. I can't see GEICO's internals. A PM there would know wh..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\n\nBut those benchmarks come from companies building new systems, not retrofitting legacy ones. I can't see GEICO's internals. A PM there would know wh..."
     },
     {
       "id": "8d6a5662-70c0-4ec8-9546-6d348c4694cf",
       "content_id": "geico-mobile-app-teardown",
-      "title": "GEICO Mobile App Teardown - Kiran Gorapalli",
+      "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 168,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Gorapalli.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
     },
     {
       "id": "a2400034-4f70-4c1b-842e-bb754175baaf",
       "content_id": "geico-hub",
-      "title": "GEICO Teardowns - Kiran Gorapalli",
+      "title": "GEICO Teardowns - Kiran Rao",
       "section": "",
       "tokens": 202,
-      "text_preview": "Page: GEICO Teardowns - Kiran Gorapalli.\n\nGEICO Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It..."
+      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\n\nGEICO Teardowns - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It..."
     },
     {
       "id": "9b10ebbc-f668-4da9-aecd-cb508bf31224",
       "content_id": "geico-hub",
-      "title": "GEICO Teardowns - Kiran Gorapalli",
+      "title": "GEICO Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 57,
-      "text_preview": "Page: GEICO Teardowns - Kiran Gorapalli.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
+      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
     },
     {
       "id": "dced1ff7-a823-482e-8213-5c3e0de6468c",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 416,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nInstagram Teardown - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Bu..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nInstagram Teardown - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Bu..."
     },
     {
       "id": "f62236fc-1aba-42a6-adde-e7236026222e",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 498,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nNow it's Meta's main way to keep under-35s engaged, mostly through algorithmically chosen videos and content instead of what they actually followed. MAU \n ..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nNow it's Meta's main way to keep under-35s engaged, mostly through algorithmically chosen videos and content instead of what they actually followed. MAU \n ..."
     },
     {
       "id": "f26d9905-918e-430d-8b0d-9075a342f00b",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 480,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nMuscle memory. Already lost agency before looking at a single post. Scroll \n \n Same 20 accounts in the feed. A Reel from someone she doesn't follow. Three ..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nMuscle memory. Already lost agency before looking at a single post. Scroll \n \n Same 20 accounts in the feed. A Reel from someone she doesn't follow. Three ..."
     },
     {
       "id": "8802823f-dac2-4266-8126-0005b93d1616",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 517,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nThe patterns were clear but the priority wasn't obvious - so I want to be transparent about what I chose to focus on and what I dropped. I initially consid..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nThe patterns were clear but the priority wasn't obvious - so I want to be transparent about what I chose to focus on and what I dropped. I initially consid..."
     },
     {
       "id": "56b90aa1-108c-4033-ad72-d10e3f3ae35b",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 509,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nDaily briefing \n \n I almost didn't include this one. A finite, scrollable card stack of top posts from your Following list - like Stories but for posts. It..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nDaily briefing \n \n I almost didn't include this one. A finite, scrollable card stack of top posts from your Following list - like Stories but for posts. It..."
     },
     {
       "id": "ff739f51-2268-4542-bc13-8a31da0d7434",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 504,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nRetention \n \n +10-15% \n \n Daily opens for Following-mode users \n \n If users feel better about the app, they open it more. Not longer sessions - more sessio..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nRetention \n \n +10-15% \n \n Daily opens for Following-mode users \n \n If users feel better about the app, they open it more. Not longer sessions - more sessio..."
     },
     {
       "id": "d90c161c-f156-4eb4-9085-08a79a2648d6",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "",
       "tokens": 92,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\n\nIf I had access to Meta's internal session data, the business case section would look different. The personas are composites based on review patterns, not ..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\n\nIf I had access to Meta's internal session data, the business case section would look different. The personas are composites based on review patterns, not ..."
     },
     {
       "id": "1d876465-7aac-49a4-b7d0-ffd4941ab325",
       "content_id": "meta-instagram-teardown",
-      "title": "Instagram Teardown - Kiran Gorapalli",
+      "title": "Instagram Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 155,
-      "text_preview": "Page: Instagram Teardown - Kiran Gorapalli.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
     },
     {
       "id": "5fe546f7-4345-4de0-a36d-d4ac863909e0",
       "content_id": "meta-hub",
-      "title": "Meta Teardowns - Kiran Gorapalli",
+      "title": "Meta Teardowns - Kiran Rao",
       "section": "",
       "tokens": 218,
-      "text_preview": "Page: Meta Teardowns - Kiran Gorapalli.\n\nMeta Teardowns - Kiran Gorapalli Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n..."
+      "text_preview": "Page: Meta Teardowns - Kiran Rao.\n\nMeta Teardowns - Kiran Rao Skip to main content \n \n Menu \n \n \n \n \n \n \u00d7 \n \n \u2198 Home \n \n \u2198 Fenix - My AI \n \n \u2198 Career Highlights \n \n \u2198 How I'd've Built It \n..."
     },
     {
       "id": "8e1c366a-0218-43e6-a36b-890d44abd230",
       "content_id": "meta-hub",
-      "title": "Meta Teardowns - Kiran Gorapalli",
+      "title": "Meta Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 63,
-      "text_preview": "Page: Meta Teardowns - Kiran Gorapalli.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
+      "text_preview": "Page: Meta Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
     }
   ]
 }%                                                                                                                      kiran@mac fenix-backend %

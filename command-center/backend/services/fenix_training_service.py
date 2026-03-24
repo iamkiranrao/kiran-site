@@ -95,7 +95,7 @@ CATEGORIES = [
     },
 ]
 
-QUESTION_GENERATION_PROMPT = """You are helping Kiran Gorapalli teach his AI assistant (Fenix) about himself.
+QUESTION_GENERATION_PROMPT = """You are helping Kiran Rao teach his AI assistant (Fenix) about himself.
 Fenix lives on Kiran's personal portfolio site and answers visitor questions about Kiran's work,
 skills, experience, and personality.
 
@@ -114,7 +114,7 @@ RULES:
 Return a JSON array of question strings. No explanations, just the array.
 Example: ["What's the worst product decision you ever made, and what did it teach you?", ...]"""
 
-EDITORIAL_PROMPT = """You are an editorial assistant helping Kiran Gorapalli teach his AI assistant (Fenix).
+EDITORIAL_PROMPT = """You are an editorial assistant helping Kiran Rao teach his AI assistant (Fenix).
 Kiran just answered an interview question. Your job is to polish his answer for storage in Fenix's
 knowledge base.
 
@@ -433,7 +433,7 @@ def _fetch_kiran_context(question: str, category: str = "", limit: int = 8) -> s
         return ""
 
 
-DRAFT_ANSWER_PROMPT = """You are helping Kiran Gorapalli teach his AI assistant (Fenix) about himself.
+DRAFT_ANSWER_PROMPT = """You are helping Kiran Rao teach his AI assistant (Fenix) about himself.
 Fenix lives on Kiran's personal portfolio site and answers visitor questions about Kiran's work,
 skills, experience, and personality.
 
@@ -938,7 +938,7 @@ def generate_question_bank_answer(
     else:
         kiran_context = "NO CONTEXT AVAILABLE YET — Kiran has not approved any training data yet."
 
-    prompt = f"""You are helping create training data for Fenix, an AI assistant on Kiran Gorapalli's personal portfolio website.
+    prompt = f"""You are helping create training data for Fenix, an AI assistant on Kiran Rao's personal portfolio website.
 
 {kiran_context}
 
@@ -1090,7 +1090,7 @@ def save_manual_training_entry(
 
 # ── Production Ready ──────────────────────────────────────────────────
 
-PRODUCTION_READY_PROMPT = """You are an editor preparing training data for Fenix, the AI assistant on Kiran Gorapalli's portfolio website (kirangorapalli.com).
+PRODUCTION_READY_PROMPT = """You are an editor preparing training data for Fenix, the AI assistant on Kiran Rao's portfolio website (kirangorapalli.com).
 
 Your job is to take a question-answer pair and make it PRODUCTION READY by doing two things:
 

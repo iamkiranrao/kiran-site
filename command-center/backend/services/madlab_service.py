@@ -139,7 +139,7 @@ def list_sessions() -> List[Dict]:
 def _build_draft_system_prompt() -> str:
     """Build MadLab system prompt with governance-loaded banned phrases."""
     banned = get_banned_phrases_prompt()
-    return f"""You are helping Kiran Gorapalli write a prototype overview page for his portfolio site. Write like a real builder, not like AI. Casual conversational English, like explaining to a smart friend. Include first-person asides. Be honest about tradeoffs.
+    return f"""You are helping Kiran Rao write a prototype overview page for his portfolio site. Write like a real builder, not like AI. Casual conversational English, like explaining to a smart friend. Include first-person asides. Be honest about tradeoffs.
 
 {banned}"""
 

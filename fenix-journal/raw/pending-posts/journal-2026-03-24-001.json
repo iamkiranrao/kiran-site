@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "Teardowns Are the Distribution Engine — Not Just Portfolio Pieces",
+    "body": "The site has no distribution strategy. I have a persona picker, Fenix, personalization — all optimizing the on-site experience. But nothing addresses how the right person finds the site. My friend showed me the playbook: content + targeted outreach + precision ads. For me, that translates to: teardowns of products at my target companies, distributed through LinkedIn and precision outreach. A teardown of an Apple or Anthropic product naturally reaches people there — PMs google their own products, share analysis internally, engage on LinkedIn. Each teardown simultaneously demonstrates the thinking hiring managers want to see, addresses the banking stigma by showing universal judgment, creates warm outreach opportunities, and drives traffic. No other content type does all four. If I commit to this, the build queue needs to shift: teardown pages first, personalization later.",
+    "category": "career-strategy",
+    "tags": ["distribution", "teardowns", "go-to-market", "content-strategy"],
+    "workstreams": ["site-teardowns", "site-homepage", "career"],
+    "decision": "Teardowns should be treated as the primary distribution mechanism, not just portfolio content.",
+    "alternatives_considered": "Pure networking/referral approach, mass LinkedIn posting, traditional job applications through ATS.",
+    "open_questions": "Which company/product to teardown first?"
+  }
+}

@@ -47,6 +47,11 @@ EMBEDDING_DIMENSIONS = 512
 CHARS_PER_TOKEN = 4
 SOURCE_TYPE = "flame_on"
 
+# Directories and files to skip during indexing.
+# Any directory named "private" under entries/ is excluded entirely.
+# Any .md file with "private: true" in its YAML frontmatter is excluded.
+PRIVATE_DIR_NAME = "private"
+
 # Content types for flame_on data
 CONTENT_TYPES = {
     "about-kiran": "journal_about_kiran",
@@ -134,10 +139,26 @@ def generate_content_id(path: str) -> str:
 # Content Discovery
 # ──────────────────────────────────────────────
 
+def _is_private(content: str) -> bool:
+    """Check if a markdown file has private: true in its YAML frontmatter."""
+    if not content.startswith("---"):
+        return False
+    end = content.find("---", 3)
+    if end < 0:
+        return False
+    frontmatter = content[3:end].lower()
+    for line in frontmatter.split("\n"):
+        stripped = line.strip()
+        if stripped == "private: true" or stripped == "private:true":
+            return True
+    return False
+
+
 def discover_journal_entries(journal_root: str) -> List[dict]:
-    """Find all journal entries and product guides."""
+    """Find all journal entries and product guides, skipping private content."""
     entries = []
     entries_dir = os.path.join(journal_root, "entries")
+    skipped_private = 0
 
     # Journal streams
     for stream_key, content_type in CONTENT_TYPES.items():
@@ -150,11 +171,25 @@ def discover_journal_entries(journal_root: str) -> List[dict]:
             continue
 
         for fname in sorted(os.listdir(stream_dir)):
+            # Skip private subdirectories entirely
+            fpath = os.path.join(stream_dir, fname)
+            if os.path.isdir(fpath) and fname == PRIVATE_DIR_NAME:
+                dir_count = len([f for f in os.listdir(fpath) if f.endswith(".md")])
+                skipped_private += dir_count
+                print(f"  Skipping {stream_key}/{PRIVATE_DIR_NAME}/ ({dir_count} files — private)")
+                continue
+
             if not fname.endswith(".md"):
                 continue
-            fpath = os.path.join(stream_dir, fname)
+
             with open(fpath, "r", encoding="utf-8") as f:
                 content = f.read()
+
+            # Skip files with private: true frontmatter
+            if _is_private(content):
+                skipped_private += 1
+                print(f"  Skipping {stream_key}/{fname} (private: true)")
+                continue
 
             date_str = fname.replace(".md", "")
             title = _extract_title(content, default=f"{stream_key} — {date_str}")
@@ -168,15 +203,24 @@ def discover_journal_entries(journal_root: str) -> List[dict]:
                 "date": date_str,
             })
 
-    # Product guides
+    # Product guides (also respect private convention)
     guides_dir = os.path.join(journal_root, "guides")
     if os.path.isdir(guides_dir):
         for fname in sorted(os.listdir(guides_dir)):
             if not fname.endswith(".md") or fname.startswith("_"):
                 continue
             fpath = os.path.join(guides_dir, fname)
+
+            if os.path.isdir(fpath) and fname == PRIVATE_DIR_NAME:
+                continue
+
             with open(fpath, "r", encoding="utf-8") as f:
                 content = f.read()
+
+            if _is_private(content):
+                skipped_private += 1
+                print(f"  Skipping guides/{fname} (private: true)")
+                continue
 
             title = _extract_title(content, default=fname.replace(".md", "").replace("-", " ").title())
 
@@ -188,6 +232,9 @@ def discover_journal_entries(journal_root: str) -> List[dict]:
                 "stream": "guides",
                 "date": None,
             })
+
+    if skipped_private:
+        print(f"  ({skipped_private} private files excluded from indexing)")
 
     return entries
 

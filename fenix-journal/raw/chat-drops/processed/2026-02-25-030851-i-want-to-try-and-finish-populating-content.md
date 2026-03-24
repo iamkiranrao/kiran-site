@@ -1735,7 +1735,7 @@ Key files:
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran Gorapalli) wanted to finish populating content for the last two cards on their portfolio homepage — **MadLab** and **Studio**. These cards existed on the homepage with images/tags but showed "coming soon" toasts when clicked because they had no subpages. The user wanted:
+   The user (Kiran Rao) wanted to finish populating content for the last two cards on their portfolio homepage — **MadLab** and **Studio**. These cards existed on the homepage with images/tags but showed "coming soon" toasts when clicked because they had no subpages. The user wanted:
    - Netflix-style horizontal scroll UI for both pages with category rows and project cards
    - Placeholder cards initially (Image + Title + Description + Tags)
    - MadLab: 12 categories (originally 13, CLI Tools removed) for prototyping/AI experiments

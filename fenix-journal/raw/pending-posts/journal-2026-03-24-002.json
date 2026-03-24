@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "The Ultimate Persona: Builder Who Hires Builders",
+    "body": "I defined the actual person this site is built to reach. A VP Product or Director of PM at Apple, Anthropic, Adobe, OpenAI, Google, Airbnb, Uber, Microsoft, or Netflix. Someone who evaluates based on judgment, not pedigree. They scan for 30-60 seconds, look for evidence of thinking, and either reach out or move on. This reframes every decision: Does this matter to a VP Product scanning for 60 seconds?",
+    "category": "career-strategy",
+    "tags": ["persona", "targeting", "ultimate-persona", "hiring"],
+    "workstreams": ["site-homepage", "career"],
+    "decision": "The primary GTM target is a senior product leader at a target company who evaluates on thinking, not credentials.",
+    "alternatives_considered": "Targeting recruiters, targeting broadly, targeting just through warm network.",
+    "open_questions": "Is the 60-second scan the right visit pattern to optimize for?"
+  }
+}

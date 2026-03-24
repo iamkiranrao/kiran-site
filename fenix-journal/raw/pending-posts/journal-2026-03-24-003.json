@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "The Imposter Paradox: Highest Performer, Still Feels Like an Outsider",
+    "body": "I need to name this directly. I have been the highest performer on every team by a distance. Yet I feel like an imposter when targeting Anthropic, Apple, Google. The feeling is driving the site strategy: building an elaborate site partly because I feel I need to be undeniably impressive before anyone takes me seriously. The question for every new feature: am I adding this because it serves the target visitor, or because it makes me feel more prepared?",
+    "category": "apprehension",
+    "tags": ["imposter-syndrome", "career", "self-awareness", "scope"],
+    "workstreams": ["career", "site-homepage"],
+    "decision": "Named the tension explicitly. No resolution yet.",
+    "alternatives_considered": "Ignoring it. But naming it creates accountability.",
+    "open_questions": "Will the GTM conversation shift behavior from building to distributing?"
+  }
+}

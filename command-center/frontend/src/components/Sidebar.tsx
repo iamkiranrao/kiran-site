@@ -66,7 +66,7 @@ export function Sidebar() {
             <h1 className="text-sm font-semibold text-[var(--text-primary)] tracking-tight">
               {APP_NAME}
             </h1>
-            <p className="text-xs text-[var(--text-muted)]">Kiran Gorapalli</p>
+            <p className="text-xs text-[var(--text-muted)]">Kiran Rao</p>
           </div>
         </div>
       </div>

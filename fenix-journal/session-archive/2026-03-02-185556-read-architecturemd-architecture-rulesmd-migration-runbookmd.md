@@ -777,7 +777,7 @@ Summary:
    - **Placeholder __init__.py files** in: api/, api/v1/, api/v1/fenix/, api/v1/forms/, api/v1/auth/, api/v1/store/, api/v1/admin/, api/v1/madlab/, core/, services/
 
 4. Errors and Fixes:
-   - **Git author identity unknown:** When committing, got "Author identity unknown" error. Fixed by setting `git config user.email "kiranrao@gmail.com"` and `git config user.name "Kiran Gorapalli"` in the repo.
+   - **Git author identity unknown:** When committing, got "Author identity unknown" error. Fixed by setting `git config user.email "kiranrao@gmail.com"` and `git config user.name "Kiran Rao"` in the repo.
    - **Vercel deploy failed — resend==2.5.0 doesn't exist:** First deploy failed because `resend==2.5.0` was a non-existent version (latest is 2.23.0). Fixed by changing ALL dependency pins from exact (`==`) to minimum version (`>=`). Pushed fix, Vercel auto-redeployed successfully.
    - **Chrome extension disconnecting:** Extension disconnected mid-work during Supabase setup. Reconnected by checking tabs again, created new tab (1831709098) to continue.
 

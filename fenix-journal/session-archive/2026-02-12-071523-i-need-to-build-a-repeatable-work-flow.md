@@ -578,7 +578,7 @@ Errors encountered:
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran Gorapalli) wants a repeatable workflow for customizing one of their 4 resume versions (.docx) to match job descriptions received via email/LinkedIn. The workflow should:
+   The user (Kiran Rao) wants a repeatable workflow for customizing one of their 4 resume versions (.docx) to match job descriptions received via email/LinkedIn. The workflow should:
    - Ask which resume to use (1-page, 2-page, detailed, PM)
    - Accept a job description (pasted text, URL, or uploaded file)
    - Customize the resume by swapping keywords, reordering bullets, and adjusting the professional summary
@@ -1250,7 +1250,7 @@ Technical patterns:
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran Gorapalli) built a repeatable resume customization workflow with 3 personas (Product Manager, Project Manager, Product Marketing Manager) × 3 versions (1-page, 2-page, detailed) = 9 baseline templates. The `/customize-resume` skill asks which persona, which version, and accepts a job description, then customizes the resume while preserving formatting and structure, outputting both .docx and PDF.
+   The user (Kiran Rao) built a repeatable resume customization workflow with 3 personas (Product Manager, Project Manager, Product Marketing Manager) × 3 versions (1-page, 2-page, detailed) = 9 baseline templates. The `/customize-resume` skill asks which persona, which version, and accepts a job description, then customizes the resume while preserving formatting and structure, outputting both .docx and PDF.
 
    The user's most recent request is: "Assume you are a recruiter from the top technology, AI and media companies in the US, Europe, Dubai and Australia. Here are some of the companies I'm interested in: Google, Apple, Adobe, Intuit, Anthropic, Disney, Uber and AirBnb. Based on how they recruit for each of these personas, score each of my 9 resumes and make suggestions if needed to make sure that each resume is optimally designed to meet the needs of what these companies are looking for. If I need to customize taglines or any of the sections for each of the personas let me know and lets work on making the needed changes. Give me a score out of 10 and tell me what changes are needed to get it as close to a 10 as possible."
 
@@ -2034,7 +2034,7 @@ Key errors encountered:
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran Gorapalli) is optimizing 9 resume templates (3 personas × 3 versions) for applications at specific target companies. The full company list is: **Asana, Figma, Uber, Airbnb, Snapchat, Meta, Microsoft, Netflix, OpenAI, Anthropic, Adobe, Intuit, LinkedIn, Pixar, Disney, Autodesk, Duolingo, Spotify, Lyft, DoorDash, Google, Apple** and similar companies.
+   The user (Kiran Rao) is optimizing 9 resume templates (3 personas × 3 versions) for applications at specific target companies. The full company list is: **Asana, Figma, Uber, Airbnb, Snapchat, Meta, Microsoft, Netflix, OpenAI, Anthropic, Adobe, Intuit, LinkedIn, Pixar, Disney, Autodesk, Duolingo, Spotify, Lyft, DoorDash, Google, Apple** and similar companies.
 
    The workflow is: go through each persona's 3 resumes (1-Page, 2-Page, Detailed) section by section, optimize for recruiter expectations at target companies, implement changes, generate PDFs, get user approval, provide before/after scores, then move to the next persona.
 
@@ -2520,7 +2520,7 @@ Current state:
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran Gorapalli) is optimizing 9 resume templates (3 personas × 3 versions) for applications at target companies: Asana, Figma, Uber, Airbnb, Snapchat, Meta, Microsoft, Netflix, OpenAI, Anthropic, Adobe, Intuit, LinkedIn, Pixar, Disney, Autodesk, Duolingo, Spotify, Lyft, DoorDash, Google, Apple.
+   The user (Kiran Rao) is optimizing 9 resume templates (3 personas × 3 versions) for applications at target companies: Asana, Figma, Uber, Airbnb, Snapchat, Meta, Microsoft, Netflix, OpenAI, Anthropic, Adobe, Intuit, LinkedIn, Pixar, Disney, Autodesk, Duolingo, Spotify, Lyft, DoorDash, Google, Apple.
 
    **Completed**: PM persona (all 3 resumes optimized, approved scores: 1P=8.5, 2P=9.0, D=9.0)
    
@@ -3173,7 +3173,7 @@ Key code patterns used throughout:
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran Gorapalli) is optimizing 9 resume templates (3 personas × 3 versions) for applications at target companies: Asana, Figma, Uber, Airbnb, Snapchat, Meta, Microsoft, Netflix, OpenAI, Anthropic, Adobe, Intuit, LinkedIn, Pixar, Disney, Autodesk, Duolingo, Spotify, Lyft, DoorDash, Google, Apple.
+   The user (Kiran Rao) is optimizing 9 resume templates (3 personas × 3 versions) for applications at target companies: Asana, Figma, Uber, Airbnb, Snapchat, Meta, Microsoft, Netflix, OpenAI, Anthropic, Adobe, Intuit, LinkedIn, Pixar, Disney, Autodesk, Duolingo, Spotify, Lyft, DoorDash, Google, Apple.
 
    **Completed**: 
    - PM persona (all 3 resumes, scores: 1P=8.5, 2P=9.0, D=9.0)
@@ -3948,7 +3948,7 @@ Base directory for this skill: /sessions/wonderful-practical-faraday/mnt/.claude
 
 ## Objective
 
-Customize one of Kiran Gorapalli's resume templates to match a specific job description. There are 3 personas, each with 3 resume versions (9 templates total). Swap keywords, reorder bullets, and adjust the professional summary while strictly preserving the original document structure, length, and formatting. Output both a .docx and PDF named `CompanyName_Role_Date` and provide a match quality summary.
+Customize one of Kiran Rao's resume templates to match a specific job description. There are 3 personas, each with 3 resume versions (9 templates total). Swap keywords, reorder bullets, and adjust the professional summary while strictly preserving the original document structure, length, and formatting. Output both a .docx and PDF named `CompanyName_Role_Date` and provide a match quality summary.
 
 ## Step 1: Gather Inputs
 

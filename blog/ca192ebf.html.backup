@@ -20,7 +20,7 @@
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A new payments PM's guide to the ACH network that quietly moves $80 trillion a year while everyone chases the latest payment trends.">
-    <title>The Invisible Rail: How 75% of Your 'Digital' Payments Still Run Through a 50-Year-Old System You've Never Heard Of - Kiran Gorapalli</title>
+    <title>The Invisible Rail: How 75% of Your 'Digital' Payments Still Run Through a 50-Year-Old System You've Never Heard Of - Kiran Rao</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,7 @@
     <meta property="og:description" content="A new payments PM's guide to the ACH network that quietly moves $80 trillion a year while everyone chases the latest payment trends.">
     <meta property="og:url" content="https://kirangorapalli.com/blog/invisible-rail-ach-payments.html">
     <meta property="og:image" content="https://kirangorapalli.com/images/og-image.png">
-    <meta property="article:author" content="Kiran Gorapalli">
+    <meta property="article:author" content="Kiran Rao">
     <meta property="article:published_time" content="2024-12-19">
 
     <!-- Twitter Card -->
@@ -54,12 +54,12 @@
         "datePublished": "2024-12-19",
         "author": {
             "@type": "Person",
-            "name": "Kiran Gorapalli",
+            "name": "Kiran Rao",
             "url": "https://kirangorapalli.com"
         },
         "publisher": {
             "@type": "Person",
-            "name": "Kiran Gorapalli"
+            "name": "Kiran Rao"
         }
     }
     </script>
@@ -586,7 +586,7 @@
         </div>
         <div class="footer-site-info">
             <img src="../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">        </div>
-        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2026 Kiran Rao. All rights reserved.</p>
     </footer>
 
     <div class="toast" id="toast"></div>

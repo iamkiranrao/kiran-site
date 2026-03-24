@@ -2089,7 +2089,7 @@ Still in progress (3 min in, typically takes ~12-13 min). The site likely uses G
 
 ### Claude `23:42`
 
-The page title loaded! "Spotify Playlist Discovery Teardown - Kiran Gorapalli" — it's live now.
+The page title loaded! "Spotify Playlist Discovery Teardown - Kiran Rao" — it's live now.
 
 ---
 

@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/action-items/",
+  "payload": {
+    "title": "Lock the work card lineup (finalize which 8 cards to keep)",
+    "description": "Card strategy is analyzed but not locked. Proposed lineup: Career Highlights, How Id've Built It, MadLab (absorbs Studio), Blog & Podcast, Under the Hood, /Now, Learn With Me, plus contested 8th slot. Needs to pass the Ultimate Persona filter before locking.",
+    "workstream": "site-homepage",
+    "priority": "medium",
+    "source": "session",
+    "status": "todo"
+  }
+}

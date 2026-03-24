@@ -23,7 +23,7 @@ total_words: 8621
 ### Kiran `08:10`
 
 I'm continuing work on my personal portfolio site. Here's the context:
-Repo: https://github.com/iamkiranrao/kiran-site (files are in the `site/` directory) Live: kirangorapalli.netlify.app Stack: Static HTML/CSS/JS, no build tools, hosted on Netlify, Netlify Forms for feedback + testimonials Git push workflow: Clone repo to a temp dir, copy files from my local folder to `site/`, commit with `user.name="Kiran Gorapalli"` and `user.email="kiranrao@gmail.com"`, push.
+Repo: https://github.com/iamkiranrao/kiran-site (files are in the `site/` directory) Live: kirangorapalli.netlify.app Stack: Static HTML/CSS/JS, no build tools, hosted on Netlify, Netlify Forms for feedback + testimonials Git push workflow: Clone repo to a temp dir, copy files from my local folder to `site/`, commit with `user.name="Kiran Rao"` and `user.email="kiranrao@gmail.com"`, push.
 Design language: Dark theme (`#0a0a0a` bg, `#f0e6d3` text), Inter font, styled after Framer "Bent" template. Two-column layouts with vertical dividers. Responsive at 1400+, 1200, 1024, 768, 480.
 What's built:
 * Hero section (placeholder video, 5:2 aspect)
@@ -784,7 +784,7 @@ Let me chronologically analyze the conversation:
 
 The user's collaborative style: They provide direction, ask for options, pick favorites, and iterate. They value authenticity and personal voice. They don't want boastful copy.
 
-Git workflow: Clone to /tmp, copy files from local folder, commit with user.name="Kiran Gorapalli" user.email="kiranrao@gmail.com", push using token in URL.
+Git workflow: Clone to /tmp, copy files from local folder, commit with user.name="Kiran Rao" user.email="kiranrao@gmail.com", push using token in URL.
 
 Token used: ghp_[REDACTED] (user was warned to revoke)
 </thinking>
@@ -1292,7 +1292,7 @@ We've been going for a while and context is getting heavy. I'd recommend startin
 
 Before you do, here's what to paste into the new session to get up to speed fast:
 
-**Site info:** Static HTML/CSS/JS, no build tools, hosted on Netlify. Repo: `github.com/iamkiranrao/kiran-site`, files in `site/` folder. Dark theme (#0a0a0a bg, #f0e6d3 text, Inter font). Git config: `user.name="Kiran Gorapalli"` `user.email="kiranrao@gmail.com"`.
+**Site info:** Static HTML/CSS/JS, no build tools, hosted on Netlify. Repo: `github.com/iamkiranrao/kiran-site`, files in `site/` folder. Dark theme (#0a0a0a bg, #f0e6d3 text, Inter font). Git config: `user.name="Kiran Rao"` `user.email="kiranrao@gmail.com"`.
 
 **What exists:** The strategy doc at `Site Strategy v2` has wireframe-level designs for all 8 work card pages, including Career Highlights (section 2.1). It describes the layout, card template per role, filter pills, and interaction patterns. The shared template spec covers nav, breadcrumb, hero banner, two-column intro, content grid, contact CTA, footer, and Fenix FAB.
 

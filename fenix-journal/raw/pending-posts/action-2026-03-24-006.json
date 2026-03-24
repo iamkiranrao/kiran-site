@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/action-items/",
+  "payload": {
+    "title": "Review and validate SITE-WHY.md, ULTIMATE-PERSONA.md, GO-TO-MARKET.md",
+    "description": "Four new strategy docs created in this session. Kiran should review all four and flag anything that doesn't match his thinking. These become the reference docs for all future sessions.",
+    "workstream": "cross-cutting",
+    "priority": "high",
+    "source": "session",
+    "status": "todo"
+  }
+}
