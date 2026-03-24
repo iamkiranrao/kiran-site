@@ -171,7 +171,7 @@
     var config = getPersonaConfig(persona);
 
     if (config) {
-      var avatarHtml = config.image ? '<img class="pill-avatar" src="' + config.image + '" alt="' + config.character + '">' : '';
+      var avatarHtml = config.image ? '<span class="pill-avatar-wrap"><img class="pill-avatar" src="' + config.image + '" alt="' + config.character + '"></span>' : '';
       pill.innerHTML = avatarHtml + '<span class="pill-label">Viewing as</span> <span class="pill-persona-name">' + config.name + '</span>';
       pill.style.borderColor = config.accent;
       pill.querySelector('.pill-persona-name').style.color = config.accent;
@@ -368,7 +368,7 @@
   function updateNavPill(config) {
     var pill = document.querySelector('.viewing-as-pill');
     if (!pill) return;
-    var avatarHtml = config.image ? '<img class="pill-avatar" src="' + config.image + '" alt="' + config.character + '">' : '';
+    var avatarHtml = config.image ? '<span class="pill-avatar-wrap"><img class="pill-avatar" src="' + config.image + '" alt="' + config.character + '"></span>' : '';
     pill.innerHTML = avatarHtml + '<span class="pill-label">Viewing as</span> <span class="pill-persona-name">' + config.name + '</span>';
     pill.classList.remove('unpicked');
     pill.style.borderColor = config.accent;
@@ -557,11 +557,14 @@
       unlockLayout.className = 'unlock-layout';
 
       if (config.image) {
+        var avatarWrap = document.createElement('span');
+        avatarWrap.className = 'unlock-avatar-wrap';
         var avatar = document.createElement('img');
         avatar.className = 'unlock-avatar';
         avatar.src = config.image;
         avatar.alt = config.character;
-        unlockLayout.appendChild(avatar);
+        avatarWrap.appendChild(avatar);
+        unlockLayout.appendChild(avatarWrap);
       }
 
       var unlockContent = document.createElement('div');
