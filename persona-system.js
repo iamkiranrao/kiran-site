@@ -605,6 +605,34 @@
   }
 
   // ── C11: What It Took — Persona-specific metrics ──
+
+  // Live commit count from GitHub API (fetched once, cached)
+  var _liveCommitCount = null;
+  var _commitFetchPromise = null;
+
+  function fetchLiveCommitCount() {
+    if (_commitFetchPromise) return _commitFetchPromise;
+    _commitFetchPromise = fetch('https://api.github.com/repos/iamkiranrao/kiran-site/commits?per_page=1', {
+      method: 'HEAD'
+    }).then(function (res) {
+      var link = res.headers.get('Link');
+      if (link) {
+        var match = link.match(/page=(\d+)>;\s*rel="last"/);
+        if (match) {
+          _liveCommitCount = parseInt(match[1], 10);
+          return _liveCommitCount;
+        }
+      }
+      return null;
+    }).catch(function () {
+      return null; // Fail silently, hardcoded fallback stays
+    });
+    return _commitFetchPromise;
+  }
+
+  // Fire the fetch immediately on script load
+  fetchLiveCommitCount();
+
   function buildNumbersGrid(persona) {
     var grid = document.getElementById('numbers-grid');
     if (!grid) return;
@@ -628,9 +656,9 @@
       card.appendChild(valueSpan);
       card.appendChild(labelSpan);
 
-      // Split-flap: one flip on the "live" metric to show the site is alive
+      // Split-flap: live metric flips from hardcoded → real count
       if (metric.live) {
-        initSplitFlap(card, valueSpan, parseInt(String(metric.value).replace(/,/g, ''), 10));
+        initSplitFlap(card, valueSpan, metric.value);
       }
 
       grid.appendChild(card);
@@ -638,48 +666,47 @@
   }
 
   // Single split-flap flip — airport terminal style
-  // Fires once after a delay when the section scrolls into view
-  function initSplitFlap(card, valueSpan, startNum) {
+  // When the card scrolls into view, flips from hardcoded to live GitHub count
+  function initSplitFlap(card, valueSpan, fallbackVal) {
     var hasFlipped = false;
 
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting && !hasFlipped) {
           hasFlipped = true;
-          // Pause, then flip once
-          setTimeout(function () {
-            var nextNum = startNum + 1;
-            var nextVal = nextNum.toLocaleString();
 
-            // Build the flip container
-            var flipWrap = document.createElement('span');
-            flipWrap.className = 'split-flap';
+          fetchLiveCommitCount().then(function (liveCount) {
+            if (!liveCount || String(liveCount) === String(fallbackVal)) return;
 
-            var current = document.createElement('span');
-            current.className = 'flap-current';
-            current.textContent = valueSpan.textContent;
+            var liveVal = liveCount.toLocaleString();
 
-            var next = document.createElement('span');
-            next.className = 'flap-next';
-            next.textContent = nextVal;
-
-            flipWrap.appendChild(current);
-            flipWrap.appendChild(next);
-
-            // Swap the static text for the flip mechanism
-            valueSpan.textContent = '';
-            valueSpan.appendChild(flipWrap);
-
-            // Trigger the flip
-            requestAnimationFrame(function () {
-              flipWrap.classList.add('flipping');
-            });
-
-            // After animation, clean up to static text
             setTimeout(function () {
-              valueSpan.textContent = nextVal;
-            }, 600);
-          }, 2000);
+              var flipWrap = document.createElement('span');
+              flipWrap.className = 'split-flap';
+
+              var current = document.createElement('span');
+              current.className = 'flap-current';
+              current.textContent = valueSpan.textContent;
+
+              var next = document.createElement('span');
+              next.className = 'flap-next';
+              next.textContent = liveVal;
+
+              flipWrap.appendChild(current);
+              flipWrap.appendChild(next);
+
+              valueSpan.textContent = '';
+              valueSpan.appendChild(flipWrap);
+
+              requestAnimationFrame(function () {
+                flipWrap.classList.add('flipping');
+              });
+
+              setTimeout(function () {
+                valueSpan.textContent = liveVal;
+              }, 600);
+            }, 2000);
+          });
 
           observer.disconnect();
         }
