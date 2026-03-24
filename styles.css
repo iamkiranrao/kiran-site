@@ -2092,7 +2092,9 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    padding-right: 4px;
+    padding-right: 0.15em;
+    margin-right: 0.05em;
+    display: inline-block;
 }
 
 .persona-picker-inline .lead-cta {
