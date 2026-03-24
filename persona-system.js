@@ -260,6 +260,9 @@
     // Phase 1: Cards dissolve (400ms)
     body.classList.add('morph-phase-1');
 
+    // Smooth scroll to top while cards are dissolving
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     setTimeout(function () {
       // Phase 2: Hero reshapes (600ms)
       body.classList.remove('morph-phase-1');
@@ -269,11 +272,18 @@
       var pickerSection = document.getElementById('persona-picker-section');
       if (pickerSection) pickerSection.style.display = 'none';
 
+      // Ensure we're at top before the reveal begins
+      window.scrollTo({ top: 0, behavior: 'instant' });
+
       setTimeout(function () {
         // Phase 3: Accent border draws + pill lands (800ms)
         body.classList.remove('morph-phase-2');
         body.classList.add('morph-phase-3');
         body.classList.add('accent-frame-medium');
+
+        // Reveal nav + hero text now (before Phase 4 content)
+        body.classList.remove('picker-mode');
+        body.classList.add('persona-active');
 
         // Update nav pill
         updateNavPill(config);
@@ -282,12 +292,9 @@
         showPersonaToast(config);
 
         setTimeout(function () {
-          // Phase 4: Rest materializes (500ms staggered)
+          // Phase 4: Below-fold content materializes (500ms staggered)
           body.classList.remove('morph-phase-3');
           body.classList.add('morph-phase-4');
-
-          body.classList.remove('picker-mode');
-          body.classList.add('persona-active');
 
           setTimeout(function () {
             body.classList.remove('morph-phase-4');
