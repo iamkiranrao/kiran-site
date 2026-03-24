@@ -256,53 +256,58 @@
   function startMorphTransition(persona, accent) {
     var config = getPersonaConfig(persona);
     var body = document.body;
+    var pickerSection = document.getElementById('persona-picker-section');
 
-    // Phase 1: Cards dissolve (400ms)
-    body.classList.add('morph-phase-1');
+    // ── Act 1: Cards dissolve with staggered blur (450ms total) ──
+    body.classList.add('morph-cards-exit');
 
-    // Smooth scroll to top while cards are dissolving
+    // Smooth scroll to top during card exit
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     setTimeout(function () {
-      // Phase 2: Hero reshapes (600ms)
-      body.classList.remove('morph-phase-1');
-      body.classList.add('morph-phase-2');
-
-      // Hide picker section
-      var pickerSection = document.getElementById('persona-picker-section');
-      if (pickerSection) pickerSection.style.display = 'none';
-
-      // Ensure we're at top before the reveal begins
+      // Snap to top before reveal
       window.scrollTo({ top: 0, behavior: 'instant' });
 
-      setTimeout(function () {
-        // Phase 3: Accent border draws + pill lands (800ms)
-        body.classList.remove('morph-phase-2');
-        body.classList.add('morph-phase-3');
-        body.classList.add('accent-frame-medium');
+      // Hide picker section
+      if (pickerSection) pickerSection.style.display = 'none';
 
-        // Reveal nav + hero text now (before Phase 4 content)
-        body.classList.remove('picker-mode');
-        body.classList.add('persona-active');
+      // Perform the DOM state change — use View Transitions API if available
+      var doReveal = function () {
+        // Switch body state
+        body.classList.remove('picker-mode', 'morph-cards-exit');
+        body.classList.add('persona-active', 'accent-frame-medium');
+
+        // ── Act 2: Above-fold reveal (nav, accent border, hero text) ──
+        body.classList.add('morph-reveal', 'morph-accent-draw');
 
         // Update nav pill
         updateNavPill(config);
 
-        // Show toast
-        showPersonaToast(config);
-
+        // Toast after pill lands
         setTimeout(function () {
-          // Phase 4: Below-fold content materializes (500ms staggered)
-          body.classList.remove('morph-phase-3');
-          body.classList.add('morph-phase-4');
+          showPersonaToast(config);
+        }, 350);
 
+        // ── Act 3: Below-fold content materializes (staggered) ──
+        setTimeout(function () {
+          body.classList.add('morph-content-in');
+
+          // ── Cleanup: remove animation classes, settle to final state ──
           setTimeout(function () {
-            body.classList.remove('morph-phase-4');
+            body.classList.remove('morph-reveal', 'morph-accent-draw', 'morph-content-in');
             body.classList.add('morph-complete');
-          }, 500);
-        }, 800);
-      }, 600);
-    }, 400);
+          }, 700);
+        }, 400);
+      };
+
+      // Use View Transitions API for the big state swap (if supported)
+      if (document.startViewTransition) {
+        document.startViewTransition(doReveal);
+      } else {
+        doReveal();
+      }
+
+    }, 550); // Wait for card dissolve + scroll
   }
 
   function triggerMorphReverse() {
@@ -312,7 +317,7 @@
     document.documentElement.style.removeProperty('--persona-accent');
 
     // Reset body classes
-    document.body.classList.remove('persona-active', 'morph-complete', 'accent-frame-medium', 'accent-frame-full');
+    document.body.classList.remove('persona-active', 'morph-complete', 'morph-reveal', 'morph-accent-draw', 'morph-content-in', 'accent-frame-medium', 'accent-frame-full');
     document.body.classList.add('morph-reverse');
 
     // Show picker
