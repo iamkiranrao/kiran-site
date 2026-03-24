@@ -300,7 +300,7 @@
 
           // Toast AFTER the tagline has landed — the tagline is the payoff
           setTimeout(function () {
-            showPersonaToast(config);
+            showPersonaToast(config, true);
           }, 1200);
 
           // ── Beat: let above-fold breathe before below-fold ──
@@ -379,11 +379,14 @@
     pill.onclick = function () { triggerMorphReverse(); };
   }
 
-  function showPersonaToast(config) {
+  function showPersonaToast(config, fromMorph) {
     var toast = document.getElementById('toast');
     if (!toast) return;
     toast.textContent = '';
     toast.innerHTML = 'Viewing as <span style="color:' + config.accent + '; font-weight: 600;">' + config.name + '</span>';
+    if (fromMorph) {
+      toast.classList.add('toast-morph');
+    }
     toast.classList.add('visible');
     if (config.accent) {
       toast.style.borderColor = config.accent;
@@ -391,6 +394,9 @@
     setTimeout(function () {
       toast.classList.remove('visible');
       toast.style.borderColor = '';
+      setTimeout(function () {
+        toast.classList.remove('toast-morph');
+      }, 300);
     }, 3500);
   }
 

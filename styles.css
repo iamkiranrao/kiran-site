@@ -1778,6 +1778,16 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     pointer-events: auto;
 }
 
+.toast.toast-morph {
+    bottom: auto;
+    top: 2rem;
+    transform: translateX(-50%) translateY(-20px);
+}
+
+.toast.toast-morph.visible {
+    transform: translateX(-50%) translateY(0);
+}
+
 /* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -2651,7 +2661,6 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     padding-right: 2rem;
 }
 
@@ -2729,6 +2738,8 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    max-width: 480px;
+    margin: 0 auto;
 }
 
 .unlock-avatar {
