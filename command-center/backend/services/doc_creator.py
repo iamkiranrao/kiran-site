@@ -195,7 +195,7 @@ def create_cover_letter(content: str, company: str, role: str, output_path: str)
     doc.add_paragraph()
     _add_body(doc, "Sincerely,")
     p = doc.add_paragraph()
-    run = p.add_run("Kiran Gorapalli")
+    run = p.add_run("Kiran Rao")
     run.bold = True
     run.font.name = FONT_BODY
     run.font.size = Pt(10.5)

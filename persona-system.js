@@ -208,16 +208,18 @@
   function initMorph() {
     var persona = getPersona();
 
+    var pickerSection = document.getElementById('persona-picker-section');
+
     if (persona) {
       // Returning visitor: skip to final state
       document.body.classList.add('persona-active');
       document.body.classList.add('morph-complete');
-      var pickerSection = document.getElementById('persona-picker-section');
       if (pickerSection) pickerSection.style.display = 'none';
-    } else {
-      // First-time visitor: show picker mode
+    } else if (pickerSection) {
+      // First-time visitor on homepage: show picker mode
       document.body.classList.add('picker-mode');
     }
+    // Subpages without picker: nav stays visible, no picker-mode applied
 
     // Keyboard support for inline picker cards
     var inlineCards = document.querySelectorAll('.persona-card-inline');
@@ -232,13 +234,18 @@
   }
 
   function showPickerMode() {
+    var pickerSection = document.getElementById('persona-picker-section');
+    if (!pickerSection) {
+      // On subpages: redirect to homepage picker instead of hiding nav
+      localStorage.removeItem('persona');
+      localStorage.removeItem('persona-accent');
+      window.location.href = 'index.html';
+      return;
+    }
     document.body.classList.remove('persona-active', 'morph-complete');
     document.body.classList.add('picker-mode');
-    var pickerSection = document.getElementById('persona-picker-section');
-    if (pickerSection) {
-      pickerSection.style.display = '';
-      pickerSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    pickerSection.style.display = '';
+    pickerSection.scrollIntoView({ behavior: 'smooth' });
   }
 
   // Called when a persona card is selected
@@ -334,13 +341,19 @@
     localStorage.removeItem('persona-accent');
     document.documentElement.style.removeProperty('--persona-accent');
 
+    // On subpages: redirect to homepage picker
+    var pickerSection = document.getElementById('persona-picker-section');
+    if (!pickerSection) {
+      window.location.href = 'index.html';
+      return;
+    }
+
     // Reset body classes
     document.body.classList.remove('persona-active', 'morph-complete', 'morph-reveal', 'morph-accent-draw', 'morph-content-in', 'accent-frame-medium', 'accent-frame-full');
     document.body.classList.add('morph-reverse');
 
     // Show picker
-    var pickerSection = document.getElementById('persona-picker-section');
-    if (pickerSection) pickerSection.style.display = '';
+    pickerSection.style.display = '';
 
     // Deselect all cards
     document.querySelectorAll('#persona-picker-section .card').forEach(function (c) {

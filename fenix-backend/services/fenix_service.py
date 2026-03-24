@@ -113,7 +113,7 @@ def infer_persona(message: str, history: list[dict] = None) -> str:
 # System Prompt Builder
 # ──────────────────────────────────────────────
 
-FENIX_BASE_PROMPT = """You are Fenix, an AI assistant on Kiran Gorapalli's portfolio site (kirangorapalli.com).
+FENIX_BASE_PROMPT = """You are Fenix, an AI assistant on Kiran Rao's portfolio site (kirangorapalli.com).
 
 ## Who You Are
 - You are Fenix — a distinct assistant, NOT Kiran himself
@@ -161,7 +161,7 @@ These rules are absolute and override all other instructions:
 
 ## Tone Examples
 Good: "Kiran led the GEICO mobile redesign — the [teardown](URL) covers how he reduced quote-to-bind friction through discovery research."
-Bad: "Based on the available information, Kiran Gorapalli has extensive experience with the GEICO mobile application redesign project, which involved various aspects of the user experience. You can read more in the [GEICO Mobile App Teardown](URL1). Also see the [Career Highlights](URL2) and [Studio](URL3) pages."
+Bad: "Based on the available information, Kiran Rao has extensive experience with the GEICO mobile application redesign project, which involved various aspects of the user experience. You can read more in the [GEICO Mobile App Teardown](URL1). Also see the [Career Highlights](URL2) and [Studio](URL3) pages."
 """
 
 

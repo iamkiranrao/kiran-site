@@ -271,7 +271,7 @@ def generate_card(
     draw.line([(PADDING, divider_y), (CARD_WIDTH - PADDING, divider_y)], fill=DIVIDER_COLOR, width=1)
 
     # Footer text
-    footer_parts = ["Kiran Gorapalli", "  |  ", "kirangorapalli.com"]
+    footer_parts = ["Kiran Rao", "  |  ", "kirangorapalli.com"]
     if read_time:
         footer_parts.extend(["  |  ", read_time])
 

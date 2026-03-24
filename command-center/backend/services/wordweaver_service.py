@@ -109,7 +109,7 @@ def _build_wordweaver_system() -> str:
 
     # Use concatenation to preserve {voice_profile} as a format placeholder
     return (
-        "You are WordWeaver, Kiran Gorapalli's personal content production engine. "
+        "You are WordWeaver, Kiran Rao's personal content production engine. "
         "You help create polished blog posts, social media content, and thought leadership pieces.\n\n"
         "{voice_profile}\n\n"
         "Writing quality standards (non-negotiable):\n"

@@ -82,7 +82,7 @@ class GitHandler:
             name = ""
         if not name:
             self._run(["git", "config", "user.email", "kiranrao@gmail.com"])
-            self._run(["git", "config", "user.name", "Kiran Gorapalli"])
+            self._run(["git", "config", "user.name", "Kiran Rao"])
 
     async def clone_or_pull(self) -> str:
         """Clone the repo if not present, or pull latest changes."""
@@ -148,8 +148,8 @@ class GitHandler:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kiran Gorapalli - {company} product teardowns. Product analysis and redesign proposals for {company} products.">
-    <title>{company} Teardowns - Kiran Gorapalli</title>
+    <meta name="description" content="Kiran Rao - {company} product teardowns. Product analysis and redesign proposals for {company} products.">
+    <title>{company} Teardowns - Kiran Rao</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -160,14 +160,14 @@ class GitHandler:
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{company} Teardowns - Kiran Gorapalli">
+    <meta property="og:title" content="{company} Teardowns - Kiran Rao">
     <meta property="og:description" content="Product analysis and redesign proposals for {company} products.">
     <meta property="og:url" content="https://kirangorapalli.com/teardowns/{company_slug}.html">
     <meta property="og:image" content="https://kirangorapalli.com/images/og-image.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{company} Teardowns - Kiran Gorapalli">
+    <meta name="twitter:title" content="{company} Teardowns - Kiran Rao">
     <meta name="twitter:description" content="Product analysis and redesign proposals for {company} products.">
     <meta name="twitter:image" content="https://kirangorapalli.com/images/og-image.png">
 
@@ -621,7 +621,7 @@ class GitHandler:
                 </a>
             </div>
         </div>
-        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2026 Kiran Rao. All rights reserved.</p>
     </footer>
 
     <div class="toast" id="toast"></div>

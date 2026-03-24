@@ -40,7 +40,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <p className="text-xs text-[var(--text-muted)] text-center mt-8">
-          Kiran Gorapalli &middot; {new Date().getFullYear()}
+          Kiran Rao &middot; {new Date().getFullYear()}
         </p>
       </div>
     </div>

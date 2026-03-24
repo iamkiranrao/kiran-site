@@ -20,7 +20,7 @@
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="From Wells Fargo's 2014 launch complexity to today's seamless experience - understanding the architecture that makes Apple Pay work - from device hardware to issuing bank - and the strategic principles every payments PM should know.">
-    <title>Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go' - Kiran Gorapalli</title>
+    <title>Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go' - Kiran Rao</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,7 @@
     <meta property="og:description" content="From Wells Fargo's 2014 launch complexity to today's seamless experience - understanding the architecture that makes Apple Pay work - from device hardware to issuing bank - and the strategic principles every payments PM should know.">
     <meta property="og:url" content="https://kirangorapalli.com/blog/demystifying-apple-pay.html">
     <meta property="og:image" content="https://kirangorapalli.com/images/og/blog-demystifying-apple-pay.png">
-    <meta property="article:author" content="Kiran Gorapalli">
+    <meta property="article:author" content="Kiran Rao">
     <meta property="article:published_time" content="2024-12-19">
 
     <!-- Twitter Card -->
@@ -55,12 +55,12 @@
         "datePublished": "2024-12-19",
         "author": {
             "@type": "Person",
-            "name": "Kiran Gorapalli",
+            "name": "Kiran Rao",
             "url": "https://kirangorapalli.com"
         },
         "publisher": {
             "@type": "Person",
-            "name": "Kiran Gorapalli"
+            "name": "Kiran Rao"
         }
     }
     </script>
@@ -857,7 +857,7 @@
         </div>
         <div class="footer-site-info">
             <img src="../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">        </div>
-        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2026 Kiran Rao. All rights reserved.</p>
     </footer>
 
     <div class="toast" id="toast"></div>

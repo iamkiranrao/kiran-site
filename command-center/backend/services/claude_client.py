@@ -23,7 +23,7 @@ from services.governance_loader import (
 
 
 KIRAN_BACKGROUND = """
-Kiran Gorapalli is a product leader with 15+ years of experience across mobile, AI, fintech,
+Kiran Rao is a product leader with 15+ years of experience across mobile, AI, fintech,
 and digital transformation. He has led teams at Wells Fargo, First Republic Bank, Starbucks,
 Hilton, and other enterprise companies. Key accomplishments include:
 - Scaled a flagship mobile app from 18M to 32M users (4.9 App Store rating)
@@ -323,7 +323,7 @@ async def generate_resume_content(
         max_tokens=4000,
         messages=[{
             "role": "user",
-            "content": f"""You are customizing a resume for Kiran Gorapalli.
+            "content": f"""You are customizing a resume for Kiran Rao.
 
 KIRAN'S BACKGROUND:
 {KIRAN_BACKGROUND}
@@ -417,7 +417,7 @@ async def generate_pre_match_score(api_key: str, jd_text: str, jd_analysis: dict
         max_tokens=200,
         messages=[{
             "role": "user",
-            "content": f"""Score how well Kiran Gorapalli's BASELINE resume matches this role, BEFORE any customization.
+            "content": f"""Score how well Kiran Rao's BASELINE resume matches this role, BEFORE any customization.
 
 KIRAN'S BACKGROUND (as-is, not tailored):
 {KIRAN_BACKGROUND}
@@ -451,7 +451,7 @@ async def generate_match_score(api_key: str, jd_text: str, jd_analysis: dict) ->
         max_tokens=4000,
         messages=[{
             "role": "user",
-            "content": f"""Generate a Match Score & Gap Analysis for Kiran Gorapalli against this role.
+            "content": f"""Generate a Match Score & Gap Analysis for Kiran Rao against this role.
 
 KIRAN'S BACKGROUND:
 {KIRAN_BACKGROUND}
@@ -607,7 +607,7 @@ async def generate_cover_letter(api_key: str, jd_text: str, jd_analysis: dict) -
         max_tokens=2000,
         messages=[{
             "role": "user",
-            "content": f"""Write a tailored cover letter for Kiran Gorapalli.
+            "content": f"""Write a tailored cover letter for Kiran Rao.
 
 KIRAN'S BACKGROUND:
 {KIRAN_BACKGROUND}
@@ -697,7 +697,7 @@ async def generate_interview_questions(api_key: str, jd_text: str, jd_analysis: 
         max_tokens=4000,
         messages=[{
             "role": "user",
-            "content": f"""Create an interview question bank for Kiran Gorapalli preparing for a
+            "content": f"""Create an interview question bank for Kiran Rao preparing for a
 {jd_analysis.get('job_title', 'Product Manager')} role at {company}.
 
 JD ANALYSIS:
@@ -769,7 +769,7 @@ async def generate_strategy_proposal(
         max_tokens=6000,
         messages=[{
             "role": "user",
-            "content": f"""You are preparing a customization proposal for Kiran Gorapalli's resume.
+            "content": f"""You are preparing a customization proposal for Kiran Rao's resume.
 
 KIRAN'S BACKGROUND:
 {KIRAN_BACKGROUND}
@@ -918,7 +918,7 @@ async def refine_resume_content(
         max_tokens=4000,
         messages=[{
             "role": "user",
-            "content": f"""You previously proposed resume customization content for Kiran Gorapalli.
+            "content": f"""You previously proposed resume customization content for Kiran Rao.
 The user reviewed it and provided feedback. Please revise the content accordingly.
 
 ORIGINAL PROPOSAL:
@@ -1003,7 +1003,7 @@ async def refine_section(
         max_tokens=2000,
         messages=[{
             "role": "user",
-            "content": f"""You are revising ONE SECTION of Kiran Gorapalli's resume based on user feedback.
+            "content": f"""You are revising ONE SECTION of Kiran Rao's resume based on user feedback.
 
 SECTION: {section_label} (id: {section_id})
 
@@ -1101,7 +1101,7 @@ async def discuss_section(
         '"revised_text": "the revised text"'
     )
 
-    system_prompt = f"""You are a resume customization expert having a conversation with a user about ONE SECTION of Kiran Gorapalli's resume. You are knowledgeable, direct, and collaborative.
+    system_prompt = f"""You are a resume customization expert having a conversation with a user about ONE SECTION of Kiran Rao's resume. You are knowledgeable, direct, and collaborative.
 
 SECTION: {section_label} (id: {section_id})
 

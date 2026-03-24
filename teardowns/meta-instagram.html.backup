@@ -19,8 +19,8 @@
       })(window, document, "clarity", "script", "vpgxcc8q5n");
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kiran Gorapalli - Instagram product teardown. Discovery research, keep/kill/build analysis, redesign wireframes, and business case.">
-    <title>Instagram Teardown - Kiran Gorapalli</title>
+    <meta name="description" content="Kiran Rao - Instagram product teardown. Discovery research, keep/kill/build analysis, redesign wireframes, and business case.">
+    <title>Instagram Teardown - Kiran Rao</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,14 +32,14 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Instagram Teardown - Kiran Gorapalli">
+    <meta property="og:title" content="Instagram Teardown - Kiran Rao">
     <meta property="og:description" content="A product teardown of Instagram - discovery, analysis, redesign, and business case.">
     <meta property="og:url" content="https://kirangorapalli.com/teardowns/meta-instagram.html">
     <meta property="og:image" content="https://kirangorapalli.com/images/og/teardown-meta-instagram.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Instagram Teardown - Kiran Gorapalli">
+    <meta name="twitter:title" content="Instagram Teardown - Kiran Rao">
     <meta name="twitter:description" content="A product teardown of Instagram - discovery, analysis, redesign, and business case.">
     <meta name="twitter:image" content="https://kirangorapalli.com/images/og/teardown-meta-instagram.png">
 
@@ -52,7 +52,7 @@
         "url": "https://kirangorapalli.com/teardowns/meta-instagram.html",
         "author": {
             "@type": "Person",
-            "name": "Kiran Gorapalli",
+            "name": "Kiran Rao",
             "url": "https://kirangorapalli.com"
         }
     }
@@ -812,7 +812,7 @@
         "headline": "Instagram Teardown",
         "author": {
             "@type": "Person",
-            "name": "Kiran Gorapalli",
+            "name": "Kiran Rao",
             "url": "https://kirangorapalli.com"
         },
         "description": "Product teardown of Instagram's content discovery experience. Analysis of the algorithmic feed, proposed following-first redesign, and business case for retention over session time.",
@@ -820,7 +820,7 @@
         "image": "https://kirangorapalli.com/images/og-image.png",
         "publisher": {
             "@type": "Person",
-            "name": "Kiran Gorapalli"
+            "name": "Kiran Rao"
         }
     }
     </script>
@@ -1536,7 +1536,7 @@
         </div>
         <div class="footer-site-info">
             <img src="../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">        </div>
-        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2026 Kiran Rao. All rights reserved.</p>
     </footer>
 
     <div class="toast" id="toast"></div>

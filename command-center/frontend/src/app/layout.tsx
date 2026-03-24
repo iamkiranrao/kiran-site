@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Command Center — Kiran Gorapalli",
+  title: "Command Center — Kiran Rao",
   description: "Content management and career automation hub.",
 };
 

@@ -19,8 +19,8 @@
       })(window, document, "clarity", "script", "vpgxcc8q5n");
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kiran Gorapalli - How I'd've Built It. Product teardowns and redesigns of popular applications.">
-    <title>How I'd've Built It - Kiran Gorapalli</title>
+    <meta name="description" content="Kiran Rao - How I'd've Built It. Product teardowns and redesigns of popular applications.">
+    <title>How I'd've Built It - Kiran Rao</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,14 +32,14 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="How I'd've Built It - Kiran Gorapalli">
+    <meta property="og:title" content="How I'd've Built It - Kiran Rao">
     <meta property="og:description" content="Product teardowns and redesigns of popular applications.">
     <meta property="og:url" content="https://kirangorapalli.com/how-id-built-it.html">
     <meta property="og:image" content="https://kirangorapalli.com/images/og/teardown-listing.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="How I'd've Built It - Kiran Gorapalli">
+    <meta name="twitter:title" content="How I'd've Built It - Kiran Rao">
     <meta name="twitter:description" content="Product teardowns and redesigns of popular applications.">
     <meta name="twitter:image" content="https://kirangorapalli.com/images/og/teardown-listing.png">
 
@@ -48,11 +48,11 @@
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "name": "How I'd've Built It",
-        "description": "Product teardowns and redesigns of popular applications by Kiran Gorapalli.",
+        "description": "Product teardowns and redesigns of popular applications by Kiran Rao.",
         "url": "https://kirangorapalli.com/how-id-built-it.html",
         "author": {
             "@type": "Person",
-            "name": "Kiran Gorapalli",
+            "name": "Kiran Rao",
             "url": "https://kirangorapalli.com"
         }
     }
@@ -481,12 +481,12 @@
     {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": "How I'd've Built It - Kiran Gorapalli",
+        "name": "How I'd've Built It - Kiran Rao",
         "description": "Product teardowns of real companies. Each teardown includes discovery research, keep/kill/build analysis, redesign wireframes, and a business case.",
         "url": "https://kirangorapalli.com/how-id-built-it.html",
         "author": {
             "@type": "Person",
-            "name": "Kiran Gorapalli"
+            "name": "Kiran Rao"
         }
     }
     </script>
@@ -796,7 +796,7 @@
         </div>
         <div class="footer-site-info">
             <img src="images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">        </div>
-        <p class="footer-copyright">&copy; 2026 Kiran Gorapalli. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2026 Kiran Rao. All rights reserved.</p>
     </footer>
 
     <div class="toast" id="toast"></div>

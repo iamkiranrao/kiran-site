@@ -19,29 +19,29 @@
       })(window, document, "clarity", "script", "vpgxcc8q5n");
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kiran Gorapalli - Builder of Products People Love. Product Manager, Designer, and AI enthusiast based in San Francisco.">
-    <title>Kiran Gorapalli - Builder of Products People Love</title>
+    <meta name="description" content="Kiran Rao - Builder of Products People Love. Product Manager, Designer, and AI enthusiast based in San Francisco.">
+    <title>Kiran Rao - Builder of Products People Love</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="fenix-widget.css">
-    <link rel="alternate" type="application/rss+xml" title="Kiran Gorapalli - Release Notes & Blog" href="rss.xml">
+    <link rel="alternate" type="application/rss+xml" title="Kiran Rao - Release Notes & Blog" href="rss.xml">
 
     <link rel="canonical" href="https://kirangorapalli.com/">
     <meta name="theme-color" content="#0a0a0a">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Kiran Gorapalli - Builder of Products People Love">
+    <meta property="og:title" content="Kiran Rao - Builder of Products People Love">
     <meta property="og:description" content="Product Manager, Designer, and AI enthusiast based in San Francisco. Explore my work, projects, and ideas.">
     <meta property="og:url" content="https://kirangorapalli.com">
     <meta property="og:image" content="https://kirangorapalli.com/images/og-image.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Kiran Gorapalli - Builder of Products People Love">
+    <meta name="twitter:title" content="Kiran Rao - Builder of Products People Love">
     <meta name="twitter:description" content="Product Manager, Designer, and AI enthusiast based in San Francisco.">
     <meta name="twitter:image" content="https://kirangorapalli.com/images/og-image.png">
 
@@ -50,7 +50,7 @@
     {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "Kiran Gorapalli",
+        "name": "Kiran Rao",
         "url": "https://kirangorapalli.com",
         "jobTitle": "Product Manager",
         "description": "Builder of Products People Love. Product manager focused on the human side of building products.",
@@ -193,7 +193,7 @@
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="hero-text">
-            <h1>Kiran Gorapalli</h1>
+            <h1>Kiran Rao</h1>
             <p class="hero-tagline">Builder of Products People Love</p>
 
             <div class="hero-bottom-row">
@@ -522,7 +522,7 @@
         </div>
 
         <!-- Copyright -->
-        <p class="footer-copyright">© 2026 Kiran Gorapalli. All rights reserved.</p>
+        <p class="footer-copyright">© 2026 Kiran Rao. All rights reserved.</p>
     </footer>
 
     <!-- AI Assistant Button -->
