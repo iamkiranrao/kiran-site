@@ -29,6 +29,14 @@
         { label: 'Book a conversation', desc: 'Schedule a 30-min intro call directly.', icon: 'calendar', link: '#' },
         { label: 'Download my resume', desc: 'A polished, ready-to-forward resume.', icon: 'download', link: '#' },
         { label: 'References on request', desc: 'Curated reference sheet with context.', icon: 'users', link: '#' }
+      ],
+      metrics: [
+        { value: '~6 wks', label: 'First commit → live site' },
+        { value: '25', label: 'Architectural components' },
+        { value: '3', label: 'AI systems built in' },
+        { value: '7', label: 'APIs integrated' },
+        { value: '0', label: 'Frameworks used' },
+        { value: '0', label: 'Meetings required to ship' }
       ]
     },
     seeker: {
@@ -49,6 +57,13 @@
         { label: 'Bring your problem', desc: 'Describe what you\'re building. Fenix walks through the framing.', icon: 'lightbulb', link: '#' },
         { label: 'Fractional engagement brief', desc: 'What 10 hrs/week of product leadership looks like.', icon: 'file-text', link: '#' },
         { label: 'Founder case studies', desc: 'How I\'ve helped founders ship from 0 to 1.', icon: 'briefcase', link: '#' }
+      ],
+      metrics: [
+        { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
+        { value: '199', label: 'Commits, one at a time' },
+        { value: '4,279', label: 'Lines of CSS, by hand' },
+        { value: '3', label: 'AI systems wired in' },
+        { value: '0', label: 'Times I asked for permission' }
       ]
     },
     practitioner: {
@@ -69,6 +84,13 @@
         { label: 'The teardown vault', desc: 'Director\'s commentary on teardowns — the dead ends and raw thinking.', icon: 'archive', link: '#' },
         { label: 'Roast my product', desc: 'Submit a URL. Get a Kiran-style quick teardown.', icon: 'zap', link: '#' },
         { label: 'Frameworks & mental models', desc: 'The actual tools I use for prioritization and analysis.', icon: 'layout', link: '#' }
+      ],
+      metrics: [
+        { value: '6', label: 'Persona lenses' },
+        { value: '25', label: 'Architectural components' },
+        { value: '23', label: 'Choreographed animations' },
+        { value: '730+', label: 'Accessibility markers' },
+        { value: '0', label: 'Jira tickets filed' }
       ]
     },
     learner: {
@@ -89,6 +111,13 @@
         { label: 'Book a mentorship session', desc: 'Free 30-min call via ADPList.', icon: 'message-circle', link: '#' },
         { label: 'PM starter kit', desc: 'Curated reading list, frameworks, and interview prep.', icon: 'book-open', link: '#' },
         { label: 'Ask me about breaking in', desc: 'Fenix in mentorship mode — career transition help.', icon: 'compass', link: '#' }
+      ],
+      metrics: [
+        { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
+        { value: '3', label: 'AI systems to explore' },
+        { value: '7', label: 'APIs you can trace' },
+        { value: '2,414', label: 'Lines of JS, all readable' },
+        { value: '1,000+', label: "console.log('why??') calls" }
       ]
     },
     technologist: {
@@ -109,6 +138,14 @@
         { label: 'The GitHub tour', desc: 'Real repos behind this site — Fenix RAG, persona picker, and more.', icon: 'github', link: '#' },
         { label: 'Architecture decision records', desc: 'Why vanilla JS, why Supabase + pgvector, why Cloudflare.', icon: 'layers', link: '#' },
         { label: 'Pair with me', desc: '45-min technical pairing session. Pick a problem.', icon: 'code', link: '#' }
+      ],
+      metrics: [
+        { value: '3', label: 'AI systems (RAG + embeddings + SSE)' },
+        { value: '7', label: 'APIs integrated' },
+        { value: '25', label: 'Components, zero dependencies' },
+        { value: '18', label: 'CSS design tokens' },
+        { value: '730+', label: 'A11y markers across 43 files' },
+        { value: '0', label: 'node_modules folders' }
       ]
     },
     innercircle: {
@@ -129,6 +166,13 @@
         { label: 'Flame On by default', desc: 'Fenix skips the polish — raw journal entries, half-baked ideas.', icon: 'flame', link: '#' },
         { label: "What I'm actually working on", desc: 'Live-ish view of current projects. The real status.', icon: 'activity', link: '#' },
         { label: 'Direct line', desc: 'WhatsApp. No forms.', icon: 'phone', link: '#' }
+      ],
+      metrics: [
+        { value: '199', label: 'Commits since February' },
+        { value: '~6 wks', label: 'Start to what you\'re looking at' },
+        { value: '70', label: 'Hand-picked assets' },
+        { value: '3am', label: 'Average commit time' },
+        { value: '0', label: 'Weekends off since February' }
       ]
     }
   };
@@ -553,6 +597,25 @@
     applyAccentVariable();
     applyAccentFrame();
     buildFenixIntroContent(persona);
+    buildNumbersGrid(persona);
+  }
+
+  // ── C11: What It Took — Persona-specific metrics ──
+  function buildNumbersGrid(persona) {
+    var grid = document.getElementById('numbers-grid');
+    if (!grid) return;
+
+    var config = getPersonaConfig(persona);
+    if (!config || !config.metrics) return;
+
+    grid.innerHTML = '';
+    config.metrics.forEach(function (metric) {
+      var card = document.createElement('div');
+      card.className = 'number-card';
+      card.innerHTML = '<span class="number-value">' + metric.value + '</span>' +
+        '<span class="number-label">' + metric.label + '</span>';
+      grid.appendChild(card);
+    });
   }
 
   // ── C4: Fenix Intro Shell — Build Content ──────────
