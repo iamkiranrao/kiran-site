@@ -2325,25 +2325,37 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     display: block;
 }
 
+.picker-mode nav,
+.picker-mode .hero-text,
 .picker-mode .about-section,
 .picker-mode #work,
 .picker-mode .contact-cta,
-.picker-mode footer {
+.picker-mode footer,
+.picker-mode .ai-assistant-wrapper {
     opacity: 0;
     pointer-events: none;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
-/* Returning visitor: hide picker */
+/* Returning visitor: hide picker, show everything */
 .persona-active #persona-picker-section {
     display: none;
 }
 
+.persona-active nav,
+.persona-active .hero-text,
 .persona-active .about-section,
 .persona-active #work,
 .persona-active .contact-cta,
-.persona-active footer {
+.persona-active footer,
+.persona-active .ai-assistant-wrapper {
     opacity: 1;
     pointer-events: auto;
+    max-height: none;
+    overflow: visible;
 }
 
 /* Phase 1: Cards dissolve */
@@ -2369,12 +2381,17 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 }
 
 /* Phase 4: Content materializes */
+.morph-phase-4 nav,
+.morph-phase-4 .hero-text,
 .morph-phase-4 .about-section,
 .morph-phase-4 #work,
 .morph-phase-4 .contact-cta,
-.morph-phase-4 footer {
+.morph-phase-4 footer,
+.morph-phase-4 .ai-assistant-wrapper {
     opacity: 1;
     pointer-events: auto;
+    max-height: none;
+    overflow: visible;
     animation: contentMaterialize 0.5s ease forwards;
 }
 
@@ -2384,20 +2401,33 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 }
 
 /* Morph complete: everything stable */
+.morph-complete nav,
+.morph-complete .hero-text,
 .morph-complete .about-section,
 .morph-complete #work,
 .morph-complete .contact-cta,
-.morph-complete footer {
+.morph-complete footer,
+.morph-complete .ai-assistant-wrapper {
     opacity: 1;
     pointer-events: auto;
+    max-height: none;
+    overflow: visible;
 }
 
 /* Reverse morph */
+.morph-reverse nav,
+.morph-reverse .hero-text,
 .morph-reverse .about-section,
 .morph-reverse #work,
 .morph-reverse .contact-cta,
-.morph-reverse footer {
+.morph-reverse footer,
+.morph-reverse .ai-assistant-wrapper {
     opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
     transition: opacity 0.4s ease;
 }
 
@@ -2695,10 +2725,13 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     }
 
     .morph-phase-1 .persona-picker-inline .card,
+    .morph-phase-4 nav,
+    .morph-phase-4 .hero-text,
     .morph-phase-4 .about-section,
     .morph-phase-4 #work,
     .morph-phase-4 .contact-cta,
-    .morph-phase-4 footer {
+    .morph-phase-4 footer,
+    .morph-phase-4 .ai-assistant-wrapper {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
