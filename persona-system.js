@@ -31,6 +31,7 @@
         { label: 'References on request', desc: 'Curated reference sheet with context.', icon: 'users', link: '#' }
       ],
       metrics: [
+        { value: '199', label: 'Commits shipped', live: true },
         { value: '~6 wks', label: 'First commit → live site' },
         { value: '25', label: 'Architectural components' },
         { value: '3', label: 'AI systems built in' },
@@ -86,6 +87,7 @@
         { label: 'Frameworks & mental models', desc: 'The actual tools I use for prioritization and analysis.', icon: 'layout', link: '#' }
       ],
       metrics: [
+        { value: '199', label: 'Iterations shipped', live: true },
         { value: '6', label: 'Persona lenses' },
         { value: '25', label: 'Architectural components' },
         { value: '23', label: 'Choreographed animations' },
@@ -113,6 +115,7 @@
         { label: 'Ask me about breaking in', desc: 'Fenix in mentorship mode — career transition help.', icon: 'compass', link: '#' }
       ],
       metrics: [
+        { value: '199', label: 'Commits to learn from', live: true },
         { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
         { value: '3', label: 'AI systems to explore' },
         { value: '7', label: 'APIs you can trace' },
@@ -140,6 +143,7 @@
         { label: 'Pair with me', desc: '45-min technical pairing session. Pick a problem.', icon: 'code', link: '#' }
       ],
       metrics: [
+        { value: '199', label: 'Commits, no deploy pipeline', live: true },
         { value: '3', label: 'AI systems (RAG + embeddings + SSE)' },
         { value: '7', label: 'APIs integrated' },
         { value: '25', label: 'Components, zero dependencies' },
