@@ -631,7 +631,33 @@
   // ── C7: Footer Quotes ──────────────────────────────
   // Kiran populates this array
   var QUOTES = [
-    // { text: "Quote text here", source: "Source" }
+    { text: "The people who are crazy enough to think they can change the world are the ones who do.", source: "Steve Jobs" },
+    { text: "Success consists of going from failure to failure without loss of enthusiasm.", source: "Winston Churchill" },
+    { text: "It is your attitude, not your aptitude, that determines your altitude.", source: "Zig Ziglar" },
+    { text: "You must be the change you wish to see in the world.", source: "Mahatma Gandhi" },
+    { text: "The secret of change is to focus all of your energy not on fighting the old, but on building the new.", source: "Socrates" },
+    { text: "All things are difficult before they are easy.", source: "Thomas Fuller" },
+    { text: "In order to design a future of positive change, we must first become experts at changing our minds.", source: "Jacque Fresco" },
+    { text: "If at first the idea is not absurd, then there will be no hope for it.", source: "Albert Einstein" },
+    { text: "The true sign of intelligence is not knowledge but imagination.", source: "Albert Einstein" },
+    { text: "The best way to predict the future is to create it.", source: "Alan Kay" },
+    { text: "Logic will get you from A to B. Imagination will take you everywhere.", source: "Albert Einstein" },
+    { text: "What is now proved was once only imagined.", source: "William Blake" },
+    { text: "I've failed over and over and over again in my life. And that is why I succeed.", source: "Michael Jordan" },
+    { text: "The chief enemy of creativity is good sense.", source: "Pablo Picasso" },
+    { text: "Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep.", source: "Scott Adams" },
+    { text: "Innovation is not born from the dream, innovation is born from the struggle.", source: "Simon Sinek" },
+    { text: "It always seems impossible until it's done.", source: "Nelson Mandela" },
+    { text: "Leadership is about making others better as a result of your presence and making sure that impact lasts in your absence.", source: "Sheryl Sandberg" },
+    { text: "If you can dream it, you can do it.", source: "Walt Disney" },
+    { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", source: "Winston Churchill" },
+    { text: "Rock bottom became the solid foundation on which I rebuilt my life.", source: "J.K. Rowling" },
+    { text: "The reward for conformity is that everyone likes you but yourself.", source: "Rita Mae Brown" },
+    { text: "And those who were seen dancing were thought to be insane by those who could not hear the music.", source: "Friedrich Nietzsche" },
+    { text: "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.", source: "Ralph Waldo Emerson" },
+    { text: "Those who say it can't be done are usually interrupted by others doing it.", source: "James Baldwin" },
+    { text: "Culture eats strategy for breakfast.", source: "Peter Drucker" },
+    { text: "Vulnerability is the birthplace of innovation, creativity, and change.", source: "Brené Brown" }
   ];
 
   function buildFooterQuotes() {
