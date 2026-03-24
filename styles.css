@@ -1842,7 +1842,6 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     height: 24px;
     flex-shrink: 0;
     border-radius: 50%;
-    overflow: hidden;
     border: 1.5px solid var(--persona-accent, var(--border));
 }
 
@@ -1853,6 +1852,7 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     border-radius: 50%;
     border: 2px solid rgba(0, 0, 0, 0.85);
     pointer-events: none;
+    z-index: 1;
 }
 
 [data-theme="light"] .pill-avatar-wrap::after {
@@ -2767,7 +2767,6 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    overflow: hidden;
     justify-self: center;
     flex-shrink: 0;
     border: 3px solid var(--persona-accent, var(--border));
@@ -2781,6 +2780,7 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     border-radius: 50%;
     border: 3px solid rgba(0, 0, 0, 0.85);
     pointer-events: none;
+    z-index: 1;
 }
 
 [data-theme="light"] .unlock-avatar-wrap::after {
