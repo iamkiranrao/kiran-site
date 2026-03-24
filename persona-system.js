@@ -31,7 +31,7 @@
         { label: 'References on request', desc: 'Curated reference sheet with context.', icon: 'users', link: '#' }
       ],
       metrics: [
-        { value: '199', label: 'Commits shipped', live: true },
+        { value: null, label: 'Commits shipped', live: true },
         { value: '~6 wks', label: 'First commit → live site' },
         { value: '25', label: 'Architectural components' },
         { value: '3', label: 'AI systems built in' },
@@ -61,7 +61,7 @@
       ],
       metrics: [
         { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
-        { value: '199', label: 'Commits, one at a time', live: true },
+        { value: null, label: 'Commits, one at a time', live: true },
         { value: '4,279', label: 'Lines of CSS, by hand' },
         { value: '3', label: 'AI systems wired in' },
         { value: '0', label: 'Times I asked for permission' }
@@ -87,7 +87,7 @@
         { label: 'Frameworks & mental models', desc: 'The actual tools I use for prioritization and analysis.', icon: 'layout', link: '#' }
       ],
       metrics: [
-        { value: '199', label: 'Iterations shipped', live: true },
+        { value: null, label: 'Iterations shipped', live: true },
         { value: '6', label: 'Persona lenses' },
         { value: '25', label: 'Architectural components' },
         { value: '23', label: 'Choreographed animations' },
@@ -115,7 +115,7 @@
         { label: 'Ask me about breaking in', desc: 'Fenix in mentorship mode — career transition help.', icon: 'compass', link: '#' }
       ],
       metrics: [
-        { value: '199', label: 'Commits to learn from', live: true },
+        { value: null, label: 'Commits to learn from', live: true },
         { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
         { value: '3', label: 'AI systems to explore' },
         { value: '7', label: 'APIs you can trace' },
@@ -143,7 +143,7 @@
         { label: 'Pair with me', desc: '45-min technical pairing session. Pick a problem.', icon: 'code', link: '#' }
       ],
       metrics: [
-        { value: '199', label: 'Commits, no deploy pipeline', live: true },
+        { value: null, label: 'Commits, no deploy pipeline', live: true },
         { value: '3', label: 'AI systems (RAG + embeddings + SSE)' },
         { value: '7', label: 'APIs integrated' },
         { value: '25', label: 'Components, zero dependencies' },
@@ -172,7 +172,7 @@
         { label: 'Direct line', desc: 'WhatsApp. No forms.', icon: 'phone', link: '#' }
       ],
       metrics: [
-        { value: '199', label: 'Commits since February', live: true },
+        { value: null, label: 'Commits since February', live: true },
         { value: '~6 wks', label: 'Start to what you\'re looking at' },
         { value: '70', label: 'Hand-picked assets' },
         { value: '3am', label: 'Average commit time' },
@@ -641,72 +641,81 @@
     if (!config || !config.metrics) return;
 
     grid.innerHTML = '';
-    config.metrics.forEach(function (metric) {
-      var card = document.createElement('div');
-      card.className = 'number-card';
 
-      var valueSpan = document.createElement('span');
-      valueSpan.className = 'number-value';
-      valueSpan.textContent = metric.value;
+    // Wait for commit count before rendering so live metrics show real data
+    fetchLiveCommitCount().then(function (liveCount) {
+      config.metrics.forEach(function (metric) {
+        var card = document.createElement('div');
+        card.className = 'number-card';
 
-      var labelSpan = document.createElement('span');
-      labelSpan.className = 'number-label';
-      labelSpan.textContent = metric.label;
+        var valueSpan = document.createElement('span');
+        valueSpan.className = 'number-value';
 
-      card.appendChild(valueSpan);
-      card.appendChild(labelSpan);
+        // For live metrics: show (real count - 1) initially, flip to real count on scroll
+        if (metric.live && liveCount) {
+          var initialVal = (liveCount - 1).toLocaleString();
+          valueSpan.textContent = initialVal;
+        } else if (metric.live) {
+          // API failed — use a safe fallback
+          valueSpan.textContent = '—';
+        } else {
+          valueSpan.textContent = metric.value;
+        }
 
-      // Split-flap: live metric flips from hardcoded → real count
-      if (metric.live) {
-        initSplitFlap(card, valueSpan, metric.value);
-      }
+        var labelSpan = document.createElement('span');
+        labelSpan.className = 'number-label';
+        labelSpan.textContent = metric.label;
 
-      grid.appendChild(card);
+        card.appendChild(valueSpan);
+        card.appendChild(labelSpan);
+
+        // Split-flap: flips from (count - 1) → real count when section scrolls into view
+        if (metric.live && liveCount) {
+          initSplitFlap(card, valueSpan, liveCount);
+        }
+
+        grid.appendChild(card);
+      });
     });
   }
 
   // Single split-flap flip — airport terminal style
-  // When the card scrolls into view, flips from hardcoded to live GitHub count
-  function initSplitFlap(card, valueSpan, fallbackVal) {
+  // When the card scrolls into view, flips from (count-1) to real GitHub count
+  function initSplitFlap(card, valueSpan, liveCount) {
     var hasFlipped = false;
+    var liveVal = liveCount.toLocaleString();
 
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting && !hasFlipped) {
           hasFlipped = true;
 
-          fetchLiveCommitCount().then(function (liveCount) {
-            if (!liveCount || String(liveCount) === String(fallbackVal)) return;
+          setTimeout(function () {
+            var flipWrap = document.createElement('span');
+            flipWrap.className = 'split-flap';
 
-            var liveVal = liveCount.toLocaleString();
+            var current = document.createElement('span');
+            current.className = 'flap-current';
+            current.textContent = valueSpan.textContent;
+
+            var next = document.createElement('span');
+            next.className = 'flap-next';
+            next.textContent = liveVal;
+
+            flipWrap.appendChild(current);
+            flipWrap.appendChild(next);
+
+            valueSpan.textContent = '';
+            valueSpan.appendChild(flipWrap);
+
+            requestAnimationFrame(function () {
+              flipWrap.classList.add('flipping');
+            });
 
             setTimeout(function () {
-              var flipWrap = document.createElement('span');
-              flipWrap.className = 'split-flap';
-
-              var current = document.createElement('span');
-              current.className = 'flap-current';
-              current.textContent = valueSpan.textContent;
-
-              var next = document.createElement('span');
-              next.className = 'flap-next';
-              next.textContent = liveVal;
-
-              flipWrap.appendChild(current);
-              flipWrap.appendChild(next);
-
-              valueSpan.textContent = '';
-              valueSpan.appendChild(flipWrap);
-
-              requestAnimationFrame(function () {
-                flipWrap.classList.add('flipping');
-              });
-
-              setTimeout(function () {
-                valueSpan.textContent = liveVal;
-              }, 600);
-            }, 2000);
-          });
+              valueSpan.textContent = liveVal;
+            }, 600);
+          }, 2000);
 
           observer.disconnect();
         }

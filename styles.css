@@ -2753,6 +2753,7 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 .numbers-section {
     background: var(--bg-primary);
     padding: 3rem 4rem 4rem;
+    text-align: center;
 }
 
 .numbers-grid {
