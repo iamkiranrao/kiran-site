@@ -2820,6 +2820,16 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     to { opacity: 1; transform: translateY(0); }
 }
 
+.number-tick {
+    animation: numberPulse 0.3s ease;
+}
+
+@keyframes numberPulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+
 @media (max-width: 1024px) {
     .numbers-grid {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

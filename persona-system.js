@@ -612,9 +612,60 @@
     config.metrics.forEach(function (metric) {
       var card = document.createElement('div');
       card.className = 'number-card';
-      card.innerHTML = '<span class="number-value">' + metric.value + '</span>' +
-        '<span class="number-label">' + metric.label + '</span>';
+
+      var valueSpan = document.createElement('span');
+      valueSpan.className = 'number-value';
+      valueSpan.textContent = metric.value;
+
+      var labelSpan = document.createElement('span');
+      labelSpan.className = 'number-label';
+      labelSpan.textContent = metric.label;
+
+      card.appendChild(valueSpan);
+      card.appendChild(labelSpan);
+
+      // Hover-increment: only on pure numeric values (no ~, +, am, commas-with-letters)
+      var cleanVal = String(metric.value).replace(/,/g, '');
+      var numericVal = parseInt(cleanVal, 10);
+      if (!isNaN(numericVal) && String(numericVal) === cleanVal) {
+        initHoverIncrement(card, valueSpan, numericVal, metric.value);
+      }
+
       grid.appendChild(card);
+    });
+  }
+
+  function initHoverIncrement(card, valueSpan, startNum, displayVal) {
+    var hoverTimer = null;
+    var tickTimer = null;
+    var currentNum = startNum;
+
+    card.addEventListener('mouseenter', function () {
+      currentNum = startNum;
+      // Wait 1.5s before starting to tick
+      hoverTimer = setTimeout(function () {
+        tickTimer = setInterval(function () {
+          currentNum++;
+          // Format with commas if the original had them
+          valueSpan.textContent = displayVal.indexOf(',') !== -1
+            ? currentNum.toLocaleString()
+            : String(currentNum);
+          valueSpan.classList.remove('number-tick');
+          // Force reflow to restart animation
+          void valueSpan.offsetWidth;
+          valueSpan.classList.add('number-tick');
+        }, 800);
+      }, 1500);
+    });
+
+    card.addEventListener('mouseleave', function () {
+      clearTimeout(hoverTimer);
+      clearInterval(tickTimer);
+      hoverTimer = null;
+      tickTimer = null;
+      // Reset to original value
+      valueSpan.textContent = displayVal;
+      valueSpan.classList.remove('number-tick');
     });
   }
 
