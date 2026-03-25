@@ -433,41 +433,50 @@
             </div>
         </div>
         <p class="section-label explore-label">(Explore)</p>
-        <div class="work-grid">
-            <button class="work-card" id="my-work">
+        <div class="work-grid bento">
+            <!-- Row 1: Teardowns (hero 4/6) + Career (2/6) -->
+            <button class="work-card card-span-4" id="how-id-built-it">
+                <div class="work-image">
+                    <img src="images/HowIdbuilt.png" alt="How I'd've Built It" loading="lazy">
+                </div>
+                <div class="work-info">
+                    <span class="work-eyebrow">6 Teardowns</span>
+                    <h3 class="work-title">How I'd've Built It</h3>
+                    <p class="work-desc">Product teardowns and redesigns of popular applications. What I'd keep, what I'd kill, and what I'd build differently.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">Instagram</span>
+                        <span class="work-tag">GEICO</span>
+                        <span class="work-tag">Airbnb</span>
+                        <span class="work-tag">+3 more</span>
+                    </div>
+                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
+                </div>
+            </button>
+
+            <button class="work-card card-span-2" id="my-work">
                 <div class="work-image">
                     <img src="images/work-career.png" alt="Career Highlights" loading="lazy">
                 </div>
                 <div class="work-info">
+                    <span class="work-eyebrow">15 Years Building</span>
                     <h3 class="work-title">Career Highlights</h3>
-                    <p class="work-desc">What I've accomplished during my product journey so far. From 0-to-1 launches and platform-scale transformations, to fractional consulting with startups and some of the fun gigs from early in my career.</p>
+                    <p class="work-desc">From 0-to-1 launches and platform-scale transformations, to fractional consulting with startups and the fun gigs from early in my career.</p>
                     <div class="work-tags">
                         <span class="work-tag">Product</span>
                         <span class="work-tag">Strategy</span>
                         <span class="work-tag">Leadership</span>
                     </div>
+                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
                 </div>
             </button>
 
-            <button class="work-card" id="how-id-built-it">
-                <div class="work-image">
-                    <img src="images/HowIdbuilt.png" alt="How I'd've Built It" loading="lazy">
-                </div>
-                <div class="work-info">
-                    <h3 class="work-title">How I'd've Built It</h3>
-                    <p class="work-desc">Product teardowns and redesigns of popular applications. What I'd keep, what I'd kill, and what I'd build differently.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">Case Studies</span>
-                        <span class="work-tag">Teardowns</span>
-                    </div>
-                </div>
-            </button>
-
-            <button class="work-card" id="my-sandbox">
+            <!-- Row 2: MadLab (3/6) + Studio (3/6) -->
+            <button class="work-card card-span-3" id="my-sandbox">
                 <div class="work-image">
                     <img src="images/Madlab.png" alt="MadLab" loading="lazy">
                 </div>
                 <div class="work-info">
+                    <span class="work-eyebrow">Apps &amp; Prototypes</span>
                     <h3 class="work-title">MadLab</h3>
                     <p class="work-desc">Apps, tools, and prototypes built from scratch. My sandbox for tinkering and experimentation.</p>
                     <div class="work-tags">
@@ -475,81 +484,73 @@
                         <span class="work-tag">Apps</span>
                         <span class="work-tag">Experiments</span>
                     </div>
+                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
                 </div>
             </button>
 
-            <button class="work-card" id="creative-lab">
+            <button class="work-card card-span-3" id="creative-lab">
                 <div class="work-image">
                     <img src="images/CreativeStudio.png" alt="Creative Studio" loading="lazy">
                 </div>
                 <div class="work-info">
+                    <span class="work-eyebrow">Creative Portfolio</span>
                     <h3 class="work-title">Studio</h3>
-                    <p class="work-desc">My creative playground. Art, video, and experiments born from curiosity and wherever the rabbit holes lead.</p>
+                    <p class="work-desc">The left-brain portfolio. AI-generated songs, photography, custom fonts — things that show design sensibility and creative range.</p>
                     <div class="work-tags">
-                        <span class="work-tag">AI Art</span>
-                        <span class="work-tag">Video</span>
-                        <span class="work-tag">Content</span>
+                        <span class="work-tag">Music</span>
+                        <span class="work-tag">Photography</span>
+                        <span class="work-tag">Design</span>
                     </div>
+                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
                 </div>
             </button>
 
-            <button class="work-card" id="blog-podcast">
+            <!-- Row 3: Blog (2/6) + Learning (2/6) + /Now (2/6) -->
+            <button class="work-card card-span-2" id="blog-podcast">
                 <div class="work-image">
                     <img src="images/blogandpodcast.png" alt="Blog & Podcast" loading="lazy">
                 </div>
                 <div class="work-info">
+                    <span class="work-eyebrow">Essays &amp; Conversations</span>
                     <h3 class="work-title">Blog & Podcast</h3>
-                    <p class="work-desc">Long-form thinking on product, AI, and leadership. Plus conversations with builders and operators who are shaping what's next.</p>
+                    <p class="work-desc">Long-form thinking on product, AI, and leadership. Plus conversations with builders who are shaping what's next.</p>
                     <div class="work-tags">
                         <span class="work-tag">Articles</span>
                         <span class="work-tag">Podcast</span>
-                        <span class="work-tag">Substack</span>
                     </div>
+                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
                 </div>
             </button>
 
-            <button class="work-card" id="certifications">
+            <button class="work-card card-span-2" id="learning">
                 <div class="work-image">
-                    <img src="images/LearningandCertification.png" alt="Learning & Certifications" loading="lazy">
+                    <img src="images/LearningandCertification.png" alt="Learning" loading="lazy">
                 </div>
                 <div class="work-info">
-                    <h3 class="work-title">Learning & Certifications</h3>
-                    <p class="work-desc">Lifelong learner. The real value isn't the credential. It's the new lens it gives you on problems you thought you already understood.</p>
+                    <span class="work-eyebrow">What I'm Studying</span>
+                    <h3 class="work-title">Learning</h3>
+                    <p class="work-desc">What I'm deep in right now and the rabbit holes I've followed. The value isn't the credential — it's the new lens on problems I thought I already understood.</p>
                     <div class="work-tags">
-                        <span class="work-tag">Product</span>
                         <span class="work-tag">AI/ML</span>
-                        <span class="work-tag">Cloud</span>
+                        <span class="work-tag">Product</span>
                     </div>
+                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
                 </div>
             </button>
 
-            <button class="work-card" id="causes">
+            <button class="work-card card-span-2" id="now">
                 <div class="work-image">
-                    <img src="images/causes.png" alt="Causes" loading="lazy">
+                    <div class="work-image-placeholder">/now</div>
                 </div>
                 <div class="work-info">
-                    <h3 class="work-title">Causes</h3>
-                    <p class="work-desc">Where I put my time and energy when its not about work and play.</p>
+                    <span class="work-eyebrow">Right Now</span>
+                    <h3 class="work-title">/Now</h3>
+                    <p class="work-desc">What I'm working on, what I'm paying attention to, and where my head is at. Updated regularly.</p>
                     <div class="work-tags">
-                        <span class="work-tag">Nonprofits</span>
-                        <span class="work-tag">Giving Back</span>
-                        <span class="work-tag">Impact</span>
+                        <span class="work-tag">Current</span>
+                        <span class="work-tag">Projects</span>
                     </div>
-                </div>
-            </button>
-
-            <button class="work-card" id="store">
-                <div class="work-image">
-                    <img src="images/Store.png" alt="Store" loading="lazy">
-                </div>
-                <div class="work-info">
-                    <h3 class="work-title">Store</h3>
-                    <p class="work-desc">Curated merch, templates, and digital resources. Tools and goods for builders, makers, and anyone who ships. Coming soon.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">Merch</span>
-                        <span class="work-tag">Templates</span>
-                        <span class="work-tag">Digital</span>
-                    </div>
+                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
                 </div>
             </button>
         </div>

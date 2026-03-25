@@ -918,12 +918,19 @@ section {
     color: var(--text-secondary);
 }
 
-.work-grid {
+/* ── Bento Grid ────────────────────────────────── */
+.work-grid.bento {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 2rem;
     margin-top: 1.5rem;
 }
+
+/* Card span classes */
+.card-span-2 { grid-column: span 2; }
+.card-span-3 { grid-column: span 3; }
+.card-span-4 { grid-column: span 4; }
+.card-span-6 { grid-column: span 6; }
 
 .work-card {
     background: transparent;
@@ -937,6 +944,7 @@ section {
     width: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .work-card:hover {
@@ -948,9 +956,26 @@ section {
     outline-offset: 2px;
 }
 
+/* Hero card (4-span) gets horizontal layout on desktop */
+.card-span-4 {
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.card-span-4 .work-image {
+    width: 50%;
+    flex-shrink: 0;
+    aspect-ratio: auto;
+}
+
+.card-span-4 .work-info {
+    padding: 1.5rem;
+    justify-content: center;
+}
+
 .work-image {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 16 / 10;
     border-radius: 0;
     position: relative;
     display: flex;
@@ -971,13 +996,31 @@ section {
     transform: scale(1.05);
 }
 
-/* Distinct warm background colors for each card */
-.work-card:nth-child(1) .work-image { background: #c4a882; }
-.work-card:nth-child(2) .work-image { background: #8fa89a; }
-.work-card:nth-child(3) .work-image { background: #a8946e; }
-.work-card:nth-child(4) .work-image { background: #7d9aaa; }
+/* Warm background colors per card */
+#how-id-built-it .work-image { background: #8fa89a; }
+#my-work .work-image { background: #c4a882; }
+#my-sandbox .work-image { background: #a8946e; }
+#creative-lab .work-image { background: #7d9aaa; }
+#blog-podcast .work-image { background: #9a8fac; }
+#learning .work-image { background: #8a9e7d; }
+#now .work-image { background: #a08a7a; }
 
-.work-image-placeholder { font-size: 5rem; }
+.work-image-placeholder {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: rgba(255,255,255,0.6);
+}
+
+/* ── Card Eyebrow ──────────────────────────────── */
+.work-eyebrow {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 0.15rem;
+}
 
 .work-info {
     display: flex;
@@ -1023,6 +1066,22 @@ section {
 
 .work-card:hover .work-tag {
     opacity: 0.85;
+}
+
+/* ── Card Arrow Affordance ─────────────────────── */
+.work-arrow {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.work-card:hover .work-arrow {
+    opacity: 0.7;
+    transform: translateX(4px);
 }
 
 
@@ -1544,7 +1603,15 @@ footer {
     .scroll-indicator { font-size: 1.1rem; }
     section { padding: 3rem 2.5rem; }
     .about-section { padding: 2.5rem 2.5rem; }
-    .work-grid { grid-template-columns: repeat(2, 1fr); }
+    .work-grid.bento { grid-template-columns: repeat(2, 1fr); }
+    .work-grid.bento .card-span-2,
+    .work-grid.bento .card-span-3,
+    .work-grid.bento .card-span-4,
+    .work-grid.bento .card-span-6 { grid-column: span 1; }
+    /* Hero card reverts to vertical on tablet */
+    .card-span-4 { flex-direction: column; }
+    .card-span-4 .work-image { width: 100%; aspect-ratio: 16 / 10; }
+    .card-span-4 .work-info { padding: 1rem 0 0; }
     .work-intro { padding: 2rem 2.5rem; margin: 0 2.5rem; }
     .work-intro-left { padding-right: 2.5rem; }
     .work-intro-right { padding-left: 2.5rem; }
@@ -1588,7 +1655,11 @@ footer {
     .about-intro { font-size: clamp(1.3rem, 6vw, 1.8rem); margin-bottom: 0; }
     .work-intro-text { font-size: clamp(1.3rem, 6vw, 1.8rem); }
 
-    .work-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .work-grid.bento { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .work-grid.bento .card-span-2,
+    .work-grid.bento .card-span-3,
+    .work-grid.bento .card-span-4,
+    .work-grid.bento .card-span-6 { grid-column: span 1; }
     .competencies-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .testimonials-grid { grid-template-columns: 1fr; gap: 1.25rem; }
 
@@ -1652,7 +1723,11 @@ footer {
     .work-intro-text { font-size: 1.3rem; }
     .competency-title { font-size: 1.15rem; }
     .work-title { font-size: 1.5rem; }
-    .work-grid { grid-template-columns: 1fr; }
+    .work-grid.bento { grid-template-columns: 1fr; }
+    .work-grid.bento .card-span-2,
+    .work-grid.bento .card-span-3,
+    .work-grid.bento .card-span-4,
+    .work-grid.bento .card-span-6 { grid-column: span 1; }
     .testimonial-title { font-size: 1.05rem; }
     .contact-cta h2 { font-size: 2rem; }
     footer { padding: 2rem 1.5rem; font-size: 0.85rem; }
@@ -1675,7 +1750,11 @@ footer {
 
 @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
     .hero-image { aspect-ratio: 5 / 2; }
-    .work-grid { grid-template-columns: repeat(2, 1fr); }
+    .work-grid.bento { grid-template-columns: repeat(2, 1fr); }
+    .work-grid.bento .card-span-2,
+    .work-grid.bento .card-span-3,
+    .work-grid.bento .card-span-4,
+    .work-grid.bento .card-span-6 { grid-column: span 1; }
     .competencies-grid { grid-template-columns: repeat(2, 1fr); }
     .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
 }

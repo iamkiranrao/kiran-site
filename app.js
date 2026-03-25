@@ -398,18 +398,21 @@ if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
 
 const workCards = document.querySelectorAll('.work-card');
 const cardConfig = [
-    { title: 'Career Highlights', link: 'career-highlights.html', sameTab: true },
-    { title: 'How I\'d\'ve Built It', link: 'how-id-built-it.html', sameTab: true },
-    { title: 'My MadLab', link: 'madlab.html', sameTab: true },
-    { title: 'Creative Studio', link: 'studio.html', sameTab: true },
-    { title: 'Blog & Podcast', link: 'blog-podcast.html', sameTab: true },
-    { title: 'Learning & Certifications', link: 'learning.html', sameTab: true },
-    { title: 'Causes', link: 'causes.html', sameTab: true },
-    { title: 'Store', link: 'store.html', sameTab: true }
+    { id: 'how-id-built-it', title: 'How I\'d\'ve Built It', link: 'how-id-built-it.html', sameTab: true },
+    { id: 'my-work', title: 'Career Highlights', link: 'career-highlights.html', sameTab: true },
+    { id: 'my-sandbox', title: 'MadLab', link: 'madlab.html', sameTab: true },
+    { id: 'creative-lab', title: 'Studio', link: 'studio.html', sameTab: true },
+    { id: 'blog-podcast', title: 'Blog & Podcast', link: 'blog-podcast.html', sameTab: true },
+    { id: 'learning', title: 'Learning', link: 'learning.html', sameTab: true },
+    { id: 'now', title: '/Now', link: 'now.html', sameTab: true }
 ];
 
-workCards.forEach((card, index) => {
-    const config = cardConfig[index] || { title: 'Section', link: null };
+// Build ID-based lookup for card config
+const cardConfigMap = {};
+cardConfig.forEach(c => { cardConfigMap[c.id] = c; });
+
+workCards.forEach((card) => {
+    const config = cardConfigMap[card.id] || { title: 'Section', link: null };
     card.addEventListener('click', () => {
         if (config.link && config.sameTab) {
             window.location.href = config.link;
