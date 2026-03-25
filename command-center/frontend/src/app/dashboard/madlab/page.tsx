@@ -351,7 +351,7 @@ export default function MadLabPage() {
                       {s.project_name}
                     </button>
                     <a
-                      href={`https://kirangorapalli.com/prototypes/${s.project_slug}/overview.html`}
+                      href={`https://kiranrao.ai/prototypes/${s.project_slug}/overview.html`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs text-[var(--accent-blue)] flex items-center gap-1 hover:underline"

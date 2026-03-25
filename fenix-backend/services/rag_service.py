@@ -527,7 +527,7 @@ def build_rag_context(
             f"{chunk.chunk_text}\n"
         )
 
-        url = f"https://kirangorapalli.com{chunk.url}" if chunk.url else ""
+        url = f"https://kiranrao.ai{chunk.url}" if chunk.url else ""
         all_citations_raw.append({
             "id": citation_id,
             "title": chunk.title,

@@ -65,19 +65,19 @@ async def list_published_teardowns():
             if f.endswith(".html") and "-" in f:
                 published.append({
                     "filename": f,
-                    "url": f"https://kirangorapalli.com/teardowns/{f}",
+                    "url": f"https://kiranrao.ai/teardowns/{f}",
                 })
 
     # Also include known published ones
     known = [
         {"company": "Meta", "product": "Instagram", "filename": "meta-instagram.html",
-         "url": "https://kirangorapalli.com/teardowns/meta-instagram.html"},
+         "url": "https://kiranrao.ai/teardowns/meta-instagram.html"},
         {"company": "GEICO", "product": "Mobile App", "filename": "geico-mobile-app.html",
-         "url": "https://kirangorapalli.com/teardowns/geico-mobile-app.html"},
+         "url": "https://kiranrao.ai/teardowns/geico-mobile-app.html"},
         {"company": "Intuit", "product": "TurboTax", "filename": "intuit-turbo-tax.html",
-         "url": "https://kirangorapalli.com/teardowns/intuit-turbo-tax.html"},
+         "url": "https://kiranrao.ai/teardowns/intuit-turbo-tax.html"},
         {"company": "Airbnb", "product": "Mobile App", "filename": "airbnb-mobile.html",
-         "url": "https://kirangorapalli.com/teardowns/airbnb-mobile.html"},
+         "url": "https://kiranrao.ai/teardowns/airbnb-mobile.html"},
     ]
 
     return {"published": known, "steps": STEPS}
@@ -314,7 +314,7 @@ def _assemble_from_template(state: dict, fragments: dict) -> str:
         "{{TITLE}}": fragments.get("title", f"{product} Product Teardown"),
         "{{TAGLINE}}": fragments.get("tagline", ""),
         "{{OG_DESCRIPTION}}": fragments.get("og_description", f"Product teardown of {company} {product}."),
-        "{{CANONICAL_URL}}": f"https://kirangorapalli.com/teardowns/{company_slug}-{product_slug}.html",
+        "{{CANONICAL_URL}}": f"https://kiranrao.ai/teardowns/{company_slug}-{product_slug}.html",
         "{{PRODUCT}}": fragments.get("title", f"{product} Product Teardown"),
         "{{BREADCRUMB_HOME_LINK}}": "../how-id-built-it.html",
         "{{BREADCRUMB_CATEGORY_LINK}}": f"{company_slug}.html",
@@ -393,7 +393,7 @@ async def _assemble_html_from_steps(state: dict, api_key: str) -> str:
         max_tokens=30000,
         messages=[{
             "role": "user",
-            "content": f"""Generate content fragments for a teardown page on kirangorapalli.com.
+            "content": f"""Generate content fragments for a teardown page on kiranrao.ai.
 
 Company: {company}
 Product: {product}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate OG card images for kirangorapalli.com"""
+"""Generate OG card images for kiranrao.ai"""
 
 import asyncio
 import json
@@ -42,7 +42,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             <div class="meta">
                 <span class="author">{author}</span>
                 <span class="separator">•</span>
-                <span class="domain">kirangorapalli.com</span>
+                <span class="domain">kiranrao.ai</span>
                 {read_time}
             </div>
         </div>

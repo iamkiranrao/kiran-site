@@ -54,7 +54,7 @@ def _build_teardown_system_prompt() -> str:
     banned = get_banned_phrases_prompt()
     anti_ai = get_anti_ai_prompt()
 
-    return f"""You are helping Kiran Rao build a product teardown page for his portfolio site at kirangorapalli.com. This is a co-creation process: you do the research and drafting, Kiran makes the decisions. The teardown must sound like a real PM wrote it, not like AI generated it. His credibility is on the line.
+    return f"""You are helping Kiran Rao build a product teardown page for his portfolio site at kiranrao.ai. This is a co-creation process: you do the research and drafting, Kiran makes the decisions. The teardown must sound like a real PM wrote it, not like AI generated it. His credibility is on the line.
 
 {anti_ai}
 

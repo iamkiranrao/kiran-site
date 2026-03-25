@@ -82,7 +82,7 @@ switch (command) {
         console.log(`  Code:     ${code}`);
         console.log(`  For:      ${name}`);
         console.log(`  Expires:  ${expires.toLocaleDateString()} ${expires.toLocaleTimeString()}`);
-        console.log(`\n  Direct link: https://kirangorapalli.com/career-highlights.html?code=${code}`);
+        console.log(`\n  Direct link: https://kiranrao.ai/career-highlights.html?code=${code}`);
         console.log('\n  Run "manage-codes.js export" to get the Netlify env var value.\n');
         break;
     }

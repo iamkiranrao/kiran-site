@@ -478,11 +478,11 @@ export default function TeardownsPage() {
           <div className="space-y-2.5">
             {/* Hardcoded legacy teardowns */}
             {[
-              { name: "Meta / Instagram", url: "https://kirangorapalli.com/teardowns/meta-instagram.html" },
-              { name: "GEICO / Mobile App", url: "https://kirangorapalli.com/teardowns/geico-mobile-app.html" },
-              { name: "Intuit / TurboTax", url: "https://kirangorapalli.com/teardowns/intuit-turbo-tax.html" },
-              { name: "Airbnb / Mobile App", url: "https://kirangorapalli.com/teardowns/airbnb-mobile.html" },
-              { name: "Spotify / Playlist Discovery", url: "https://kirangorapalli.com/teardowns/spotify-playlist-discovery.html" },
+              { name: "Meta / Instagram", url: "https://kiranrao.ai/teardowns/meta-instagram.html" },
+              { name: "GEICO / Mobile App", url: "https://kiranrao.ai/teardowns/geico-mobile-app.html" },
+              { name: "Intuit / TurboTax", url: "https://kiranrao.ai/teardowns/intuit-turbo-tax.html" },
+              { name: "Airbnb / Mobile App", url: "https://kiranrao.ai/teardowns/airbnb-mobile.html" },
+              { name: "Spotify / Playlist Discovery", url: "https://kiranrao.ai/teardowns/spotify-playlist-discovery.html" },
             ].map((td, i) => (
               <div key={`legacy-${i}`} className="flex items-center justify-between py-1.5">
                 <span className="text-sm text-[var(--text-primary)]">{td.name}</span>
@@ -501,7 +501,7 @@ export default function TeardownsPage() {
               .filter((s) => s.status === "published")
               .map((s) => {
                 const slug = `${s.company.toLowerCase().replace(/\s+/g, "-")}-${s.product.toLowerCase().replace(/\s+/g, "-")}`;
-                const url = `https://kirangorapalli.com/teardowns/${slug}.html`;
+                const url = `https://kiranrao.ai/teardowns/${slug}.html`;
                 return (
                   <div key={s.session_id} className="flex items-center justify-between py-1.5">
                     <span className="text-sm text-[var(--text-primary)]">

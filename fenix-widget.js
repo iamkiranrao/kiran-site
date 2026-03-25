@@ -1,5 +1,5 @@
 /**
- * Fenix Chat Widget — kirangorapalli.com
+ * Fenix Chat Widget — kiranrao.ai
  *
  * A floating chat overlay that connects to the Fenix backend via SSE.
  * Lazy-loaded, vanilla JS, no dependencies.
@@ -18,7 +18,7 @@
     // Configuration
     // ──────────────────────────────────────────────
 
-    const API_BASE = 'https://api.kirangorapalli.com';
+    const API_BASE = 'https://api.kiranrao.ai';
     const CHAT_ENDPOINT = `${API_BASE}/api/v1/fenix/chat`;
     const SESSION_KEY = 'fenix_session_id';
     const FLAME_ON_KEY = 'fenix_flame_on';

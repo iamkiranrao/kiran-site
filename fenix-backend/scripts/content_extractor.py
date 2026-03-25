@@ -275,7 +275,7 @@ def extract_page(html_path: Path, site_root: Path) -> tuple[dict, str, list[dict
         "title": meta.og_title or meta.title,
         "description": meta.og_description or meta.description,
         "url": url,
-        "canonical_url": meta.canonical or f"https://kirangorapalli.com{url}",
+        "canonical_url": meta.canonical or f"https://kiranrao.ai{url}",
         "og_image": meta.og_image,
         "og_type": meta.og_type,
         "json_ld": meta.json_ld,
@@ -429,7 +429,7 @@ def main():
     output = {
         "version": "1.0",
         "extracted_at": __import__("datetime").datetime.utcnow().isoformat() + "Z",
-        "site": "https://kirangorapalli.com",
+        "site": "https://kiranrao.ai",
         "page_count": len(results),
         "pages": results,
     }
