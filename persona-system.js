@@ -36,8 +36,7 @@
         { value: '25', label: 'Architectural components' },
         { value: '3', label: 'AI systems built in' },
         { value: '7', label: 'APIs integrated' },
-        { value: '0', label: 'Frameworks used' },
-        { value: '0', label: 'Meetings required to ship' }
+        { value: '0', label: 'Frameworks used' }
       ]
     },
     seeker: {
@@ -148,8 +147,7 @@
         { value: '7', label: 'APIs integrated' },
         { value: '25', label: 'Components, zero dependencies' },
         { value: '18', label: 'CSS design tokens' },
-        { value: '730+', label: 'A11y markers across 43 files' },
-        { value: '0', label: 'node_modules folders' }
+        { value: '730+', label: 'A11y markers across 43 files' }
       ]
     },
     innercircle: {
