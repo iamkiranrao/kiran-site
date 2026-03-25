@@ -934,11 +934,11 @@ section {
 
 .work-card {
     background: transparent;
-    border-radius: 0;
+    border-radius: 8px;
     overflow: hidden;
     color: var(--text-primary);
-    transition: opacity 0.4s ease;
-    border: none;
+    transition: opacity 0.4s ease, border-color 0.3s ease;
+    border: 1px solid var(--border);
     cursor: pointer;
     text-align: left;
     width: 100%;
@@ -948,7 +948,8 @@ section {
 }
 
 .work-card:hover {
-    opacity: 0.9;
+    opacity: 0.95;
+    border-color: var(--text-secondary);
 }
 
 .work-card:focus {
@@ -956,26 +957,12 @@ section {
     outline-offset: 2px;
 }
 
-/* Hero card (4-span) gets horizontal layout on desktop */
-.card-span-4 {
-    flex-direction: row;
-    align-items: stretch;
-}
-
-.card-span-4 .work-image {
-    width: 50%;
-    flex-shrink: 0;
-    aspect-ratio: auto;
-}
-
-.card-span-4 .work-info {
-    padding: 1.5rem;
-    justify-content: center;
-}
+/* Hero card (4-span) keeps vertical layout but gets more presence from width */
+/* No horizontal layout — let the wider span do the work */
 
 .work-image {
     width: 100%;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 5 / 3;
     border-radius: 0;
     position: relative;
     display: flex;
@@ -1026,7 +1013,7 @@ section {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 1rem 0 0;
+    padding: 1rem 1.25rem 1.25rem;
     flex: 1;
 }
 
@@ -1608,10 +1595,6 @@ footer {
     .work-grid.bento .card-span-3,
     .work-grid.bento .card-span-4,
     .work-grid.bento .card-span-6 { grid-column: span 1; }
-    /* Hero card reverts to vertical on tablet */
-    .card-span-4 { flex-direction: column; }
-    .card-span-4 .work-image { width: 100%; aspect-ratio: 16 / 10; }
-    .card-span-4 .work-info { padding: 1rem 0 0; }
     .work-intro { padding: 2rem 2.5rem; margin: 0 2.5rem; }
     .work-intro-left { padding-right: 2.5rem; }
     .work-intro-right { padding-left: 2.5rem; }
@@ -2059,13 +2042,11 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 /* ── Accent: Work Card Hover — Border/Glow ─────── */
 .persona-active .work-card {
     transition: opacity 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid transparent;
-    border-radius: 8px;
 }
 
 .persona-active .work-card:hover {
     opacity: 1;
-    border-color: var(--persona-accent, transparent);
+    border-color: var(--persona-accent, rgba(255,255,255,0.12));
     box-shadow: 0 0 20px color-mix(in srgb, var(--persona-accent) 25%, transparent);
 }
 
