@@ -35,8 +35,8 @@
         { value: '~6 wks', label: 'First commit → live site' },
         { value: '25', label: 'Architectural components' },
         { value: '3', label: 'Live prototypes shipped' },
-        { value: '7', label: 'APIs integrated' },
-        { value: '0', label: 'Frameworks used' }
+        { value: '3', label: 'AI systems built in' },
+        { value: '7', label: 'APIs integrated' }
       ]
     },
     seeker: {
@@ -59,9 +59,8 @@
         { label: 'Founder case studies', desc: 'How I\'ve helped founders ship from 0 to 1.', icon: 'briefcase', link: '#' }
       ],
       metrics: [
-        { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
         { value: null, label: 'Commits, one at a time', live: true },
-        { value: '4,279', label: 'Lines of custom CSS, no library' },
+        { value: '3', label: 'AI systems wired in' },
         { value: '3', label: 'Live prototypes, built to explore' },
         { value: '0', label: 'Times I asked for permission' }
       ]
@@ -115,11 +114,9 @@
       ],
       metrics: [
         { value: null, label: 'Commits to learn from', live: true },
-        { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
+        { value: '3', label: 'AI systems to explore' },
         { value: '3', label: 'Prototypes you can try' },
-        { value: '7', label: 'APIs you can trace' },
-        { value: '2,414', label: 'Lines of JS, all readable' },
-        { value: '1,000+', label: "console.log('why??') calls" }
+        { value: '6', label: 'Persona lenses' }
       ]
     },
     technologist: {
@@ -145,9 +142,8 @@
         { value: null, label: 'Commits, no deploy pipeline', live: true },
         { value: '3', label: 'AI prototypes, different stacks' },
         { value: '7', label: 'APIs integrated' },
-        { value: '25', label: 'Components, zero dependencies' },
-        { value: '18', label: 'CSS design tokens' },
-        { value: '730+', label: 'A11y markers across 43 files' }
+        { value: '25', label: 'Architectural components' },
+        { value: '730+', label: 'Accessibility markers' }
       ]
     },
     innercircle: {
