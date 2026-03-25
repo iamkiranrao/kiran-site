@@ -933,9 +933,14 @@ section {
 .card-span-4 { grid-column: span 4; }
 .card-span-6 { grid-column: span 6; }
 
+/* Adjust gradient image height per card size for visual balance */
+.card-span-2 .work-image { height: 100px; }
+.card-span-3 .work-image { height: 120px; }
+.card-span-4 .work-image { height: 160px; }
+
 .work-card {
     background: transparent;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
     color: var(--text-primary);
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -946,6 +951,10 @@ section {
     display: flex;
     flex-direction: column;
     position: relative;
+    background: linear-gradient(135deg, rgba(0,0,0,0.05), rgba(0,0,0,0.1));
+    box-shadow:
+        inset 0 1px 0 0 rgba(255,255,255,0.1),
+        0 4px 12px rgba(0,0,0,0.15);
 }
 
 [data-theme="light"] .work-card {
@@ -953,14 +962,18 @@ section {
 }
 
 .work-card:hover {
-    transform: scale(1.02);
-    border-color: rgba(255,255,255,0.25);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,0.2);
+    box-shadow:
+        inset 0 1px 0 0 rgba(255,255,255,0.15),
+        0 12px 32px rgba(0,0,0,0.25);
 }
 
 [data-theme="light"] .work-card:hover {
-    border-color: var(--text-secondary);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    border-color: var(--border);
+    box-shadow:
+        inset 0 1px 0 0 rgba(255,255,255,0.2),
+        0 12px 32px rgba(0,0,0,0.08);
 }
 
 .work-card:focus {
@@ -968,13 +981,10 @@ section {
     outline-offset: 2px;
 }
 
-/* Hero card (4-span) keeps vertical layout but gets more presence from width */
-/* No horizontal layout — let the wider span do the work */
-
-/* Compact color header strip — replaces photo images */
+/* Gradient background container for visual interest */
 .work-image {
     width: 100%;
-    height: 32px;
+    height: 140px;
     border-radius: 0;
     position: relative;
     display: flex;
@@ -982,28 +992,51 @@ section {
     justify-content: center;
     overflow: hidden;
     margin-bottom: 0;
+    background-size: 150% 150%;
+    background-position: 0% 0%;
+    transition: background-position 0.4s ease;
 }
 
 .work-image img {
     display: none; /* Photos replaced by color headers — remove when icons are ready */
 }
 
-/* Warm background colors per card */
-#how-id-built-it .work-image { background: #8fa89a; }
-#my-work .work-image { background: #c4a882; }
-#my-sandbox .work-image { background: #a8946e; }
-#creative-lab .work-image { background: #7d9aaa; }
-#blog-podcast .work-image { background: #9a8fac; }
-#learning .work-image { background: #8a9e7d; }
-#now .work-image { background: #a08a7a; }
-#under-the-hood .work-image { background: #8a7d6e; }
-#testimonials .work-image { background: #9a8a7a; }
+/* Gradient backgrounds per card — base color to darker shade with angle variation */
+#how-id-built-it .work-image {
+    background: linear-gradient(135deg, #8fa89a 0%, #6b8580 100%);
+}
+#my-work .work-image {
+    background: linear-gradient(120deg, #c4a882 0%, #9d7f57 100%);
+}
+#my-sandbox .work-image {
+    background: linear-gradient(145deg, #a8946e 0%, #7d6d47 100%);
+}
+#creative-lab .work-image {
+    background: linear-gradient(130deg, #7d9aaa 0%, #577b8f 100%);
+}
+#blog-podcast .work-image {
+    background: linear-gradient(140deg, #9a8fac 0%, #6f6485 100%);
+}
+#learning .work-image {
+    background: linear-gradient(125deg, #8a9e7d 0%, #66764f 100%);
+}
+#now .work-image {
+    background: linear-gradient(135deg, #a08a7a 0%, #765d4d 100%);
+}
+#under-the-hood .work-image {
+    background: linear-gradient(140deg, #8a7d6e 0%, #5f5247 100%);
+}
+#testimonials .work-image {
+    background: linear-gradient(128deg, #9a8a7a 0%, #6d5f54 100%);
+}
 
-/* Placeholder icon in color header — temporary until Kiran provides real icons */
+/* Prominent icon — larger and more visible */
 .work-icon-placeholder {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.4);
+    font-size: 32px;
+    color: rgba(255,255,255,0.85);
     line-height: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
 }
 
 /* ── Card Eyebrow ──────────────────────────────── */
@@ -1012,16 +1045,37 @@ section {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--text-secondary);
+    color: rgba(255,255,255,0.7);
     margin-bottom: 0;
+}
+
+[data-theme="light"] .work-eyebrow {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .work-desc {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .work-title {
+    color: var(--text-primary);
 }
 
 .work-info {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    padding: 0.6rem 0.9rem 0.75rem;
+    padding: 1rem 1rem 1.2rem;
     flex: 1;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    position: relative;
+    z-index: 2;
+}
+
+[data-theme="light"] .work-info {
+    background: linear-gradient(to top, rgba(0,0,0,0.05), transparent);
 }
 
 .work-title {
@@ -1030,10 +1084,11 @@ section {
     margin-bottom: 0;
     letter-spacing: -0.02em;
     line-height: 1.2;
+    color: #ffffff;
 }
 
 .work-desc {
-    color: var(--text-secondary);
+    color: rgba(255,255,255,0.8);
     margin-bottom: 0;
     line-height: 1.4;
     font-size: 0.75rem;
@@ -1072,13 +1127,17 @@ section {
     bottom: 0.5rem;
     right: 0.6rem;
     font-size: 1rem;
-    color: var(--text-secondary);
+    color: rgba(255,255,255,0.6);
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+[data-theme="light"] .work-arrow {
+    color: var(--text-secondary);
+}
+
 .work-card:hover .work-arrow {
-    opacity: 0.7;
+    opacity: 0.8;
     transform: translateX(4px);
 }
 
