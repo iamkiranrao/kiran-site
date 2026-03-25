@@ -404,7 +404,9 @@ const cardConfig = [
     { id: 'creative-lab', title: 'Studio', link: 'studio.html', sameTab: true },
     { id: 'blog-podcast', title: 'Blog & Podcast', link: 'blog-podcast.html', sameTab: true },
     { id: 'learning', title: 'Learning', link: 'learning.html', sameTab: true },
-    { id: 'now', title: '/Now', link: 'now.html', sameTab: true }
+    { id: 'now', title: '/Now', link: 'now.html', sameTab: true },
+    { id: 'under-the-hood', title: 'Under the Hood', link: 'under-the-hood.html', sameTab: true },
+    { id: 'testimonials', title: 'Testimonials', link: null }
 ];
 
 // Build ID-based lookup for card config
