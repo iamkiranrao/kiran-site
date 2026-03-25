@@ -22,7 +22,8 @@
       description: '15 years shipping products across mobile, AI, and fintech. I\'ve led teams at companies you\'ve heard of and startups you haven\'t — always focused on the gap between what users say they want and what actually moves the needle. This site is built the way I build products: ship fast, iterate in public, sweat the details.',
       socialLinks: ['linkedin', 'github', 'substack'],
       competencyOrder: ['Product Strategy', 'Go-to-Market Strategy', 'Delivery & Execution', 'Growth & Adoption', 'AI Integration', 'Digital Transformation'],
-      cardOrder: ['my-work', 'how-id-built-it', 'blog-podcast', 'my-sandbox', 'creative-lab', 'certifications', 'causes', 'store'],
+      heroCard: 'how-id-built-it',
+      cardOrder: ['how-id-built-it', 'my-work', 'my-sandbox', 'creative-lab', 'blog-podcast', 'learning', 'now'],
       contactSubtext: "I'd love to hear about the role.",
       fenixTooltip: 'Curious about my product experience? Ask me anything.',
       unlocks: [
@@ -50,7 +51,8 @@
       description: 'I\'ve been the first PM at startups and the PM who rebuilt products at scale. I know what it\'s like to have more conviction than clarity — and I know how to turn that into a roadmap that actually ships. If you\'re building something and need someone who gets it, you\'re in the right place.',
       socialLinks: ['linkedin', 'github'],
       competencyOrder: ['Go-to-Market Strategy', 'Product Strategy', 'Growth & Adoption', 'Delivery & Execution', 'AI Integration', 'Digital Transformation'],
-      cardOrder: ['my-work', 'my-sandbox', 'how-id-built-it', 'blog-podcast', 'creative-lab', 'certifications', 'causes', 'store'],
+      heroCard: 'my-work',
+      cardOrder: ['my-work', 'how-id-built-it', 'my-sandbox', 'creative-lab', 'blog-podcast', 'learning', 'now'],
       contactSubtext: 'Tell me what you\'re building.',
       fenixTooltip: 'Tell me what you\'re building — I\'ll show you how I\'d think about it.',
       unlocks: [
@@ -76,7 +78,8 @@
       description: 'You know the feeling of staring at a prioritization framework and knowing it\'s wrong but not being able to say why? That\'s what I write about. This site is where I publish teardowns, poke at product decisions, and document the tradeoffs nobody talks about in all-hands. Browse like a peer — the interesting stuff is in the reasoning, not the outcomes.',
       socialLinks: ['linkedin', 'substack', 'github'],
       competencyOrder: ['Product Strategy', 'AI Integration', 'Go-to-Market Strategy', 'Digital Transformation', 'Growth & Adoption', 'Delivery & Execution'],
-      cardOrder: ['how-id-built-it', 'my-sandbox', 'my-work', 'blog-podcast', 'creative-lab', 'certifications', 'causes', 'store'],
+      heroCard: 'how-id-built-it',
+      cardOrder: ['how-id-built-it', 'my-work', 'my-sandbox', 'creative-lab', 'blog-podcast', 'learning', 'now'],
       contactSubtext: "I'm always up for a product debate.",
       fenixTooltip: 'Want the reasoning behind a specific teardown? Let\'s dig in.',
       unlocks: [
@@ -104,7 +107,8 @@
       description: 'I didn\'t start in product. I got here by being curious, building things, and learning in public. This site is that philosophy made real — everything you see here, I built from scratch with no framework and no permission. If you\'re trying to break into PM or just figure out what kind of builder you are, look around. I built this for you too.',
       socialLinks: ['linkedin', 'substack'],
       competencyOrder: ['Growth & Adoption', 'Product Strategy', 'AI Integration', 'Go-to-Market Strategy', 'Digital Transformation', 'Delivery & Execution'],
-      cardOrder: ['blog-podcast', 'how-id-built-it', 'certifications', 'my-sandbox', 'my-work', 'creative-lab', 'causes', 'store'],
+      heroCard: 'blog-podcast',
+      cardOrder: ['blog-podcast', 'how-id-built-it', 'my-sandbox', 'creative-lab', 'my-work', 'learning', 'now'],
       contactSubtext: 'Happy to chat about your PM journey.',
       fenixTooltip: 'Got a PM interview coming up? I can help you prep.',
       unlocks: [
@@ -130,7 +134,8 @@
       description: 'Vanilla JS, no build step, 25 architectural components, 3 AI systems — including a RAG chatbot you can talk to right now. I built this site the way I think about product: understand the constraints, pick the right abstractions, ship without ceremony. View source works. The repo is the documentation.',
       socialLinks: ['linkedin', 'github'],
       competencyOrder: ['AI Integration', 'Product Strategy', 'Digital Transformation', 'Delivery & Execution', 'Go-to-Market Strategy', 'Growth & Adoption'],
-      cardOrder: ['my-sandbox', 'how-id-built-it', 'creative-lab', 'my-work', 'blog-podcast', 'certifications', 'causes', 'store'],
+      heroCard: 'my-sandbox',
+      cardOrder: ['my-sandbox', 'how-id-built-it', 'creative-lab', 'my-work', 'blog-podcast', 'learning', 'now'],
       contactSubtext: "Let's geek out.",
       fenixTooltip: 'Want to see how I built this site with AI? Ask me.',
       unlocks: [
@@ -157,7 +162,8 @@
       description: 'You already know the story — the late nights, the existential spirals, the "just one more thing" that turned into this. I built a site with AI personas, a chatbot named Fenix, and a commit history that proves I haven\'t slept since February. This is the most me thing I\'ve ever made. Poke around. Roast it. You have full access.',
       socialLinks: ['linkedin'],
       competencyOrder: null, // no reorder
-      cardOrder: ['creative-lab', 'my-sandbox', 'causes', 'blog-podcast', 'my-work', 'how-id-built-it', 'certifications', 'store'],
+      heroCard: 'now',
+      cardOrder: ['now', 'creative-lab', 'my-sandbox', 'my-work', 'blog-podcast', 'learning', 'how-id-built-it'],
       contactSubtext: 'You already have my number.',
       fenixTooltip: "Hey — Flame On is already turned on for you.",
       unlocks: [
@@ -487,8 +493,8 @@
     // Competency reorder (1.3)
     applyCompetencyReorder(config.competencyOrder);
 
-    // Card reorder (1.4)
-    applyCardReorder(config.cardOrder);
+    // Card reorder (1.4) + bento hero swap
+    applyCardReorder(config.cardOrder, config.heroCard);
 
     // Contact CTA subtext (1.7)
     applyContactSubtext(config.contactSubtext);
@@ -531,7 +537,11 @@
     });
   }
 
-  function applyCardReorder(order) {
+  // Bento span pattern: [4, 2, 3, 3, 2, 2, 2]
+  // Row 1: hero(4) + sidekick(2), Row 2: pair(3+3), Row 3: trio(2+2+2)
+  var BENTO_SPANS = [4, 2, 3, 3, 2, 2, 2];
+
+  function applyCardReorder(order, heroCardId) {
     if (!order || !order.length) return;
     var grid = document.querySelector('.work-grid');
     if (!grid) return;
@@ -542,8 +552,24 @@
       cardMap[card.id] = card;
     });
 
+    // Reorder cards in DOM
     order.forEach(function (id) {
       if (cardMap[id]) grid.appendChild(cardMap[id]);
+    });
+
+    // Apply bento span classes based on position
+    var reordered = Array.from(grid.children);
+    reordered.forEach(function (card, i) {
+      // Strip existing span classes
+      card.classList.remove('card-span-2', 'card-span-3', 'card-span-4', 'card-span-6');
+      // Apply span based on position in bento pattern
+      var span = BENTO_SPANS[i] || 2;
+      card.classList.add('card-span-' + span);
+
+      // Hero card gets horizontal layout
+      if (i === 0 && span === 4) {
+        card.style.flexDirection = '';  // Let CSS handle it
+      }
     });
   }
 
