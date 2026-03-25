@@ -38,8 +38,8 @@ const TOOL_CATEGORIES: ToolCategory[] = [
       },
       {
         name: "Google Search Console",
-        url: "https://search.google.com/search-console?resource_id=sc-domain:kirangorapalli.com",
-        description: "Search performance, indexing, Core Web Vitals — domain: kirangorapalli.com. Sign in: Google account",
+        url: "https://search.google.com/search-console?resource_id=sc-domain:kiranrao.ai",
+        description: "Search performance, indexing, Core Web Vitals — domain: kiranrao.ai. Sign in: Google account",
         guideSlug: "google-search-console",
       },
     ],
@@ -51,7 +51,7 @@ const TOOL_CATEGORIES: ToolCategory[] = [
       {
         name: "Cloudflare Pages",
         url: "https://dash.cloudflare.com/",
-        description: "Static site hosting, CDN, DNS, SSL — kirangorapalli.com. Auto-deploys from kiran-site/main",
+        description: "Static site hosting, CDN, DNS, SSL — kiranrao.ai. Auto-deploys from kiran-site/main",
         guideSlug: "cloudflare",
       },
       {
@@ -141,17 +141,17 @@ const TOOL_CATEGORIES: ToolCategory[] = [
     links: [
       {
         name: "Google PageSpeed Insights",
-        url: "https://pagespeed.web.dev/analysis?url=https://kirangorapalli.com",
-        description: "Core Web Vitals, performance, accessibility — pre-loaded for kirangorapalli.com",
+        url: "https://pagespeed.web.dev/analysis?url=https://kiranrao.ai",
+        description: "Core Web Vitals, performance, accessibility — pre-loaded for kiranrao.ai",
       },
       {
         name: "Rich Results Test",
-        url: "https://search.google.com/test/rich-results?url=https://kirangorapalli.com",
+        url: "https://search.google.com/test/rich-results?url=https://kiranrao.ai",
         description: "JSON-LD, Open Graph validation — check after changing structured data",
       },
       {
         name: "Sitemap",
-        url: "https://kirangorapalli.com/sitemap.xml",
+        url: "https://kiranrao.ai/sitemap.xml",
         description: "Live sitemap — verify every published page is listed. Update after adding pages",
       },
     ],
@@ -198,7 +198,7 @@ const TOOL_CATEGORIES: ToolCategory[] = [
       },
       {
         name: "DIA Fund (Portfolio)",
-        url: "https://kirangorapalli.com/the-dia-fund.html",
+        url: "https://kiranrao.ai/the-dia-fund.html",
         description: "DIA Fund page on portfolio site — charity partners, Dia's roadmap",
       },
     ],
@@ -234,28 +234,28 @@ const TOOL_CATEGORIES: ToolCategory[] = [
     color: "var(--text-secondary)",
     links: [
       {
-        name: "kirangorapalli.com",
-        url: "https://kirangorapalli.com",
+        name: "kiranrao.ai",
+        url: "https://kiranrao.ai",
         description: "Production homepage — Cloudflare Pages, auto-deployed from GitHub",
       },
       {
         name: "Teardowns Hub",
-        url: "https://kirangorapalli.com/how-id-built-it.html",
+        url: "https://kiranrao.ai/how-id-built-it.html",
         description: "All published product teardowns — GEICO, Airbnb, Amazon, Spotify, Meta, TurboTax",
       },
       {
         name: "Blog",
-        url: "https://kirangorapalli.com/blog.html",
+        url: "https://kiranrao.ai/blog.html",
         description: "All published blog posts",
       },
       {
         name: "MadLab",
-        url: "https://kirangorapalli.com/madlab.html",
+        url: "https://kiranrao.ai/madlab.html",
         description: "Prototypes and experiments — Scannibal, chatbots, AI tools",
       },
       {
         name: "Career Highlights",
-        url: "https://kirangorapalli.com/career-highlights.html",
+        url: "https://kiranrao.ai/career-highlights.html",
         description: "Professional background, experience timeline, certifications",
       },
     ],

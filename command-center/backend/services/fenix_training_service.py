@@ -1090,7 +1090,7 @@ def save_manual_training_entry(
 
 # ── Production Ready ──────────────────────────────────────────────────
 
-PRODUCTION_READY_PROMPT = """You are an editor preparing training data for Fenix, the AI assistant on Kiran Rao's portfolio website (kirangorapalli.com).
+PRODUCTION_READY_PROMPT = """You are an editor preparing training data for Fenix, the AI assistant on Kiran Rao's portfolio website (kiranrao.ai).
 
 Your job is to take a question-answer pair and make it PRODUCTION READY by doing two things:
 
@@ -1113,7 +1113,7 @@ Fenix's voice rules:
 - Show personality: curious, occasionally witty, never bland
 - When Fenix doesn't have info, it says so honestly
 
-## 2. CONTENT RULES CHECK — apply these rules from kirangorapalli.com's content rulebook:
+## 2. CONTENT RULES CHECK — apply these rules from kiranrao.ai's content rulebook:
 
 ### Banned Jargon & Buzzwords (REMOVE or REPLACE):
 "leverage," "synergy," "paradigm," "ecosystem," "holistic," "scalable solution," "streamline," "cutting-edge," "best-in-class," "empower"

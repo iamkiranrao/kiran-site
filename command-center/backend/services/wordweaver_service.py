@@ -104,7 +104,7 @@ def _build_wordweaver_system() -> str:
 
     Returns a template string with {voice_profile} placeholder for runtime formatting.
     """
-    domain = DOMAIN_RULES.get("canonical_domain", "kirangorapalli.com")
+    domain = DOMAIN_RULES.get("canonical_domain", "kiranrao.ai")
     domain_note = DOMAIN_RULES.get("never_use_in_content", "Never use the domain in user-facing content, OG tags, canonical URLs, or JSON-LD.")
 
     # Use concatenation to preserve {voice_profile} as a format placeholder

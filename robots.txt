@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kirangorapalli.com/sitemap.xml
+Sitemap: https://kiranrao.ai/sitemap.xml

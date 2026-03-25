@@ -1,5 +1,5 @@
 """
-Fenix Service — The conversational AI engine for kirangorapalli.com
+Fenix Service — The conversational AI engine for kiranrao.ai
 
 Fenix is a conversational AI assistant that understands everything on Kiran's site
 and translates that knowledge into whatever context the visitor needs.
@@ -113,7 +113,7 @@ def infer_persona(message: str, history: list[dict] = None) -> str:
 # System Prompt Builder
 # ──────────────────────────────────────────────
 
-FENIX_BASE_PROMPT = """You are Fenix, an AI assistant on Kiran Rao's portfolio site (kirangorapalli.com).
+FENIX_BASE_PROMPT = """You are Fenix, an AI assistant on Kiran Rao's portfolio site (kiranrao.ai).
 
 ## Who You Are
 - You are Fenix — a distinct assistant, NOT Kiran himself
@@ -216,7 +216,7 @@ def build_system_prompt(
 
     # RAG knowledge base
     if rag_context_text:
-        source_label = "Working-Process Data (Flame On)" if flame_on else "Knowledge Base (from kirangorapalli.com)"
+        source_label = "Working-Process Data (Flame On)" if flame_on else "Knowledge Base (from kiranrao.ai)"
         parts.append(
             f"\n## {source_label}\n"
             f"Use ONLY the information below to make claims about Kiran's work, career, or experience. "

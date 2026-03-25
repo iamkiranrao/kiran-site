@@ -143,7 +143,7 @@ def chunk_page(page: dict) -> list[Chunk]:
     content_id = page["id"]
     content_type = page["content_type"]
     url = page["url"]
-    canonical_url = page.get("canonical_url", f"https://kirangorapalli.com{url}")
+    canonical_url = page.get("canonical_url", f"https://kiranrao.ai{url}")
     title = page["title"]
 
     chunks = []
@@ -216,7 +216,7 @@ def chunk_page(page: dict) -> list[Chunk]:
         summary_text = (
             f"Page: {title}.\n"
             f"Type: {content_type}.\n"
-            f"URL: https://kirangorapalli.com{url}\n\n"
+            f"URL: https://kiranrao.ai{url}\n\n"
             f"Summary: {summary}"
         )
         if page.get("skills"):

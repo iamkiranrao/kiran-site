@@ -145,7 +145,7 @@ const doc = new Document({
           new TextRun({ text: "  |  ", font: FONT, size: CONTACT_SIZE }),
           new ExternalHyperlink({
             children: [new TextRun({ text: "Portfolio", font: FONT, size: CONTACT_SIZE, style: "Hyperlink" })],
-            link: "https://kirangorapalli.com",
+            link: "https://kiranrao.ai",
           }),
         ],
       }),

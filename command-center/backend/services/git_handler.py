@@ -1,5 +1,5 @@
 """
-Git Handler Service — Manages git operations for publishing to kirangorapalli.com.
+Git Handler Service — Manages git operations for publishing to kiranrao.ai.
 
 Publishing checklist (for teardowns):
 1. Save teardown to teardowns/[product].html
@@ -155,21 +155,21 @@ class GitHandler:
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
-    <link rel="canonical" href="https://kirangorapalli.com/teardowns/{company_slug}.html">
+    <link rel="canonical" href="https://kiranrao.ai/teardowns/{company_slug}.html">
     <meta name="theme-color" content="#0a0a0a">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="{company} Teardowns - Kiran Rao">
     <meta property="og:description" content="Product analysis and redesign proposals for {company} products.">
-    <meta property="og:url" content="https://kirangorapalli.com/teardowns/{company_slug}.html">
-    <meta property="og:image" content="https://kirangorapalli.com/images/og-image.png">
+    <meta property="og:url" content="https://kiranrao.ai/teardowns/{company_slug}.html">
+    <meta property="og:image" content="https://kiranrao.ai/images/og-image.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{company} Teardowns - Kiran Rao">
     <meta name="twitter:description" content="Product analysis and redesign proposals for {company} products.">
-    <meta name="twitter:image" content="https://kirangorapalli.com/images/og-image.png">
+    <meta name="twitter:image" content="https://kiranrao.ai/images/og-image.png">
 
     <style>
         /* ============================================
@@ -851,7 +851,7 @@ class GitHandler:
             "status": "published",
             "files": changed_files,
             "commit": result,
-            "url": f"https://kirangorapalli.com/teardowns/{filename}",
+            "url": f"https://kiranrao.ai/teardowns/{filename}",
         }
 
     async def publish_blog_post(
@@ -919,7 +919,7 @@ class GitHandler:
             "status": "published",
             "files": changed_files,
             "commit": result,
-            "url": f"https://kirangorapalli.com/blog/{filename}",
+            "url": f"https://kiranrao.ai/blog/{filename}",
         }
 
     async def commit_and_push(self, message: str, files: List[str]) -> dict:
@@ -956,7 +956,7 @@ class GitHandler:
         """Create a sitemap XML entry."""
         today = datetime.now().strftime("%Y-%m-%d")
         return f"""  <url>
-    <loc>https://kirangorapalli.com/{path}</loc>
+    <loc>https://kiranrao.ai/{path}</loc>
     <lastmod>{today}</lastmod>
     <priority>0.8</priority>
   </url>"""

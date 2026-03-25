@@ -1,13 +1,13 @@
 {
   "version": "1.0",
   "extracted_at": "2026-03-03T00:49:29.559816Z",
-  "site": "https://kirangorapalli.com",
+  "site": "https://kiranrao.ai",
   "page_count": 19,
   "pages": [
     {
       "id": "demystifying-apple-pay-blog",
       "url": "/blog/demystifying-apple-pay.html",
-      "canonical_url": "https://kirangorapalli.com/blog/demystifying-apple-pay.html",
+      "canonical_url": "https://kiranrao.ai/blog/demystifying-apple-pay.html",
       "title": "Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go'",
       "description": "From Wells Fargo's 2014 launch complexity to today's seamless experience - understanding the architecture that makes Apple Pay work - from device hardware to issuing bank - and the strategic principles every payments PM should know.",
       "content_type": "blog",
@@ -48,7 +48,7 @@
       "company": "",
       "summary": "",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og/blog-demystifying-apple-pay.png",
+      "og_image": "https://kiranrao.ai/images/og/blog-demystifying-apple-pay.png",
       "og_type": "article",
       "published_date": "2024-12-19",
       "word_count": 2719,
@@ -57,7 +57,7 @@
     {
       "id": "blog-bank-ai-adoption",
       "url": "/blog/jpmorgan-llm-suite-ai-adoption.html",
-      "canonical_url": "https://kirangorapalli.com/blog/jpmorgan-llm-suite-ai-adoption.html",
+      "canonical_url": "https://kiranrao.ai/blog/jpmorgan-llm-suite-ai-adoption.html",
       "title": "The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI",
       "description": "How Bank of America got 90% of its 213,000 employees using AI - not with mandates, but by solving real problems.",
       "content_type": "blog",
@@ -112,7 +112,7 @@
       "company": "",
       "summary": "Case study of Bank of America's AI adoption strategy. BofA got 90% of 213,000 employees using AI not through mandates but by solving real problems like password resets. The article argues that successful AI adoption starts with unglamorous problems, not flashy demos.",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og/blog-jpmorgan-llm-suite-ai-adoption.png",
+      "og_image": "https://kiranrao.ai/images/og/blog-jpmorgan-llm-suite-ai-adoption.png",
       "og_type": "article",
       "published_date": "2026-02-17",
       "word_count": 1899,
@@ -121,7 +121,7 @@
     {
       "id": "blog-podcast",
       "url": "/blog-podcast.html",
-      "canonical_url": "https://kirangorapalli.com/blog-podcast.html",
+      "canonical_url": "https://kiranrao.ai/blog-podcast.html",
       "title": "Blog & Podcast - Kiran Rao",
       "description": "Long-form thinking on product, AI, and leadership.",
       "content_type": "hub-page",
@@ -178,7 +178,7 @@
       "company": "",
       "summary": "Blog articles and podcast episodes",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og/blog-listing.png",
+      "og_image": "https://kiranrao.ai/images/og/blog-listing.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 626,
@@ -187,7 +187,7 @@
     {
       "id": "career-highlights",
       "url": "/career-highlights.html",
-      "canonical_url": "https://kirangorapalli.com/career-highlights.html",
+      "canonical_url": "https://kiranrao.ai/career-highlights.html",
       "title": "Career Highlights - Kiran Rao",
       "description": "Kiran Rao - Career Highlights. 15+ years of building digital products across mobile, AI, and fintech platforms.",
       "content_type": "page",
@@ -245,7 +245,7 @@
     {
       "id": "causes",
       "url": "/causes.html",
-      "canonical_url": "https://kirangorapalli.com/causes.html",
+      "canonical_url": "https://kiranrao.ai/causes.html",
       "title": "Causes - Kiran Rao",
       "description": "Organizations and missions I believe in and support.",
       "content_type": "page",
@@ -262,7 +262,7 @@
       "company": "",
       "summary": "",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og-image.png",
+      "og_image": "https://kiranrao.ai/images/og-image.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 439,
@@ -271,7 +271,7 @@
     {
       "id": "how-id-built-it",
       "url": "/how-id-built-it.html",
-      "canonical_url": "https://kirangorapalli.com/how-id-built-it.html",
+      "canonical_url": "https://kiranrao.ai/how-id-built-it.html",
       "title": "How I'd've Built It - Kiran Rao",
       "description": "Product teardowns and redesigns of popular applications.",
       "content_type": "hub-page",
@@ -292,7 +292,7 @@
       "company": "",
       "summary": "Teardown hub page listing all company teardowns",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og/teardown-listing.png",
+      "og_image": "https://kiranrao.ai/images/og/teardown-listing.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 181,
@@ -301,7 +301,7 @@
     {
       "id": "homepage",
       "url": "/index.html",
-      "canonical_url": "https://kirangorapalli.com/",
+      "canonical_url": "https://kiranrao.ai/",
       "title": "Kiran Rao - Builder of Products People Love",
       "description": "Product Manager, Designer, and AI enthusiast based in San Francisco. Explore my work, projects, and ideas.",
       "content_type": "homepage",
@@ -390,7 +390,7 @@
       "company": "",
       "summary": "Main landing page with work cards linking to all sections",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og-image.png",
+      "og_image": "https://kiranrao.ai/images/og-image.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 687,
@@ -399,7 +399,7 @@
     {
       "id": "learning",
       "url": "/learning.html",
-      "canonical_url": "https://kirangorapalli.com/learning.html",
+      "canonical_url": "https://kiranrao.ai/learning.html",
       "title": "Learning & Certifications - Kiran Rao",
       "description": "Continuous learning across product management, AI, cloud, agile, and change management.",
       "content_type": "page",
@@ -416,7 +416,7 @@
       "company": "",
       "summary": "",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og-image.png",
+      "og_image": "https://kiranrao.ai/images/og-image.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 1608,
@@ -425,7 +425,7 @@
     {
       "id": "madlab",
       "url": "/madlab.html",
-      "canonical_url": "https://kirangorapalli.com/madlab.html",
+      "canonical_url": "https://kiranrao.ai/madlab.html",
       "title": "MadLab - Kiran Rao",
       "description": "Apps, tools, and prototypes built from scratch. A sandbox for tinkering and experimentation.",
       "content_type": "hub-page",
@@ -470,7 +470,7 @@
       "company": "",
       "summary": "Prototype hub with Netflix-style category rows",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og/madlab.png",
+      "og_image": "https://kiranrao.ai/images/og/madlab.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 528,
@@ -479,7 +479,7 @@
     {
       "id": "index-insurance-chatbot-prototypes",
       "url": "/prototypes/insurance-chatbot/index.html",
-      "canonical_url": "https://kirangorapalli.com/prototypes/insurance-chatbot/index.html",
+      "canonical_url": "https://kiranrao.ai/prototypes/insurance-chatbot/index.html",
       "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "description": "GEICO Insurance AI Assistant - LangGraph + LangChain prototype by Kiran Rao",
       "content_type": "prototype",
@@ -500,7 +500,7 @@
     {
       "id": "insurance-chatbot",
       "url": "/prototypes/insurance-chatbot/overview.html",
-      "canonical_url": "https://kirangorapalli.com/prototypes/insurance-chatbot/overview.html",
+      "canonical_url": "https://kiranrao.ai/prototypes/insurance-chatbot/overview.html",
       "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "description": "LangGraph-powered chatbot prototype with stateful claim filing and real-time graph visualization.",
       "content_type": "prototype",
@@ -548,7 +548,7 @@
           "description": "Built to demonstrate the redesign proposed in the GEICO mobile app teardown"
         }
       ],
-      "og_image": "https://kirangorapalli.com/images/og-image.png",
+      "og_image": "https://kiranrao.ai/images/og-image.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 466,
@@ -557,7 +557,7 @@
     {
       "id": "store",
       "url": "/store.html",
-      "canonical_url": "https://kirangorapalli.com/store.html",
+      "canonical_url": "https://kiranrao.ai/store.html",
       "title": "Store - Kiran Rao",
       "description": "Store coming soon.",
       "content_type": "hub-page",
@@ -574,7 +574,7 @@
       "company": "",
       "summary": "",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og-image.png",
+      "og_image": "https://kiranrao.ai/images/og-image.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 234,
@@ -583,7 +583,7 @@
     {
       "id": "studio",
       "url": "/studio.html",
-      "canonical_url": "https://kirangorapalli.com/studio.html",
+      "canonical_url": "https://kiranrao.ai/studio.html",
       "title": "Studio - Kiran Rao",
       "description": "Art, video, and experiments born from curiosity and wherever the rabbit holes lead.",
       "content_type": "hub-page",
@@ -628,7 +628,7 @@
       "company": "",
       "summary": "Creative work hub - passion projects, not deliverables",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og/studio.png",
+      "og_image": "https://kiranrao.ai/images/og/studio.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 529,
@@ -637,7 +637,7 @@
     {
       "id": "airbnb-mobile-teardowns",
       "url": "/teardowns/airbnb-mobile.html",
-      "canonical_url": "https://kirangorapalli.com/teardowns/airbnb-mobile.html",
+      "canonical_url": "https://kiranrao.ai/teardowns/airbnb-mobile.html",
       "title": "Airbnb Mobile App Teardown: When Trust Breaks Down - Kiran Rao",
       "description": "Maya Chen has booked 15+ Airbnbs over three years. She understands how the platform works - but recent friction with host cancellations, listing accuracy, and search filters that don't surface what she needs are pushing her toward hotels. This teardown examines how Airbnb's mobile experience could better serve its most valuable users.",
       "content_type": "teardown",
@@ -654,7 +654,7 @@
       "company": "",
       "summary": "",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og/teardown-airbnb-mobile.png",
+      "og_image": "https://kiranrao.ai/images/og/teardown-airbnb-mobile.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 1822,
@@ -663,7 +663,7 @@
     {
       "id": "airbnb-teardowns",
       "url": "/teardowns/airbnb.html",
-      "canonical_url": "https://kirangorapalli.com/teardowns/airbnb.html",
+      "canonical_url": "https://kiranrao.ai/teardowns/airbnb.html",
       "title": "Airbnb Teardowns - Kiran Rao",
       "description": "Product analysis and redesign proposals for Airbnb products.",
       "content_type": "teardown-hub",
@@ -680,7 +680,7 @@
       "company": "",
       "summary": "",
       "connections": [],
-      "og_image": "https://kirangorapalli.com/images/og/teardown-airbnb.png",
+      "og_image": "https://kiranrao.ai/images/og/teardown-airbnb.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 109,
@@ -689,7 +689,7 @@
     {
       "id": "geico-mobile-app-teardown",
       "url": "/teardowns/geico-mobile-app.html",
-      "canonical_url": "https://kirangorapalli.com/teardowns/geico-mobile-app.html",
+      "canonical_url": "https://kiranrao.ai/teardowns/geico-mobile-app.html",
       "title": "GEICO Mobile App Teardown - Kiran Rao",
       "description": "A product teardown of the GEICO mobile app AI assistant - analysis, redesign, and business case.",
       "content_type": "teardown",
@@ -731,7 +731,7 @@
           "description": "Listed on the GEICO company hub page"
         }
       ],
-      "og_image": "https://kirangorapalli.com/images/og/teardown-geico-mobile-app.png",
+      "og_image": "https://kiranrao.ai/images/og/teardown-geico-mobile-app.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 1902,
@@ -740,7 +740,7 @@
     {
       "id": "geico-hub",
       "url": "/teardowns/geico.html",
-      "canonical_url": "https://kirangorapalli.com/teardowns/geico.html",
+      "canonical_url": "https://kiranrao.ai/teardowns/geico.html",
       "title": "GEICO Teardowns - Kiran Rao",
       "description": "Product analysis and redesign proposals for GEICO products.",
       "content_type": "teardown-hub",
@@ -763,7 +763,7 @@
           "description": "GEICO Mobile App teardown"
         }
       ],
-      "og_image": "https://kirangorapalli.com/images/og/teardown-geico.png",
+      "og_image": "https://kiranrao.ai/images/og/teardown-geico.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 108,
@@ -772,7 +772,7 @@
     {
       "id": "meta-instagram-teardown",
       "url": "/teardowns/meta-instagram.html",
-      "canonical_url": "https://kirangorapalli.com/teardowns/meta-instagram.html",
+      "canonical_url": "https://kiranrao.ai/teardowns/meta-instagram.html",
       "title": "Instagram Teardown - Kiran Rao",
       "description": "A product teardown of Instagram - discovery, analysis, redesign, and business case.",
       "content_type": "teardown",
@@ -809,7 +809,7 @@
           "description": "Listed on the Meta company hub page"
         }
       ],
-      "og_image": "https://kirangorapalli.com/images/og/teardown-meta-instagram.png",
+      "og_image": "https://kiranrao.ai/images/og/teardown-meta-instagram.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 1748,
@@ -818,7 +818,7 @@
     {
       "id": "meta-hub",
       "url": "/teardowns/meta.html",
-      "canonical_url": "https://kirangorapalli.com/teardowns/meta.html",
+      "canonical_url": "https://kiranrao.ai/teardowns/meta.html",
       "title": "Meta Teardowns - Kiran Rao",
       "description": "Product analysis and redesign proposals for Meta products.",
       "content_type": "teardown-hub",
@@ -841,7 +841,7 @@
           "description": "Instagram teardown"
         }
       ],
-      "og_image": "https://kirangorapalli.com/images/og/teardown-meta.png",
+      "og_image": "https://kiranrao.ai/images/og/teardown-meta.png",
       "og_type": "website",
       "published_date": "",
       "word_count": 116,

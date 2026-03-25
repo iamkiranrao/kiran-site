@@ -527,7 +527,7 @@ async def _assemble_blog_html(state: dict, api_key: str) -> str:
         max_tokens=30000,
         messages=[{
             "role": "user",
-            "content": f"""You are assembling a final HTML blog page for kirangorapalli.com.
+            "content": f"""You are assembling a final HTML blog page for kiranrao.ai.
 
 CRITICAL RULE: The template below is the CANONICAL source of truth for all CSS and HTML structure. You MUST NOT modify, add, remove, or override ANY CSS properties. Copy the <style> block and all HTML structure EXACTLY. The only thing you change is replacing {{{{PLACEHOLDER}}}} values with actual content.
 
@@ -563,7 +563,7 @@ STYLE RULES (from CONTENT-RULES.md):
 - US English conventions.
 - NO em dashes anywhere. Use " - " (space-hyphen-space) instead.
 - All typography must match the template's CSS exactly.
-- Canonical domain is kirangorapalli.com in all URLs (canonical, og:url, og:image, twitter:image, JSON-LD).
+- Canonical domain is kiranrao.ai in all URLs (canonical, og:url, og:image, twitter:image, JSON-LD).
 - Every page needs its own per-post OG image (not the generic site card). The og:image URL must point to a page-specific image.
 
 VISUAL ASSETS (from step 9):
@@ -924,7 +924,7 @@ async def _generate_crosspost_markdown(html_content: str, slug: str, api_key: st
     series_match = re.search(r'class="series-banner"[^>]*>(.*?)</div>', html_content, re.DOTALL)
     series_text = re.sub(r'<[^>]+>', '', series_match.group(1)).strip().replace('·', '-') if series_match else ""
 
-    canonical_url = f"https://kirangorapalli.com/blog/{slug}.html"
+    canonical_url = f"https://kiranrao.ai/blog/{slug}.html"
 
     # Check for inline SVGs with role="img" (architecture diagrams)
     svg_diagrams = re.findall(r'<svg[^>]*role="img"[^>]*>.*?</svg>', html_content, re.DOTALL)
@@ -970,7 +970,7 @@ HEADER FORMAT:
 
 *{series_text}*
 
-*This post was originally published on [kirangorapalli.com]({canonical_url}). For the best experience - including the interactive, theme-adaptive architecture diagram - read it there.*
+*This post was originally published on [kiranrao.ai]({canonical_url}). For the best experience - including the interactive, theme-adaptive architecture diagram - read it there.*
 
 ---
 
@@ -1001,7 +1001,7 @@ After the Sources section, add:
 
 *This is {series_text if series_text else "part of a series"} - breaking down the payment systems we use every day from a product manager's perspective.*
 
-*Originally published at [kirangorapalli.com]({canonical_url})*
+*Originally published at [kiranrao.ai]({canonical_url})*
 
 *Tags: [extract from article tags in the HTML]*
 

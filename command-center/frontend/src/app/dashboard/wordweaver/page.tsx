@@ -629,7 +629,7 @@ export default function WordWeaverPage() {
                 <p className="text-sm text-[var(--text-primary)]">The Bank That Got 213,000 Employees to Actually Use AI</p>
                 <p className="text-xs text-[var(--text-muted)]">AI Change Management &middot; Case Study</p>
               </div>
-              <a href="https://kirangorapalli.com/blog/jpmorgan-llm-suite-ai-adoption.html"
+              <a href="https://kiranrao.ai/blog/jpmorgan-llm-suite-ai-adoption.html"
                 target="_blank" rel="noopener noreferrer"
                 className="text-xs text-[var(--accent-blue)] hover:underline flex items-center gap-1">
                 View <ExternalLink size={10} />

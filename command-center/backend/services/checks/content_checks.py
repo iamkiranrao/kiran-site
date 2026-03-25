@@ -444,7 +444,7 @@ register_check(
 # ── Check: Canonical URL ─────────────────────────────────────────
 
 def _check_canonical_url(file_path, html, visible_text):
-    """Verify canonical URLs use kirangorapalli.com, not netlify.app."""
+    """Verify canonical URLs use kiranrao.ai, not netlify.app."""
     violations = []
     rel_path = str(Path(file_path).relative_to(SITE_ROOT))
 
@@ -459,7 +459,7 @@ def _check_canonical_url(file_path, html, visible_text):
             location=rel_path,
             detail=f"Found {len(netlify_matches)} references to netlify.app domain",
             evidence="kirangorapalli.netlify.app found in HTML",
-            suggestion="Replace all kirangorapalli.netlify.app with kirangorapalli.com",
+            suggestion="Replace all kirangorapalli.netlify.app with kiranrao.ai",
             auto_fixable=True,
         ))
 
@@ -471,7 +471,7 @@ def _check_canonical_url(file_path, html, visible_text):
             location=rel_path,
             detail="Missing canonical link tag",
             evidence="No <link rel=\"canonical\"> found",
-            suggestion="Add <link rel=\"canonical\" href=\"https://kirangorapalli.com/...\">",
+            suggestion="Add <link rel=\"canonical\" href=\"https://kiranrao.ai/...\">",
             auto_fixable=False,
         ))
 
@@ -483,7 +483,7 @@ register_check(
         id="content-canonical-url",
         pillar="content",
         name="Canonical URL",
-        description="All canonical URLs must use kirangorapalli.com domain",
+        description="All canonical URLs must use kiranrao.ai domain",
         severity_default="critical",
         method="regex",
         remediation_difficulty="mechanical",

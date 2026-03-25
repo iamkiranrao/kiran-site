@@ -120,8 +120,8 @@
   },
 
   "domain_rules": {
-    "canonical_domain": "kirangorapalli.com",
-    "never_use_in_content": "Never use kirangorapalli.com in any user-facing content, OG tags, canonical URLs, or JSON-LD."
+    "canonical_domain": "kiranrao.ai",
+    "never_use_in_content": "Never use kiranrao.ai in any user-facing content, OG tags, canonical URLs, or JSON-LD."
   },
 
   "resume_overrides": {

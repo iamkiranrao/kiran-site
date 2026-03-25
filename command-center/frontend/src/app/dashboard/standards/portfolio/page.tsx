@@ -39,7 +39,7 @@ const ZONE_META: Record<FileZone, ZoneMeta> = {
     icon: <Globe className="w-4 h-4" />,
     color: "text-blue-400",
     bg: "bg-blue-500/10 border-blue-500/30",
-    description: "Live on kirangorapalli.com — these matter most",
+    description: "Live on kiranrao.ai — these matter most",
   },
   prototype: {
     label: "Prototypes & Apps",

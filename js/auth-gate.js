@@ -25,9 +25,9 @@
     'use strict';
 
     // ── Config ──────────────────────────────────────────────────
-    const API_BASE = 'https://api.kirangorapalli.com';
+    const API_BASE = 'https://api.kiranrao.ai';
     const CONFIG_ENDPOINT = `${API_BASE}/api/v1/auth/config`;
-    const SITE_URL = 'https://kirangorapalli.com';
+    const SITE_URL = 'https://kiranrao.ai';
 
     // Allow localhost for development
     const isLocal = window.location.hostname === 'localhost' ||

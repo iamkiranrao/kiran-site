@@ -6,7 +6,7 @@
 set -e
 
 TUNNEL_NAME="command-center"
-HOSTNAME="cc.kirangorapalli.com"
+HOSTNAME="cc.kiranrao.ai"
 LOCAL_SERVICE="http://localhost:8000"
 
 echo "=== Command Center Tunnel Setup ==="
@@ -31,7 +31,7 @@ fi
 if [ ! -f "$HOME/.cloudflared/cert.pem" ]; then
     echo ""
     echo "Opening browser for Cloudflare auth..."
-    echo "Select the kirangorapalli.com zone when prompted."
+    echo "Select the kiranrao.ai zone when prompted."
     cloudflared tunnel login
 else
     echo "Already authenticated with Cloudflare ✓"
