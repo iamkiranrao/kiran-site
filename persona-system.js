@@ -40,7 +40,7 @@
       ]
     },
     seeker: {
-      accent: '#8A8580',
+      accent: '#777744',
       name: 'The Seeker',
       image: 'images/seeker-phil.webp',
       character: 'Phil Thevoid',
