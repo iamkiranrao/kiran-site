@@ -933,58 +933,51 @@ section {
 .card-span-4 { grid-column: span 4; }
 .card-span-6 { grid-column: span 6; }
 
-/* Adjust gradient image height per card size for visual balance */
-.card-span-2 .work-image { height: 100px; }
-.card-span-3 .work-image { height: 120px; }
-.card-span-4 .work-image { height: 160px; }
+/* Icon area height per card size — just enough for icon + breathing room */
+.card-span-2 .work-image { height: 64px; }
+.card-span-3 .work-image { height: 80px; }
+.card-span-4 .work-image { height: 110px; }
 
 .work-card {
-    background: transparent;
     border-radius: 12px;
     overflow: hidden;
-    color: var(--text-primary);
+    color: #ffffff;
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.12);
     cursor: pointer;
     text-align: left;
     width: 100%;
     display: flex;
     flex-direction: column;
     position: relative;
-    background: linear-gradient(135deg, rgba(0,0,0,0.05), rgba(0,0,0,0.1));
-    box-shadow:
-        inset 0 1px 0 0 rgba(255,255,255,0.1),
-        0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
 }
 
 [data-theme="light"] .work-card {
-    border-color: var(--border);
+    border-color: rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .work-card:hover {
     transform: translateY(-2px);
-    border-color: rgba(255,255,255,0.2);
-    box-shadow:
-        inset 0 1px 0 0 rgba(255,255,255,0.15),
-        0 12px 32px rgba(0,0,0,0.25);
+    border-color: rgba(255,255,255,0.25);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 [data-theme="light"] .work-card:hover {
-    border-color: var(--border);
-    box-shadow:
-        inset 0 1px 0 0 rgba(255,255,255,0.2),
-        0 12px 32px rgba(0,0,0,0.08);
+    border-color: rgba(0,0,0,0.12);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 
 .work-card:focus {
-    outline: 2px solid var(--accent);
+    outline: 2px solid rgba(255,255,255,0.5);
     outline-offset: 2px;
 }
 
-/* Gradient background container for visual interest */
+/* Icon container — transparent so card gradient shows through */
 .work-image {
     width: 100%;
-    height: 140px;
+    height: 80px;
     border-radius: 0;
     position: relative;
     display: flex;
@@ -992,43 +985,35 @@ section {
     justify-content: center;
     overflow: hidden;
     margin-bottom: 0;
-    background-size: 150% 150%;
-    background-position: 0% 0%;
-    transition: background-position 0.4s ease;
+    background: transparent;
 }
 
 .work-image img {
-    display: none; /* Photos replaced by color headers — remove when icons are ready */
+    display: none;
 }
 
-/* Gradient backgrounds per card — base color to darker shade with angle variation */
-#how-id-built-it .work-image {
-    background: linear-gradient(135deg, #8fa89a 0%, #6b8580 100%);
-}
-#my-work .work-image {
-    background: linear-gradient(120deg, #c4a882 0%, #9d7f57 100%);
-}
-#my-sandbox .work-image {
-    background: linear-gradient(145deg, #a8946e 0%, #7d6d47 100%);
-}
-#creative-lab .work-image {
-    background: linear-gradient(130deg, #7d9aaa 0%, #577b8f 100%);
-}
-#blog-podcast .work-image {
-    background: linear-gradient(140deg, #9a8fac 0%, #6f6485 100%);
-}
-#learning .work-image {
-    background: linear-gradient(125deg, #8a9e7d 0%, #66764f 100%);
-}
-#now .work-image {
-    background: linear-gradient(135deg, #a08a7a 0%, #765d4d 100%);
-}
-#under-the-hood .work-image {
-    background: linear-gradient(140deg, #8a7d6e 0%, #5f5247 100%);
-}
-#testimonials .work-image {
-    background: linear-gradient(128deg, #9a8a7a 0%, #6d5f54 100%);
-}
+/* ── Full-card gradient backgrounds ─────────────────────────── */
+/* The gradient IS the card identity — not just a header stripe  */
+#how-id-built-it { background: linear-gradient(135deg, #8fa89a 0%, #5d7a6e 100%); }
+#my-work { background: linear-gradient(120deg, #c4a882 0%, #9a7a50 100%); }
+#my-sandbox { background: linear-gradient(145deg, #a8946e 0%, #7d6d47 100%); }
+#creative-lab { background: linear-gradient(130deg, #7d9aaa 0%, #4d6d7f 100%); }
+#blog-podcast { background: linear-gradient(140deg, #9a8fac 0%, #6f6485 100%); }
+#learning { background: linear-gradient(125deg, #8a9e7d 0%, #5d7350 100%); }
+#now { background: linear-gradient(135deg, #c08060 0%, #8f5535 100%); }
+#under-the-hood { background: linear-gradient(140deg, #6d8090 0%, #455d6b 100%); }
+#testimonials { background: linear-gradient(128deg, #a07d90 0%, #7a5568 100%); }
+
+/* Light mode — brighter, lifted gradients */
+[data-theme="light"] #how-id-built-it { background: linear-gradient(135deg, #a3bfae 0%, #7a9e8c 100%); }
+[data-theme="light"] #my-work { background: linear-gradient(120deg, #d4be9a 0%, #b89468 100%); }
+[data-theme="light"] #my-sandbox { background: linear-gradient(145deg, #c0aa82 0%, #9a8a60 100%); }
+[data-theme="light"] #creative-lab { background: linear-gradient(130deg, #92b0c0 0%, #6a8fa5 100%); }
+[data-theme="light"] #blog-podcast { background: linear-gradient(140deg, #b0a5c2 0%, #8a7fa0 100%); }
+[data-theme="light"] #learning { background: linear-gradient(125deg, #a0b890 0%, #7a9068 100%); }
+[data-theme="light"] #now { background: linear-gradient(135deg, #d89878 0%, #b06e45 100%); }
+[data-theme="light"] #under-the-hood { background: linear-gradient(140deg, #8298a8 0%, #607888 100%); }
+[data-theme="light"] #testimonials { background: linear-gradient(128deg, #b895a8 0%, #9a7088 100%); }
 
 /* Prominent icon — larger and more visible */
 .work-icon-placeholder {
@@ -1049,33 +1034,36 @@ section {
     margin-bottom: 0;
 }
 
+/* Light mode card text — stays light since cards have colored gradient backgrounds */
 [data-theme="light"] .work-eyebrow {
-    color: var(--text-secondary);
+    color: rgba(255,255,255,0.8);
 }
 
 [data-theme="light"] .work-desc {
-    color: var(--text-secondary);
+    color: rgba(255,255,255,0.85);
 }
 
 [data-theme="light"] .work-title {
-    color: var(--text-primary);
+    color: #ffffff;
 }
 
 .work-info {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    padding: 1rem 1rem 1.2rem;
+    padding: 0.8rem 1rem 1rem;
     flex: 1;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255,255,255,0.08);
     position: relative;
     z-index: 2;
 }
 
 [data-theme="light"] .work-info {
-    background: linear-gradient(to top, rgba(0,0,0,0.05), transparent);
+    background: rgba(255,255,255,0.3);
+    border-top: 1px solid rgba(255,255,255,0.2);
 }
 
 .work-title {
@@ -1108,17 +1096,20 @@ section {
 
 .work-tag {
     padding: 0.25rem 0.6rem;
-    background: var(--text-primary);
-    color: var(--bg-primary);
-    border: none;
+    background: rgba(255,255,255,0.18);
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 500px;
     font-size: 0.7rem;
     font-weight: 500;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .work-card:hover .work-tag {
-    opacity: 0.85;
+    background: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.2);
 }
 
 /* ── Card Arrow Affordance ─────────────────────── */
@@ -1133,7 +1124,7 @@ section {
 }
 
 [data-theme="light"] .work-arrow {
-    color: var(--text-secondary);
+    color: rgba(255,255,255,0.6);
 }
 
 .work-card:hover .work-arrow {
