@@ -23,7 +23,7 @@
       socialLinks: ['linkedin', 'github', 'substack'],
       competencyOrder: ['Product Strategy', 'Go-to-Market Strategy', 'Delivery & Execution', 'Growth & Adoption', 'AI Integration', 'Digital Transformation'],
       heroCard: 'how-id-built-it',
-      cardOrder: ['how-id-built-it', 'my-work', 'my-sandbox', 'creative-lab', 'blog-podcast', 'learning', 'now'],
+      cardOrder: ['how-id-built-it', 'my-work', 'my-sandbox', 'creative-lab', 'blog-podcast', 'testimonials', 'learning', 'under-the-hood', 'now'],
       contactSubtext: "I'd love to hear about the role.",
       fenixTooltip: 'Curious about my product experience? Ask me anything.',
       unlocks: [
@@ -52,7 +52,7 @@
       socialLinks: ['linkedin', 'github'],
       competencyOrder: ['Go-to-Market Strategy', 'Product Strategy', 'Growth & Adoption', 'Delivery & Execution', 'AI Integration', 'Digital Transformation'],
       heroCard: 'my-work',
-      cardOrder: ['my-work', 'how-id-built-it', 'my-sandbox', 'creative-lab', 'blog-podcast', 'learning', 'now'],
+      cardOrder: ['my-work', 'how-id-built-it', 'my-sandbox', 'creative-lab', 'testimonials', 'blog-podcast', 'learning', 'under-the-hood', 'now'],
       contactSubtext: 'Tell me what you\'re building.',
       fenixTooltip: 'Tell me what you\'re building — I\'ll show you how I\'d think about it.',
       unlocks: [
@@ -79,7 +79,7 @@
       socialLinks: ['linkedin', 'substack', 'github'],
       competencyOrder: ['Product Strategy', 'AI Integration', 'Go-to-Market Strategy', 'Digital Transformation', 'Growth & Adoption', 'Delivery & Execution'],
       heroCard: 'how-id-built-it',
-      cardOrder: ['how-id-built-it', 'my-work', 'my-sandbox', 'creative-lab', 'blog-podcast', 'learning', 'now'],
+      cardOrder: ['how-id-built-it', 'my-work', 'my-sandbox', 'creative-lab', 'blog-podcast', 'learning', 'under-the-hood', 'testimonials', 'now'],
       contactSubtext: "I'm always up for a product debate.",
       fenixTooltip: 'Want the reasoning behind a specific teardown? Let\'s dig in.',
       unlocks: [
@@ -108,7 +108,7 @@
       socialLinks: ['linkedin', 'substack'],
       competencyOrder: ['Growth & Adoption', 'Product Strategy', 'AI Integration', 'Go-to-Market Strategy', 'Digital Transformation', 'Delivery & Execution'],
       heroCard: 'blog-podcast',
-      cardOrder: ['blog-podcast', 'how-id-built-it', 'my-sandbox', 'creative-lab', 'my-work', 'learning', 'now'],
+      cardOrder: ['blog-podcast', 'how-id-built-it', 'my-sandbox', 'creative-lab', 'my-work', 'learning', 'testimonials', 'under-the-hood', 'now'],
       contactSubtext: 'Happy to chat about your PM journey.',
       fenixTooltip: 'Got a PM interview coming up? I can help you prep.',
       unlocks: [
@@ -135,7 +135,7 @@
       socialLinks: ['linkedin', 'github'],
       competencyOrder: ['AI Integration', 'Product Strategy', 'Digital Transformation', 'Delivery & Execution', 'Go-to-Market Strategy', 'Growth & Adoption'],
       heroCard: 'my-sandbox',
-      cardOrder: ['my-sandbox', 'how-id-built-it', 'creative-lab', 'my-work', 'blog-podcast', 'learning', 'now'],
+      cardOrder: ['my-sandbox', 'under-the-hood', 'how-id-built-it', 'creative-lab', 'my-work', 'blog-podcast', 'learning', 'testimonials', 'now'],
       contactSubtext: "Let's geek out.",
       fenixTooltip: 'Want to see how I built this site with AI? Ask me.',
       unlocks: [
@@ -163,7 +163,7 @@
       socialLinks: ['linkedin'],
       competencyOrder: null, // no reorder
       heroCard: 'now',
-      cardOrder: ['now', 'creative-lab', 'my-sandbox', 'my-work', 'blog-podcast', 'learning', 'how-id-built-it'],
+      cardOrder: ['now', 'creative-lab', 'my-sandbox', 'under-the-hood', 'my-work', 'blog-podcast', 'testimonials', 'learning', 'how-id-built-it'],
       contactSubtext: 'You already have my number.',
       fenixTooltip: "Hey — Flame On is already turned on for you.",
       unlocks: [
@@ -537,9 +537,9 @@
     });
   }
 
-  // Bento span pattern: [4, 2, 3, 3, 2, 2, 2]
-  // Row 1: hero(4) + sidekick(2), Row 2: pair(3+3), Row 3: trio(2+2+2)
-  var BENTO_SPANS = [4, 2, 3, 3, 2, 2, 2];
+  // Bento span pattern: [4, 2, 3, 3, 2, 2, 2, 3, 3]
+  // Row 1: hero(4) + sidekick(2), Row 2: pair(3+3), Row 3: trio(2+2+2), Row 4: pair(3+3)
+  var BENTO_SPANS = [4, 2, 3, 3, 2, 2, 2, 3, 3];
 
   function applyCardReorder(order, heroCardId) {
     if (!order || !order.length) return;
