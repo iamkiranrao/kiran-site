@@ -61,7 +61,7 @@
       metrics: [
         { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
         { value: null, label: 'Commits, one at a time', live: true },
-        { value: '4,279', label: 'Lines of CSS, by hand' },
+        { value: '4,279', label: 'Lines of custom CSS, no library' },
         { value: '3', label: 'AI systems wired in' },
         { value: '0', label: 'Times I asked for permission' }
       ]
