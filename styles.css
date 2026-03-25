@@ -1040,8 +1040,9 @@ section {
     font-weight: 400;
 }
 
-/* Hide descriptions on standard 2-span cards for compact density */
-.card-span-2 .work-desc { display: none; }
+/* Hide descriptions on 2-span and 3-span cards; only hero (4-span) shows desc */
+.card-span-2 .work-desc,
+.card-span-3 .work-desc { display: none; }
 
 .work-tags {
     display: flex;
