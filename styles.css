@@ -2333,8 +2333,8 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 /* Persona-specific accent colors */
 .persona-picker-inline .evaluator { --card-accent: #7B9ACC; --card-tint: rgba(13, 20, 38, 0.78); }
 .persona-picker-inline .evaluator .card-title { color: #7B9ACC; }
-.persona-picker-inline .seeker { --card-accent: #8A8580; --card-tint: rgba(14, 13, 12, 0.78); }
-.persona-picker-inline .seeker .card-title { color: #8A8580; }
+.persona-picker-inline .seeker { --card-accent: #777744; --card-tint: rgba(14, 13, 12, 0.78); }
+.persona-picker-inline .seeker .card-title { color: #777744; }
 .persona-picker-inline .practitioner { --card-accent: #4DAF8B; --card-tint: rgba(8, 22, 16, 0.78); }
 .persona-picker-inline .practitioner .card-title { color: #4DAF8B; }
 .persona-picker-inline .learner { --card-accent: #A07ED4; --card-tint: rgba(18, 12, 30, 0.78); }
