@@ -57,12 +57,13 @@
 - **Video slot:** HTML comment marks `<video>` insertion point. Awaiting Kiran's manifesto recording.
 - **Purpose:** Kiran's personal welcome — why this site exists. The emotional bridge between "what I do" and "proof."
 
-### 4b. By the Numbers (C11) ✅ SHELL — NEW (March 24)
-- **6-card grid** below manifesto, above Fenix Intro Zone.
-- **Layout:** 6-col desktop → 3-col tablet → 2-col mobile. Cards have border, rounded corners.
-- **Current state:** Placeholder em dashes and "Placeholder" labels. Metrics TBD.
+### 4b. By the Numbers (C11) ✅ FULLY SHIPPED (March 25)
+- **Dynamic grid** below manifesto, above Fenix Intro Zone. Populated by `buildNumbersGrid()` in persona-system.js.
+- **Layout:** `auto-fit minmax(180px, 1fr)` — single row, 4-6 cards depending on persona. Centered section label.
+- **Persona-specific metrics:** Each persona sees different numbers. Code/language-specific metrics removed; AI and product metrics kept. All personas see prototype count and commit count.
+- **Live GitHub commit count:** HEAD request to GitHub API on page load. Initial display = (count - 1). Split-flap flip to actual count on scroll into view (2s delay, 500ms animation).
 - **Accent threading:** `.number-value` renders in `--persona-accent`. Card borders use accent mix on hover with glow.
-- **Future:** Metrics will be persona-specific — different numbers matter to different visitors. Needs Joint Track ideation session.
+- **Seeker accent:** Changed from #8A8580 to #777744 sitewide.
 
 ### 5. Work Cards Grid — "(Explore)" section
 - **Currently 8 cards.** All are wired to real HTML pages via `app.js` `cardConfig` array (lines 394-426). Cards are `<button>` elements in HTML, but JS attaches click handlers that navigate to the corresponding page (e.g., `career-highlights.html`, `how-id-built-it.html`, etc.).
@@ -82,7 +83,7 @@
 | 7 | `causes` | Causes | Where I put my time and energy outside work | Nonprofits, Giving Back, Impact | UNDER REVIEW — proposed removal |
 | 8 | `store` | Store | Curated merch, templates, digital resources. Coming soon. | Merch, Templates, Digital | UNDER REVIEW — proposed removal |
 
-**Card lineup decision:** IN PROGRESS. See strategic decisions entry (2026-03-23) and the current session for the full analysis. Pending final lock.
+**Card lineup decision:** STRATEGY LOCKED (March 24). New lineup: Career Highlights, How I'd've Built It, MadLab (absorbs Studio), Blog & Podcast, Under the Hood (new), Frameworks & Thinking Tools (new), /Now (new), Learn With Me (new). See `fenix-journal/entries/strategic-decisions/2026-03-24.md` for full reasoning. **Execution pending — needs build session.**
 
 ### 6. Contact CTA
 - "(Connect)" label
@@ -92,7 +93,7 @@
 
 ### 7. Footer ✅ (content gap: quotes)
 - ✅ Forms and duplicate social links stripped.
-- ✅ Quotes component structure built. ❌ `QUOTES` array in `persona-system.js` is empty — Kiran Track.
+- ✅ Quotes component structure built. ✅ **27 quotes populated** (March 25). Random quote on each page load.
 - Copyright line + Fenix logo.
 
 ### 8. Fenix FAB (Floating Action Button) ✅
@@ -125,7 +126,7 @@
 | Section | Status | Notes |
 |---------|--------|-------|
 | Manifesto Video | ✅ SHELL SHIPPED (March 24) | Section C10. 21:9 placeholder with play button. Awaiting video asset. |
-| "By the Numbers" | ✅ SHELL SHIPPED (March 24) | Section C11. 6-card grid with placeholders. Awaiting metric definitions. |
+| "By the Numbers" | ✅ FULLY SHIPPED (March 25) | Section C11. Persona-specific metrics, live GitHub count, split-flap animation, prototype metrics. |
 | Two-Column Persona Unlock | ✅ SHIPPED | Built into C4 Fenix Intro Zone. Unlock items + avatar per persona. |
 | "Viewing As" Indicator | ✅ SHIPPED | Built as nav pill (C1) with avatar, accent ring, inner stroke. |
 

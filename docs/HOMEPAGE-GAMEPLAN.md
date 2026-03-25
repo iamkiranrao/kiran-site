@@ -93,20 +93,23 @@ Total: ~2.5-3 seconds. First-time experience only.
 - **Video slot ready:** HTML comment marks where `<video>` tag drops in.
 - **Content:** Kiran's personal welcome — why this site exists. **Kiran Track — needs script + recording.**
 
-### C11: What It Took to Build This Site ✅ FULLY SHIPPED (March 25)
-- **Section header:** "(What It Took to Build This Site)" — self-referential, frames metrics as the build story.
-- **Persona-specific metrics:** Each persona gets curated numbers (5-7 cards) based on what they're screening for:
-  - **Evaluator:** Commits, ~6 wks, 25 components, 3 AI systems, 7 APIs, 0 frameworks, 0 meetings
-  - **Seeker:** 0 frameworks, commits, 4,279 CSS lines, 3 AI systems, 0 permissions asked
-  - **Practitioner:** Commits, 6 persona lenses, 25 components, 23 animations, 730+ a11y markers, 0 Jira tickets
-  - **Learner:** Commits, 0 frameworks, 3 AI systems, 7 APIs, 2,414 JS lines, 1,000+ console.logs
-  - **Technologist:** Commits, 3 AI systems, 7 APIs, 25 components, 18 CSS tokens, 730+ a11y markers, 0 node_modules
-  - **Inner Circle:** Commits, ~6 wks, 70 assets, 3am avg commit time, 0 weekends off
-- **Fun metric per persona:** Each has one personality metric (0 meetings, 0 permissions, 0 Jira tickets, console.log('why??'), 0 node_modules, 3am commit time).
-- **Split-flap animation:** Airport-terminal-style flip on the commits counter. Fires once when section scrolls into view after 2-second pause.
-- **Live GitHub commit count:** Fetches real commit count from GitHub API (public, HEAD request + Link header pagination). Flips from hardcoded fallback to live number. Graceful degradation if API fails.
+### C11: What It Took to Build This Site ✅ FULLY SHIPPED (March 25, refined March 25 late)
+- **Section header:** "(What It Took to Build This Site)" — self-referential, frames metrics as the build story. Centered. MadLab prototypes are part of "this site" — not separate projects.
+- **Persona-specific metrics:** Each persona gets curated numbers (4-6 cards) based on what they're screening for. Code/programming-language-specific metrics removed (no lines of code, no framework counts mentioning HTML/CSS/JS, no CSS tokens, no console.logs). AI and product metrics kept.
+  - **Evaluator (6):** Commits, ~6 wks, 25 components, 3 prototypes, 3 AI systems, 7 APIs
+  - **Seeker (4):** Commits, 3 AI systems, 3 prototypes, 0 permissions asked
+  - **Practitioner (6):** Commits, 6 persona lenses, 25 components, 3 prototypes, 730+ a11y markers, 0 Jira tickets
+  - **Learner (4):** Commits, 3 AI systems, 3 prototypes, 6 persona lenses
+  - **Technologist (5):** Commits, 3 AI prototypes, 7 APIs, 25 components, 730+ a11y markers
+  - **Inner Circle (6):** Commits, ~6 wks, 70 assets, 3 prototypes, 3am avg commit time, 0 weekends off
+- **Design constraint:** All metrics must fit in a single row (max 6 cards). No two-row spillover.
+- **Fun metric per persona:** 0 permissions asked (Seeker), 0 Jira tickets (Practitioner), 3am commit time (Inner Circle).
+- **Prototype metrics added to all personas (March 25 late):** MadLab prototypes are site content, not separate projects. Each persona sees "3 prototypes" with persona-appropriate label.
+- **Split-flap animation:** Airport-terminal-style flip on the commits counter. Shows (real count - 1) initially, flips to actual count when section scrolls into view after 2-second pause.
+- **Live GitHub commit count:** Fetches real commit count from GitHub API (public, HEAD request + Link header pagination). No hardcoded fallback — initial display is (live count - 1), flip target is live count. Dash fallback if API fails.
 - **Auto-fit grid:** `repeat(auto-fit, minmax(180px, 1fr))` handles variable column counts per persona.
 - **Staggered fade-in:** Cards animate in with 50ms stagger.
+- **Seeker accent color:** Changed from #8A8580 (Warm Gunmetal) to #777744 (March 25 late).
 
 ---
 
@@ -127,6 +130,10 @@ Total: ~2.5-3 seconds. First-time experience only.
 12. ~~C11 By the Numbers — Persona-specific metrics + split-flap + live GitHub count~~ ✅ DONE (March 25)
 13. ~~Subpage nav fix — picker-mode scoping~~ ✅ DONE (March 25)
 14. ~~Sitewide name change — Gorapalli → Rao~~ ✅ DONE (March 25)
+15. ~~C11 refinement — Live count drives initial display (count-1 → count flip), center lead-in~~ ✅ DONE (March 25 late)
+16. ~~C11 refinement — Cap metrics at single row, remove code-specific metrics, add prototype metrics~~ ✅ DONE (March 25 late)
+17. ~~Seeker accent color — #8A8580 → #777744 sitewide~~ ✅ DONE (March 25 late)
+18. ~~CSS metric honesty — "by hand" → "no library"~~ ✅ DONE (March 25 late)
 
 ### Kiran Track (independent, no Claude dependency)
 1. ~~**C3 About — Write 6 persona copy variants (intro + description)**~~ ✅ DONE (March 25, finalized with Claude)
@@ -162,7 +169,7 @@ Total: ~2.5-3 seconds. First-time experience only.
 
 ## Build Order (Claude Track) — STATUS
 
-All 14 Claude Track items are **COMPLETE**.
+All 18 Claude Track items are **COMPLETE**.
 
 **Remaining work** depends on:
 - **D3 Work Card Strategy** (Kiran-led session — highest priority decision)
