@@ -1053,17 +1053,15 @@ section {
     gap: 0.3rem;
     padding: 0.8rem 1rem 1rem;
     flex: 1;
-    background: rgba(0,0,0,0.2);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     position: relative;
     z-index: 2;
 }
 
 [data-theme="light"] .work-info {
-    background: rgba(255,255,255,0.3);
-    border-top: 1px solid rgba(255,255,255,0.2);
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 100%);
 }
 
 .work-title {
