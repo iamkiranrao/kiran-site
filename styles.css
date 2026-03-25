@@ -938,7 +938,7 @@ section {
     overflow: hidden;
     color: var(--text-primary);
     transition: opacity 0.4s ease, border-color 0.3s ease;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,255,255,0.1);
     cursor: pointer;
     text-align: left;
     width: 100%;
@@ -947,8 +947,16 @@ section {
     position: relative;
 }
 
+[data-theme="light"] .work-card {
+    border-color: var(--border);
+}
+
 .work-card:hover {
     opacity: 0.95;
+    border-color: rgba(255,255,255,0.2);
+}
+
+[data-theme="light"] .work-card:hover {
     border-color: var(--text-secondary);
 }
 
@@ -962,7 +970,7 @@ section {
 
 .work-image {
     width: 100%;
-    aspect-ratio: 5 / 3;
+    aspect-ratio: 2 / 1;
     border-radius: 0;
     position: relative;
     display: flex;
