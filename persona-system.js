@@ -34,7 +34,7 @@
         { value: null, label: 'Commits shipped', live: true },
         { value: '~6 wks', label: 'First commit → live site' },
         { value: '25', label: 'Architectural components' },
-        { value: '3', label: 'AI systems built in' },
+        { value: '3', label: 'Live prototypes shipped' },
         { value: '7', label: 'APIs integrated' },
         { value: '0', label: 'Frameworks used' }
       ]
@@ -62,7 +62,7 @@
         { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
         { value: null, label: 'Commits, one at a time', live: true },
         { value: '4,279', label: 'Lines of custom CSS, no library' },
-        { value: '3', label: 'AI systems wired in' },
+        { value: '3', label: 'Live prototypes, built to explore' },
         { value: '0', label: 'Times I asked for permission' }
       ]
     },
@@ -89,7 +89,7 @@
         { value: null, label: 'Iterations shipped', live: true },
         { value: '6', label: 'Persona lenses' },
         { value: '25', label: 'Architectural components' },
-        { value: '23', label: 'Choreographed animations' },
+        { value: '3', label: 'Prototypes shipped' },
         { value: '730+', label: 'Accessibility markers' },
         { value: '0', label: 'Jira tickets filed' }
       ]
@@ -116,7 +116,7 @@
       metrics: [
         { value: null, label: 'Commits to learn from', live: true },
         { value: '0', label: 'Frameworks — just HTML, CSS, JS' },
-        { value: '3', label: 'AI systems to explore' },
+        { value: '3', label: 'Prototypes you can try' },
         { value: '7', label: 'APIs you can trace' },
         { value: '2,414', label: 'Lines of JS, all readable' },
         { value: '1,000+', label: "console.log('why??') calls" }
@@ -143,7 +143,7 @@
       ],
       metrics: [
         { value: null, label: 'Commits, no deploy pipeline', live: true },
-        { value: '3', label: 'AI systems (RAG + embeddings + SSE)' },
+        { value: '3', label: 'AI prototypes, different stacks' },
         { value: '7', label: 'APIs integrated' },
         { value: '25', label: 'Components, zero dependencies' },
         { value: '18', label: 'CSS design tokens' },
@@ -173,6 +173,7 @@
         { value: null, label: 'Commits since February', live: true },
         { value: '~6 wks', label: 'Start to what you\'re looking at' },
         { value: '70', label: 'Hand-picked assets' },
+        { value: '3', label: 'Prototypes, just because' },
         { value: '3am', label: 'Average commit time' },
         { value: '0', label: 'Weekends off since February' }
       ]
