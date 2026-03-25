@@ -922,7 +922,7 @@ section {
 .work-grid.bento {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
     margin-top: 1.5rem;
 }
 
@@ -937,7 +937,7 @@ section {
     border-radius: 8px;
     overflow: hidden;
     color: var(--text-primary);
-    transition: opacity 0.4s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(255,255,255,0.1);
     cursor: pointer;
     text-align: left;
@@ -952,12 +952,14 @@ section {
 }
 
 .work-card:hover {
-    opacity: 0.95;
-    border-color: rgba(255,255,255,0.2);
+    transform: scale(1.02);
+    border-color: rgba(255,255,255,0.25);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
 }
 
 [data-theme="light"] .work-card:hover {
     border-color: var(--text-secondary);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
 }
 
 .work-card:focus {
@@ -970,7 +972,7 @@ section {
 
 .work-image {
     width: 100%;
-    aspect-ratio: 2 / 1;
+    aspect-ratio: 3 / 1;
     border-radius: 0;
     position: relative;
     display: flex;
@@ -2049,13 +2051,13 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 
 /* ── Accent: Work Card Hover — Border/Glow ─────── */
 .persona-active .work-card {
-    transition: opacity 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .persona-active .work-card:hover {
-    opacity: 1;
-    border-color: var(--persona-accent, rgba(255,255,255,0.12));
-    box-shadow: 0 0 20px color-mix(in srgb, var(--persona-accent) 25%, transparent);
+    transform: scale(1.02);
+    border-color: var(--persona-accent, rgba(255,255,255,0.25));
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 20px color-mix(in srgb, var(--persona-accent) 25%, transparent);
 }
 
 
