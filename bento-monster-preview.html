@@ -669,53 +669,53 @@ const slotRatios = {
 const imageMap = {
     teardowns: {
         hero: 'images/analyst-hero-2-1.png',
-        topright: null,   // needs 1:1
-        widel: null,      // needs 3:1
-        wider: null,      // needs 3:1
-        tall: null,       // needs 3:2
-        center: null,     // needs 1:1
+        topright: 'images/analyst-hero-2-1.png',   // CSS crop test — orig 2:1 → 1:1
+        widel: 'images/analyst-hero-2-1.png',      // CSS crop test — orig 2:1 → 3:1
+        wider: 'images/analyst-hero-2-1.png',      // CSS crop test — orig 2:1 → 3:1
+        tall: 'images/analyst-hero-2-1.png',       // CSS crop test — orig 2:1 → 3:2
+        center: 'images/analyst-hero-2-1.png',     // CSS crop test — orig 2:1 → 1:1
     },
     career: {
         hero: 'images/veteran-hero-2-1.png',
-        topright: null,   // needs 1:1
-        tall: 'images/veteran-hero-2-1.png',  // has 2:1, needs 3:2 regen
-        center: null,     // needs 1:1
-        wider: null,      // needs 3:1
+        topright: 'images/veteran-hero-2-1.png',   // CSS crop test — orig 2:1 → 1:1
+        tall: 'images/veteran-hero-2-1.png',       // CSS crop test — orig 2:1 → 3:2
+        center: 'images/veteran-hero-2-1.png',     // CSS crop test — orig 2:1 → 1:1
+        wider: 'images/veteran-hero-2-1.png',      // CSS crop test — orig 2:1 → 3:1
     },
     madlab: {
-        hero: null,       // needs 2:1
-        tall: null,       // needs 3:2
-        widel: null,      // needs 3:1
-        wider: 'images/tinkerer-hero-2-1-flipped.png',  // has 2:1, cropped for 3:1
+        hero: 'images/tinkerer-hero-2-1-flipped.png',   // CSS crop test — same ratio
+        tall: 'images/tinkerer-hero-2-1-flipped.png',   // CSS crop test — orig 2:1 → 3:2
+        widel: 'images/tinkerer-hero-2-1-flipped.png',  // CSS crop test — orig 2:1 → 3:1
+        wider: 'images/tinkerer-hero-2-1-flipped.png',
     },
     studio: {
-        hero: null,       // needs 2:1
-        topright: null,   // needs 1:1
+        hero: 'images/studiocardwide3_1.png',      // CSS crop test — orig 3:1 → 2:1
+        topright: 'images/studiocardwide3_1.png',   // CSS crop test — orig 3:1 → 1:1
         widel: 'images/studiocardwide3_1.png',
-        wider: null,      // needs 3:1
+        wider: 'images/studiocardwide3_1.png',      // CSS crop test — orig 3:1 → 3:1
     },
     testimonials: {
         topright: 'images/connector-square-1_1_2.png',
-        center: 'images/connector-square-1_1_2.png',  // same 1:1 works
-        wider: null,      // needs 3:1
-        learning: 'images/learner-library1.png',   // 1:2 portrait
+        center: 'images/connector-square-1_1_2.png',
+        wider: 'images/connector-square-1_1_2.png',     // CSS crop test — orig 1:1 → 3:1
+        learning: 'images/connector-square-1_1_2.png',   // CSS crop test — orig 1:1 → 1:2
     },
     underhood: {
         center: 'images/engineer2.png',
-        widel: null,      // needs 3:1
-        wider: null,      // needs 3:1
-        blog: null,       // needs 2:1
+        widel: 'images/engineer2.png',      // CSS crop test — orig 1:1 → 3:1
+        wider: 'images/engineer2.png',      // CSS crop test — orig 1:1 → 3:1
+        blog: 'images/engineer2.png',       // CSS crop test — orig 1:1 → 2:1
     },
     now: {
         now: 'images/explorer2.png',
     },
     learning: {
-        learning: 'images/learner-library1.png',   // 1:2 portrait
-        topright: null,   // needs 1:1
+        learning: 'images/learner-library1.png',
+        topright: 'images/learner-library1.png',   // CSS crop test — orig 1:2 → 1:1
     },
     blog: {
-        hero: 'images/blogging-monster2.png',   // 2:1
-        blog: 'images/blogging-monster2.png',   // 2:1
+        hero: 'images/blogging-monster2.png',
+        blog: 'images/blogging-monster2.png',
     }
 };
 

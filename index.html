@@ -24,8 +24,8 @@
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260326c">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Archivo+Black&family=Orbitron:wght@400;700;900&family=Caveat:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Corben:wght@400;700&family=Josefin+Sans:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20260327-bento">
     <link rel="stylesheet" href="fenix-widget.css">
     <link rel="alternate" type="application/rss+xml" title="Kiran Rao - Release Notes & Blog" href="rss.xml">
 
@@ -433,161 +433,107 @@
             </div>
         </div>
         <p class="section-label explore-label">(Explore)</p>
-        <div class="work-grid bento">
-            <!-- Row 1: Hero(4) + Sidekick(2) -->
-            <button class="work-card card-span-4" id="how-id-built-it">
-                <div class="work-image">
-                    <div class="work-icon-placeholder">&#9881;</div>
-                </div>
-                <div class="work-info">
-                    <span class="work-eyebrow">6 Teardowns</span>
-                    <h3 class="work-title">How I'd've Built It</h3>
-                    <p class="work-desc">Product teardowns of popular apps. What I'd keep, kill, and rebuild.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">Instagram</span>
-                        <span class="work-tag">GEICO</span>
-                        <span class="work-tag">Airbnb</span>
-                        <span class="work-tag">+3</span>
-                    </div>
-                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
-                </div>
+        <div class="work-grid bento" id="workGrid">
+
+            <!-- HERO — 4x2 -->
+            <button class="work-card slot-hero" data-slot="hero" data-card="teardowns">
+                <div class="card-bg"></div>
+                <div class="card-overlay"><div class="card-glass">
+                    <span class="work-eyebrow"></span>
+                    <span class="work-stat"></span>
+                    <p class="work-desc"></p>
+                    <div class="work-tags"></div>
+                </div></div>
             </button>
 
-            <button class="work-card card-span-2" id="my-work">
-                <div class="work-image">
-                    <div class="work-icon-placeholder">&#9733;</div>
-                </div>
-                <div class="work-info">
-                    <span class="work-eyebrow">15 Years Building</span>
-                    <h3 class="work-title">Career Highlights</h3>
-                    <p class="work-desc">0-to-1 launches, platform transformations, and fractional consulting.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">Product</span>
-                        <span class="work-tag">Strategy</span>
-                        <span class="work-tag">Leadership</span>
-                    </div>
-                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
-                </div>
+            <!-- TOP-RIGHT — 2x2 -->
+            <button class="work-card slot-topright" data-slot="topright" data-card="testimonials">
+                <div class="card-bg"></div>
+                <div class="card-overlay"><div class="card-glass">
+                    <span class="work-eyebrow"></span>
+                    <span class="work-stat"></span>
+                    <p class="work-desc"></p>
+                    <div class="work-tags"></div>
+                </div></div>
             </button>
 
-            <!-- Row 2: Feature(3) + Feature(3) -->
-            <button class="work-card card-span-3" id="my-sandbox">
-                <div class="work-image">
-                    <div class="work-icon-placeholder">&#9000;</div>
-                </div>
-                <div class="work-info">
-                    <span class="work-eyebrow">Apps &amp; Prototypes</span>
-                    <h3 class="work-title">MadLab</h3>
-                    <p class="work-desc">Apps, tools, and prototypes built from scratch. My sandbox for tinkering.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">Prototypes</span>
-                        <span class="work-tag">Apps</span>
-                        <span class="work-tag">Experiments</span>
-                    </div>
-                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
-                </div>
+            <!-- WIDE-L — 3x1 -->
+            <button class="work-card slot-widel" data-slot="widel" data-card="studio">
+                <div class="card-bg"></div>
+                <div class="card-overlay"><div class="card-glass">
+                    <span class="work-eyebrow"></span>
+                    <span class="work-stat"></span>
+                    <p class="work-desc"></p>
+                    <div class="work-tags"></div>
+                </div></div>
             </button>
 
-            <button class="work-card card-span-3" id="creative-lab">
-                <div class="work-image">
-                    <div class="work-icon-placeholder">&#9836;</div>
-                </div>
-                <div class="work-info">
-                    <span class="work-eyebrow">Creative Portfolio</span>
-                    <h3 class="work-title">Studio</h3>
-                    <p class="work-desc">AI music, photography, custom fonts — creative range beyond product.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">Music</span>
-                        <span class="work-tag">Photography</span>
-                        <span class="work-tag">Design</span>
-                    </div>
-                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
-                </div>
+            <!-- WIDE-R — 3x1 -->
+            <button class="work-card slot-wider" data-slot="wider" data-card="madlab">
+                <div class="card-bg"></div>
+                <div class="card-overlay"><div class="card-glass">
+                    <span class="work-eyebrow"></span>
+                    <span class="work-stat"></span>
+                    <p class="work-desc"></p>
+                    <div class="work-tags"></div>
+                </div></div>
             </button>
 
-            <!-- Row 3: Standard(2) + Standard(2) + Standard(2) -->
-            <button class="work-card card-span-2" id="blog-podcast">
-                <div class="work-image">
-                    <div class="work-icon-placeholder">&#9998;</div>
-                </div>
-                <div class="work-info">
-                    <span class="work-eyebrow">Essays &amp; Conversations</span>
-                    <h3 class="work-title">Blog & Podcast</h3>
-                    <p class="work-desc">Long-form thinking on product, AI, and leadership.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">Articles</span>
-                        <span class="work-tag">Podcast</span>
-                    </div>
-                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
-                </div>
+            <!-- TALL — 3x2 -->
+            <button class="work-card slot-tall" data-slot="tall" data-card="career">
+                <div class="card-bg"></div>
+                <div class="card-overlay"><div class="card-glass">
+                    <span class="work-eyebrow"></span>
+                    <span class="work-stat"></span>
+                    <p class="work-desc"></p>
+                    <div class="work-tags"></div>
+                </div></div>
             </button>
 
-            <button class="work-card card-span-2" id="learning">
-                <div class="work-image">
-                    <div class="work-icon-placeholder">&#128218;</div>
-                </div>
-                <div class="work-info">
-                    <span class="work-eyebrow">What I'm Studying</span>
-                    <h3 class="work-title">Learning</h3>
-                    <p class="work-desc">Current rabbit holes and the new lenses they give me.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">AI/ML</span>
-                        <span class="work-tag">Product</span>
-                    </div>
-                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
-                </div>
+            <!-- CENTER — 2x2 -->
+            <button class="work-card slot-center" data-slot="center" data-card="underhood">
+                <div class="card-bg"></div>
+                <div class="card-overlay"><div class="card-glass">
+                    <span class="work-eyebrow"></span>
+                    <span class="work-stat"></span>
+                    <p class="work-desc"></p>
+                    <div class="work-tags"></div>
+                </div></div>
             </button>
 
-            <button class="work-card card-span-2" id="now">
-                <div class="work-image">
-                    <div class="work-icon-placeholder">&#9201;</div>
-                </div>
-                <div class="work-info">
-                    <span class="work-eyebrow">Right Now</span>
-                    <h3 class="work-title">/Now</h3>
-                    <p class="work-desc">What I'm working on and where my head is at.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">Current</span>
-                        <span class="work-tag">Projects</span>
-                    </div>
-                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
-                </div>
+            <!-- LEARNING — 1x2 tall -->
+            <button class="work-card slot-learning" data-slot="learning" data-card="learning">
+                <div class="card-bg"></div>
+                <div class="card-overlay"><div class="card-glass">
+                    <span class="work-eyebrow"></span>
+                    <span class="work-stat"></span>
+                    <p class="work-desc"></p>
+                    <div class="work-tags"></div>
+                </div></div>
             </button>
 
-            <!-- Row 4: Feature(3) + Feature(3) -->
-            <button class="work-card card-span-3" id="under-the-hood">
-                <div class="work-image">
-                    <div class="work-icon-placeholder">&#128736;</div>
-                </div>
-                <div class="work-info">
-                    <span class="work-eyebrow">Site Architecture</span>
-                    <h3 class="work-title">Under the Hood</h3>
-                    <p class="work-desc">How this site was built — the decisions, tradeoffs, and craft behind every pixel.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">Architecture</span>
-                        <span class="work-tag">AI Systems</span>
-                        <span class="work-tag">Design</span>
-                    </div>
-                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
-                </div>
+            <!-- BLOG — 2x1 -->
+            <button class="work-card slot-blog" data-slot="blog" data-card="blog">
+                <div class="card-bg"></div>
+                <div class="card-overlay"><div class="card-glass">
+                    <span class="work-eyebrow"></span>
+                    <span class="work-stat"></span>
+                    <p class="work-desc"></p>
+                    <div class="work-tags"></div>
+                </div></div>
             </button>
 
-            <button class="work-card card-span-3" id="testimonials">
-                <div class="work-image">
-                    <div class="work-icon-placeholder">&#10077;</div>
-                </div>
-                <div class="work-info">
-                    <span class="work-eyebrow">What People Say</span>
-                    <h3 class="work-title">Testimonials</h3>
-                    <p class="work-desc">Words from people I've built with, built for, and learned from.</p>
-                    <div class="work-tags">
-                        <span class="work-tag">Colleagues</span>
-                        <span class="work-tag">Founders</span>
-                        <span class="work-tag">Leaders</span>
-                    </div>
-                    <span class="work-arrow" aria-hidden="true">&rarr;</span>
-                </div>
+            <!-- NOW — 4x1 -->
+            <button class="work-card slot-now" data-slot="now" data-card="now">
+                <div class="card-bg"></div>
+                <div class="card-overlay"><div class="card-glass">
+                    <span class="work-eyebrow"></span>
+                    <span class="work-stat"></span>
+                    <p class="work-desc"></p>
+                    <div class="work-tags"></div>
+                </div></div>
             </button>
+
         </div>
     </section>
 
@@ -626,6 +572,7 @@
     <!-- Translations disabled for now - re-enable by uncommenting -->
     <!-- <script src="translations.js"></script> -->
     <script src="persona-system.js"></script>
+    <script src="bento-cards.js"></script>
     <script src="app.js"></script>
     <script src="fenix-widget.js" defer></script>
 </body>

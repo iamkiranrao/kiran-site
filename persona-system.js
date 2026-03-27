@@ -493,8 +493,8 @@
     // Competency reorder (1.3)
     applyCompetencyReorder(config.competencyOrder);
 
-    // Card reorder (1.4) + bento hero swap
-    applyCardReorder(config.cardOrder, config.heroCard);
+    // Card reorder (1.4) — now handled by bento-cards.js switchBentoCards()
+    // Legacy applyCardReorder kept but no longer called
 
     // Contact CTA subtext (1.7)
     applyContactSubtext(config.contactSubtext);
@@ -623,6 +623,11 @@
     applyAccentFrame();
     buildFenixIntroContent(persona);
     buildNumbersGrid(persona);
+
+    // Bento monster grid: switch card assignments per persona
+    if (typeof window.switchBentoCards === 'function') {
+      window.switchBentoCards(persona);
+    }
   }
 
   // ── C11: What It Took — Persona-specific metrics ──
