@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bento Monster Preview — Persona Tabs</title>
+<title>Bento Monster Preview — Persona + Device + Before/After</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Archivo+Black&family=Orbitron:wght@400;700;900&family=Caveat:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Corben:wght@400;700&family=Josefin+Sans:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@ body {
 .preview-header {
     text-align: center;
     margin-bottom: 1rem;
-    max-width: 700px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -51,17 +51,17 @@ body {
 }
 
 /* ══════════════════════════════════════════════════
-   PERSONA TABS
+   TAB ROWS
    ══════════════════════════════════════════════════ */
-.persona-tabs {
+.tab-row {
     max-width: 1440px;
-    margin: 0 auto 1rem;
+    margin: 0 auto 0.6rem;
     display: flex;
     gap: 0.4rem;
     flex-wrap: wrap;
     align-items: center;
 }
-.persona-tabs .tab-label {
+.tab-row .tab-label {
     font-family: 'Space Mono', monospace;
     font-size: 0.6rem;
     color: var(--glass-text-dark-muted);
@@ -69,7 +69,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.08em;
 }
-.persona-tab {
+.tab-btn {
     padding: 0.35rem 0.8rem;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
@@ -80,11 +80,16 @@ body {
     cursor: pointer;
     transition: all 0.2s;
 }
-.persona-tab:hover { background: rgba(255,255,255,0.1); }
-.persona-tab.active {
+.tab-btn:hover { background: rgba(255,255,255,0.1); }
+.tab-btn.active {
     background: rgba(212,168,83,0.2);
     border-color: rgba(212,168,83,0.4);
     color: var(--card-bg-accent);
+}
+.device-tab.active {
+    background: rgba(91,186,111,0.15);
+    border-color: rgba(91,186,111,0.4);
+    color: #5BBA6F;
 }
 .image-status {
     margin-left: auto;
@@ -96,18 +101,62 @@ body {
 .image-status .missing { color: #B85C5C; }
 
 /* ══════════════════════════════════════════════════
-   BENTO GRID
+   BEFORE / AFTER LAYOUT
+   ══════════════════════════════════════════════════ */
+.comparison-container {
+    display: flex;
+    gap: 2rem;
+    max-width: 1440px;
+    margin: 0 auto;
+    justify-content: center;
+}
+/* Desktop = single full-width grid, no comparison */
+.comparison-container.mode-desktop {
+    display: block;
+}
+.comparison-container.mode-desktop .grid-col.col-after { display: none; }
+.comparison-container.mode-desktop .grid-col.col-before { max-width: 1440px; }
+.comparison-container.mode-desktop .col-label { display: none; }
+
+/* Tablet = two ~500px columns side by side */
+.comparison-container.mode-tablet .grid-col { max-width: 500px; flex: 1; }
+/* Mobile = two ~480px columns side by side */
+.comparison-container.mode-mobile .grid-col { max-width: 480px; flex: 1; }
+
+.grid-col { position: relative; }
+.col-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    margin-bottom: 0.6rem;
+    text-align: center;
+}
+.col-before .col-label {
+    color: #B85C5C;
+    background: rgba(184,92,92,0.1);
+    border: 1px solid rgba(184,92,92,0.2);
+}
+.col-after .col-label {
+    color: #5BBA6F;
+    background: rgba(91,186,111,0.08);
+    border: 1px solid rgba(91,186,111,0.2);
+}
+
+/* ══════════════════════════════════════════════════
+   BENTO GRID — shared base
    ══════════════════════════════════════════════════ */
 .work-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-auto-rows: var(--row-height);
     gap: var(--grid-gap);
-    max-width: 1440px;
+    max-width: 100%;
     margin: 0 auto;
 }
 
-/* ── Card Base ── */
 .work-card {
     border-radius: 16px;
     position: relative;
@@ -123,7 +172,6 @@ body {
 }
 .work-card:hover { transform: translateY(-3px); z-index: 10; }
 
-/* ── Backgrounds ── */
 .card-bg {
     position: absolute;
     inset: 0;
@@ -153,7 +201,6 @@ body {
 }
 .work-card:hover::before { border-color: rgba(255,255,255,0.15); }
 
-/* ── No-image indicator ── */
 .card-bg.no-image::before {
     content: attr(data-need);
     position: absolute;
@@ -186,7 +233,6 @@ body {
     transition: all 0.3s ease;
 }
 
-/* ── Position classes ── */
 .pos-bl .card-overlay { bottom: 0.75rem; left: 0.75rem; }
 .pos-br .card-overlay { bottom: 0.75rem; right: 0.75rem; }
 .pos-tl .card-overlay { top: 0.75rem; left: 0.75rem; }
@@ -194,18 +240,14 @@ body {
 .pos-bc .card-overlay { bottom: 0.75rem; left: 50%; transform: translateX(-50%); }
 .pos-tc .card-overlay { top: 20%; left: 50%; transform: translateX(-50%); }
 
-/* Text alignment for bottom-center and top-center */
 .pos-bc .card-glass,
 .pos-tc .card-glass { align-items: center; text-align: center; }
 .pos-bc .work-tags,
 .pos-tc .work-tags { justify-content: center; }
-
-/* Text alignment follows position */
 .pos-br .card-glass,
 .pos-tr .card-glass { align-items: flex-end; text-align: right; }
 .pos-br .work-tags,
 .pos-tr .work-tags { justify-content: flex-end; }
-
 .pos-bl .card-glass,
 .pos-tl .card-glass { align-items: flex-start; text-align: left; }
 
@@ -262,7 +304,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════════
-   PER-CARD HEADLINE FONTS (via data-card attribute)
+   PER-CARD HEADLINE FONTS
    ══════════════════════════════════════════════════ */
 [data-card="teardowns"] .work-stat   { font-family: 'Inter', sans-serif; font-weight: 700; text-transform: none; letter-spacing: -0.02em; }
 [data-card="career"] .work-stat       { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; }
@@ -275,10 +317,8 @@ body {
 [data-card="testimonials"] .work-stat { font-family: 'Corben', cursive; font-weight: 700; text-transform: none; }
 
 /* ══════════════════════════════════════════════════
-   SLOT GRID PLACEMENTS + SLOT-SPECIFIC SIZING
+   SLOT PLACEMENTS — DESKTOP (6-col)
    ══════════════════════════════════════════════════ */
-
-/* HERO — 4x2 */
 .slot-hero { grid-column: 1 / 5; grid-row: 1 / 3; }
 .slot-hero .work-eyebrow { font-size: 0.8rem; letter-spacing: 0.14em; }
 .slot-hero .work-stat { font-size: 2.4rem; }
@@ -286,22 +326,18 @@ body {
 .slot-hero .card-glass { gap: 0.25rem; }
 .slot-hero .card-overlay { max-width: 45%; }
 
-/* TOP-RIGHT — 2x2 */
 .slot-topright { grid-column: 5 / 7; grid-row: 1 / 3; }
 .slot-topright .work-stat { font-size: 2rem; }
 .slot-topright .work-desc { font-size: 0.78rem; }
 
-/* WIDE-L — 3x1 */
 .slot-widel { grid-column: 1 / 4; grid-row: 3 / 4; }
 .slot-widel .work-stat { font-size: 1.6rem; }
 .slot-widel .card-overlay { max-width: 65%; }
 
-/* WIDE-R — 3x1 */
 .slot-wider { grid-column: 4 / 7; grid-row: 3 / 4; }
 .slot-wider .work-stat { font-size: 1.5rem; }
 .slot-wider .card-overlay { max-width: 65%; }
 
-/* TALL — 3x2 */
 .slot-tall { grid-column: 1 / 4; grid-row: 4 / 6; }
 .slot-tall .work-eyebrow { font-size: 0.75rem; }
 .slot-tall .work-stat { font-size: 2.6rem; }
@@ -309,12 +345,10 @@ body {
 .slot-tall .card-overlay { max-width: 55%; }
 .slot-tall .card-glass { gap: 0.25rem; }
 
-/* CENTER — 2x2 */
 .slot-center { grid-column: 4 / 6; grid-row: 4 / 6; }
 .slot-center .work-stat { font-size: 2.2rem; }
 .slot-center .work-desc { font-size: 0.78rem; }
 
-/* LEARNING — 1x2 tall */
 .slot-learning { grid-column: 6 / 7; grid-row: 4 / 6; }
 .slot-learning .work-eyebrow { font-size: 0.6rem; }
 .slot-learning .work-stat { font-size: 1.4rem; }
@@ -323,13 +357,11 @@ body {
 .slot-learning .card-overlay { padding: 0.6rem 0.7rem; max-width: 90%; }
 .slot-learning .card-glass { gap: 0.1rem; }
 
-/* BLOG — 2x1 */
 .slot-blog { grid-column: 1 / 3; grid-row: 6 / 7; }
 .slot-blog .work-stat { font-size: 1.8rem; }
 .slot-blog .work-desc { font-size: 0.72rem; }
 .slot-blog .card-overlay { max-width: 90%; }
 
-/* NOW — 4x1 */
 .slot-now { grid-column: 3 / 7; grid-row: 6 / 7; }
 .slot-now .work-eyebrow { font-size: 0.65rem; }
 .slot-now .work-stat { font-size: 1.8rem; }
@@ -338,14 +370,10 @@ body {
 .slot-now .card-overlay { padding: 0.6rem 0.8rem; max-width: 60%; }
 .slot-now .card-glass { gap: 0.12rem; }
 
-/* Hover accent on teardowns in hero */
-.slot-hero[data-card="teardowns"]:hover::before { border-color: rgba(212, 168, 83, 0.3); }
-.slot-hero[data-card="teardowns"] .card-overlay { border-left: 2px solid rgba(212, 168, 83, 0.4); }
-
-/* Under the hood border accent */
+/* ── Card accents ── */
+.slot-hero[data-card="teardowns"] .card-overlay,
+[data-card="teardowns"] .card-overlay { border-left: 2px solid rgba(212,168,83,0.4); }
 [data-card="underhood"] .card-overlay { border-left: 2px solid rgba(255,255,255,0.12); }
-
-/* Testimonials quote mark */
 [data-card="testimonials"] .card-glass { position: relative; overflow: visible; }
 [data-card="testimonials"] .card-glass::before {
     content: '\201C';
@@ -354,12 +382,10 @@ body {
     left: 0.8rem;
     font-family: 'Lora', serif;
     font-size: 2.5rem;
-    color: rgba(212, 168, 83, 0.15);
+    color: rgba(212,168,83,0.15);
     line-height: 1;
     pointer-events: none;
 }
-
-/* /Now pulse dot */
 [data-card="now"] .work-eyebrow::before {
     content: '';
     display: inline-block;
@@ -376,7 +402,6 @@ body {
     50% { opacity: 0.3; }
 }
 
-/* ── Shape debug labels ── */
 .shape-label {
     position: absolute;
     top: 0.5rem;
@@ -391,7 +416,72 @@ body {
 .pos-tl .shape-label { left: auto; right: 0.5rem; }
 
 /* ══════════════════════════════════════════════════
-   PREVIEW CONTROLS
+   DEVICE OVERRIDE CLASSES (applied via JS to wrappers)
+   ══════════════════════════════════════════════════ */
+
+/* ── TABLET: 2-col, hero+now span 2 ── */
+.is-tablet .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+    gap: 1rem;
+}
+.is-tablet .work-grid .work-card {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    min-height: 200px;
+}
+.is-tablet .work-grid .slot-hero,
+.is-tablet .work-grid .slot-now { grid-column: span 2 !important; }
+.is-tablet .slot-hero .card-overlay,
+.is-tablet .slot-tall .card-overlay { max-width: 60%; }
+.is-tablet .slot-learning .card-overlay { max-width: 85%; }
+
+/* ── MOBILE (BEFORE — current broken state) ── */
+.is-mobile-before .work-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+}
+.is-mobile-before .work-grid .work-card {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    min-height: 200px;
+}
+/* No typography fixes — this IS the problem */
+
+/* ── MOBILE (AFTER — proposed fixes) ── */
+.is-mobile-after .work-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+}
+.is-mobile-after .work-grid .work-card {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    min-height: 220px;
+}
+.is-mobile-after .work-grid .slot-hero,
+.is-mobile-after .work-grid .slot-tall { min-height: 280px; }
+
+/* Typography bumps */
+.is-mobile-after .work-eyebrow { font-size: 0.72rem !important; }
+.is-mobile-after .work-desc { font-size: 0.82rem !important; }
+.is-mobile-after .work-tag { font-size: 0.65rem; }
+.is-mobile-after .card-overlay { max-width: 85% !important; }
+
+.is-mobile-after .slot-hero .work-stat { font-size: 2rem; }
+.is-mobile-after .slot-hero .work-eyebrow { font-size: 0.8rem !important; letter-spacing: 0.12em; }
+.is-mobile-after .slot-topright .work-stat { font-size: 1.8rem; }
+.is-mobile-after .slot-tall .work-stat { font-size: 2rem; }
+.is-mobile-after .slot-center .work-stat { font-size: 1.8rem; }
+.is-mobile-after .slot-learning .work-stat { font-size: 1.6rem; }
+.is-mobile-after .slot-learning .work-eyebrow { font-size: 0.72rem !important; }
+.is-mobile-after .slot-learning .work-desc { font-size: 0.8rem !important; }
+.is-mobile-after .slot-now .work-desc { font-size: 0.8rem !important; }
+.is-mobile-after .slot-now .work-eyebrow { font-size: 0.72rem !important; }
+.is-mobile-after .slot-now .card-overlay { max-width: 85% !important; }
+.is-mobile-after .slot-blog .work-desc { font-size: 0.82rem !important; }
+
+/* ══════════════════════════════════════════════════
+   CONTROLS
    ══════════════════════════════════════════════════ */
 .controls {
     max-width: 1440px;
@@ -425,27 +515,95 @@ body {
 .controls button.active { background: rgba(212,168,83,0.2); border-color: rgba(212,168,83,0.4); color: var(--card-bg-accent); }
 .controls .val { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--card-bg-accent); min-width: 3ch; }
 
+/* ── Legibility diff panel ── */
+.legibility-panel {
+    max-width: 1440px;
+    margin: 0.6rem auto;
+    padding: 0.6rem 1rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--glass-text-dark-muted);
+    display: none;
+}
+.legibility-panel.visible { display: block; }
+.legibility-panel .panel-title {
+    font-size: 0.65rem;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+.panel-title.before-title { color: #B85C5C; }
+.panel-title.after-title { color: #5BBA6F; }
+.issue-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 0.5rem;
+}
+.issue-col { flex: 1; }
+.issue-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+.issue-chip {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.5rem;
+    white-space: nowrap;
+}
+.issue-chip.bad { background: rgba(184,92,92,0.15); color: #E07070; border: 1px solid rgba(184,92,92,0.25); }
+.issue-chip.warn { background: rgba(212,168,83,0.15); color: #D4A853; border: 1px solid rgba(212,168,83,0.25); }
+.issue-chip.ok { background: rgba(91,186,111,0.1); color: #5BBA6F; border: 1px solid rgba(91,186,111,0.2); }
+.issue-chip.fixed { background: rgba(91,186,111,0.15); color: #5BBA6F; border: 1px solid rgba(91,186,111,0.3); text-decoration: line-through; text-decoration-color: rgba(91,186,111,0.4); }
+
 </style>
 </head>
 <body>
 
 <div class="preview-header">
-    <h2>Monster Scene Preview — Persona Tabs</h2>
-    <p>Switch personas to see card assignments per slot. Missing images shown with ratio needed.</p>
+    <h2>Monster Scene Preview</h2>
+    <p>Persona tabs swap card assignments. Device tabs show before/after comparison for tablet and mobile responsive layouts.</p>
 </div>
 
-<div class="persona-tabs">
+<!-- ── Persona Tabs ── -->
+<div class="tab-row" id="personaRow">
     <span class="tab-label">Persona:</span>
-    <button class="persona-tab active" onclick="switchPersona('default')">Default</button>
-    <button class="persona-tab" onclick="switchPersona('evaluator')">Evaluator</button>
-    <button class="persona-tab" onclick="switchPersona('seeker')">Seeker</button>
-    <button class="persona-tab" onclick="switchPersona('practitioner')">Practitioner</button>
-    <button class="persona-tab" onclick="switchPersona('learner')">Learner</button>
-    <button class="persona-tab" onclick="switchPersona('technologist')">Technologist</button>
-    <button class="persona-tab" onclick="switchPersona('innercircle')">Inner Circle</button>
+    <button class="tab-btn persona-tab active" data-persona="default">Default</button>
+    <button class="tab-btn persona-tab" data-persona="evaluator">Evaluator</button>
+    <button class="tab-btn persona-tab" data-persona="seeker">Seeker</button>
+    <button class="tab-btn persona-tab" data-persona="practitioner">Practitioner</button>
+    <button class="tab-btn persona-tab" data-persona="learner">Learner</button>
+    <button class="tab-btn persona-tab" data-persona="technologist">Technologist</button>
+    <button class="tab-btn persona-tab" data-persona="innercircle">Inner Circle</button>
     <div class="image-status" id="imageStatus"></div>
 </div>
 
+<!-- ── Device Tabs ── -->
+<div class="tab-row" id="deviceRow">
+    <span class="tab-label">Device:</span>
+    <button class="tab-btn device-tab active" data-device="desktop">Desktop</button>
+    <button class="tab-btn device-tab" data-device="tablet">Tablet (1024px)</button>
+    <button class="tab-btn device-tab" data-device="mobile">Mobile (480px)</button>
+</div>
+
+<!-- ── Legibility Diff Panel ── -->
+<div class="legibility-panel" id="legibilityPanel">
+    <div class="issue-row">
+        <div class="issue-col">
+            <div class="panel-title before-title">Before — Issues</div>
+            <div class="issue-list" id="issuesBefore"></div>
+        </div>
+        <div class="issue-col">
+            <div class="panel-title after-title">After — Fixed</div>
+            <div class="issue-list" id="issuesAfter"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Controls ── -->
 <div class="controls">
     <label>Glass Blur:</label>
     <input type="range" id="blurAmt" min="0" max="30" value="12" step="1">
@@ -458,317 +616,134 @@ body {
     <span style="color: rgba(255,255,255,0.15); margin: 0 0.5rem;">|</span>
 
     <label>Headline Color:</label>
-    <button id="btnWhite" onclick="setHeadlineColor('white')">Cream</button>
-    <button id="btnGold" onclick="setHeadlineColor('gold')">Gold</button>
-    <button id="btnWarmWhite" class="active" onclick="setHeadlineColor('warmwhite')">Warm White</button>
+    <button id="btnWhite" class="ctrl-btn" data-color="white">Cream</button>
+    <button id="btnGold" class="ctrl-btn" data-color="gold">Gold</button>
+    <button id="btnWarmWhite" class="ctrl-btn active" data-color="warmwhite">Warm White</button>
 </div>
 
-<div class="work-grid" id="workGrid">
-    <div class="work-card slot-hero" data-slot="hero" data-card="">
-        <div class="card-bg"></div>
-        <div class="shape-label">4x2 HERO &middot; 2:1</div>
-        <div class="card-overlay"><div class="card-glass">
-            <span class="work-eyebrow"></span>
-            <span class="work-stat"></span>
-            <p class="work-desc"></p>
-            <div class="work-tags"></div>
-        </div></div>
+<!-- ══════════════════════════════════════════════════
+     THE TWO GRIDS — before (left) and after (right)
+     Desktop mode hides the "after" column.
+     ══════════════════════════════════════════════════ -->
+<div class="comparison-container mode-desktop" id="compContainer">
+
+    <!-- BEFORE (or single desktop view) -->
+    <div class="grid-col col-before" id="colBefore">
+        <div class="col-label">Before (current CSS)</div>
+        <div class="work-grid" id="gridBefore"></div>
     </div>
 
-    <div class="work-card slot-topright" data-slot="topright" data-card="">
-        <div class="card-bg"></div>
-        <div class="shape-label">2x2 &middot; 1:1</div>
-        <div class="card-overlay"><div class="card-glass">
-            <span class="work-eyebrow"></span>
-            <span class="work-stat"></span>
-            <p class="work-desc"></p>
-            <div class="work-tags"></div>
-        </div></div>
-    </div>
-
-    <div class="work-card slot-widel" data-slot="widel" data-card="">
-        <div class="card-bg"></div>
-        <div class="shape-label">3x1 WIDE-L &middot; 3:1</div>
-        <div class="card-overlay"><div class="card-glass">
-            <span class="work-eyebrow"></span>
-            <span class="work-stat"></span>
-            <p class="work-desc"></p>
-            <div class="work-tags"></div>
-        </div></div>
-    </div>
-
-    <div class="work-card slot-wider" data-slot="wider" data-card="">
-        <div class="card-bg"></div>
-        <div class="shape-label">3x1 WIDE-R &middot; 3:1</div>
-        <div class="card-overlay"><div class="card-glass">
-            <span class="work-eyebrow"></span>
-            <span class="work-stat"></span>
-            <p class="work-desc"></p>
-            <div class="work-tags"></div>
-        </div></div>
-    </div>
-
-    <div class="work-card slot-tall" data-slot="tall" data-card="">
-        <div class="card-bg"></div>
-        <div class="shape-label">3x2 TALL &middot; 3:2</div>
-        <div class="card-overlay"><div class="card-glass">
-            <span class="work-eyebrow"></span>
-            <span class="work-stat"></span>
-            <p class="work-desc"></p>
-            <div class="work-tags"></div>
-        </div></div>
-    </div>
-
-    <div class="work-card slot-center" data-slot="center" data-card="">
-        <div class="card-bg"></div>
-        <div class="shape-label">2x2 CENTER &middot; 1:1</div>
-        <div class="card-overlay"><div class="card-glass">
-            <span class="work-eyebrow"></span>
-            <span class="work-stat"></span>
-            <p class="work-desc"></p>
-            <div class="work-tags"></div>
-        </div></div>
-    </div>
-
-    <div class="work-card slot-learning" data-slot="learning" data-card="">
-        <div class="card-bg"></div>
-        <div class="shape-label">1x2 &middot; 1:2</div>
-        <div class="card-overlay"><div class="card-glass">
-            <span class="work-eyebrow"></span>
-            <span class="work-stat"></span>
-            <p class="work-desc"></p>
-            <div class="work-tags"></div>
-        </div></div>
-    </div>
-
-    <div class="work-card slot-blog" data-slot="blog" data-card="">
-        <div class="card-bg"></div>
-        <div class="shape-label">2x1 &middot; 2:1</div>
-        <div class="card-overlay"><div class="card-glass">
-            <span class="work-eyebrow"></span>
-            <span class="work-stat"></span>
-            <p class="work-desc"></p>
-            <div class="work-tags"></div>
-        </div></div>
-    </div>
-
-    <div class="work-card slot-now" data-slot="now" data-card="">
-        <div class="card-bg"></div>
-        <div class="shape-label">4x1 &middot; 4:1</div>
-        <div class="card-overlay"><div class="card-glass">
-            <span class="work-eyebrow"></span>
-            <span class="work-stat"></span>
-            <p class="work-desc"></p>
-            <div class="work-tags"></div>
-        </div></div>
+    <!-- AFTER -->
+    <div class="grid-col col-after" id="colAfter">
+        <div class="col-label">After (proposed fixes)</div>
+        <div class="work-grid" id="gridAfter"></div>
     </div>
 </div>
 
 <script>
 /* ══════════════════════════════════════════════════
-   CARD CONTENT DATA
+   DATA
    ══════════════════════════════════════════════════ */
 const cardData = {
-    teardowns: {
-        eyebrow: '6 Teardowns & Counting',
-        stat: "How I'd've Built It",
-        desc: 'Product teardowns of popular apps.<br>What I\'d keep, kill, and rebuild from the ground up.',
-        tags: ['Instagram', 'GEICO', 'Airbnb', 'Duolingo', '+2'],
-        character: 'Analyst (owl)',
-        overlayPos: { hero: 'pos-tr', topright: 'pos-bl', widel: 'pos-bl', wider: 'pos-br', tall: 'pos-tr', center: 'pos-bl' }
-    },
-    testimonials: {
-        eyebrow: 'What People Say',
-        stat: 'Testimonials',
-        desc: 'Words from people I\'ve built with, built for, and learned from.',
-        tags: ['Colleagues', 'Founders', 'Leaders'],
-        character: 'Connector (quokka)',
-        overlayPos: { topright: 'pos-bc', center: 'pos-bc', wider: 'pos-br', learning: 'pos-br' }
-    },
-    studio: {
-        eyebrow: 'Left-Brain Sandbox',
-        stat: 'Studio',
-        desc: 'Unrestricted play and goofery.',
-        tags: ['Music', 'Photography', 'Design'],
-        character: 'Artist (chinchilla)',
-        overlayPos: { hero: 'pos-bl', topright: 'pos-bl', widel: 'pos-bl', wider: 'pos-bl' }
-    },
-    madlab: {
-        eyebrow: 'Apps & Prototypes',
-        stat: 'MadLab',
-        desc: 'Shipping real products — from concept to App Store.',
-        tags: ['Scannibal', 'Persona Picker', 'DIA Fund'],
-        character: 'Tinkerer (meerkat)',
-        overlayPos: { hero: 'pos-br', tall: 'pos-tr', widel: 'pos-br', wider: 'pos-br' }
-    },
-    career: {
-        eyebrow: '15+ Years Building',
-        stat: 'Career Highlights',
-        desc: 'From enterprise platforms to startup zero-to-ones.<br>The arc that got me here.',
-        tags: ['ADP', 'Yahoo', 'Avatour', '+3'],
-        character: 'Veteran (bear)',
-        overlayPos: { hero: 'pos-tr', topright: 'pos-tr', tall: 'pos-tr', center: 'pos-bl', wider: 'pos-br' }
-    },
-    underhood: {
-        eyebrow: 'Behind the Scene',
-        stat: 'Under the Hood',
-        desc: 'Every invisible detail of the plot that turned into this site.',
-        tags: ['Architecture', 'AI-Assisted'],
-        character: 'Engineer (bulldog)',
-        overlayPos: { center: 'pos-bl', widel: 'pos-bl', wider: 'pos-bl', blog: 'pos-bl' }
-    },
-    now: {
-        eyebrow: 'Right Now',
-        stat: '/Now',
-        desc: 'What I\'m focused on this month.',
-        tags: ['March \'26'],
-        character: 'Explorer (fox)',
-        overlayPos: { now: 'pos-tr' }
-    },
-    learning: {
-        eyebrow: 'Always Learning',
-        stat: 'Learning',
-        desc: 'Certifications, courses, craft-sharpening.',
-        tags: ['CSPO', 'AWS'],
-        character: 'Student (bush baby)',
-        overlayPos: { learning: 'pos-tc', topright: 'pos-br' }
-    },
-    blog: {
-        eyebrow: 'Written Word',
-        stat: 'Blog',
-        desc: 'Product meets prose.',
-        tags: ['Product', 'Design', 'Engineering'],
-        character: 'Storyteller (orangutan)',
-        overlayPos: { hero: 'pos-br', blog: 'pos-br' }
-    }
+    teardowns: { eyebrow: '6 Teardowns & Counting', stat: "How I'd've Built It", desc: 'Product teardowns of popular apps.<br>What I\'d keep, kill, and rebuild from the ground up.', tags: ['Instagram', 'GEICO', 'Airbnb', 'Duolingo', '+2'], character: 'Analyst (owl)', overlayPos: { hero: 'pos-tr', topright: 'pos-bl', widel: 'pos-bl', wider: 'pos-br', tall: 'pos-tr', center: 'pos-bl' } },
+    testimonials: { eyebrow: 'What People Say', stat: 'Testimonials', desc: 'Words from people I\'ve built with, built for, and learned from.', tags: ['Colleagues', 'Founders', 'Leaders'], character: 'Connector (quokka)', overlayPos: { topright: 'pos-bc', center: 'pos-bc', wider: 'pos-br', learning: 'pos-br' } },
+    studio: { eyebrow: 'Left-Brain Sandbox', stat: 'Studio', desc: 'Unrestricted play and goofery.', tags: ['Music', 'Photography', 'Design'], character: 'Artist (chinchilla)', overlayPos: { hero: 'pos-bl', topright: 'pos-bl', widel: 'pos-bl', wider: 'pos-bl' } },
+    madlab: { eyebrow: 'Apps & Prototypes', stat: 'MadLab', desc: 'Shipping real products — from concept to App Store.', tags: ['Scannibal', 'Persona Picker', 'DIA Fund'], character: 'Tinkerer (meerkat)', overlayPos: { hero: 'pos-br', tall: 'pos-tr', widel: 'pos-br', wider: 'pos-br' } },
+    career: { eyebrow: '15+ Years Building', stat: 'Career Highlights', desc: 'From enterprise platforms to startup zero-to-ones.<br>The arc that got me here.', tags: ['ADP', 'Yahoo', 'Avatour', '+3'], character: 'Veteran (bear)', overlayPos: { hero: 'pos-tr', topright: 'pos-tr', tall: 'pos-tr', center: 'pos-bl', wider: 'pos-br' } },
+    underhood: { eyebrow: 'Behind the Scene', stat: 'Under the Hood', desc: 'Every invisible detail of the plot that turned into this site.', tags: ['Architecture', 'AI-Assisted'], character: 'Engineer (bulldog)', overlayPos: { center: 'pos-bl', widel: 'pos-bl', wider: 'pos-bl', blog: 'pos-bl' } },
+    now: { eyebrow: 'Right Now', stat: '/Now', desc: 'What I\'m focused on this month.', tags: ['March \'26'], character: 'Explorer (fox)', overlayPos: { now: 'pos-tr' } },
+    learning: { eyebrow: 'Always Learning', stat: 'Learning', desc: 'Certifications, courses, craft-sharpening.', tags: ['CSPO', 'AWS'], character: 'Student (bush baby)', overlayPos: { learning: 'pos-tc', topright: 'pos-br' } },
+    blog: { eyebrow: 'Written Word', stat: 'Blog', desc: 'Product meets prose.', tags: ['Product', 'Design', 'Engineering'], character: 'Storyteller (orangutan)', overlayPos: { hero: 'pos-br', blog: 'pos-br' } }
 };
 
-/* ══════════════════════════════════════════════════
-   PERSONA → SLOT → CARD MAPPING
-   From V6 Persona-Slot Matrix
-   ══════════════════════════════════════════════════ */
 const personas = {
-    default:      { hero: 'teardowns', topright: 'testimonials', widel: 'studio',    wider: 'madlab',        tall: 'career',     center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' },
-    evaluator:    { hero: 'career',    topright: 'testimonials', widel: 'studio',    wider: 'madlab',        tall: 'teardowns',  center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' },
-    seeker:       { hero: 'career',    topright: 'teardowns',    widel: 'studio',    wider: 'underhood',     tall: 'madlab',     center: 'testimonials', learning: 'learning',      blog: 'blog',      now: 'now' },
-    practitioner: { hero: 'teardowns', topright: 'career',       widel: 'studio',    wider: 'testimonials',  tall: 'madlab',     center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' },
-    learner:      { hero: 'blog',      topright: 'learning',     widel: 'studio',    wider: 'madlab',        tall: 'teardowns',  center: 'career',       learning: 'testimonials',  blog: 'underhood', now: 'now' },
-    technologist: { hero: 'madlab',    topright: 'studio',       widel: 'underhood', wider: 'career',        tall: 'teardowns',  center: 'testimonials', learning: 'learning',      blog: 'blog',      now: 'now' },
-    innercircle:  { hero: 'studio',    topright: 'career',       widel: 'teardowns', wider: 'testimonials',  tall: 'madlab',     center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' }
+    default:      { hero: 'teardowns', topright: 'testimonials', widel: 'studio', wider: 'madlab', tall: 'career', center: 'underhood', learning: 'learning', blog: 'blog', now: 'now' },
+    evaluator:    { hero: 'career', topright: 'testimonials', widel: 'studio', wider: 'madlab', tall: 'teardowns', center: 'underhood', learning: 'learning', blog: 'blog', now: 'now' },
+    seeker:       { hero: 'career', topright: 'teardowns', widel: 'studio', wider: 'underhood', tall: 'madlab', center: 'testimonials', learning: 'learning', blog: 'blog', now: 'now' },
+    practitioner: { hero: 'teardowns', topright: 'career', widel: 'studio', wider: 'testimonials', tall: 'madlab', center: 'underhood', learning: 'learning', blog: 'blog', now: 'now' },
+    learner:      { hero: 'blog', topright: 'learning', widel: 'studio', wider: 'madlab', tall: 'teardowns', center: 'career', learning: 'testimonials', blog: 'underhood', now: 'now' },
+    technologist: { hero: 'madlab', topright: 'studio', widel: 'underhood', wider: 'career', tall: 'teardowns', center: 'testimonials', learning: 'learning', blog: 'blog', now: 'now' },
+    innercircle:  { hero: 'studio', topright: 'career', widel: 'teardowns', wider: 'testimonials', tall: 'madlab', center: 'underhood', learning: 'learning', blog: 'blog', now: 'now' }
 };
 
-/* ══════════════════════════════════════════════════
-   IMAGE MAP: card → slot → filename (null = not yet generated)
-   Slot determines the aspect ratio needed
-   ══════════════════════════════════════════════════ */
-const slotRatios = {
-    hero: '2:1', topright: '1:1', widel: '3:1', wider: '3:1',
-    tall: '3:2', center: '1:1', learning: '1:2', blog: '2:1', now: '4:1'
-};
+const slotRatios = { hero: '2:1', topright: '1:1', widel: '3:1', wider: '3:1', tall: '3:2', center: '1:1', learning: '1:2', blog: '2:1', now: '4:1' };
 
 const imageMap = {
-    teardowns: {
-        hero: 'images/analyst-hero-2-1.png',
-        topright: 'images/analyst-hero-2-1.png',   // CSS crop test — orig 2:1 → 1:1
-        widel: 'images/analyst-hero-2-1.png',      // CSS crop test — orig 2:1 → 3:1
-        wider: 'images/analyst-hero-2-1.png',      // CSS crop test — orig 2:1 → 3:1
-        tall: 'images/analyst-hero-2-1.png',       // CSS crop test — orig 2:1 → 3:2
-        center: 'images/analyst-hero-2-1.png',     // CSS crop test — orig 2:1 → 1:1
-    },
-    career: {
-        hero: 'images/veteran-hero-2-1.png',
-        topright: 'images/veteran-hero-2-1.png',   // CSS crop test — orig 2:1 → 1:1
-        tall: 'images/veteran-hero-2-1.png',       // CSS crop test — orig 2:1 → 3:2
-        center: 'images/veteran-hero-2-1.png',     // CSS crop test — orig 2:1 → 1:1
-        wider: 'images/veteran-hero-2-1.png',      // CSS crop test — orig 2:1 → 3:1
-    },
-    madlab: {
-        hero: 'images/tinkerer-hero-2-1-flipped.png',   // CSS crop test — same ratio
-        tall: 'images/tinkerer-hero-2-1-flipped.png',   // CSS crop test — orig 2:1 → 3:2
-        widel: 'images/tinkerer-hero-2-1-flipped.png',  // CSS crop test — orig 2:1 → 3:1
-        wider: 'images/tinkerer-hero-2-1-flipped.png',
-    },
-    studio: {
-        hero: 'images/studiocardwide3_1.png',      // CSS crop test — orig 3:1 → 2:1
-        topright: 'images/studiocardwide3_1.png',   // CSS crop test — orig 3:1 → 1:1
-        widel: 'images/studiocardwide3_1.png',
-        wider: 'images/studiocardwide3_1.png',      // CSS crop test — orig 3:1 → 3:1
-    },
-    testimonials: {
-        topright: 'images/connector-square-1_1_2.png',
-        center: 'images/connector-square-1_1_2.png',
-        wider: 'images/connector-square-1_1_2.png',     // CSS crop test — orig 1:1 → 3:1
-        learning: 'images/connector-square-1_1_2.png',   // CSS crop test — orig 1:1 → 1:2
-    },
-    underhood: {
-        center: 'images/engineer2.png',
-        widel: 'images/engineer2.png',      // CSS crop test — orig 1:1 → 3:1
-        wider: 'images/engineer2.png',      // CSS crop test — orig 1:1 → 3:1
-        blog: 'images/engineer2.png',       // CSS crop test — orig 1:1 → 2:1
-    },
-    now: {
-        now: 'images/explorer2.png',
-    },
-    learning: {
-        learning: 'images/learner-library1.png',
-        topright: 'images/learner-library1.png',   // CSS crop test — orig 1:2 → 1:1
-    },
-    blog: {
-        hero: 'images/blogging-monster2.png',
-        blog: 'images/blogging-monster2.png',
-    }
+    teardowns: { hero: 'images/analyst-hero-2-1.png', topright: 'images/analyst-hero-2-1.png', widel: 'images/analyst-hero-2-1.png', wider: 'images/analyst-hero-2-1.png', tall: 'images/analyst-hero-2-1.png', center: 'images/analyst-hero-2-1.png' },
+    career: { hero: 'images/veteran-hero-2-1.png', topright: 'images/veteran-hero-2-1.png', tall: 'images/veteran-hero-2-1.png', center: 'images/veteran-hero-2-1.png', wider: 'images/veteran-hero-2-1.png' },
+    madlab: { hero: 'images/tinkerer-hero-2-1-flipped.png', tall: 'images/tinkerer-hero-2-1-flipped.png', widel: 'images/tinkerer-hero-2-1-flipped.png', wider: 'images/tinkerer-hero-2-1-flipped.png' },
+    studio: { hero: 'images/studiocardwide3_1.png', topright: 'images/studiocardwide3_1.png', widel: 'images/studiocardwide3_1.png', wider: 'images/studiocardwide3_1.png' },
+    testimonials: { topright: 'images/connector-square-1_1_2.png', center: 'images/connector-square-1_1_2.png', wider: 'images/connector-square-1_1_2.png', learning: 'images/connector-square-1_1_2.png' },
+    underhood: { center: 'images/engineer2.png', widel: 'images/engineer2.png', wider: 'images/engineer2.png', blog: 'images/engineer2.png' },
+    now: { now: 'images/explorer2.png' },
+    learning: { learning: 'images/learner-library1.png', topright: 'images/learner-library1.png' },
+    blog: { hero: 'images/blogging-monster2.png', blog: 'images/blogging-monster2.png' }
 };
 
 const gradientFallbacks = {
-    teardowns:    'linear-gradient(135deg, #2C2825 0%, #3A3228 50%, #2C2825 100%)',
+    teardowns: 'linear-gradient(135deg, #2C2825 0%, #3A3228 50%, #2C2825 100%)',
     testimonials: 'linear-gradient(120deg, #3A3428 0%, #2E2820 50%, #3D3528 100%)',
-    studio:       'linear-gradient(140deg, #352E35 0%, #2A2528 50%, #382E35 100%)',
-    madlab:       'linear-gradient(130deg, #2C2425 0%, #3A2828 50%, #2C2425 100%)',
-    career:       'linear-gradient(125deg, #2C3035 0%, #3A3838 50%, #2C3035 100%)',
-    underhood:    'linear-gradient(130deg, #2E3235 0%, #252A2C 50%, #303538 100%)',
-    now:          'linear-gradient(135deg, #3A3028 0%, #2E2520 50%, #3D3025 100%)',
-    learning:     'linear-gradient(125deg, #2E3328 0%, #252A22 50%, #303528 100%)',
-    blog:         'linear-gradient(145deg, #35322A 0%, #2A2822 50%, #383228 100%)'
+    studio: 'linear-gradient(140deg, #352E35 0%, #2A2528 50%, #382E35 100%)',
+    madlab: 'linear-gradient(130deg, #2C2425 0%, #3A2828 50%, #2C2425 100%)',
+    career: 'linear-gradient(125deg, #2C3035 0%, #3A3838 50%, #2C3035 100%)',
+    underhood: 'linear-gradient(130deg, #2E3235 0%, #252A2C 50%, #303538 100%)',
+    now: 'linear-gradient(135deg, #3A3028 0%, #2E2520 50%, #3D3025 100%)',
+    learning: 'linear-gradient(125deg, #2E3328 0%, #252A22 50%, #303528 100%)',
+    blog: 'linear-gradient(145deg, #35322A 0%, #2A2822 50%, #383228 100%)'
 };
 
+const SLOTS = ['hero', 'topright', 'widel', 'wider', 'tall', 'center', 'learning', 'blog', 'now'];
+const SLOT_LABELS = { hero: '4x2 HERO · 2:1', topright: '2x2 · 1:1', widel: '3x1 WIDE-L · 3:1', wider: '3x1 WIDE-R · 3:1', tall: '3x2 TALL · 3:2', center: '2x2 CENTER · 1:1', learning: '1x2 · 1:2', blog: '2x1 · 2:1', now: '4x1 · 4:1' };
+
 /* ══════════════════════════════════════════════════
-   PERSONA SWITCHING
+   BUILD BOTH GRIDS (identical HTML, different parent classes)
+   ══════════════════════════════════════════════════ */
+function buildGridHTML() {
+    return SLOTS.map(slot => `
+        <div class="work-card slot-${slot}" data-slot="${slot}" data-card="">
+            <div class="card-bg"></div>
+            <div class="shape-label">${SLOT_LABELS[slot]}</div>
+            <div class="card-overlay"><div class="card-glass">
+                <span class="work-eyebrow"></span>
+                <span class="work-stat"></span>
+                <p class="work-desc"></p>
+                <div class="work-tags"></div>
+            </div></div>
+        </div>
+    `).join('');
+}
+
+document.getElementById('gridBefore').innerHTML = buildGridHTML();
+document.getElementById('gridAfter').innerHTML = buildGridHTML();
+
+/* ══════════════════════════════════════════════════
+   STATE
    ══════════════════════════════════════════════════ */
 let currentPersona = 'default';
+let currentDevice = 'desktop';
 
-function switchPersona(persona) {
-    currentPersona = persona;
+/* ══════════════════════════════════════════════════
+   POPULATE A GRID with persona content
+   ══════════════════════════════════════════════════ */
+function populateGrid(gridEl, persona) {
     const config = personas[persona];
-
-    // Update tab active state
-    document.querySelectorAll('.persona-tab').forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
-
     let hasCount = 0, totalCount = 0;
 
-    // Update each slot
     Object.entries(config).forEach(([slot, cardId]) => {
-        const slotEl = document.querySelector(`[data-slot="${slot}"]`);
+        const slotEl = gridEl.querySelector(`[data-slot="${slot}"]`);
         if (!slotEl) return;
-
         const card = cardData[cardId];
         const img = imageMap[cardId] && imageMap[cardId][slot];
         const bg = slotEl.querySelector('.card-bg');
 
-        // Set card identity
         slotEl.setAttribute('data-card', cardId);
-
-        // Set position class — remove old, add new
         slotEl.className = slotEl.className.replace(/pos-\w+/g, '');
-        const posMap = card.overlayPos || {};
-        const pos = posMap[slot] || 'pos-bl';
+        const pos = (card.overlayPos || {})[slot] || 'pos-bl';
         slotEl.classList.add(pos);
 
-        // Set background
         totalCount++;
         if (img) {
             bg.style.background = `url('${img}') center top / cover no-repeat`;
-            bg.style.backgroundColor = '';
             bg.classList.remove('no-image');
             bg.removeAttribute('data-need');
             hasCount++;
@@ -778,24 +753,146 @@ function switchPersona(persona) {
             bg.setAttribute('data-need', `need ${card.character} @ ${slotRatios[slot]}`);
         }
 
-        // Set overlay content
         const glass = slotEl.querySelector('.card-glass');
         glass.querySelector('.work-eyebrow').textContent = card.eyebrow;
         glass.querySelector('.work-stat').innerHTML = card.stat;
         glass.querySelector('.work-desc').innerHTML = card.desc;
-
-        const tagsEl = glass.querySelector('.work-tags');
-        tagsEl.innerHTML = card.tags.map(t => `<span class="work-tag">${t}</span>`).join('');
+        glass.querySelector('.work-tags').innerHTML = card.tags.map(t => `<span class="work-tag">${t}</span>`).join('');
     });
 
-    // Update status
-    document.getElementById('imageStatus').innerHTML =
-        `<span class="has">${hasCount}</span> / ${totalCount} images &middot; <span class="missing">${totalCount - hasCount} missing</span>`;
+    return { hasCount, totalCount };
 }
 
 /* ══════════════════════════════════════════════════
-   CONTROLS
+   SWITCH PERSONA
    ══════════════════════════════════════════════════ */
+function switchPersona(persona) {
+    currentPersona = persona;
+    document.querySelectorAll('.persona-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.persona-tab[data-persona="${persona}"]`).classList.add('active');
+
+    const r1 = populateGrid(document.getElementById('gridBefore'), persona);
+    populateGrid(document.getElementById('gridAfter'), persona);
+
+    document.getElementById('imageStatus').innerHTML =
+        `<span class="has">${r1.hasCount}</span> / ${r1.totalCount} images · <span class="missing">${r1.totalCount - r1.hasCount} missing</span>`;
+
+    requestAnimationFrame(() => runLegibilityAudit());
+}
+
+/* ══════════════════════════════════════════════════
+   SWITCH DEVICE
+   ══════════════════════════════════════════════════ */
+function switchDevice(device) {
+    currentDevice = device;
+    const container = document.getElementById('compContainer');
+    const colBefore = document.getElementById('colBefore');
+    const colAfter = document.getElementById('colAfter');
+
+    document.querySelectorAll('.device-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.device-tab[data-device="${device}"]`).classList.add('active');
+
+    // Reset container mode
+    container.className = 'comparison-container mode-' + device;
+
+    // Reset grid wrapper classes
+    colBefore.classList.remove('is-tablet', 'is-mobile-before');
+    colAfter.classList.remove('is-tablet', 'is-mobile-after');
+
+    if (device === 'desktop') {
+        // Single full-width grid, no device overrides
+    } else if (device === 'tablet') {
+        colBefore.classList.add('is-tablet');
+        colAfter.classList.add('is-tablet');
+    } else if (device === 'mobile') {
+        colBefore.classList.add('is-mobile-before');
+        colAfter.classList.add('is-mobile-after');
+    }
+
+    requestAnimationFrame(() => runLegibilityAudit());
+}
+
+/* ══════════════════════════════════════════════════
+   LEGIBILITY AUDIT — runs on both grids, shows diff
+   ══════════════════════════════════════════════════ */
+function auditGrid(gridEl) {
+    const issues = [];
+    gridEl.querySelectorAll('.work-card').forEach(card => {
+        const slot = (card.className.match(/slot-(\w+)/) || [])[1] || '?';
+        const cardId = card.getAttribute('data-card') || '?';
+        const stat = card.querySelector('.work-stat');
+        const desc = card.querySelector('.work-desc');
+        const eyebrow = card.querySelector('.work-eyebrow');
+        const overlay = card.querySelector('.card-overlay');
+
+        const statPx = parseFloat(getComputedStyle(stat).fontSize);
+        const descPx = parseFloat(getComputedStyle(desc).fontSize);
+        const eyePx = parseFloat(getComputedStyle(eyebrow).fontSize);
+        const overlayW = overlay.getBoundingClientRect().width;
+        const cardW = card.getBoundingClientRect().width;
+
+        const label = slot;
+
+        if (eyePx < 10) issues.push({ text: label + ' eyebrow ' + eyePx.toFixed(1) + 'px', level: 'bad' });
+        else if (eyePx < 11.5) issues.push({ text: label + ' eyebrow ' + eyePx.toFixed(1) + 'px', level: 'warn' });
+
+        if (descPx < 11) issues.push({ text: label + ' desc ' + descPx.toFixed(1) + 'px', level: 'bad' });
+        else if (descPx < 12.5) issues.push({ text: label + ' desc ' + descPx.toFixed(1) + 'px', level: 'warn' });
+    });
+    return issues;
+}
+
+function runLegibilityAudit() {
+    const panel = document.getElementById('legibilityPanel');
+    if (currentDevice === 'desktop') {
+        panel.classList.remove('visible');
+        return;
+    }
+
+    const beforeIssues = auditGrid(document.getElementById('gridBefore'));
+    const afterIssues = auditGrid(document.getElementById('gridAfter'));
+
+    const beforeList = document.getElementById('issuesBefore');
+    const afterList = document.getElementById('issuesAfter');
+
+    if (beforeIssues.length === 0) {
+        beforeList.innerHTML = '<span class="issue-chip ok">All pass</span>';
+    } else {
+        beforeList.innerHTML = beforeIssues.map(i => `<span class="issue-chip ${i.level}">${i.text}</span>`).join('');
+    }
+
+    // For "after", show fixed issues with strikethrough
+    const afterTexts = new Set(afterIssues.map(i => i.text));
+    const fixedFromBefore = beforeIssues.filter(i => !afterTexts.has(i.text));
+    const remainingAfter = afterIssues;
+
+    let afterHTML = '';
+    if (fixedFromBefore.length > 0) {
+        afterHTML += fixedFromBefore.map(i => `<span class="issue-chip fixed">${i.text}</span>`).join('');
+    }
+    if (remainingAfter.length > 0) {
+        afterHTML += remainingAfter.map(i => `<span class="issue-chip ${i.level}">${i.text}</span>`).join('');
+    }
+    if (fixedFromBefore.length === beforeIssues.length && remainingAfter.length === 0) {
+        afterHTML = '<span class="issue-chip ok">All issues resolved</span>';
+    }
+    if (!afterHTML) afterHTML = '<span class="issue-chip ok">All pass</span>';
+    afterList.innerHTML = afterHTML;
+
+    panel.classList.add('visible');
+}
+
+/* ══════════════════════════════════════════════════
+   EVENT HANDLERS
+   ══════════════════════════════════════════════════ */
+document.querySelectorAll('.persona-tab').forEach(btn => {
+    btn.addEventListener('click', () => switchPersona(btn.dataset.persona));
+});
+document.querySelectorAll('.device-tab').forEach(btn => {
+    btn.addEventListener('click', () => switchDevice(btn.dataset.device));
+});
+
+/* ── Controls ── */
 document.getElementById('blurAmt').addEventListener('input', (e) => {
     const val = e.target.value;
     document.getElementById('blurVal').textContent = val + 'px';
@@ -804,7 +901,6 @@ document.getElementById('blurAmt').addEventListener('input', (e) => {
         el.style.webkitBackdropFilter = `blur(${val}px) saturate(1.2)`;
     });
 });
-
 document.getElementById('glassOpacity').addEventListener('input', (e) => {
     const val = e.target.value;
     document.getElementById('opacityVal').textContent = val + '%';
@@ -814,23 +910,25 @@ document.getElementById('glassOpacity').addEventListener('input', (e) => {
     });
 });
 
-function setHeadlineColor(variant) {
-    const headlines = document.querySelectorAll('.work-stat');
-    const eyebrows = document.querySelectorAll('.work-eyebrow');
-    const colorBtns = [document.getElementById('btnWhite'), document.getElementById('btnGold'), document.getElementById('btnWarmWhite')];
-    colorBtns.forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    const colors = {
-        'white':     { stat: '#F0E6D8', eyebrow: '#9A8E80' },
-        'gold':      { stat: '#D4A853', eyebrow: '#9A8E80' },
-        'warmwhite': { stat: '#F5EDE0', eyebrow: '#D4A853' }
-    };
-    const c = colors[variant];
-    headlines.forEach(h => h.style.color = c.stat);
-    eyebrows.forEach(e => e.style.color = c.eyebrow);
-}
+document.querySelectorAll('.ctrl-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const variant = this.dataset.color;
+        document.querySelectorAll('.ctrl-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const colors = {
+            'white':     { stat: '#F0E6D8', eyebrow: '#9A8E80' },
+            'gold':      { stat: '#D4A853', eyebrow: '#9A8E80' },
+            'warmwhite': { stat: '#F5EDE0', eyebrow: '#D4A853' }
+        };
+        const c = colors[variant];
+        document.querySelectorAll('.work-stat').forEach(h => h.style.color = c.stat);
+        document.querySelectorAll('.work-eyebrow').forEach(e => e.style.color = c.eyebrow);
+    });
+});
 
-// Initialize with default persona
+/* ══════════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════════ */
 switchPersona('default');
 </script>
 
