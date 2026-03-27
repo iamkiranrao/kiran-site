@@ -263,7 +263,7 @@
      INITIALIZATION
      ══════════════════════════════════════════════════ */
   function initBento() {
-    var savedPersona = localStorage.getItem('selected-persona') || 'default';
+    var savedPersona = localStorage.getItem('persona') || 'default';
     switchBentoCards(savedPersona);
     initBentoClickRouting();
   }
