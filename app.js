@@ -395,42 +395,8 @@ if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
 // ==========================================
 // WORK CARDS INTERACTION
 // ==========================================
-
-const workCards = document.querySelectorAll('.work-card');
-const cardConfig = [
-    { id: 'how-id-built-it', title: 'How I\'d\'ve Built It', link: 'how-id-built-it.html', sameTab: true },
-    { id: 'my-work', title: 'Career Highlights', link: 'career-highlights.html', sameTab: true },
-    { id: 'my-sandbox', title: 'MadLab', link: 'madlab.html', sameTab: true },
-    { id: 'creative-lab', title: 'Studio', link: 'studio.html', sameTab: true },
-    { id: 'blog-podcast', title: 'Blog & Podcast', link: 'blog-podcast.html', sameTab: true },
-    { id: 'learning', title: 'Learning', link: 'learning.html', sameTab: true },
-    { id: 'now', title: '/Now', link: 'now.html', sameTab: true },
-    { id: 'under-the-hood', title: 'Under the Hood', link: 'under-the-hood.html', sameTab: true },
-    { id: 'testimonials', title: 'Testimonials', link: null }
-];
-
-// Build ID-based lookup for card config
-const cardConfigMap = {};
-cardConfig.forEach(c => { cardConfigMap[c.id] = c; });
-
-workCards.forEach((card) => {
-    const config = cardConfigMap[card.id] || { title: 'Section', link: null };
-    card.addEventListener('click', () => {
-        if (config.link && config.sameTab) {
-            window.location.href = config.link;
-        } else if (config.link) {
-            window.open(config.link, '_blank', 'noopener,noreferrer');
-        } else {
-            showToast(`${config.title} - coming soon.`);
-        }
-    });
-    card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            card.click();
-        }
-    });
-});
+// Click routing is now handled by bento-cards.js
+// which uses data-card attribute for persona-aware routing.
 
 
 // ==========================================
