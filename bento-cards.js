@@ -11,7 +11,7 @@
     teardowns: {
       eyebrow: '6 Teardowns & Counting',
       stat: "How I'd've Built It",
-      desc: 'Product teardowns of popular apps.<br>What I\'d keep, kill, and rebuild from the ground up.',
+      desc: 'Popular app teardowns. Keep, kill, rebuild.',
       tags: ['Instagram', 'GEICO', 'Airbnb', 'Duolingo', '+2'],
       character: 'Analyst (owl)',
       overlayPos: { hero: 'pos-tr', topright: 'pos-bl', widel: 'pos-bl', wider: 'pos-br', tall: 'pos-tr', center: 'pos-bl' }
@@ -19,7 +19,7 @@
     testimonials: {
       eyebrow: 'What People Say',
       stat: 'Testimonials',
-      desc: 'Words from people I\'ve built with, built for, and learned from.',
+      desc: 'From people I\'ve built with and for.',
       tags: ['Colleagues', 'Founders', 'Leaders'],
       character: 'Connector (quokka)',
       overlayPos: { topright: 'pos-bc', center: 'pos-bc', wider: 'pos-br', learning: 'pos-br' }
@@ -35,7 +35,7 @@
     madlab: {
       eyebrow: 'Apps & Prototypes',
       stat: 'MadLab',
-      desc: 'Shipping real products — from concept to App Store.',
+      desc: 'From concept to App Store.',
       tags: ['Scannibal', 'Persona Picker', 'DIA Fund'],
       character: 'Tinkerer (meerkat)',
       overlayPos: { hero: 'pos-br', tall: 'pos-tr', widel: 'pos-br', wider: 'pos-br' }
@@ -43,7 +43,7 @@
     career: {
       eyebrow: '15+ Years Building',
       stat: 'Career Highlights',
-      desc: 'From enterprise platforms to startup zero-to-ones.<br>The arc that got me here.',
+      desc: 'Enterprise to startup. The full arc.',
       tags: ['ADP', 'Yahoo', 'Avatour', '+3'],
       character: 'Veteran (bear)',
       overlayPos: { hero: 'pos-tr', topright: 'pos-tr', tall: 'pos-tr', center: 'pos-bl', wider: 'pos-br' }
@@ -51,7 +51,7 @@
     underhood: {
       eyebrow: 'Behind the Scene',
       stat: 'Under the Hood',
-      desc: 'Every invisible detail of the plot that turned into this site.',
+      desc: 'How this site was actually built.',
       tags: ['Architecture', 'AI-Assisted'],
       character: 'Engineer (bulldog)',
       overlayPos: { center: 'pos-bl', widel: 'pos-bl', wider: 'pos-bl', blog: 'pos-bl' }
@@ -245,16 +245,6 @@
      On desktop, some card+slot combos intentionally have no image
      (gradient placeholder). On mobile single-column, every card
      needs a real image. */
-  /* Shortened mobile copy — only cards whose desktop desc wraps
-     on a ~358px content area. Cards not listed keep their desktop copy. */
-  var mobileCopy = {
-      teardowns:    'Popular app teardowns. Keep, kill, rebuild.',
-      testimonials: 'From people I\'ve built with and for.',
-      career:       'Enterprise to startup. The full arc.',
-      underhood:    'How this site was actually built.',
-      madlab:       'From concept to App Store.'
-  };
-
   var mobileImageOverrides = {
       teardowns:    { img: 'images/analyst-hero-2-1.png',          pos: 'center 30%' },
       career:       { img: 'images/veteran-hero-2-1.png',          pos: 'center 20%' },
@@ -306,14 +296,6 @@
               }
           }
 
-          // --- Copy overrides ---
-          var descEl = card.querySelector('.work-desc');
-          if (!descEl || !cardId) return;
-          if (isMobile && mobileCopy[cardId]) {
-              descEl.innerHTML = mobileCopy[cardId];
-          } else if (!isMobile && cardData[cardId]) {
-              descEl.innerHTML = cardData[cardId].desc;
-          }
       });
   }
 
