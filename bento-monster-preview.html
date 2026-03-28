@@ -225,9 +225,9 @@ body {
     width: fit-content;
     max-width: 75%;
     padding: 0.75rem 1rem;
-    background: rgba(16, 14, 12, 0.85);
-    backdrop-filter: blur(12px) saturate(1.2);
-    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    background: rgba(16, 14, 12, 0.50);
+    backdrop-filter: blur(8px) saturate(1.2);
+    -webkit-backdrop-filter: blur(8px) saturate(1.2);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 12px;
     transition: all 0.3s ease;
@@ -471,8 +471,8 @@ body {
 .is-tablet-after [data-card="underhood"] .card-bg { background-position: center 60% !important; }
 .is-tablet-after [data-card="testimonials"] .card-bg { background-position: center 50% !important; }
 .is-tablet-after [data-card="blog"] .card-bg { background-size: auto 380px !important; background-position: 30% 70% !important; }
-.is-tablet-after [data-card="learning"] .card-bg { background-position: center 80% !important; }
-.is-tablet-after [data-card="now"] .card-bg { background-size: auto 450px !important; background-position: 35% 55% !important; }
+.is-tablet-after [data-card="learning"] .card-bg { background-size: auto 100% !important; background-position: center 80% !important; }
+.is-tablet-after [data-card="now"] .card-bg { background-size: auto 100% !important; background-position: 35% 55% !important; }
 
 /* ── MOBILE BEFORE — current broken state ── */
 .is-mobile-before .work-grid {
@@ -524,8 +524,8 @@ body {
 .is-mobile-after [data-card="underhood"] .card-bg { background-position: center 60% !important; }
 .is-mobile-after [data-card="testimonials"] .card-bg { background-position: center 50% !important; }
 .is-mobile-after [data-card="blog"] .card-bg { background-size: auto 380px !important; background-position: 30% 70% !important; }
-.is-mobile-after [data-card="learning"] .card-bg { background-position: center 80% !important; }
-.is-mobile-after [data-card="now"] .card-bg { background-size: auto 450px !important; background-position: 35% 55% !important; }
+.is-mobile-after [data-card="learning"] .card-bg { background-size: auto 100% !important; background-position: center 80% !important; }
+.is-mobile-after [data-card="now"] .card-bg { background-size: auto 100% !important; background-position: 35% 55% !important; }
 
 /* ══════════════════════════════════════════════════
    CONTROLS
@@ -653,12 +653,12 @@ body {
 <!-- ── Controls ── -->
 <div class="controls">
     <label>Glass Blur:</label>
-    <input type="range" id="blurAmt" min="0" max="30" value="12" step="1">
-    <span class="val" id="blurVal">12px</span>
+    <input type="range" id="blurAmt" min="0" max="30" value="8" step="1">
+    <span class="val" id="blurVal">8px</span>
 
     <label style="margin-left: 1rem;">Glass Opacity:</label>
-    <input type="range" id="glassOpacity" min="0" max="100" value="85" step="5">
-    <span class="val" id="opacityVal">85%</span>
+    <input type="range" id="glassOpacity" min="0" max="100" value="50" step="5">
+    <span class="val" id="opacityVal">50%</span>
 
     <span style="color: rgba(255,255,255,0.15); margin: 0 0.5rem;">|</span>
 
