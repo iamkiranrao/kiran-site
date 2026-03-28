@@ -245,6 +245,16 @@
      On desktop, some card+slot combos intentionally have no image
      (gradient placeholder). On mobile single-column, every card
      needs a real image. */
+  /* Shortened mobile copy — only cards whose desktop desc wraps
+     on a ~358px content area. Cards not listed keep their desktop copy. */
+  var mobileCopy = {
+      teardowns:    'Popular app teardowns. Keep, kill, rebuild.',
+      testimonials: 'From people I\'ve built with and for.',
+      career:       'Enterprise to startup. The full arc.',
+      underhood:    'How this site was actually built.',
+      madlab:       'From concept to App Store.'
+  };
+
   var mobileImageOverrides = {
       teardowns:    { img: 'images/analyst-hero-2-1.png',          pos: 'center 30%' },
       career:       { img: 'images/veteran-hero-2-1.png',          pos: 'center 20%' },
@@ -266,10 +276,9 @@
           var bg = card.querySelector('.card-bg');
           if (!bg) return;
 
+          // --- Image overrides ---
           if (isMobile && mobileImageOverrides[cardId]) {
-              // On mobile: always show an image, even if desktop had no-image
               var override = mobileImageOverrides[cardId];
-              // Clear gradient shorthand first, then set individual props
               bg.style.background = '';
               bg.style.backgroundImage = "url('" + override.img + "')";
               bg.style.backgroundPosition = override.pos;
@@ -278,7 +287,6 @@
               bg.classList.remove('no-image');
               bg.removeAttribute('data-need');
           } else if (!isMobile) {
-              // Restore desktop state — re-run slot-based image lookup
               var slot = card.getAttribute('data-slot');
               var desktopImg = imageMap[cardId] && imageMap[cardId][slot];
               if (desktopImg) {
@@ -290,13 +298,21 @@
                   bg.classList.remove('no-image');
                   bg.removeAttribute('data-need');
               } else {
-                  // No image for this card+slot combo — restore gradient
                   bg.style.backgroundImage = 'none';
                   bg.style.background = gradientFallbacks[cardId] || '';
                   bg.classList.add('no-image');
                   var cardInfo = cardData[cardId];
                   bg.setAttribute('data-need', 'need ' + (cardInfo && cardInfo.character || '') + ' @ ' + (slotRatios[slot] || ''));
               }
+          }
+
+          // --- Copy overrides ---
+          var descEl = card.querySelector('.work-desc');
+          if (!descEl || !cardId) return;
+          if (isMobile && mobileCopy[cardId]) {
+              descEl.innerHTML = mobileCopy[cardId];
+          } else if (!isMobile && cardData[cardId]) {
+              descEl.innerHTML = cardData[cardId].desc;
           }
       });
   }

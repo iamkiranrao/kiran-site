@@ -1767,15 +1767,9 @@ footer {
         text-align: left !important;
     }
     .work-grid.bento .work-tags { justify-content: flex-start !important; }
-    /* Force every text row to single line */
-    .work-grid.bento .work-eyebrow,
-    .work-grid.bento .work-stat,
-    .work-grid.bento .work-desc {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    /* Neutralize <br> in descriptions so text flows as one line */
+    /* Smaller heading to fit single line on tablet */
+    .work-grid.bento .work-stat { font-size: 1.3rem !important; }
+    /* Hide <br> in descriptions — mobile copy is single-line */
     .work-grid.bento .work-desc br { display: none; }
     /* Glassmorphism — let background bleed through */
     .work-grid.bento .card-overlay {
@@ -1842,10 +1836,10 @@ footer {
         grid-row: span 1 !important;
         min-height: 300px;
     }
-    /* Typography floors for mobile — single-line enforced */
-    .work-grid.bento .work-eyebrow { font-size: 0.72rem !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .work-grid.bento .work-stat { font-size: 1.6rem !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .work-grid.bento .work-desc { font-size: 0.82rem !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* Typography floors for mobile — heading reduced to fit one line */
+    .work-grid.bento .work-eyebrow { font-size: 0.72rem !important; }
+    .work-grid.bento .work-stat { font-size: 1.3rem !important; }
+    .work-grid.bento .work-desc { font-size: 0.82rem !important; }
     .work-grid.bento .work-desc br { display: none; }
     .work-grid.bento .work-tag { font-size: 0.6rem; }
     .competencies-grid { grid-template-columns: 1fr; gap: 1.5rem; }
