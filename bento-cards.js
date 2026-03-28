@@ -207,11 +207,15 @@
 
       // Set background
       if (img) {
-        bg.style.background = "url('" + img + "') center top / cover no-repeat";
+        bg.style.backgroundImage = "url('" + img + "')";
+        bg.style.backgroundPosition = 'center top';
+        bg.style.backgroundSize = 'cover';
+        bg.style.backgroundRepeat = 'no-repeat';
         bg.style.backgroundColor = '';
         bg.classList.remove('no-image');
         bg.removeAttribute('data-need');
       } else {
+        bg.style.backgroundImage = 'none';
         bg.style.background = gradientFallbacks[cardId] || '';
         bg.classList.add('no-image');
         bg.setAttribute('data-need', 'need ' + (card.character || '') + ' @ ' + (slotRatios[slot] || ''));
@@ -230,6 +234,48 @@
         }).join('');
       }
     });
+  }
+
+  /* ══════════════════════════════════════════════════
+     MOBILE IMAGE SWAPS — use dedicated mobile images
+     for blog and learning cards on small screens
+     ══════════════════════════════════════════════════ */
+  var mobileImageOverrides = {
+      blog:     { img: 'images/blogmobile.png',    pos: 'center 60%' },
+      learning: { img: 'images/learnermobile.png',  pos: 'center 50%' }
+  };
+
+  // Original desktop images for restore
+  var desktopImageRestore = {
+      blog:     'images/blogging-monster2.png',
+      learning: 'images/learner-library1.png'
+  };
+
+  function applyMobileOverrides() {
+      var isMobile = window.innerWidth <= 1024;
+      var cards = document.querySelectorAll('#workGrid .work-card');
+
+      cards.forEach(function(card) {
+          var cardId = card.getAttribute('data-card');
+          var bg = card.querySelector('.card-bg');
+          if (!bg || bg.classList.contains('no-image')) return;
+
+          if (isMobile && mobileImageOverrides[cardId]) {
+              var override = mobileImageOverrides[cardId];
+              bg.style.backgroundImage = "url('" + override.img + "')";
+              bg.style.backgroundPosition = override.pos;
+              bg.style.backgroundSize = 'cover';
+          } else if (!isMobile && desktopImageRestore[cardId]) {
+              // Restore desktop images — re-read from imageMap based on current slot
+              var slot = card.getAttribute('data-slot');
+              var originalImg = imageMap[cardId] && imageMap[cardId][slot];
+              if (originalImg) {
+                  bg.style.backgroundImage = "url('" + originalImg + "')";
+                  bg.style.backgroundPosition = 'center top';
+                  bg.style.backgroundSize = 'cover';
+              }
+          }
+      });
   }
 
   /* ══════════════════════════════════════════════════
@@ -265,11 +311,24 @@
   function initBento() {
     var savedPersona = localStorage.getItem('persona') || 'default';
     switchBentoCards(savedPersona);
+    applyMobileOverrides();
     initBentoClickRouting();
+
+    // Re-apply mobile overrides on resize
+    var resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(applyMobileOverrides, 150);
+    });
   }
 
   // Expose globally for persona-system.js to call
-  window.switchBentoCards = switchBentoCards;
+  window.applyMobileOverrides = applyMobileOverrides;
+  var originalSwitchBento = switchBentoCards;
+  window.switchBentoCards = function(persona) {
+      originalSwitchBento(persona);
+      applyMobileOverrides();
+  };
 
   // Initialize on DOM ready
   if (document.readyState === 'loading') {
