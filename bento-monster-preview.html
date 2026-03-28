@@ -859,6 +859,29 @@ function switchDevice(device) {
         colAfter.classList.add('is-mobile-after');
     }
 
+    // Apply per-card background positions for mobile/tablet After column
+    if (device === 'mobile' || device === 'tablet') {
+        const mobilePositions = {
+            underhood: 'center 60%',
+            testimonials: 'center 50%',
+            blog: '25% 100%',
+            learning: 'center 40%',
+            now: '35% 75%'
+        };
+        document.querySelectorAll('#gridAfter .work-card').forEach(card => {
+            const cardId = card.getAttribute('data-card');
+            const bg = card.querySelector('.card-bg');
+            if (bg && mobilePositions[cardId]) {
+                bg.style.backgroundPosition = mobilePositions[cardId];
+            }
+        });
+    } else {
+        // Reset to default for desktop
+        document.querySelectorAll('#gridAfter .work-card .card-bg').forEach(bg => {
+            bg.style.backgroundPosition = 'center top';
+        });
+    }
+
     requestAnimationFrame(() => runLegibilityAudit());
 }
 
