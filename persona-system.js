@@ -368,7 +368,7 @@
             setTimeout(function () {
               body.classList.remove('morph-reveal', 'morph-accent-draw', 'morph-content-in');
               body.classList.add('morph-complete');
-            }, 1200);
+            }, 1500);
           }, 1600);
         };
 

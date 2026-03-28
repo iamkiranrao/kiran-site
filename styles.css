@@ -2667,6 +2667,8 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 .picker-mode nav,
 .picker-mode .hero-text,
 .picker-mode .about-section,
+.picker-mode .manifesto-section,
+.picker-mode .numbers-section,
 .picker-mode #work,
 .picker-mode .contact-cta,
 .picker-mode footer,
@@ -2688,6 +2690,8 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 .persona-active nav,
 .persona-active .hero-text,
 .persona-active .about-section,
+.persona-active .manifesto-section,
+.persona-active .numbers-section,
 .persona-active #work,
 .persona-active .contact-cta,
 .persona-active footer,
@@ -2817,17 +2821,25 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 .morph-content-in .about-section {
     animation: contentRise 0.7s var(--ease-decel) 0s forwards;
 }
+.morph-content-in .manifesto-section {
+    animation: contentRise 0.7s var(--ease-decel) 0.12s forwards;
+}
+.morph-content-in .numbers-section {
+    animation: contentRise 0.7s var(--ease-decel) 0.24s forwards;
+}
 .morph-content-in #work {
-    animation: contentRise 0.7s var(--ease-decel) 0.15s forwards;
+    animation: contentRise 0.7s var(--ease-decel) 0.36s forwards;
 }
 .morph-content-in .contact-cta {
-    animation: contentRise 0.7s var(--ease-decel) 0.3s forwards;
+    animation: contentRise 0.7s var(--ease-decel) 0.48s forwards;
 }
 .morph-content-in footer {
-    animation: contentRise 0.7s var(--ease-decel) 0.45s forwards;
+    animation: contentRise 0.7s var(--ease-decel) 0.6s forwards;
 }
 
 .morph-content-in .about-section,
+.morph-content-in .manifesto-section,
+.morph-content-in .numbers-section,
 .morph-content-in #work,
 .morph-content-in .contact-cta,
 .morph-content-in footer {
@@ -2840,7 +2852,7 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 }
 
 .morph-content-in .ai-assistant-wrapper {
-    animation: fabFadeIn 0.5s var(--ease-decel) 0.5s forwards;
+    animation: fabFadeIn 0.5s var(--ease-decel) 0.65s forwards;
     position: fixed !important;
     width: auto !important;
     height: auto !important;
@@ -2895,6 +2907,8 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 .morph-reverse nav,
 .morph-reverse .hero-text,
 .morph-reverse .about-section,
+.morph-reverse .manifesto-section,
+.morph-reverse .numbers-section,
 .morph-reverse #work,
 .morph-reverse .contact-cta,
 .morph-reverse footer,
@@ -3497,6 +3511,8 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     .morph-reveal .hero-text .hero-bottom-row,
     .morph-reveal .viewing-as-pill,
     .morph-content-in .about-section,
+    .morph-content-in .manifesto-section,
+    .morph-content-in .numbers-section,
     .morph-content-in #work,
     .morph-content-in .contact-cta,
     .morph-content-in footer,
@@ -3504,6 +3520,8 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     .morph-reverse nav,
     .morph-reverse .hero-text,
     .morph-reverse .about-section,
+    .morph-reverse .manifesto-section,
+    .morph-reverse .numbers-section,
     .morph-reverse #work,
     .morph-reverse .contact-cta,
     .morph-reverse footer {
