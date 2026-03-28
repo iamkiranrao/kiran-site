@@ -1750,7 +1750,7 @@ footer {
         grid-row: span 1 !important;
         min-height: 300px;
     }
-    /* Full-width bottom bar overlay */
+    /* Full-width bottom bar overlay — compact to show more image */
     .work-grid.bento .card-overlay {
         bottom: 0 !important;
         left: 0 !important;
@@ -1760,15 +1760,17 @@ footer {
         max-width: 100% !important;
         width: 100% !important;
         border-radius: 0 0 16px 16px !important;
-        padding: 0.8rem 1rem !important;
+        padding: 0.4rem 0.8rem !important;
     }
     .work-grid.bento .card-glass {
         align-items: flex-start !important;
         text-align: left !important;
+        gap: 0.05rem !important;
     }
+    .work-grid.bento .work-eyebrow { font-size: 0.5rem !important; line-height: 1.2 !important; }
+    .work-grid.bento .work-stat { font-size: 1.3rem !important; line-height: 1 !important; }
+    .work-grid.bento .work-desc { line-height: 1.2 !important; }
     .work-grid.bento .work-tags { justify-content: flex-start !important; }
-    /* Smaller heading to fit single line on tablet */
-    .work-grid.bento .work-stat { font-size: 1.3rem !important; }
     /* Hide <br> in descriptions — mobile copy is single-line */
     .work-grid.bento .work-desc br { display: none; }
     /* Glassmorphism — let background bleed through */
@@ -1836,12 +1838,14 @@ footer {
         grid-row: span 1 !important;
         min-height: 300px;
     }
-    /* Typography floors for mobile — heading reduced to fit one line */
-    .work-grid.bento .work-eyebrow { font-size: 0.72rem !important; }
-    .work-grid.bento .work-stat { font-size: 1.3rem !important; }
-    .work-grid.bento .work-desc { font-size: 0.82rem !important; }
+    /* Typography floors for mobile — compact overlay */
+    .work-grid.bento .card-overlay { padding: 0.35rem 0.75rem !important; }
+    .work-grid.bento .card-glass { gap: 0.02rem !important; }
+    .work-grid.bento .work-eyebrow { font-size: 0.5rem !important; line-height: 1.2 !important; }
+    .work-grid.bento .work-stat { font-size: 1.2rem !important; line-height: 1 !important; }
+    .work-grid.bento .work-desc { font-size: 0.75rem !important; line-height: 1.2 !important; }
     .work-grid.bento .work-desc br { display: none; }
-    .work-grid.bento .work-tag { font-size: 0.6rem; }
+    .work-grid.bento .work-tag { font-size: 0.55rem; }
     .competencies-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .testimonials-grid { grid-template-columns: 1fr; gap: 1.25rem; }
 
