@@ -470,7 +470,7 @@ body {
 /* Per-card background anchoring for tablet bottom-bar layout */
 .is-tablet-after [data-card="underhood"] .card-bg { background-position: center 60% !important; }
 .is-tablet-after [data-card="testimonials"] .card-bg { background-position: center 50% !important; }
-.is-tablet-after [data-card="blog"] .card-bg { background-position: 25% 80% !important; background-size: auto 180% !important; }
+.is-tablet-after [data-card="blog"] .card-bg { background-position: center 60% !important; }
 .is-tablet-after [data-card="learning"] .card-bg { background-position: center 42% !important; }
 .is-tablet-after [data-card="now"] .card-bg { background-position: 35% 75% !important; }
 
@@ -523,7 +523,7 @@ body {
 /* Per-card background anchoring for mobile bottom-bar layout */
 .is-mobile-after [data-card="underhood"] .card-bg { background-position: center 60% !important; }
 .is-mobile-after [data-card="testimonials"] .card-bg { background-position: center 50% !important; }
-.is-mobile-after [data-card="blog"] .card-bg { background-position: 25% 80% !important; background-size: auto 180% !important; }
+.is-mobile-after [data-card="blog"] .card-bg { background-position: center 60% !important; }
 .is-mobile-after [data-card="learning"] .card-bg { background-position: center 42% !important; }
 .is-mobile-after [data-card="now"] .card-bg { background-position: 35% 75% !important; }
 
@@ -859,12 +859,12 @@ function switchDevice(device) {
         colAfter.classList.add('is-mobile-after');
     }
 
-    // Apply per-card background positions and sizes for mobile/tablet After column
+    // Apply per-card background positions, sizes, and image swaps for mobile/tablet
     if (device === 'mobile' || device === 'tablet') {
         const mobileOverrides = {
             underhood:    { pos: 'center 60%',  size: 'cover' },
             testimonials: { pos: 'center 50%',  size: 'cover' },
-            blog:         { pos: '25% 80%',     size: 'auto 180%' },
+            blog:         { pos: 'center 60%',  size: 'cover', img: 'images/blogmobile.png' },
             learning:     { pos: 'center 42%',  size: 'cover' },
             now:          { pos: '35% 75%',     size: 'cover' }
         };
@@ -874,13 +874,23 @@ function switchDevice(device) {
             if (bg && mobileOverrides[cardId]) {
                 bg.style.backgroundPosition = mobileOverrides[cardId].pos;
                 bg.style.backgroundSize = mobileOverrides[cardId].size;
+                if (mobileOverrides[cardId].img) {
+                    bg.style.backgroundImage = `url('${mobileOverrides[cardId].img}')`;
+                }
             }
         });
     } else {
-        // Reset to default for desktop
-        document.querySelectorAll('#gridAfter .work-card .card-bg').forEach(bg => {
-            bg.style.backgroundPosition = 'center top';
-            bg.style.backgroundSize = 'cover';
+        // Reset to default for desktop — restore original images
+        document.querySelectorAll('#gridAfter .work-card').forEach(card => {
+            const bg = card.querySelector('.card-bg');
+            if (bg) {
+                bg.style.backgroundPosition = 'center top';
+                bg.style.backgroundSize = 'cover';
+                // Restore original blog image on desktop
+                if (card.getAttribute('data-card') === 'blog') {
+                    bg.style.backgroundImage = "url('images/blogging-monster2.png')";
+                }
+            }
         });
     }
 
