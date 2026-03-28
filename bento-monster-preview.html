@@ -790,7 +790,10 @@ function populateGrid(gridEl, persona) {
 
         totalCount++;
         if (img) {
-            bg.style.background = `url('${img}') center top / cover no-repeat`;
+            bg.style.backgroundImage = `url('${img}')`;
+            bg.style.backgroundPosition = 'center top';
+            bg.style.backgroundSize = 'cover';
+            bg.style.backgroundRepeat = 'no-repeat';
             bg.classList.remove('no-image');
             bg.removeAttribute('data-need');
             hasCount++;
