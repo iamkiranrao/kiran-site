@@ -989,6 +989,12 @@ section {
 }
 .work-card:hover::before { border-color: rgba(255,255,255,0.15); }
 
+/* Persona accent stroke on hover */
+.persona-active .work-card:hover::before {
+    border-color: var(--persona-accent, rgba(255,255,255,0.15));
+    border-width: 2px;
+}
+
 /* No-image gradient indicator */
 .card-bg.no-image::before {
     content: attr(data-need);
@@ -1734,27 +1740,49 @@ footer {
     .scroll-indicator { font-size: 1.1rem; }
     section { padding: 3rem 2.5rem; }
     .about-section { padding: 2.5rem 2.5rem; }
-    /* Bento grid: 2-col tablet, no row spans */
+    /* Bento grid: single-column tablet with bottom-bar overlay */
     .work-grid.bento {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         grid-auto-rows: auto;
     }
     .work-grid.bento .work-card {
         grid-column: span 1 !important;
         grid-row: span 1 !important;
-        min-height: 200px;
+        min-height: 300px;
     }
-    .work-grid.bento .slot-hero,
-    .work-grid.bento .slot-now { grid-column: span 2 !important; }
+    /* Full-width bottom bar overlay */
+    .work-grid.bento .card-overlay {
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: auto !important;
+        transform: none !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        border-radius: 0 0 16px 16px !important;
+        padding: 0.8rem 1rem !important;
+    }
+    .work-grid.bento .card-glass {
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+    .work-grid.bento .work-tags { justify-content: flex-start !important; }
+    /* Glassmorphism — let background bleed through */
+    .work-grid.bento .card-overlay {
+        background: rgba(16, 14, 12, 0.50) !important;
+        backdrop-filter: blur(8px) saturate(1.2) !important;
+        -webkit-backdrop-filter: blur(8px) saturate(1.2) !important;
+    }
+    /* Per-card background positioning */
+    .work-grid.bento [data-card="underhood"] .card-bg { background-position: center 60% !important; }
+    .work-grid.bento [data-card="testimonials"] .card-bg { background-position: center 50% !important; }
+    .work-grid.bento [data-card="blog"] .card-bg { background-position: center 60% !important; }
+    .work-grid.bento [data-card="learning"] .card-bg { background-position: center 50% !important; }
+    .work-grid.bento [data-card="now"] .card-bg { background-position: 35% 75% !important; }
     .work-intro { padding: 2rem 2.5rem; margin: 0 2.5rem; }
     .work-intro-left { padding-right: 2.5rem; }
     .work-intro-right { padding-left: 2.5rem; }
     .hero-image { aspect-ratio: 5 / 2; }
-
-    /* Adjust overlay sizing for tablet */
-    .slot-hero .card-overlay,
-    .slot-tall .card-overlay { max-width: 60%; }
-    .slot-learning .card-overlay { max-width: 85%; }
 }
 
 
@@ -1795,17 +1823,20 @@ footer {
     .work-intro-text { font-size: clamp(1.3rem, 6vw, 1.8rem); }
 
     .work-grid.bento {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         grid-auto-rows: auto;
-        gap: 1rem;
+        gap: 0.75rem;
     }
     .work-grid.bento .work-card {
         grid-column: span 1 !important;
         grid-row: span 1 !important;
-        min-height: 180px;
+        min-height: 300px;
     }
-    .work-grid.bento .slot-hero,
-    .work-grid.bento .slot-now { grid-column: span 2 !important; }
+    /* Typography floors for mobile */
+    .work-grid.bento .work-eyebrow { font-size: 0.72rem !important; }
+    .work-grid.bento .work-stat { font-size: 1.6rem !important; }
+    .work-grid.bento .work-desc { font-size: 0.82rem !important; }
+    .work-grid.bento .work-tag { font-size: 0.6rem; }
     .competencies-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .testimonials-grid { grid-template-columns: 1fr; gap: 1.25rem; }
 
@@ -1901,7 +1932,7 @@ footer {
 @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
     .hero-image { aspect-ratio: 5 / 2; }
     .work-grid.bento {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         grid-auto-rows: auto;
     }
     .work-grid.bento .work-card {
@@ -1909,8 +1940,6 @@ footer {
         grid-row: span 1 !important;
         min-height: 200px;
     }
-    .work-grid.bento .slot-hero,
-    .work-grid.bento .slot-now { grid-column: span 2 !important; }
     .competencies-grid { grid-template-columns: repeat(2, 1fr); }
     .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
 }
