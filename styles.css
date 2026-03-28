@@ -1192,17 +1192,6 @@ section {
 
 /* Testimonials quote mark */
 [data-card="testimonials"] .card-glass { position: relative; overflow: visible; }
-[data-card="testimonials"] .card-glass::before {
-    content: '\201C';
-    position: absolute;
-    top: -0.6rem;
-    left: 0.8rem;
-    font-family: 'Lora', serif;
-    font-size: 2.5rem;
-    color: rgba(var(--persona-accent-rgb, 212,168,83), 0.15);
-    line-height: 1;
-    pointer-events: none;
-}
 
 /* /Now pulse dot */
 [data-card="now"] .work-eyebrow::before {
