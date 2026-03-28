@@ -865,7 +865,7 @@ function switchDevice(device) {
             underhood:    { pos: 'center 60%',  size: 'cover' },
             testimonials: { pos: 'center 50%',  size: 'cover' },
             blog:         { pos: 'center 60%',  size: 'cover', img: 'images/blogmobile.png' },
-            learning:     { pos: 'center 42%',  size: 'cover' },
+            learning:     { pos: 'center 50%',  size: 'cover', img: 'images/learnermobile.png' },
             now:          { pos: '35% 75%',     size: 'cover' }
         };
         document.querySelectorAll('#gridAfter .work-card').forEach(card => {
@@ -886,9 +886,12 @@ function switchDevice(device) {
             if (bg) {
                 bg.style.backgroundPosition = 'center top';
                 bg.style.backgroundSize = 'cover';
-                // Restore original blog image on desktop
-                if (card.getAttribute('data-card') === 'blog') {
+                // Restore original images on desktop
+                const cardId = card.getAttribute('data-card');
+                if (cardId === 'blog') {
                     bg.style.backgroundImage = "url('images/blogging-monster2.png')";
+                } else if (cardId === 'learning') {
+                    bg.style.backgroundImage = "url('images/learner-library1.png')";
                 }
             }
         });
