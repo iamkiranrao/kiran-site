@@ -240,15 +240,21 @@
      MOBILE IMAGE SWAPS — use dedicated mobile images
      for blog and learning cards on small screens
      ══════════════════════════════════════════════════ */
+  /* Mobile image for EVERY card — used on <=1024px so cards
+     always show art regardless of which persona slot they land in.
+     On desktop, some card+slot combos intentionally have no image
+     (gradient placeholder). On mobile single-column, every card
+     needs a real image. */
   var mobileImageOverrides = {
-      blog:     { img: 'images/blogmobile.png',    pos: 'center 60%' },
-      learning: { img: 'images/learnermobile.png',  pos: 'center 50%' }
-  };
-
-  // Original desktop images for restore
-  var desktopImageRestore = {
-      blog:     'images/blogging-monster2.png',
-      learning: 'images/learner-library1.png'
+      teardowns:    { img: 'images/analyst-hero-2-1.png',          pos: 'center 30%' },
+      career:       { img: 'images/veteran-hero-2-1.png',          pos: 'center 20%' },
+      madlab:       { img: 'images/tinkerer-hero-2-1-flipped.png', pos: 'center 40%' },
+      studio:       { img: 'images/studiocardwide3_1.png',         pos: 'center 50%' },
+      testimonials: { img: 'images/connector-square-1_1_2.png',    pos: 'center 30%' },
+      underhood:    { img: 'images/engineer2.png',                  pos: 'center 60%' },
+      now:          { img: 'images/explorer2.png',                  pos: '35% 75%'   },
+      learning:     { img: 'images/learnermobile.png',              pos: 'center 50%' },
+      blog:         { img: 'images/blogmobile.png',                 pos: 'center 60%' }
   };
 
   function applyMobileOverrides() {
@@ -258,21 +264,38 @@
       cards.forEach(function(card) {
           var cardId = card.getAttribute('data-card');
           var bg = card.querySelector('.card-bg');
-          if (!bg || bg.classList.contains('no-image')) return;
+          if (!bg) return;
 
           if (isMobile && mobileImageOverrides[cardId]) {
+              // On mobile: always show an image, even if desktop had no-image
               var override = mobileImageOverrides[cardId];
+              // Clear gradient shorthand first, then set individual props
+              bg.style.background = '';
               bg.style.backgroundImage = "url('" + override.img + "')";
               bg.style.backgroundPosition = override.pos;
               bg.style.backgroundSize = 'cover';
-          } else if (!isMobile && desktopImageRestore[cardId]) {
-              // Restore desktop images — re-read from imageMap based on current slot
+              bg.style.backgroundRepeat = 'no-repeat';
+              bg.classList.remove('no-image');
+              bg.removeAttribute('data-need');
+          } else if (!isMobile) {
+              // Restore desktop state — re-run slot-based image lookup
               var slot = card.getAttribute('data-slot');
-              var originalImg = imageMap[cardId] && imageMap[cardId][slot];
-              if (originalImg) {
-                  bg.style.backgroundImage = "url('" + originalImg + "')";
+              var desktopImg = imageMap[cardId] && imageMap[cardId][slot];
+              if (desktopImg) {
+                  bg.style.backgroundImage = "url('" + desktopImg + "')";
                   bg.style.backgroundPosition = 'center top';
                   bg.style.backgroundSize = 'cover';
+                  bg.style.backgroundRepeat = 'no-repeat';
+                  bg.style.backgroundColor = '';
+                  bg.classList.remove('no-image');
+                  bg.removeAttribute('data-need');
+              } else {
+                  // No image for this card+slot combo — restore gradient
+                  bg.style.backgroundImage = 'none';
+                  bg.style.background = gradientFallbacks[cardId] || '';
+                  bg.classList.add('no-image');
+                  var cardInfo = cardData[cardId];
+                  bg.setAttribute('data-need', 'need ' + (cardInfo && cardInfo.character || '') + ' @ ' + (slotRatios[slot] || ''));
               }
           }
       });
