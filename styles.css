@@ -666,7 +666,7 @@ nav {
 }
 
 .triptych-label {
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-secondary);
     letter-spacing: -0.01em;
@@ -738,7 +738,7 @@ nav {
 
 /* --- Competency Carousel --- */
 .competency-eyebrow {
-    font-size: 0.7rem;
+    font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -823,7 +823,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 4px;
     margin-top: 1.5rem;
 }
 
@@ -831,14 +831,20 @@ nav {
     background: none;
     border: none;
     color: var(--text-muted);
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     line-height: 1;
-    padding: 2px 6px;
+    padding: 6px 8px;
+    margin: 0 4px;
     cursor: pointer;
     opacity: 0.5;
     transition: opacity 0.3s ease, color 0.3s ease;
     -webkit-user-select: none;
     user-select: none;
+    min-width: 36px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .carousel-arrow:hover {
@@ -866,17 +872,28 @@ nav {
 }
 
 .competency-dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: var(--border);
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
+}
+
+.competency-dot::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
 }
 
 .competency-dot.active {
     background: var(--persona-accent);
-    transform: scale(1.15);
+    width: 14px;
+    height: 14px;
 }
 
 .section-label {
