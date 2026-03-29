@@ -2058,19 +2058,19 @@ footer {
 
     section { padding: 2rem 1.5rem; }
     .about-section { padding: 2rem 1.5rem; }
-    /* Triptych mobile — reorder: description first */
+    /* Triptych mobile — reorder: tagline first, then elevator pitch */
     .about-triptych {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
         gap: 0;
     }
-    .triptych-col-context {
+    .triptych-col-identity {
         order: 1;
         border-right: none;
         border-bottom: 1px solid var(--border);
         padding: 0 0 1.5rem;
     }
-    .triptych-col-identity {
+    .triptych-col-context {
         order: 2;
         border-right: none;
         border-bottom: 1px solid var(--border);
