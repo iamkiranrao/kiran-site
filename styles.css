@@ -641,6 +641,7 @@ nav {
     display: grid;
     grid-template-columns: 1fr 1fr 1.2fr;
     min-height: 320px;
+    margin-top: 1.5rem;
 }
 
 .triptych-col {
