@@ -149,6 +149,59 @@
 
 ---
 
+## MOBILE IMAGE OVERRIDES (bento-cards.js)
+
+The `mobileImageOverrides` system in `bento-cards.js` (lines 248-258) ensures every bento card shows a real character image on screens ≤1024px, regardless of which persona slot the card lands in.
+
+**Why it exists:** On the desktop 6-column grid, some card+slot combinations intentionally use gradient-only backgrounds (no character image) because the slot geometry doesn't suit the image aspect ratio. On mobile/tablet, where the grid collapses to single-column, every card is the same width — so every card needs an image. Without this system, some cards would show only a colored gradient on mobile.
+
+**How it works:** `applyMobileOverrides()` runs on load and resize. For each card in the grid, it checks `window.innerWidth <= 1024` and swaps the background image and position from the override map. On resize back above 1024px, it restores the original desktop images via `restoreDesktopImages()`.
+
+**Override map (all 9 cards):**
+
+| Card | Mobile image | Position |
+|------|-------------|----------|
+| teardowns | `analyst-hero-2-1.png` | center 30% |
+| career | `veteran-hero-2-1.png` | center 20% |
+| madlab | `tinkerer-hero-2-1-flipped.png` | center 40% |
+| studio | `studiocardwide3_1.png` | center 50% |
+| testimonials | `connector-square-1_1_2.png` | center 30% |
+| underhood | `engineer2.png` | center 60% |
+| now | `explorer2.png` | 35% 75% |
+| learning | `learnermobile.png` | center 50% |
+| blog | `blogmobile.png` | center 60% |
+
+---
+
+## MORPH CHOREOGRAPHY (persona-system.js + styles.css)
+
+When a user selects a persona from the inline picker, a 3-act animation sequence transforms the page. This is controlled by JS class toggling in `persona-system.js` (`selectPersonaAndMorph()`) and CSS animations in `styles.css` (lines 2706-2850).
+
+**Act 1: Card Exit** (styles.css ~line 2706)
+Cards dissolve with staggered blur. Each of the 6 persona cards gets a `cardDissolve` animation (0.6s, cinematic easing) with 0.1s stagger between cards, creating a 0.5s cascade. Lead text fades via `softFadeOut`. During this, JS smooth-scrolls to the top of the page.
+
+**Act 2: Accent Reveal** (styles.css ~line 2737)
+After a 300ms beat of stillness, the accent border draws in via `scaleX(0→1)` animation (1s, deceleration easing). The nav drops in (0.6s, 0.2s delay), the persona pill lands with overshoot (0.6s, 0.5s delay), and hero text emerges from blur with staggered timing — h1 first (0.35s delay), tagline second (0.7s delay), location/scroll last (1.05s delay).
+
+**Act 3: Below-fold Materialize** (styles.css ~line 2818)
+Remaining page sections rise into view via `contentRise` animation (0.7s each) with 0.12s stagger: About → Manifesto → Numbers → Work → Contact → Footer. Each section transitions from `position: fixed` (off-screen) to `position: static`.
+
+**State classes** (applied by JS in sequence): `morph-cards-exit` → `morph-accent-draw` → `morph-reveal` → `morph-content-in` → `morph-complete`.
+
+**View Transitions API:** Used for smooth state swaps with graceful fallback for browsers that don't support it.
+
+---
+
+## BENTO RESPONSIVE AUDIT (styles.css)
+
+The bento grid responsive behavior is documented in `docs/BENTO-RESPONSIVE-AUDIT.md` and applied in `styles.css`. Rules are organized in three layers:
+
+- **Category A (slot-level):** Min-heights, global eyebrow/desc floors, overlay width constraints. Applied at ≤1024px and ≤480px.
+- **Category B (card-level):** `clamp()` stat sizing for wide-font cards (teardowns, career, underhood, testimonials). Applied at ≤1024px.
+- **Category C (card-in-slot):** Targeted selectors for 8 specific card+slot combinations that break due to content length × slot geometry. Key stress test: the Learner persona triggers 4 of 8 Category C problems.
+
+---
+
 ## KEY FILES
 
 | File | What It Contains |
@@ -173,4 +226,4 @@ Starting a session that touches index.html? Read this file first. It gives you t
 
 ---
 
-*Last verified against index.html + persona-system.js + styles.css: March 24, 2026*
+*Last verified against index.html + persona-system.js + styles.css + bento-cards.js: March 29, 2026*

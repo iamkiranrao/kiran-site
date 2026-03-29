@@ -521,6 +521,49 @@
 
   function applyCompetencyReorder(order) {
     if (!order || !order.length) return;
+
+    // Triptych carousel (new layout)
+    var carousel = document.getElementById('competencyCarousel');
+    if (carousel) {
+      // Crossfade: dim during reorder
+      carousel.classList.add('reordering');
+      setTimeout(function() {
+        var cardMap = {};
+        carousel.querySelectorAll('.competency-card').forEach(function(card) {
+          var title = card.querySelector('.competency-title');
+          if (title) cardMap[title.textContent.trim()] = card;
+        });
+
+        order.forEach(function(name, i) {
+          if (cardMap[name]) {
+            carousel.appendChild(cardMap[name]);
+            // Update counter
+            var counter = cardMap[name].querySelector('.competency-card-counter');
+            if (counter) counter.textContent = String(i + 1).padStart(2, '0') + ' / 06';
+          }
+        });
+
+        // Scroll back to first card
+        carousel.scrollTo({ left: 0, behavior: 'instant' });
+
+        // Reset dots and arrows
+        var dots = document.querySelectorAll('#competencyNav .competency-dot');
+        dots.forEach(function(d, i) {
+          d.classList.toggle('active', i === 0);
+        });
+        var arrowL = document.getElementById('carouselArrowLeft');
+        var arrowR = document.getElementById('carouselArrowRight');
+        if (arrowL) arrowL.classList.add('hidden');
+        if (arrowR) arrowR.classList.remove('hidden');
+
+        setTimeout(function() {
+          carousel.classList.remove('reordering');
+        }, 50);
+      }, 200);
+      return;
+    }
+
+    // Legacy fallback: old grid layout
     var grid = document.querySelector('.competencies-grid');
     if (!grid) return;
 
@@ -531,7 +574,6 @@
       if (title) tileMap[title.textContent.trim()] = tile;
     });
 
-    // Reorder
     order.forEach(function (name) {
       if (tileMap[name]) grid.appendChild(tileMap[name]);
     });
