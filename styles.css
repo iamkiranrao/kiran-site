@@ -633,35 +633,99 @@ nav {
 .about-container {
 }
 
-.about-two-col {
-    display: flex;
-    align-items: stretch;
-    gap: 0;
-    min-height: 280px;
+/* ============================================
+   ABOUT TRIPTYCH — Three-column layout
+   ============================================ */
+
+.about-triptych {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.2fr;
+    min-height: 320px;
 }
 
-.about-left {
-    flex: 1.4;
-    display: flex;
-    align-items: center;
-    padding-right: 4rem;
-}
-
-.about-divider-vertical {
-    width: 1px;
-    background: var(--border);
-    flex-shrink: 0;
-}
-
-.about-right {
-    flex: 1;
+.triptych-col {
+    padding: 1.5rem 2.5rem;
     display: flex;
     flex-direction: column;
-    padding-left: 4rem;
 }
 
-.about-right-spacer {
-    flex: 1;
+.triptych-col-identity {
+    padding-left: 0;
+    border-right: 1px solid var(--border);
+    justify-content: flex-start;
+}
+
+.triptych-col-context {
+    border-right: 1px solid var(--border);
+    justify-content: center;
+}
+
+.triptych-col-competency {
+    padding-right: 0;
+    overflow: hidden;
+}
+
+.triptych-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+}
+
+.triptych-tagline {
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+}
+
+.triptych-social {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.triptych-social a {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.triptych-social a:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+.triptych-social svg {
+    width: 15px;
+    height: 15px;
+}
+
+.triptych-context-accent {
+    width: 28px;
+    height: 2px;
+    background: var(--persona-accent);
+    margin-bottom: 1.25rem;
+    transition: background 0.4s ease;
+    border-radius: 1px;
+}
+
+.triptych-description {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--text-secondary);
 }
 
 .about-description {
@@ -670,6 +734,149 @@ nav {
     line-height: 1.7;
     color: var(--text-secondary);
     margin-top: 0.75rem;
+}
+
+/* --- Competency Carousel --- */
+.competency-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.competency-carousel-wrap {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.competency-carousel {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex: 1;
+    transition: opacity 0.2s ease;
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 78%, transparent 98%);
+    mask-image: linear-gradient(to right, black 0%, black 78%, transparent 98%);
+}
+
+.competency-carousel.reordering {
+    opacity: 0.3;
+}
+
+.competency-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.competency-card {
+    flex: 0 0 82%;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    min-height: 0;
+}
+
+.competency-card:last-child {
+    margin-right: 2.5rem;
+}
+
+.competency-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
+}
+
+.competency-card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.competency-card-counter {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.competency-card-desc {
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--text-secondary);
+}
+
+.competency-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+.carousel-arrow {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    line-height: 1;
+    padding: 2px 6px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.carousel-arrow:hover {
+    opacity: 1;
+    color: var(--persona-accent, var(--text-secondary));
+}
+
+.carousel-arrow.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.persona-active .carousel-arrow {
+    color: var(--persona-accent);
+    opacity: 0.4;
+}
+
+.persona-active .carousel-arrow:hover {
+    opacity: 1;
+}
+
+.persona-active .carousel-arrow.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.competency-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.competency-dot.active {
+    background: var(--persona-accent);
+    transform: scale(1.15);
 }
 
 .section-label {
@@ -738,50 +945,6 @@ nav {
     margin: 3rem 0;
 }
 
-.what-i-do-label {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    letter-spacing: -0.02em;
-}
-
-.wf-expand-icon { font-size: 1.375rem; color: var(--text-primary); }
-
-
-/* ============================================
-   COMPETENCIES / SKILLS GRID
-   ============================================ */
-
-.competencies-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.competency {
-    border-top: 1px solid var(--border);
-    padding-top: 1.5rem;
-}
-
-.competency-title {
-    font-size: 1.375rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.02em;
-}
-
-.competency-desc {
-    color: var(--text-secondary);
-    line-height: 1.7;
-    font-size: 1.2rem;
-    font-weight: 400;
-}
 
 
 /* ============================================
@@ -1717,10 +1880,16 @@ footer {
    RESPONSIVE — Tablet (1024px)
    ============================================ */
 
+/* Learning card desktop legibility fix (BENTO-RESPONSIVE-AUDIT) */
+.slot-learning .work-desc { font-size: 0.7rem; }
+.slot-learning .work-eyebrow { font-size: 0.65rem; }
+
+/* testimonials-in-learning: only combo that breaks at desktop */
+.slot-learning [data-card="testimonials"] .work-stat { font-size: 1.1rem; }
+
 @media (max-width: 1200px) {
     .hero h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
     .hero-tagline { font-size: clamp(1.8rem, 5vw, 3.5rem); }
-    .competencies-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 1024px) {
@@ -1729,6 +1898,31 @@ footer {
     .scroll-indicator { font-size: 1.1rem; }
     section { padding: 3rem 2.5rem; }
     .about-section { padding: 2.5rem 2.5rem; }
+    /* Triptych tablet */
+    .about-triptych {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        min-height: auto;
+    }
+    .triptych-col-identity {
+        border-right: 1px solid var(--border);
+        border-bottom: none;
+        padding: 1.5rem 2rem 1.5rem 0;
+    }
+    .triptych-col-context {
+        border-right: none;
+        border-bottom: none;
+        padding: 1.5rem 0 1.5rem 2rem;
+    }
+    .triptych-col-competency {
+        grid-column: 1 / -1;
+        border-top: 1px solid var(--border);
+        padding: 1.5rem 0 0;
+        margin-top: 1.5rem;
+    }
+    .triptych-tagline {
+        font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+    }
     /* Bento grid: single-column tablet with bottom-bar overlay */
     .work-grid.bento {
         grid-template-columns: 1fr;
@@ -1774,6 +1968,49 @@ footer {
     .work-grid.bento [data-card="blog"] .card-bg { background-position: center 60% !important; }
     .work-grid.bento [data-card="learning"] .card-bg { background-position: center 50% !important; }
     .work-grid.bento [data-card="now"] .card-bg { background-position: 35% 75% !important; }
+
+    /* ---- BENTO-RESPONSIVE-AUDIT: Tablet fixes ---- */
+    /* Structural: slot min-heights */
+    .work-grid.bento .slot-hero { min-height: 280px; }
+    .work-grid.bento .slot-tall { min-height: 260px; }
+    .work-grid.bento .slot-center { min-height: 240px; }
+    .work-grid.bento .slot-now { min-height: 220px; }
+
+    /* Typography: stat scale-down for oversized slots */
+    .work-grid.bento .slot-hero .work-stat { font-size: 1.8rem !important; }
+    .work-grid.bento .slot-topright .work-stat { font-size: 1.6rem !important; }
+    .work-grid.bento .slot-tall .work-stat { font-size: 1.6rem !important; }
+    .work-grid.bento .slot-tall .work-eyebrow { font-size: 0.65rem !important; }
+    .work-grid.bento .slot-center .work-stat { font-size: 1.5rem !important; }
+    .work-grid.bento .slot-wider .work-stat { font-size: 1.3rem !important; }
+
+    /* Typography: eyebrow + desc global floor */
+    .work-grid.bento .work-eyebrow { font-size: 0.65rem !important; }
+    .work-grid.bento .work-desc { font-size: 0.75rem !important; }
+
+    /* Overlay width adjustments */
+    .work-grid.bento .slot-hero .card-overlay { max-width: 70% !important; }
+    .work-grid.bento .slot-tall .card-overlay { max-width: 75% !important; }
+    .work-grid.bento .slot-center .card-overlay { max-width: 80% !important; }
+    .work-grid.bento .slot-blog .card-overlay { max-width: 80% !important; }
+
+    /* Category B: Card-level stat clamps for wide-font cards */
+    .work-grid.bento [data-card="teardowns"] .work-stat { font-size: clamp(1rem, 2.5vw, 1.8rem) !important; }
+    .work-grid.bento [data-card="career"] .work-stat { font-size: clamp(1rem, 2.5vw, 1.8rem) !important; }
+    .work-grid.bento [data-card="underhood"] .work-stat { font-size: clamp(0.9rem, 2.2vw, 1.6rem) !important; }
+    .work-grid.bento [data-card="testimonials"] .work-stat { font-size: clamp(0.9rem, 2.2vw, 1.6rem) !important; }
+
+    /* Category C: Card-in-slot targeted fixes */
+    .work-grid.bento .slot-topright [data-card="teardowns"] .work-stat { font-size: 0.85rem !important; }
+    .work-grid.bento .slot-widel [data-card="underhood"] .work-stat { font-size: 0.9rem !important; letter-spacing: -0.02em; }
+    .work-grid.bento .slot-widel [data-card="teardowns"] .work-stat { font-size: 0.8rem !important; line-height: 1.1; }
+    .work-grid.bento .slot-wider [data-card="career"] .work-stat { font-size: 0.9rem !important; }
+    .work-grid.bento .slot-wider [data-card="career"] .work-desc { -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+    .work-grid.bento .slot-tall [data-card="teardowns"] .work-stat { font-size: 0.85rem !important; }
+    .work-grid.bento .slot-center [data-card="career"] .work-stat { font-size: 0.9rem !important; }
+    .work-grid.bento .slot-center [data-card="career"] .work-desc { font-size: 0.7rem !important; }
+    .work-grid.bento .slot-learning [data-card="testimonials"] .work-stat { font-size: 1.1rem !important; }
+
     .work-intro { padding: 2rem 2.5rem; margin: 0 2.5rem; }
     .work-intro-left { padding-right: 2.5rem; }
     .work-intro-right { padding-left: 2.5rem; }
@@ -1803,10 +2040,43 @@ footer {
 
     section { padding: 2rem 1.5rem; }
     .about-section { padding: 2rem 1.5rem; }
-    .about-two-col { flex-direction: column; min-height: auto; }
-    .about-left { padding-right: 0; margin-bottom: 2rem; }
-    .about-divider-vertical { width: 100%; height: 1px; }
-    .about-right { padding-left: 0; padding-top: 2rem; }
+    /* Triptych mobile — reorder: description first */
+    .about-triptych {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 0;
+    }
+    .triptych-col-context {
+        order: 1;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 0 0 1.5rem;
+    }
+    .triptych-col-identity {
+        order: 2;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 1.5rem 0;
+    }
+    .triptych-col-competency {
+        order: 3;
+        grid-column: 1;
+        border-top: none;
+        padding: 1.5rem 0 0;
+        margin-top: 0;
+    }
+    .triptych-tagline {
+        font-size: clamp(1.3rem, 6vw, 1.8rem);
+    }
+    .triptych-social {
+        margin-top: 1rem;
+    }
+    .triptych-description {
+        font-size: 0.95rem;
+    }
+    .competency-card {
+        flex: 0 0 85%;
+    }
 
     .work-intro { flex-direction: column; min-height: auto; padding: 2rem 1.5rem; margin: 0 1.5rem; }
     .work-intro-left { padding-right: 0; margin-bottom: 2rem; }
@@ -1835,7 +2105,6 @@ footer {
     .work-grid.bento .work-desc { font-size: 0.75rem !important; line-height: 1.2 !important; }
     .work-grid.bento .work-desc br { display: none; }
     .work-grid.bento .work-tag { font-size: 0.55rem; }
-    .competencies-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .testimonials-grid { grid-template-columns: 1fr; gap: 1.25rem; }
 
     .hero-image { aspect-ratio: 5 / 2; }
@@ -1898,6 +2167,10 @@ footer {
     .work-intro-text { font-size: 1.3rem; }
     .competency-title { font-size: 1.15rem; }
     .work-title { font-size: 1rem; }
+    .triptych-tagline { font-size: 1.3rem; }
+    .competency-card-title { font-size: 1.3rem; }
+    .competency-card-desc { font-size: 0.9rem; }
+    .competency-card { flex: 0 0 88%; }
     .work-grid.bento {
         grid-template-columns: 1fr;
         grid-auto-rows: auto;
@@ -1907,6 +2180,42 @@ footer {
         grid-row: span 1 !important;
         min-height: 200px;
     }
+
+    /* ---- BENTO-RESPONSIVE-AUDIT: Mobile fixes ---- */
+    /* Structural: min-height bumps */
+    .work-grid.bento .slot-hero,
+    .work-grid.bento .slot-tall { min-height: 280px; }
+    .work-grid.bento .work-card { min-height: 220px; }
+
+    /* Typography: global floor bump */
+    .work-grid.bento .work-eyebrow { font-size: 0.72rem !important; }
+    .work-grid.bento .work-desc { font-size: 0.82rem !important; }
+    .work-grid.bento .work-tag { font-size: 0.65rem; }
+
+    /* Stat scale-down for oversized slots */
+    .work-grid.bento .slot-hero .work-stat { font-size: 2rem !important; }
+    .work-grid.bento .slot-tall .work-stat { font-size: 2rem !important; }
+    .work-grid.bento .slot-center .work-stat { font-size: 1.8rem !important; }
+    .work-grid.bento .slot-topright .work-stat { font-size: 1.8rem !important; }
+
+    /* Learning slot rescue (worst offender at mobile) */
+    .work-grid.bento .slot-learning .work-stat { font-size: 1.6rem !important; }
+    .work-grid.bento .slot-learning .work-eyebrow { font-size: 0.72rem !important; }
+    .work-grid.bento .slot-learning .work-desc { font-size: 0.8rem !important; }
+
+    /* Now slot fix */
+    .work-grid.bento .slot-now .card-overlay { max-width: 70% !important; }
+    .work-grid.bento .slot-now .work-desc { font-size: 0.8rem !important; }
+    .work-grid.bento .slot-now .work-eyebrow { font-size: 0.72rem !important; }
+
+    /* Overlay width — global mobile override */
+    .work-grid.bento .card-overlay { max-width: 85% !important; }
+
+    /* testimonials-in-learning mobile */
+    .work-grid.bento .slot-learning [data-card="testimonials"] .work-stat { font-size: 0.85rem !important; }
+    .work-grid.bento .slot-learning [data-card="testimonials"] { min-height: 240px; }
+    .work-grid.bento .slot-learning [data-card="testimonials"] .card-overlay { max-width: 70% !important; }
+
     .testimonial-title { font-size: 1.05rem; }
     .contact-cta h2 { font-size: 2rem; }
     footer { padding: 2rem 1.5rem; font-size: 0.85rem; }
@@ -1938,7 +2247,14 @@ footer {
         grid-row: span 1 !important;
         min-height: 200px;
     }
-    .competencies-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* BENTO-RESPONSIVE-AUDIT: Same tablet fixes apply to landscape */
+    .work-grid.bento .slot-hero { min-height: 280px; }
+    .work-grid.bento .slot-tall { min-height: 260px; }
+    .work-grid.bento .slot-center { min-height: 240px; }
+    .work-grid.bento .work-eyebrow { font-size: 0.65rem !important; }
+    .work-grid.bento .work-desc { font-size: 0.75rem !important; }
+
     .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -2207,8 +2523,17 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     background: var(--persona-accent, var(--border));
 }
 
-.persona-active .about-divider-vertical {
-    background: var(--persona-accent, var(--border));
+.persona-active .triptych-col-identity,
+.persona-active .triptych-col-context {
+    border-right-color: var(--persona-accent, var(--border));
+}
+
+.persona-active .triptych-col-context {
+    border-right-color: var(--persona-accent, var(--border));
+}
+
+.persona-active .triptych-col-competency {
+    border-top-color: var(--persona-accent, var(--border));
 }
 
 .persona-active .footer-divider {
@@ -2251,12 +2576,12 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 }
 
 
-/* ── Accent: Competency Tile Hover — Border ────── */
-.persona-active .competency {
+/* ── Accent: Competency Card Hover — Border ────── */
+.persona-active .competency-card {
     transition: border-color 0.3s ease;
 }
 
-.persona-active .competency:hover {
+.persona-active .competency-card:hover {
     border-top-color: var(--persona-accent, var(--border));
 }
 
@@ -2734,6 +3059,7 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     100% { opacity: 0; filter: blur(6px); }
 }
 
+/* --- Act 2: Accent reveal — border draws, nav drops, hero text emerges --- */
 /* --- Accent border draws in via scaleX — first thing visible, sets the tone --- */
 .morph-accent-draw .accent-frame-medium::before {
     animation: accentDraw 1s var(--ease-decel) forwards !important;

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8Q795C1RJ5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8Q795C1RJ5');
+    </script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "vpgxcc8q5n");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="How this site was built — the architecture, decisions, and tools behind every pixel.">
+    <title>Under the Hood - Kiran Rao</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fenix-widget.css">
+    <link rel="canonical" href="https://kiranrao.ai/under-the-hood.html">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Under the Hood - Kiran Rao">
+    <meta property="og:description" content="How this site was built — the architecture, decisions, and tools behind every pixel.">
+    <meta property="og:url" content="https://kiranrao.ai/under-the-hood.html">
+
+    <style>
+        /* ============================================
+           UNDER THE HOOD PAGE STYLES
+           ============================================ */
+
+        .uth-page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .uth-header {
+            margin-bottom: 3rem;
+        }
+
+        .uth-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+        }
+
+        .uth-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .uth-coming-soon {
+            background: var(--surface-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .uth-coming-soon p {
+            margin: 0;
+        }
+
+        .uth-back {
+            display: inline-block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.75rem 0;
+            transition: color 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .uth-back:hover {
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .uth-page { padding: 6rem 1.5rem 3rem; }
+            .uth-coming-soon { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body class="preload">
+    <!-- Nav (same as other subpages) -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="wf-moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="wf-sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+                <a href="index.html" class="menu-button" style="text-decoration: none;">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="uth-page">
+        <div class="uth-header">
+            <h1 class="uth-title">Under the Hood</h1>
+            <p class="uth-subtitle">How this site was built — the architecture, decisions, and tools behind every pixel.</p>
+        </div>
+
+        <div class="uth-coming-soon">
+            <p>This page is being built. Check back soon — I'll be documenting the technical decisions, architecture patterns, and AI-assisted workflows behind this site.</p>
+        </div>
+
+        <a href="index.html" class="uth-back">&larr; Back to home</a>
+    </main>
+
+    <!-- Fenix AI Widget -->
+    <div class="ai-assistant-wrapper">
+        <button class="ai-assistant" aria-label="Chat with Fenix AI">
+            <img src="images/fenix-flame.webp" alt="Fenix" class="ai-assistant-img" loading="lazy">
+        </button>
+    </div>
+
+    <!-- Theme toggle (minimal, same as subpages) -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const moonIcon = document.querySelector('.wf-moon-icon');
+        const sunIcon = document.querySelector('.wf-sun-icon');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', currentTheme);
+        if (moonIcon && sunIcon) {
+            if (currentTheme === 'dark') { moonIcon.style.display = 'none'; sunIcon.style.display = 'block'; }
+            else { moonIcon.style.display = 'block'; sunIcon.style.display = 'none'; }
+        }
+        if (themeToggle) themeToggle.addEventListener('click', () => {
+            const theme = html.getAttribute('data-theme');
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            if (newTheme === 'dark') { moonIcon.style.display = 'none'; sunIcon.style.display = 'block'; }
+            else { moonIcon.style.display = 'block'; sunIcon.style.display = 'none'; }
+        });
+        window.addEventListener('load', () => { document.body.classList.remove('preload'); });
+    </script>
+    <script src="fenix-widget.js" defer></script>
+</body>
+</html>

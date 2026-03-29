@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Triptych — Prototype v2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           THEME VARIABLES (from production)
+           ============================================ */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --text-primary: #f0e6d3;
+            --text-secondary: #a89e91;
+            --text-muted: #5a5347;
+            --border: #222222;
+            --border-light: #2a2a2a;
+            --persona-accent: #7B9ACC;
+            --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f3f0;
+            --bg-secondary: #edeae6;
+            --text-primary: #3a3632;
+            --text-secondary: #6b6560;
+            --text-muted: #9a9490;
+            --border: #d5cec5;
+            --border-light: #e0d9d0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-stack);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Theme toggle for testing */
+        .theme-toggle-test {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+            background: var(--border);
+            color: var(--text-primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-stack);
+            font-size: 0.8rem;
+        }
+
+        /* Persona switcher for testing */
+        .persona-switcher {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100;
+            display: flex;
+            gap: 0.4rem;
+        }
+        .persona-btn {
+            background: var(--border);
+            color: var(--text-secondary);
+            border: 2px solid transparent;
+            padding: 0.35rem 0.65rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-stack);
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+        }
+        .persona-btn.active {
+            border-color: var(--persona-accent);
+            color: var(--text-primary);
+        }
+
+
+        /* ============================================
+           ABOUT TRIPTYCH — Three-column layout v2
+           ============================================ */
+
+        .about-section {
+            background: var(--bg-primary);
+            padding: 3rem 4rem;
+        }
+
+        .about-triptych {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.2fr;
+            min-height: 320px;
+        }
+
+        /* --- Column shared styles --- */
+        .triptych-col {
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .triptych-col-identity {
+            padding-left: 0;
+            border-right: 1px solid var(--border);
+        }
+
+        .triptych-col-context {
+            border-right: 1px solid var(--border);
+        }
+
+        .triptych-col-competency {
+            padding-right: 0;
+        }
+
+
+        /* --- Column 1: Identity Anchor --- */
+        .triptych-col-identity {
+            justify-content: flex-start;
+        }
+
+        .triptych-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-bottom: 1.25rem;
+        }
+
+        .triptych-tagline {
+            font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+            font-weight: 500;
+            line-height: 1.25;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        /* Social icons: tighter to tagline, not pushed to bottom */
+        .triptych-social {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .triptych-social a {
+            width: 36px;
+            height: 36px;
+            background: transparent;
+            border: 1.5px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .triptych-social a:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .triptych-social a.linkedin:hover { border-color: #0077b5; color: #0077b5; }
+        .triptych-social a.github:hover { border-color: #6e5494; color: #6e5494; }
+        .triptych-social a.substack:hover { border-color: #ff6719; color: #ff6719; }
+
+        .triptych-social svg {
+            width: 15px;
+            height: 15px;
+        }
+
+
+        /* --- Column 2: Context --- */
+        .triptych-col-context {
+            justify-content: center;
+        }
+
+        .triptych-context-accent {
+            width: 28px;
+            height: 2px;
+            background: var(--persona-accent);
+            margin-bottom: 1.25rem;
+            transition: background 0.4s ease;
+            border-radius: 1px;
+        }
+
+        .triptych-description {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+
+        /* --- Column 3: Competency Carousel --- */
+        .triptych-col-competency {
+            overflow: hidden;
+        }
+
+        .competency-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .competency-carousel-wrap {
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .competency-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            flex: 1;
+            transition: opacity 0.2s ease;
+
+            /* Gradient peek mask */
+            -webkit-mask-image: linear-gradient(to right, black 0%, black 78%, transparent 98%);
+            mask-image: linear-gradient(to right, black 0%, black 78%, transparent 98%);
+        }
+
+        .competency-carousel.reordering {
+            opacity: 0.3;
+        }
+
+        .competency-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .competency-card {
+            flex: 0 0 82%;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+            min-height: 0;
+        }
+
+        .competency-card:last-child {
+            margin-right: 2.5rem;
+        }
+
+        .competency-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.75rem;
+        }
+
+        .competency-card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .competency-card-counter {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .competency-card-desc {
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        /* --- Pagination dots + counter row --- */
+        .competency-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .competency-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .competency-dot.active {
+            background: var(--persona-accent);
+            transform: scale(1.15);
+        }
+
+        .carousel-arrow {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            line-height: 1;
+            padding: 2px 6px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s ease, color 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .carousel-arrow:hover {
+            opacity: 1;
+            color: var(--persona-accent, var(--text-secondary));
+        }
+
+        .carousel-arrow.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+
+        /* ============================================
+           RESPONSIVE — Tablet (≤1024px)
+           ============================================ */
+
+        @media (max-width: 1024px) {
+            .about-section {
+                padding: 2.5rem 2.5rem;
+            }
+
+            .about-triptych {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+                min-height: auto;
+            }
+
+            .triptych-col-identity {
+                border-right: 1px solid var(--border);
+                border-bottom: none;
+                padding: 1.5rem 2rem 1.5rem 0;
+            }
+
+            .triptych-col-context {
+                border-right: none;
+                border-bottom: none;
+                padding: 1.5rem 0 1.5rem 2rem;
+            }
+
+            .triptych-col-competency {
+                grid-column: 1 / -1;
+                border-top: 1px solid var(--border);
+                padding: 1.5rem 0 0;
+                margin-top: 1.5rem;
+            }
+
+            .triptych-tagline {
+                font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+            }
+        }
+
+
+        /* ============================================
+           RESPONSIVE — Mobile (≤768px)
+           ============================================ */
+
+        @media (max-width: 768px) {
+            .about-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .about-triptych {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                gap: 0;
+            }
+
+            /* Mobile reorder: description first, then tagline, then carousel */
+            .triptych-col-context {
+                order: 1;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 0 0 1.5rem;
+            }
+
+            .triptych-col-identity {
+                order: 2;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 1.5rem 0;
+            }
+
+            .triptych-col-competency {
+                order: 3;
+                grid-column: 1;
+                border-top: none;
+                padding: 1.5rem 0 0;
+                margin-top: 0;
+            }
+
+            .triptych-tagline {
+                font-size: clamp(1.3rem, 6vw, 1.8rem);
+            }
+
+            .triptych-social {
+                margin-top: 1rem;
+            }
+
+            .triptych-description {
+                font-size: 0.95rem;
+            }
+
+            .competency-card {
+                flex: 0 0 85%;
+            }
+        }
+
+
+        /* ============================================
+           RESPONSIVE — Small phone (≤480px)
+           ============================================ */
+
+        @media (max-width: 480px) {
+            .triptych-tagline {
+                font-size: 1.3rem;
+            }
+
+            .competency-card-title {
+                font-size: 1.3rem;
+            }
+
+            .competency-card-desc {
+                font-size: 0.9rem;
+            }
+
+            .competency-card {
+                flex: 0 0 88%;
+            }
+        }
+
+
+        /* ============================================
+           PROTOTYPE CONTEXT
+           ============================================ */
+
+        .proto-spacer {
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .proto-note {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle-test" onclick="
+        const html = document.documentElement;
+        html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    ">Toggle Theme</button>
+
+    <div class="persona-switcher">
+        <button class="persona-btn active" data-accent="#7B9ACC" data-order='["Product Strategy","Go-to-Market Strategy","Delivery & Execution","Growth & Adoption","AI Integration","Digital Transformation"]' onclick="switchPersona(this)">Evaluator</button>
+        <button class="persona-btn" data-accent="#777744" data-order='["Go-to-Market Strategy","Product Strategy","Growth & Adoption","Delivery & Execution","AI Integration","Digital Transformation"]' onclick="switchPersona(this)">Seeker</button>
+        <button class="persona-btn" data-accent="#9B7E5A" data-order='["Product Strategy","AI Integration","Go-to-Market Strategy","Digital Transformation","Growth & Adoption","Delivery & Execution"]' onclick="switchPersona(this)">Practitioner</button>
+        <button class="persona-btn" data-accent="#6B8F71" data-order='["Growth & Adoption","Product Strategy","AI Integration","Go-to-Market Strategy","Digital Transformation","Delivery & Execution"]' onclick="switchPersona(this)">Learner</button>
+        <button class="persona-btn" data-accent="#8B7BB5" data-order='["AI Integration","Product Strategy","Digital Transformation","Delivery & Execution","Go-to-Market Strategy","Growth & Adoption"]' onclick="switchPersona(this)">Technologist</button>
+        <button class="persona-btn" data-accent="#C27878" data-order='["Product Strategy","AI Integration","Digital Transformation","Growth & Adoption","Go-to-Market Strategy","Delivery & Execution"]' onclick="switchPersona(this)">Inner Circle</button>
+    </div>
+
+    <!-- Simulated hero above -->
+    <div class="proto-spacer">↑ Hero section above ↑</div>
+
+    <!-- ============================================
+         THE ACTUAL COMPONENT — v2
+         ============================================ -->
+    <section class="about-section" id="about">
+        <div class="about-triptych">
+
+            <!-- Column 1: Identity Anchor -->
+            <div class="triptych-col triptych-col-identity">
+                <p class="triptych-label">(About)</p>
+                <h2 class="triptych-tagline about-intro">Equal parts strategist, storyteller, and builder.</h2>
+                <div class="triptych-social social-links">
+                    <a href="https://linkedin.com/in/kirangorapalli" class="wf-social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://github.com/iamkiranrao" class="wf-social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    </a>
+                    <a href="https://substack.com/@kirangorapalli" class="wf-social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 2: Context -->
+            <div class="triptych-col triptych-col-context">
+                <div class="triptych-context-accent"></div>
+                <p class="triptych-description about-description">15 years shipping products across mobile, AI, and fintech. I've led teams at companies you've heard of and startups you haven't — always focused on the gap between what users say they want and what actually moves the needle. This site is built the way I build products: ship fast, iterate in public, sweat the details.</p>
+            </div>
+
+            <!-- Column 3: Competency Carousel -->
+            <div class="triptych-col triptych-col-competency">
+                <p class="competency-eyebrow">What I do best</p>
+                <div class="competency-carousel-wrap">
+                    <div class="competency-carousel" id="competencyCarousel">
+                        <div class="competency-card" data-index="0">
+                            <div class="competency-card-header">
+                                <h3 class="competency-card-title competency-title">Product Strategy</h3>
+                                <span class="competency-card-counter">01 / 06</span>
+                            </div>
+                            <p class="competency-card-desc competency-desc">I turn ambiguity into clarity. Define the vision, align stakeholders, and build roadmaps that ship outcomes, not just features.</p>
+                        </div>
+                        <div class="competency-card" data-index="1">
+                            <div class="competency-card-header">
+                                <h3 class="competency-card-title competency-title">AI Integration</h3>
+                                <span class="competency-card-counter">02 / 06</span>
+                            </div>
+                            <p class="competency-card-desc competency-desc">I translate what AI makes possible into what customers actually need, then make sure it ships, scales, and earns trust.</p>
+                        </div>
+                        <div class="competency-card" data-index="2">
+                            <div class="competency-card-header">
+                                <h3 class="competency-card-title competency-title">Digital Transformation</h3>
+                                <span class="competency-card-counter">03 / 06</span>
+                            </div>
+                            <p class="competency-card-desc competency-desc">I modernize platforms and reimagine workflows by migrating legacy systems to scalable, customer-centric products that drive real business value.</p>
+                        </div>
+                        <div class="competency-card" data-index="3">
+                            <div class="competency-card-header">
+                                <h3 class="competency-card-title competency-title">Growth & Adoption</h3>
+                                <span class="competency-card-counter">04 / 06</span>
+                            </div>
+                            <p class="competency-card-desc competency-desc">I obsess over the metrics that matter: activating users, reducing friction, and scaling products from early traction to millions.</p>
+                        </div>
+                        <div class="competency-card" data-index="4">
+                            <div class="competency-card-header">
+                                <h3 class="competency-card-title competency-title">Go-to-Market Strategy</h3>
+                                <span class="competency-card-counter">05 / 06</span>
+                            </div>
+                            <p class="competency-card-desc competency-desc">I take products from ready to revenue by aligning positioning, pricing, and distribution into go-to-market plans that cut through the noise.</p>
+                        </div>
+                        <div class="competency-card" data-index="5">
+                            <div class="competency-card-header">
+                                <h3 class="competency-card-title competency-title">Delivery & Execution</h3>
+                                <span class="competency-card-counter">06 / 06</span>
+                            </div>
+                            <p class="competency-card-desc competency-desc">I drive cross-functional teams from backlog to launch — managing scope, unblocking dependencies, and holding the line on quality so products ship on time and at scale.</p>
+                        </div>
+                    </div>
+                    <div class="competency-nav" id="competencyNav">
+                        <button class="carousel-arrow carousel-arrow-left" id="carouselArrowLeft" aria-label="Previous competency">‹</button>
+                        <span class="competency-dot active" data-index="0"></span>
+                        <span class="competency-dot" data-index="1"></span>
+                        <span class="competency-dot" data-index="2"></span>
+                        <span class="competency-dot" data-index="3"></span>
+                        <span class="competency-dot" data-index="4"></span>
+                        <span class="competency-dot" data-index="5"></span>
+                        <button class="carousel-arrow carousel-arrow-right" id="carouselArrowRight" aria-label="Next competency">›</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Simulated sections below -->
+    <div class="proto-spacer">↓ Manifesto / Numbers / Work sections below ↓</div>
+
+    <div class="proto-note">
+        Prototype v2: About Triptych<br>
+        Refinements: social icons tighter to tagline, accent bar on col 2, card counters, crossfade on persona switch, mobile reorder (description first).<br>
+        Use persona buttons (top-left) to test. Theme toggle (top-right). Drag/swipe the carousel.
+    </div>
+
+    <script>
+        /* ============================================
+           Carousel: Intersection Observer for dots
+           ============================================ */
+        (function() {
+            var carousel = document.getElementById('competencyCarousel');
+            var dots = document.querySelectorAll('#competencyNav .competency-dot');
+            var cards = carousel.querySelectorAll('.competency-card');
+            var arrowLeft = document.getElementById('carouselArrowLeft');
+            var arrowRight = document.getElementById('carouselArrowRight');
+
+            // Hide left arrow initially (at first card)
+            if (arrowLeft) arrowLeft.classList.add('hidden');
+
+            function updateArrows(idx) {
+                var total = carousel.querySelectorAll('.competency-card').length;
+                if (arrowLeft) arrowLeft.classList.toggle('hidden', idx === 0);
+                if (arrowRight) arrowRight.classList.toggle('hidden', idx >= total - 1);
+            }
+            updateArrows(0);
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                        var index = Array.from(cards).indexOf(entry.target);
+                        dots.forEach(function(d, i) {
+                            d.classList.toggle('active', i === index);
+                        });
+                        updateArrows(index);
+                    }
+                });
+            }, {
+                root: carousel,
+                threshold: 0.5
+            });
+
+            cards.forEach(function(card) { observer.observe(card); });
+
+            // Click dot to scroll to card
+            dots.forEach(function(dot) {
+                dot.addEventListener('click', function() {
+                    var index = parseInt(this.dataset.index);
+                    var target = carousel.querySelectorAll('.competency-card')[index];
+                    if (target) target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+                });
+            });
+
+            // Arrow click handlers
+            if (arrowLeft) {
+                arrowLeft.addEventListener('click', function() {
+                    var activeDot = document.querySelector('#competencyNav .competency-dot.active');
+                    var cur = parseInt(activeDot ? activeDot.dataset.index : 0);
+                    if (cur > 0) {
+                        var target = carousel.querySelectorAll('.competency-card')[cur - 1];
+                        if (target) target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+                    }
+                });
+            }
+            if (arrowRight) {
+                arrowRight.addEventListener('click', function() {
+                    var activeDot = document.querySelector('#competencyNav .competency-dot.active');
+                    var cur = parseInt(activeDot ? activeDot.dataset.index : 0);
+                    var allCards = carousel.querySelectorAll('.competency-card');
+                    if (cur < allCards.length - 1) {
+                        var target = allCards[cur + 1];
+                        if (target) target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+                    }
+                });
+            }
+
+            // Keyboard: arrow keys
+            carousel.setAttribute('tabindex', '0');
+            carousel.setAttribute('role', 'region');
+            carousel.setAttribute('aria-label', 'Competencies carousel');
+
+            carousel.addEventListener('keydown', function(e) {
+                var activeDot = document.querySelector('#competencyNav .competency-dot.active');
+                var currentIdx = parseInt(activeDot ? activeDot.dataset.index : 0);
+                var allCards = carousel.querySelectorAll('.competency-card');
+
+                if (e.key === 'ArrowRight' && currentIdx < allCards.length - 1) {
+                    e.preventDefault();
+                    allCards[currentIdx + 1].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+                }
+                if (e.key === 'ArrowLeft' && currentIdx > 0) {
+                    e.preventDefault();
+                    allCards[currentIdx - 1].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+                }
+            });
+        })();
+
+
+        /* ============================================
+           Persona switching (prototype only)
+           ============================================ */
+        function switchPersona(btn) {
+            var accent = btn.dataset.accent;
+            document.documentElement.style.setProperty('--persona-accent', accent);
+
+            document.querySelectorAll('.persona-btn').forEach(function(b) {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+
+            // Crossfade: dim carousel during reorder
+            var carousel = document.getElementById('competencyCarousel');
+            carousel.classList.add('reordering');
+
+            setTimeout(function() {
+                // Reorder cards
+                var order = JSON.parse(btn.dataset.order);
+                var cardMap = {};
+                carousel.querySelectorAll('.competency-card').forEach(function(card) {
+                    var title = card.querySelector('.competency-card-title').textContent.trim();
+                    cardMap[title] = card;
+                });
+
+                order.forEach(function(name, i) {
+                    if (cardMap[name]) {
+                        carousel.appendChild(cardMap[name]);
+                        // Update counter
+                        var counter = cardMap[name].querySelector('.competency-card-counter');
+                        if (counter) counter.textContent = String(i + 1).padStart(2, '0') + ' / 06';
+                    }
+                });
+
+                // Scroll back to first card
+                carousel.scrollTo({ left: 0, behavior: 'instant' });
+
+                // Reset dots and arrows
+                document.querySelectorAll('#competencyNav .competency-dot').forEach(function(d, i) {
+                    d.classList.toggle('active', i === 0);
+                });
+                var arrowL = document.getElementById('carouselArrowLeft');
+                var arrowR = document.getElementById('carouselArrowRight');
+                if (arrowL) arrowL.classList.add('hidden');
+                if (arrowR) arrowR.classList.remove('hidden');
+
+                // Fade back in
+                setTimeout(function() {
+                    carousel.classList.remove('reordering');
+                }, 50);
+            }, 200);
+        }
+    </script>
+</body>
+</html>
