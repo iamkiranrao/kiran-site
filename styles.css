@@ -3376,12 +3376,43 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     text-align: center;
 }
 
-.numbers-grid {
+.metrics-columns {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
     max-width: 1400px;
     margin: 2rem auto 0;
+}
+
+.metrics-col {
+    text-align: left;
+}
+
+.metrics-col .competency-eyebrow {
+    margin-bottom: 1.5rem;
+}
+
+.numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.metrics-tracking-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    font-style: italic;
+    letter-spacing: 0.02em;
+}
+
+.outcome-card.placeholder {
+    opacity: 0.45;
+    border-style: dashed;
+}
+
+.outcome-card.placeholder .number-value {
+    color: var(--text-muted);
 }
 
 .number-card {
@@ -3432,9 +3463,6 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
 .number-card:nth-child(1) { animation-delay: 0s; }
 .number-card:nth-child(2) { animation-delay: 0.05s; }
 .number-card:nth-child(3) { animation-delay: 0.1s; }
-.number-card:nth-child(4) { animation-delay: 0.15s; }
-.number-card:nth-child(5) { animation-delay: 0.2s; }
-.number-card:nth-child(6) { animation-delay: 0.25s; }
 
 @keyframes numberFadeIn {
     from { opacity: 0; transform: translateY(8px); }
@@ -3486,15 +3514,19 @@ body, nav, section, footer, .mobile-menu, .share-modal-content,
     .numbers-section {
         padding: 2.5rem 2.5rem 3rem;
     }
+    .metrics-columns {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
     .numbers-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
     }
 }
 
 @media (max-width: 480px) {
     .numbers-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 0.75rem;
     }
     .number-card {
