@@ -745,6 +745,21 @@ nav {
     letter-spacing: 0.12em;
     color: var(--text-muted);
     margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.competency-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    transition: background 0.4s ease;
+}
+
+.persona-active .competency-eyebrow::after {
+    background: var(--persona-accent);
 }
 
 .competency-carousel-wrap {
