@@ -1,5 +1,5 @@
 # ACTION TRACKER
-**Last synced:** March 29, 2026 (Session 11 — action item reconciliation + triptych About section)
+**Last synced:** March 29, 2026 (Session 12 — INPUTS/OUTCOMES metrics redesign + site-wide audit)
 **Total open items:** 178 (+14 MJ assets needed, see Bento section)
 **Status:** Comprehensive workstream inventory across all modules
 
@@ -201,6 +201,10 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 200 | 🟡 Test triptych layout on real mobile/tablet devices | Kiran | 30 min | NO | Carousel swipe feel, dot tap targets, arrow button size, mobile reorder. Built via viewport sim only. |
 | 201 | 🟡 Document triptych section in INDEX-HOMEPAGE.md | Claude | 30 min | NO | Triptych structure, CSS classes, carousel JS, persona integration, responsive breakpoints. |
 | 202 | 🟡 Build automated CC action item reconciliation script | Claude | 2 hrs | NO | Cross-reference CC items against codebase to clear tracking drift. Low priority, high payoff. |
+| 203 | 🟡 Build CC API endpoint for site OUTCOMES metrics | command-center | HIGH | NO | /api/site-metrics/ — stores and serves 3 OUTCOMES numbers. GET is public (no key), POST needs rate limiting. Blocks OUTCOMES column going live. |
+| 204 | 🟡 Design the Connect contact flow | site-homepage | HIGH | NO | CTA exists visually but has no functional target. Form? Mailto? Calendly? WhatsApp? Blocks OUTCOMES tracking. Kiran has persona-specific ideas. |
+| 205 | 🟡 Em-dash sweep across 6 flagged files | site-homepage | MEDIUM | NO | bento-enhanced-d, bento-layout-options, career-highlights, madlab, now, studio. Clears critical violations in both Authenticity + Content pillars. |
+| 206 | 🟡 Add honesty markers to 5 flagged blog posts | site-blog | MEDIUM | NO | Pro-Kiran voice signals: dead ends, named unknowns, personal surprises, first-person error references. Kiran-authored, not Claude. |
 
 ### Teardowns
 | # | Action | Status | Timeline | Blocker | Notes |
