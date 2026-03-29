@@ -71,7 +71,7 @@
       title: 'Product · Design · Data',
       tagline: 'Builder Who Sweats the Details',
       introLine: 'Equal parts analyst, craftsperson, and builder.',
-      description: 'You know the feeling of staring at a prioritization framework and knowing it\'s wrong but not being able to say why? That\'s what I write about. This site is where I publish teardowns, poke at product decisions, and document the tradeoffs nobody talks about in all-hands. Browse like a peer — the interesting stuff is in the reasoning, not the outcomes.',
+      description: 'I think about product the way you do — tradeoffs, second-order effects, the politics of saying no. I\'ve shipped across enterprise and consumer, led rebuilds nobody wanted to touch, and documented the reasoning behind every call. This site is where I think out loud. If you\'ve ever wished your peers published their decision logs, this is that.',
       socialLinks: ['linkedin', 'substack', 'github'],
       competencyOrder: ['Product Strategy', 'AI Integration', 'Go-to-Market Strategy', 'Digital Transformation', 'Growth & Adoption', 'Delivery & Execution'],
       heroCard: 'how-id-built-it',
@@ -97,7 +97,7 @@
       title: 'Aspiring PM / Career Grower',
       tagline: 'Builder Who Learned by Doing',
       introLine: 'Equal parts storyteller, teacher, and builder.',
-      description: 'I didn\'t start in product. I got here by being curious, building things, and learning in public. This site is that philosophy made real — everything you see here, I built from scratch with no framework and no permission. If you\'re trying to break into PM or just figure out what kind of builder you are, look around. I built this for you too.',
+      description: 'I went from \'what even is a PM?\' to leading product teams across AI, fintech, and consumer — by being curious and building things before anyone asked me to. This site is that philosophy made real. Every component, teardown, and prototype here is something I built to learn or to teach. If you\'re on that same path, you\'re in the right place.',
       socialLinks: ['linkedin', 'substack'],
       competencyOrder: ['Growth & Adoption', 'Product Strategy', 'AI Integration', 'Go-to-Market Strategy', 'Digital Transformation', 'Delivery & Execution'],
       heroCard: 'blog-podcast',
@@ -123,7 +123,7 @@
       title: 'CTO / AI Lead / Tech Lead',
       tagline: 'Builder Who Understands the Stack',
       introLine: 'Equal parts tinkerer, systems thinker, and builder.',
-      description: 'Vanilla JS, no build step, 25 architectural components, 3 AI systems — including a RAG chatbot you can talk to right now. I built this site the way I think about product: understand the constraints, pick the right abstractions, ship without ceremony. View source works. The repo is the documentation.',
+      description: 'I\'m a product leader who doesn\'t treat engineering as a black box. I\'ve led platform migrations, scoped AI integrations, and made architecture calls that held up under load. I built this entire site — not by writing every line, but by making every decision: the stack, the tradeoffs, the abstractions. That\'s the skill that matters in 2026: knowing what to build, how to build it, and when to let the tools do the typing.',
       socialLinks: ['linkedin', 'github'],
       competencyOrder: ['AI Integration', 'Product Strategy', 'Digital Transformation', 'Delivery & Execution', 'Go-to-Market Strategy', 'Growth & Adoption'],
       heroCard: 'my-sandbox',
@@ -149,6 +149,7 @@
       title: 'Old Friend',
       tagline: 'Builder of Weird and Wonderful Things',
       introLine: 'Equal parts overthinker, dreamer, and builder.',
+      descriptionEyebrow: 'The unfiltered version ↘',
       description: 'You already know the story — the late nights, the existential spirals, the "just one more thing" that turned into this. I built a site with AI personas, a chatbot named Fenix, and a commit history that proves I haven\'t slept since February. This is the most me thing I\'ve ever made. Poke around. Roast it. You have full access.',
       socialLinks: ['linkedin'],
       competencyOrder: null, // no reorder
@@ -466,6 +467,12 @@
     var introLine = document.querySelector('.about-intro');
     if (introLine && config.introLine) {
       introLine.textContent = config.introLine;
+    }
+
+    // About description eyebrow swap (for Inner Circle)
+    var descEyebrow = document.querySelector('.triptych-col-context .competency-eyebrow');
+    if (descEyebrow) {
+      descEyebrow.textContent = config.descriptionEyebrow || 'The elevator pitch ↘';
     }
 
     // About description swap (only if Kiran has provided copy)
