@@ -1,6 +1,6 @@
 # ACTION TRACKER
-**Last synced:** March 28, 2026 (Session 10 — mobile/tablet lockdown + morph fix)
-**Total open items:** 175 (+14 MJ assets needed, see Bento section)
+**Last synced:** March 29, 2026 (Session 11 — action item reconciliation + triptych About section)
+**Total open items:** 178 (+14 MJ assets needed, see Bento section)
 **Status:** Comprehensive workstream inventory across all modules
 
 ---
@@ -192,6 +192,15 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 189 | ✅ Integrate bento monster grid into index.html Section 5 | Claude | — | NO | DONE Mar 27. Ported CSS/HTML/JS from preview. New bento-cards.js (280 lines). 5 files modified. Persona switching wired via switchBentoCards(). Desktop QA passed. Responsive fixes pending (see BENTO-RESPONSIVE-AUDIT.md). |
 | 193 | ✅ Apply responsive CSS rules for mobile/tablet bento grid | Claude | — | NO | DONE Mar 28. Single-column at ≤1024px, compressed bottom-bar overlays, typography floors (heading 1.3/1.2rem, desc 0.82/0.75rem), `<br>` hidden, per-card bg positioning. All 9 cards show images on mobile via applyMobileOverrides(). Supersedes original 28-rule audit — approach changed to single-column + mobile image overrides. |
 | 192 | 🟡 Explore CC-powered auto-generating /now page | Claude | 2-3 hrs | NO | Use CC action items + journal entries to auto-generate /now content. Avoids manual maintenance burden. Concept from Mar 27 session. |
+| 194 | ✅ Replace About section with triptych layout + competency carousel | Claude | — | NO | DONE Mar 29. Three-column grid (identity, context, competency). Scroll-snap carousel with persona-ordered cards, dot pagination, arrow navigation. Responsive: 2-col tablet, stacked mobile. Crossfade on persona switch. |
+| 195 | ✅ Apply 34 bento-responsive-audit CSS rules to styles.css | Claude | — | NO | DONE Mar 29. Category A (slot-level), B (card-level), C (card-in-slot) rules across 4 breakpoints. |
+| 196 | ✅ Create under-the-hood.html coming-soon page | Claude | — | NO | DONE Mar 29. Minimal placeholder with same nav/theme/Fenix pattern as other subpages. |
+| 197 | ✅ Update INDEX-HOMEPAGE.md (mobileImageOverrides + morph choreography) | Claude | — | NO | DONE Mar 29. Added documentation for mobile image override system and 3-act morph choreography. |
+| 198 | ✅ Add Act 2 morph comment marker to styles.css | Claude | — | NO | DONE Mar 29. Accent frame reveal section now labeled alongside Act 1 and Act 3. |
+| 199 | ✅ Delete card-exploration.html and card-weights.html prototypes | Claude | — | NO | DONE Mar 29. Old prototypes with no live references. |
+| 200 | 🟡 Test triptych layout on real mobile/tablet devices | Kiran | 30 min | NO | Carousel swipe feel, dot tap targets, arrow button size, mobile reorder. Built via viewport sim only. |
+| 201 | 🟡 Document triptych section in INDEX-HOMEPAGE.md | Claude | 30 min | NO | Triptych structure, CSS classes, carousel JS, persona integration, responsive breakpoints. |
+| 202 | 🟡 Build automated CC action item reconciliation script | Claude | 2 hrs | NO | Cross-reference CC items against codebase to clear tracking drift. Low priority, high payoff. |
 
 ### Teardowns
 | # | Action | Status | Timeline | Blocker | Notes |
