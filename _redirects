@@ -1,3 +1,6 @@
+# Page renames — 301 permanent redirects
+/track-record.html /the-work.html 301
+
 # Blog slug renames — 301 permanent redirects
 /blog/626c9a18.html /blog/demystifying-apple-pay.html 301
 /blog/demystifying-apple-pay-hidden-complexity.html /blog/demystifying-apple-pay.html 301
