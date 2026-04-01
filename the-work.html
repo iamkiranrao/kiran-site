@@ -206,20 +206,20 @@
     margin: 0 auto 48px;
     padding: 0 32px;
     display: flex;
-    justify-content: center;
-    gap: 28px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
   }
   .legend-item {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-size: 0.78rem;
     color: var(--text-secondary);
     font-family: 'Sora', sans-serif;
     letter-spacing: 0.03em;
   }
-  .legend-arrow { font-size: 1rem; line-height: 1; color: var(--amber); }
+  .legend-arrow { font-size: 1rem; line-height: 1; color: var(--amber); min-width: 20px; text-align: center; }
 
   /* ═══════════════════════════════════════════
      Timeline
@@ -684,7 +684,7 @@
     .hero { padding: 64px 20px 40px; }
     .privacy-note { padding: 0 16px; margin-bottom: 32px; }
     .privacy-note-inner { padding: 16px 18px; }
-    .legend { flex-direction: column; align-items: flex-start; padding: 0 20px; gap: 12px; margin-bottom: 32px; }
+    .legend { align-items: flex-start; padding: 0 20px; gap: 10px; margin-bottom: 32px; }
     .prologue { padding: 0 16px; }
     .timeline { padding: 0 16px; }
     .timeline::before { display: none; }
@@ -777,7 +777,7 @@
 <div class="hero">
   <h1 class="hero-title">The Work</h1>
   <p class="hero-sub">Emerging technology, massive scale, high stakes.<br>Across every major tech wave.<br>The industry was banking. The skills are not.</p>
-  <p class="hero-sub" style="margin-top: 16px;">Here's what was happening in the world, and where I was standing.</p>
+  <p class="hero-sub" style="margin-top: 16px;">What was happening in the world, and where I was when it did.</p>
 </div>
 
 <div class="privacy-note">
