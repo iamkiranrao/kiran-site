@@ -72,6 +72,66 @@
     --border: rgba(255,255,255,0.07);
     --border-amber: rgba(200,170,100,0.2);
   }
+  /* ── Light mode overrides ── */
+  [data-theme="light"] {
+    --bg: #f5f3f0;
+    --bg-card: rgba(0,0,0,0.03);
+    --bg-card-hover: rgba(0,0,0,0.06);
+    --text-primary: #3a3632;
+    --text-secondary: #6b6560;
+    --text-muted: #9a948e;
+    --amber: #a68a3e;
+    --amber-dim: rgba(166,138,62,0.12);
+    --border: rgba(0,0,0,0.1);
+    --border-amber: rgba(166,138,62,0.3);
+  }
+  [data-theme="light"] .pp-world-text {
+    color: #6b6560;
+  }
+  [data-theme="light"] .pk-pill {
+    background: rgba(0,0,0,0.04);
+  }
+  [data-theme="light"] .transition-line {
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+  }
+  [data-theme="light"] .era-years {
+    background: var(--bg);
+  }
+  [data-theme="light"] .pk-card.featured {
+    background: linear-gradient(135deg, rgba(166,138,62,0.06) 0%, transparent 50%);
+  }
+  [data-theme="light"] .pp-arrow.responded::before { background: var(--amber); }
+  [data-theme="light"] .pp-arrow.responded::after { border-color: var(--amber); }
+  [data-theme="light"] .pp-arrow.already::before { background: var(--amber); }
+  [data-theme="light"] .pp-arrow.already::after { border-color: var(--amber); }
+  [data-theme="light"] .pp-arrow.ahead::before { border-top-color: var(--amber); }
+  [data-theme="light"] .pp-dot {
+    background: var(--amber);
+    box-shadow: 0 0 8px rgba(166,138,62,0.4);
+  }
+  [data-theme="light"] .cta-link.primary {
+    color: #fff;
+  }
+  [data-theme="light"] .pk-pill.ai { color: #8a7030; border-color: rgba(138,112,48,0.35); background: rgba(138,112,48,0.08); }
+  [data-theme="light"] .pk-pill.growth { color: #3a7d3e; border-color: rgba(58,125,62,0.3); background: rgba(58,125,62,0.08); }
+  [data-theme="light"] .pk-pill.identity { color: #3a6fa0; border-color: rgba(58,111,160,0.3); background: rgba(58,111,160,0.08); }
+  [data-theme="light"] .pk-pill.trust { color: #34688e; border-color: rgba(52,104,142,0.3); background: rgba(52,104,142,0.08); }
+  [data-theme="light"] .pk-pill.mobile { color: #6a5a9e; border-color: rgba(106,90,158,0.3); background: rgba(106,90,158,0.08); }
+  [data-theme="light"] .pk-pill.platform { color: #5c5c8a; border-color: rgba(92,92,138,0.3); background: rgba(92,92,138,0.08); }
+  [data-theme="light"] .pk-pill.personalization { color: #9a6840; border-color: rgba(154,104,64,0.3); background: rgba(154,104,64,0.08); }
+  [data-theme="light"] .pk-pill.payments { color: #4a8888; border-color: rgba(74,136,136,0.3); background: rgba(74,136,136,0.08); }
+  [data-theme="light"] .proto-banner {
+    background: rgba(166,138,62,0.08);
+  }
+  @media (max-width: 700px) {
+    [data-theme="light"] .era-nav {
+      background: rgba(245,243,240,0.92);
+    }
+    [data-theme="light"] .pp-pair {
+      border-left-color: var(--border-amber);
+    }
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     background: var(--bg);
@@ -557,6 +617,59 @@
     letter-spacing: 0.03em;
   }
 
+  /* ── Era Nav (sticky mini-nav for mobile scroll depth) ── */
+  .era-nav {
+    display: none;
+  }
+  @media (max-width: 700px) {
+    .era-nav {
+      display: flex;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(14,12,10,0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      gap: 0;
+      justify-content: stretch;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .era-nav::-webkit-scrollbar { display: none; }
+    .era-nav-link {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex: 1;
+      text-align: center;
+      transition: color 0.2s, background 0.2s;
+    }
+    .era-nav-link.active {
+      color: var(--amber);
+      background: var(--amber-dim);
+    }
+  }
+
+  /* ── GSAP animation prep ── */
+  .pp-pair,
+  .era-header,
+  .prologue,
+  .synthesis,
+  .arrow-summary,
+  .cta {
+    will-change: opacity, transform;
+  }
+
   /* ── Responsive ── */
   @media (max-width: 700px) {
     .hero { padding: 64px 20px 40px; }
@@ -653,7 +766,8 @@
 
 <div class="hero">
   <h1 class="hero-title">The Work</h1>
-  <p class="hero-sub">Emerging technology, massive scale, high stakes. Across every major tech wave. Here's what was happening in the world, and where I was standing.</p>
+  <p class="hero-sub">Emerging technology, massive scale, high stakes. Across every major tech wave. The industry was banking. The skills are not.</p>
+  <p class="hero-sub" style="margin-top: 12px;">Here's what was happening in the world, and where I was standing.</p>
 </div>
 
 <div class="privacy-note">
@@ -671,6 +785,14 @@
     <span class="legend-arrow">&middot;&middot;&middot;</span> I built before the world noticed.
   </div>
 </div>
+
+<!-- Era Nav (mobile sticky, hidden desktop) -->
+<nav class="era-nav" aria-label="Timeline eras">
+  <a href="#era-1" class="era-nav-link active">2012–16</a>
+  <a href="#era-2" class="era-nav-link">2016–23</a>
+  <a href="#era-3" class="era-nav-link">2023–25</a>
+  <a href="#era-4" class="era-nav-link">2025–Now</a>
+</nav>
 
 <div class="prologue">
   <div class="prologue-inner">
@@ -694,7 +816,7 @@
 <div class="timeline">
 
   <!-- ═══════════ ERA 1: 2012–2016 ═══════════ -->
-  <div class="era-header">
+  <div class="era-header" id="era-1">
     <div class="era-years">2012–2016</div>
     <h2 class="era-world-headline">Mobile becomes the primary computing platform.</h2>
     <div class="era-role">AVP, Digital Product, Auth & Mobile · <em>Wells Fargo</em></div>
@@ -817,7 +939,7 @@
 
 
   <!-- ═══════════ ERA 2: 2016–2023 ═══════════ -->
-  <div class="era-header">
+  <div class="era-header" id="era-2">
     <div class="era-years">2016–2023</div>
     <h2 class="era-world-headline">Fintech rewrites the rules of money.</h2>
     <div class="era-role">Director, Product Management, Payments & Digital Channels · <em>First Republic Bank</em></div>
@@ -950,7 +1072,7 @@
 
 
   <!-- ═══════════ ERA 3: 2023–2025 ═══════════ -->
-  <div class="era-header">
+  <div class="era-header" id="era-3">
     <div class="era-years">2023–2025</div>
     <h2 class="era-world-headline">AI goes from demo to product.</h2>
     <div class="era-role">VP of Product, Mobile & AI Growth · <em>Wells Fargo</em></div>
@@ -1073,7 +1195,7 @@
 
 
   <!-- ═══════════ ERA 4: 2025–Now ═══════════ -->
-  <div class="era-header">
+  <div class="era-header" id="era-4">
     <div class="era-years">2025–Now</div>
     <h2 class="era-world-headline">AI-native becomes the new baseline.</h2>
     <div class="era-role">VP of Product · <em>Avatour</em></div>
@@ -1206,6 +1328,27 @@
     <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
     <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const moonIcon = document.querySelector('.wf-moon-icon');
+        const sunIcon = document.querySelector('.wf-sun-icon');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        if (moonIcon && sunIcon) {
+            if (savedTheme === 'dark') { moonIcon.style.display = 'none'; sunIcon.style.display = 'block'; }
+            else { moonIcon.style.display = 'block'; sunIcon.style.display = 'none'; }
+        }
+        if (themeToggle) themeToggle.addEventListener('click', () => {
+            const newTheme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            if (moonIcon && sunIcon) {
+                if (newTheme === 'dark') { moonIcon.style.display = 'none'; sunIcon.style.display = 'block'; }
+                else { moonIcon.style.display = 'block'; sunIcon.style.display = 'none'; }
+            }
+        });
+
         // Mobile Menu
         const menuButton = document.getElementById('menuButton');
         const closeMenuBtn = document.getElementById('closeMenu');
@@ -1254,6 +1397,93 @@
         document.querySelector('.footer-logo')?.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // Era nav active state (mobile)
+        const eraHeaders = document.querySelectorAll('.era-header[id]');
+        const eraNavLinks = document.querySelectorAll('.era-nav-link');
+        if (eraHeaders.length && eraNavLinks.length) {
+            const eraObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        eraNavLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-40% 0px -55% 0px' });
+            eraHeaders.forEach(h => eraObserver.observe(h));
+        }
+    </script>
+
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Respect reduced motion
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReduced) {
+            // Era headers fade in
+            gsap.utils.toArray('.era-header').forEach(el => {
+                gsap.from(el, {
+                    opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+                });
+            });
+
+            // Timeline pairs stagger in
+            gsap.utils.toArray('.pp-pair').forEach((el, i) => {
+                const world = el.querySelector('.pp-world');
+                const connector = el.querySelector('.pp-connector');
+                const card = el.querySelector('.pk-card');
+
+                if (world) gsap.from(world, {
+                    opacity: 0, x: -20, duration: 0.5, ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+                });
+                if (connector) gsap.from(connector, {
+                    opacity: 0, scale: 0.5, duration: 0.3, delay: 0.15, ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+                });
+                if (card) gsap.from(card, {
+                    opacity: 0, x: 20, duration: 0.5, delay: 0.2, ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+                });
+            });
+
+            // Synthesis cards
+            gsap.utils.toArray('.synth-card').forEach((el, i) => {
+                gsap.from(el, {
+                    opacity: 0, y: 30, duration: 0.5, delay: i * 0.1, ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+                });
+            });
+
+            // Arrow summary
+            gsap.from('.arrow-summary', {
+                opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
+                scrollTrigger: { trigger: '.arrow-summary', start: 'top 85%', once: true }
+            });
+
+            // CTA
+            gsap.from('.cta', {
+                opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
+                scrollTrigger: { trigger: '.cta', start: 'top 88%', once: true }
+            });
+
+            // Transition beat
+            gsap.utils.toArray('.transition-beat').forEach(el => {
+                gsap.from(el, {
+                    opacity: 0, duration: 0.8, ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+                });
+            });
+
+            // Handle already-visible elements on load
+            setTimeout(() => ScrollTrigger.refresh(), 100);
+        }
     </script>
     <script src="persona-system.js"></script>
     <script src="fenix-widget.js" defer></script>
