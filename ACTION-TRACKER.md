@@ -1,5 +1,5 @@
 # ACTION TRACKER
-**Last synced:** March 29, 2026 (Session 13 — Technical upskilling strategy + em-dash sweep + triptych completion)
+**Last synced:** April 1, 2026 (Session 15 — Track Record v5→v6 trimming + the-work.html production build)
 **Total open items:** 184 (+14 MJ assets needed, see Bento section)
 **Status:** Comprehensive workstream inventory across all modules
 
@@ -157,7 +157,7 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 71 | 🟡 Add testimonials display section | Claude | 2 hrs | NO | Collect via form but not displayed; needs testimonial cards grid |
 | 72 | 🟡 Add release notes section | Claude | 2 hrs | NO | Mentioned in architecture docs but not in HTML |
 | 73 | 🟡 Re-enable language selector | Claude | 2 hrs | NO | Currently commented out (lines 96-113) |
-| 74 | 🟡 Generate per-page OG cards | Claude | 2-3 hrs | NO | Currently using generic og-image.png on 5 secondary pages |
+| 74 | 🟢 Generate per-page OG cards | Claude | 2-3 hrs | NO | IN PROGRESS. The Work OG image done (Apr 1, veteran bear bento card style). 4 secondary pages still need custom OG images. |
 | 160 | 🟢 C5 Work Cards: Visual redesign — illustrated character theme | Joint | 3-4 hrs remaining | NO | IN PROGRESS. **Mobile/tablet LOCKED (Mar 28).** Single-column layout, compressed overlays, all 9 cards show images on mobile, shortened universal copy, heading font reduction, persona hover stroke. Morph choreography fixed (manifesto+metrics wired in). **Remaining:** 14 MJ images for desktop persona rotation gaps (22/63 desktop combos are gradient fallback). See `docs/BENTO-CARD-GAMEPLAN.md` for full inventory. |
 | 161 | 🟡 C6 Connect: Deep-dive on progressive engagement | Joint | 2-3 hrs | NO | Currently simple CTA. Needs testimonial tabs, Cal.com, conversation starters. |
 | 162 | 🟡 D8/D9: Accent frame + Fenix subpage visual comparisons | Joint | 30 min | NO | Both treatments built as switchable CSS classes. Quick comparison session needed. |
@@ -206,10 +206,16 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 205 | ✅ Em-dash sweep across 10 files | site-homepage | MEDIUM | NO | DONE Mar 29 — Completed across bento-enhanced-d, bento-layout-options, career-highlights, madlab, now, studio, index-homepage, persona-picker, visual-standards, and 1 additional file. |
 | 206 | 🟡 Add honesty markers to 5 flagged blog posts | site-blog | MEDIUM | NO | Pro-Kiran voice signals: dead ends, named unknowns, personal surprises, first-person error references. Kiran-authored, not Claude. |
 | 207 | 🟡 Explore career-highlights infographic via NotebookLM → Figma → HTML/CSS | site-homepage | MEDIUM | NO | Convert highlights into visual narrative. NotebookLM to generate outline, Figma for design, then build interactive component. |
-| 208 | 🟡 Consider making other eyebrow labels persona-dynamic | persona-picker | LOW | NO | Currently only accent color switches. Tags, labels, and other metadata could rotate per persona like the grid. Low priority exploration. |
-| 209 | 🟡 Technical upskilling Phase 1: ADRs, Fenix RAG pipeline work, DDIA chapters 1-4 | career | HIGH | NO | Foundation: architecture decision records, production RAG debugging, distributed systems fundamentals. Estimated 40-50 hours over 4 weeks. |
-| 210 | 🟡 Technical upskilling Phase 2: Ship MadLab project with AI pair programmer, AI courses, Fenix eval framework | career | HIGH | NO | Build: ship complete product with Claude collab, take AI/ML courses, define Fenix quality metrics. Estimated 50-60 hours over 4-6 weeks. |
-| 211 | 🟡 Technical upskilling Phase 3: System design case studies, SQL refresh, technical blog post | career | HIGH | NO | Polish: deep-dive on 3-5 system design problems, strengthen database fundamentals, publish first technical piece. Estimated 30-40 hours over 4 weeks. |
+| 208 | ✅ TR-V5 Phase 1: Strategic angle review | site-homepage | HIGH | NO | DONE Apr 1 — Leadership signals, business impact audit, arrow reclassification (decided to keep 8/14/4 ratio as honest), cross-functional complexity identified, forward CTA parked, social proof skipped. |
+| 209 | ✅ TR-V5 Phase 2: Trim from 26 pairs to 16 pairs | site-homepage | HIGH | NO | DONE Apr 1 — Cut DailyChange, Alerts Next Gen, Apple Pay, Digital Wealth, Digital Lending, Teen Banking, Open Banking, AI Insights. Bundled Apple Watch into Mobile. Merged Cloud+Platform into Infrastructure Modernization. Built as tr-v6.html. |
+| 210 | ✅ TR-V5 Phase 3-5: Card calibration, structural decisions, polish + production build | site-homepage | HIGH | NO | DONE Apr 1 — Descriptions shortened to one-liners. 7 domain pills added (AI/ML, Growth, Identity & Fraud, Mobile, Platform, Personalization, Payments). Full view kept (no condensed). Built the-work.html production page with light mode, mobile responsive, CSS scroll animations (replaced GSAP), OG image, deployed to kiranrao.ai. |
+| 215 | 🟡 Get Eagle Invest metrics from former colleagues | site-homepage | HIGH | NO | Need outcome metric for Eagle Invest card — adoption, AUM, or pipeline conversion. Currently $5K vs $250K+ tension stat. |
+| 216 | 🟡 Decide CTA forward signal for The Work page | site-homepage | MEDIUM | NO | Options: (A) Keep open, (B) Light AI-first signal, (C) Role-specific. Parked until page is live — now live, needs decision. |
+| 217 | 🟡 Extract the-work.css from inline styles | infrastructure | LOW | NO | ~1000 lines inline CSS. Not urgent but improves maintainability. |
+| 211 | 🟡 Consider making other eyebrow labels persona-dynamic | persona-picker | LOW | NO | Currently only accent color switches. Tags, labels, and other metadata could rotate per persona like the grid. Low priority exploration. |
+| 212 | 🟡 Technical upskilling Phase 1: ADRs, Fenix RAG pipeline work, DDIA chapters 1-4 | career | HIGH | NO | Foundation: architecture decision records, production RAG debugging, distributed systems fundamentals. Estimated 40-50 hours over 4 weeks. |
+| 213 | 🟡 Technical upskilling Phase 2: Ship MadLab project with AI pair programmer, AI courses, Fenix eval framework | career | HIGH | NO | Build: ship complete product with Claude collab, take AI/ML courses, define Fenix quality metrics. Estimated 50-60 hours over 4-6 weeks. |
+| 214 | 🟡 Technical upskilling Phase 3: System design case studies, SQL refresh, technical blog post | career | HIGH | NO | Polish: deep-dive on 3-5 system design problems, strengthen database fundamentals, publish first technical piece. Estimated 30-40 hours over 4 weeks. |
 
 ### Teardowns
 | # | Action | Status | Timeline | Blocker | Notes |
