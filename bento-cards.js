@@ -42,7 +42,7 @@
     },
     career: {
       eyebrow: '15+ Years Building',
-      stat: 'Career Highlights',
+      stat: 'The Work',
       desc: 'Enterprise to startup. The full arc.',
       tags: ['ADP', 'Yahoo', 'Avatour', '+3'],
       character: 'Veteran (bear)',
@@ -169,7 +169,7 @@
   /* ── Card ID → Destination Page ── */
   var cardPageMap = {
     teardowns:    'how-id-built-it.html',
-    career:       'career-highlights.html',
+    career:       'track-record.html',
     madlab:       'madlab.html',
     studio:       'studio.html',
     blog:         'blog-podcast.html',
