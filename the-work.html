@@ -120,6 +120,9 @@
   [data-theme="light"] .pk-pill.platform { color: #5c5c8a; border-color: rgba(92,92,138,0.3); background: rgba(92,92,138,0.08); }
   [data-theme="light"] .pk-pill.personalization { color: #9a6840; border-color: rgba(154,104,64,0.3); background: rgba(154,104,64,0.08); }
   [data-theme="light"] .pk-pill.payments { color: #4a8888; border-color: rgba(74,136,136,0.3); background: rgba(74,136,136,0.08); }
+  [data-theme="light"] .privacy-note-inner {
+    background: rgba(0,0,0,0.025);
+  }
   [data-theme="light"] .proto-banner {
     background: rgba(166,138,62,0.08);
   }
@@ -159,8 +162,10 @@
   .hero {
     max-width: 720px;
     margin: 0 auto;
-    padding: 100px 32px 60px;
+    padding: 100px 32px 40px;
     text-align: center;
+    min-height: auto;
+    display: block;
   }
   .hero-title {
     font-family: 'Sora', sans-serif;
@@ -177,18 +182,22 @@
     line-height: 1.65;
   }
 
-  /* ── Privacy note ── */
+  /* ── Framing note ── */
   .privacy-note {
-    max-width: 580px;
-    margin: 0 auto 40px;
+    max-width: 600px;
+    margin: 0 auto 48px;
     padding: 0 32px;
-    text-align: center;
+  }
+  .privacy-note-inner {
+    border-left: 2px solid var(--amber);
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border-radius: 0 6px 6px 0;
   }
   .privacy-note-text {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    line-height: 1.65;
-    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
   }
 
   /* ── Legend ── */
@@ -673,7 +682,8 @@
   /* ── Responsive ── */
   @media (max-width: 700px) {
     .hero { padding: 64px 20px 40px; }
-    .privacy-note { padding: 0 20px; margin-bottom: 32px; }
+    .privacy-note { padding: 0 16px; margin-bottom: 32px; }
+    .privacy-note-inner { padding: 16px 18px; }
     .legend { flex-direction: column; align-items: flex-start; padding: 0 20px; gap: 12px; margin-bottom: 32px; }
     .prologue { padding: 0 16px; }
     .timeline { padding: 0 16px; }
@@ -766,12 +776,14 @@
 
 <div class="hero">
   <h1 class="hero-title">The Work</h1>
-  <p class="hero-sub">Emerging technology, massive scale, high stakes. Across every major tech wave. The industry was banking. The skills are not.</p>
-  <p class="hero-sub" style="margin-top: 12px;">Here's what was happening in the world, and where I was standing.</p>
+  <p class="hero-sub">Emerging technology, massive scale, high stakes.<br>Across every major tech wave.<br>The industry was banking. The skills are not.</p>
+  <p class="hero-sub" style="margin-top: 16px;">Here's what was happening in the world, and where I was standing.</p>
 </div>
 
 <div class="privacy-note">
-  <p class="privacy-note-text">I've worked with incredible teams at companies I respect. Not everything belongs on a public page, and the metrics and specifics below are intentionally restrained. This shows the shape of the work. The full picture is a conversation worth having.</p>
+  <div class="privacy-note-inner">
+    <p class="privacy-note-text">I've worked with incredible teams at companies I respect. Not everything belongs on a public page, and the metrics and specifics below are intentionally restrained. This shows the shape of the work. The full picture is a conversation worth having.</p>
+  </div>
 </div>
 
 <div class="legend">
