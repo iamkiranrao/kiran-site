@@ -669,14 +669,26 @@
     }
   }
 
-  /* ── GSAP animation prep ── */
-  .pp-pair,
-  .era-header,
-  .prologue,
-  .synthesis,
-  .arrow-summary,
-  .cta {
-    will-change: opacity, transform;
+  /* ── Scroll reveal animations ── */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+    .reveal.from-left {
+      transform: translateX(-16px);
+    }
+    .reveal.from-right {
+      transform: translateX(16px);
+    }
+    .reveal.scale-in {
+      transform: scale(0.85);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
   }
 
   /* ── Responsive ── */
@@ -1428,75 +1440,33 @@
         }
     </script>
 
-    <!-- GSAP + ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Scroll reveal (CSS transitions + IntersectionObserver, no GSAP) -->
     <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Respect reduced motion
-        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (!prefersReduced) {
-            const oncePlay = { toggleActions: 'play none none none' };
-
-            // Era headers fade in
-            gsap.utils.toArray('.era-header').forEach(el => {
-                gsap.from(el, {
-                    opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 85%', ...oncePlay }
-                });
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            // Tag elements with reveal classes
+            document.querySelectorAll('.era-header, .synth-card, .arrow-summary, .cta, .transition-beat').forEach(el => {
+                el.classList.add('reveal');
             });
-
-            // Timeline pairs stagger in
-            gsap.utils.toArray('.pp-pair').forEach((el) => {
+            document.querySelectorAll('.pp-pair').forEach(el => {
                 const world = el.querySelector('.pp-world');
                 const connector = el.querySelector('.pp-connector');
                 const card = el.querySelector('.pk-card');
-
-                if (world) gsap.from(world, {
-                    opacity: 0, x: -20, duration: 0.5, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 82%', ...oncePlay }
-                });
-                if (connector) gsap.from(connector, {
-                    opacity: 0, scale: 0.5, duration: 0.3, delay: 0.15, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 82%', ...oncePlay }
-                });
-                if (card) gsap.from(card, {
-                    opacity: 0, x: 20, duration: 0.5, delay: 0.2, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 82%', ...oncePlay }
-                });
+                if (world) world.classList.add('reveal', 'from-left');
+                if (connector) { connector.classList.add('reveal', 'scale-in'); connector.style.transitionDelay = '0.12s'; }
+                if (card) { card.classList.add('reveal', 'from-right'); card.style.transitionDelay = '0.18s'; }
             });
 
-            // Synthesis cards
-            gsap.utils.toArray('.synth-card').forEach((el, i) => {
-                gsap.from(el, {
-                    opacity: 0, y: 30, duration: 0.5, delay: i * 0.1, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 88%', ...oncePlay }
+            // Single observer for all reveals
+            const revealObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObs.unobserve(entry.target);
+                    }
                 });
-            });
+            }, { rootMargin: '0px 0px -15% 0px' });
 
-            // Arrow summary
-            gsap.from('.arrow-summary', {
-                opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
-                scrollTrigger: { trigger: '.arrow-summary', start: 'top 85%', ...oncePlay }
-            });
-
-            // CTA
-            gsap.from('.cta', {
-                opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
-                scrollTrigger: { trigger: '.cta', start: 'top 88%', ...oncePlay }
-            });
-
-            // Transition beat
-            gsap.utils.toArray('.transition-beat').forEach(el => {
-                gsap.from(el, {
-                    opacity: 0, duration: 0.8, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 85%', ...oncePlay }
-                });
-            });
-
-            // Handle already-visible elements on load
-            setTimeout(() => ScrollTrigger.refresh(), 100);
+            document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
         }
     </script>
     <script src="persona-system.js"></script>
