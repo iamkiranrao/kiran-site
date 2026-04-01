@@ -1437,31 +1437,33 @@
         // Respect reduced motion
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (!prefersReduced) {
+            const oncePlay = { toggleActions: 'play none none none' };
+
             // Era headers fade in
             gsap.utils.toArray('.era-header').forEach(el => {
                 gsap.from(el, {
                     opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+                    scrollTrigger: { trigger: el, start: 'top 85%', ...oncePlay }
                 });
             });
 
             // Timeline pairs stagger in
-            gsap.utils.toArray('.pp-pair').forEach((el, i) => {
+            gsap.utils.toArray('.pp-pair').forEach((el) => {
                 const world = el.querySelector('.pp-world');
                 const connector = el.querySelector('.pp-connector');
                 const card = el.querySelector('.pk-card');
 
                 if (world) gsap.from(world, {
                     opacity: 0, x: -20, duration: 0.5, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+                    scrollTrigger: { trigger: el, start: 'top 82%', ...oncePlay }
                 });
                 if (connector) gsap.from(connector, {
                     opacity: 0, scale: 0.5, duration: 0.3, delay: 0.15, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+                    scrollTrigger: { trigger: el, start: 'top 82%', ...oncePlay }
                 });
                 if (card) gsap.from(card, {
                     opacity: 0, x: 20, duration: 0.5, delay: 0.2, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+                    scrollTrigger: { trigger: el, start: 'top 82%', ...oncePlay }
                 });
             });
 
@@ -1469,27 +1471,27 @@
             gsap.utils.toArray('.synth-card').forEach((el, i) => {
                 gsap.from(el, {
                     opacity: 0, y: 30, duration: 0.5, delay: i * 0.1, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+                    scrollTrigger: { trigger: el, start: 'top 88%', ...oncePlay }
                 });
             });
 
             // Arrow summary
             gsap.from('.arrow-summary', {
                 opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
-                scrollTrigger: { trigger: '.arrow-summary', start: 'top 85%', once: true }
+                scrollTrigger: { trigger: '.arrow-summary', start: 'top 85%', ...oncePlay }
             });
 
             // CTA
             gsap.from('.cta', {
                 opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
-                scrollTrigger: { trigger: '.cta', start: 'top 88%', once: true }
+                scrollTrigger: { trigger: '.cta', start: 'top 88%', ...oncePlay }
             });
 
             // Transition beat
             gsap.utils.toArray('.transition-beat').forEach(el => {
                 gsap.from(el, {
                     opacity: 0, duration: 0.8, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+                    scrollTrigger: { trigger: el, start: 'top 85%', ...oncePlay }
                 });
             });
 
