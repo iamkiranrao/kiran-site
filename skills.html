@@ -2138,36 +2138,14 @@
       }, 100);
 
       // ========================================
-      // TOOLTIP NUDGE — first visit only
+      // TOGGLE TOOLTIP — disappearing hint
       // ========================================
-      if (window.innerWidth >= 768 && !localStorage.getItem('skills-toggle-seen')) {
+      if (window.innerWidth >= 768) {
         const nudge = document.getElementById('toggleNudge');
-        if (!nudge) return;
-
-        const showTimer = setTimeout(() => {
-          nudge.classList.add('visible');
-        }, 3000);
-
-        function dismissNudge() {
-          clearTimeout(showTimer);
-          nudge.classList.remove('visible');
-          localStorage.setItem('skills-toggle-seen', '1');
-          // Clean up listeners
-          window.removeEventListener('scroll', dismissNudge, true);
-          document.removeEventListener('click', dismissOnClick, true);
+        if (nudge) {
+          setTimeout(() => nudge.classList.add('visible'), 1500);
+          setTimeout(() => nudge.classList.remove('visible'), 5500);
         }
-
-        function dismissOnClick(e) {
-          // Dismiss if user clicks anywhere (toggle, skill tag, close button, etc.)
-          dismissNudge();
-        }
-
-        // Dismiss on any scroll (capture phase to catch inner scrollable areas)
-        window.addEventListener('scroll', dismissNudge, true);
-        // Dismiss on any click after a brief grace period
-        setTimeout(() => {
-          document.addEventListener('click', dismissOnClick, true);
-        }, 3100);
       }
     });
     </script>
