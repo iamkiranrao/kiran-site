@@ -946,13 +946,15 @@
 
       graphInitialized = true;
 
-      // Prepare nodes: skills only
+      // Prepare nodes: skills only — initialize near center for fast settling
       const nodes = SKILLS_DATA.skills.map(skill => ({
         id: skill.id,
         label: skill.label,
         domain: skill.domain,
         color: domainMap[skill.domain].color,
         connections: Object.keys(skillConnections[skill.id]).length || 0,
+        x: width / 2 + (Math.random() - 0.5) * width * 0.5,
+        y: height / 2 + (Math.random() - 0.5) * height * 0.5,
         fx: null,
         fy: null
       }));
@@ -976,11 +978,12 @@
       });
 
       // Create source attractor nodes (invisible, for physics)
+      // Initialize near center so nodes don't start at origin
       const sourceAttractors = SKILLS_DATA.sources.map(source => ({
         id: `attractor-${source.id}`,
         sourceId: source.id,
-        x: Math.random() * 800 - 400,
-        y: Math.random() * 600 - 300,
+        x: width / 2 + (Math.random() - 0.5) * width * 0.6,
+        y: height / 2 + (Math.random() - 0.5) * height * 0.6,
         vy: 0,
         vx: 0
       }));
@@ -1242,7 +1245,7 @@
         const html = `
           <div class="evidence-item${isClickable}" ${source.type === 'certification' ? `data-cert-id="${source.id}"` : ''}>
             <div class="evidence-label">${source.label}<span class="evidence-type-pill ${typeClass}">${typeLabel}</span></div>
-            <div class="evidence-meta">${source.issuer}${source.year ? ` • ${source.year}` : ''}</div>
+            <div class="evidence-meta">${source.issuer || ''}${source.year ? (source.issuer ? ' • ' : '') + source.year : ''}</div>
           </div>
         `;
         evidenceList.insertAdjacentHTML('beforeend', html);
