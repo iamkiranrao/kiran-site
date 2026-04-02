@@ -946,6 +946,12 @@
 
       graphInitialized = true;
 
+      // SVG setup — read dimensions from content-area (always visible) not graph-view (may still be transitioning)
+      const contentArea = document.querySelector('.content-area');
+      const rect = contentArea.getBoundingClientRect();
+      const width = rect.width || window.innerWidth;
+      const height = rect.height || 700;
+
       // Prepare nodes: skills only — initialize near center for fast settling
       const nodes = SKILLS_DATA.skills.map(skill => ({
         id: skill.id,
@@ -996,11 +1002,6 @@
         strength: 0.05
       }));
 
-      // SVG setup — read dimensions from content-area (always visible) not graph-view (may still be transitioning)
-      const contentArea = document.querySelector('.content-area');
-      const rect = contentArea.getBoundingClientRect();
-      const width = rect.width || window.innerWidth;
-      const height = rect.height || 700;
       const svg = d3.select('#graph')
         .attr('width', width)
         .attr('height', height);
