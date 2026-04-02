@@ -1,6 +1,6 @@
 # ACTION TRACKER
-**Last synced:** April 1, 2026 (Session 15 — Track Record v5→v6 trimming + the-work.html production build)
-**Total open items:** 184 (+14 MJ assets needed, see Bento section)
+**Last synced:** April 2, 2026 (Session 18 — Add Skills evidence management, Mind the Gap module, PM skills gap analysis)
+**Total open items:** 196 (+14 MJ assets needed, see Bento section)
 **Status:** Comprehensive workstream inventory across all modules
 
 ---
@@ -277,6 +277,22 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 97 | 🟢 8-step workflow fully functional | IN PROGRESS | — | NO | All steps working; session management, streaming SSE |
 | 98 | 🟢 Publishing pipeline (local → git → production) | IN PROGRESS | — | NO | 4 teardowns live (Instagram, GEICO, TurboTax, Airbnb) |
 | 99 | 🟢 Content template with 60+ placeholders locked | IN PROGRESS | — | NO | Canonical template complete; Step 8 JSON injection working |
+
+### Skills Evidence Management (NEW — Session 16)
+| # | Action | Status | Timeline | Blocker | Notes |
+|---|--------|--------|----------|---------|-------|
+| 185 | ✅ Build "Add Skills" feature in Command Center | DONE | Session 18 | NO | Evidence management page: 4 tabs (Inventory, Skill Mapper, Taxonomy, Publish), 25 API endpoints, 6 Supabase tables, full seed data migrated from skills.html. |
+| 186 | ✅ Plug evidence update step into MadLab publish pipeline | DONE | Session 18 | NO | Fire-and-forget evidence source creation on prototype deploy + notification for skill mapping. |
+| 187 | ✅ Plug evidence update step into teardown publish pipeline | DONE | Session 18 | NO | Same pattern as MadLab: auto-capture with td- prefix on teardown publish. |
+| 193 | 🟡 Migrate skills.html to consume from data/skills-evidence.json | TODO | Medium | NO | CC publish generates the manifest; skills.html still reads inline JS. |
+| 194 | 🟡 Add cert/item detail editing modals to Add Skills Inventory tab | TODO | Medium | NO | Extended details (learned, capstone, techStack) are API-only; need dashboard forms. |
+| 195 | 🟡 Fix CC layout dual scroll context (main overflow-y vs window scroll) | TODO | Low | NO | Causes blank viewport when scrolling expanded cards; pre-existing across CC pages. |
+| 196 | 🟡 Add focus queue view to Mind the Gap | TODO | Low | NO | Top 3-5 items view to prevent 37-item backlog from feeling overwhelming. |
+| 188 | 🟡 Address skills page audit warnings (conscious decisions) | TODO | Low priority | NO | (1) No Playfair Display font — intentional? (2) No page-specific OG image. (3) Meta description is corporate-neutral. |
+| 189 | 🟡 Add evidence popup cards to skills page | TODO | High | NO | Click evidence pills → rich popup with org, date, coverage, links. Cert modal infra partially exists. |
+| 190 | 🟡 Delete or redirect learning.html to /skills | TODO | Medium | NO | Old page still in repo. Either delete or meta-refresh redirect. |
+| 191 | 🟡 Delete prototype files from repo (proto-*.html, tr-*.html, etc.) | TODO | Medium | NO | ~15 development artifacts accessible on production domain. |
+| 192 | 🟡 Skills page light theme polish pass | TODO | Low | NO | Dark-first CSS; some elements less visible in light mode. |
 
 ### Fenix Journal
 | # | Action | Status | Timeline | Blocker | Notes |
