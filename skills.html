@@ -52,11 +52,10 @@
 
     .app-container {
       width: 100%;
-      height: calc(100vh - 60px);
+      height: 80vh; /* fallback; JS adjusts dynamically on load */
       display: flex;
       flex-direction: column;
       position: relative;
-      margin-top: 60px;
       overflow: hidden;
     }
 
@@ -1654,11 +1653,25 @@
     // ========================================
     // INITIALIZATION
     // ========================================
+    // Dynamic height: fill remaining viewport below whatever site chrome is above
+    function adjustAppHeight() {
+      const ac = document.querySelector('.app-container');
+      if (ac) {
+        const top = ac.getBoundingClientRect().top + window.scrollY;
+        ac.style.height = `calc(100vh - ${top}px)`;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-      initializeGridView();
-      selectSkill(SKILLS_DATA.skills[0].id);
-      showDetailPanel(SKILLS_DATA.skills[0]);
+      // Delay slightly so persona badge / Fenix banner have rendered
+      setTimeout(() => {
+        adjustAppHeight();
+        initializeGridView();
+        selectSkill(SKILLS_DATA.skills[0].id);
+        showDetailPanel(SKILLS_DATA.skills[0]);
+      }, 100);
     });
+    window.addEventListener('resize', adjustAppHeight);
     </script>
 
     <script>
