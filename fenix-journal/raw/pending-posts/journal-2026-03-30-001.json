@@ -1,0 +1,13 @@
+{
+  "endpoint": "https://cc.kiranrao.ai/api/kirans-journal/",
+  "payload": {
+    "title": "Career highlights page: from timeline to capability architecture",
+    "body": "I made a fundamental decision about the career-highlights page today. The current page has 30+ initiative cards organized by company and timeline — and it is working against me. Every framing I tried activated a bias: breadth reads as shallowness, volume triggers disbelief, company names trigger banking stigma, chronology invites scrutiny of gaps and returns.\n\nThe new structure: four zones organized by what I bring, not where I have been. Scale (32M MAU, 27.5M AI interactions — proof I operate at a level most PMs never touch). Range (auth, payments, growth, AI, mobile, marketplace — the compound advantage of owning the full user journey). AI Trajectory (2016 to 2025, showing I have been building with AI since before it was a resume keyword). Builder (the site itself, Fenix, MadLab, teardowns — proof I stay close to the craft).\n\nCompany names are absent or minimal. Dates appear only in the AI trajectory where they prove longevity. The whole thing is designed to make a hiring manager think 'seasoned, knows his stuff, I want to connect' — and nothing more. The detailed initiative cards become a second-act artifact served after they have self-identified what they are looking for.\n\nThe page name changes from Career Highlights to Track Record. Track Record is the exact vocabulary hiring managers use. It promises proof without setting format expectations.\n\nThe access gate comes off too. The new structure controls the narrative through framing, not access restriction.",
+    "category": "career-strategy",
+    "tags": ["career-highlights", "track-record", "infographic", "recruiter-psychology", "narrative-design"],
+    "workstreams": ["site-homepage", "career"],
+    "decision": "Restructure career page from chronological timeline to four-zone capability architecture (Scale, Range, AI Trajectory, Builder). Rename to Track Record. Remove access gate.",
+    "alternatives_considered": "Three options evaluated: Option A (capability map by domain), Option B (ruthlessly curated chronological arc with 1 metric per era), Option C (signature moves — organize by recurring patterns across roles). Landed on a hybrid of A and C.",
+    "open_questions": "How does the second act work? Persona-picker flow? Fenix-served curated depth? Filtered initiative cards? Needs a separate design session."
+  }
+}

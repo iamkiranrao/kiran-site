@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "title": "Stage images should be empty — just light, space, and perspective",
+  "body": "First try for the Artist studio, I used a detailed photo of an actual artist studio — plants, string lights, curtains. MJ faithfully reproduced all that clutter. The lesson: the scene image is not a scene description, it is a stage. Light, space, perspective. That is it. Props come in later runs through text.",
+  "category": "principle",
+  "tags": ["midjourney", "stage-images", "creative-process", "less-is-more"],
+  "workstreams": ["site-homepage"],
+  "decision": "MJ stage images must be nearly empty — just light, space, and perspective.",
+  "alternatives_considered": "Using detailed reference photos of the full scene.",
+  "open_questions": ""
+}

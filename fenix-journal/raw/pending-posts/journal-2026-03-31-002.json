@@ -1,0 +1,10 @@
+{
+  "title": "Three-arrow directional system: visualizing relationship to market shifts",
+  "body": "When you asked 'does it need a ping-pong effect? Something on the left happened that resulted in something on the right?' — that led to the three-arrow system showing the relationship type between each world event and work item.\n\nThree patterns emerge:\n→ Shipped the answer: Market moved, I responded fast (Touch ID → biometric login, Zelle launch → payments platform)\n← Already there: I was building it before the world caught up (DOC AI in 2016, digital channels before COVID made them critical, Fargo AI scaling when ChatGPT made AI mainstream)\n··· Built before noticed: Built independently, not in response to anything (device fingerprinting, cardless ATM, Avatour pivot)\n\nThis makes the argument visible instead of claimed. The reader watches the pattern accumulate across the page. The payoff is arithmetic: 'Of 12 major technology moments: 5 times already there, 4 times shipped the answer, 3 times built before anyone noticed.' They count it themselves, which is more persuasive than being told the pattern exists.",
+  "category": "content-strategy",
+  "tags": ["track-record", "narrative-architecture", "connector-system"],
+  "workstreams": ["site-homepage"],
+  "decision": "Use three explicit relationship types (→ shipped answer, ← already there, ··· built before noticed) with visual connectors to show how I relate to market shifts",
+  "alternatives_considered": "Generic left-right connectors without semantic meaning; or no connectors at all, letting readers infer the relationships",
+  "open_questions": "Should the arrow tally (5/4/3) shift if content changes? How do we handle partial or mixed relationships where an item could fit multiple types?"
+}

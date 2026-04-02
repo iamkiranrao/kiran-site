@@ -1,0 +1,8 @@
+{
+  "title": "Add three-arrow relationship system to tr-pingpong-v3 prototype",
+  "description": "Implement three connector types between world events and work items: → (shipped the answer — responded fast to market shift), ← (already there — anticipated before world caught up), ··· (built before noticed — independent trajectory). Add explicit labels to work items and create summary tally at bottom showing pattern distribution.",
+  "workstream": "site-homepage",
+  "priority": "high",
+  "source": "session",
+  "status": "todo"
+}

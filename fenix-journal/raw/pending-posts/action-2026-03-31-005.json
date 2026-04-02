@@ -1,0 +1,8 @@
+{
+  "title": "Decide whether cloud migration work appears in Track Record timeline",
+  "description": "AWS/Google Cloud data stack modernization at First Republic is meaningful infrastructure work, but not currently surfaced because focus is on client-facing PM roles. If included in parallel timeline: Should it appear as a discrete work item? How should it be framed — as enabling infrastructure for client work, or as its own positioning point? Decision impacts content strategy and what era it belongs to.",
+  "workstream": "site-homepage",
+  "priority": "medium",
+  "source": "session",
+  "status": "todo"
+}

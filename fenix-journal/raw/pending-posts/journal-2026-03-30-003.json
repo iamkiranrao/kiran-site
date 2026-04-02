@@ -1,0 +1,13 @@
+{
+  "endpoint": "https://cc.kiranrao.ai/api/kirans-journal/",
+  "payload": {
+    "title": "Consulting work stays off the public record — metrics can stay, attribution goes",
+    "body": "Decided that Avatour and other consulting engagements will not appear on the Track Record page. I have not broadcast the layoff or the consulting work publicly. When I return to Wells within 30 days, my HR record is being resurrected — I am not coming in as new. The public narrative will be that I moved teams.\n\nThe consulting work is real and valuable — VP-level product strategy, 3.2x TAM expansion, AI-first pivot. But surfacing it publicly creates a Wells to Consulting to Wells timeline that reads as regression to anyone scanning a career page.\n\nThe four-zone structure makes this easy. Metrics from consulting can be included as capability evidence without naming Avatour. In 1:1 conversations I can mention startup experience as additional context. But the page should not create a timeline that invites scrutiny.\n\nThis feels like the right call but there is tension — the startup work is exactly the kind of experience that would counter the banking bias if it were visible. The tradeoff is that making it visible creates a worse problem (the regression narrative) than the one it solves.",
+    "category": "career-strategy",
+    "tags": ["consulting", "avatour", "wells-fargo", "narrative-control", "timeline-management"],
+    "workstreams": ["career"],
+    "decision": "Consulting metrics stay, company attribution goes.",
+    "alternatives_considered": "Showing Avatour prominently as proof of startup experience.",
+    "open_questions": "How to handle in resume customization for roles where startup experience is weighted heavily."
+  }
+}

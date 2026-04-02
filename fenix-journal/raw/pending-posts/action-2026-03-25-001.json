@@ -1,0 +1,61 @@
+{
+  "endpoint": "/api/action-items/",
+  "items": [
+    {
+      "title": "Finalize card lineup decision (5, 6, or 7 cards)",
+      "description": "Session identified 4 definite keeps (Teardowns, MadLab, Career, Blog), Store removed, Studio reopened. Need to decide: does Studio stay standalone? Does /Now get added? Does Learning get reframed or cut? Depends on Studio content reality.",
+      "workstream": "site-homepage",
+      "priority": "high",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Audit Studio creative content — what actually exists?",
+      "description": "Kiran needs to inventory his creative work: AI-generated songs, photography projects, custom fonts. The Studio card only earns its spot if there's enough content to populate the page. This is a Kiran-track decision.",
+      "workstream": "creative-lab",
+      "priority": "high",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Build C5 bento grid layout (Config 3/6)",
+      "description": "Replace the current 4-column uniform work-grid with a 6-column bento CSS grid. Implement variable card spans, hero card slot, responsive breakpoints. Wire persona system to swap hero card per persona via new heroCard property in PERSONA_CONFIG.",
+      "workstream": "site-homepage",
+      "priority": "high",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Redesign card internals — add eyebrow, rethink tags and images",
+      "description": "Research recommends: add eyebrow/meta line above title (content count, status), rethink tags from format labels to evidence ('6 Teardowns' not 'Case Studies'), reconsider whether 1:1 images earn their vertical space vs icon+gradient approach. Apply to all cards in bento grid.",
+      "workstream": "site-homepage",
+      "priority": "medium",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Decide on Learning card reframe vs removal",
+      "description": "Two options: reframe as 'Learning' (what I'm studying now, not credentials earned) or cut entirely with content folded into /Now or About. Kiran is sitting with this — needs a decision before build.",
+      "workstream": "site-homepage",
+      "priority": "medium",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Build /Now page",
+      "description": "Derek Sivers-style 'what I'm working on right now' page. Low effort, high relational value. Can be built in ~1 hour. Should include current projects, what I'm learning, what I'm paying attention to. Potentially absorbs Causes content (what I care about outside work).",
+      "workstream": "site-homepage",
+      "priority": "medium",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Clean up card-exploration.html and card-weights.html from repo",
+      "description": "Two mockup HTML files were created during the strategy session. They're design exploration tools, not production pages. Should be removed or moved to a docs/explorations/ folder before next deploy.",
+      "workstream": "site-homepage",
+      "priority": "low",
+      "source": "session",
+      "status": "todo"
+    }
+  ]
+}

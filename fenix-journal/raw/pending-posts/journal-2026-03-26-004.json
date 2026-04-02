@@ -1,0 +1,11 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "title": "Incremental MJ workflow beats single mega-prompts — isolate variables, build in layers",
+  "body": "I discovered through hands-on Midjourney work that incremental building is the way to go. Instead of one mega-prompt where I cram scene, character, props, and rendering into a single text string and hope for the best, I now build images in 3-4 layered runs. The text foundation sets the parametric envelope — aspect ratio, lighting, mood, camera, DOF. Then a bare stage photo sets the scene. Then the sref adds Pixar rendering. Then the omni ref brings in the character. Each layer is a decision point where I can see exactly what that input contributed.\n\nThe key insight: text is good at parameters (dimensions, color temperature, camera angle). Images are good at spatial and atmospheric information. An actual photo of a bare golden room communicates more than any text description. Mixing them in text produces unreliable results.\n\nThis came from noticing that when I dropped a NYC skyline photo as an image prompt, MJ instantly nailed perspective and background. Text never got close to that reliability. So the workflow flipped: text sets rules, images set content.\n\nThe results speak for themselves — I produced 4 characters (Artist, Connector, Engineer, Explorer) in one session using the new approach, compared to 3 characters in a much longer session using the old single-prompt method. And when something was wrong, I knew exactly which layer to fix.",
+  "category": "architecture",
+  "tags": ["midjourney", "workflow", "incremental-building", "image-generation"],
+  "workstreams": ["site-homepage"],
+  "decision": "Build MJ images in 3-4 layered runs (stage → rendering → character → props) instead of single mega-prompts.",
+  "alternatives_considered": "Single mega-prompt approach from V6 doc.",
+  "open_questions": "Does the layered approach work equally well at 1:2 portrait and 2:1 wide ratios?"
+}

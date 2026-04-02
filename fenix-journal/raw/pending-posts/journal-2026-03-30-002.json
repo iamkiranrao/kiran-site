@@ -1,0 +1,13 @@
+{
+  "endpoint": "https://cc.kiranrao.ai/api/kirans-journal/",
+  "payload": {
+    "title": "The framing paradox: more evidence creates more skepticism",
+    "body": "I articulated something today that I have been feeling but never fully stated. The catch-22: I am an excellent candidate for a multitude of PM jobs — fraud, auth, payments, digital experiences, mobile, AI, growth and adoption. But showing all of that range simultaneously activates the exact biases that work against me.\n\nFour biases compound: banking stigma (Wells Fargo = slow enterprise), seniority bias (companies shedding managers, wanting ICs), breadth skepticism (too many domains = no depth in any), and volume problem (30+ initiatives triggers disbelief that one person did it all). Each is manageable alone. Together they create a situation where the more complete my career page is, the more ammunition it gives skeptics.\n\nThe hard truth: I was a workaholic. My individual output was 5x the rest of the team combined at Wells. I have been the best performer on every team by a fair distance. But for an outsider looking in, that story is literally unbelievable. And the system does not reward people who did more — it rewards people who tell a clean narrow story.\n\nThe answer is not to fight these biases directly on the page. It is to design around them — use capability zones instead of timelines, abstract company names, let the site itself be the depth proof.",
+    "category": "apprehension",
+    "tags": ["hiring-bias", "banking-stigma", "breadth-vs-depth", "career-narrative", "imposter-paradox"],
+    "workstreams": ["career"],
+    "decision": "Design around the biases rather than fighting them head-on. The page structure itself is the counter-argument.",
+    "alternatives_considered": "Gating approach (let people self-identify, show curated lens). Showing everything (current approach).",
+    "open_questions": "How to handle the Wells Fargo return in the narrative. How to position consulting work. How to future-proof for whichever PM specialization is most in demand 6-18 months from now."
+  }
+}

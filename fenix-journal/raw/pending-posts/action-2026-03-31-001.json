@@ -1,0 +1,8 @@
+{
+  "title": "Build tr-parallel-v2 prototype — refined parallel timeline structure",
+  "description": "Develop improved version of Option 2 (parallel timeline) structure with cleaner separation, breathing room for world events, tighter work items, and synthesis cards at bottom. Prototype for validating the narrative architecture before committing to production page design.",
+  "workstream": "site-homepage",
+  "priority": "high",
+  "source": "session",
+  "status": "todo"
+}

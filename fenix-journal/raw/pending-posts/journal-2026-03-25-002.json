@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "Bento grid over uniform grid — hierarchy solves the card problem better than reducing count",
+    "body": "The card section has been a uniform 4-column grid with 8 equal-weight cards. Research says the real issue isn't how many cards there are — it's that every card looks equally important. The visitor has to do the sorting work themselves. Miller's Law gets misapplied to visible navigation since users recognize rather than recall. The real problem is orientation: where do I start?\n\nThe bento grid fixes this through variable sizing. A 6-column CSS grid base where cards span 2, 3, 4, or 6 columns. The flagship card (Teardowns) gets a 4-column hero slot. Supporting cards get 2-3 columns. The grid itself communicates priority.\n\nThe persona system can swap which card gets the hero slot per persona. Evaluator sees Teardowns. Technologist sees MadLab. Inner Circle sees /Now. Same grid structure, different hero. That's the Config 6 insight — the layout is constant, only the weight assignment changes.\n\nScalable too. Cards can be added or removed by adjusting spans. Any combination that sums to 6 per row works. Future feature: analytics-driven resizing where high-engagement cards automatically get wider spans.",
+    "category": "architecture",
+    "tags": ["bento-grid", "cards", "layout", "persona-system", "UX"],
+    "workstreams": ["site-homepage"],
+    "decision": "Bento grid layout (6-column base, variable card spans) replaces uniform 4-column grid.",
+    "alternatives_considered": "3-column uniform grid, featured hero + 2x2, minimal numbered list, full-width rows.",
+    "open_questions": "Should analytics-driven resizing use GA4 events or custom tracking?"
+  }
+}

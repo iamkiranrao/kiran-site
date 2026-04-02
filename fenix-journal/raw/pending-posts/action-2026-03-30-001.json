@@ -1,0 +1,53 @@
+{
+  "endpoint": "https://cc.kiranrao.ai/api/action-items/",
+  "items": [
+    {
+      "title": "Lock final copy for all four Track Record zones",
+      "description": "Zone content is at ~80%. Need to finalize headlines, descriptions, and verify all metrics. Zone 1 (Scale) headline locked: 'Scale most PMs never touch.' Zone 2 description updated to use 'end-to-end user journey' instead of 'digital experience.' Remaining: final wordsmithing pass on all four zones.",
+      "workstream": "site-homepage",
+      "priority": "high",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Generate custom icon set for Track Record infographic",
+      "description": "The mockup uses emoji placeholders. Need 12 minimal flat icons (scale arrow, shield/auth, payment card, AI brain, mobile device, marketplace, engagement bell, code brackets, lightning bolt, flask, document, compass). Recommended: Midjourney or Ideogram, single color (#f0e6d3), geometric, 48px weight. Claude-generated SVGs will look too sterile.",
+      "workstream": "site-homepage",
+      "priority": "medium",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Build production Track Record page (Pass 1: structure + real content)",
+      "description": "Integrate the four-zone infographic into career-highlights.html shell (keep nav, footer, theme toggle, Fenix widget). Replace all content area. Use real copy from locked content. Placeholder icons until custom assets arrive.",
+      "workstream": "site-homepage",
+      "priority": "high",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Rename Career Highlights to Track Record across site navigation",
+      "description": "Update nav labels on all pages, page title, meta description, and any cross-references. Decide on URL strategy: keep career-highlights.html with canonical or rename to track-record.html with redirect.",
+      "workstream": "site-homepage",
+      "priority": "medium",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Design the 'second act' — curated depth flow after Track Record",
+      "description": "After someone is impressed by the Track Record page, how do they self-identify and receive curated initiative cards through their lens? Options: persona-picker-style flow, Fenix-served depth, or filtered card view. Needs a strategy session.",
+      "workstream": "site-homepage",
+      "priority": "medium",
+      "source": "session",
+      "status": "todo"
+    },
+    {
+      "title": "Visual polish pass on Track Record (Pass 2: icons + path + animation)",
+      "description": "After custom icons arrive and Pass 1 is live, refine spacing, animation timing, responsive breakpoints, light-theme treatment, and potentially hand-designed SVG path shape (Excalidraw or Figma).",
+      "workstream": "site-homepage",
+      "priority": "low",
+      "source": "session",
+      "status": "todo"
+    }
+  ]
+}

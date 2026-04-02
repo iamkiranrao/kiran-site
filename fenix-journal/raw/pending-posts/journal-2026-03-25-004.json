@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "Store card removed — transactional signal on a relational site",
+    "body": "Store is gone. Every persona already ranked it dead last. The page is a blurred placeholder with no timeline. The card occupied 12.5% of the homepage grid with zero substance. More importantly, a store is transactional by nature and the site's thesis is relational. The northstar is people clicking Connect, not purchases. This was the cleanest cut of the session.",
+    "category": "product-philosophy",
+    "tags": ["store", "cards", "homepage"],
+    "workstreams": ["site-homepage"],
+    "decision": "Store card removed from homepage. No content loss, no persona impact.",
+    "alternatives_considered": "Keep as 'coming soon' teaser. Rejected — blurred placeholder has been up for weeks with no content path.",
+    "open_questions": ""
+  }
+}

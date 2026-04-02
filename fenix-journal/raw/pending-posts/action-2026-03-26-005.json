@@ -1,0 +1,9 @@
+{
+  "endpoint": "/api/action-items/",
+  "title": "Generate 14+ aspect ratio variants for persona rotation matrix",
+  "description": "Each character needs images at multiple aspect ratios for different persona views. Currently each character has only one image. The persona tab system shows where the gaps are — check imageMap nulls.",
+  "workstream": "site-homepage",
+  "priority": "medium",
+  "source": "session",
+  "status": "todo"
+}

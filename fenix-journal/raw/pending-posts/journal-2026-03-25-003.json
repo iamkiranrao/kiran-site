@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "Studio deserves its own card — the creative portfolio signals something MadLab doesn't",
+    "body": "I almost let Studio get absorbed into MadLab without a fight. The March 24 analysis said visitors don't care about the distinction. That's probably true for most visitors. But the specific visitors I want to reach — the ones who notice craft, who have creative range themselves — they'd notice the difference.\n\nStudio was supposed to be my left brain portfolio. AI-generated songs, photography projects, custom fonts. Things that show design sensibility and creative range. That appeals to UX directors, creative directors, people who evaluate candidates on aesthetic judgment as well as analytical capability. MadLab says 'I build functional things.' Studio says 'I create beautiful things.' Both are true, both matter, and they reach different people.\n\nThe bento grid makes this easy — Studio gets a 3/6 card next to MadLab at 3/6. They're peers but visually separate. The question is whether I have enough creative content to populate the page. If the page would be empty, the card hurts more than it helps. But the strategic argument for keeping it is stronger than I gave it credit for on March 24.",
+    "category": "product-philosophy",
+    "tags": ["studio", "creative-portfolio", "cards", "MadLab"],
+    "workstreams": ["site-homepage", "creative-lab"],
+    "decision": "Reopened. Studio stays as a potential separate card if creative content exists to populate it.",
+    "alternatives_considered": "Absorb into MadLab with broader description (March 24 decision).",
+    "open_questions": "Do I have enough photography, music, and font work to fill the Studio page?"
+  }
+}

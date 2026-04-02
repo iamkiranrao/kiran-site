@@ -1,0 +1,9 @@
+{
+  "endpoint": "/api/action-items/",
+  "title": "Regenerate Veteran at correct 3:2 ratio for TALL slot",
+  "description": "Currently using 2:1 HERO image in a 3:2 TALL slot — crops badly. Needs fresh generation at --ar 3:2.",
+  "workstream": "site-homepage",
+  "priority": "medium",
+  "source": "session",
+  "status": "todo"
+}

@@ -1,0 +1,9 @@
+{
+  "endpoint": "/api/action-items/",
+  "title": "Update V6 prompt doc to reflect incremental MJ workflow",
+  "description": "docs/BENTO-MONSTER-SCENES-V6.md still documents the old single-prompt approach. Should be updated to describe the layered run workflow (stage → rendering → character → props), bare stage principle, and monster suppression technique.",
+  "workstream": "site-homepage",
+  "priority": "low",
+  "source": "session",
+  "status": "todo"
+}

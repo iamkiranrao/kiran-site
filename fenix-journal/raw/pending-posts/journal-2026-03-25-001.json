@@ -1,0 +1,13 @@
+{
+  "endpoint": "/api/kirans-journal/",
+  "payload": {
+    "title": "Card strategy needs to start from what exists, not what I aspire to build",
+    "body": "I came into today ready to execute the C5 card build — continuation prompt loaded, lineup locked from March 24. Then I stopped. Something felt off. The locked lineup had 4 new cards (Under the Hood, Frameworks, /Now, Learn With Me) but three of those don't have content behind them. I was about to build a grid where 3 out of 8 cards lead to empty pages. On a site whose entire thesis is that the craft IS the proof. That's not a build session — that's building a facade.\n\nSo I unlocked it. Started from scratch. What 8 cards actually exist on the homepage right now? What's behind each one? Three have real content (Career Highlights, Teardowns, Blog). Four have frameworks but no data. One is a blurred placeholder. That's the actual foundation.\n\nThe research confirmed what my gut was saying: cards that lead to dead ends erode trust more than having fewer cards. The jam study (Iyengar) — 6 options vs 24 — isn't about raw count, it's about whether each option rewards the click. Eight cards where three are hollow is worse than five cards where all are real.\n\nI'm not abandoning the new card ideas. Under the Hood and Frameworks are still strong concepts. But they earn their spot when the content is ready, not before.",
+    "category": "product-philosophy",
+    "tags": ["cards", "homepage", "strategy", "authenticity"],
+    "workstreams": ["site-homepage"],
+    "decision": "Card lineup unlocked. Starting from what exists and building forward based on content reality, not aspirational plans.",
+    "alternatives_considered": "Could have executed the March 24 locked plan with coming-soon placeholders.",
+    "open_questions": "Does starting from what exists risk permanent deferral of new cards?"
+  }
+}

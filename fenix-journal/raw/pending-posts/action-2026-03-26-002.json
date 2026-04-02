@@ -1,0 +1,9 @@
+{
+  "endpoint": "/api/action-items/",
+  "title": "Generate Storyteller (orangutan) illustration for Blog card at 2:1 wide",
+  "description": "Last of the 9 characters. Should use slimy/amphibian texture. Orangutan omni ref for expressive face and large hands. Scene: warm fireside storytelling atmosphere.",
+  "workstream": "site-homepage",
+  "priority": "high",
+  "source": "session",
+  "status": "todo"
+}

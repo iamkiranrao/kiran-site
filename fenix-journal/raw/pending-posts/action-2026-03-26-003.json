@@ -1,0 +1,9 @@
+{
+  "endpoint": "/api/action-items/",
+  "title": "Regenerate Tinkerer at correct 3:1 ratio for WIDE slot",
+  "description": "Currently using 2:1 HERO image cropped to fit 3:1 WIDE slot — character gets clipped. Needs a fresh generation at --ar 3:1 using the incremental workflow.",
+  "workstream": "site-homepage",
+  "priority": "medium",
+  "source": "session",
+  "status": "todo"
+}

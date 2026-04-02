@@ -1,0 +1,9 @@
+{
+  "endpoint": "/api/action-items/",
+  "title": "Generate Student (bush baby) illustration for Learning card at 1:2 portrait",
+  "description": "Next character in the pipeline. Should use non-fuzzy texture (translucent/bioluminescent). Bush baby omni ref for giant-eyed silhouette. Scene: cozy reading nook or library corner with warm lamp light.",
+  "workstream": "site-homepage",
+  "priority": "high",
+  "source": "session",
+  "status": "todo"
+}

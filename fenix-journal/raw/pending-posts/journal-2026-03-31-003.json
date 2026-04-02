@@ -1,0 +1,10 @@
+{
+  "title": "Authenticity over segment optimization — one story, not persona-tailored versions",
+  "body": "When I suggested the parallel timeline narrative might need tweaking for different personas (scale-focused tech leaders vs. AI specialists vs. growth VPs), you pushed back: 'I don't want to hyper customize this story and dice it by persona. I feel like that's not a move that tells my story authentically. I don't want to pander.'\n\nThat's a direct values conflict: authenticity vs. segment optimization. Your position is that over-customization dilutes the core narrative and starts to feel false. If the story is genuinely about how I'm positioned relative to world events, it doesn't need to bend for different audiences.\n\nA scale-focused tech leader will see the 32M MAU numbers. An AI specialist will see the 9-year AI thread. A growth person will see the adoption metrics. They're all reading the same story and finding different proof points — which is more honest than having three versions of me.\n\nThis keeps the product simpler too: one version of the Track Record page, not branching logic for persona-specific variants.",
+  "category": "brand-identity",
+  "tags": ["authenticity", "positioning", "persona-strategy"],
+  "workstreams": ["site-homepage"],
+  "decision": "Use one version of the Track Record page with a single authentic narrative instead of customizing the structure for different personas",
+  "alternatives_considered": "Three persona-specific versions of the page that emphasize different proof points depending on who's reading",
+  "open_questions": "Does the narrative land the same way for hiring managers focused on scale vs. those who care about startup experience? How do we measure whether self-identification with relevant parts is working?"
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Parallel timeline as narrative structure — abandoning self-proclaimed zones",
+  "body": "The original four-zone structure (Scale, Range, AI Trajectory, Builder) was architecturally clean but put my interpretation first. The shift to parallel timeline — world events on the left, work items on the right, with explicit relationship connectors — inverts the narrative. Instead of 'trust my framing,' it becomes 'here's what happened, draw your own conclusion.'\n\nThis addresses multiple problems simultaneously: company names move from headers to footnotes (breaking the banking stigma), the structure becomes transparent (The world / What I was building), and the pattern of positioning emerges from the reader's own observation rather than my claims.\n\nThree connector types show the relationship: → (shipped the answer — responded fast), ← (already there — anticipated), ··· (built before noticed — independent trajectory).\n\nThe payoff becomes arithmetic rather than assertion: 'Of 12 major technology moments, 5 times already there, 4 times shipped the answer, 3 times built before anyone noticed. The pattern isn't luck.'",
+  "category": "product-philosophy",
+  "tags": ["track-record", "narrative-architecture", "positioning"],
+  "workstreams": ["site-homepage"],
+  "decision": "Use parallel timeline (world events left, work right) as the core structure for Track Record page instead of four categorical zones.",
+  "alternatives_considered": "Four visual zones (Scale, Range, AI Trajectory, Builder) — cleaner categorically but put my interpretation first and activated the same biases we were trying to avoid",
+  "open_questions": "Which work items make the cut per era (full data has 30+ initiatives)? Should cloud migration work be included and how framed? What's the right voice for world event copy (factual vs. editorial)?"
+}
