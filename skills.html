@@ -852,6 +852,290 @@
         transform: none;
       }
     }
+
+    /* ============================================
+       LIGHT MODE OVERRIDES
+       ============================================ */
+    [data-theme="light"] .view-toggle {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.12);
+    }
+
+    [data-theme="light"] .toggle-btn {
+      color: #6b6560;
+    }
+
+    [data-theme="light"] .toggle-btn:hover {
+      color: #3a3632;
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    [data-theme="light"] .toggle-btn.active {
+      background-color: rgba(0, 0, 0, 0.1);
+      color: #3a3632;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Toggle tooltip nudge */
+    [data-theme="light"] .toggle-nudge {
+      background: rgba(255, 255, 255, 0.97);
+      border-color: rgba(0, 0, 0, 0.12);
+      color: #6b6560;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    }
+    [data-theme="light"] .toggle-nudge::before {
+      background: rgba(255, 255, 255, 0.97);
+      border-top-color: rgba(0, 0, 0, 0.12);
+      border-left-color: rgba(0, 0, 0, 0.12);
+    }
+    [data-theme="light"] .toggle-nudge span {
+      color: #3a3632;
+    }
+
+    /* Domain label */
+    [data-theme="light"] .domain-label {
+      color: #6b6560;
+    }
+
+    [data-theme="light"] .domain-section.has-selection .domain-label {
+      color: #9a948e;
+    }
+
+    /* Skill tags — Grid view */
+    [data-theme="light"] .skill-tag {
+      background-color: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.12);
+      color: #3a3632;
+    }
+
+    [data-theme="light"] .skill-tag:hover {
+      background-color: rgba(0, 0, 0, 0.07);
+      border-color: rgba(0, 0, 0, 0.18);
+    }
+
+    [data-theme="light"] .skill-tag.selected {
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+
+    [data-theme="light"] .skill-tag.dimmed {
+      opacity: 0.3;
+    }
+
+    [data-theme="light"] .skill-tag.dimmed:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.12);
+    }
+
+    /* Graph view — node labels & links */
+    [data-theme="light"] .skill-node-label {
+      fill: #3a3632;
+    }
+
+    [data-theme="light"] .skill-link {
+      stroke: #3a3632;
+      stroke-opacity: 0.12;
+    }
+
+    [data-theme="light"] .skill-link.highlighted {
+      stroke-opacity: 0.4;
+    }
+
+    [data-theme="light"] .skill-node.selected .skill-node-circle {
+      stroke: #3a3632;
+    }
+
+    /* Graph hint */
+    [data-theme="light"] .graph-hint {
+      color: #9a948e;
+    }
+
+    /* Detail panel */
+    [data-theme="light"] #detail-panel {
+      background: rgba(245, 243, 240, 0.97);
+      border-left-color: rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="light"] .panel-domain {
+      color: #6b6560;
+    }
+
+    [data-theme="light"] .panel-section-title {
+      color: #6b6560;
+    }
+
+    [data-theme="light"] .panel-close {
+      color: #9a948e;
+    }
+
+    [data-theme="light"] .panel-close:hover {
+      color: #3a3632;
+    }
+
+    /* Evidence cards */
+    [data-theme="light"] .evidence-item {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    [data-theme="light"] .evidence-item.clickable:hover {
+      background: rgba(0, 0, 0, 0.07);
+    }
+
+    [data-theme="light"] .evidence-meta {
+      color: #6b6560;
+    }
+
+    /* Evidence type pills — darken colors for light bg */
+    [data-theme="light"] .evidence-type-pill.certification {
+      background: rgba(40, 100, 170, 0.1);
+      color: #2864aa;
+      border-color: rgba(40, 100, 170, 0.25);
+    }
+
+    [data-theme="light"] .evidence-type-pill.prototype {
+      background: rgba(30, 130, 70, 0.1);
+      color: #1e8246;
+      border-color: rgba(30, 130, 70, 0.25);
+    }
+
+    [data-theme="light"] .evidence-type-pill.project {
+      background: rgba(160, 130, 30, 0.1);
+      color: #8a7020;
+      border-color: rgba(160, 130, 30, 0.25);
+    }
+
+    [data-theme="light"] .evidence-type-pill.teardown {
+      background: rgba(180, 70, 40, 0.1);
+      color: #b44628;
+      border-color: rgba(180, 70, 40, 0.25);
+    }
+
+    /* Connected skills */
+    [data-theme="light"] .connected-skill {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="light"] .connected-skill:hover {
+      background: rgba(0, 0, 0, 0.07);
+      border-color: rgba(0, 0, 0, 0.14);
+    }
+
+    [data-theme="light"] .connected-skill-via {
+      color: #6b6560;
+    }
+
+    /* Cert/Evidence modal */
+    [data-theme="light"] .cert-modal-overlay {
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    [data-theme="light"] .cert-modal {
+      background: #f5f3f0;
+      border-color: rgba(0, 0, 0, 0.12);
+    }
+
+    [data-theme="light"] .cert-modal-close {
+      color: #9a948e;
+    }
+
+    [data-theme="light"] .cert-modal-close:hover {
+      background: rgba(0, 0, 0, 0.06);
+      color: #3a3632;
+    }
+
+    [data-theme="light"] .cert-modal-issuer {
+      color: #6b6560;
+    }
+
+    [data-theme="light"] .cert-modal-credential {
+      color: #6b6560;
+    }
+
+    [data-theme="light"] .cert-modal-credential a {
+      color: #2864aa;
+    }
+
+    [data-theme="light"] .cert-modal-section-label {
+      color: #9a948e;
+    }
+
+    [data-theme="light"] .cert-modal-section-text {
+      color: #3a3632;
+    }
+
+    [data-theme="light"] .cert-modal-tag {
+      background: rgba(40, 100, 170, 0.08);
+      color: #2864aa;
+      border-color: rgba(40, 100, 170, 0.18);
+    }
+
+    [data-theme="light"] .cert-modal-tag.prototype {
+      background: rgba(30, 130, 70, 0.08);
+      color: #1e8246;
+      border-color: rgba(30, 130, 70, 0.18);
+    }
+
+    [data-theme="light"] .cert-modal-tag.project {
+      background: rgba(160, 130, 30, 0.08);
+      color: #8a7020;
+      border-color: rgba(160, 130, 30, 0.18);
+    }
+
+    [data-theme="light"] .cert-modal-tag.teardown {
+      background: rgba(180, 70, 40, 0.08);
+      color: #b44628;
+      border-color: rgba(180, 70, 40, 0.18);
+    }
+
+    [data-theme="light"] .cert-modal-capstone {
+      background: rgba(0, 0, 0, 0.03);
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="light"] .cert-modal-capstone-text {
+      color: #6b6560;
+    }
+
+    /* Evidence modal badges — light mode */
+    [data-theme="light"] .evidence-modal-type-badge.prototype {
+      background: rgba(30, 130, 70, 0.1);
+      color: #1e8246;
+      border-color: rgba(30, 130, 70, 0.2);
+    }
+
+    [data-theme="light"] .evidence-modal-type-badge.project {
+      background: rgba(160, 130, 30, 0.1);
+      color: #8a7020;
+      border-color: rgba(160, 130, 30, 0.2);
+    }
+
+    [data-theme="light"] .evidence-modal-type-badge.teardown {
+      background: rgba(180, 70, 40, 0.1);
+      color: #b44628;
+      border-color: rgba(180, 70, 40, 0.2);
+    }
+
+    /* Evidence status dots — keep vibrant */
+    [data-theme="light"] .evidence-modal-status {
+      color: #6b6560;
+    }
+
+    /* Scrollbar — light mode */
+    [data-theme="light"] ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    [data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    /* Mobile detail panel border */
+    @media (max-width: 768px) {
+      [data-theme="light"] #detail-panel {
+        border-top-color: rgba(0, 0, 0, 0.1);
+      }
+    }
     </style>
     <script src="gate.js"></script>
 </head>
@@ -1205,6 +1489,22 @@
       ]
     };
 
+    // Light-mode domain colors (darker for WCAG AA on #f5f3f0)
+    const DOMAIN_COLORS_LIGHT = {
+      "product": "#c0553d",
+      "ai": "#3a7bb8",
+      "data": "#2a8a52",
+      "cloud": "#7b53a8",
+      "strategy": "#9a7a1a",
+      "leadership": "#b5508a"
+    };
+
+    function getDomainColor(domainId) {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if (isLight && DOMAIN_COLORS_LIGHT[domainId]) return DOMAIN_COLORS_LIGHT[domainId];
+      return domainMap[domainId]?.color || '#888';
+    }
+
     // Build lookup maps
     const domainMap = {};
     SKILLS_DATA.domains.forEach(d => domainMap[d.id] = d);
@@ -1266,7 +1566,7 @@
         const label = document.createElement('div');
         label.className = 'domain-label';
         label.textContent = domain.label;
-        label.style.color = domain.color;
+        label.style.color = getDomainColor(domain.id);
 
         const grid = document.createElement('div');
         grid.className = 'skills-grid';
@@ -1374,7 +1674,9 @@
         .attr('width', width)
         .attr('height', height);
 
-      // Define arrow marker
+      // Define arrow marker (theme-aware)
+      const isLightTheme = document.documentElement.getAttribute('data-theme') === 'light';
+      const markerColor = isLightTheme ? '#3a3632' : '#fff';
       svg.append('defs').append('marker')
         .attr('id', 'arrowhead')
         .attr('markerWidth', 10)
@@ -1384,7 +1686,7 @@
         .attr('orient', 'auto')
         .append('polygon')
         .attr('points', '0 0, 10 3, 0 6')
-        .attr('fill', '#fff');
+        .attr('fill', markerColor);
 
       // Combine all nodes for simulation
       const allNodes = [...nodes, ...sourceAttractors];
@@ -2196,6 +2498,19 @@
             localStorage.setItem('theme', isLight ? 'dark' : 'light');
             document.querySelector('.wf-moon-icon').style.display = isLight ? 'block' : 'none';
             document.querySelector('.wf-sun-icon').style.display = isLight ? 'none' : 'block';
+            // Update graph SVG inline colors for theme
+            const arrowPoly = document.querySelector('#arrowhead polygon');
+            if (arrowPoly) {
+                arrowPoly.setAttribute('fill', isLight ? '#fff' : '#3a3632');
+            }
+            // Update domain label colors for theme
+            document.querySelectorAll('.domain-label').forEach(label => {
+                const section = label.closest('.domain-section');
+                if (section) {
+                    const domainId = section.getAttribute('data-domain');
+                    label.style.color = getDomainColor(domainId);
+                }
+            });
         });
 
         // ============================================
