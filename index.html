@@ -84,15 +84,6 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                <button id="shareButton" class="share-button" title="Share website" aria-label="Share this site">
-                    <svg aria-hidden="true" class="wf-share-icon" viewBox="0 0 24 24">
-                        <circle cx="18" cy="5" r="3"></circle>
-                        <circle cx="6" cy="12" r="3"></circle>
-                        <circle cx="18" cy="19" r="3"></circle>
-                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                    </svg>
-                </button>
                 <!-- Language selector hidden for now - re-enable by uncommenting
                 <div class="language-selector-wrapper">
                     <button id="languageSelector" class="language-selector">
@@ -134,60 +125,6 @@
             <li><a href="now.html">↘ Now</a></li>
             <li><a href="#contact">↘ Connect</a></li>
         </ul>
-    </div>
-
-    <!-- Share Modal -->
-    <div id="shareModal" class="share-modal">
-        <div class="share-modal-content">
-            <div class="share-modal-header">
-                <h3 class="share-modal-title">Let's talk</h3>
-                <button id="closeShare" class="close-share" aria-label="Close share dialog">×</button>
-            </div>
-            <div class="share-options">
-                <button id="shareEmail" class="share-option" type="button">
-                    <svg aria-hidden="true" viewBox="0 0 24 24">
-                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                        <path d="m2 6 10 7 10-7"></path>
-                    </svg>
-                    <span class="share-option-label">Email</span>
-                </button>
-                <button id="shareWhatsApp" class="share-option" type="button">
-                    <svg aria-hidden="true" viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-9.746 9.798c0 2.734.743 5.404 2.152 7.707L2.06 22.5l8.15-2.14a9.868 9.868 0 004.763 1.213h.004c5.44 0 9.868-4.43 9.868-9.873 0-2.634-.704-5.167-2.041-7.41-1.337-2.242-3.236-4.163-5.568-5.472-2.332-1.31-5.044-2.019-7.827-2.019Z"></path>
-                    </svg>
-                    <span class="share-option-label">WhatsApp</span>
-                </button>
-                <button id="shareLinkedIn" class="share-option" type="button">
-                    <svg aria-hidden="true" viewBox="0 0 24 24">
-                        <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                    <span class="share-option-label">LinkedIn</span>
-                </button>
-                <button id="shareTwitter" class="share-option" type="button">
-                    <svg aria-hidden="true" viewBox="0 0 24 24">
-                        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"></path>
-                    </svg>
-                    <span class="share-option-label">Twitter</span>
-                </button>
-                <button id="shareFacebook" class="share-option" type="button">
-                    <svg aria-hidden="true" viewBox="0 0 24 24">
-                        <path d="M18 2h-3a6 6 0 00-6 6v3H7v4h2v8h4v-8h3l1-4h-4V8a2 2 0 012-2h3z"></path>
-                    </svg>
-                    <span class="share-option-label">Facebook</span>
-                </button>
-                <button id="shareSMS" class="share-option" type="button">
-                    <svg aria-hidden="true" viewBox="0 0 24 24">
-                        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path>
-                    </svg>
-                    <span class="share-option-label">SMS</span>
-                </button>
-            </div>
-            <div class="share-link-copy">
-                <input type="text" id="shareLink" class="share-link-input" readonly aria-label="Shareable link">
-                <button id="copyLinkBtn" class="copy-link-btn">Copy</button>
-            </div>
-        </div>
     </div>
 
     <!-- Hero Section -->
