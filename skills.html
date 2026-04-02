@@ -1609,8 +1609,8 @@
       // SVG setup
       const contentArea = document.querySelector('.content-area');
       const rect = contentArea.getBoundingClientRect();
-      const width = rect.width || window.innerWidth;
-      const height = rect.height || 700;
+      let width = rect.width || window.innerWidth;
+      let height = rect.height || 700;
 
       // Prepare nodes: skills only
       const nodes = SKILLS_DATA.skills.map(skill => ({
@@ -1727,6 +1727,14 @@
 
       // Update positions on simulation tick
       graphSimulation.on('tick', () => {
+        const padding = 40;
+        // Clamp nodes within SVG bounds
+        allNodes.forEach(d => {
+          if (d.id.startsWith('attractor-')) return; // skip attractors
+          d.x = Math.max(padding, Math.min(width - padding, d.x));
+          d.y = Math.max(padding, Math.min(height - padding, d.y));
+        });
+
         skillLinks
           .attr('x1', d => d.source.x)
           .attr('y1', d => d.source.y)
@@ -1818,10 +1826,10 @@
       // Handle window resize
       window.addEventListener('resize', () => {
         const r = contentArea.getBoundingClientRect();
-        const newWidth = r.width || window.innerWidth;
-        const newHeight = r.height || 700;
-        svg.attr('width', newWidth).attr('height', newHeight);
-        graphSimulation.force('center', d3.forceCenter(newWidth / 2, newHeight / 2).strength(0.02));
+        width = r.width || window.innerWidth;
+        height = r.height || 700;
+        svg.attr('width', width).attr('height', height);
+        graphSimulation.force('center', d3.forceCenter(width / 2, height / 2).strength(0.02));
       });
     }
 
