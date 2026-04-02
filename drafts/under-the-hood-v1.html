@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8Q795C1RJ5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8Q795C1RJ5');
+    </script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "vpgxcc8q5n");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The invisible systems behind a simple-looking site. Architecture, AI workflows, governance, and the product thinking that holds it all together.">
+    <title>Under the Hood - Kiran Rao</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="canonical" href="https://kiranrao.ai/under-the-hood.html">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Under the Hood - Kiran Rao">
+    <meta property="og:description" content="The invisible systems behind a simple-looking site. Architecture, AI workflows, governance, and the product thinking that holds it all together.">
+    <meta property="og:url" content="https://kiranrao.ai/under-the-hood.html">
+
+    <style>
+        /* ============================================
+           UNDER THE HOOD PAGE STYLES
+           ============================================ */
+
+        .uth-page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .uth-header {
+            margin-bottom: 3.5rem;
+        }
+
+        .uth-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+        }
+
+        .uth-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ── Opening frame ── */
+        .uth-opening {
+            margin-bottom: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .uth-opening p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .uth-opening p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Hat sections ── */
+        .uth-hat {
+            margin-bottom: 3.5rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .uth-hat:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .uth-hat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .uth-hat-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.25;
+            margin-bottom: 1.25rem;
+        }
+
+        .uth-hat p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .uth-hat p:last-child {
+            margin-bottom: 0;
+        }
+
+        .uth-hat .uth-detail {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-top: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .uth-hat .uth-detail-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* ── Closing ── */
+        .uth-closing {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .uth-closing p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .uth-closing p:last-child {
+            margin-bottom: 0;
+        }
+
+        .uth-back {
+            display: inline-block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.75rem 0;
+            transition: color 0.3s ease;
+            margin-top: 3rem;
+        }
+
+        .uth-back:hover {
+            color: var(--text-primary);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .uth-page { padding: 6rem 1.5rem 3rem; }
+            .uth-hat-title { font-size: 1.3rem; }
+            .uth-hat { margin-bottom: 2.5rem; padding-bottom: 2.5rem; }
+            .uth-hat .uth-detail { padding: 1rem 1.25rem; }
+        }
+
+        @media (max-width: 480px) {
+            .uth-page { padding: 5rem 1.25rem 2.5rem; }
+            .uth-hat-title { font-size: 1.2rem; }
+            .uth-opening { margin-bottom: 3rem; padding-bottom: 2.5rem; }
+        }
+    </style>
+</head>
+<body class="preload">
+    <!-- Nav -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="wf-moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="wf-sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+                <a href="index.html" class="menu-button" style="text-decoration: none;">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="uth-page">
+        <div class="uth-header">
+            <h1 class="uth-title">Under the Hood</h1>
+            <p class="uth-subtitle">The invisible systems behind a simple-looking site.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             OPENING
+             ═══════════════════════════════════════════ -->
+        <div class="uth-opening">
+            <p>This site looks simple. A grid of cards, a chat widget, some pages about my work. You could build something that looks like it in a weekend with a template.</p>
+            <p>You couldn't build what's actually running. Behind what you see is an operational platform: a 27-route backend, an AI system that continuously learns from every working session, a governance layer that enforces quality standards automatically, a persona engine that rearranges the entire experience around who you are, and over 140 living strategy documents that serve as the institutional memory for every decision I've made.</p>
+            <p>I built all of it. Not a team. Not an agency. One product person wearing every hat, with AI as a co-builder at every layer. This page is a tour through those hats &mdash; not a tech stack list, but the decisions, the systems, and the thinking behind each one.</p>
+            <p>The tools are real and the systems are running. But they exist to capture and operationalize my thinking &mdash; not replace it. Every system on this page started with a problem I noticed, a decision I made, or a standard I wasn't willing to let slip. The technology is the supporting act.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             HAT 1: PRODUCT STRATEGY
+             ═══════════════════════════════════════════ -->
+        <section class="uth-hat">
+            <div class="uth-hat-label">The Product Strategy Hat</div>
+            <h2 class="uth-hat-title">Strategy as living architecture, not a slide deck that expires</h2>
+            <p>Before a single line of code was written, I built a strategy layer. Not the kind that lives in a Google Doc and gets forgotten &mdash; the kind that actively governs how every decision gets made.</p>
+            <p>Three foundation documents define the site's purpose, audience, and distribution approach. They encode principles that override default assumptions: the site is a permanent home, not a campaign. The northstar is relational connection, not conversion rate. The audience is defined by mindset, not by job title. These documents are read-first context for every working session &mdash; they keep the work grounded even when the execution gets deep into technical detail.</p>
+            <p>Beyond the foundations, every major system has its own living spec. Over 140 documents in total, cross-referenced and version-controlled, covering everything from content standards to API design patterns to the voice requirements for every piece of copy. When a decision gets made in a working session, it goes into the spec. When a tension surfaces between competing priorities, it gets documented with reasoning, not just resolved. The specs evolve as the work evolves &mdash; they're an institutional memory, not a snapshot.</p>
+            <p>This is how I'd structure strategy for any product org. The fact that the "org" is one person doesn't change the discipline &mdash; it just means there's no excuse for drift between what was decided and what gets built.</p>
+            <div class="uth-detail">
+                <span class="uth-detail-label">What this looks like in practice</span>
+                Three master playbooks (why the site exists, who it's for, how they find it) feed into module-level specs for each system. Every working session starts by reading the relevant docs. Decisions are logged to a journal API with full reasoning &mdash; what was decided, what was considered, what tensions remain. The strategy isn't a phase that ends; it's a live layer the build runs on.
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             HAT 2: UX & DESIGN
+             ═══════════════════════════════════════════ -->
+        <section class="uth-hat">
+            <div class="uth-hat-label">The UX &amp; Design Hat</div>
+            <h2 class="uth-hat-title">One layout that serves six different audiences without feeling like six different sites</h2>
+            <p>The homepage is a bento grid &mdash; nine cards that rearrange themselves based on who's visiting. Pick "Evaluator" and the teardowns lead. Pick "Technologist" and MadLab takes the hero slot. Pick "Seeker" and career highlights come forward. Same content, different emphasis, driven by a persona engine that threads accent colors, reorders competencies, swaps microcopy, and choreographs the transition between states using the View Transitions API.</p>
+            <p>The design challenge wasn't making six layouts. It was making the transitions between them feel intentional rather than jarring. The morph choreography runs in a three-act sequence: cards that are staying scale down slightly, the grid rearranges, then cards scale back up in their new positions. Each persona gets its own accent color that threads through the nav, the about section's accent bar, the competency carousel's active dot, and the card hover states. It's one system with six expressions &mdash; not six hardcoded views.</p>
+            <p>The about section uses a three-column triptych layout: identity (tagline and social links), context (who I am, colored by persona), and competencies (a horizontal scroll-snap carousel with peek-ahead cards and Intersection Observer pagination). Each column has a different job; together they replace what would normally be a wall of text with a spatial layout you can scan or explore.</p>
+            <p>Every layout decision was tested across four breakpoints and both color themes. The bento grid alone required 34 responsive CSS rules covering slot-level sizing, typography floors, and eight specific persona-card-slot overrides for edge cases where a particular card shape didn't work in a particular slot at a particular screen width.</p>
+            <div class="uth-detail">
+                <span class="uth-detail-label">The design principle</span>
+                Complexity in the system, simplicity in the experience. A visitor should never feel the machinery. They should just feel like the site was made for them &mdash; because in a real sense, it was.
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             HAT 3: ARCHITECTURE & ENGINEERING
+             ═══════════════════════════════════════════ -->
+        <section class="uth-hat">
+            <div class="uth-hat-label">The Architecture &amp; Engineering Hat</div>
+            <h2 class="uth-hat-title">Decisions, not a stack list</h2>
+            <p>The site is static HTML on Cloudflare Pages. The AI backend runs as serverless Python on Vercel. The data layer is PostgreSQL on Supabase with pgvector for semantic search. The local operations hub is a FastAPI backend with a Next.js frontend, exposed through a Cloudflare Tunnel when I need remote access.</p>
+            <p>Those are the what. The interesting part is the why. Static HTML rather than a framework because the site is a portfolio first &mdash; it should load instantly, work without JavaScript where possible, and not require a build step for content changes. Serverless for the AI backend because conversation traffic is spiky and unpredictable; I'm not paying for idle compute. pgvector rather than a dedicated vector database because the structured data and the embeddings need to live together &mdash; a conversation requires both semantic retrieval and relational context, and splitting them across services adds latency and complexity for no benefit at this scale.</p>
+            <p>The deployment pipeline is hands-off: push to main and Cloudflare Pages deploys the static site, a GitHub Actions workflow detects content changes and triggers the reindexing pipeline (extract, chunk, embed via Voyage AI, store in pgvector), and Vercel auto-deploys the backend. From commit to live site with updated AI knowledge takes under five minutes with no manual intervention.</p>
+            <p>The local Command Center is the piece that doesn't fit the serverless model, and that's intentional. It runs locally because it handles sensitive operations &mdash; journal entries, action items, session archives, resume customization &mdash; that don't belong on a public API. The Cloudflare Tunnel lets me access it from Cowork sessions without exposing a port, with API key authentication as an additional gate.</p>
+            <div class="uth-detail">
+                <span class="uth-detail-label">Architecture principle</span>
+                Every component earns its place by solving a specific problem. If I can't articulate why a service exists separately from another, it shouldn't. This is the same principle I'd apply to a product architecture at any scale &mdash; the number of services should equal the number of genuinely distinct responsibilities, not the number of features.
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             HAT 4: AI AS CO-BUILDER
+             ═══════════════════════════════════════════ -->
+        <section class="uth-hat">
+            <div class="uth-hat-label">The AI Co-Builder Hat</div>
+            <h2 class="uth-hat-title">What "built with AI" actually means when you're not hiding behind the phrase</h2>
+            <p>Fenix, the chat widget in the corner of every page, is a working RAG system. It retrieves relevant content from a vector database of everything on this site &mdash; teardowns, blog posts, career highlights, prototype descriptions &mdash; and uses that context to have a conversation that's grounded in real information rather than generic responses. It knows what I've built because it's been taught, systematically, from the source material.</p>
+            <p>The knowledge pipeline works like this: a content extractor crawls the site's HTML and pulls clean text with metadata. A chunking system breaks that text into semantically meaningful segments. Voyage AI generates 512-dimensional embeddings for each chunk. Those embeddings are stored in pgvector alongside the original text and metadata. When someone asks Fenix a question, the query gets embedded, a cosine similarity search retrieves the most relevant chunks, and those chunks become context for Claude's response. The whole pipeline re-runs automatically on every deploy &mdash; when I publish a new teardown, Fenix can talk about it within minutes.</p>
+            <p>But Fenix is just the visitor-facing piece. AI runs through every layer of how this site gets built. Claude is my primary working partner across Cowork sessions &mdash; not as a code generator, but as a collaborator I've designed specific processes around. The three-gate build process (agree on what we're building, confirm the gameplan, run a standards pre-flight) exists because I learned early that AI is most reliable when it's operating inside a clear frame. Without the gates, sessions drift. With them, the output is consistently aligned with what I actually want.</p>
+            <p>There's also a Claude fingerprint advisory baked into the pre-flight: before any build starts, I identify where AI output is likely to look generic and route those pieces to the right external tool or flag them for my own writing. AI-generated SVG diagrams all look the same &mdash; I use Excalidraw. Copy that needs my authentic voice &mdash; I write it myself, using AI-generated structure as scaffolding. The goal isn't to hide AI involvement. It's to be intentional about where AI adds value and where it doesn't.</p>
+            <div class="uth-detail">
+                <span class="uth-detail-label">The honest version</span>
+                AI didn't build this site. I built this site, with AI handling the parts it's good at: maintaining context across long sessions, generating structural scaffolding, enforcing consistency at scale, and retrieving information faster than I can search for it. The thinking, the taste, and the decisions are mine. The throughput is what AI makes possible.
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             HAT 5: CONTENT STRATEGY
+             ═══════════════════════════════════════════ -->
+        <section class="uth-hat">
+            <div class="uth-hat-label">The Content Strategy Hat</div>
+            <h2 class="uth-hat-title">A content operation, not just "I write blog posts"</h2>
+            <p>Content on this site isn't ad hoc. Each type &mdash; teardowns, blog posts, social distribution &mdash; has a defined pipeline with structure, quality gates, and standards.</p>
+            <p>The teardown pipeline is the most developed. Each teardown follows a structured methodology: discovery (company context, product landscape, user personas), analysis (what's working, what's broken, and why), a Keep/Kill/Build framework that evaluates every element against its intent, and a redesign that shows the thinking, not just the output. The Command Center has a dedicated teardown module that scaffolds this structure and keeps the analysis systematic rather than impressionistic.</p>
+            <p>Content distribution has its own system too. WordWeaver handles the transformation of long-form thinking into formats suited for different channels &mdash; but the source material is always the actual analysis, not a separate writing exercise. A content audit module checks published work against standards: voice consistency, structural completeness, readability. And every page automatically generates its own Open Graph card on deploy &mdash; persona-aware, properly formatted, no manual design step needed.</p>
+            <p>The point isn't automation for its own sake. It's that I think about content the way I'd think about a product: who is it for, what job does it do, how does it get distributed, and how do I know it's working? The infrastructure just makes it possible to execute that thinking consistently without a content team.</p>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             HAT 6: OPERATIONS & GOVERNANCE
+             ═══════════════════════════════════════════ -->
+        <section class="uth-hat">
+            <div class="uth-hat-label">The Operations &amp; Governance Hat</div>
+            <h2 class="uth-hat-title">The invisible discipline that keeps a growing system coherent</h2>
+            <p>The Command Center is a 27-route FastAPI backend with a Next.js dashboard. It's the operational hub for everything that isn't the public site: strategic journaling, action item tracking, content auditing, resume customization, job opportunity management, session archiving, and system health monitoring. It's what a product ops layer looks like when one person is running the whole operation.</p>
+            <p>The governance layer is the part I'm most particular about. I wrote standards documents for architecture, authenticity, content, visual design, and backend patterns. These aren't style guides that sit in a wiki &mdash; they're enforced. Five automated audit modules check the work against those standards: Does the copy meet the voice requirements? Does the component follow the architecture patterns? Does the visual design stay within the system? The standards encode my bar for quality; the audit system makes sure nothing falls below it, even across dozens of working sessions that don't share context with each other.</p>
+            <p>Action tracking has its own discipline. Every working session can generate action items that get posted to the Command Center API with workstream, priority, and context. A unified tracker consolidates items across all workstreams. The challenge I discovered early: in workstreams with high session velocity, tracking drifts &mdash; features ship faster than status updates. So I built a reconciliation process that cross-references the tracker against the live codebase to catch what's already been done.</p>
+            <div class="uth-detail">
+                <span class="uth-detail-label">Why this matters</span>
+                Governance sounds like overhead. It's actually the opposite &mdash; it's what prevents rework. When you're building a complex system across dozens of sessions, without a team to maintain institutional knowledge, you either build the discipline into the infrastructure or you slowly lose coherence. I chose to build it in.
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             HAT 7: DATA & MEASUREMENT
+             ═══════════════════════════════════════════ -->
+        <section class="uth-hat">
+            <div class="uth-hat-label">The Data &amp; Measurement Hat</div>
+            <h2 class="uth-hat-title">Instrumented, not just built</h2>
+            <p>The site runs Google Analytics for traffic patterns and Microsoft Clarity for session recordings and heatmaps. But the more interesting measurement layer is internal.</p>
+            <p>The Fenix Dashboard tracks conversation analytics: engagement patterns, satisfaction signals, which topics generate the most follow-up questions, where conversations drop off. This isn't vanity metrics &mdash; it's product feedback. When visitors consistently ask Fenix about a topic that gets thin responses, that's a gap in the knowledge base. When a particular teardown generates more Fenix conversations than others, that tells me something about what resonates.</p>
+            <p>There's also a cost tracking layer. AI services bill by usage &mdash; Claude API calls, Voyage AI embeddings, Supabase compute. I track costs across every service so I can see the actual price of running this system and make informed decisions about where to optimize. That's the same discipline I'd bring to a P&amp;L at work: you can't manage what you don't measure, and "AI-powered" isn't free.</p>
+            <p>Visitor feedback has a dedicated collection path &mdash; not a generic contact form, but structured input that routes to the Command Center where it becomes actionable. The measurement philosophy: every system should generate the signal that tells me whether it's working. If I can't measure it, I should question whether I understand it well enough to have built it.</p>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             HAT 8: AI-HUMAN CONTINUITY
+             ═══════════════════════════════════════════ -->
+        <section class="uth-hat">
+            <div class="uth-hat-label">The AI-Human Continuity Hat</div>
+            <h2 class="uth-hat-title">Designing the working relationship, not just using the tools</h2>
+            <p>This is the hat nobody's talking about yet, and it might be the most important one.</p>
+            <p>AI sessions are stateless by default. Every conversation starts from zero. For a quick question, that's fine. For building a complex, evolving product across dozens of sessions over weeks? It's a fundamental problem. The AI doesn't remember what was decided yesterday, what standards were set last week, or what architectural patterns emerged over the last ten sessions. Without deliberate design, every session reinvents context from scratch &mdash; or worse, makes decisions that contradict earlier ones.</p>
+            <p>I solved this by building a continuity system. The CLAUDE.md governance file is a set of instructions that every session reads first &mdash; it encodes the project's rules, API endpoints, logging conventions, build process, and quality standards. It's not a prompt; it's an operating manual that keeps AI sessions aligned without me repeating myself.</p>
+            <p>The session capture pipeline takes it further. At the end of significant working sessions, a structured process captures what happened: the transcript, every file created or modified, the decisions made, the tensions surfaced. That capture feeds into the Fenix Journal &mdash; a five-stream diary system that synthesizes daily observations into entries about how I think, how the build is progressing, what strategic decisions were made, and (weekly) what longitudinal patterns are emerging across sessions.</p>
+            <p>The journal runs every night at 9 PM. It reads the raw observations from the day's sessions, references recent entries for continuity, and generates new entries that build on the narrative arc. Over time, it becomes a growing body of institutional knowledge &mdash; not about the site's content, but about the decisions and patterns behind it. New sessions can reference the journal to understand not just what was built, but why and how the thinking evolved.</p>
+            <p>The three-gate build process fits here too. It's not just project management &mdash; it's a product person's answer to the question "how do you get reliable, high-quality output from AI?" The gates (agreement, gameplan, pre-flight) exist because I learned through experience where AI sessions go sideways: when the problem isn't defined clearly enough, when the approach isn't confirmed before building starts, and when quality standards aren't surfaced before the first line of code. The gates are a workflow pattern designed from product thinking, not engineering convention.</p>
+            <div class="uth-detail">
+                <span class="uth-detail-label">What this demonstrates</span>
+                Most people treat AI sessions as disposable. I designed a system where they compound &mdash; where every session leaves the next one better informed. The technical pieces (capture pipelines, journal synthesis, governance files) are interesting, but the insight is a product one: the working relationship with AI is itself a product that needs to be designed, not just a tool that gets used.
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             CLOSING
+             ═══════════════════════════════════════════ -->
+        <div class="uth-closing">
+            <p>Eight hats. One person. Every system you've read about on this page is running right now &mdash; the journal synthesizes nightly, the governance layer checks every build, the persona engine rearranges the homepage for every visitor, and Fenix learns from every piece of new content within minutes of it going live.</p>
+            <p>This is how I build products. Not by doing everything manually, and not by delegating everything to tools. By designing systems where human judgment sets the direction and technology makes it possible to execute at a scale that would otherwise require a team. The site you're visiting is the proof &mdash; not because I'm telling you about it on this page, but because you've been experiencing it since you arrived.</p>
+            <p>If the way I think about building resonates, I'd love to have a conversation about it.</p>
+        </div>
+
+        <a href="index.html" class="uth-back">&larr; Back to home</a>
+    </main>
+
+    <!-- Fenix AI Widget -->
+    <div class="ai-assistant-wrapper">
+        <button class="ai-assistant" aria-label="Chat with Fenix AI">
+            <img src="images/fenix-flame.webp" alt="Fenix" class="ai-assistant-img" loading="lazy">
+        </button>
+    </div>
+
+    <!-- Theme toggle -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const moonIcon = document.querySelector('.wf-moon-icon');
+        const sunIcon = document.querySelector('.wf-sun-icon');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', currentTheme);
+        if (moonIcon && sunIcon) {
+            if (currentTheme === 'dark') { moonIcon.style.display = 'none'; sunIcon.style.display = 'block'; }
+            else { moonIcon.style.display = 'block'; sunIcon.style.display = 'none'; }
+        }
+        if (themeToggle) themeToggle.addEventListener('click', () => {
+            const theme = html.getAttribute('data-theme');
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            if (newTheme === 'dark') { moonIcon.style.display = 'none'; sunIcon.style.display = 'block'; }
+            else { moonIcon.style.display = 'block'; sunIcon.style.display = 'none'; }
+        });
+        window.addEventListener('load', () => { document.body.classList.remove('preload'); });
+    </script>
+</body>
+</html>
