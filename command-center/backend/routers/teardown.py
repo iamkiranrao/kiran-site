@@ -583,6 +583,33 @@ async def deploy_teardown(session_id: str):
         except Exception:
             pass  # Fire-and-forget
 
+        # Auto-capture evidence source for the skills page
+        try:
+            from services.evidence_service import create_source, get_source
+            source_id = f"td-{company_slug}"
+            teardown_label = f"{state['company']} {state['product']} Teardown"
+            try:
+                get_source(source_id)  # Check if already exists
+            except Exception:
+                create_source(
+                    id=source_id,
+                    label=teardown_label,
+                    type="teardown",
+                    issuer="How I'd've Built It",
+                    url=f"teardowns/{filename}",
+                )
+            from services.notification_service import create_notification
+            create_notification(
+                type="draft_content",
+                title=f"New teardown needs skill mappings: {teardown_label}",
+                summary="Published via Teardown Builder. Add skill links in Add Skills dashboard.",
+                source="teardown_pipeline",
+                action_url="/dashboard/add-skills",
+                priority="normal",
+            )
+        except Exception:
+            pass  # Fire-and-forget — evidence capture is non-blocking
+
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Deploy failed: {str(e)}")

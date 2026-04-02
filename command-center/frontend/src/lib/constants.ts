@@ -121,6 +121,14 @@ export const MODULES = [
     color: "var(--accent-indigo, #818cf8)",
   },
   {
+    slug: "add-skills",
+    label: "Add Skills",
+    icon: "Layers",
+    description: "Evidence management for the Skills page — sources, skill mappings, and publishing.",
+    href: "/dashboard/add-skills",
+    color: "var(--accent-blue, #7CADE8)",
+  },
+  {
     slug: "tools",
     label: "Tools & Links",
     icon: "ExternalLink",

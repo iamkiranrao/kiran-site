@@ -193,6 +193,17 @@ export const MODULE_HELP: Record<string, ModuleHelpContent> = {
     ],
     guideSlug: "kirans-journal",
   },
+  "add-skills": {
+    summary:
+      "Evidence management system for the Skills page. Manage certifications, prototypes, projects, and teardowns as evidence sources, map them to skills across six domains, and publish a JSON manifest to the site repo.",
+    features: [
+      "Evidence inventory with type-based filtering (certification, prototype, project, teardown)",
+      "Interactive skill mapper grid for linking evidence sources to 36 skills across 6 domains",
+      "Full taxonomy management — add, edit, and reorder skills and domains",
+      "One-click manifest generation and git publish to the site repo",
+      "Automatic evidence capture from MadLab and teardown publish pipelines",
+    ],
+  },
   tools: {
     summary:
       "Quick-access hub for analytics dashboards, infrastructure services, and external tools you use regularly. Each tool with a guide has a contextual help button that opens a practical reference tailored to your setup.",
