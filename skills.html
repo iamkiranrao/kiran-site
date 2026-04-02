@@ -66,70 +66,113 @@
     .header-bar {
       padding: 16px 40px;
       border-bottom: none;
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
       z-index: 15;
     }
 
     .header-left {
-      flex: 1;
+      /* left column */
     }
 
     .header-left h1 {
-      font-size: 24px;
+      font-size: 40px;
       font-weight: 700;
-      margin-bottom: 4px;
-      letter-spacing: -0.015em;
-    }
-
-    .header-left p {
-      font-size: 13px;
-      color: #888;
-      font-weight: 400;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.025em;
     }
 
     .header-right {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 16px;
     }
 
     .view-toggle {
+      position: relative;
       display: flex;
       gap: 2px;
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: rgba(255, 255, 255, 0.06);
       padding: 6px;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      justify-self: center;
     }
 
     .toggle-btn {
-      padding: 8px 16px;
+      padding: 10px 24px;
       background: transparent;
       border: none;
-      color: #888;
-      font-size: 13px;
+      color: #777;
+      font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.2s ease;
+      border-radius: 7px;
+      transition: all 0.25s ease;
       font-family: 'Inter', sans-serif;
       white-space: nowrap;
+      letter-spacing: 0.01em;
     }
 
     .toggle-btn:hover {
       color: #d0d0d0;
+      background-color: rgba(255, 255, 255, 0.04);
     }
 
     .toggle-btn.active {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.12);
       color: #e8e8e8;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Graph toggle tooltip nudge */
+    .toggle-nudge {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-4px);
+      background: rgba(30, 30, 30, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #ccc;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    .toggle-nudge.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .toggle-nudge::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      margin-left: -4px;
+      width: 8px;
+      height: 8px;
+      background: rgba(30, 30, 30, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-left: 1px solid rgba(255, 255, 255, 0.12);
+      transform: rotate(45deg);
+    }
+    .toggle-nudge span {
+      color: #e8e8e8;
+      font-weight: 500;
     }
 
     @media (max-width: 768px) {
       .view-toggle {
+        display: none;
+      }
+      .toggle-nudge {
         display: none;
       }
 
@@ -138,7 +181,7 @@
       }
 
       .header-left h1 {
-        font-size: 20px;
+        font-size: 32px;
       }
     }
 
@@ -857,14 +900,13 @@
       <div class="header-bar">
         <div class="header-left">
           <h1>Skills</h1>
-          <p>Where I learned it. Where I proved it.</p>
         </div>
-        <div class="header-right">
-          <div class="view-toggle">
-            <button class="toggle-btn active" data-view="grid">Grid</button>
-            <button class="toggle-btn" data-view="graph">Graph</button>
-          </div>
+        <div class="view-toggle">
+          <button class="toggle-btn active" data-view="grid">Grid</button>
+          <button class="toggle-btn" data-view="graph">Graph</button>
+          <div class="toggle-nudge" id="toggleNudge">Try the <span>Graph</span> view to explore skill connections</div>
         </div>
+        <div class="header-right"></div>
       </div>
 
       <div class="content-area">
@@ -2058,6 +2100,39 @@
         selectSkill(SKILLS_DATA.skills[0].id);
         showDetailPanel(SKILLS_DATA.skills[0]);
       }, 100);
+
+      // ========================================
+      // TOOLTIP NUDGE — first visit only
+      // ========================================
+      if (window.innerWidth >= 768 && !localStorage.getItem('skills-toggle-seen')) {
+        const nudge = document.getElementById('toggleNudge');
+        if (!nudge) return;
+
+        const showTimer = setTimeout(() => {
+          nudge.classList.add('visible');
+        }, 3000);
+
+        function dismissNudge() {
+          clearTimeout(showTimer);
+          nudge.classList.remove('visible');
+          localStorage.setItem('skills-toggle-seen', '1');
+          // Clean up listeners
+          window.removeEventListener('scroll', dismissNudge, true);
+          document.removeEventListener('click', dismissOnClick, true);
+        }
+
+        function dismissOnClick(e) {
+          // Dismiss if user clicks anywhere (toggle, skill tag, close button, etc.)
+          dismissNudge();
+        }
+
+        // Dismiss on any scroll (capture phase to catch inner scrollable areas)
+        window.addEventListener('scroll', dismissNudge, true);
+        // Dismiss on any click after a brief grace period
+        setTimeout(() => {
+          document.addEventListener('click', dismissOnClick, true);
+        }, 3100);
+      }
     });
     </script>
 
