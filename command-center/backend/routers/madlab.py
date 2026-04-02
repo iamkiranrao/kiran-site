@@ -181,6 +181,30 @@ async def deploy_prototype(session_id: str):
         except Exception:
             pass  # Fire-and-forget
 
+        # Auto-capture evidence source for the skills page
+        try:
+            from services.evidence_service import create_source, get_source
+            try:
+                get_source(project_slug)  # Check if already exists
+            except Exception:
+                create_source(
+                    id=project_slug,
+                    label=state["project_name"],
+                    type="prototype",
+                    url=f"prototypes/{project_slug}/overview.html",
+                )
+            from services.notification_service import create_notification
+            create_notification(
+                type="draft_content",
+                title=f"New prototype needs skill mappings: {state['project_name']}",
+                summary="Published via MadLab. Add skill links in Add Skills dashboard.",
+                source="madlab_pipeline",
+                action_url="/dashboard/add-skills",
+                priority="normal",
+            )
+        except Exception:
+            pass  # Fire-and-forget — evidence capture is non-blocking
+
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Deploy failed: {str(e)}")
