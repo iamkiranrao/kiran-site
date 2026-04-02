@@ -419,6 +419,12 @@
       border: 1px solid rgba(232, 214, 124, 0.3);
     }
 
+    .evidence-type-pill.teardown {
+      background: rgba(232, 146, 124, 0.15);
+      color: #E8927C;
+      border: 1px solid rgba(232, 146, 124, 0.3);
+    }
+
     .evidence-item.clickable {
       cursor: pointer;
       transition: background 0.2s ease;
@@ -707,6 +713,12 @@
       border: 1px solid rgba(232, 214, 124, 0.25);
     }
 
+    .evidence-modal-type-badge.teardown {
+      background: rgba(232, 146, 124, 0.12);
+      color: #E8927C;
+      border: 1px solid rgba(232, 146, 124, 0.25);
+    }
+
     /* Tech stack tags colored by type */
     .cert-modal-tag.prototype {
       background: rgba(124, 232, 163, 0.1);
@@ -718,6 +730,12 @@
       background: rgba(232, 214, 124, 0.1);
       color: #E8D67C;
       border: 1px solid rgba(232, 214, 124, 0.2);
+    }
+
+    .cert-modal-tag.teardown {
+      background: rgba(232, 146, 124, 0.1);
+      color: #E8927C;
+      border: 1px solid rgba(232, 146, 124, 0.2);
     }
 
     /* Status indicator */
@@ -745,6 +763,11 @@
     .evidence-status-dot.project {
       background: #E8D67C;
       box-shadow: 0 0 6px rgba(232, 214, 124, 0.4);
+    }
+
+    .evidence-status-dot.teardown {
+      background: #E8927C;
+      box-shadow: 0 0 6px rgba(232, 146, 124, 0.4);
     }
 
     /* Respect reduced motion preferences */
@@ -983,7 +1006,17 @@
         { id: "fenix", label: "Fenix AI Assistant", type: "prototype", url: "#" },
         { id: "scannibal", label: "Scannibal", type: "prototype", url: "#" },
         { id: "persona-picker", label: "Persona Picker", type: "prototype", url: "#" },
+        { id: "insurance-chatbot", label: "Insurance AI Assistant", type: "prototype", url: "#" },
+        { id: "onboardly", label: "Onboardly (HR Bot)", type: "prototype", url: "#" },
+        { id: "jurassic-bites", label: "Jurassic Bites", type: "prototype", url: "#" },
         { id: "site-itself", label: "This Site", type: "project", url: "#" },
+        { id: "command-center", label: "Command Center", type: "project", url: "#" },
+        { id: "td-airbnb", label: "Airbnb Mobile Teardown", type: "teardown", issuer: "How I'd've Built It" },
+        { id: "td-amazon", label: "Amazon Mobile Teardown", type: "teardown", issuer: "How I'd've Built It" },
+        { id: "td-spotify", label: "Spotify Discovery Teardown", type: "teardown", issuer: "How I'd've Built It" },
+        { id: "td-instagram", label: "Instagram Feed Teardown", type: "teardown", issuer: "How I'd've Built It" },
+        { id: "td-geico", label: "GEICO Mobile Teardown", type: "teardown", issuer: "How I'd've Built It" },
+        { id: "td-turbotax", label: "TurboTax Teardown", type: "teardown", issuer: "How I'd've Built It" },
       ],
 
       links: [
@@ -1047,6 +1080,68 @@
         { skill: "serverless", source: "site-itself" },
         { skill: "ai-product-integration", source: "site-itself" },
         { skill: "platform-building", source: "site-itself" },
+
+        // Insurance Chatbot
+        { skill: "ai-product-integration", source: "insurance-chatbot" },
+        { skill: "rag-pipelines", source: "insurance-chatbot" },
+        { skill: "prompt-engineering", source: "insurance-chatbot" },
+        { skill: "python", source: "insurance-chatbot" },
+
+        // Onboardly HR Bot
+        { skill: "rag-pipelines", source: "onboardly" },
+        { skill: "ai-product-integration", source: "onboardly" },
+        { skill: "prompt-engineering", source: "onboardly" },
+
+        // Jurassic Bites
+        { skill: "ai-product-integration", source: "jurassic-bites" },
+        { skill: "ai-powered-discovery", source: "jurassic-bites" },
+        { skill: "google-cloud", source: "jurassic-bites" },
+
+        // Command Center
+        { skill: "platform-building", source: "command-center" },
+        { skill: "python", source: "command-center" },
+        { skill: "ai-product-integration", source: "command-center" },
+        { skill: "cloud-architecture", source: "command-center" },
+        { skill: "product-strategy", source: "command-center" },
+
+        // Airbnb Teardown
+        { skill: "competitive-analysis", source: "td-airbnb" },
+        { skill: "customer-advocacy", source: "td-airbnb" },
+        { skill: "business-case", source: "td-airbnb" },
+        { skill: "hypothesis-driven", source: "td-airbnb" },
+        { skill: "product-strategy", source: "td-airbnb" },
+
+        // Amazon Teardown
+        { skill: "hypothesis-driven", source: "td-amazon" },
+        { skill: "problem-solving", source: "td-amazon" },
+        { skill: "customer-advocacy", source: "td-amazon" },
+        { skill: "business-case", source: "td-amazon" },
+        { skill: "data-visualization", source: "td-amazon" },
+
+        // Spotify Teardown
+        { skill: "ai-powered-discovery", source: "td-spotify" },
+        { skill: "competitive-analysis", source: "td-spotify" },
+        { skill: "customer-advocacy", source: "td-spotify" },
+        { skill: "hypothesis-driven", source: "td-spotify" },
+        { skill: "product-strategy", source: "td-spotify" },
+
+        // Instagram Teardown
+        { skill: "ai-strategy", source: "td-instagram" },
+        { skill: "product-strategy", source: "td-instagram" },
+        { skill: "competitive-analysis", source: "td-instagram" },
+        { skill: "customer-advocacy", source: "td-instagram" },
+
+        // GEICO Teardown
+        { skill: "ai-product-integration", source: "td-geico" },
+        { skill: "customer-advocacy", source: "td-geico" },
+        { skill: "business-case", source: "td-geico" },
+        { skill: "problem-solving", source: "td-geico" },
+
+        // TurboTax Teardown
+        { skill: "customer-advocacy", source: "td-turbotax" },
+        { skill: "problem-solving", source: "td-turbotax" },
+        { skill: "business-case", source: "td-turbotax" },
+        { skill: "hypothesis-driven", source: "td-turbotax" },
       ]
     };
 
@@ -1451,7 +1546,8 @@
       evidenceList.innerHTML = '';
       sources.forEach(sourceId => {
         const source = sourceMap[sourceId];
-        const typeLabel = source.type === 'certification' ? 'Cert' : (source.type === 'prototype' ? 'Prototype' : 'Project');
+        const typeLabels = { certification: 'Cert', prototype: 'Prototype', project: 'Project', teardown: 'Teardown' };
+        const typeLabel = typeLabels[source.type] || 'Project';
         const typeClass = source.type || 'project';
         const hasDetail = CERT_DETAILS[source.id] || EVIDENCE_DETAILS[source.id];
         const isClickable = hasDetail ? ' clickable' : '';
@@ -1740,6 +1836,96 @@
         skills: ["Cloud Architecture", "Serverless", "AI Product Integration", "Platform Building"],
         highlight: "Zero-framework frontend at ~200KB total. The site doesn't argue that I can build AI-native products. You're standing inside one.",
         status: "Live & Evolving"
+      },
+      "command-center": {
+        name: "Command Center",
+        type: "project",
+        tagline: "The ops backend for everything on this site. 18 modules, one brain.",
+        description: "Full-stack content creation platform powering the site behind the scenes. Teardown co-creation workflows with approve/revise loops, resume pipeline (5-stage customization), content audit, Fenix training data preparation, journaling, and standards enforcement. 18+ FastAPI routers with Claude API integration and SSE streaming for long-running operations.",
+        techStack: ["Next.js 16 + React 19", "FastAPI + Python", "Claude API (SSE streaming)", "SQLite + Supabase", "GitHub OAuth"],
+        highlight: "Not a dashboard. A co-creation platform. Every teardown, resume, and content piece on this site was built through Command Center's step-based workflows with human-in-the-loop review at every stage.",
+        status: "Live (Internal)"
+      },
+      "insurance-chatbot": {
+        name: "Insurance AI Assistant",
+        type: "prototype",
+        tagline: "Multi-turn conversational agent that actually remembers what you said three messages ago.",
+        description: "LangGraph-powered insurance assistant that handles claims inquiries, coverage questions, and filing workflows. Uses state machines for conversation flow, maintaining context across multi-turn exchanges. Built to demonstrate agent architecture patterns: tool use, state transitions, and graceful fallback when the model doesn't know something.",
+        techStack: ["LangGraph", "LangChain", "Claude API", "Python", "State Machines"],
+        highlight: "Demonstrates the difference between a chatbot and an agent. The insurance domain forced real decisions about state management, context windows, and knowing when to hand off to a human.",
+        status: "Live on MadLab"
+      },
+      "onboardly": {
+        name: "Onboardly",
+        type: "prototype",
+        tagline: "An HR assistant that only tells you things it can actually find in the handbook.",
+        description: "RAG-based HR policy assistant that answers employee questions by searching over uploaded policy documents. Uses TF-IDF similarity plus Claude for generation. Designed around honesty: when Onboardly can't find an answer in the docs, it says so instead of hallucinating a policy that doesn't exist.",
+        techStack: ["Claude API", "TF-IDF + Cosine Similarity", "Flask + Python", "Document Chunking", "RAG Pipeline"],
+        highlight: "The design principle was 'never make up a policy.' Built the retrieval layer to surface confidence scores and let the model say 'I don't have that information' rather than confabulate. Honest AI isn't a feature, it's an architecture decision.",
+        status: "Live on MadLab"
+      },
+      "jurassic-bites": {
+        name: "Jurassic Bites",
+        type: "prototype",
+        tagline: "A Dialogflow reservation bot that taught me where NLP breaks and where it shines.",
+        description: "Restaurant reservation assistant built on Google Dialogflow. Handles intent matching, entity extraction (dates, times, party sizes, dietary restrictions), and multi-turn booking flows. Built to compare structured NLP (Dialogflow's intent/entity model) with freeform LLM approaches and understand where each works best.",
+        techStack: ["Dialogflow", "Google Cloud NLP", "Entity Extraction", "Intent Matching", "Webhook Fulfillment"],
+        highlight: "The real takeaway wasn't the bot. It was learning that structured NLP is still better than LLMs for narrow, high-stakes tasks (booking a table for 7pm has zero ambiguity tolerance). Different tools for different problems.",
+        status: "Live on MadLab"
+      },
+      "td-airbnb": {
+        name: "Airbnb Mobile Teardown",
+        type: "teardown",
+        tagline: "Why experienced travelers with 15+ bookings are quietly switching back to hotels.",
+        description: "Analyzed the gap between Airbnb's booking experience for new vs. experienced travelers. Identified trust erosion through cancellation friction, listing accuracy gaps, and search filter limitations. Built a customer segmentation model (new vs. experienced power users), mapped the full booking journey with sentiment analysis, and proposed redesigns with wireframes targeting the retention problem specifically.",
+        techStack: ["Customer Segmentation", "Journey Mapping", "Competitive Analysis", "Wireframing", "Business Case Modeling"],
+        highlight: "This isn't a UX review. It's a retention strategy. The teardown connects user behavior data to a specific business case: what Airbnb loses when experienced travelers defect, and exactly what product changes would stop the bleeding.",
+        status: "Published"
+      },
+      "td-amazon": {
+        name: "Amazon Mobile Teardown",
+        type: "teardown",
+        tagline: "Search is failing the people who buy the most. Voice and visual search aren't fixing it.",
+        description: "Root cause analysis of Amazon's mobile search experience for experienced buyers. Evaluated why voice search and visual search haven't solved the core problems: filter friction, irrelevant results, and task abandonment. Built hypothesis trees for each failure mode, tested them against actual mobile flows, and proposed redesigns backed by conversion impact estimates.",
+        techStack: ["Hypothesis-Driven Analysis", "Root Cause Analysis", "Search UX Evaluation", "Task Analysis", "Conversion Modeling"],
+        highlight: "The counterintuitive finding: Amazon's biggest search problem isn't relevance. It's that experienced users know exactly what they want, and the app makes it harder to narrow down than to browse. The fix isn't better algorithms, it's better filters.",
+        status: "Published"
+      },
+      "td-spotify": {
+        name: "Spotify Discovery Teardown",
+        type: "teardown",
+        tagline: "Why Discover Weekly gets stuck in a loop the longer you use it.",
+        description: "Analyzed the algorithmic plateau in Spotify's recommendation engine for long-term subscribers. When you've used Spotify for years, Discover Weekly converges on your established taste and stops pushing boundaries. Mapped the feedback loop (listen > reinforce > recommend similar > repeat) and proposed system-level changes to introduce controlled novelty without destroying the trust signal that makes Discover Weekly work.",
+        techStack: ["Algorithm Analysis", "Feedback Loop Modeling", "Personalization Systems", "User Behavior Research", "Recommendation Design"],
+        highlight: "Most teardowns critique the UI. This one critiques the algorithm's assumptions. The insight: Spotify optimizes for engagement (did you finish the song?) when it should optimize for expansion (did you discover something new you'll keep?).",
+        status: "Published"
+      },
+      "td-instagram": {
+        name: "Instagram Feed Teardown",
+        type: "teardown",
+        tagline: "What the shift from chronological to algorithmic actually cost users.",
+        description: "Examined the trade-offs of Instagram's algorithmic feed vs. chronological ordering. Analyzed what users lost (serendipity, completeness, creator fairness) and what they gained (relevance, engagement). Proposed a user-choice model that gives people control over their feed algorithm, with business impact analysis showing how choice can actually improve engagement metrics, not hurt them.",
+        techStack: ["Platform Strategy", "Algorithm Impact Assessment", "User Choice Modeling", "Business Impact Analysis", "Creator Economy Analysis"],
+        highlight: "The conventional wisdom says algorithmic feeds are always better for engagement. The analysis shows that's only true in aggregate. For power users and creators, the loss of control actively drives disengagement. Choice isn't anti-business, it's a retention play.",
+        status: "Published"
+      },
+      "td-geico": {
+        name: "GEICO Mobile Teardown",
+        type: "teardown",
+        tagline: "An insurance app designed for browsing when users just want to get things done.",
+        description: "Analyzed GEICO's mobile app against how insurance customers actually use it: filing claims, checking coverage, making payments. The app's architecture assumes browsing behavior, but insurance is a task-driven domain. Evaluated their AI assistant's effectiveness, proposed a task-based navigation redesign with wireframes, and built a business case around reduced support call volume.",
+        techStack: ["Task-Based Design", "AI/Conversational Analysis", "Journey Mapping", "Support Cost Modeling", "Navigation Architecture"],
+        highlight: "Insurance is one of the clearest 'task not browse' domains. People open GEICO's app because something happened. The teardown shows how reorienting from feature-based to task-based navigation could cut support calls by redirecting users who currently give up and call instead.",
+        status: "Published"
+      },
+      "td-turbotax": {
+        name: "TurboTax Teardown",
+        type: "teardown",
+        tagline: "The support gap between 'we'll guide you' and what actually happens when you're stuck.",
+        description: "Analyzed the disconnect between TurboTax's promise of guided tax filing and the reality when users hit edge cases. Mapped the support funnel from in-app help through community forums to live support, identifying where users fall through the gaps. Proposed in-context help solutions that surface community answers at the point of confusion instead of sending users on a multi-step support journey.",
+        techStack: ["Discovery Research", "Support Funnel Analysis", "In-Context Help Design", "Community Knowledge Integration", "Wireframing"],
+        highlight: "TurboTax's biggest competitor isn't H&R Block. It's the anxiety of 'am I doing this right?' The teardown shows that the support gap isn't about missing features, it's about surfacing existing answers at the moment of doubt.",
+        status: "Published"
       }
     };
 
@@ -1750,8 +1936,17 @@
       const modal = document.getElementById('cert-modal');
       const content = document.getElementById('cert-modal-content');
 
-      const typeClass = evidence.type === 'prototype' ? 'prototype' : 'project';
-      const typeLabel = evidence.type === 'prototype' ? 'Prototype' : 'Project';
+      const typeClassMap = { prototype: 'prototype', project: 'project', teardown: 'teardown' };
+      const typeLabelMap = { prototype: 'Prototype', project: 'Project', teardown: 'Teardown' };
+      const typeColorMap = { prototype: '#7CE8A3', project: '#E8D67C', teardown: '#E8927C' };
+      const typeClass = typeClassMap[evidence.type] || 'project';
+      const typeLabel = typeLabelMap[evidence.type] || 'Project';
+      const typeColor = typeColorMap[evidence.type] || '#E8D67C';
+
+      // Teardowns use "What I Analyzed" / "Methods" / "What This Proves"
+      const descLabel = evidence.type === 'teardown' ? 'What I Analyzed' : 'What It Is';
+      const tagsLabel = evidence.type === 'teardown' ? 'Methods' : 'Tech Stack';
+      const highlightLabel = evidence.type === 'teardown' ? 'What This Proves' : 'Why It Matters';
 
       let html = `
         <button class="cert-modal-close" id="cert-modal-close" aria-label="Close">&times;</button>
@@ -1763,17 +1958,17 @@
           </div>
         </div>
         <div class="cert-modal-section">
-          <div class="cert-modal-section-label">What It Is</div>
+          <div class="cert-modal-section-label">${descLabel}</div>
           <div class="cert-modal-section-text">${evidence.description}</div>
         </div>
         <div class="cert-modal-section">
-          <div class="cert-modal-section-label">Tech Stack</div>
+          <div class="cert-modal-section-label">${tagsLabel}</div>
           <div class="cert-modal-tags">
             ${evidence.techStack.map(t => `<span class="cert-modal-tag ${typeClass}">${t}</span>`).join('')}
           </div>
         </div>
         <div class="cert-modal-capstone">
-          <div class="cert-modal-capstone-label" style="color: ${typeClass === 'prototype' ? '#7CE8A3' : '#E8D67C'};">Why It Matters</div>
+          <div class="cert-modal-capstone-label" style="color: ${typeColor};">${highlightLabel}</div>
           <div class="cert-modal-capstone-text">${evidence.highlight}</div>
         </div>
         <div class="evidence-modal-status">
