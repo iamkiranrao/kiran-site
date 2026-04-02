@@ -173,7 +173,7 @@
     madlab:       'madlab.html',
     studio:       'studio.html',
     blog:         'blog-podcast.html',
-    learning:     'learning.html',
+    learning:     'skills.html',
     now:          'now.html',
     underhood:    'under-the-hood.html',
     testimonials: null
