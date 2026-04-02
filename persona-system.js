@@ -192,9 +192,13 @@
   }
 
   // ── C1: Nav — Viewing As Pill ──────────────────────
+  // Only show on pages with persona-specific content (i.e. the homepage)
   function buildViewingAsPill() {
     var nav = document.querySelector('.nav-container');
     if (!nav) return;
+
+    // Skip pill on pages without persona-specific treatment
+    if (!document.getElementById('persona-picker-section')) return;
 
     // Create left side of nav for the pill
     var navLeft = document.createElement('div');
