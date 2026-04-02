@@ -1013,8 +1013,8 @@
     // Footer quotes
     buildFooterQuotes();
 
-    // Fenix subpage module (only on subpages)
-    initFenixSubpageModule();
+    // Fenix subpage module — disabled for now, can re-enable later
+    // initFenixSubpageModule();
   }
 
   // Run on DOM ready
