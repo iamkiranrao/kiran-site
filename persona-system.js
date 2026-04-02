@@ -200,6 +200,9 @@
     // Skip pill on pages without persona-specific treatment
     if (!document.getElementById('persona-picker-section')) return;
 
+    // Switch nav to space-between layout for pill + nav-right
+    nav.classList.add('has-persona-pill');
+
     // Create left side of nav for the pill
     var navLeft = document.createElement('div');
     navLeft.className = 'nav-left';

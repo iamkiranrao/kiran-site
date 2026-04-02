@@ -124,9 +124,6 @@
                     <svg aria-hidden="true" class="wf-moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                     <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                 </button>
-                <button id="shareButton" class="share-button" title="Share website" aria-label="Share this page">
-                    <svg aria-hidden="true" class="wf-share-icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-                </button>
                 <button id="menuButton" class="menu-button" aria-label="Open menu">Menu</button>
             </div>
         </div>
@@ -313,7 +310,7 @@
         const themeToggle=document.getElementById('themeToggle'),savedTheme=localStorage.getItem('theme');
         if(savedTheme==='light'){document.documentElement.setAttribute('data-theme','light');document.querySelector('.moon-icon').style.display='none';document.querySelector('.sun-icon').style.display='block';}
         themeToggle.addEventListener('click',()=>{const isLight=document.documentElement.getAttribute('data-theme')==='light';if(isLight){document.documentElement.removeAttribute('data-theme');localStorage.setItem('theme','dark');document.querySelector('.moon-icon').style.display='block';document.querySelector('.sun-icon').style.display='none';}else{document.documentElement.setAttribute('data-theme','light');localStorage.setItem('theme','light');document.querySelector('.moon-icon').style.display='none';document.querySelector('.sun-icon').style.display='block';}});
-        document.getElementById('shareButton').addEventListener('click',async()=>{const toast=document.getElementById('toast');if(navigator.share){try{await navigator.share({title:document.title,url:window.location.href});}catch(e){}}else{await navigator.clipboard.writeText(window.location.href);toast.textContent='Link copied to clipboard';toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2500);}});
+        }catch(e){}}else{await navigator.clipboard.writeText(window.location.href);toast.textContent='Link copied to clipboard';toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2500);}});
         window.addEventListener('load',()=>document.body.classList.remove('preload'));
         const footerLogo=document.querySelector('.footer-logo');if(footerLogo)footerLogo.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
     </script>
