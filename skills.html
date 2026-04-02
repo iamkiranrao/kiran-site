@@ -1685,11 +1685,14 @@
       // Create simulation
       graphSimulation = d3.forceSimulation(allNodes)
         .force('center', d3.forceCenter(width / 2, height / 2).strength(0.02))
-        .force('charge', d3.forceManyBody().strength(-150))
+        .force('charge', d3.forceManyBody().strength(-200))
         .force('collide', d3.forceCollide(d => {
-          const node = d.id.startsWith('attractor-') ? 0 : 20 + (d.connections || 0) * 2;
-          return node + 10;
-        }).strength(0.8))
+          if (d.id.startsWith('attractor-')) return 0;
+          // Account for label width (~5.5px per char at 11px font) + circle radius
+          const labelHalfWidth = (d.label ? d.label.length * 3.2 : 0);
+          const circleRadius = 20 + (d.connections || 0) * 2;
+          return Math.max(circleRadius + 10, labelHalfWidth);
+        }).strength(0.9))
         .force('attractor-link', d3.forceLink(attractorLinks)
           .id(d => d.id)
           .distance(80)
