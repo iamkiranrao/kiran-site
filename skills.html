@@ -179,7 +179,7 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #555;
+      color: #777;
       transition: color 0.3s ease;
     }
 
@@ -366,7 +366,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: #666;
+      color: #777;
       margin-bottom: 12px;
     }
 
@@ -603,7 +603,7 @@
 
     .cert-modal-credential {
       font-size: 11px;
-      color: #666;
+      color: #888;
       margin-top: 2px;
     }
 
@@ -679,6 +679,94 @@
         width: 95%;
         padding: 24px;
         max-height: 85vh;
+      }
+    }
+
+    /* Evidence modal type badge */
+    .evidence-modal-type-badge {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+
+    .evidence-modal-type-badge.prototype {
+      background: rgba(124, 232, 163, 0.12);
+      color: #7CE8A3;
+      border: 1px solid rgba(124, 232, 163, 0.25);
+    }
+
+    .evidence-modal-type-badge.project {
+      background: rgba(232, 214, 124, 0.12);
+      color: #E8D67C;
+      border: 1px solid rgba(232, 214, 124, 0.25);
+    }
+
+    /* Tech stack tags colored by type */
+    .cert-modal-tag.prototype {
+      background: rgba(124, 232, 163, 0.1);
+      color: #7CE8A3;
+      border: 1px solid rgba(124, 232, 163, 0.2);
+    }
+
+    .cert-modal-tag.project {
+      background: rgba(232, 214, 124, 0.1);
+      color: #E8D67C;
+      border: 1px solid rgba(232, 214, 124, 0.2);
+    }
+
+    /* Status indicator */
+    .evidence-modal-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-size: 12px;
+      color: #888;
+      font-weight: 500;
+    }
+
+    .evidence-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .evidence-status-dot.prototype {
+      background: #7CE8A3;
+      box-shadow: 0 0 6px rgba(124, 232, 163, 0.4);
+    }
+
+    .evidence-status-dot.project {
+      background: #E8D67C;
+      box-shadow: 0 0 6px rgba(232, 214, 124, 0.4);
+    }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      .skill-node-circle {
+        animation: none;
+      }
+      .skill-tag,
+      .evidence-item,
+      .connected-skill,
+      .toggle-btn,
+      .cert-modal-close,
+      .panel-close,
+      #detail-panel,
+      .grid-view,
+      .graph-view,
+      .skill-node,
+      .skill-link {
+        transition: none !important;
+      }
+      .skill-tag:hover {
+        transform: none;
       }
     }
     </style>
@@ -768,8 +856,8 @@
         </div>
 
         <!-- Detail Panel -->
-        <div id="detail-panel">
-          <button class="panel-close" id="close-panel">&times;</button>
+        <div id="detail-panel" role="dialog" aria-modal="false" aria-labelledby="panel-skill-name">
+          <button class="panel-close" id="close-panel" aria-label="Close detail panel">&times;</button>
           <div class="panel-header">
             <div class="panel-skill-name" id="panel-skill-name"></div>
             <div class="panel-domain" id="panel-domain"></div>
@@ -821,7 +909,7 @@
     <div class="toast" id="toast"></div>
 
     <!-- Cert Detail Modal -->
-    <div class="cert-modal-overlay" id="cert-modal">
+    <div class="cert-modal-overlay" id="cert-modal" role="dialog" aria-modal="true" aria-label="Certificate details">
       <div class="cert-modal" id="cert-modal-content"></div>
     </div>
 
@@ -1365,9 +1453,10 @@
         const source = sourceMap[sourceId];
         const typeLabel = source.type === 'certification' ? 'Cert' : (source.type === 'prototype' ? 'Prototype' : 'Project');
         const typeClass = source.type || 'project';
-        const isClickable = source.type === 'certification' ? ' clickable' : '';
+        const hasDetail = CERT_DETAILS[source.id] || EVIDENCE_DETAILS[source.id];
+        const isClickable = hasDetail ? ' clickable' : '';
         const html = `
-          <div class="evidence-item${isClickable}" ${source.type === 'certification' ? `data-cert-id="${source.id}"` : ''}>
+          <div class="evidence-item${isClickable}" data-evidence-id="${source.id}" data-evidence-type="${source.type}">
             <div class="evidence-label">${source.label}<span class="evidence-type-pill ${typeClass}">${typeLabel}</span></div>
             <div class="evidence-meta">${source.issuer || ''}${source.year ? (source.issuer ? ' • ' : '') + source.year : ''}</div>
           </div>
@@ -1376,12 +1465,15 @@
       });
       if (sources.length > 0) {
         document.getElementById('evidence-section').style.display = 'block';
-        // Add click handlers for clickable cert items
+        // Add click handlers for all clickable evidence items
         evidenceList.querySelectorAll('.evidence-item.clickable').forEach(el => {
           el.addEventListener('click', () => {
-            const certId = el.getAttribute('data-cert-id');
-            if (certId && CERT_DETAILS[certId]) {
-              showCertModal(certId);
+            const id = el.getAttribute('data-evidence-id');
+            const type = el.getAttribute('data-evidence-type');
+            if (type === 'certification' && CERT_DETAILS[id]) {
+              showCertModal(id);
+            } else if (EVIDENCE_DETAILS[id]) {
+              showEvidenceModal(id);
             }
           });
         });
@@ -1601,6 +1693,104 @@
       }
     };
 
+    // ========================================
+    // PROTOTYPE & PROJECT DETAIL DATA
+    // ========================================
+    const EVIDENCE_DETAILS = {
+      "fenix": {
+        name: "Fenix AI Assistant",
+        type: "prototype",
+        tagline: "A conversational AI that knows everything on this site and talks about it like I would.",
+        logo: "images/favicon.png",
+        description: "RAG-powered chat assistant embedded across the site. Visitors ask questions about my work, teardowns, career, or prototypes. Fenix pulls from a vector database of all site content, generates answers with inline citations, and adapts its tone based on who's asking. Built on Claude, Voyage AI embeddings, and Supabase pgvector.",
+        techStack: ["Claude API (Anthropic)", "FastAPI on Vercel", "Supabase pgvector", "Voyage AI Embeddings", "Server-Sent Events"],
+        skills: ["RAG Pipelines", "Prompt Engineering", "AI Product Integration", "AI Strategy", "Python"],
+        highlight: "Every answer cites its source. Fenix links directly to the page it pulled from, so visitors can verify and go deeper. No black-box hand-waving.",
+        status: "Live MVP"
+      },
+      "scannibal": {
+        name: "Scannibal",
+        type: "prototype",
+        tagline: "Point your camera at anything. Find out if it's safe.",
+        logo: "images/favicon.png",
+        description: "iOS app that uses computer vision to scan food labels, supplements, skincare, plants, and household items for safety. Nine scanning modes, six user profiles for personalized risk context, and a butler-voiced AI that delivers findings with clinical precision. 100% of paid-tier proceeds go to charity.",
+        techStack: ["Expo / React Native", "Google Gemini 2.5 Flash", "ElevenLabs TTS", "Vercel Serverless", "EAS Build Pipeline"],
+        skills: ["AI Product Integration", "Product Strategy"],
+        highlight: "Built a full product from zero to TestFlight: onboarding, profile system, nine scan modes, bilingual support, charity integration, and a kid-friendly mode. Shipped it as a solo PM-engineer.",
+        status: "TestFlight Beta"
+      },
+      "persona-picker": {
+        name: "Persona Picker",
+        type: "prototype",
+        tagline: "Six visitors walk into a site. They each see a different one.",
+        logo: "images/favicon.png",
+        description: "First-touch conversion tool on the landing page. Visitors choose from six illustrated personas, and the entire site adapts: content reorders, accent colors shift, Fenix adjusts its tone, and CTAs reframe. Built with zero dependencies, Midjourney character art, and glassmorphism UI with choreographed animations.",
+        techStack: ["Vanilla JS (zero deps)", "Midjourney Character Art", "CSS Glassmorphism", "localStorage Persistence", "Clip-Path Animations"],
+        skills: ["Product Strategy", "Go-to-Market", "Customer Advocacy"],
+        highlight: "Doesn't ask 'what are you interested in.' Asks 'who are you' and reframes everything around that identity. Six fully realized characters with names, visual language, and distinct site experiences.",
+        status: "Production"
+      },
+      "site-itself": {
+        name: "This Site",
+        type: "project",
+        tagline: "The portfolio is the proof. Not a pitch about capability, a working demonstration of it.",
+        logo: "images/favicon.png",
+        description: "A portfolio-turned-platform built as a permanent home. Teardowns of real products, interactive prototypes, a personalization engine, an AI assistant, and a deliberate architecture that demonstrates the exact skills it claims. Static frontend on Cloudflare Pages, serverless backend on Vercel, AI-powered search via pgvector.",
+        techStack: ["Cloudflare Pages", "Vercel Serverless", "Supabase PostgreSQL", "Claude API", "Vanilla HTML/CSS/JS"],
+        skills: ["Cloud Architecture", "Serverless", "AI Product Integration", "Platform Building"],
+        highlight: "Zero-framework frontend at ~200KB total. The site doesn't argue that I can build AI-native products. You're standing inside one.",
+        status: "Live & Evolving"
+      }
+    };
+
+    function showEvidenceModal(evidenceId) {
+      const evidence = EVIDENCE_DETAILS[evidenceId];
+      if (!evidence) return;
+
+      const modal = document.getElementById('cert-modal');
+      const content = document.getElementById('cert-modal-content');
+
+      const typeClass = evidence.type === 'prototype' ? 'prototype' : 'project';
+      const typeLabel = evidence.type === 'prototype' ? 'Prototype' : 'Project';
+
+      let html = `
+        <button class="cert-modal-close" id="cert-modal-close" aria-label="Close">&times;</button>
+        <div class="cert-modal-header">
+          <div class="evidence-modal-type-badge ${typeClass}">${typeLabel}</div>
+          <div>
+            <div class="cert-modal-title">${evidence.name}</div>
+            <div class="cert-modal-issuer">${evidence.tagline}</div>
+          </div>
+        </div>
+        <div class="cert-modal-section">
+          <div class="cert-modal-section-label">What It Is</div>
+          <div class="cert-modal-section-text">${evidence.description}</div>
+        </div>
+        <div class="cert-modal-section">
+          <div class="cert-modal-section-label">Tech Stack</div>
+          <div class="cert-modal-tags">
+            ${evidence.techStack.map(t => `<span class="cert-modal-tag ${typeClass}">${t}</span>`).join('')}
+          </div>
+        </div>
+        <div class="cert-modal-capstone">
+          <div class="cert-modal-capstone-label" style="color: ${typeClass === 'prototype' ? '#7CE8A3' : '#E8D67C'};">Why It Matters</div>
+          <div class="cert-modal-capstone-text">${evidence.highlight}</div>
+        </div>
+        <div class="evidence-modal-status">
+          <span class="evidence-status-dot ${typeClass}"></span>
+          ${evidence.status}
+        </div>
+      `;
+
+      content.innerHTML = html;
+      modal.classList.add('active');
+
+      window._certModalTrigger = document.activeElement;
+      const closeBtn = document.getElementById('cert-modal-close');
+      closeBtn.addEventListener('click', closeCertModal);
+      closeBtn.focus();
+    }
+
     function showCertModal(certId) {
       const cert = CERT_DETAILS[certId];
       if (!cert) return;
@@ -1609,7 +1799,7 @@
       const content = document.getElementById('cert-modal-content');
 
       let html = `
-        <button class="cert-modal-close" id="cert-modal-close">&times;</button>
+        <button class="cert-modal-close" id="cert-modal-close" aria-label="Close">&times;</button>
         <div class="cert-modal-header">
           <img src="${cert.logo}" alt="${cert.issuer}" class="cert-modal-logo">
           <div>
@@ -1637,12 +1827,20 @@
       content.innerHTML = html;
       modal.classList.add('active');
 
-      // Close handlers
-      document.getElementById('cert-modal-close').addEventListener('click', closeCertModal);
+      // Focus management: store trigger element and move focus into modal
+      window._certModalTrigger = document.activeElement;
+      const closeBtn = document.getElementById('cert-modal-close');
+      closeBtn.addEventListener('click', closeCertModal);
+      closeBtn.focus();
     }
 
     function closeCertModal() {
       document.getElementById('cert-modal').classList.remove('active');
+      // Return focus to the element that opened the modal
+      if (window._certModalTrigger) {
+        window._certModalTrigger.focus();
+        window._certModalTrigger = null;
+      }
     }
 
     // Close cert modal on overlay click
