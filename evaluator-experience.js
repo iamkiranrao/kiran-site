@@ -73,7 +73,7 @@
 
   // ── Staggered Reveal (scroll-triggered) ────────────
   function revealZoneElements() {
-    console.log('[EV] 🎬 revealZoneElements fired!');
+    // Stagger-reveal all evaluator zone elements
     // Stagger timing (ms): element → delay
     var reveals = [
       { sel: '.ev-unlock-cards-header', delay: 0 },
@@ -119,23 +119,43 @@
 
     // Scroll-triggered entrance animations via IntersectionObserver
     // Elements start at opacity:0 in CSS; we add .ev-revealed with staggered timing
+    //
+    // CRITICAL: init() may be called BEFORE the morph choreography finishes.
+    // During morph, #work transitions through hidden/fixed states that cause
+    // the IntersectionObserver to fire incorrectly (or not at all).
+    // Solution: wait for morph-complete before setting up the observer.
     var zone = document.querySelector('.fenix-intro-zone');
-    console.log('[EV] init() running. zone found:', !!zone);
-    if (zone && 'IntersectionObserver' in window) {
-      console.log('[EV] Setting up IntersectionObserver on zone');
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          console.log('[EV] Observer callback: isIntersecting=' + entry.isIntersecting + ' ratio=' + entry.intersectionRatio.toFixed(2));
-          if (entry.isIntersecting) {
-            revealZoneElements();
-            observer.disconnect();
-          }
-        });
-      }, { threshold: 0.1 });
-      observer.observe(zone);
-    } else if (zone) {
-      console.log('[EV] No IntersectionObserver, revealing immediately');
-      revealZoneElements();
+
+    function setupScrollReveal() {
+      if (!zone) return;
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              revealZoneElements();
+              observer.disconnect();
+            }
+          });
+        }, { threshold: 0.1 });
+        observer.observe(zone);
+      } else {
+        revealZoneElements();
+      }
+    }
+
+    // Wait for morph choreography to finish before setting up scroll reveal.
+    // init() is called before the morph starts — #work transitions through
+    // hidden/fixed states that cause IntersectionObserver to misfire.
+    if (document.body.classList.contains('morph-complete')) {
+      setupScrollReveal();
+    } else {
+      var morphWatcher = new MutationObserver(function () {
+        if (document.body.classList.contains('morph-complete')) {
+          morphWatcher.disconnect();
+          setupScrollReveal();
+        }
+      });
+      morphWatcher.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     }
 
     // Restore state if already connected
