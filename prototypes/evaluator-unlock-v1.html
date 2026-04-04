@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluator Unlock — Prototype v1</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #111111;
+    --bg-card: #141414;
+    --text-primary: #f0e6d3;
+    --text-secondary: #c8bba8;
+    --text-muted: #5a5347;
+    --accent: #7B9ACC;
+    --accent-glow: rgba(123, 154, 204, 0.15);
+    --accent-border: rgba(123, 154, 204, 0.3);
+    --border: #222222;
+    --border-light: #2a2a2a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Accent frame top bar */
+  .accent-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    z-index: 100;
+  }
+
+  /* Prototype badge */
+  .proto-badge {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    background: rgba(123, 154, 204, 0.15);
+    border: 1px solid var(--accent-border);
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    z-index: 101;
+    letter-spacing: 0.05em;
+  }
+
+  /* Context header */
+  .context-header {
+    width: 100%;
+    max-width: 1100px;
+    padding: 3rem 2rem 1.5rem;
+    text-align: center;
+  }
+  .context-header .persona-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent-border);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  .context-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+  .context-header h1 span {
+    color: var(--accent);
+  }
+  .context-header .subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* Main two-column layout */
+  .unlock-zone {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 0 2rem;
+    border-top: 1px solid var(--accent-border);
+    border-bottom: 1px solid var(--accent-border);
+    min-height: 480px;
+  }
+
+  /* LEFT COLUMN — Unlock Cards */
+  .unlock-left {
+    flex: 1;
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .unlock-left-header {
+    font-size: 0.7rem;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Card base */
+  .unlock-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .unlock-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .unlock-card:hover {
+    border-color: var(--accent-border);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 0 1px var(--accent-border);
+  }
+  .unlock-card:hover::before {
+    opacity: 1;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--accent-glow);
+    border: 1px solid var(--accent-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent);
+    font-size: 1rem;
+  }
+
+  .card-meta {
+    flex: 1;
+  }
+  .card-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+  }
+  .card-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.7;
+  }
+
+  .card-hook {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .card-cta {
+    display: none;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .unlock-card:hover .card-cta {
+    display: block;
+  }
+
+  /* Connected card (locked) */
+  .unlock-card.connected {
+    opacity: 0.75;
+    border-style: dashed;
+  }
+  .unlock-card.connected:hover {
+    opacity: 1;
+  }
+
+  .lock-indicator {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    opacity: 0.5;
+    font-size: 0.75rem;
+  }
+
+  .card-gate-reason {
+    display: none;
+    margin-top: 0.6rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .unlock-card.connected:hover .card-gate-reason {
+    display: block;
+  }
+  .unlock-card.connected:hover .card-cta {
+    display: block;
+  }
+
+  /* DIVIDER */
+  .unlock-divider {
+    width: 1px;
+    background: var(--accent-border);
+    flex-shrink: 0;
+  }
+
+  /* RIGHT COLUMN — Fenix */
+  .fenix-right {
+    flex: 1;
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .fenix-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #001a2e, #003a54);
+    border: 2px solid var(--accent-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 20px var(--accent-glow);
+    font-size: 1.5rem;
+    color: var(--accent);
+  }
+
+  .fenix-heading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .fenix-positioning {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+  }
+
+  .fenix-pitch {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    font-weight: 300;
+    max-width: 380px;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Pills */
+  .fenix-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .fenix-pill {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+  }
+  .fenix-pill:hover {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    border-color: var(--text-primary);
+  }
+
+  .fenix-pill.connected-pill {
+    border-style: dashed;
+    border-color: var(--accent-border);
+    color: var(--text-muted);
+  }
+  .fenix-pill.connected-pill::after {
+    content: '🔒';
+    font-size: 0.6rem;
+    margin-left: 0.4rem;
+    opacity: 0.5;
+  }
+  .fenix-pill.connected-pill:hover {
+    background: var(--accent-glow);
+    color: var(--accent);
+    border-color: var(--accent);
+    border-style: solid;
+  }
+
+  .fenix-pill.open-pill {
+    border-color: var(--border-light);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+  .fenix-pill.open-pill:hover {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border-color: var(--border);
+  }
+
+  /* EXPANDED STATE — Resume Lens Selector */
+  .expanded-panel {
+    display: none;
+    width: 100%;
+    max-width: 1100px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 2rem 2.5rem;
+    margin: 0 2rem;
+  }
+  .expanded-panel.active {
+    display: block;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .panel-fenix-msg {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .panel-fenix-msg em {
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .lens-options {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .lens-card {
+    flex: 1;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .lens-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  .lens-card.selected {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .lens-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+  }
+  .lens-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Preview area */
+  .preview-area {
+    display: none;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .preview-area.active {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .preview-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+  .preview-text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .download-btn {
+    background: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: opacity 0.2s;
+  }
+  .download-btn:hover {
+    opacity: 0.85;
+  }
+
+  .unconventional-link {
+    margin-top: 1rem;
+    text-align: center;
+    display: none;
+  }
+  .unconventional-link.active {
+    display: block;
+  }
+  .unconventional-link a {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--text-muted);
+    transition: color 0.2s;
+  }
+  .unconventional-link a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* Connect Flow Panel */
+  .connect-panel {
+    display: none;
+    width: 100%;
+    max-width: 1100px;
+    background: var(--bg-card);
+    border: 1px solid var(--accent-border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 2rem 2.5rem;
+    margin: 0 2rem;
+  }
+  .connect-panel.active {
+    display: block;
+  }
+
+  .connect-paths {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .connect-path {
+    flex: 1;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .connect-path:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .connect-path-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .connect-path-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+  }
+  .connect-path-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  .connect-path.linkedin { border-color: rgba(0, 119, 181, 0.3); }
+  .connect-path.linkedin:hover { border-color: #0077B5; box-shadow: 0 4px 16px rgba(0, 119, 181, 0.15); }
+
+  .connect-bail {
+    margin-top: 1.25rem;
+    text-align: center;
+  }
+  .connect-bail a {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .connect-bail a:hover {
+    color: var(--text-secondary);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .unlock-zone { flex-direction: column; margin: 0 1rem; }
+    .unlock-divider { width: 100%; height: 1px; }
+    .unlock-left, .fenix-right { padding: 1.5rem; }
+    .lens-options { flex-direction: column; }
+    .connect-paths { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="accent-frame"></div>
+<div class="proto-badge">PROTOTYPE v1 — EVALUATOR UNLOCK</div>
+
+<!-- Context header (simulating post-persona-selection state) -->
+<div class="context-header">
+  <div class="persona-tag">Viewing as The Evaluator</div>
+  <h1>Welcome, <span>Merritt</span></h1>
+  <p class="subtitle">Here's what's available for you</p>
+</div>
+
+<!-- Main two-column unlock zone -->
+<div class="unlock-zone" id="unlockZone">
+
+  <!-- LEFT COLUMN: Unlock Cards -->
+  <div class="unlock-left">
+    <div class="unlock-left-header">Your Unlocks</div>
+
+    <!-- Card 1: Resume Lens (Anonymous - Utility) -->
+    <div class="unlock-card" id="cardResume" onclick="togglePanel('resume')">
+      <div class="card-top">
+        <div class="card-icon">📄</div>
+        <div class="card-meta">
+          <div class="card-title">My Resume, Focused for Your Role</div>
+          <div class="card-tag">Explore freely</div>
+        </div>
+      </div>
+      <div class="card-hook">Same experience, different emphasis — pick the lens that fits your search.</div>
+      <div class="card-cta">→ Choose your lens</div>
+    </div>
+
+    <!-- Card 2: Recruiter Questions (Anonymous - Personality) -->
+    <div class="unlock-card" id="cardQuestions" onclick="togglePanel('questions')">
+      <div class="card-top">
+        <div class="card-icon">💡</div>
+        <div class="card-meta">
+          <div class="card-title">What Recruiters Never Ask</div>
+          <div class="card-tag">Explore freely</div>
+        </div>
+      </div>
+      <div class="card-hook">The questions that actually reveal fit — and my honest answers.</div>
+      <div class="card-cta">→ See the questions</div>
+    </div>
+
+    <!-- Card 3: Dual Fit Score (Connected) -->
+    <div class="unlock-card connected" id="cardFitScore" onclick="togglePanel('connect')">
+      <div class="lock-indicator">🔒</div>
+      <div class="card-top">
+        <div class="card-icon">⚖️</div>
+        <div class="card-meta">
+          <div class="card-title">Does This Role Fit Both of Us?</div>
+          <div class="card-tag">Connect to unlock</div>
+        </div>
+      </div>
+      <div class="card-hook">Mutual evaluation — how your role matches my experience, and how it matches what I'm looking for.</div>
+      <div class="card-gate-reason">This works better when I know who I'm talking to.</div>
+      <div class="card-cta">→ Connect to build your Fit Score</div>
+    </div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="unlock-divider"></div>
+
+  <!-- RIGHT COLUMN: Fenix -->
+  <div class="fenix-right">
+    <div class="fenix-avatar">✦</div>
+    <h2 class="fenix-heading">Fenix, at your service</h2>
+    <p class="fenix-positioning">I know Kiran's work better than his resume does.</p>
+    <p class="fenix-pitch">I can walk you through Kiran's experience, pull up the resume that fits your search, or — if you're up for it — help you both figure out whether this is actually a match. The pills below are the fast paths. Or just ask me whatever's on your mind.</p>
+
+    <div class="fenix-pills">
+      <div class="fenix-pill" onclick="togglePanel('resume')">Show me resume options</div>
+      <div class="fenix-pill" onclick="togglePanel('questions')">What should I be asking?</div>
+      <div class="fenix-pill connected-pill" onclick="togglePanel('connect')">How would we evaluate each other?</div>
+      <div class="fenix-pill open-pill">Something else</div>
+    </div>
+  </div>
+</div>
+
+<!-- Expanded Panel: Resume Lens Selector -->
+<div class="expanded-panel" id="panelResume">
+  <div class="panel-header">
+    <div class="panel-fenix-msg">
+      <em>Fenix:</em> Kiran's resume comes in three flavors — same experience, different emphasis. Which one fits your search?
+    </div>
+  </div>
+  <div class="lens-options">
+    <div class="lens-card" onclick="selectLens(this, 'AI Product Leader')">
+      <div class="lens-label">AI Product Leader</div>
+      <div class="lens-desc">Fenix, Fargo AI scaling (4.1M→27.5M), Avatour AI agents, AI strategy</div>
+    </div>
+    <div class="lens-card" onclick="selectLens(this, 'Growth & Experimentation')">
+      <div class="lens-label">Growth & Experimentation</div>
+      <div class="lens-desc">Mobile 18M→32M, A/B testing, adoption metrics, data-driven product</div>
+    </div>
+    <div class="lens-card" onclick="selectLens(this, 'Mobile & Consumer')">
+      <div class="lens-label">Mobile & Consumer Product</div>
+      <div class="lens-desc">Mobile-first at scale, consumer UX, cross-industry product leadership</div>
+    </div>
+  </div>
+  <div class="preview-area" id="previewArea">
+    <div class="preview-text">
+      <strong id="selectedLens">AI Product Leader</strong> resume ready<br>
+      <span style="font-size:0.75rem; color:var(--text-muted)">PDF · ATS-compatible · 1 page</span>
+    </div>
+    <button class="download-btn">Download PDF</button>
+  </div>
+  <div class="unconventional-link" id="unconventionalLink">
+    <a href="#">Want the full picture? There's also a version that includes the work you're looking at right now →</a>
+  </div>
+</div>
+
+<!-- Expanded Panel: Recruiter Questions -->
+<div class="expanded-panel" id="panelQuestions">
+  <div class="panel-header">
+    <div class="panel-fenix-msg">
+      <em>Fenix:</em> These are the questions that actually tell you whether someone's the right fit — and Kiran's honest answers.
+    </div>
+  </div>
+  <div style="display:flex; flex-direction:column; gap:1.25rem;">
+    <div style="border-bottom:1px solid var(--border); padding-bottom:1rem;">
+      <div style="font-weight:600; font-size:0.9rem; color:var(--text-primary); margin-bottom:0.4rem;">"Tell me the story of you, but you can't say anything on your resume."</div>
+      <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6; font-weight:300; font-style:italic;">Kiran's answer will appear here — authentic, specific, not a template.</div>
+    </div>
+    <div style="border-bottom:1px solid var(--border); padding-bottom:1rem;">
+      <div style="font-weight:600; font-size:0.9rem; color:var(--text-primary); margin-bottom:0.4rem;">"When was the last time you changed your mind about something important?"</div>
+      <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6; font-weight:300; font-style:italic;">Kiran's answer will appear here.</div>
+    </div>
+    <div style="border-bottom:1px solid var(--border); padding-bottom:1rem;">
+      <div style="font-weight:600; font-size:0.9rem; color:var(--text-primary); margin-bottom:0.4rem;">"Tell me about a value you defended, even when it cost you something."</div>
+      <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6; font-weight:300; font-style:italic;">Kiran's answer will appear here.</div>
+    </div>
+    <div style="border-bottom:1px solid var(--border); padding-bottom:1rem;">
+      <div style="font-weight:600; font-size:0.9rem; color:var(--text-primary); margin-bottom:0.4rem;">"Have you ever made a decision you knew would be unpopular?"</div>
+      <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6; font-weight:300; font-style:italic;">Kiran's answer will appear here.</div>
+    </div>
+    <div>
+      <div style="font-weight:600; font-size:0.9rem; color:var(--text-primary); margin-bottom:0.4rem;">"What haven't I asked you that I should have?"</div>
+      <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6; font-weight:300; font-style:italic;">Kiran's answer will appear here.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Expanded Panel: Connect Flow -->
+<div class="connect-panel" id="panelConnect">
+  <div class="panel-header">
+    <div class="panel-fenix-msg">
+      <em>Fenix:</em> The Fit Score goes both ways — it evaluates how your role aligns with Kiran's experience, and how Kiran's priorities align with what you're offering. To make that work, I need a job description to analyze. And since this generates a personalized report, I'll need to know who I'm building it for.<br><br>Two ways to do that:
+    </div>
+  </div>
+  <div class="connect-paths">
+    <div class="connect-path linkedin">
+      <div class="connect-path-icon">in</div>
+      <div class="connect-path-label">Connect with LinkedIn</div>
+      <div class="connect-path-sub">Instant access, one click</div>
+    </div>
+    <div class="connect-path">
+      <div class="connect-path-icon" style="color:var(--accent);">✎</div>
+      <div class="connect-path-label">Introduce yourself</div>
+      <div class="connect-path-sub">Name + company — that's it</div>
+    </div>
+  </div>
+  <div class="connect-bail">
+    <a onclick="closeAllPanels()">The other features are yours to explore without signing in. Want to check out the resume options instead?</a>
+  </div>
+</div>
+
+<script>
+  let activePanel = null;
+
+  function togglePanel(panel) {
+    const panels = {
+      resume: document.getElementById('panelResume'),
+      questions: document.getElementById('panelQuestions'),
+      connect: document.getElementById('panelConnect')
+    };
+
+    // Close all panels
+    Object.values(panels).forEach(p => p.classList.remove('active'));
+
+    if (activePanel === panel) {
+      activePanel = null;
+      return;
+    }
+
+    if (panels[panel]) {
+      panels[panel].classList.add('active');
+      activePanel = panel;
+      // Smooth scroll to panel
+      setTimeout(() => panels[panel].scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+    }
+  }
+
+  function closeAllPanels() {
+    document.querySelectorAll('.expanded-panel, .connect-panel').forEach(p => p.classList.remove('active'));
+    activePanel = null;
+    togglePanel('resume');
+  }
+
+  function selectLens(el, name) {
+    // Remove selected from all
+    document.querySelectorAll('.lens-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('selectedLens').textContent = name;
+    document.getElementById('previewArea').classList.add('active');
+    document.getElementById('unconventionalLink').classList.add('active');
+  }
+</script>
+
+</body>
+</html>

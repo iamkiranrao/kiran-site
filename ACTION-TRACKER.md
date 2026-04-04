@@ -1,7 +1,7 @@
 # ACTION TRACKER
-**Last synced:** April 2, 2026 (Session 18 — Add Skills evidence management, Mind the Gap module, PM skills gap analysis)
-**Total open items:** 196 (+14 MJ assets needed, see Bento section)
-**Status:** Comprehensive workstream inventory across all modules
+**Last synced:** Session 20 — Fit Score Deep Dive + Video Strategy (April 4, 2026)
+**Total open items:** 215 (+6 new Evaluator build items from Session 20)
+**Status:** Comprehensive workstream inventory across all modules; Evaluator design locked, build phase underway
 
 ---
 
@@ -107,6 +107,10 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 ### Persona Picker
 | # | Action | Status | Timeline | Blocker | Notes |
 |---|--------|--------|----------|---------|-------|
+| 184 | 🟡 Build full production Evaluator experience on live site | Claude | 6-8 hrs | NO | Session 20: Persona unlock component (card layout, 2 anon + 1 connected), Fenix opening frame, resume lens system (3 PDFs), Dual Fit Score frontend (5 asymmetric dimensions per direction), post-connect flow, pager escalation. Real integrations, no stubs. |
+| 185 | 🟡 Write hero video script (4-beat narrative) | Claude | 1 hr | NO | Session 20: 15-20s script emphasizing relational, non-transactional nature. Beats: (1) what is this, (2) who it's for, (3) what you'll discover, (4) CTA. AI avatar will narrate. |
+| 186 | 🟡 Select AI avatar tool for hero video | Kiran | 1 hr | NO | Session 20: Evaluate Midjourney, custom avatar service, alternatives. Avatar should be intentional, cohesive with site visual language. Privacy + appearance bias rationale locked. |
+| 187 | 🟡 Write Fenix opening frames for remaining 5 personas | Claude | 2 hrs | NO | Session 20: Technologist, Practitioner, Seeker, Learner, Inner Circle. Evaluator frame locked. Per-persona context (what you'll experience, why this site is different). |
 | 60 | 🟡 Generate hero video via Runway Gen-4 | Claude | 30 min | MAYBE | 10-15s cinemagraph; commented <video> element ready |
 | 61 | 🟡 Optimize hero video to <3MB | Claude | 15 min | MAYBE | Compress for web delivery |
 | 62 | 🟡 Create posterframe image for hero video | Claude | 15 min | MAYBE | <200KB JPEG; fallback for iOS autoplay |
@@ -216,6 +220,19 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 212 | 🟡 Technical upskilling Phase 1: ADRs, Fenix RAG pipeline work, DDIA chapters 1-4 | career | HIGH | NO | Foundation: architecture decision records, production RAG debugging, distributed systems fundamentals. Estimated 40-50 hours over 4 weeks. |
 | 213 | 🟡 Technical upskilling Phase 2: Ship MadLab project with AI pair programmer, AI courses, Fenix eval framework | career | HIGH | NO | Build: ship complete product with Claude collab, take AI/ML courses, define Fenix quality metrics. Estimated 50-60 hours over 4-6 weeks. |
 | 214 | 🟡 Technical upskilling Phase 3: System design case studies, SQL refresh, technical blog post | career | HIGH | NO | Polish: deep-dive on 3-5 system design problems, strengthen database fundamentals, publish first technical piece. Estimated 30-40 hours over 4 weeks. |
+| 218 | ✅ Create UNLOCK-STRATEGY.md foundation document | persona-picker | HIGH | NO | DONE Apr 3 — Created with 6 locked principles, three-module architecture, Connect mechanism, per-persona deep dive template. |
+| 219 | 🟢 Deep dive: Evaluator (Merritt) persona unlock design | persona-picker | HIGH | NO | IN PROGRESS — Resume lens system, Dual Fit Score, personality features identified. Needs: constraint confirmation, Fit Score mechanics session, visual format prototype. |
+| 220 | 🟡 Register LinkedIn OAuth developer application | infrastructure | MEDIUM | NO | Required for Connect module OAuth flow. Research LinkedIn developer app requirements. |
+| 221 | 🟡 Design Connect notification pipeline for Command Center | command-center | MEDIUM | NO | Persona-to-person conversion notifications. Identity, persona type, trigger unlock. New CC dashboard view. |
+| 222 | 🟡 Design Fit Score mechanics — scoring dimensions, weighting, reverse evaluation | persona-picker | HIGH | NO | Dual Fit Score needs dedicated session: scoring dimensions, weighting methodology, reverse evaluation criteria, diplomatic result presentation. |
+| 223 | 🟡 Research "What recruiters never ask but should" questions | persona-picker | MEDIUM | NO | Evaluator personality feature. Find surprising interview questions. Kiran authors answers in his voice. |
+| 224 | 🟡 Kiran writes "What's not on my resume" — design DNA story | persona-picker | MEDIUM | NO | Kiran-authored piece about college design systems experience. Not Claude-generated. |
+| 225 | 🟡 Create resume lens variants — AI Product Leader, Growth & Experimentation, Mobile & Consumer | resume-pipeline | MEDIUM | NO | Three PDF lens variants + unconventional rendered page. Lenses validated against market data + career goals. Needs resume-pipeline skill. |
+| 226 | 🟡 Prototype unlock component visual format | persona-picker | MEDIUM | NO | Card-based vs. text vs. menu. What creates "hold on, THIS is interesting" reaction. Affects all 6 personas. |
+| 227 | 🟡 Confirm constraint framework — 3 per persona, prioritization test | persona-picker | HIGH | NO | Proposed: 3 unlocks max (2 anon + 1 connected). 3-part test (JTBD fit, differentiation, Kiran-authenticity). Test against more personas. |
+| 228 | 🟡 Build CC notification service with Pushover integration | command-center | MEDIUM | NO | Generic notify_kiran() function. $5 one-time Pushover app. Priority levels. First use case: Fit Score pager. |
+| 229 | 🟡 Soft launch messaging — how to introduce site to friendly recruiters | site-homepage | HIGH | NO | 30-second why-this-exists-and-why-its-different framing. Connected to hero video gap. |
+| 230 | 🟡 Hero video — why this site exists (foundational gap) | site-homepage | HIGH | NO | Visitors need context before engaging with unlock system. Same framing problem as soft launch at different scale. |
 
 ### Teardowns
 | # | Action | Status | Timeline | Blocker | Notes |
@@ -332,6 +349,8 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 116 | 🟡 Phase 6: Store + agentic features + public APIs | TODO | Apr 15 | NO | Stripe, Fenix intelligence, MadLab APIs |
 | 117 | 🟡 Phase 7: Admin dashboard + training loop | TODO | May 1 | NO | Analytics, training queue, content re-indexing |
 | 118 | 🟡 Phase 8: Production hardening | TODO | May 15 | NO | Error handling, monitoring, rate limiting, performance |
+| 188 | 🟡 Purchase Pushover and configure API keys | Kiran | 15 min | NO | Session 20: $5 one-time purchase. Build as generic CC notification service (notify_kiran function). Supports Fit Score matches, persona conversions, resume downloads, testimonials, engagement thresholds, task completions. |
+| 189 | 🟡 Register LinkedIn developer app for OAuth | Claude/Kiran | 1 hr | NO | Session 20: Create app, obtain Client ID + Secret. Configure OAuth endpoint for Fit Score Connect flow (dual path: LinkedIn OAuth + 'introduce yourself' form). Both paths → same backend notification pipeline. |
 
 ### Architecture Quick Wins
 | # | Action | Status | Timeline | Blocker | Notes |
