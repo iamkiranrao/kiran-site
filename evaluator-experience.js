@@ -109,9 +109,17 @@
     wrapper.appendChild(el('p', 'ev-fenix-positioning', { text: 'I know Kiran\'s work better than his resume does.' }));
 
     // ── Opening Frame as Fenix message bubble ──
+    var openingWrap = el('div', 'ev-fenix-opening-frame-wrap');
     var opening = el('div', 'ev-fenix-opening-frame');
     opening.textContent = FENIX_OPENING;
-    wrapper.appendChild(opening);
+    openingWrap.appendChild(opening);
+    wrapper.appendChild(openingWrap);
+
+    // Detect scroll-to-bottom to hide fade indicator
+    opening.addEventListener('scroll', function () {
+      var atBottom = opening.scrollHeight - opening.scrollTop - opening.clientHeight < 10;
+      openingWrap.classList.toggle('ev-scrolled-bottom', atBottom);
+    });
 
     // ── Pills ──
     var pillContainer = el('div', 'ev-fenix-pills');

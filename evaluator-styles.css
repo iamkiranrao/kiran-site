@@ -51,9 +51,33 @@
 /* ── Fenix Avatar ── */
 .ev-fenix-avatar-wrap {
   margin-bottom: 0.25rem;
+  animation: ev-fadeInDown 0.6s ease both;
+}
+
+.ev-fenix-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--ev-accent-border);
+  object-fit: contain;
+  box-shadow: 0 0 20px var(--ev-accent-glow);
+  animation: ev-avatarBreath 4s ease-in-out infinite;
+}
+
+@keyframes ev-avatarBreath {
+  0%, 100% { box-shadow: 0 0 20px var(--ev-accent-glow), 0 0 40px rgba(123, 154, 204, 0.05); }
+  50% { box-shadow: 0 0 28px rgba(123, 154, 204, 0.25), 0 0 56px rgba(123, 154, 204, 0.08); }
 }
 
 /* ── Opening Frame (Fenix message) ── */
+.ev-fenix-opening-frame-wrap {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  animation: ev-fadeInUp 0.6s ease both;
+  animation-delay: 0.4s;
+}
+
 .ev-fenix-opening-frame {
   padding: 1.25rem 1.5rem;
   background: var(--ev-accent-glow);
@@ -65,7 +89,6 @@
   white-space: pre-wrap;
   font-weight: 300;
   text-align: left;
-  max-width: 400px;
   backdrop-filter: blur(8px);
   max-height: 180px;
   overflow-y: auto;
@@ -73,13 +96,27 @@
   scrollbar-color: var(--ev-accent-border) transparent;
 }
 
-.ev-fenix-avatar {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  border: 2px solid var(--ev-accent-border);
-  object-fit: contain;
-  box-shadow: 0 0 20px var(--ev-accent-glow);
+/* Scroll fade indicator at bottom */
+.ev-fenix-opening-frame-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1px;
+  right: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, rgba(10, 10, 10, 0.85));
+  border-radius: 0 0 12px 12px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide fade when scrolled to bottom */
+.ev-fenix-opening-frame-wrap.ev-scrolled-bottom::after {
+  opacity: 0;
+}
+
+[data-theme="light"] .ev-fenix-opening-frame-wrap::after {
+  background: linear-gradient(to bottom, transparent, rgba(245, 243, 240, 0.85));
 }
 
 .ev-fenix-intro-title {
@@ -88,6 +125,8 @@
   font-weight: 400;
   color: var(--ev-text-primary);
   margin: 0;
+  animation: ev-fadeInDown 0.6s ease both;
+  animation-delay: 0.15s;
 }
 
 .ev-fenix-positioning {
@@ -96,6 +135,19 @@
   font-weight: 500;
   font-style: italic;
   margin: 0;
+  animation: ev-fadeInDown 0.6s ease both;
+  animation-delay: 0.25s;
+}
+
+/* ── Entrance Animations ── */
+@keyframes ev-fadeInDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ev-fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .ev-fenix-pitch {
@@ -119,6 +171,8 @@
   width: 100%;
   max-width: 320px;
   margin-top: 0.75rem;
+  animation: ev-fadeInUp 0.5s ease both;
+  animation-delay: 0.6s;
 }
 
 .ev-fenix-pill {
@@ -129,7 +183,7 @@
   font-size: 0.8rem;
   color: var(--ev-text-secondary);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
@@ -137,13 +191,26 @@
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
+  opacity: 0;
+  animation: ev-fadeInUp 0.4s ease both;
 }
 
-.ev-fenix-pill:hover:not(.ev-locked) {
+.ev-fenix-pill:nth-child(1) { animation-delay: 0.65s; }
+.ev-fenix-pill:nth-child(2) { animation-delay: 0.75s; }
+.ev-fenix-pill:nth-child(3) { animation-delay: 0.85s; }
+.ev-fenix-pill:nth-child(4) { animation-delay: 0.95s; }
+
+.ev-fenix-pill:hover:not(.ev-locked):not(.ev-tour-pill) {
   background: var(--ev-text-primary);
   color: var(--ev-bg-primary);
   border-color: var(--ev-text-primary);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.ev-fenix-pill:active {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
 }
 
 .ev-fenix-pill.ev-locked {
@@ -195,6 +262,8 @@
   text-transform: uppercase;
   color: var(--ev-text-muted);
   margin-bottom: 0.5rem;
+  animation: ev-fadeInDown 0.4s ease both;
+  animation-delay: 0.1s;
 }
 
 .ev-unlock-card {
@@ -203,10 +272,16 @@
   border-radius: 8px;
   padding: 1.25rem 1.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  opacity: 0;
+  animation: ev-fadeInUp 0.5s ease both;
 }
+
+.ev-unlock-card:nth-child(2) { animation-delay: 0.15s; }
+.ev-unlock-card:nth-child(3) { animation-delay: 0.3s; }
+.ev-unlock-card:nth-child(4) { animation-delay: 0.45s; }
 
 .ev-unlock-card::before {
   content: '';
@@ -223,7 +298,10 @@
 .ev-unlock-card:not(.ev-locked):hover {
   border-color: var(--ev-accent-border);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--ev-accent-border);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 0 0 1px var(--ev-accent-border),
+    0 0 30px rgba(123, 154, 204, 0.06);
 }
 
 .ev-unlock-card:not(.ev-locked):hover::before {
@@ -278,16 +356,27 @@
 }
 
 .ev-card-cta {
-  display: none;
-  margin-top: 0.75rem;
+  margin-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--ev-accent);
   letter-spacing: 0.02em;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
 }
 
 .ev-unlock-card:hover .ev-card-cta {
-  display: block;
+  max-height: 2rem;
+  opacity: 1;
+  margin-top: 0.75rem;
+}
+
+/* Click/active feedback */
+.ev-unlock-card:active {
+  transform: scale(0.98);
+  transition-duration: 0.1s;
 }
 
 /* Connected (locked) card */
@@ -1044,8 +1133,41 @@
 
 
 /* ════════════════════════════════════════════
+   DIVIDER ENHANCEMENT
+   ════════════════════════════════════════════ */
+
+/* Override main divider when evaluator is active */
+.fenix-intro-zone .fenix-intro-divider {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--ev-accent-border) 20%,
+    var(--ev-accent-border) 80%,
+    transparent
+  );
+}
+
+
+/* ════════════════════════════════════════════
    SCROLLBAR
    ════════════════════════════════════════════ */
+
+.ev-fenix-opening-frame::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ev-fenix-opening-frame::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ev-fenix-opening-frame::-webkit-scrollbar-thumb {
+  background: var(--ev-accent-border);
+  border-radius: 2px;
+}
+
+.ev-fenix-opening-frame::-webkit-scrollbar-thumb:hover {
+  background: var(--ev-accent);
+}
 
 .ev-fit-narration::-webkit-scrollbar {
   width: 6px;
@@ -1108,6 +1230,28 @@
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+  }
+}
+
+
+/* ════════════════════════════════════════════
+   REDUCED MOTION (Accessibility)
+   ════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .ev-fenix-avatar,
+  .ev-fenix-avatar-wrap,
+  .ev-fenix-intro-title,
+  .ev-fenix-positioning,
+  .ev-fenix-opening-frame-wrap,
+  .ev-fenix-pills,
+  .ev-fenix-pill,
+  .ev-unlock-cards-header,
+  .ev-unlock-card,
+  .ev-narration-line {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
