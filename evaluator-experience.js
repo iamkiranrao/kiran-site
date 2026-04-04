@@ -99,24 +99,19 @@
   function buildFenixColumn(container) {
     var wrapper = el('div', 'ev-fenix-column');
 
-    // ── Opening Frame ──
-    var opening = el('div', 'ev-fenix-opening-frame');
-    opening.textContent = FENIX_OPENING;
-    wrapper.appendChild(opening);
-
-    // ── Fenix Intro ──
-    var intro = el('div', 'ev-fenix-intro');
-
+    // ── Fenix Avatar + Heading (visual anchor, like prototype) ──
     var avatarWrap = el('div', 'ev-fenix-avatar-wrap');
     var avatar = el('img', 'ev-fenix-avatar', { src: 'images/logo.png', alt: 'Fenix' });
     avatarWrap.appendChild(avatar);
-    intro.appendChild(avatarWrap);
+    wrapper.appendChild(avatarWrap);
 
-    intro.appendChild(el('h3', 'ev-fenix-intro-title', { text: 'Fenix, at your service' }));
-    intro.appendChild(el('p', 'ev-fenix-positioning', { text: 'I know Kiran\'s work better than his resume does.' }));
-    intro.appendChild(el('p', 'ev-fenix-pitch', { text: 'I can walk you through Kiran\'s experience, pull up the resume that fits your search, or — if you\'re up for it — help you both figure out whether this is actually a match. The pills below are the fast paths. Or just ask me whatever\'s on your mind.' }));
+    wrapper.appendChild(el('h3', 'ev-fenix-intro-title', { text: 'Fenix, at your service' }));
+    wrapper.appendChild(el('p', 'ev-fenix-positioning', { text: 'I know Kiran\'s work better than his resume does.' }));
 
-    wrapper.appendChild(intro);
+    // ── Opening Frame as Fenix message bubble ──
+    var opening = el('div', 'ev-fenix-opening-frame');
+    opening.textContent = FENIX_OPENING;
+    wrapper.appendChild(opening);
 
     // ── Pills ──
     var pillContainer = el('div', 'ev-fenix-pills');

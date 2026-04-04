@@ -42,35 +42,35 @@
 .ev-fenix-column {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
   width: 100%;
 }
 
-/* ── Opening Frame ── */
+/* ── Fenix Avatar ── */
+.ev-fenix-avatar-wrap {
+  margin-bottom: 0.25rem;
+}
+
+/* ── Opening Frame (Fenix message) ── */
 .ev-fenix-opening-frame {
-  padding: 1.5rem 1.75rem;
-  border-left: 3px solid var(--ev-accent);
+  padding: 1.25rem 1.5rem;
   background: var(--ev-accent-glow);
-  border-radius: 0 8px 8px 0;
-  font-size: 0.9rem;
-  line-height: 1.75;
+  border: 1px solid var(--ev-accent-border);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  line-height: 1.7;
   color: var(--ev-text-secondary);
   white-space: pre-wrap;
   font-weight: 300;
+  text-align: left;
+  max-width: 400px;
   backdrop-filter: blur(8px);
-}
-
-/* ── Fenix Intro Section ── */
-.ev-fenix-intro {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.75rem;
-}
-
-.ev-fenix-avatar-wrap {
-  margin-bottom: 0.5rem;
+  max-height: 180px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ev-accent-border) transparent;
 }
 
 .ev-fenix-avatar {
@@ -117,8 +117,8 @@
   flex-direction: column;
   gap: 0.5rem;
   width: 100%;
-  max-width: 340px;
-  margin-top: 0.5rem;
+  max-width: 320px;
+  margin-top: 0.75rem;
 }
 
 .ev-fenix-pill {
