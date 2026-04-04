@@ -73,6 +73,7 @@
 
   // ── Staggered Reveal (scroll-triggered) ────────────
   function revealZoneElements() {
+    console.log('[EV] 🎬 revealZoneElements fired!');
     // Stagger timing (ms): element → delay
     var reveals = [
       { sel: '.ev-unlock-cards-header', delay: 0 },
@@ -119,9 +120,12 @@
     // Scroll-triggered entrance animations via IntersectionObserver
     // Elements start at opacity:0 in CSS; we add .ev-revealed with staggered timing
     var zone = document.querySelector('.fenix-intro-zone');
+    console.log('[EV] init() running. zone found:', !!zone);
     if (zone && 'IntersectionObserver' in window) {
+      console.log('[EV] Setting up IntersectionObserver on zone');
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
+          console.log('[EV] Observer callback: isIntersecting=' + entry.isIntersecting + ' ratio=' + entry.intersectionRatio.toFixed(2));
           if (entry.isIntersecting) {
             revealZoneElements();
             observer.disconnect();
@@ -130,6 +134,7 @@
       }, { threshold: 0.1 });
       observer.observe(zone);
     } else if (zone) {
+      console.log('[EV] No IntersectionObserver, revealing immediately');
       revealZoneElements();
     }
 
