@@ -77,17 +77,10 @@
     // Stagger timing (ms): element → delay
     var reveals = [
       { sel: '.ev-unlock-cards-header', delay: 0 },
-      { sel: '.ev-fenix-avatar-wrap', delay: 0 },
-      { sel: '.ev-fenix-intro-title', delay: 150 },
+      { sel: '.ev-fenix-chat', delay: 0 },
       { sel: '.ev-unlock-card:nth-child(2)', delay: 150 },  // 1st card (header is nth-child 1)
-      { sel: '.ev-fenix-positioning', delay: 250 },
       { sel: '.ev-unlock-card:nth-child(3)', delay: 300 },  // 2nd card
-      { sel: '.ev-fenix-opening-frame-wrap', delay: 400 },
       { sel: '.ev-unlock-card:nth-child(4)', delay: 450 },  // 3rd card
-      { sel: '.ev-fenix-pill:nth-child(1)', delay: 650 },
-      { sel: '.ev-fenix-pill:nth-child(2)', delay: 750 },
-      { sel: '.ev-fenix-pill:nth-child(3)', delay: 850 },
-      { sel: '.ev-fenix-pill:nth-child(4)', delay: 950 }
     ];
 
     reveals.forEach(function (item) {
@@ -170,45 +163,40 @@
   // ════════════════════════════════════════════════════
 
   function buildFenixColumn(container) {
-    var wrapper = el('div', 'ev-fenix-column');
+    var wrapper = el('div', 'ev-fenix-chat');
 
-    // ── Fenix Avatar + Heading (visual anchor, like prototype) ──
-    var avatarWrap = el('div', 'ev-fenix-avatar-wrap');
-    var avatar = el('img', 'ev-fenix-avatar', { src: 'images/logo.png', alt: 'Fenix' });
-    avatarWrap.appendChild(avatar);
-    wrapper.appendChild(avatarWrap);
+    // ── Chat Header (compact identity anchor) ──
+    var chatHeader = el('div', 'ev-chat-header');
+    var headerAvatar = el('img', 'ev-chat-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+    var headerInfo = el('div', 'ev-chat-header-info');
+    headerInfo.appendChild(el('span', 'ev-chat-header-name', { text: 'Fenix' }));
+    headerInfo.appendChild(el('span', 'ev-chat-header-sub', { text: 'I know Kiran\'s work better than his resume does.' }));
+    chatHeader.appendChild(headerAvatar);
+    chatHeader.appendChild(headerInfo);
+    wrapper.appendChild(chatHeader);
 
-    wrapper.appendChild(el('h3', 'ev-fenix-intro-title', { text: 'Fenix, at your service' }));
-    wrapper.appendChild(el('p', 'ev-fenix-positioning', { text: 'I know Kiran\'s work better than his resume does.' }));
+    // ── Message Area (scrollable conversation) ──
+    var messageArea = el('div', 'ev-chat-messages');
 
-    // ── Opening Frame as Fenix message bubble ──
-    var openingWrap = el('div', 'ev-fenix-opening-frame-wrap');
-    var opening = el('div', 'ev-fenix-opening-frame');
-    opening.textContent = FENIX_OPENING;
-    openingWrap.appendChild(opening);
-    wrapper.appendChild(openingWrap);
+    // First Fenix message — the short pitch (not the full opening frame)
+    addFenixMessage(messageArea, 'I can walk you through Kiran\'s experience, pull up the resume that fits your search, or — if you\'re up for it — help you both figure out whether this is actually a match. The buttons below are the fast paths. Or just ask me whatever\'s on your mind.');
 
-    // Detect scroll-to-bottom to hide fade indicator
-    opening.addEventListener('scroll', function () {
-      var atBottom = opening.scrollHeight - opening.scrollTop - opening.clientHeight < 10;
-      openingWrap.classList.toggle('ev-scrolled-bottom', atBottom);
-    });
+    wrapper.appendChild(messageArea);
 
-    // ── Pills ──
-    var pillContainer = el('div', 'ev-fenix-pills');
+    // ── Pills (one-shot starters) ──
+    var pillContainer = el('div', 'ev-chat-pills');
 
     var pills = [
-      { text: 'Show me resume options', action: 'resume', locked: false, tour: false },
-      { text: 'What should I be asking?', action: 'questions', locked: false, tour: false },
-      { text: 'How would we evaluate each other?', action: 'connect', locked: !state.connectedName, tour: false },
-      { text: 'Give me a quick tour', action: 'tour', locked: false, tour: true }
+      { text: 'Show me resume options', action: 'resume', locked: false },
+      { text: 'What should I be asking?', action: 'questions', locked: false },
+      { text: 'How would we evaluate each other?', action: 'connect', locked: !state.connectedName },
+      { text: 'Something else', action: 'tour', locked: false }
     ];
 
     pills.forEach(function (pill) {
-      var btn = el('button', 'ev-fenix-pill');
+      var btn = el('button', 'ev-chat-pill');
       btn.textContent = pill.text;
 
-      if (pill.tour) btn.classList.add('ev-tour-pill');
       if (pill.locked) {
         btn.classList.add('ev-locked');
         var badge = el('span', 'ev-lock-badge', { text: '🔒' });
@@ -216,18 +204,83 @@
       }
 
       btn.addEventListener('click', function () {
-        if (pill.action === 'tour') {
-          window.location.href = 'under-the-hood.html';
-        } else {
-          showPanel(pill.action);
-        }
+        handlePillClick(pill, pillContainer);
       });
 
       pillContainer.appendChild(btn);
     });
 
     wrapper.appendChild(pillContainer);
+
+    // ── Text Input Bar ──
+    var inputBar = el('div', 'ev-chat-input-bar');
+    var inputField = el('input', 'ev-chat-input', { type: 'text', placeholder: 'Ask me anything...' });
+    var sendBtn = el('button', 'ev-chat-send', { text: '➤' });
+    sendBtn.setAttribute('aria-label', 'Send message');
+
+    function handleSend() {
+      var text = inputField.value.trim();
+      if (!text) return;
+      addVisitorMessage(messageArea, text);
+      inputField.value = '';
+      // Stubbed Fenix response — backend integration is a separate workstream
+      setTimeout(function () {
+        addFenixMessage(messageArea, 'I\'m still learning to think on my feet — for now, try one of the quick options above, or click an unlock card on the left. Full conversation mode is coming soon.');
+      }, 600);
+    }
+
+    sendBtn.addEventListener('click', handleSend);
+    inputField.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') handleSend();
+    });
+
+    inputBar.appendChild(inputField);
+    inputBar.appendChild(sendBtn);
+    wrapper.appendChild(inputBar);
+
     container.appendChild(wrapper);
+  }
+
+  // ── Chat Message Helpers ──────────────────────────
+
+  function addFenixMessage(messageArea, text) {
+    var bubble = el('div', 'ev-msg ev-msg-fenix');
+    var avatar = el('img', 'ev-msg-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+    var content = el('div', 'ev-msg-content');
+    content.textContent = text;
+    bubble.appendChild(avatar);
+    bubble.appendChild(content);
+    messageArea.appendChild(bubble);
+    messageArea.scrollTop = messageArea.scrollHeight;
+  }
+
+  function addVisitorMessage(messageArea, text) {
+    var bubble = el('div', 'ev-msg ev-msg-visitor');
+    var content = el('div', 'ev-msg-content');
+    content.textContent = text;
+    bubble.appendChild(content);
+    messageArea.appendChild(bubble);
+    messageArea.scrollTop = messageArea.scrollHeight;
+  }
+
+  function handlePillClick(pill, pillContainer) {
+    var messageArea = document.querySelector('.ev-chat-messages');
+    if (!messageArea) return;
+
+    // Pill text becomes visitor message
+    addVisitorMessage(messageArea, pill.text);
+
+    // Remove all pills (one-shot starters)
+    pillContainer.classList.add('ev-pills-hidden');
+
+    // Trigger the panel action after a beat
+    setTimeout(function () {
+      if (pill.action === 'tour') {
+        addFenixMessage(messageArea, 'Let me show you around. This site has three resume lenses, a set of honest Q&As that go beyond the standard interview, and — if you connect — a mutual Fit Score. What catches your eye?');
+      } else {
+        showPanel(pill.action);
+      }
+    }, 400);
   }
 
 
@@ -308,8 +361,15 @@
       // CTA (shown on hover via CSS)
       cardEl.appendChild(el('div', 'ev-card-cta', { text: card.cta }));
 
-      // Click handler
+      // Click handler — also triggers Fenix message for cross-connection
       cardEl.addEventListener('click', function () {
+        var messageArea = document.querySelector('.ev-chat-messages');
+        if (messageArea) {
+          addVisitorMessage(messageArea, card.title);
+          // Hide pills if still visible
+          var pillContainer = document.querySelector('.ev-chat-pills');
+          if (pillContainer) pillContainer.classList.add('ev-pills-hidden');
+        }
         showPanel(card.action);
       });
 

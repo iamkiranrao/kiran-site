@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Archivo+Black&family=Orbitron:wght@400;700;900&family=Caveat:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Corben:wght@400;700&family=Josefin+Sans:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=20260327-bento">
-    <link rel="stylesheet" href="evaluator-styles.css?v=20260404h">
+    <link rel="stylesheet" href="evaluator-styles.css?v=20260404i">
     <link rel="alternate" type="application/rss+xml" title="Kiran Rao - Release Notes & Blog" href="rss.xml">
 
     <link rel="canonical" href="https://kiranrao.ai/">
@@ -340,39 +340,14 @@
         </div>
     </section>
 
-    <!-- C11: Metrics - INPUTS + OUTCOMES -->
-    <section class="numbers-section" id="by-the-numbers">
-        <p class="section-label">(By the Numbers)</p>
-        <div class="metrics-columns">
-            <div class="metrics-col metrics-inputs">
-                <p class="competency-eyebrow">Inputs ↘</p>
-                <div class="numbers-grid" id="numbers-grid">
-                    <!-- Populated by persona-system.js buildNumbersGrid() -->
-                </div>
-            </div>
-            <div class="metrics-col metrics-outcomes">
-                <p class="competency-eyebrow">Outcomes ↘</p>
-                <div class="numbers-grid" id="outcomes-grid">
-                    <div class="number-card outcome-card placeholder">
-                        <span class="number-value">—</span>
-                        <span class="number-label">Persona → Person</span>
-                    </div>
-                    <div class="number-card outcome-card placeholder">
-                        <span class="number-value">—</span>
-                        <span class="number-label">Connect clicks</span>
-                    </div>
-                    <div class="number-card outcome-card placeholder">
-                        <span class="number-value">—</span>
-                        <span class="number-label">Return visits</span>
-                    </div>
-                </div>
-                <p class="metrics-tracking-note">Tracking begins when Connect goes live</p>
-            </div>
-        </div>
-    </section>
-
     <!-- Work Section -->
     <section id="work">
+        <!-- Context Header — Bridge between portfolio content and interactive experience -->
+        <div class="fenix-context-header" id="fenix-context-header">
+            <h2 class="fenix-context-greeting">Welcome, <span class="fenix-context-name">Explorer</span></h2>
+            <p class="fenix-context-reframe">This isn't a portfolio — it's a product Kiran built. Everything below is shaped by how you chose to explore it.</p>
+            <p class="fenix-context-invite">Here's what we've put together for you — and <strong>Fenix</strong> is here to help you navigate it.</p>
+        </div>
         <!-- C4: Fenix Intro — Two-Column Layout -->
         <div class="fenix-intro-zone">
             <div class="fenix-intro-left">
@@ -499,6 +474,37 @@
     </section>
 
 
+    <!-- C11: Metrics - INPUTS + OUTCOMES (moved after Work for narrative arc) -->
+    <section class="numbers-section" id="by-the-numbers">
+        <p class="section-label">(By the Numbers)</p>
+        <div class="metrics-columns">
+            <div class="metrics-col metrics-inputs">
+                <p class="competency-eyebrow">Inputs ↘</p>
+                <div class="numbers-grid" id="numbers-grid">
+                    <!-- Populated by persona-system.js buildNumbersGrid() -->
+                </div>
+            </div>
+            <div class="metrics-col metrics-outcomes">
+                <p class="competency-eyebrow">Outcomes ↘</p>
+                <div class="numbers-grid" id="outcomes-grid">
+                    <div class="number-card outcome-card placeholder">
+                        <span class="number-value">—</span>
+                        <span class="number-label">Persona → Person</span>
+                    </div>
+                    <div class="number-card outcome-card placeholder">
+                        <span class="number-value">—</span>
+                        <span class="number-label">Connect clicks</span>
+                    </div>
+                    <div class="number-card outcome-card placeholder">
+                        <span class="number-value">—</span>
+                        <span class="number-label">Return visits</span>
+                    </div>
+                </div>
+                <p class="metrics-tracking-note">Tracking begins when Connect goes live</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section class="contact-cta" id="contact">
         <p class="section-label">(Connect)</p>
@@ -532,7 +538,7 @@
 
     <!-- Translations disabled for now - re-enable by uncommenting -->
     <!-- <script src="translations.js"></script> -->
-    <script src="evaluator-experience.js?v=20260404h"></script>
+    <script src="evaluator-experience.js?v=20260404i"></script>
     <script src="persona-system.js"></script>
     <!-- Competency carousel: dot tracking + keyboard nav -->
     <script>

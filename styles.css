@@ -3005,10 +3005,10 @@ body, nav, section, footer, .mobile-menu,
 .morph-content-in .manifesto-section {
     animation: contentRise 0.7s var(--ease-decel) 0.12s forwards;
 }
-.morph-content-in .numbers-section {
+.morph-content-in #work {
     animation: contentRise 0.7s var(--ease-decel) 0.24s forwards;
 }
-.morph-content-in #work {
+.morph-content-in .numbers-section {
     animation: contentRise 0.7s var(--ease-decel) 0.36s forwards;
 }
 .morph-content-in .contact-cta {
@@ -3373,6 +3373,62 @@ body, nav, section, footer, .mobile-menu,
     }
 }
 
+
+/* ============================================
+   C4a: FENIX CONTEXT HEADER — Bridge text
+   ============================================ */
+
+.fenix-context-header {
+    text-align: center;
+    padding: 3rem 4rem 2rem;
+    margin: 0 4rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fenix-context-greeting {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+}
+
+.fenix-context-name {
+    color: var(--persona-accent, var(--text-primary));
+    font-style: italic;
+}
+
+.fenix-context-reframe {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0 0 0.5rem;
+}
+
+.fenix-context-invite {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.fenix-context-invite strong {
+    color: var(--persona-accent, var(--text-primary));
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .fenix-context-header {
+        padding: 2rem 1.5rem 1.5rem;
+        margin: 0 1.5rem;
+    }
+    .fenix-context-greeting {
+        font-size: 1.4rem;
+    }
+}
 
 /* ============================================
    C4: FENIX INTRO ZONE — Two-Column
