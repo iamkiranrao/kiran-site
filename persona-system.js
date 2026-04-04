@@ -658,12 +658,25 @@
     // This is acceptable since the user is switching personas which involves a morph
   }
 
+  // ── Apply Context Header ───────────────────────────
+  function applyContextHeader(persona) {
+    var config = getPersonaConfig(persona);
+    if (!config) return;
+    var nameEl = document.querySelector('.fenix-context-name');
+    if (nameEl) {
+      // Check for connected name (persona → person)
+      var connectedName = localStorage.getItem('evaluator_name') || localStorage.getItem('connect_name');
+      nameEl.textContent = connectedName || config.name;
+    }
+  }
+
   // ── Apply All Personalization ──────────────────────
   function applyAllPersonalization(persona) {
     if (!persona) return;
     applyAboutPersonalization(persona);
     applyAccentVariable();
     applyAccentFrame();
+    applyContextHeader(persona);
     buildFenixIntroContent(persona);
     buildNumbersGrid(persona);
 

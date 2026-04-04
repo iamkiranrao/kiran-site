@@ -7,8 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260327-bento">
-    <link rel="stylesheet" href="evaluator-styles.css?v=20260404h">
+    <link rel="stylesheet" href="styles.css?v=20260404i">
+    <link rel="stylesheet" href="evaluator-styles.css?v=20260404i">
     <style>
         /* Minimal resets so the zone renders cleanly at top of page */
         body {
@@ -58,8 +58,13 @@
         Animations should fire immediately on load (no scrolling needed)
     </div>
 
-    <!-- This is the exact same markup as index.html lines 377-395 -->
+    <!-- Context header + Fenix zone (mirrors index.html structure) -->
     <section id="work">
+        <div class="fenix-context-header" id="fenix-context-header">
+            <h2 class="fenix-context-greeting">Welcome, <span class="fenix-context-name">Evaluator</span></h2>
+            <p class="fenix-context-reframe">This isn't a portfolio — it's a product Kiran built. Everything below is shaped by how you chose to explore it.</p>
+            <p class="fenix-context-invite">Here's what we've put together for you — and <strong>Fenix</strong> is here to help you navigate it.</p>
+        </div>
         <div class="fenix-intro-zone">
             <div class="fenix-intro-left">
                 <div class="fenix-intro-unlocks">
@@ -79,7 +84,7 @@
     </section>
 
     <!-- Load the evaluator experience JS -->
-    <script src="evaluator-experience.js?v=20260404h"></script>
+    <script src="evaluator-experience.js?v=20260404i"></script>
     <script>
         // Immediately init the evaluator experience (no persona-system.js needed)
         console.log('[TEST] Page loaded. Calling EvaluatorExperience.init()...');
