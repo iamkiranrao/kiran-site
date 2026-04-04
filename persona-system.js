@@ -799,6 +799,12 @@
     var config = getPersonaConfig(persona);
     if (!config) return;
 
+    // Special handling for Evaluator persona
+    if (persona === 'evaluator' && typeof window.EvaluatorExperience !== 'undefined') {
+      window.EvaluatorExperience.init(persona);
+      return;
+    }
+
     // Left column: unlocks
     var unlocksList = document.querySelector('.fenix-intro-unlocks');
     if (unlocksList && config.unlocks) {
