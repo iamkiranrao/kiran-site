@@ -71,6 +71,37 @@
     return parent;
   }
 
+  // ── Staggered Reveal (scroll-triggered) ────────────
+  function revealZoneElements() {
+    // Stagger timing (ms): element → delay
+    var reveals = [
+      { sel: '.ev-unlock-cards-header', delay: 0 },
+      { sel: '.ev-fenix-avatar-wrap', delay: 0 },
+      { sel: '.ev-fenix-intro-title', delay: 150 },
+      { sel: '.ev-unlock-card:nth-child(2)', delay: 150 },  // 1st card (header is nth-child 1)
+      { sel: '.ev-fenix-positioning', delay: 250 },
+      { sel: '.ev-unlock-card:nth-child(3)', delay: 300 },  // 2nd card
+      { sel: '.ev-fenix-opening-frame-wrap', delay: 400 },
+      { sel: '.ev-unlock-card:nth-child(4)', delay: 450 },  // 3rd card
+      { sel: '.ev-fenix-pill:nth-child(1)', delay: 650 },
+      { sel: '.ev-fenix-pill:nth-child(2)', delay: 750 },
+      { sel: '.ev-fenix-pill:nth-child(3)', delay: 850 },
+      { sel: '.ev-fenix-pill:nth-child(4)', delay: 950 }
+    ];
+
+    reveals.forEach(function (item) {
+      var element = document.querySelector(item.sel);
+      if (!element) return;
+      if (item.delay === 0) {
+        element.classList.add('ev-revealed');
+      } else {
+        setTimeout(function () {
+          element.classList.add('ev-revealed');
+        }, item.delay);
+      }
+    });
+  }
+
   // ── Main Initialization ────────────────────────────
   function init() {
     var rightCol = document.querySelector('.fenix-intro-right');
@@ -86,20 +117,20 @@
     buildUnlockCards(leftCol);
 
     // Scroll-triggered entrance animations via IntersectionObserver
+    // Elements start at opacity:0 in CSS; we add .ev-revealed with staggered timing
     var zone = document.querySelector('.fenix-intro-zone');
     if (zone && 'IntersectionObserver' in window) {
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            zone.classList.add('ev-visible');
-            observer.disconnect(); // Only trigger once
+            revealZoneElements();
+            observer.disconnect();
           }
         });
-      }, { threshold: 0.15 }); // Trigger when 15% of zone is visible
+      }, { threshold: 0.1 });
       observer.observe(zone);
     } else if (zone) {
-      // Fallback: show immediately if no IntersectionObserver support
-      zone.classList.add('ev-visible');
+      revealZoneElements();
     }
 
     // Restore state if already connected
