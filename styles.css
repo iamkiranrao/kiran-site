@@ -2865,7 +2865,16 @@ body, nav, section, footer, .mobile-menu,
 .persona-active .numbers-section,
 .persona-active #work,
 .persona-active .contact-cta,
-.persona-active footer,
+.persona-active footer {
+    opacity: 1;
+    pointer-events: auto;
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+}
+
 .persona-active .ai-assistant-wrapper {
     opacity: 1;
     pointer-events: auto;
