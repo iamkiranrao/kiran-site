@@ -51,6 +51,9 @@
 /* ── Fenix Avatar ── */
 .ev-fenix-avatar-wrap {
   margin-bottom: 0.25rem;
+  opacity: 0;
+}
+.ev-visible .ev-fenix-avatar-wrap {
   animation: ev-fadeInDown 0.6s ease both;
 }
 
@@ -74,8 +77,10 @@
   position: relative;
   max-width: 400px;
   width: 100%;
-  animation: ev-fadeInUp 0.6s ease both;
-  animation-delay: 0.4s;
+  opacity: 0;
+}
+.ev-visible .ev-fenix-opening-frame-wrap {
+  animation: ev-fadeInUp 0.6s ease 0.4s both;
 }
 
 .ev-fenix-opening-frame {
@@ -125,8 +130,10 @@
   font-weight: 400;
   color: var(--ev-text-primary);
   margin: 0;
-  animation: ev-fadeInDown 0.6s ease both;
-  animation-delay: 0.15s;
+  opacity: 0;
+}
+.ev-visible .ev-fenix-intro-title {
+  animation: ev-fadeInDown 0.6s ease 0.15s both;
 }
 
 .ev-fenix-positioning {
@@ -135,8 +142,10 @@
   font-weight: 500;
   font-style: italic;
   margin: 0;
-  animation: ev-fadeInDown 0.6s ease both;
-  animation-delay: 0.25s;
+  opacity: 0;
+}
+.ev-visible .ev-fenix-positioning {
+  animation: ev-fadeInDown 0.6s ease 0.25s both;
 }
 
 /* ── Entrance Animations ── */
@@ -171,8 +180,6 @@
   width: 100%;
   max-width: 320px;
   margin-top: 0.75rem;
-  animation: ev-fadeInUp 0.5s ease both;
-  animation-delay: 0.6s;
 }
 
 .ev-fenix-pill {
@@ -192,13 +199,14 @@
   justify-content: center;
   gap: 0.4rem;
   opacity: 0;
-  animation: ev-fadeInUp 0.4s ease both;
 }
 
-.ev-fenix-pill:nth-child(1) { animation-delay: 0.65s; }
-.ev-fenix-pill:nth-child(2) { animation-delay: 0.75s; }
-.ev-fenix-pill:nth-child(3) { animation-delay: 0.85s; }
-.ev-fenix-pill:nth-child(4) { animation-delay: 0.95s; }
+/* Entrance animation — triggered only when zone becomes visible */
+.ev-visible .ev-fenix-pill { animation: ev-fadeInUp 0.4s ease both; }
+.ev-visible .ev-fenix-pill:nth-child(1) { animation-delay: 0.65s; }
+.ev-visible .ev-fenix-pill:nth-child(2) { animation-delay: 0.75s; }
+.ev-visible .ev-fenix-pill:nth-child(3) { animation-delay: 0.85s; }
+.ev-visible .ev-fenix-pill:nth-child(4) { animation-delay: 0.95s; }
 
 .ev-fenix-pill:hover:not(.ev-locked):not(.ev-tour-pill) {
   background: var(--ev-text-primary);
@@ -262,8 +270,10 @@
   text-transform: uppercase;
   color: var(--ev-text-muted);
   margin-bottom: 0.5rem;
-  animation: ev-fadeInDown 0.4s ease both;
-  animation-delay: 0.1s;
+  opacity: 0;
+}
+.ev-visible .ev-unlock-cards-header {
+  animation: ev-fadeInDown 0.4s ease 0.1s both;
 }
 
 .ev-unlock-card {
@@ -276,12 +286,13 @@
   position: relative;
   overflow: hidden;
   opacity: 0;
-  animation: ev-fadeInUp 0.5s ease both;
 }
 
-.ev-unlock-card:nth-child(2) { animation-delay: 0.15s; }
-.ev-unlock-card:nth-child(3) { animation-delay: 0.3s; }
-.ev-unlock-card:nth-child(4) { animation-delay: 0.45s; }
+/* Entrance animation — triggered only when zone becomes visible */
+.ev-visible .ev-unlock-card { animation: ev-fadeInUp 0.5s ease both; }
+.ev-visible .ev-unlock-card:nth-child(2) { animation-delay: 0.15s; }
+.ev-visible .ev-unlock-card:nth-child(3) { animation-delay: 0.3s; }
+.ev-visible .ev-unlock-card:nth-child(4) { animation-delay: 0.45s; }
 
 .ev-unlock-card::before {
   content: '';
@@ -1239,12 +1250,13 @@
    ════════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: reduce) {
-  .ev-fenix-avatar,
+  .ev-fenix-avatar {
+    animation: none !important;
+  }
   .ev-fenix-avatar-wrap,
   .ev-fenix-intro-title,
   .ev-fenix-positioning,
   .ev-fenix-opening-frame-wrap,
-  .ev-fenix-pills,
   .ev-fenix-pill,
   .ev-unlock-cards-header,
   .ev-unlock-card,
@@ -1252,6 +1264,7 @@
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+    transition: none !important;
   }
 }
 

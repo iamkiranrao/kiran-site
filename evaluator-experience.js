@@ -85,6 +85,23 @@
     buildFenixColumn(rightCol);
     buildUnlockCards(leftCol);
 
+    // Scroll-triggered entrance animations via IntersectionObserver
+    var zone = document.querySelector('.fenix-intro-zone');
+    if (zone && 'IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            zone.classList.add('ev-visible');
+            observer.disconnect(); // Only trigger once
+          }
+        });
+      }, { threshold: 0.15 }); // Trigger when 15% of zone is visible
+      observer.observe(zone);
+    } else if (zone) {
+      // Fallback: show immediately if no IntersectionObserver support
+      zone.classList.add('ev-visible');
+    }
+
     // Restore state if already connected
     if (state.connectedName) {
       applyConnectedState();
