@@ -310,7 +310,8 @@
     clone.offsetHeight;
 
     // Animate using Web Animations API for smooth arc
-    // Three-phase: lift off (slow), cruise (steady), land & dissolve (ease out)
+    // Deliberately slow so the user's eye can track the full journey:
+    // lift off → rise → hang at peak → descend → dissolve on landing
     var keyframes = [
       {
         left: startRect.left + 'px',
@@ -323,34 +324,41 @@
         left: (startRect.left + midX) / 2 + 'px',
         top: (startRect.top + midY) / 2 + 'px',
         opacity: 1,
-        transform: 'scale(0.92)',
-        offset: 0.2
+        transform: 'scale(0.95)',
+        offset: 0.15
       },
       {
         left: midX + 'px',
         top: midY + 'px',
-        opacity: 0.9,
-        transform: 'scale(0.82)',
-        offset: 0.5
+        opacity: 1,
+        transform: 'scale(0.88)',
+        offset: 0.4
+      },
+      {
+        left: midX + (endX - midX) * 0.3 + 'px',
+        top: midY + 'px',
+        opacity: 1,
+        transform: 'scale(0.85)',
+        offset: 0.55
       },
       {
         left: (midX + endX) / 2 + 'px',
         top: (midY + endY) / 2 + 20 + 'px',
-        opacity: 0.7,
-        transform: 'scale(0.75)',
+        opacity: 0.8,
+        transform: 'scale(0.78)',
         offset: 0.75
       },
       {
         left: endX + 'px',
         top: endY + 'px',
         opacity: 0,
-        transform: 'scale(0.6)',
+        transform: 'scale(0.65)',
         offset: 1
       }
     ];
 
     var animation = clone.animate(keyframes, {
-      duration: 750,
+      duration: 1200,
       easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       fill: 'forwards'
     });
