@@ -360,7 +360,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ev-text-muted);
+  color: var(--ev-text-secondary);
   margin-bottom: 0.75rem;
   opacity: 0;
   transform: translateY(-12px);
