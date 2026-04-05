@@ -414,7 +414,7 @@
     var cardsWrap = el('div', 'ev-unlock-cards');
 
     // Section header
-    cardsWrap.appendChild(el('div', 'ev-unlock-cards-header', { text: 'Your Unlocks' }));
+    cardsWrap.appendChild(el('div', 'ev-unlock-cards-header', { text: 'The following features have been curated for you' }));
 
     var cards = [
       {
