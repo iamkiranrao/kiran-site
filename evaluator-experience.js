@@ -263,6 +263,95 @@
     messageArea.scrollTop = messageArea.scrollHeight;
   }
 
+  // ── Fly-to-Chat Animation ─────────────────────────
+  // Clones a card's title text, animates it in an arc from the card
+  // to the chat message area, then dissolves into a visitor message bubble.
+
+  function flyCardToChat(cardEl, titleText, messageArea, callback) {
+    var titleEl = cardEl.querySelector('.ev-card-title');
+    if (!titleEl || !messageArea) {
+      // Fallback: skip animation, just add message
+      addVisitorMessage(messageArea, titleText);
+      if (callback) callback();
+      return;
+    }
+
+    var startRect = titleEl.getBoundingClientRect();
+    var endRect = messageArea.getBoundingClientRect();
+
+    // Create the flying clone
+    var clone = document.createElement('div');
+    clone.className = 'ev-fly-clone';
+    clone.textContent = titleText;
+
+    // Position at the source card title
+    clone.style.position = 'fixed';
+    clone.style.left = startRect.left + 'px';
+    clone.style.top = startRect.top + 'px';
+    clone.style.width = startRect.width + 'px';
+    clone.style.zIndex = '10000';
+
+    document.body.appendChild(clone);
+
+    // Card press feedback
+    cardEl.classList.add('ev-card-departing');
+
+    // Calculate end position (land near top-right of message area)
+    var endX = endRect.left + 16;
+    var endY = endRect.bottom - 40;
+
+    // Arc midpoint — rise above both start and end
+    var midX = (startRect.left + endX) / 2;
+    var midY = Math.min(startRect.top, endY) - 60;
+
+    // Force a reflow so the starting position is painted
+    clone.offsetHeight;
+
+    // Animate using Web Animations API for smooth arc
+    var keyframes = [
+      {
+        left: startRect.left + 'px',
+        top: startRect.top + 'px',
+        opacity: 1,
+        transform: 'scale(1)',
+        offset: 0
+      },
+      {
+        left: midX + 'px',
+        top: midY + 'px',
+        opacity: 0.85,
+        transform: 'scale(0.85)',
+        offset: 0.45
+      },
+      {
+        left: endX + 'px',
+        top: endY + 'px',
+        opacity: 0.3,
+        transform: 'scale(0.7)',
+        offset: 1
+      }
+    ];
+
+    var animation = clone.animate(keyframes, {
+      duration: 420,
+      easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      fill: 'forwards'
+    });
+
+    animation.onfinish = function () {
+      // Remove clone
+      if (clone.parentNode) clone.parentNode.removeChild(clone);
+
+      // Remove card feedback
+      cardEl.classList.remove('ev-card-departing');
+
+      // Now add the real visitor message (appears where clone landed)
+      addVisitorMessage(messageArea, titleText);
+
+      if (callback) callback();
+    };
+  }
+
   function handlePillClick(pill, pillContainer) {
     var messageArea = document.querySelector('.ev-chat-messages');
     if (!messageArea) return;
@@ -361,16 +450,21 @@
       // CTA (shown on hover via CSS)
       cardEl.appendChild(el('div', 'ev-card-cta', { text: card.cta }));
 
-      // Click handler — also triggers Fenix message for cross-connection
+      // Click handler — fly card title to chat, then open panel
       cardEl.addEventListener('click', function () {
         var messageArea = document.querySelector('.ev-chat-messages');
         if (messageArea) {
-          addVisitorMessage(messageArea, card.title);
           // Hide pills if still visible
           var pillContainer = document.querySelector('.ev-chat-pills');
           if (pillContainer) pillContainer.classList.add('ev-pills-hidden');
+
+          // Fly the card title into the chat, then open the panel on landing
+          flyCardToChat(cardEl, card.title, messageArea, function () {
+            showPanel(card.action);
+          });
+        } else {
+          showPanel(card.action);
         }
-        showPanel(card.action);
       });
 
       cardEl.addEventListener('keydown', function (e) {
