@@ -486,6 +486,9 @@
       // Click handler — fly card title to chat, then open panel
       // Matching pill fades out; other pills stay for continued conversation
       cardEl.addEventListener('click', function () {
+        // Mark card as visited (shows checkmark)
+        cardEl.classList.add('ev-card-visited');
+
         var messageArea = document.querySelector('.ev-chat-messages');
         if (messageArea) {
           // Fade out the matching pill (same action = same intent, no need to show it twice)
