@@ -189,17 +189,17 @@
 /* Landing effect — jiggle + accent stroke when a card flies in */
 .ev-msg-landed .ev-msg-content {
   border-color: var(--ev-accent) !important;
-  box-shadow: 0 0 12px var(--ev-accent-glow), 0 0 24px rgba(123, 154, 204, 0.06);
-  animation: ev-jiggle 0.5s ease 0.05s;
+  box-shadow: 0 0 16px var(--ev-accent-glow), 0 0 32px rgba(123, 154, 204, 0.08);
+  animation: ev-jiggle 0.65s ease;
 }
 
 @keyframes ev-jiggle {
-  0%   { transform: translateX(0); }
-  15%  { transform: translateX(5px); }
-  30%  { transform: translateX(-4px); }
-  45%  { transform: translateX(3px); }
-  60%  { transform: translateX(-2px); }
-  75%  { transform: translateX(1px); }
+  0%   { transform: translateX(0) scale(1.03); }
+  12%  { transform: translateX(7px) scale(1.01); }
+  28%  { transform: translateX(-5px); }
+  42%  { transform: translateX(4px); }
+  58%  { transform: translateX(-2.5px); }
+  72%  { transform: translateX(1.5px); }
   100% { transform: translateX(0); }
 }
 
