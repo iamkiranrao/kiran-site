@@ -454,6 +454,29 @@
   transition-duration: 0.1s;
 }
 
+/* Card departure pulse — plays while title flies to chat */
+.ev-unlock-card.ev-card-departing {
+  transform: scale(0.97);
+  border-color: var(--ev-accent);
+  box-shadow: 0 0 20px var(--ev-accent-glow);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Flying clone — the title text in transit */
+.ev-fly-clone {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ev-text-primary);
+  font-family: 'Inter', sans-serif;
+  background: var(--ev-accent-glow);
+  border: 1px solid var(--ev-accent-border);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(123, 154, 204, 0.25), 0 0 40px rgba(123, 154, 204, 0.1);
+}
+
 /* Connected (locked) card */
 .ev-unlock-card.ev-locked {
   opacity: 0.75;
@@ -1322,7 +1345,8 @@
   .ev-unlock-cards-header,
   .ev-unlock-card,
   .ev-msg,
-  .ev-narration-line {
+  .ev-narration-line,
+  .ev-fly-clone {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
