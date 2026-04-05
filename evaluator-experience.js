@@ -190,7 +190,7 @@
       { text: 'Show me resume options', action: 'resume', locked: false },
       { text: 'What should I be asking?', action: 'questions', locked: false },
       { text: 'How would we evaluate each other?', action: 'connect', locked: !state.connectedName },
-      { text: 'Something else', action: 'tour', locked: false }
+      { text: 'Give me a quick tour', action: 'tour', locked: false }
     ];
 
     pills.forEach(function (pill) {
@@ -466,13 +466,10 @@
       cardEl.appendChild(el('div', 'ev-card-cta', { text: card.cta }));
 
       // Click handler — fly card title to chat, then open panel
+      // Pills stay visible — the chat remains conversational even after card clicks
       cardEl.addEventListener('click', function () {
         var messageArea = document.querySelector('.ev-chat-messages');
         if (messageArea) {
-          // Hide pills if still visible
-          var pillContainer = document.querySelector('.ev-chat-pills');
-          if (pillContainer) pillContainer.classList.add('ev-pills-hidden');
-
           // Fly the card title into the chat, then open the panel on landing
           flyCardToChat(cardEl, card.title, messageArea, function () {
             showPanel(card.action);
