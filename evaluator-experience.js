@@ -300,14 +300,15 @@
     var endX = endRect.left + 16;
     var endY = endRect.bottom - 40;
 
-    // Arc midpoint — rise above both start and end
+    // Arc midpoint — rise above both start and end, exaggerated for visibility
     var midX = (startRect.left + endX) / 2;
-    var midY = Math.min(startRect.top, endY) - 60;
+    var midY = Math.min(startRect.top, endY) - 100;
 
     // Force a reflow so the starting position is painted
     clone.offsetHeight;
 
     // Animate using Web Animations API for smooth arc
+    // Three-phase: lift off (slow), cruise (steady), land & dissolve (ease out)
     var keyframes = [
       {
         left: startRect.left + 'px',
@@ -317,24 +318,38 @@
         offset: 0
       },
       {
+        left: (startRect.left + midX) / 2 + 'px',
+        top: (startRect.top + midY) / 2 + 'px',
+        opacity: 1,
+        transform: 'scale(0.92)',
+        offset: 0.2
+      },
+      {
         left: midX + 'px',
         top: midY + 'px',
-        opacity: 0.85,
-        transform: 'scale(0.85)',
-        offset: 0.45
+        opacity: 0.9,
+        transform: 'scale(0.82)',
+        offset: 0.5
+      },
+      {
+        left: (midX + endX) / 2 + 'px',
+        top: (midY + endY) / 2 + 20 + 'px',
+        opacity: 0.7,
+        transform: 'scale(0.75)',
+        offset: 0.75
       },
       {
         left: endX + 'px',
         top: endY + 'px',
-        opacity: 0.3,
-        transform: 'scale(0.7)',
+        opacity: 0,
+        transform: 'scale(0.6)',
         offset: 1
       }
     ];
 
     var animation = clone.animate(keyframes, {
-      duration: 420,
-      easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      duration: 750,
+      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       fill: 'forwards'
     });
 
