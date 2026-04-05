@@ -186,6 +186,23 @@
   background: rgba(0, 0, 0, 0.04);
 }
 
+/* Landing effect — jiggle + accent stroke when a card flies in */
+.ev-msg-landed .ev-msg-content {
+  border-color: var(--ev-accent) !important;
+  box-shadow: 0 0 12px var(--ev-accent-glow), 0 0 24px rgba(123, 154, 204, 0.06);
+  animation: ev-jiggle 0.5s ease 0.05s;
+}
+
+@keyframes ev-jiggle {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(5px); }
+  30%  { transform: translateX(-4px); }
+  45%  { transform: translateX(3px); }
+  60%  { transform: translateX(-2px); }
+  75%  { transform: translateX(1px); }
+  100% { transform: translateX(0); }
+}
+
 /* ── Chat Pills (suggested prompts, one-shot) ── */
 .ev-chat-pills {
   display: flex;
@@ -230,6 +247,19 @@
 
 .ev-chat-pill:active {
   transform: scale(0.97);
+}
+
+/* Pill consumed — matching card was clicked, fade it out */
+.ev-chat-pill.ev-pill-used {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+  max-width: 0;
+  padding: 0;
+  margin: 0;
+  border-width: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, max-width 0.4s ease 0.15s, padding 0.4s ease 0.15s, border-width 0.3s ease;
 }
 
 .ev-chat-pill.ev-locked {

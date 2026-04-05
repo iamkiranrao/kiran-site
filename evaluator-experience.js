@@ -196,6 +196,7 @@
     pills.forEach(function (pill) {
       var btn = el('button', 'ev-chat-pill');
       btn.textContent = pill.text;
+      btn.setAttribute('data-action', pill.action);
 
       if (pill.locked) {
         btn.classList.add('ev-locked');
@@ -261,6 +262,7 @@
     bubble.appendChild(content);
     messageArea.appendChild(bubble);
     messageArea.scrollTop = messageArea.scrollHeight;
+    return bubble;
   }
 
   // ── Fly-to-Chat Animation ─────────────────────────
@@ -360,8 +362,16 @@
       // Remove card feedback
       cardEl.classList.remove('ev-card-departing');
 
-      // Now add the real visitor message (appears where clone landed)
-      addVisitorMessage(messageArea, titleText);
+      // Now add the real visitor message with landing effect
+      var bubble = addVisitorMessage(messageArea, titleText);
+      if (bubble) {
+        // Accent stroke + jiggle to complete the "it landed" effect
+        bubble.classList.add('ev-msg-landed');
+        // Remove the landed class after animation completes
+        setTimeout(function () {
+          bubble.classList.remove('ev-msg-landed');
+        }, 800);
+      }
 
       if (callback) callback();
     };
@@ -466,10 +476,16 @@
       cardEl.appendChild(el('div', 'ev-card-cta', { text: card.cta }));
 
       // Click handler — fly card title to chat, then open panel
-      // Pills stay visible — the chat remains conversational even after card clicks
+      // Matching pill fades out; other pills stay for continued conversation
       cardEl.addEventListener('click', function () {
         var messageArea = document.querySelector('.ev-chat-messages');
         if (messageArea) {
+          // Fade out the matching pill (same action = same intent, no need to show it twice)
+          var matchingPill = document.querySelector('.ev-chat-pill[data-action="' + card.action + '"]');
+          if (matchingPill) {
+            matchingPill.classList.add('ev-pill-used');
+          }
+
           // Fly the card title into the chat, then open the panel on landing
           flyCardToChat(cardEl, card.title, messageArea, function () {
             showPanel(card.action);
