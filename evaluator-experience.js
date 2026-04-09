@@ -116,6 +116,128 @@
   }
 
 
+  // ── Dynamic Pills — State Machine ────────────────
+  // Returns contextual pill set based on what the visitor has explored.
+  // Backend can override with suggested_pills SSE event.
+
+  function getDefaultPills() {
+    var ex = fenixState.explored;
+    var connected = fenixState.visitor.connected;
+    var msgs = ex.messagesExchanged;
+    var pills = [];
+
+    // Near message cap — nudge toward connect or wrap up
+    if (msgs >= 25 && !connected) {
+      return [
+        { text: 'Let\u2019s connect before I go', action: 'agent' },
+        { text: 'How would we evaluate each other?', action: 'agent', locked: true }
+      ];
+    }
+
+    // Post-connect: shift toward deeper exploration
+    if (connected) {
+      if (!ex.fitScoreStarted) {
+        pills.push({ text: 'Let\u2019s evaluate fit', action: 'agent' });
+      }
+      if (!ex.resumeLensSelected) {
+        pills.push({ text: 'Show me resume options', action: 'agent' });
+      }
+      if (ex.panelsOpened.indexOf('resume') !== -1 && ex.panelsOpened.indexOf('questions') === -1) {
+        pills.push({ text: 'What questions do recruiters ask?', action: 'agent' });
+      }
+      if (pills.length < 3) {
+        pills.push({ text: 'What makes Kiran different?', action: 'agent' });
+      }
+      return pills.slice(0, 4);
+    }
+
+    // Resume was explored — suggest next steps
+    if (ex.panelsOpened.indexOf('resume') !== -1) {
+      if (!ex.resumeLensSelected || ex.resumeLensSelected === 'ai') {
+        pills.push({ text: 'Show me the growth lens', action: 'agent' });
+      }
+      if (!ex.resumeLensSelected || ex.resumeLensSelected === 'growth') {
+        pills.push({ text: 'Show me the AI lens', action: 'agent' });
+      }
+      if (ex.panelsOpened.indexOf('questions') === -1) {
+        pills.push({ text: 'What questions do recruiters ask?', action: 'agent' });
+      }
+      pills.push({ text: 'Tell me about his work history', action: 'agent' });
+      // Add connect nudge after enough engagement
+      if (msgs >= 3) {
+        pills.push({ text: 'How would we evaluate each other?', action: 'agent', locked: true });
+      }
+      return pills.slice(0, 4);
+    }
+
+    // Questions panel was explored but not resume
+    if (ex.panelsOpened.indexOf('questions') !== -1 && ex.panelsOpened.indexOf('resume') === -1) {
+      pills.push({ text: 'Show me resume options', action: 'agent' });
+      pills.push({ text: 'What\u2019s his management style?', action: 'agent' });
+      if (msgs >= 3) {
+        pills.push({ text: 'How would we evaluate each other?', action: 'agent', locked: true });
+      }
+      return pills.slice(0, 4);
+    }
+
+    // Mid-conversation — some messages but no panels yet
+    if (msgs >= 1) {
+      pills.push({ text: 'Show me resume options', action: 'agent' });
+      pills.push({ text: 'Tell me about his AI work', action: 'agent' });
+      if (ex.cardsClicked.length === 0) {
+        pills.push({ text: 'Give me a quick tour', action: 'agent' });
+      }
+      if (msgs >= 3) {
+        pills.push({ text: 'How would we evaluate each other?', action: 'agent', locked: true });
+      }
+      return pills.slice(0, 4);
+    }
+
+    // Opening state — nothing explored yet
+    return [
+      { text: 'Show me resume options', action: 'resume', locked: false },
+      { text: 'What should I be asking?', action: 'questions', locked: false },
+      { text: 'How would we evaluate each other?', action: 'connect', locked: !connected },
+      { text: 'Give me a quick tour', action: 'tour', locked: false }
+    ];
+  }
+
+  function updatePills(newPills) {
+    var container = document.querySelector('.ev-chat-pills');
+    if (!container) return;
+
+    // Fade out current pills
+    container.classList.add('ev-pills-swapping');
+
+    setTimeout(function () {
+      // Clear existing pills
+      container.innerHTML = '';
+
+      // Build new pills
+      newPills.forEach(function (pill) {
+        var btn = el('button', 'ev-chat-pill');
+        btn.textContent = pill.text;
+        btn.setAttribute('data-action', pill.action || 'agent');
+
+        if (pill.locked) {
+          btn.classList.add('ev-locked');
+          var badge = el('span', 'ev-lock-badge', { text: '\uD83D\uDD12' });
+          btn.appendChild(badge);
+        }
+
+        btn.addEventListener('click', function () {
+          handlePillClick(pill, container);
+        });
+
+        container.appendChild(btn);
+      });
+
+      // Fade in new pills
+      container.classList.remove('ev-pills-swapping');
+    }, 200); // Match CSS transition duration
+  }
+
+
   // ── Tool Executors ────────────────────────────────
   // Maps Claude tool_use calls to actual page actions.
   // Each returns a string result sent back to the backend.
@@ -297,6 +419,7 @@
     var currentBubble = null;
     var currentContent = null;
     var streamedText = '';
+    var pendingSuggestedPills = null;
 
     function handleAgentEvent(data, msgArea) {
       switch (data.type) {
@@ -344,6 +467,19 @@
           }
           break;
 
+        case 'suggested_pills':
+          // Backend override — Claude suggested contextual pills
+          if (data.pills && data.pills.length > 0) {
+            pendingSuggestedPills = data.pills.map(function (p) {
+              return {
+                text: typeof p === 'string' ? p : p.text,
+                action: (p && p.action) || 'agent',
+                locked: !!(p && p.locked)
+              };
+            });
+          }
+          break;
+
         case 'error':
           addFenixMessage(msgArea, data.message || 'Something went wrong on my end.');
           break;
@@ -354,6 +490,13 @@
           fenixState.ui.fenixTyping = false;
           setInputEnabled(true);
           saveFenixState();
+          // Update pills: use backend suggestions if available, else state machine
+          if (pendingSuggestedPills) {
+            updatePills(pendingSuggestedPills);
+            pendingSuggestedPills = null;
+          } else {
+            updatePills(getDefaultPills());
+          }
           break;
       }
     }

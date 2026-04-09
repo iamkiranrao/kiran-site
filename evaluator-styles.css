@@ -222,6 +222,13 @@
   pointer-events: none;
 }
 
+.ev-chat-pills.ev-pills-swapping {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
+
 .ev-chat-pill {
   background: transparent;
   border: 1px solid var(--ev-border);
