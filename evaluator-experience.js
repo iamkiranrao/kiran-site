@@ -58,7 +58,16 @@
   var FENIX_AGENT_URL = 'https://api.kirangorapalli.com/api/v1/fenix/agent';
   var FENIX_MSG_CAP = 30;
 
+  // Generate a UUID v4 for session tracking
+  function generateSessionId() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
   var fenixState = {
+    sessionId: null,    // Set on init or restored from sessionStorage
     messages: [],       // Full conversation history (message objects)
     visitor: {
       persona: 'evaluator',
@@ -90,16 +99,22 @@
       if (saved) {
         var parsed = JSON.parse(saved);
         // Merge — don't overwrite functions or defaults
+        fenixState.sessionId = parsed.sessionId || null;
         fenixState.messages = parsed.messages || [];
         fenixState.visitor = parsed.visitor || fenixState.visitor;
         fenixState.explored = parsed.explored || fenixState.explored;
       }
     } catch (e) { /* ignore */ }
+    // Ensure we always have a session ID
+    if (!fenixState.sessionId) {
+      fenixState.sessionId = generateSessionId();
+    }
   })();
 
   function saveFenixState() {
     try {
       sessionStorage.setItem('fenixState', JSON.stringify({
+        sessionId: fenixState.sessionId,
         messages: fenixState.messages.slice(-40), // Cap stored messages
         visitor: fenixState.visitor,
         explored: fenixState.explored
@@ -347,7 +362,10 @@
         };
       }),
       visitor: fenixState.visitor,
-      explored: fenixState.explored
+      explored: fenixState.explored,
+      session_id: fenixState.sessionId,
+      page_url: window.location.href,
+      user_agent: navigator.userAgent
     };
 
     // Create a placeholder Fenix bubble for streaming
@@ -423,6 +441,12 @@
 
     function handleAgentEvent(data, msgArea) {
       switch (data.type) {
+        case 'session':
+          // Backend confirms session — store the IDs
+          if (data.session_id) fenixState.sessionId = data.session_id;
+          saveFenixState();
+          break;
+
         case 'text_start':
           // Create a new Fenix message bubble for streaming
           currentBubble = el('div', 'ev-msg ev-msg-fenix');
