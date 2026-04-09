@@ -52,6 +52,357 @@
     connectedEmail: localStorage.getItem('evaluator_email')
   };
 
+  // ── Fenix Agent State ─────────────────────────────
+  // Persistent conversation state sent to the backend with each request.
+  // SessionStorage: survives page nav within the tab, gone on tab close.
+  var FENIX_AGENT_URL = 'https://api.kirangorapalli.com/api/v1/fenix/agent';
+  var FENIX_MSG_CAP = 30;
+
+  var fenixState = {
+    messages: [],       // Full conversation history (message objects)
+    visitor: {
+      persona: 'evaluator',
+      name: null,
+      company: null,
+      email: null,
+      connected: false
+    },
+    explored: {
+      cardsClicked: [],
+      panelsOpened: [],
+      resumeLensSelected: null,
+      fitScoreStarted: false,
+      pillsUsed: [],
+      messagesExchanged: 0
+    },
+    ui: {
+      currentPanel: null,
+      pillsVisible: true,
+      inputEnabled: true,
+      fenixTyping: false
+    }
+  };
+
+  // Restore from sessionStorage if available
+  (function restoreFenixState() {
+    try {
+      var saved = sessionStorage.getItem('fenixState');
+      if (saved) {
+        var parsed = JSON.parse(saved);
+        // Merge — don't overwrite functions or defaults
+        fenixState.messages = parsed.messages || [];
+        fenixState.visitor = parsed.visitor || fenixState.visitor;
+        fenixState.explored = parsed.explored || fenixState.explored;
+      }
+    } catch (e) { /* ignore */ }
+  })();
+
+  function saveFenixState() {
+    try {
+      sessionStorage.setItem('fenixState', JSON.stringify({
+        messages: fenixState.messages.slice(-40), // Cap stored messages
+        visitor: fenixState.visitor,
+        explored: fenixState.explored
+      }));
+    } catch (e) { /* ignore */ }
+  }
+
+  // Sync connect state into fenixState
+  if (state.connectedName) {
+    fenixState.visitor.name = state.connectedName;
+    fenixState.visitor.company = state.connectedCompany;
+    fenixState.visitor.email = state.connectedEmail;
+    fenixState.visitor.connected = true;
+  }
+
+
+  // ── Tool Executors ────────────────────────────────
+  // Maps Claude tool_use calls to actual page actions.
+  // Each returns a string result sent back to the backend.
+  var toolExecutors = {
+    open_panel: function (args) {
+      showPanel(args.panel);
+      fenixState.explored.panelsOpened.push(args.panel);
+      fenixState.ui.currentPanel = args.panel;
+      return 'Opened the ' + args.panel + ' panel';
+    },
+
+    close_panel: function () {
+      closePanel();
+      fenixState.ui.currentPanel = null;
+      return 'Panel closed';
+    },
+
+    select_resume_lens: function (args) {
+      // Open resume panel first if not already open
+      if (fenixState.ui.currentPanel !== 'resume') {
+        showPanel('resume');
+        fenixState.explored.panelsOpened.push('resume');
+        fenixState.ui.currentPanel = 'resume';
+      }
+      // Select the lens
+      var lensCard = document.querySelector('.ev-lens-card[data-lens="' + args.lens + '"]');
+      if (lensCard) {
+        lensCard.click();
+        fenixState.explored.resumeLensSelected = args.lens;
+        return 'Selected the ' + args.lens.toUpperCase() + ' resume lens';
+      }
+      return 'Resume panel open but lens card not found';
+    },
+
+    scroll_to_section: function (args) {
+      var sectionMap = {
+        'about': '#about',
+        'work': '#work',
+        'numbers': '#numbers',
+        'contact': '#contact'
+      };
+      var selector = sectionMap[args.section];
+      if (selector) {
+        var target = document.querySelector(selector);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return 'Scrolled to ' + args.section;
+        }
+      }
+      return 'Section "' + args.section + '" not found';
+    },
+
+    get_visitor_context: function () {
+      return JSON.stringify(fenixState.explored);
+    },
+
+    start_fit_score: function () {
+      if (!fenixState.visitor.connected) {
+        showPanel('connect');
+        fenixState.ui.currentPanel = 'connect';
+        return 'Visitor not connected yet — opened the connect panel';
+      }
+      showPanel('connect'); // Shows JD input when connected
+      fenixState.explored.fitScoreStarted = true;
+      fenixState.ui.currentPanel = 'connect';
+      return 'Opened the Fit Score JD input';
+    }
+  };
+
+
+  // ── Agent Communication Layer ─────────────────────
+  // Handles the full SSE stream from the agent endpoint:
+  // text_start → text_delta → text_end → tool_use → done
+
+  function sendToAgent(userText, messageArea) {
+    if (!fenixState.ui.inputEnabled) return;
+    if (fenixState.explored.messagesExchanged >= FENIX_MSG_CAP) {
+      addSystemMessage(messageArea, 'We\'ve had a great conversation. Want to continue it in person?');
+      if (!fenixState.visitor.connected) {
+        showPanel('connect');
+      }
+      return;
+    }
+
+    // Record the visitor message in state
+    fenixState.messages.push({
+      role: 'visitor',
+      type: 'text',
+      content: userText,
+      timestamp: Date.now()
+    });
+    fenixState.explored.messagesExchanged++;
+
+    // Disable input while Fenix is thinking
+    fenixState.ui.inputEnabled = false;
+    fenixState.ui.fenixTyping = true;
+    setInputEnabled(false);
+
+    // Build the request payload
+    var payload = {
+      messages: fenixState.messages.filter(function (m) {
+        return m.type === 'text';
+      }).map(function (m) {
+        return {
+          role: m.role === 'visitor' ? 'user' : 'assistant',
+          content: m.content
+        };
+      }),
+      visitor: fenixState.visitor,
+      explored: fenixState.explored
+    };
+
+    // Create a placeholder Fenix bubble for streaming
+    var fenixBubble = null;
+    var fenixContent = null;
+    var fullResponse = '';
+
+    fetch(FENIX_AGENT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (response) {
+      if (!response.ok) throw new Error('Agent API returned ' + response.status);
+
+      var reader = response.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
+
+      function readStream() {
+        return reader.read().then(function (result) {
+          if (result.done) {
+            // Stream finished — finalize
+            if (fullResponse) {
+              fenixState.messages.push({
+                role: 'fenix',
+                type: 'text',
+                content: fullResponse,
+                timestamp: Date.now()
+              });
+            }
+            fenixState.ui.inputEnabled = true;
+            fenixState.ui.fenixTyping = false;
+            setInputEnabled(true);
+            saveFenixState();
+            return;
+          }
+
+          buffer += decoder.decode(result.value, { stream: true });
+          var events = buffer.split('\n\n');
+          buffer = events.pop(); // Keep incomplete event in buffer
+
+          events.forEach(function (eventStr) {
+            if (!eventStr.trim()) return;
+            var lines = eventStr.split('\n');
+            lines.forEach(function (line) {
+              if (line.indexOf('data: ') !== 0) return;
+              try {
+                var data = JSON.parse(line.substring(6));
+                handleAgentEvent(data, messageArea);
+              } catch (e) { /* ignore parse errors on partial chunks */ }
+            });
+          });
+
+          return readStream();
+        });
+      }
+
+      return readStream();
+    }).catch(function (err) {
+      console.error('Fenix agent error:', err);
+      addFenixMessage(messageArea, 'I\'m having a moment — couldn\'t connect to my brain. Try again in a sec, or use the cards on the left to explore directly.');
+      fenixState.ui.inputEnabled = true;
+      fenixState.ui.fenixTyping = false;
+      setInputEnabled(true);
+    });
+
+    // ── SSE Event Handler ──
+    // Manages the streaming lifecycle and tool execution loop
+    var currentBubble = null;
+    var currentContent = null;
+    var streamedText = '';
+
+    function handleAgentEvent(data, msgArea) {
+      switch (data.type) {
+        case 'text_start':
+          // Create a new Fenix message bubble for streaming
+          currentBubble = el('div', 'ev-msg ev-msg-fenix');
+          var avatar = el('img', 'ev-msg-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+          currentContent = el('div', 'ev-msg-content ev-streaming');
+          currentBubble.appendChild(avatar);
+          currentBubble.appendChild(currentContent);
+          msgArea.appendChild(currentBubble);
+          msgArea.scrollTop = msgArea.scrollHeight;
+          streamedText = '';
+          break;
+
+        case 'text_delta':
+          if (currentContent) {
+            streamedText += data.content;
+            currentContent.textContent = streamedText;
+            msgArea.scrollTop = msgArea.scrollHeight;
+          }
+          break;
+
+        case 'text_end':
+          if (currentContent) {
+            currentContent.classList.remove('ev-streaming');
+          }
+          if (streamedText) {
+            fullResponse += (fullResponse ? '\n' : '') + streamedText;
+          }
+          currentBubble = null;
+          currentContent = null;
+          break;
+
+        case 'tool_use':
+          // Show thinking message
+          addToolThinkingMessage(msgArea, data.name, data.args);
+          // Execute the tool
+          var executor = toolExecutors[data.name];
+          if (executor) {
+            var result = executor(data.args || {});
+            addToolResultMessage(msgArea, data.name, result);
+          } else {
+            addToolResultMessage(msgArea, data.name, 'Unknown tool: ' + data.name);
+          }
+          break;
+
+        case 'error':
+          addFenixMessage(msgArea, data.message || 'Something went wrong on my end.');
+          break;
+
+        case 'done':
+          // Final cleanup — re-enable input
+          fenixState.ui.inputEnabled = true;
+          fenixState.ui.fenixTyping = false;
+          setInputEnabled(true);
+          saveFenixState();
+          break;
+      }
+    }
+  }
+
+  // ── Input state management ────────────────────────
+  function setInputEnabled(enabled) {
+    var input = document.querySelector('.ev-chat-input');
+    var sendBtn = document.querySelector('.ev-chat-send');
+    if (input) {
+      input.disabled = !enabled;
+      input.placeholder = enabled ? 'Ask me anything...' : 'Fenix is thinking...';
+    }
+    if (sendBtn) {
+      sendBtn.disabled = !enabled;
+    }
+  }
+
+  // ── Special Message Types ─────────────────────────
+  function addToolThinkingMessage(messageArea, toolName, args) {
+    var toolLabels = {
+      open_panel: 'Opening ' + (args && args.panel ? args.panel : '') + ' panel...',
+      close_panel: 'Closing the panel...',
+      select_resume_lens: 'Selecting the ' + (args && args.lens ? args.lens.toUpperCase() : '') + ' resume...',
+      scroll_to_section: 'Scrolling to ' + (args && args.section ? args.section : '') + '...',
+      get_visitor_context: 'Checking what you\'ve explored...',
+      start_fit_score: 'Setting up the Fit Score...'
+    };
+    var text = toolLabels[toolName] || 'Working on something...';
+    var msg = el('div', 'ev-msg ev-msg-tool-thinking');
+    msg.textContent = text;
+    messageArea.appendChild(msg);
+    messageArea.scrollTop = messageArea.scrollHeight;
+  }
+
+  function addToolResultMessage(messageArea, toolName, result) {
+    var msg = el('div', 'ev-msg ev-msg-tool-result');
+    msg.textContent = '\u2713 ' + result;
+    messageArea.appendChild(msg);
+    messageArea.scrollTop = messageArea.scrollHeight;
+  }
+
+  function addSystemMessage(messageArea, text) {
+    var msg = el('div', 'ev-msg ev-msg-system');
+    msg.textContent = text;
+    messageArea.appendChild(msg);
+    messageArea.scrollTop = messageArea.scrollHeight;
+  }
+
   // ── Utility ────────────────────────────────────────
   function el(tag, cls, attrs) {
     var node = document.createElement(tag);
@@ -224,10 +575,7 @@
       if (!text) return;
       addVisitorMessage(messageArea, text);
       inputField.value = '';
-      // Stubbed Fenix response — backend integration is a separate workstream
-      setTimeout(function () {
-        addFenixMessage(messageArea, 'I\'m still learning to think on my feet — for now, try one of the quick options above, or click an unlock card on the left. Full conversation mode is coming soon.');
-      }, 600);
+      sendToAgent(text, messageArea);
     }
 
     sendBtn.addEventListener('click', handleSend);
@@ -392,17 +740,15 @@
     // Pill text becomes visitor message
     addVisitorMessage(messageArea, pill.text);
 
-    // Remove all pills (one-shot starters)
-    pillContainer.classList.add('ev-pills-hidden');
+    // Track pill usage
+    fenixState.explored.pillsUsed.push(pill.action);
 
-    // Trigger the panel action after a beat
-    setTimeout(function () {
-      if (pill.action === 'tour') {
-        addFenixMessage(messageArea, 'Let me show you around. This site has three resume lenses, a set of honest Q&As that go beyond the standard interview, and — if you connect — a mutual Fit Score. What catches your eye?');
-      } else {
-        showPanel(pill.action);
-      }
-    }, 400);
+    // Mark this pill as used (fade out)
+    var pillBtn = pillContainer.querySelector('[data-action="' + pill.action + '"]');
+    if (pillBtn) pillBtn.classList.add('ev-pill-used');
+
+    // Route through the agent — Fenix decides what to do
+    sendToAgent(pill.text, messageArea);
   }
 
 
@@ -483,11 +829,14 @@
       // CTA (shown on hover via CSS)
       cardEl.appendChild(el('div', 'ev-card-cta', { text: card.cta }));
 
-      // Click handler — fly card title to chat, then open panel
+      // Click handler — fly card title to chat, then route through Fenix agent
       // Matching pill fades out; other pills stay for continued conversation
       cardEl.addEventListener('click', function () {
         // Mark card as visited (shows checkmark)
         cardEl.classList.add('ev-card-visited');
+
+        // Track in fenixState
+        fenixState.explored.cardsClicked.push(card.id);
 
         var messageArea = document.querySelector('.ev-chat-messages');
         if (messageArea) {
@@ -497,9 +846,9 @@
             matchingPill.classList.add('ev-pill-used');
           }
 
-          // Fly the card title into the chat, then open the panel on landing
+          // Fly the card title into the chat, then send to agent on landing
           flyCardToChat(cardEl, card.title, messageArea, function () {
-            showPanel(card.action);
+            sendToAgent(card.title, messageArea);
           });
         } else {
           showPanel(card.action);
@@ -757,6 +1106,13 @@
     state.connectedName = name;
     state.connectedCompany = company;
     state.connectedEmail = email;
+
+    // Sync to fenixState so the agent knows
+    fenixState.visitor.name = name;
+    fenixState.visitor.company = company;
+    fenixState.visitor.email = email;
+    fenixState.visitor.connected = true;
+    saveFenixState();
 
     localStorage.setItem('evaluator_name', name);
     localStorage.setItem('evaluator_company', company);
@@ -1129,7 +1485,7 @@
     }
 
     // Unlock the locked pill
-    var pills = document.querySelectorAll('.ev-fenix-pill');
+    var pills = document.querySelectorAll('.ev-chat-pill');
     pills.forEach(function (pill) {
       if (pill.textContent.indexOf('evaluate each other') !== -1) {
         pill.classList.remove('ev-locked');
