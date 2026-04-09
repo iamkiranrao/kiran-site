@@ -17,6 +17,7 @@
   // ── Configuration Defaults ────────────────────────
   var DEFAULT_AGENT_URL = 'https://api.kirangorapalli.com/api/v1/fenix/agent';
   var DEFAULT_MSG_CAP = 30;
+  var _logoPath = 'images/logo.png'; // overridden by adapter.logoPath if set
 
   // ── UUID Generator ────────────────────────────────
   function generateSessionId() {
@@ -109,7 +110,7 @@
 
   function addFenixMessage(messageArea, text) {
     var bubble = el('div', 'ev-msg ev-msg-fenix');
-    var avatar = el('img', 'ev-msg-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+    var avatar = el('img', 'ev-msg-avatar', { src: _logoPath, alt: 'Fenix' });
     var content = el('div', 'ev-msg-content');
     content.textContent = text;
     bubble.appendChild(avatar);
@@ -356,7 +357,7 @@
 
         case 'text_start':
           currentBubble = el('div', 'ev-msg ev-msg-fenix');
-          var avatar = el('img', 'ev-msg-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+          var avatar = el('img', 'ev-msg-avatar', { src: _logoPath, alt: 'Fenix' });
           currentContent = el('div', 'ev-msg-content ev-streaming');
           currentBubble.appendChild(avatar);
           currentBubble.appendChild(currentContent);
@@ -449,6 +450,11 @@
     }
 
     _activeAdapter = adapter;
+
+    // Set logo path from adapter (for subpages that use relative paths)
+    if (adapter.logoPath) {
+      _logoPath = adapter.logoPath;
+    }
 
     // Apply adapter's persona to fenixState (if not already set by sessionStorage)
     if (adapter.persona && !fenixState.visitor.persona) {
