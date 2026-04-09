@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fenix Side Panel — Prototype</title>
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg-elevated: #111110;
+    --bg-panel: #0e0e0d;
+    --text: #f0e6d3;
+    --text-secondary: #a09890;
+    --text-muted: #5a5347;
+    --accent: #7B9ACC;
+    --accent-dim: rgba(123, 154, 204, 0.15);
+    --accent-glow: rgba(123, 154, 204, 0.08);
+    --border: rgba(240, 230, 211, 0.08);
+    --border-accent: rgba(123, 154, 204, 0.25);
+    --panel-width: 380px;
+    --tab-width: 44px;
+    --radius: 10px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── Mock Page Content (simulates a teardown page) ── */
+  .page-content {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 80px 32px 120px;
+    transition: margin-right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body.panel-open .page-content {
+    margin-right: calc(var(--panel-width) + 40px);
+  }
+
+  .page-breadcrumb {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+  .page-breadcrumb a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .page-breadcrumb a:hover { color: var(--text-secondary); }
+
+  .page-title {
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .page-meta {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+    display: flex;
+    gap: 16px;
+  }
+
+  .page-section-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 48px 0 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .page-body p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .page-metric-row {
+    display: flex;
+    gap: 24px;
+    margin: 32px 0;
+  }
+
+  .page-metric {
+    flex: 1;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+
+  .page-metric-value {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .page-metric-label {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .page-quote {
+    border-left: 2px solid var(--accent);
+    padding: 16px 24px;
+    margin: 32px 0;
+    background: var(--accent-glow);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  .page-quote p {
+    color: var(--text);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ── Fenix Edge Tab ── */
+  .fenix-tab {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body.panel-open .fenix-tab {
+    right: var(--panel-width);
+  }
+
+  .fenix-tab-inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-accent);
+    border-right: none;
+    border-radius: var(--radius) 0 0 var(--radius);
+    padding: 12px 14px 12px 16px;
+    transition: all 0.25s ease;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+  }
+
+  .fenix-tab:hover .fenix-tab-inner {
+    background: rgba(123, 154, 204, 0.1);
+    border-color: var(--accent);
+    padding-right: 18px;
+  }
+
+  .fenix-tab-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--bg);
+    flex-shrink: 0;
+  }
+
+  .fenix-tab-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  /* Pulse dot — indicates Fenix has context about this page */
+  .fenix-tab-pulse {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  body.panel-open .fenix-tab-pulse { display: none; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  /* ── Fenix Side Panel ── */
+  .fenix-panel {
+    position: fixed;
+    top: 0;
+    right: calc(-1 * var(--panel-width));
+    width: var(--panel-width);
+    height: 100vh;
+    background: var(--bg-panel);
+    border-left: 1px solid var(--border);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -8px 0 40px rgba(0,0,0,0.4);
+  }
+
+  body.panel-open .fenix-panel {
+    right: 0;
+  }
+
+  /* Panel Header */
+  .fenix-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .fenix-panel-identity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .fenix-panel-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--bg);
+  }
+
+  .fenix-panel-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .fenix-panel-context {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  .fenix-panel-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.15s;
+  }
+
+  .fenix-panel-close:hover {
+    background: rgba(240, 230, 211, 0.06);
+    color: var(--text);
+  }
+
+  /* Messages Area */
+  .fenix-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .fenix-messages::-webkit-scrollbar { width: 4px; }
+  .fenix-messages::-webkit-scrollbar-track { background: transparent; }
+  .fenix-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* Message Bubbles */
+  .msg {
+    max-width: 88%;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .msg-fenix {
+    align-self: flex-start;
+    display: flex;
+    gap: 10px;
+  }
+
+  .msg-fenix-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--bg);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .msg-fenix-text {
+    background: var(--accent-dim);
+    border: 1px solid rgba(123, 154, 204, 0.12);
+    border-radius: 2px var(--radius) var(--radius) var(--radius);
+    padding: 10px 14px;
+    color: var(--text);
+  }
+
+  .msg-fenix-text a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(123, 154, 204, 0.3);
+    text-underline-offset: 2px;
+  }
+
+  .msg-visitor {
+    align-self: flex-end;
+    background: rgba(240, 230, 211, 0.08);
+    border: 1px solid var(--border);
+    border-radius: var(--radius) 2px var(--radius) var(--radius);
+    padding: 10px 14px;
+    color: var(--text);
+  }
+
+  .msg-tool {
+    align-self: flex-start;
+    font-size: 12px;
+    color: var(--accent);
+    padding: 4px 0 4px 34px;
+    opacity: 0.7;
+    font-style: italic;
+  }
+
+  /* Context Badge */
+  .fenix-context-badge {
+    align-self: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    background: rgba(240, 230, 211, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin: 4px 0;
+  }
+
+  /* Pills */
+  .fenix-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .fenix-pill {
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(123, 154, 204, 0.2);
+    border-radius: 20px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .fenix-pill:hover {
+    background: rgba(123, 154, 204, 0.2);
+    border-color: var(--accent);
+  }
+
+  /* Input Bar */
+  .fenix-input-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .fenix-input {
+    flex: 1;
+    background: rgba(240, 230, 211, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+
+  .fenix-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .fenix-input:focus {
+    border-color: var(--border-accent);
+  }
+
+  .fenix-send {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent);
+    color: var(--bg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: opacity 0.15s;
+    flex-shrink: 0;
+  }
+
+  .fenix-send:hover { opacity: 0.85; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    :root { --panel-width: 100vw; }
+
+    body.panel-open .page-content {
+      margin-right: auto;
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    .fenix-tab-label { display: none; }
+
+    .fenix-tab-inner {
+      padding: 10px 12px;
+    }
+
+    .fenix-panel {
+      border-left: none;
+    }
+  }
+
+  /* ── Panel open/close animation for content ── */
+  .page-content {
+    transition: margin-right 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── Inline Fenix Prompts ── */
+  .fenix-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 36px 0;
+    padding: 14px 18px;
+    background: var(--accent-glow);
+    border: 1px solid rgba(123, 154, 204, 0.1);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .fenix-inline:hover {
+    background: var(--accent-dim);
+    border-color: rgba(123, 154, 204, 0.25);
+  }
+
+  .fenix-inline-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--bg);
+    flex-shrink: 0;
+  }
+
+  .fenix-inline-text {
+    font-size: 13px;
+    color: var(--accent);
+    line-height: 1.4;
+  }
+
+  .fenix-inline-text strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .fenix-inline-arrow {
+    margin-left: auto;
+    color: var(--accent);
+    font-size: 16px;
+    opacity: 0.5;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .fenix-inline:hover .fenix-inline-arrow {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+
+  /* Variant: compact inline (within a paragraph flow) */
+  .fenix-inline-compact {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 12px 3px 6px;
+    background: var(--accent-glow);
+    border: 1px solid rgba(123, 154, 204, 0.1);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    vertical-align: middle;
+    text-decoration: none;
+  }
+
+  .fenix-inline-compact:hover {
+    background: var(--accent-dim);
+    border-color: rgba(123, 154, 204, 0.25);
+  }
+
+  .fenix-inline-compact-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--bg);
+    flex-shrink: 0;
+  }
+
+  .fenix-inline-compact span {
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  /* ── Prototype Note ── */
+  .proto-note {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Mock Teardown Page Content ── -->
+<div class="page-content">
+  <div class="page-breadcrumb">
+    <a href="#">Home</a> &nbsp;/&nbsp; <a href="#">Teardowns</a> &nbsp;/&nbsp; GEICO Mobile App
+  </div>
+
+  <h1 class="page-title">GEICO Mobile App Teardown</h1>
+  <div class="page-meta">
+    <span>By Kiran Rao</span>
+    <span>March 2026</span>
+    <span>12 min read</span>
+  </div>
+
+  <div class="page-body">
+    <h2 class="page-section-title">The Core Tension</h2>
+    <p>Insurance apps have a fundamental UX problem: the thing users care about most (filing a claim) is the thing they do least often. Meanwhile, the thing the company wants users to do most (renew, add coverage, refer friends) requires trust that only builds through the rare claim experience.</p>
+    <p>GEICO's mobile app tries to resolve this by making the non-claim experience feel premium — fast quotes, one-tap ID cards, proactive notifications. But does the execution match the intent?</p>
+
+    <div class="page-metric-row">
+      <div class="page-metric">
+        <div class="page-metric-value">4.8★</div>
+        <div class="page-metric-label">App Store rating (2.1M reviews)</div>
+      </div>
+      <div class="page-metric">
+        <div class="page-metric-value">3 taps</div>
+        <div class="page-metric-label">Quote-to-bind flow</div>
+      </div>
+      <div class="page-metric">
+        <div class="page-metric-value">47%</div>
+        <div class="page-metric-label">Digital self-service adoption</div>
+      </div>
+    </div>
+
+    <!-- Inline Fenix Prompt: Block variant — appears between sections -->
+    <div class="fenix-inline" onclick="openPanelWithMessage('How does Kiran\'s teardown methodology work?')">
+      <div class="fenix-inline-icon">F</div>
+      <div class="fenix-inline-text"><strong>Curious about the methodology?</strong> Fenix can explain how Kiran evaluates product experiences.</div>
+      <div class="fenix-inline-arrow">→</div>
+    </div>
+
+    <h2 class="page-section-title">What Works</h2>
+    <p>The quote flow is genuinely impressive. Three taps from launch to a bindable quote — they've eliminated every step that doesn't need to be there. Pre-fill from device data, progressive disclosure on coverage options, and a confirmation screen that actually explains what you're buying.</p>
+
+    <div class="page-quote">
+      <p>"The best insurance UX is the one you forget exists until you need it. GEICO gets close — but 'close' in insurance still means a lot of friction."</p>
+    </div>
+
+    <h2 class="page-section-title">Where It Breaks</h2>
+    <p>The claims flow tells a different story. Despite the polished surface, filing a claim still requires 11 screens, redundant information entry, and a handoff to a phone call for anything beyond a simple fender bender. The digital-first promise dissolves at the moment it matters most.
+    <a class="fenix-inline-compact" onclick="openPanelWithMessage('How does this claims friction compare to Lemonade or Root?')"><span class="fenix-inline-compact-dot">F</span><span>Compare to competitors</span></a></p>
+    <p>The notification strategy is also worth examining. GEICO sends an average of 3.2 push notifications per week — renewal reminders, coverage suggestions, referral prompts. At that frequency, most users will mute the app within the first month, which defeats the engagement goal entirely.</p>
+
+    <h2 class="page-section-title">The Structural Insight</h2>
+    <p>What makes this teardown interesting isn't GEICO specifically — it's the pattern. Every insurance app faces the same tension between engagement frequency and trust depth. The companies that solve it won't do it through better notification copy. They'll do it by finding genuine utility in the 364 days between claims.</p>
+    <p>Progressive's Snapshot and Lemonade's Giveback are early examples — features that create ongoing value relationships rather than transactional ones. GEICO hasn't found their version of this yet, and it shows in the retention data.</p>
+
+    <!-- Inline Fenix Prompt: End-of-article variant -->
+    <div class="fenix-inline" onclick="openPanelWithMessage('What other teardowns cover similar patterns?')" style="margin-top: 48px;">
+      <div class="fenix-inline-icon">F</div>
+      <div class="fenix-inline-text"><strong>Enjoyed this teardown?</strong> Ask Fenix to find similar analyses, or explore Kiran's work on related product themes.</div>
+      <div class="fenix-inline-arrow">→</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Fenix Edge Tab ── -->
+<div class="fenix-tab" id="fenixTab" onclick="togglePanel()">
+  <div class="fenix-tab-pulse"></div>
+  <div class="fenix-tab-inner">
+    <div class="fenix-tab-icon">F</div>
+    <span class="fenix-tab-label">Fenix</span>
+  </div>
+</div>
+
+<!-- ── Fenix Side Panel ── -->
+<div class="fenix-panel" id="fenixPanel">
+  <div class="fenix-panel-header">
+    <div class="fenix-panel-identity">
+      <div class="fenix-panel-avatar">F</div>
+      <div>
+        <div class="fenix-panel-name">Fenix</div>
+        <div class="fenix-panel-context">Reading: GEICO Teardown</div>
+      </div>
+    </div>
+    <button class="fenix-panel-close" onclick="togglePanel()" title="Close">&times;</button>
+  </div>
+
+  <div class="fenix-messages" id="fenixMessages">
+    <div class="fenix-context-badge">Fenix has context about this teardown</div>
+
+    <div class="msg msg-fenix">
+      <div class="msg-fenix-avatar">F</div>
+      <div class="msg-fenix-text">This is one of Kiran's most detailed teardowns. The core insight — that insurance apps optimize for the wrong frequency — came from his discovery research work. Want me to dig into any section?</div>
+    </div>
+
+    <div class="msg msg-visitor">How does this compare to the Intuit teardown?</div>
+
+    <div class="msg msg-fenix">
+      <div class="msg-fenix-avatar">F</div>
+      <div class="msg-fenix-text">Different problem, similar structural insight. The <a href="#">Intuit TurboTax teardown</a> looks at seasonal engagement — how do you keep users connected to a product they use once a year? Both teardowns converge on the same principle: ongoing utility beats notification-driven re-engagement.</div>
+    </div>
+
+    <div class="msg msg-visitor">What's Kiran's background with insurance products?</div>
+
+    <div class="msg msg-fenix">
+      <div class="msg-fenix-avatar">F</div>
+      <div class="msg-fenix-text">The teardown is analytical work — Kiran evaluated GEICO's app using his product teardown methodology, not from working at GEICO. His hands-on insurance experience comes from earlier in his career. I can pull up the <a href="#">Career Highlights</a> page if you want the full picture.</div>
+    </div>
+  </div>
+
+  <div class="fenix-pills">
+    <div class="fenix-pill" onclick="simulatePill(this)">Compare to Spotify teardown</div>
+    <div class="fenix-pill" onclick="simulatePill(this)">Explain the methodology</div>
+    <div class="fenix-pill" onclick="simulatePill(this)">Show me his resume</div>
+  </div>
+
+  <div class="fenix-input-bar">
+    <input type="text" class="fenix-input" id="fenixInput" placeholder="Ask about this teardown..." onkeydown="handleKey(event)">
+    <button class="fenix-send" onclick="simulateSend()">↑</button>
+  </div>
+</div>
+
+<div class="proto-note">Prototype — Fenix Side Panel (click the tab on the right edge)</div>
+
+<script>
+  function togglePanel() {
+    document.body.classList.toggle('panel-open');
+  }
+
+  function simulatePill(el) {
+    var text = el.textContent;
+    var messages = document.getElementById('fenixMessages');
+
+    // Add as visitor message
+    var visitor = document.createElement('div');
+    visitor.className = 'msg msg-visitor';
+    visitor.textContent = text;
+    messages.appendChild(visitor);
+
+    // Simulate tool action for "Show me his resume"
+    if (text.toLowerCase().indexOf('resume') !== -1) {
+      setTimeout(function() {
+        var tool = document.createElement('div');
+        tool.className = 'msg msg-tool';
+        tool.textContent = '→ Navigating to evaluator page with resume panel...';
+        messages.appendChild(tool);
+        messages.scrollTop = messages.scrollHeight;
+      }, 600);
+    }
+
+    // Simulate Fenix response
+    setTimeout(function() {
+      var fenix = document.createElement('div');
+      fenix.className = 'msg msg-fenix';
+      fenix.innerHTML = '<div class="msg-fenix-avatar">F</div><div class="msg-fenix-text">Let me look into that for you...</div>';
+      messages.appendChild(fenix);
+      messages.scrollTop = messages.scrollHeight;
+    }, text.toLowerCase().indexOf('resume') !== -1 ? 1200 : 800);
+
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function simulateSend() {
+    var input = document.getElementById('fenixInput');
+    var text = input.value.trim();
+    if (!text) return;
+
+    var messages = document.getElementById('fenixMessages');
+    var visitor = document.createElement('div');
+    visitor.className = 'msg msg-visitor';
+    visitor.textContent = text;
+    messages.appendChild(visitor);
+    input.value = '';
+
+    setTimeout(function() {
+      var fenix = document.createElement('div');
+      fenix.className = 'msg msg-fenix';
+      fenix.innerHTML = '<div class="msg-fenix-avatar">F</div><div class="msg-fenix-text">That\'s a great question about this teardown. Let me pull up what I know...</div>';
+      messages.appendChild(fenix);
+      messages.scrollTop = messages.scrollHeight;
+    }, 800);
+
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter') simulateSend();
+  }
+
+  // Open panel with a pre-filled question (triggered by inline prompts)
+  function openPanelWithMessage(question) {
+    // Open panel if not already open
+    if (!document.body.classList.contains('panel-open')) {
+      document.body.classList.add('panel-open');
+    }
+
+    var messages = document.getElementById('fenixMessages');
+
+    // Add the question as a visitor message
+    var visitor = document.createElement('div');
+    visitor.className = 'msg msg-visitor';
+    visitor.textContent = question;
+    messages.appendChild(visitor);
+
+    // Simulate Fenix responding
+    setTimeout(function() {
+      var responses = {
+        'How does Kiran\'s teardown methodology work?': 'Kiran uses a four-layer framework: surface UX (what you see), structural logic (why it\'s built that way), business model alignment (who it serves), and competitive positioning (what it reveals about the market). Each teardown maps the gap between stated intent and actual execution.',
+        'How does this claims friction compare to Lemonade or Root?': 'Good instinct to compare. Lemonade\'s claims flow is 3 screens — they made instant payouts their brand promise. Root skips the flow entirely for minor claims with photo-based AI estimation. GEICO\'s 11-screen flow reflects their legacy architecture, not a design choice.',
+        'What other teardowns cover similar patterns?': 'The <a href="#">Intuit TurboTax teardown</a> covers a similar "seasonal engagement" challenge — how do you stay relevant between annual use? The <a href="#">Amazon teardown</a> looks at the opposite problem: over-engagement and decision fatigue. Both pair well with this GEICO analysis.'
+      };
+
+      var responseText = responses[question] || 'Let me dig into that for you...';
+
+      var fenix = document.createElement('div');
+      fenix.className = 'msg msg-fenix';
+      fenix.innerHTML = '<div class="msg-fenix-avatar">F</div><div class="msg-fenix-text">' + responseText + '</div>';
+      messages.appendChild(fenix);
+      messages.scrollTop = messages.scrollHeight;
+    }, 900);
+
+    // Scroll to show the new message
+    setTimeout(function() {
+      messages.scrollTop = messages.scrollHeight;
+    }, 100);
+  }
+</script>
+
+</body>
+</html>

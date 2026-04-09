@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fenix Training Dashboard</title>
+    <link rel="icon" href="../images/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .dashboard-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .dashboard-header .refresh-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #e0e0e0;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+        .dashboard-header .refresh-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* ── Stats Grid ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #C9A87C;
+        }
+        .stat-sub {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        /* ── Section Headers ── */
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* ── Tables ── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            color: #888;
+            font-weight: 500;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .data-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            vertical-align: top;
+        }
+        .data-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        .data-table .truncate {
+            max-width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ── Status Badges ── */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .badge-pending { background: rgba(201,168,124,0.15); color: #C9A87C; }
+        .badge-addressed { background: rgba(76,175,80,0.15); color: #66bb6a; }
+        .badge-dismissed { background: rgba(158,158,158,0.15); color: #999; }
+
+        /* ── Action Buttons ── */
+        .action-btn {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #ccc;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-family: inherit;
+            margin-right: 0.25rem;
+        }
+        .action-btn:hover { background: rgba(255,255,255,0.08); }
+        .action-btn.approve { border-color: rgba(76,175,80,0.4); color: #66bb6a; }
+        .action-btn.dismiss { border-color: rgba(244,67,54,0.3); color: #ef5350; }
+
+        /* ── Tabs ── */
+        .tab-bar {
+            display: flex;
+            gap: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: #888;
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .tab-btn:hover { color: #ccc; }
+        .tab-btn.active {
+            color: #C9A87C;
+            border-bottom-color: #C9A87C;
+        }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* ── Conversation Detail ── */
+        .convo-detail {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .msg-bubble {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .msg-user {
+            background: rgba(201,168,124,0.1);
+            border: 1px solid rgba(201,168,124,0.2);
+            margin-left: 2rem;
+        }
+        .msg-assistant {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-right: 2rem;
+        }
+        .msg-role {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        /* ── Loading / Empty ── */
+        .loading { color: #666; padding: 2rem; text-align: center; }
+        .empty { color: #555; padding: 2rem; text-align: center; font-style: italic; }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .stat-value { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="dashboard-header">
+            <h1>Fenix Training Dashboard</h1>
+            <button class="refresh-btn" onclick="loadAll()">Refresh</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid" id="stats-grid">
+            <div class="stat-card"><div class="stat-label">Loading...</div></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tab-bar">
+            <button class="tab-btn active" data-tab="training">Training Queue</button>
+            <button class="tab-btn" data-tab="conversations">Conversations</button>
+            <button class="tab-btn" data-tab="feedback">Feedback</button>
+            <button class="tab-btn" data-tab="gaps">Content Gaps</button>
+        </div>
+
+        <!-- Tab: Training Queue -->
+        <div class="tab-panel active" id="tab-training">
+            <div id="training-list" class="loading">Loading training queue...</div>
+        </div>
+
+        <!-- Tab: Conversations -->
+        <div class="tab-panel" id="tab-conversations">
+            <div id="conversations-list" class="loading">Loading conversations...</div>
+            <div id="conversation-detail"></div>
+        </div>
+
+        <!-- Tab: Feedback -->
+        <div class="tab-panel" id="tab-feedback">
+            <div id="feedback-list" class="loading">Loading feedback...</div>
+        </div>
+
+        <!-- Tab: Content Gaps -->
+        <div class="tab-panel" id="tab-gaps">
+            <div id="gaps-list" class="loading">Loading content gaps...</div>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var API = 'https://api.kirangorapalli.com/api/admin/fenix-analytics';
+        var API_KEY = 'H3Ycu0N5kfv5MERh_5mYwYcMbGu6pYUv2y1KSgsMBLk';
+
+        function headers() {
+            return { 'Content-Type': 'application/json', 'X-API-Key': API_KEY };
+        }
+
+        function api(path, opts) {
+            return fetch(API + path, Object.assign({ headers: headers() }, opts || {}))
+                .then(function (r) { return r.json(); });
+        }
+
+        // ── Tabs ──
+        document.querySelectorAll('.tab-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+                document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        // ── Stats ──
+        function loadStats() {
+            api('/overview').then(function (s) {
+                var grid = document.getElementById('stats-grid');
+                grid.innerHTML = [
+                    statCard('Conversations (7d)', s.conversations_last_7d, s.conversations_last_30d + ' in 30d'),
+                    statCard('Total Messages', s.total_messages, s.avg_messages_per_session + ' avg/session'),
+                    statCard('Pending Training', s.pending_training, s.total_training_queue + ' total'),
+                    statCard('Feedback', s.total_feedback, s.pending_testimonials + ' pending review'),
+                ].join('');
+            }).catch(function () {
+                document.getElementById('stats-grid').innerHTML = '<div class="empty">Could not load stats</div>';
+            });
+        }
+
+        function statCard(label, value, sub) {
+            return '<div class="stat-card">' +
+                '<div class="stat-label">' + esc(label) + '</div>' +
+                '<div class="stat-value">' + value + '</div>' +
+                '<div class="stat-sub">' + esc(sub) + '</div>' +
+                '</div>';
+        }
+
+        // ── Training Queue ──
+        function loadTraining() {
+            api('/training-queue').then(function (items) {
+                var el = document.getElementById('training-list');
+                if (!items.length) { el.innerHTML = '<div class="empty">No pending training items</div>'; return; }
+                var rows = items.map(function (i) {
+                    return '<tr>' +
+                        '<td class="truncate">' + esc(i.question) + '</td>' +
+                        '<td>' + i.frequency + '</td>' +
+                        '<td><span class="badge badge-' + i.status + '">' + i.status + '</span></td>' +
+                        '<td>' + formatDate(i.created_at) + '</td>' +
+                        '<td>' +
+                            '<button class="action-btn approve" onclick="updateTraining(\'' + i.id + '\',\'addressed\')">Address</button>' +
+                            '<button class="action-btn dismiss" onclick="updateTraining(\'' + i.id + '\',\'dismissed\')">Dismiss</button>' +
+                        '</td>' +
+                        '</tr>';
+                }).join('');
+                el.innerHTML = '<table class="data-table"><thead><tr><th>Question</th><th>Freq</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>' + rows + '</tbody></table>';
+            });
+        }
+
+        window.updateTraining = function (id, status) {
+            api('/training-queue/' + id, { method: 'PATCH', body: JSON.stringify({ status: status }) })
+                .then(function () { loadTraining(); });
+        };
+
+        // ── Conversations ──
+        function loadConversations() {
+            api('/conversations?limit=30&days=30').then(function (convos) {
+                var el = document.getElementById('conversations-list');
+                if (!convos.length) { el.innerHTML = '<div class="empty">No conversations in the last 30 days</div>'; return; }
+                var rows = convos.map(function (c) {
+                    return '<tr style="cursor:pointer" onclick="loadConvoDetail(\'' + c.id + '\')">' +
+                        '<td>' + esc(c.session_id.substring(0, 8)) + '...</td>' +
+                        '<td>' + c.message_count + '</td>' +
+                        '<td>' + formatDate(c.started_at) + '</td>' +
+                        '<td>' + formatDate(c.last_active_at) + '</td>' +
+                        '</tr>';
+                }).join('');
+                el.innerHTML = '<table class="data-table"><thead><tr><th>Session</th><th>Messages</th><th>Started</th><th>Last Active</th></tr></thead><tbody>' + rows + '</tbody></table>';
+            });
+        }
+
+        window.loadConvoDetail = function (id) {
+            var el = document.getElementById('conversation-detail');
+            el.innerHTML = '<div class="loading">Loading messages...</div>';
+            api('/conversations/' + id + '/messages').then(function (msgs) {
+                if (!msgs.length) { el.innerHTML = '<div class="empty">No messages</div>'; return; }
+                var html = '<div class="convo-detail">';
+                msgs.forEach(function (m) {
+                    var cls = m.role === 'user' ? 'msg-user' : 'msg-assistant';
+                    html += '<div class="msg-bubble ' + cls + '">' +
+                        '<div class="msg-role">' + m.role + '</div>' +
+                        esc(m.content.substring(0, 500)) + (m.content.length > 500 ? '...' : '') +
+                        '</div>';
+                });
+                html += '</div>';
+                el.innerHTML = html;
+            });
+        };
+
+        // ── Feedback ──
+        function loadFeedback() {
+            api('/feedback').then(function (items) {
+                var el = document.getElementById('feedback-list');
+                if (!items.length) { el.innerHTML = '<div class="empty">No feedback yet</div>'; return; }
+                var rows = items.map(function (f) {
+                    var actions = '';
+                    if (f.public_ok && !f.approved) {
+                        actions = '<button class="action-btn approve" onclick="approveFeedback(\'' + f.id + '\')">Approve</button>';
+                    } else if (f.approved) {
+                        actions = '<span class="badge badge-addressed">Public</span>';
+                    }
+                    return '<tr>' +
+                        '<td>' + esc(f.visitor_name || 'Anonymous') + '</td>' +
+                        '<td>' + esc(f.visitor_company || '-') + '</td>' +
+                        '<td class="truncate">' + esc(f.feedback_text) + '</td>' +
+                        '<td>' + (f.rating ? '\u2605'.repeat(f.rating) : '-') + '</td>' +
+                        '<td>' + esc(f.source) + '</td>' +
+                        '<td>' + formatDate(f.created_at) + '</td>' +
+                        '<td>' + actions + '</td>' +
+                        '</tr>';
+                }).join('');
+                el.innerHTML = '<table class="data-table"><thead><tr><th>Name</th><th>Company</th><th>Feedback</th><th>Rating</th><th>Source</th><th>Date</th><th>Actions</th></tr></thead><tbody>' + rows + '</tbody></table>';
+            });
+        }
+
+        window.approveFeedback = function (id) {
+            api('/feedback/' + id + '/approve', { method: 'PATCH' })
+                .then(function () { loadFeedback(); });
+        };
+
+        // ── Content Gaps ──
+        function loadGaps() {
+            api('/content-gaps').then(function (data) {
+                var el = document.getElementById('gaps-list');
+                var html = '';
+
+                if (data.training_queue_gaps && data.training_queue_gaps.length) {
+                    html += '<h3 style="margin-bottom:0.75rem;font-size:0.95rem;color:#C9A87C;">Training Queue Gaps</h3>';
+                    var rows = data.training_queue_gaps.map(function (g) {
+                        return '<tr><td class="truncate">' + esc(g.question) + '</td><td>' + g.frequency + '</td><td><span class="badge badge-' + g.status + '">' + g.status + '</span></td></tr>';
+                    }).join('');
+                    html += '<table class="data-table"><thead><tr><th>Question</th><th>Frequency</th><th>Status</th></tr></thead><tbody>' + rows + '</tbody></table>';
+                }
+
+                if (data.low_confidence_queries && data.low_confidence_queries.length) {
+                    html += '<h3 style="margin:1.5rem 0 0.75rem;font-size:0.95rem;color:#C9A87C;">Low-Confidence Queries</h3>';
+                    var rows2 = data.low_confidence_queries.map(function (q) {
+                        return '<tr><td class="truncate">' + esc(q.content) + '</td><td>' + (q.confidence_score ? q.confidence_score.toFixed(2) : '-') + '</td><td>' + formatDate(q.created_at) + '</td></tr>';
+                    }).join('');
+                    html += '<table class="data-table"><thead><tr><th>Query</th><th>Confidence</th><th>Date</th></tr></thead><tbody>' + rows2 + '</tbody></table>';
+                }
+
+                if (!html) html = '<div class="empty">No content gaps identified</div>';
+                el.innerHTML = html;
+            });
+        }
+
+        // ── Utilities ──
+        function esc(str) {
+            if (!str) return '';
+            var d = document.createElement('div');
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        function formatDate(iso) {
+            if (!iso) return '-';
+            try {
+                var d = new Date(iso);
+                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
+                    ' ' + d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            } catch (e) { return iso.substring(0, 10); }
+        }
+
+        // ── Load All ──
+        window.loadAll = function () {
+            loadStats();
+            loadTraining();
+            loadConversations();
+            loadFeedback();
+            loadGaps();
+        };
+
+        loadAll();
+    })();
+    </script>
+</body>
+</html>

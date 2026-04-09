@@ -52,21 +52,29 @@
   ];
 
   // ── Evaluator Local State ─────────────────────────
-  // Connect state lives in localStorage (persists across sessions)
+  // Connect state is now managed by FenixCore (localStorage: fenix_*)
+  // Legacy evaluator_* keys are migrated on first load.
   var state = {
-    currentPanel: null,
-    connectedName: localStorage.getItem('evaluator_name'),
-    connectedCompany: localStorage.getItem('evaluator_company'),
-    connectedEmail: localStorage.getItem('evaluator_email')
+    currentPanel: null
   };
 
-  // Sync connect state into fenixState
-  if (state.connectedName) {
-    fenixState.visitor.name = state.connectedName;
-    fenixState.visitor.company = state.connectedCompany;
-    fenixState.visitor.email = state.connectedEmail;
-    fenixState.visitor.connected = true;
-  }
+  // Migrate legacy evaluator_* localStorage keys → core fenix_* keys
+  (function migrateLegacyConnect() {
+    try {
+      var legacyName = localStorage.getItem('evaluator_name');
+      if (legacyName && !localStorage.getItem('fenix_connected')) {
+        FC.connectVisitor({
+          name: legacyName,
+          company: localStorage.getItem('evaluator_company'),
+          email: localStorage.getItem('evaluator_email')
+        });
+        // Clean up legacy keys
+        localStorage.removeItem('evaluator_name');
+        localStorage.removeItem('evaluator_company');
+        localStorage.removeItem('evaluator_email');
+      }
+    } catch (e) { /* ignore */ }
+  })();
 
 
   // ── Dynamic Pills — State Machine ────────────────
@@ -210,6 +218,42 @@
       fenixState.explored.fitScoreStarted = true;
       fenixState.ui.currentPanel = 'connect';
       return 'Opened the Fit Score JD input';
+    },
+
+    connect_visitor: function (args) {
+      var result = FC.connectVisitor({
+        first_name: args.first_name,
+        last_name: args.last_name,
+        company: args.company,
+        email: args.email
+      });
+      if (!result.success) return 'Connect failed: ' + (result.reason || 'unknown');
+      // Evaluator-specific UI: unlock cards, transition name
+      applyConnectedState();
+      return 'Connected as ' + result.name + (result.company ? ' from ' + result.company : '') + '. Gated features unlocked.';
+    },
+
+    collect_feedback: function (args) {
+      // POST to fenix-backend feedback endpoint
+      var payload = {
+        session_id: fenixState.sessionId,
+        visitor_name: fenixState.visitor.name || null,
+        visitor_company: fenixState.visitor.company || null,
+        visitor_email: fenixState.visitor.email || null,
+        feedback_text: args.feedback_text,
+        rating: args.rating || null,
+        public_ok: args.public_ok || false,
+        source: 'fenix',
+        page_url: window.location.href
+      };
+      fetch('https://api.kirangorapalli.com/api/v1/fenix/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(function (err) {
+        console.error('Feedback submission failed:', err);
+      });
+      return 'Feedback captured' + (args.public_ok ? ' (public OK)' : ' (private)') + '.';
     }
   };
 
@@ -219,7 +263,9 @@
     select_resume_lens: function (args) { return 'Selecting the ' + (args && args.lens ? args.lens.toUpperCase() : '') + ' resume...'; },
     scroll_to_section: function (args) { return 'Scrolling to ' + (args && args.section ? args.section : '') + '...'; },
     get_visitor_context: 'Checking what you\'ve explored...',
-    start_fit_score: 'Setting up the Fit Score...'
+    start_fit_score: 'Setting up the Fit Score...',
+    connect_visitor: 'Connecting you...',
+    collect_feedback: 'Saving your feedback...'
   };
 
 
@@ -293,7 +339,7 @@
       morphWatcher.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     }
 
-    if (state.connectedName) {
+    if (fenixState.visitor.connected) {
       applyConnectedState();
     }
   }
@@ -323,7 +369,7 @@
     var pills = [
       { text: 'Show me resume options', action: 'resume', locked: false },
       { text: 'What should I be asking?', action: 'questions', locked: false },
-      { text: 'How would we evaluate each other?', action: 'connect', locked: !state.connectedName },
+      { text: 'How would we evaluate each other?', action: 'connect', locked: !fenixState.visitor.connected },
       { text: 'Give me a quick tour', action: 'tour', locked: false }
     ];
 
@@ -480,7 +526,7 @@
         cta: '\u2192 Connect to build your Fit Score',
         gateReason: 'This works better when I know who I\'m talking to.',
         action: 'connect',
-        locked: !state.connectedName
+        locked: !fenixState.visitor.connected
       }
     ];
 
@@ -557,7 +603,7 @@
         renderRecruiterQuestionsPanel(panel);
         break;
       case 'connect':
-        if (!state.connectedName) {
+        if (!fenixState.visitor.connected) {
           renderConnectGate(panel);
           panel.classList.add('ev-connect-panel');
         } else {
@@ -729,8 +775,9 @@
   // ════════════════════════════════════════════════════
 
   function renderJDInput(panel) {
+    var firstName = (fenixState.visitor.name || 'there').split(' ')[0];
     panel.appendChild(el('p', 'ev-jd-greeting', {
-      text: 'Welcome, ' + state.connectedName + '. Got it. Now paste the job description you\'re evaluating Kiran for, and I\'ll build the Fit Score.'
+      text: 'Welcome, ' + firstName + '. Got it. Now paste the job description you\'re evaluating Kiran for, and I\'ll build the Fit Score.'
     }));
 
     var form = el('form', 'ev-jd-form');
@@ -755,22 +802,17 @@
     var email = formData.get('email');
     if (!name || !company) return;
 
-    state.connectedName = name;
-    state.connectedCompany = company;
-    state.connectedEmail = email;
+    // Use core connect (handles localStorage, fenixState, adapter hook)
+    var result = FC.connectVisitor({
+      name: name,
+      company: company,
+      email: email || null
+    });
 
-    fenixState.visitor.name = name;
-    fenixState.visitor.company = company;
-    fenixState.visitor.email = email;
-    fenixState.visitor.connected = true;
-    FC.saveFenixState();
+    if (!result.success) return;
 
-    localStorage.setItem('evaluator_name', name);
-    localStorage.setItem('evaluator_company', company);
-    if (email) localStorage.setItem('evaluator_email', email);
-
-    applyConnectedState();
-    showFenixMessage('Much better. This site was built for exactly this — real people, not personas. Nice to actually meet you, ' + name + '.');
+    var firstName = name.split(' ')[0];
+    showFenixMessage('Much better. This site was built for exactly this — real people, not personas. Nice to actually meet you, ' + firstName + '.');
 
     setTimeout(function () {
       showPanel('connect');
@@ -1050,18 +1092,20 @@
       }
     });
 
-    if (state.connectedName) {
+    if (fenixState.visitor.connected) {
       transitionNameLabel();
     }
   }
 
   function transitionNameLabel() {
+    var displayName = fenixState.visitor.name || '';
+    if (!displayName) return;
     var labels = document.querySelectorAll('.pill-persona-name, .hero-tagline');
     labels.forEach(function (label) {
       if (label.textContent === 'The Evaluator') {
         label.classList.add('ev-name-transitioning');
         setTimeout(function () {
-          label.textContent = state.connectedName;
+          label.textContent = displayName;
           label.classList.remove('ev-name-transitioning');
         }, 300);
       }
@@ -1094,7 +1138,7 @@
     messageCap: 30,
 
     // Available tools (sent to backend)
-    availableTools: ['open_panel', 'close_panel', 'select_resume_lens', 'scroll_to_section', 'get_visitor_context', 'start_fit_score'],
+    availableTools: ['open_panel', 'close_panel', 'select_resume_lens', 'scroll_to_section', 'get_visitor_context', 'start_fit_score', 'connect_visitor', 'collect_feedback'],
 
     // UI
     buildUI: buildUI,

@@ -73,6 +73,18 @@
     }
   })();
 
+  // Restore connected visitor from localStorage (persists across tabs + sessions)
+  (function restoreConnectedState() {
+    try {
+      if (localStorage.getItem('fenix_connected') === 'true') {
+        fenixState.visitor.name = localStorage.getItem('fenix_name') || null;
+        fenixState.visitor.company = localStorage.getItem('fenix_company') || null;
+        fenixState.visitor.email = localStorage.getItem('fenix_email') || null;
+        fenixState.visitor.connected = true;
+      }
+    } catch (e) { /* ignore */ }
+  })();
+
   function saveFenixState() {
     try {
       sessionStorage.setItem('fenixState', JSON.stringify({
@@ -437,6 +449,58 @@
   }
 
 
+  // ── Connect / Disconnect ──────────────────────────
+  // Central connect logic — all adapters use this.
+  // Persists to localStorage (survives tab close).
+  // Adapter-specific UI updates happen via the onConnect hook.
+
+  function connectVisitor(data) {
+    var name = (data.first_name || '') + (data.last_name ? ' ' + data.last_name : '');
+    name = name.trim() || data.name || '';
+    if (!name) return { success: false, reason: 'Name is required' };
+
+    var company = data.company || null;
+    var email = data.email || null;
+
+    fenixState.visitor.name = name;
+    fenixState.visitor.company = company;
+    fenixState.visitor.email = email;
+    fenixState.visitor.connected = true;
+
+    try {
+      localStorage.setItem('fenix_connected', 'true');
+      localStorage.setItem('fenix_name', name);
+      if (company) localStorage.setItem('fenix_company', company);
+      if (email) localStorage.setItem('fenix_email', email);
+    } catch (e) { /* ignore */ }
+
+    saveFenixState();
+
+    // Notify the active adapter
+    if (_activeAdapter && _activeAdapter.onConnect) {
+      _activeAdapter.onConnect({ name: name, company: company, email: email });
+    }
+
+    return { success: true, name: name, company: company, email: email };
+  }
+
+  function disconnectVisitor() {
+    fenixState.visitor.name = null;
+    fenixState.visitor.company = null;
+    fenixState.visitor.email = null;
+    fenixState.visitor.connected = false;
+
+    try {
+      localStorage.removeItem('fenix_connected');
+      localStorage.removeItem('fenix_name');
+      localStorage.removeItem('fenix_company');
+      localStorage.removeItem('fenix_email');
+    } catch (e) { /* ignore */ }
+
+    saveFenixState();
+  }
+
+
   // ── Core Init ─────────────────────────────────────
   // Called by each page adapter with its config.
   // Sets up the adapter reference and lets the adapter build its UI.
@@ -494,6 +558,8 @@
     },
     saveFenixState: saveFenixState,
     setInputEnabled: setInputEnabled,
+    connectVisitor: connectVisitor,
+    disconnectVisitor: disconnectVisitor,
     el: el,
     append: append,
     generateSessionId: generateSessionId,
