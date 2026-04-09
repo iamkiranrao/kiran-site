@@ -2,8 +2,8 @@
 module: fenix
 title: Fenix (AI Assistant)
 created: 2026-03-12
-last_updated: 2026-03-12
-version: 1
+last_updated: 2026-04-09
+version: 2
 ---
 
 # Fenix (AI Assistant)
@@ -206,9 +206,50 @@ The initial release brings the following online:
 
 All deployed and live on kirangorapalli.com across 16+ pages.
 
+### Phase 6: Agentic Fenix (April 8, 2026)
+
+Fenix upgraded from a RAG chatbot to a full conversational agent with tool use on the evaluator persona page. This is the foundation for the 4-phase AI roadmap (see `docs/FENIX-AI-ROADMAP.md`).
+
+**New backend endpoint:** `POST /api/v1/fenix/agent` — lives alongside the original `/chat` endpoint. Runs an agentic loop: RAG retrieval, Claude with tool definitions, multi-round tool execution (up to 5 rounds per turn), SSE streaming with interleaved text + tool_use events.
+
+**6 page-manipulation tools:**
+- `open_panel` — opens resume, questions, or connect panels
+- `close_panel` — closes the current panel
+- `select_resume_lens` — pre-selects AI, Growth, or Mobile lens
+- `scroll_to_section` — navigates to about, work, numbers, or contact
+- `get_visitor_context` — reads the visitor's exploration state
+- `start_fit_score` — initiates the fit evaluation (gated behind connect)
+
+**Frontend agent layer** (in `evaluator-experience.js`):
+- `fenixState` conversation state object tracking messages, visitor info, explored content, and UI state, persisted to sessionStorage
+- `sendToAgent()` — SSE stream parser using fetch/ReadableStream that handles text_start/text_delta/text_end/tool_use/suggested_pills/error/done events
+- `toolExecutors` — maps tool_use events to actual page manipulation (opening panels, scrolling, selecting lenses)
+- Streaming text renderer with cursor blink animation
+- Tool thinking + tool result message renderers
+- Input disable/enable during Fenix thinking
+- Card clicks and pill clicks route through the agent instead of directly opening panels
+
+**Rate limiting:** 30 requests/minute per IP, 30-message session cap on frontend with graceful connect nudge.
+
+### Phase 6b: Dynamic Pills (April 9, 2026)
+
+Pills (quick-action buttons below the chat) upgraded from static to contextual. Hybrid approach: frontend state machine provides instant default pills after each response, backend can override with Claude-suggested pills via a `suggested_pills` SSE event.
+
+**Frontend state machine (`getDefaultPills()`):** Returns pill set based on `fenixState.explored` — different pills for opening state, mid-conversation, post-resume, post-connect, and near-cap. The 🔒 connect pill appears after 3+ exchanges for unconnected visitors.
+
+**Backend pill suggestions:** System prompt instructs Claude to append `[PILLS: "phrase", "phrase"]` at the end of responses. The backend extracts this, strips it from displayed text, and emits it as a `suggested_pills` SSE event. Claude's suggestions override the state machine defaults when present.
+
+**`updatePills()` function:** Swaps pill container contents with a CSS fade transition (fade out old, fade in new).
+
 ---
 
 ## Current State
+
+### Two Fenix Modes
+
+**1. Widget mode** (original, all pages): The `fenix-widget.js` FAB + overlay chat. Uses `POST /api/v1/fenix/chat`. Persona inference, Flame On toggle, citation chips, nudge system. Still active on all non-evaluator pages.
+
+**2. Agent mode** (evaluator page only): Embedded in `evaluator-experience.js` chat module. Uses `POST /api/v1/fenix/agent`. Tool use, page manipulation, dynamic pills, streaming text with tool interleaving. This is the flagship experience going forward.
 
 ### Tables & Data
 
@@ -216,6 +257,7 @@ All deployed and live on kirangorapalli.com across 16+ pages.
 - Persisted in `conversations` table with session_id (localStorage key)
 - Tracks persona (inferred), page_url, user_agent, started_at, last_active_at
 - Max 20 messages loaded for context window management
+- Note: Agent mode conversation logging not yet implemented (pending Session 2)
 
 **Messages:**
 - Stored with role, content, citations (list of {id, title, url, section, similarity})
@@ -225,6 +267,7 @@ All deployed and live on kirangorapalli.com across 16+ pages.
 - 512-dimensional Voyage AI vectors
 - Filtered by source_type: 'published' (default) or 'flame_on'
 - Indexed for fast pgvector similarity search
+- 319 training Q&As + 153 content chunks currently indexed
 
 **Training Data:**
 - Q&A pairs with category and source
@@ -233,34 +276,41 @@ All deployed and live on kirangorapalli.com across 16+ pages.
 
 ### Frontend State Management
 
-Widget state is tracked in localStorage and JavaScript variables:
-
+**Widget mode** state tracked in localStorage:
 - `fenix_session_id`: Persists conversation across page navigations
 - `fenix_flame_on`: Flame On toggle state ('true' or 'false')
 - `fenix_flame_on_onboarded`: First-time toggle flag
 - `fenix_tooltip_seen`: Prevents duplicate tooltips in same session
 
-### API Endpoint
+**Agent mode** state tracked in sessionStorage via `fenixState`:
+- `messages`: Full conversation history (capped at 40 stored)
+- `visitor`: Persona, name, company, email, connected status
+- `explored`: Cards clicked, panels opened, resume lens selected, fit score started, pills used, messages exchanged
+- `ui`: Current panel, pills visible, input enabled, Fenix typing
 
+### API Endpoints
+
+**Original chat (all pages):**
 ```
 POST https://api.kirangorapalli.com/api/v1/fenix/chat
+```
+Response: SSE with session, persona, chunk, citations, nudge, done events.
+
+**Agent (evaluator page):**
+```
+POST https://api.kirangorapalli.com/api/v1/fenix/agent
 {
-  "message": "What has Kiran built with AI?",
-  "session_id": "UUID",
-  "page_context": "GEICO Mobile App Teardown",
-  "page_url": "https://kirangorapalli.com/work/geico-mobile",
-  "user_agent": "Mozilla/5.0...",
-  "flame_on": false
+  "messages": [{"role": "user", "content": "..."}],
+  "visitor": {"persona": "evaluator", "name": null, "connected": false},
+  "explored": {"cardsClicked": [], "panelsOpened": [], "messagesExchanged": 1}
 }
 ```
+Response: SSE with text_start, text_delta, text_end, tool_use, suggested_pills, error, done events.
 
-**Response:** Server-sent events with:
-- `session`: conversation_id, session_id
-- `persona`: inferred persona name
-- `chunk`: streamed response text
-- `citations`: source links
-- `nudge`: nudge type if applicable
-- `done`: token count
+**Health check:**
+```
+GET https://api.kirangorapalli.com/api/health
+```
 
 ---
 
@@ -300,41 +350,23 @@ Flame On data is static after embedding. New journal entries don't automatically
 
 ## Ideas & Future Direction
 
-### Short-Term Improvements
+The primary roadmap is in `docs/FENIX-AI-ROADMAP.md`. The agentic architecture (Phase 1) is the multiplier — every future feature is just "add a tool definition to Fenix."
 
-1. **Flame On automatic updates:** Trigger re-embedding on file change (watch `fenix-journal/` directory)
+### Roadmap (from FENIX-AI-ROADMAP.md)
 
-2. **Better keyword fallback:** Use query intent classification (is this a "who/what/how" question?) to inform keyword extraction
+**Phase 2 — Relationship Layer (~1 session):** `book_meeting` tool (Calendly slots in-chat, no redirect) + `send_summary` tool (personalized email recap via Resend). Conversation persistence in Supabase. Agent conversation logging.
 
-3. **Session recovery API:** Allow resuming conversations by session_id from any device (requires user auth)
+**Phase 3 — Showcase Layer (~1-2 sessions):** `run_fit_score` tool (visitor pastes JD, Fenix evaluates with visible thinking steps) + `generate_micro_teardown` tool (live methodology application). Both demonstrate product thinking in real-time.
 
-4. **Custom system prompt overrides:** Let Kiran adjust persona weights or add page-specific instructions
+**Phase 4 — Immersion Layer (~2-3 sessions):** Voice mode (Web Speech API input + ElevenLabs output) + dynamic page personalization (page adapts based on conversation signals).
 
-5. **A/B testing framework:** Experiment with different persona thresholds, RAG top-k, similarity thresholds
+### Widget Mode Improvements (Lower Priority)
 
-### Medium-Term
-
-1. **Multi-turn persona refinement:** After 2-3 exchanges, ask "Are you...?" to confirm inferred role and adjust context
-
-2. **Cited chunk expansion:** When user clicks a citation, show the full chunk in a side panel for context
-
-3. **Feedback loop:** Let visitors rate response quality (thumbs up/down), feed into training queue prioritization
-
-4. **Analytics dashboard:** Show Kiran heatmaps of top questions, persona distribution, Flame On usage, low-confidence queries
-
-5. **Knowledge base versioning:** Tag embeddings with content version/date, show "updated on..." in citations
-
-### Long-Term
-
-1. **Conversation export:** Generate PDF or markdown summary of entire conversations
-
-2. **Proactive Q&A suggestion:** Based on page content, suggest questions Fenix can answer
-
-3. **Multi-language support:** System prompt + conversation language already tracked; add translation layer
-
-4. **Integration with CMS:** If portfolio moves to CMS, auto-sync content to Supabase on publish
-
-5. **Fenix as recommendation engine:** "If you're interested in X, you might also like Y"
+1. **Flame On automatic updates:** Trigger re-embedding on file change
+2. **Better keyword fallback:** Query intent classification
+3. **Session recovery API:** Resume conversations across devices
+4. **Feedback loop:** Thumbs up/down on responses
+5. **Knowledge base versioning:** Tag embeddings with content version/date
 
 ---
 
@@ -352,4 +384,10 @@ Flame On data is static after embedding. New journal entries don't automatically
 
 **Fenix Journal** is the knowledge base for Flame On mode (diary entries, session transcripts, guides), but separate from the Fenix Assistant product itself.
 
-**Fenix** (this product) is the user-facing conversational AI, the RAG pipeline, persona system, Flame On toggle, and all backend orchestration. It is the complete AI assistant product that lives across kirangorapalli.com.
+**Evaluator Experience** (`evaluator-experience.js`) is the persona page where agent-mode Fenix lives. The chat module, cards, panels, and pills are all part of this file. Fenix manipulates this page via tool use.
+
+**FENIX-AGENT-SPEC.md** (`docs/FENIX-AGENT-SPEC.md`) is the technical contract for the agent layer — message types, SSE events, tool definitions, frontend-backend contract.
+
+**FENIX-AI-ROADMAP.md** (`docs/FENIX-AI-ROADMAP.md`) is the strategic 4-phase plan for Fenix's evolution from chat stub to flagship product.
+
+**Fenix** (this product) is the user-facing conversational AI in two modes: widget (RAG chat across all pages) and agent (tool-use conversational agent on the evaluator page). The agent mode is the primary development focus going forward.
