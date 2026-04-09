@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8Q795C1RJ5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8Q795C1RJ5');
+    </script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "vpgxcc8q5n");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="What people are saying about Kiran Rao's work. Share your experience.">
+    <title>Testimonials - Kiran Rao</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="canonical" href="https://kiranrao.ai/testimonials.html">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Testimonials - Kiran Rao">
+    <meta property="og:description" content="What people are saying about Kiran Rao's work.">
+    <meta property="og:url" content="https://kiranrao.ai/testimonials.html">
+
+    <style>
+        /* ── Testimonials Page Styles ── */
+        .testimonials-hero {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem 2rem;
+            text-align: center;
+        }
+        .testimonials-hero h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary, #e0e0e0);
+        }
+        .testimonials-hero p {
+            font-size: 1rem;
+            color: var(--text-secondary, #999);
+            line-height: 1.6;
+        }
+
+        /* ── Testimonial Cards ── */
+        .testimonials-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .testimonial-card {
+            background: var(--card-bg, rgba(255,255,255,0.03));
+            border: 1px solid var(--border-color, rgba(255,255,255,0.08));
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .testimonial-card:hover {
+            border-color: rgba(255,255,255,0.15);
+        }
+        .testimonial-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-primary, #e0e0e0);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        .testimonial-text::before { content: '\201C'; }
+        .testimonial-text::after { content: '\201D'; }
+        .testimonial-author {
+            font-size: 0.85rem;
+            color: var(--text-secondary, #999);
+        }
+        .testimonial-author strong {
+            color: var(--text-primary, #e0e0e0);
+            font-weight: 600;
+        }
+        .testimonial-rating {
+            color: #C9A87C;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .testimonials-empty {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            color: var(--text-secondary, #999);
+        }
+        .testimonials-loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary, #999);
+        }
+
+        /* ── Feedback Form ── */
+        .feedback-section {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+        .feedback-section h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary, #e0e0e0);
+        }
+        .feedback-section .feedback-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary, #999);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .feedback-row {
+            display: flex;
+            gap: 1rem;
+        }
+        .feedback-row > * {
+            flex: 1;
+        }
+        .feedback-form input,
+        .feedback-form textarea {
+            background: var(--input-bg, rgba(255,255,255,0.05));
+            border: 1px solid var(--border-color, rgba(255,255,255,0.12));
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-primary, #e0e0e0);
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .feedback-form input:focus,
+        .feedback-form textarea:focus {
+            outline: none;
+            border-color: #C9A87C;
+        }
+        .feedback-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .feedback-form input::placeholder,
+        .feedback-form textarea::placeholder {
+            color: var(--text-muted, #666);
+        }
+        .feedback-rating-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .feedback-rating-row label {
+            font-size: 0.85rem;
+            color: var(--text-secondary, #999);
+        }
+        .rating-stars {
+            display: flex;
+            gap: 0.25rem;
+        }
+        .rating-star {
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--text-muted, #444);
+            transition: color 0.15s;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        .rating-star.active,
+        .rating-star:hover {
+            color: #C9A87C;
+        }
+        .feedback-public-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .feedback-public-row input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.15rem;
+            accent-color: #C9A87C;
+        }
+        .feedback-public-row label {
+            font-size: 0.85rem;
+            color: var(--text-secondary, #999);
+            line-height: 1.4;
+        }
+        .feedback-submit {
+            background: #C9A87C;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            align-self: flex-start;
+        }
+        .feedback-submit:hover { opacity: 0.9; }
+        .feedback-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .feedback-success {
+            padding: 1rem;
+            background: rgba(201, 168, 124, 0.1);
+            border: 1px solid rgba(201, 168, 124, 0.3);
+            border-radius: 8px;
+            color: #C9A87C;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .feedback-success.visible { display: block; }
+
+        .divider-line {
+            max-width: 600px;
+            margin: 2rem auto;
+            border: none;
+            border-top: 1px solid var(--border-color, rgba(255,255,255,0.08));
+        }
+
+        @media (max-width: 600px) {
+            .feedback-row { flex-direction: column; }
+            .testimonials-hero h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-right">
+                <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                    <svg aria-hidden="true" class="wf-moon-icon" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display:none;">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                </button>
+                <button id="menuToggle" class="menu-toggle" aria-label="Open menu">&#9776;</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-top">
+            <div></div>
+            <button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">&#8600; Home</a></li>
+            <li><a href="the-work.html">&#8600; The Work</a></li>
+            <li><a href="how-id-built-it.html">&#8600; How I'd've Built It</a></li>
+            <li><a href="testimonials.html" class="active">&#8600; Testimonials</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <!-- Hero -->
+        <section class="testimonials-hero">
+            <h1>What People Are Saying</h1>
+            <p>Real feedback from people who've explored the site, worked with Kiran, or experienced Fenix. Unfiltered, unedited.</p>
+        </section>
+
+        <!-- Dynamic Testimonials -->
+        <div id="testimonials-container" class="testimonials-loading">
+            Loading testimonials...
+        </div>
+
+        <hr class="divider-line">
+
+        <!-- Static Feedback Form -->
+        <section class="feedback-section">
+            <h2>Share Your Experience</h2>
+            <p class="feedback-subtitle">
+                Worked with Kiran? Explored the site? Got thoughts on Fenix? Your feedback helps shape what comes next.
+            </p>
+
+            <form id="feedback-form" class="feedback-form">
+                <div class="feedback-row">
+                    <input type="text" name="name" placeholder="Your name" required>
+                    <input type="text" name="company" placeholder="Company (optional)">
+                </div>
+                <input type="email" name="email" placeholder="Email (optional, never shared)">
+                <textarea name="feedback" placeholder="What's on your mind?" required minlength="10"></textarea>
+
+                <div class="feedback-rating-row">
+                    <label>Rating (optional):</label>
+                    <div class="rating-stars" id="rating-stars">
+                        <button type="button" class="rating-star" data-value="1">&#9733;</button>
+                        <button type="button" class="rating-star" data-value="2">&#9733;</button>
+                        <button type="button" class="rating-star" data-value="3">&#9733;</button>
+                        <button type="button" class="rating-star" data-value="4">&#9733;</button>
+                        <button type="button" class="rating-star" data-value="5">&#9733;</button>
+                    </div>
+                </div>
+
+                <div class="feedback-public-row">
+                    <input type="checkbox" name="public_ok" id="public-ok">
+                    <label for="public-ok">
+                        I'm fine with this being displayed publicly on the site. (Kiran reviews all testimonials before they go live.)
+                    </label>
+                </div>
+
+                <button type="submit" class="feedback-submit">Send Feedback</button>
+                <div id="feedback-success" class="feedback-success">
+                    Thanks for sharing! Your feedback has been saved. If you opted for public display, it'll appear here after Kiran reviews it.
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Fenix (content adapter for conversational feedback) -->
+    <script src="fenix-core.js?v=20260409c"></script>
+    <script src="fenix-adapters/content-adapter.js?v=20260409c"></script>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var API_BASE = 'https://api.kirangorapalli.com/api/v1/fenix';
+        var selectedRating = 0;
+
+        // ── Load Testimonials ──
+        function loadTestimonials() {
+            var container = document.getElementById('testimonials-container');
+
+            fetch(API_BASE + '/testimonials')
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    if (!data || data.length === 0) {
+                        container.className = 'testimonials-empty';
+                        container.textContent = 'No testimonials yet. Be the first to share your experience!';
+                        return;
+                    }
+
+                    container.className = 'testimonials-grid';
+                    container.innerHTML = '';
+
+                    data.forEach(function (t) {
+                        var card = document.createElement('div');
+                        card.className = 'testimonial-card';
+
+                        var text = document.createElement('div');
+                        text.className = 'testimonial-text';
+                        text.textContent = t.feedback_text;
+                        card.appendChild(text);
+
+                        var author = document.createElement('div');
+                        author.className = 'testimonial-author';
+                        var nameHtml = '<strong>' + escapeHtml(t.visitor_name) + '</strong>';
+                        if (t.visitor_company) {
+                            nameHtml += ', ' + escapeHtml(t.visitor_company);
+                        }
+                        author.innerHTML = nameHtml;
+                        card.appendChild(author);
+
+                        if (t.rating) {
+                            var rating = document.createElement('div');
+                            rating.className = 'testimonial-rating';
+                            rating.textContent = '\u2605'.repeat(t.rating) + '\u2606'.repeat(5 - t.rating);
+                            card.appendChild(rating);
+                        }
+
+                        container.appendChild(card);
+                    });
+                })
+                .catch(function () {
+                    container.className = 'testimonials-empty';
+                    container.textContent = 'Testimonials will appear here once they\'re available.';
+                });
+        }
+
+        // ── Star Rating ──
+        var stars = document.querySelectorAll('.rating-star');
+        stars.forEach(function (star) {
+            star.addEventListener('click', function () {
+                selectedRating = parseInt(star.getAttribute('data-value'));
+                stars.forEach(function (s) {
+                    s.classList.toggle('active', parseInt(s.getAttribute('data-value')) <= selectedRating);
+                });
+            });
+            star.addEventListener('mouseenter', function () {
+                var val = parseInt(star.getAttribute('data-value'));
+                stars.forEach(function (s) {
+                    s.classList.toggle('active', parseInt(s.getAttribute('data-value')) <= val);
+                });
+            });
+        });
+        document.getElementById('rating-stars').addEventListener('mouseleave', function () {
+            stars.forEach(function (s) {
+                s.classList.toggle('active', parseInt(s.getAttribute('data-value')) <= selectedRating);
+            });
+        });
+
+        // ── Form Submission ──
+        var form = document.getElementById('feedback-form');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var submitBtn = form.querySelector('.feedback-submit');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            var formData = new FormData(form);
+            var payload = {
+                visitor_name: formData.get('name'),
+                visitor_company: formData.get('company') || null,
+                visitor_email: formData.get('email') || null,
+                feedback_text: formData.get('feedback'),
+                rating: selectedRating || null,
+                public_ok: formData.get('public_ok') === 'on',
+                source: 'form',
+                page_url: window.location.href
+            };
+
+            fetch(API_BASE + '/feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(function (res) { return res.json(); })
+            .then(function () {
+                form.reset();
+                selectedRating = 0;
+                stars.forEach(function (s) { s.classList.remove('active'); });
+                document.getElementById('feedback-success').classList.add('visible');
+                submitBtn.textContent = 'Sent!';
+                setTimeout(function () {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Feedback';
+                }, 3000);
+            })
+            .catch(function () {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Feedback';
+                alert('Something went wrong. Please try again.');
+            });
+        });
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Load on page ready
+        loadTestimonials();
+    })();
+    </script>
+
+    <!-- Toast notifications -->
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+</body>
+</html>

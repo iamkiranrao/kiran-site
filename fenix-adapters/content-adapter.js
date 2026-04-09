@@ -164,6 +164,39 @@
         return 'Opened ' + topic + ' in a new tab.';
       }
       return 'Suggested exploring: ' + topic;
+    },
+
+    connect_visitor: function (args) {
+      var result = FC.connectVisitor({
+        first_name: args.first_name,
+        last_name: args.last_name,
+        company: args.company,
+        email: args.email
+      });
+      if (!result.success) return 'Connect failed: ' + (result.reason || 'unknown');
+      return 'Connected as ' + result.name + (result.company ? ' from ' + result.company : '') + '.';
+    },
+
+    collect_feedback: function (args) {
+      var payload = {
+        session_id: fenixState.sessionId,
+        visitor_name: fenixState.visitor.name || null,
+        visitor_company: fenixState.visitor.company || null,
+        visitor_email: fenixState.visitor.email || null,
+        feedback_text: args.feedback_text,
+        rating: args.rating || null,
+        public_ok: args.public_ok || false,
+        source: 'fenix',
+        page_url: window.location.href
+      };
+      fetch('https://api.kirangorapalli.com/api/v1/fenix/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(function (err) {
+        console.error('Feedback submission failed:', err);
+      });
+      return 'Feedback captured' + (args.public_ok ? ' (public OK)' : ' (private)') + '.';
     }
   };
 
@@ -171,7 +204,9 @@
     scroll_to_section: function (args) { return 'Scrolling to ' + (args.section || 'section') + '...'; },
     highlight_section: function (args) { return 'Highlighting ' + (args.section || 'section') + '...'; },
     get_visitor_context: 'Checking what you\'ve explored...',
-    show_related_content: function (args) { return 'Finding related content...'; }
+    show_related_content: function (args) { return 'Finding related content...'; },
+    connect_visitor: 'Connecting you...',
+    collect_feedback: 'Saving your feedback...'
   };
 
 
@@ -693,7 +728,7 @@
     logoPath: BASE_PATH + 'images/logo.png',
     messageCap: 30,
 
-    availableTools: ['scroll_to_section', 'highlight_section', 'get_visitor_context', 'show_related_content'],
+    availableTools: ['scroll_to_section', 'highlight_section', 'get_visitor_context', 'show_related_content', 'connect_visitor', 'collect_feedback'],
 
     buildUI: buildUI,
     openingMessage: null,  // set dynamically in initializePanelContent
