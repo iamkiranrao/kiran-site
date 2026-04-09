@@ -1395,6 +1395,64 @@
 
 
 /* ════════════════════════════════════════════
+   AGENT MESSAGE TYPES
+   Tool thinking, tool results, system messages,
+   and streaming state for the agentic Fenix chat
+   ════════════════════════════════════════════ */
+
+/* Tool thinking — italic accent text, no bubble */
+.ev-msg-tool-thinking {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--ev-accent);
+  padding: 0.25rem 0 0.25rem 2.25rem;
+  opacity: 0.85;
+  animation: ev-fade-in 0.3s ease;
+}
+
+/* Tool result — compact status line with checkmark */
+.ev-msg-tool-result {
+  font-size: 0.72rem;
+  color: var(--ev-text-muted);
+  padding: 0.15rem 0 0.15rem 2.25rem;
+  animation: ev-fade-in 0.3s ease;
+}
+
+/* System message — centered, small, muted */
+.ev-msg-system {
+  font-size: 0.72rem;
+  color: var(--ev-text-muted);
+  text-align: center;
+  padding: 0.75rem 1rem;
+  animation: ev-fade-in 0.3s ease;
+}
+
+/* Streaming state — subtle cursor blink while tokens arrive */
+.ev-streaming::after {
+  content: '\u258C';
+  color: var(--ev-accent);
+  animation: ev-cursor-blink 0.8s ease infinite;
+  margin-left: 1px;
+}
+
+@keyframes ev-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Disabled input state */
+.ev-chat-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ev-chat-send:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+
+/* ════════════════════════════════════════════
    REDUCED MOTION (Accessibility)
    ════════════════════════════════════════════ */
 
@@ -1407,6 +1465,9 @@
   .ev-unlock-cards-header,
   .ev-unlock-card,
   .ev-msg,
+  .ev-msg-tool-thinking,
+  .ev-msg-tool-result,
+  .ev-msg-system,
   .ev-narration-line,
   .ev-fly-clone {
     opacity: 1 !important;
