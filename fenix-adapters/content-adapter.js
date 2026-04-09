@@ -53,9 +53,11 @@
 
   function inferBasePath() {
     // Determine relative path to site root for assets
+    // /teardowns/geico-mobile-app.html → depth 1 → '../'
+    // /index.html → depth 0 → './'
     var path = window.location.pathname;
     var depth = (path.match(/\//g) || []).length - 1;
-    if (depth <= 1) return './';
+    if (depth <= 0) return './';
     var prefix = '';
     for (var i = 0; i < depth; i++) prefix += '../';
     return prefix;
@@ -180,6 +182,10 @@
   var messageArea = null;
 
   function buildUI() {
+    // Ensure clean state on load (bfcache can carry stale class)
+    document.body.classList.remove('fenix-panel-open');
+    panelOpen = false;
+
     discoverSections();
     injectEdgeTab();
     injectSidePanel();
@@ -525,6 +531,9 @@
       '}\n' +
       '.fenix-sp-send-btn:hover { opacity: 0.85; }\n' +
       '.fenix-sp-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }\n' +
+
+      /* Hide site nav when panel is open (avoids overlap) */
+      'body.fenix-panel-open .nav-right { display: none; }\n' +
 
       /* Content shift when panel is open (desktop only) */
       '@media (min-width: 900px) {\n' +
