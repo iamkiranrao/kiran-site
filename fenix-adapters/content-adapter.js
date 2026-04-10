@@ -688,6 +688,26 @@
       '  transition: opacity 0.3s ease, transform 0.3s ease, max-width 0.4s ease 0.15s;\n' +
       '}\n' +
 
+      /* Typing indicator */
+      '.ev-typing-indicator { align-items: center; }\n' +
+      '.ev-typing-dots {\n' +
+      '  display: flex; align-items: center; gap: 5px;\n' +
+      '  padding: 12px 16px;\n' +
+      '  background: rgba(123,154,204,0.15); border: 1px solid rgba(123,154,204,0.3);\n' +
+      '  border-radius: 16px 16px 16px 4px;\n' +
+      '}\n' +
+      '.ev-typing-dots span {\n' +
+      '  display: block; width: 7px; height: 7px; border-radius: 50%;\n' +
+      '  background: #7B9ACC; opacity: 0.4;\n' +
+      '  animation: ev-dot-bounce 1.4s ease-in-out infinite;\n' +
+      '}\n' +
+      '.ev-typing-dots span:nth-child(2) { animation-delay: 0.2s; }\n' +
+      '.ev-typing-dots span:nth-child(3) { animation-delay: 0.4s; }\n' +
+      '@keyframes ev-dot-bounce {\n' +
+      '  0%, 60%, 100% { opacity: 0.4; transform: translateY(0); }\n' +
+      '  30% { opacity: 1; transform: translateY(-4px); }\n' +
+      '}\n' +
+
       /* Light theme overrides */
       '[data-theme="light"] .fenix-edge-tab-inner { background: #fff; box-shadow: -4px 0 20px rgba(0,0,0,0.08); }\n' +
       '[data-theme="light"] .fenix-side-panel { background: #fff; box-shadow: -8px 0 40px rgba(0,0,0,0.08); }\n' +

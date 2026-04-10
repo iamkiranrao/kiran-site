@@ -1489,6 +1489,44 @@
    PRINT
    ════════════════════════════════════════════ */
 
+/* ── Typing Indicator ── */
+.ev-typing-indicator {
+  align-items: center;
+}
+
+.ev-typing-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px;
+  background: var(--ev-accent-glow);
+  border: 1px solid var(--ev-accent-border);
+  border-radius: 16px 16px 16px 4px;
+}
+
+.ev-typing-dots span {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ev-accent);
+  opacity: 0.4;
+  animation: ev-dot-bounce 1.4s ease-in-out infinite;
+}
+
+.ev-typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.ev-typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes ev-dot-bounce {
+  0%, 60%, 100% { opacity: 0.4; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
 @media print {
   .ev-chat-pills,
   .ev-chat-input-bar,

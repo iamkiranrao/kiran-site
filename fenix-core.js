@@ -268,6 +268,16 @@
     fenixState.ui.fenixTyping = true;
     setInputEnabled(false);
 
+    // Show typing indicator
+    var typingIndicator = el('div', 'ev-msg ev-msg-fenix ev-typing-indicator');
+    var typingAvatar = el('img', 'ev-msg-avatar', { src: _logoPath, alt: 'Fenix' });
+    var typingDots = el('div', 'ev-typing-dots');
+    typingDots.innerHTML = '<span></span><span></span><span></span>';
+    typingIndicator.appendChild(typingAvatar);
+    typingIndicator.appendChild(typingDots);
+    messageArea.appendChild(typingIndicator);
+    messageArea.scrollTop = messageArea.scrollHeight;
+
     // Build the request payload
     var agentUrl = (adapter && adapter.agentUrl) || DEFAULT_AGENT_URL;
     var payload = {
@@ -307,6 +317,10 @@
       function readStream() {
         return reader.read().then(function (result) {
           if (result.done) {
+            // Clean up typing indicator if still present
+            var typingOnDone = messageArea.querySelector('.ev-typing-indicator');
+            if (typingOnDone) typingOnDone.remove();
+
             if (fullResponse) {
               fenixState.messages.push({
                 role: 'fenix',
@@ -345,6 +359,9 @@
       return readStream();
     }).catch(function (err) {
       console.error('Fenix agent error:', err);
+      // Remove typing indicator on error
+      var typingOnErr = messageArea.querySelector('.ev-typing-indicator');
+      if (typingOnErr) typingOnErr.remove();
       addFenixMessage(messageArea, 'I\'m having a moment — couldn\'t connect to my brain. Try again in a sec.');
       fenixState.ui.inputEnabled = true;
       fenixState.ui.fenixTyping = false;
@@ -368,6 +385,10 @@
           break;
 
         case 'text_start':
+          // Remove typing indicator when first response arrives
+          var typing = msgArea.querySelector('.ev-typing-indicator');
+          if (typing) typing.remove();
+
           currentBubble = el('div', 'ev-msg ev-msg-fenix');
           var avatar = el('img', 'ev-msg-avatar', { src: _logoPath, alt: 'Fenix' });
           currentContent = el('div', 'ev-msg-content ev-streaming');
@@ -398,6 +419,10 @@
           break;
 
         case 'tool_use':
+          // Remove typing indicator on tool use too
+          var typingOnTool = msgArea.querySelector('.ev-typing-indicator');
+          if (typingOnTool) typingOnTool.remove();
+
           addToolThinkingMessage(msgArea, data.name, data.args, adp);
           // Execute via adapter's tool executors
           var result = 'Unknown tool: ' + data.name;
