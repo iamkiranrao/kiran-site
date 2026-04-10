@@ -15,6 +15,9 @@ import {
   Clock,
   BarChart3,
   MessageCircle,
+  Users,
+  Building2,
+  Globe,
 } from "lucide-react";
 import ModuleHelp from "@/components/ModuleHelp";
 
@@ -55,12 +58,36 @@ interface TestimonialEntry {
   created_at: string;
 }
 
-type Tab = "feedback" | "testimonials";
+interface VisitorConnect {
+  id: string;
+  conversation_id: string | null;
+  name: string;
+  company: string | null;
+  email: string | null;
+  page_url: string | null;
+  connected_at: string;
+}
+
+type Tab = "feedback" | "testimonials" | "guestbook";
 
 // ── API helpers ──────────────────────────────────────────────
 
 async function fetchApi(path: string, options?: RequestInit) {
   const res = await fetch(`${API_URL}/api/feedback${path}`, options);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: `HTTP ${res.status}` }));
+    throw new Error(err.detail || "Request failed");
+  }
+  return res.json();
+}
+
+const FENIX_API_URL = "https://api.kiranrao.ai";
+const FENIX_API_KEY = "H3Ycu0N5kfv5MERh_5mYwYcMbGu6pYUv2y1KSgsMBLk";
+
+async function fetchFenixApi(path: string) {
+  const res = await fetch(`${FENIX_API_URL}/api/admin/fenix-analytics${path}`, {
+    headers: { "X-API-Key": FENIX_API_KEY },
+  });
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: `HTTP ${res.status}` }));
     throw new Error(err.detail || "Request failed");
@@ -128,6 +155,10 @@ export default function FeedbackPage() {
   const [testimonialTotal, setTestimonialTotal] = useState(0);
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
 
+  // Guestbook state
+  const [guestbookList, setGuestbookList] = useState<VisitorConnect[]>([]);
+  const [guestbookTotal, setGuestbookTotal] = useState(0);
+
   // ── Load feedback ──────────────────────────────────────────
 
   const loadFeedback = useCallback(async () => {
@@ -168,10 +199,26 @@ export default function FeedbackPage() {
     setLoading(false);
   }, [statusFilter]);
 
+  // ── Load guestbook ─────────────────────────────────────────
+
+  const loadGuestbook = useCallback(async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const data: VisitorConnect[] = await fetchFenixApi("/visitor-connects?limit=100&days=365");
+      setGuestbookList(data);
+      setGuestbookTotal(data.length);
+    } catch (e: any) {
+      setError(e.message || "Failed to load guestbook");
+    }
+    setLoading(false);
+  }, []);
+
   useEffect(() => {
     if (tab === "feedback") loadFeedback();
-    else loadTestimonials();
-  }, [tab, loadFeedback, loadTestimonials]);
+    else if (tab === "testimonials") loadTestimonials();
+    else loadGuestbook();
+  }, [tab, loadFeedback, loadTestimonials, loadGuestbook]);
 
   // ── Actions ────────────────────────────────────────────────
 
@@ -265,6 +312,20 @@ export default function FeedbackPage() {
           Testimonials
           {testimonialStats && (
             <span className="ml-1 text-xs opacity-60">({testimonialStats.total})</span>
+          )}
+        </button>
+        <button
+          onClick={() => setTab("guestbook")}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+            tab === "guestbook"
+              ? "bg-[#34d39920] text-[#34d399]"
+              : "bg-[var(--bg-secondary)] text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+          }`}
+        >
+          <Users size={16} />
+          Guestbook
+          {guestbookTotal > 0 && (
+            <span className="ml-1 text-xs opacity-60">({guestbookTotal})</span>
           )}
         </button>
       </div>
@@ -375,6 +436,103 @@ export default function FeedbackPage() {
                   >
                     <Trash2 size={14} className="text-red-400" />
                   </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* ─── GUESTBOOK TAB ─────────────────────────────────────── */}
+      {tab === "guestbook" && (
+        <>
+          {/* Stats cards */}
+          <div className="grid grid-cols-3 gap-4 mb-6">
+            <StatCard
+              label="Total Connects"
+              value={guestbookTotal}
+              icon={Users}
+              color="#34d399"
+            />
+            <StatCard
+              label="With Company"
+              value={guestbookList.filter((v) => v.company).length}
+              icon={Building2}
+              color="#60a5fa"
+            />
+            <StatCard
+              label="Unique Pages"
+              value={new Set(guestbookList.map((v) => v.page_url).filter(Boolean)).size}
+              icon={Globe}
+              color="#a78bfa"
+            />
+          </div>
+
+          <div className="flex gap-2 mb-4">
+            <span className="ml-auto text-xs text-[var(--text-muted)] self-center">
+              {guestbookTotal} visitors connected
+            </span>
+          </div>
+
+          {/* Guestbook list */}
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 size={24} className="animate-spin text-[var(--text-muted)]" />
+            </div>
+          ) : guestbookList.length === 0 ? (
+            <div className="text-center py-20 text-[var(--text-muted)]">
+              <Users size={40} className="mx-auto mb-3 opacity-40" />
+              <p>No visitors have connected yet.</p>
+              <p className="text-xs mt-1 opacity-60">
+                Visitors connect through Fenix by sharing their name and company.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {guestbookList.map((v) => (
+                <div
+                  key={v.id}
+                  className="flex items-center gap-4 rounded-xl p-4 transition-all hover:bg-[var(--bg-secondary)]"
+                  style={{
+                    backgroundColor: "var(--bg-card)",
+                    border: "1px solid var(--border)",
+                  }}
+                >
+                  {/* Avatar */}
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
+                    style={{
+                      backgroundColor: "rgba(52, 211, 153, 0.12)",
+                      color: "#34d399",
+                    }}
+                  >
+                    {v.name.charAt(0).toUpperCase()}
+                  </div>
+
+                  {/* Name + company */}
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-sm text-[var(--text-primary)]">
+                      {v.name}
+                    </p>
+                    {v.company && (
+                      <p className="text-xs text-[var(--text-muted)] flex items-center gap-1">
+                        <Building2 size={11} />
+                        {v.company}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Page URL */}
+                  {v.page_url && (
+                    <span className="text-xs text-[var(--text-muted)] bg-[var(--bg-secondary)] px-2 py-0.5 rounded truncate max-w-[200px]">
+                      {v.page_url.replace("https://kirangorapalli.com", "").replace("https://kiranrao.ai", "") || "/"}
+                    </span>
+                  )}
+
+                  {/* Date */}
+                  <span className="text-xs text-[var(--text-muted)] shrink-0">
+                    {formatDateTime(v.connected_at)}
+                  </span>
                 </div>
               ))}
             </div>
