@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Persona picker layout comparison: option A (3x2 grid), option B (horizontal cards), option C (vertical grid). Design exploration for card arrangement.">
+<title>Persona Picker   Layout Options</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1410;
+    color: #e8dcc8;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    margin: 30px 0 10px;
+    color: #e8a44a;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+  h2 {
+    text-align: center;
+    font-size: 15px;
+    color: #a08868;
+    margin-bottom: 30px;
+    font-weight: 400;
+  }
+
+  .option-label {
+    text-align: center;
+    font-size: 22px;
+    color: #e8a44a;
+    margin: 50px 0 5px;
+    font-weight: 500;
+  }
+  .option-sublabel {
+    text-align: center;
+    font-size: 13px;
+    color: #a08868;
+    margin-bottom: 20px;
+  }
+
+  /* ========== HERO SECTION (shared) ========== */
+  .hero-container {
+    max-width: 1280px;
+    margin: 0 auto 0;
+    aspect-ratio: 3/2;
+    background: linear-gradient(135deg, #3d2e1e 0%, #5a4230 40%, #4a3525 100%);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(232,164,74,0.15);
+  }
+  .hero-container .hero-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .hero-container .hero-label .dim {
+    font-size: 32px;
+    color: #e8a44a;
+    font-weight: 200;
+  }
+  .hero-container .hero-label .sub {
+    font-size: 14px;
+    color: #a08868;
+    margin-top: 4px;
+  }
+  /* Decorative elements to suggest the studio */
+  .hero-container::before {
+    content: '';
+    position: absolute;
+    bottom: 15%;
+    left: 10%;
+    width: 35%;
+    height: 25%;
+    background: rgba(232,164,74,0.06);
+    border-radius: 8px;
+    border: 1px solid rgba(232,164,74,0.08);
+  }
+  .hero-container::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: 8%;
+    width: 15%;
+    height: 40%;
+    background: rgba(232,164,74,0.04);
+    border-radius: 6px;
+    border: 1px solid rgba(232,164,74,0.06);
+  }
+
+  .lead-in {
+    text-align: center;
+    font-size: 20px;
+    color: #c8b8a0;
+    margin: 28px 0 20px;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  /* ========== SECTION WRAPPER ========== */
+  .section {
+    max-width: 1280px;
+    margin: 0 auto 60px;
+    border: 2px dashed rgba(232,164,74,0.2);
+    border-radius: 20px;
+    padding: 30px 30px 40px;
+    position: relative;
+  }
+  .section.recommended {
+    border-color: rgba(232,164,74,0.5);
+    background: rgba(232,164,74,0.02);
+  }
+  .section.recommended::after {
+    content: 'RECOMMENDED';
+    position: absolute;
+    top: -12px;
+    right: 30px;
+    background: #e8a44a;
+    color: #1a1410;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 14px;
+    border-radius: 10px;
+    letter-spacing: 1.5px;
+  }
+
+  /* ========== STATS BAR ========== */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 15px 0 0;
+    font-size: 12px;
+    color: #8a7a66;
+  }
+  .stats span {
+    background: rgba(232,164,74,0.08);
+    padding: 4px 12px;
+    border-radius: 6px;
+  }
+
+  /* ========== CARD GRIDS ========== */
+
+  /* Option A: Current spec   2×3 portrait */
+  .grid-portrait {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .card-portrait {
+    aspect-ratio: 3/4;
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .card-portrait:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  /* Option B: 3×2 horizontal */
+  .grid-horizontal-3x2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .card-horizontal {
+    aspect-ratio: 16/10;
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .card-landscape:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  /* Option C: 2×3 horizontal (wider, 2 cols) */
+  .grid-landscape-2x3 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .card-landscape-wide {
+    aspect-ratio: 2.2/1;
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .card-landscape-wide:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  /* Option D: Single row of 6 */
+  .grid-single-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .card-single {
+    aspect-ratio: 3/4;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .card-single:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    z-index: 2;
+  }
+
+  /* ========== CARD INTERNALS ========== */
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+  }
+  .card-character {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 50%;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50% 50% 40% 40%;
+    border: 1px dashed rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+  }
+  .card-landscape .card-character,
+  .card-landscape-wide .card-character {
+    top: 8%;
+    left: 8%;
+    transform: none;
+    width: 35%;
+    height: 75%;
+    border-radius: 40%;
+  }
+  .card-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 14px 16px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  }
+  .card-landscape .card-text,
+  .card-landscape-wide .card-text {
+    left: 40%;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(to right, transparent, rgba(0,0,0,0.5) 30%);
+    padding: 16px 20px;
+  }
+  .card-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .card-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+  .card-title {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 6px;
+  }
+  .card-hook {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    font-style: italic;
+    line-height: 1.3;
+  }
+
+  /* Small card text adjustments */
+  .card-single .card-name { font-size: 13px; }
+  .card-single .card-tag { font-size: 9px; }
+  .card-single .card-hook { font-size: 10px; }
+  .card-single .card-character { width: 55%; height: 45%; font-size: 9px; }
+
+  /* ========== DIMENSION ANNOTATIONS ========== */
+  .dimension-note {
+    position: absolute;
+    font-size: 10px;
+    color: #e8a44a;
+    background: rgba(26,20,16,0.8);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(232,164,74,0.3);
+    white-space: nowrap;
+  }
+
+  /* ========== TOTAL HEIGHT INDICATOR ========== */
+  .height-bar {
+    position: absolute;
+    right: -60px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(232,164,74,0.3);
+  }
+  .height-bar::before,
+  .height-bar::after {
+    content: '';
+    position: absolute;
+    left: -4px;
+    width: 10px;
+    height: 2px;
+    background: rgba(232,164,74,0.3);
+  }
+  .height-bar::before { top: 0; }
+  .height-bar::after { bottom: 0; }
+  .height-label {
+    position: absolute;
+    right: -110px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-size: 11px;
+    color: #e8a44a;
+    white-space: nowrap;
+  }
+
+  /* Persona accent colors */
+  .evaluator { background: linear-gradient(135deg, #1a2a4a, #2a3d6a); }
+  .evaluator .card-tag { color: #6e8ef7; }
+  .evaluator .card-bg { background: radial-gradient(circle at 30% 30%, #6e8ef7, transparent 70%); }
+
+  .seeker { background: linear-gradient(135deg, #3d2e1a, #4a3a22); }
+  .seeker .card-tag { color: #e8a44a; }
+  .seeker .card-bg { background: radial-gradient(circle at 30% 30%, #e8a44a, transparent 70%); }
+
+  .practitioner { background: linear-gradient(135deg, #1a3332, #234a48); }
+  .practitioner .card-tag { color: #5bbfba; }
+  .practitioner .card-bg { background: radial-gradient(circle at 30% 30%, #5bbfba, transparent 70%); }
+
+  .learner { background: linear-gradient(135deg, #2a1a3a, #3d2850); }
+  .learner .card-tag { color: #c07edb; }
+  .learner .card-bg { background: radial-gradient(circle at 30% 30%, #c07edb, transparent 70%); }
+
+  .explorer { background: linear-gradient(135deg, #3a1a20, #4a2530); }
+  .explorer .card-tag { color: #e06b7a; }
+  .explorer .card-bg { background: radial-gradient(circle at 30% 30%, #e06b7a, transparent 70%); }
+
+  .innercircle { background: linear-gradient(135deg, #3a2a1a, #4a3822); }
+  .innercircle .card-tag { color: #d4a574; }
+  .innercircle .card-bg { background: radial-gradient(circle at 30% 30%, #d4a574, transparent 70%); }
+
+  /* Scroll indicator */
+  .fold-line {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-top: 2px dashed rgba(232,164,74,0.25);
+    margin-top: 10px;
+  }
+  .fold-line span {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    font-size: 11px;
+    color: #e8a44a;
+    background: #1a1410;
+    padding: 0 8px;
+  }
+
+  /* Comparison table */
+  .comparison {
+    max-width: 1000px;
+    margin: 60px auto 40px;
+    border-collapse: collapse;
+  }
+  .comparison th, .comparison td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(232,164,74,0.12);
+    font-size: 14px;
+  }
+  .comparison th {
+    color: #e8a44a;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  .comparison td { color: #c8b8a0; }
+  .comparison .win { color: #5bbfba; font-weight: 600; }
+  .comparison .meh { color: #a08868; }
+  .comparison .no { color: #e06b7a; }
+  .comparison tr:hover td { background: rgba(232,164,74,0.03); }
+
+  .midjourney-note {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px 24px;
+    background: rgba(232,164,74,0.06);
+    border: 1px solid rgba(232,164,74,0.15);
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #c8b8a0;
+  }
+  .midjourney-note strong { color: #e8a44a; }
+
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 30px 0 10px;
+    flex-wrap: wrap;
+  }
+  .nav-tab {
+    padding: 8px 20px;
+    background: rgba(232,164,74,0.08);
+    border: 1px solid rgba(232,164,74,0.2);
+    border-radius: 8px;
+    color: #c8b8a0;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .nav-tab:hover, .nav-tab.active {
+    background: rgba(232,164,74,0.2);
+    border-color: rgba(232,164,74,0.5);
+    color: #e8a44a;
+  }
+</style>
+<link rel="canonical" href="https://kiranrao.ai/persona-layout-wireframe.html">
+    <script src="gate.js"></script>
+</head>
+<body>
+
+<h1>Persona Picker   Layout Wireframe</h1>
+<h2>Comparing card dimensions & grid layouts against the hero image</h2>
+
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="scrollToSection('a')">A: Portrait 2×3 (Current)</div>
+  <div class="nav-tab" onclick="scrollToSection('b')">B: Landscape 2×3</div>
+  <div class="nav-tab" onclick="scrollToSection('c')">C: Wide 3×2</div>
+  <div class="nav-tab" onclick="scrollToSection('d')">D: Single Row</div>
+  <div class="nav-tab" onclick="scrollToSection('compare')">Compare</div>
+</div>
+
+<!-- ============================================ -->
+<!-- OPTION A: Current Spec   Portrait 2×3 Grid -->
+<!-- ============================================ -->
+<div id="a">
+  <p class="option-label">Option A: Portrait Cards   2 rows × 3 columns</p>
+  <p class="option-sublabel">Current spec: ~400×520px cards (3:4 ratio) · Midjourney --ar 3:4</p>
+
+  <div class="section">
+    <div class="hero-container">
+      <div class="hero-label">
+        <div class="dim">1536 × 1024</div>
+        <div class="sub">Hero Scene   3:2 aspect ratio</div>
+      </div>
+    </div>
+
+    <p class="lead-in">"Everyone sees something different here."</p>
+
+    <div class="grid-portrait">
+      <div class="card-portrait evaluator">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Evaluator</div>
+          <div class="card-name">Hunter Voss</div>
+          <div class="card-title">Talent Lead at FitCheck</div>
+          <div class="card-hook">"I've got a Job to be Done   is Kiran my guy?"</div>
+        </div>
+      </div>
+      <div class="card-portrait seeker">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Seeker</div>
+          <div class="card-name">Quest Parekh</div>
+          <div class="card-title">Founder at GapBridge</div>
+          <div class="card-hook">"I need a force multiplier, not another consultant."</div>
+        </div>
+      </div>
+      <div class="card-portrait practitioner">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Practitioner</div>
+          <div class="card-name">Mason Craft</div>
+          <div class="card-title">VP Product at Shipwright</div>
+          <div class="card-hook">"Frameworks, first principles, and strong opinions."</div>
+        </div>
+      </div>
+      <div class="card-portrait learner">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Learner</div>
+          <div class="card-name">Sage Minto</div>
+          <div class="card-title">Associate PM at LadderUp</div>
+          <div class="card-hook">"I learn best from war stories, not textbooks."</div>
+        </div>
+      </div>
+      <div class="card-portrait explorer">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Explorer</div>
+          <div class="card-name">Wren Atlas</div>
+          <div class="card-title">Freelance Curious</div>
+          <div class="card-hook">"I followed a breadcrumb and now I'm curious."</div>
+        </div>
+      </div>
+      <div class="card-portrait innercircle">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Inner Circle</div>
+          <div class="card-name">Kai Nakamura</div>
+          <div class="card-title">Old Friend</div>
+          <div class="card-hook">"Skip the pitch   we go way back."</div>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <span>Card: ~400 × 520px</span>
+      <span>Grid height: ~1060px</span>
+      <span>Total section: ~1960px</span>
+      <span>Midjourney: --ar 3:4</span>
+    </div>
+  </div>
+
+  <div class="fold-line"><span>~850px viewport fold ↑</span></div>
+</div>
+
+<!-- ============================================ -->
+<!-- OPTION B: Landscape Cards   2 rows × 3 cols -->
+<!-- ============================================ -->
+<div id="b">
+  <p class="option-label">Option B: Landscape Cards   2 rows × 3 columns</p>
+  <p class="option-sublabel">~400×250px cards (16:10 ratio) · Midjourney --ar 16:10 · Character left, text right</p>
+
+  <div class="section recommended">
+    <div class="hero-container">
+      <div class="hero-label">
+        <div class="dim">1536 × 1024</div>
+        <div class="sub">Hero Scene   3:2 aspect ratio</div>
+      </div>
+    </div>
+
+    <p class="lead-in">"Everyone sees something different here."</p>
+
+    <div class="grid-horizontal-3x2">
+      <div class="card-landscape evaluator">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Evaluator</div>
+          <div class="card-name">Hunter Voss</div>
+          <div class="card-title">Talent Lead at FitCheck</div>
+          <div class="card-hook">"I've got a Job to be Done   is Kiran my guy?"</div>
+        </div>
+      </div>
+      <div class="card-landscape seeker">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Seeker</div>
+          <div class="card-name">Quest Parekh</div>
+          <div class="card-title">Founder at GapBridge</div>
+          <div class="card-hook">"I need a force multiplier, not another consultant."</div>
+        </div>
+      </div>
+      <div class="card-landscape practitioner">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Practitioner</div>
+          <div class="card-name">Mason Craft</div>
+          <div class="card-title">VP Product at Shipwright</div>
+          <div class="card-hook">"Frameworks, first principles, and strong opinions."</div>
+        </div>
+      </div>
+      <div class="card-landscape learner">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Learner</div>
+          <div class="card-name">Sage Minto</div>
+          <div class="card-title">Associate PM at LadderUp</div>
+          <div class="card-hook">"I learn best from war stories, not textbooks."</div>
+        </div>
+      </div>
+      <div class="card-landscape explorer">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Explorer</div>
+          <div class="card-name">Wren Atlas</div>
+          <div class="card-title">Freelance Curious</div>
+          <div class="card-hook">"I followed a breadcrumb and now I'm curious."</div>
+        </div>
+      </div>
+      <div class="card-landscape innercircle">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Inner Circle</div>
+          <div class="card-name">Kai Nakamura</div>
+          <div class="card-title">Old Friend</div>
+          <div class="card-hook">"Skip the pitch   we go way back."</div>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <span>Card: ~400 × 250px</span>
+      <span>Grid height: ~520px</span>
+      <span>Total section: ~1420px</span>
+      <span>Midjourney: --ar 16:10</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- OPTION C: Wide Landscape   3 rows × 2 cols -->
+<!-- ============================================ -->
+<div id="c">
+  <p class="option-label">Option C: Wide Cards   3 rows × 2 columns</p>
+  <p class="option-sublabel">~620×280px cards (2.2:1 ratio) · Character left, text right · Midjourney --ar 2:1</p>
+
+  <div class="section">
+    <div class="hero-container">
+      <div class="hero-label">
+        <div class="dim">1536 × 1024</div>
+        <div class="sub">Hero Scene   3:2 aspect ratio</div>
+      </div>
+    </div>
+
+    <p class="lead-in">"Everyone sees something different here."</p>
+
+    <div class="grid-landscape-2x3">
+      <div class="card-landscape-wide evaluator">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Evaluator</div>
+          <div class="card-name">Hunter Voss</div>
+          <div class="card-title">Talent Lead at FitCheck</div>
+          <div class="card-hook">"I've got a Job to be Done   is Kiran my guy?"</div>
+        </div>
+      </div>
+      <div class="card-landscape-wide seeker">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Seeker</div>
+          <div class="card-name">Quest Parekh</div>
+          <div class="card-title">Founder at GapBridge</div>
+          <div class="card-hook">"I need a force multiplier, not another consultant."</div>
+        </div>
+      </div>
+      <div class="card-landscape-wide practitioner">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Practitioner</div>
+          <div class="card-name">Mason Craft</div>
+          <div class="card-title">VP Product at Shipwright</div>
+          <div class="card-hook">"Frameworks, first principles, and strong opinions."</div>
+        </div>
+      </div>
+      <div class="card-landscape-wide learner">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Learner</div>
+          <div class="card-name">Sage Minto</div>
+          <div class="card-title">Associate PM at LadderUp</div>
+          <div class="card-hook">"I learn best from war stories, not textbooks."</div>
+        </div>
+      </div>
+      <div class="card-landscape-wide explorer">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Explorer</div>
+          <div class="card-name">Wren Atlas</div>
+          <div class="card-title">Freelance Curious</div>
+          <div class="card-hook">"I followed a breadcrumb and now I'm curious."</div>
+        </div>
+      </div>
+      <div class="card-landscape-wide innercircle">
+        <div class="card-bg"></div>
+        <div class="card-character">character</div>
+        <div class="card-text">
+          <div class="card-tag">The Inner Circle</div>
+          <div class="card-name">Kai Nakamura</div>
+          <div class="card-title">Old Friend</div>
+          <div class="card-hook">"Skip the pitch   we go way back."</div>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <span>Card: ~620 × 280px</span>
+      <span>Grid height: ~890px</span>
+      <span>Total section: ~1790px</span>
+      <span>Midjourney: --ar 2:1</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- OPTION D: Single Row of 6 -->
+<!-- ============================================ -->
+<div id="d">
+  <p class="option-label">Option D: Single Row   6 across</p>
+  <p class="option-sublabel">~190×250px cards (3:4 portrait but small) · Compact, minimal scroll · Midjourney --ar 3:4</p>
+
+  <div class="section">
+    <div class="hero-container">
+      <div class="hero-label">
+        <div class="dim">1536 × 1024</div>
+        <div class="sub">Hero Scene   3:2 aspect ratio</div>
+      </div>
+    </div>
+
+    <p class="lead-in">"Everyone sees something different here."</p>
+
+    <div class="grid-single-row">
+      <div class="card-single evaluator">
+        <div class="card-bg"></div>
+        <div class="card-character">char</div>
+        <div class="card-text">
+          <div class="card-tag">Evaluator</div>
+          <div class="card-name">Hunter Voss</div>
+          <div class="card-title">FitCheck</div>
+          <div class="card-hook">"Is Kiran my guy?"</div>
+        </div>
+      </div>
+      <div class="card-single seeker">
+        <div class="card-bg"></div>
+        <div class="card-character">char</div>
+        <div class="card-text">
+          <div class="card-tag">Seeker</div>
+          <div class="card-name">Quest Parekh</div>
+          <div class="card-title">GapBridge</div>
+          <div class="card-hook">"Force multiplier."</div>
+        </div>
+      </div>
+      <div class="card-single practitioner">
+        <div class="card-bg"></div>
+        <div class="card-character">char</div>
+        <div class="card-text">
+          <div class="card-tag">Practitioner</div>
+          <div class="card-name">Mason Craft</div>
+          <div class="card-title">Shipwright</div>
+          <div class="card-hook">"My kind of thing."</div>
+        </div>
+      </div>
+      <div class="card-single learner">
+        <div class="card-bg"></div>
+        <div class="card-character">char</div>
+        <div class="card-text">
+          <div class="card-tag">Learner</div>
+          <div class="card-name">Sage Minto</div>
+          <div class="card-title">LadderUp</div>
+          <div class="card-hook">"War stories."</div>
+        </div>
+      </div>
+      <div class="card-single explorer">
+        <div class="card-bg"></div>
+        <div class="card-character">char</div>
+        <div class="card-text">
+          <div class="card-tag">Explorer</div>
+          <div class="card-name">Wren Atlas</div>
+          <div class="card-title">Curious</div>
+          <div class="card-hook">"Just browsing."</div>
+        </div>
+      </div>
+      <div class="card-single innercircle">
+        <div class="card-bg"></div>
+        <div class="card-character">char</div>
+        <div class="card-text">
+          <div class="card-tag">Inner Circle</div>
+          <div class="card-name">Kai Nakamura</div>
+          <div class="card-title">Old Friend</div>
+          <div class="card-hook">"We go way back."</div>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <span>Card: ~190 × 250px</span>
+      <span>Grid height: ~250px</span>
+      <span>Total section: ~1170px</span>
+      <span>Midjourney: --ar 3:4</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- COMPARISON TABLE -->
+<!-- ============================================ -->
+<div id="compare">
+  <p class="option-label">Side-by-Side Comparison</p>
+  <table class="comparison">
+    <tr>
+      <th></th>
+      <th>A: Portrait 2×3</th>
+      <th>B: Landscape 2×3</th>
+      <th>C: Wide 3×2</th>
+      <th>D: Single Row</th>
+    </tr>
+    <tr>
+      <td>Card size</td>
+      <td>~400 × 520</td>
+      <td>~400 × 250</td>
+      <td>~620 × 280</td>
+      <td>~190 × 250</td>
+    </tr>
+    <tr>
+      <td>Card ratio</td>
+      <td>3:4</td>
+      <td>16:10</td>
+      <td>~2.2:1</td>
+      <td>3:4</td>
+    </tr>
+    <tr>
+      <td>Midjourney --ar</td>
+      <td>--ar 3:4</td>
+      <td class="win">--ar 16:10</td>
+      <td>--ar 2:1</td>
+      <td>--ar 3:4</td>
+    </tr>
+    <tr>
+      <td>Grid height</td>
+      <td class="no">~1060px</td>
+      <td class="win">~520px</td>
+      <td class="meh">~890px</td>
+      <td class="win">~250px</td>
+    </tr>
+    <tr>
+      <td>Total section</td>
+      <td class="no">~1960px</td>
+      <td class="win">~1420px</td>
+      <td class="meh">~1790px</td>
+      <td class="win">~1170px</td>
+    </tr>
+    <tr>
+      <td>Above the fold?</td>
+      <td class="no">Hero only</td>
+      <td class="win">Hero + top row</td>
+      <td class="meh">Hero + 1 row</td>
+      <td class="win">Everything</td>
+    </tr>
+    <tr>
+      <td>Character presence</td>
+      <td class="win">Large, dominant</td>
+      <td class="win">Medium, side-by-side with text</td>
+      <td class="meh">Smaller relative to card</td>
+      <td class="no">Tiny, hard to read</td>
+    </tr>
+    <tr>
+      <td>Hook readability</td>
+      <td class="win">Full hook visible</td>
+      <td class="win">Full hook visible</td>
+      <td class="win">Full hook visible</td>
+      <td class="no">Truncated/abbreviated</td>
+    </tr>
+    <tr>
+      <td>Trading card feel</td>
+      <td class="win">Strong   classic card</td>
+      <td class="meh">More "banner" than card</td>
+      <td class="meh">Magazine layout</td>
+      <td class="meh">Small cards, less premium</td>
+    </tr>
+    <tr>
+      <td>Mobile responsive</td>
+      <td class="meh">Stack to 1 column = very long</td>
+      <td class="win">Stack well, stay compact</td>
+      <td class="win">Stack well</td>
+      <td class="no">Need to restructure</td>
+    </tr>
+    <tr>
+      <td>Visual scroll</td>
+      <td class="no">Significant</td>
+      <td class="win">Moderate</td>
+      <td class="meh">Significant</td>
+      <td class="win">Minimal</td>
+    </tr>
+  </table>
+
+  <div class="midjourney-note">
+    <strong>Midjourney implication:</strong> The image you just generated (Hunter Voss) is in 3:4 portrait ratio.
+    If we switch to landscape cards, you'd need to regenerate with <strong>--ar 16:10</strong> or <strong>--ar 8:5</strong> instead.
+    The character would be composed differently   more of a bust/upper-body horizontal composition with the
+    warm workspace background extending to the sides. The good news: you've only done one character,
+    so pivoting now costs almost nothing.
+    <br><br>
+    <strong>Hybrid option:</strong> We could also keep your 3:4 portrait images and use CSS to crop/position them
+    inside landscape card containers   showing the character from roughly chest-up. This saves you from
+    regenerating but gives less control over the composition.
+  </div>
+</div>
+
+<script>
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

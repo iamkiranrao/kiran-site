@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Design exploration of character-led bento layouts with varied visual prominence for persona-driven interfaces.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bento Enhanced D+: Character-Led, Varied Prominence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Archivo+Black&family=Orbitron:wght@400;700;900&family=Caveat:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Corben:wght@400;700&family=Josefin+Sans:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --card-bg-accent: #D4A853;
+    --glass-text-dark: #F0E6D8;
+    --glass-text-dark-secondary: #C8BBA8;
+    --glass-text-dark-muted: #9A8E80;
+    --font-stat: 'Bebas Neue', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background: #1a1715;
+    color: #f0e6d8;
+    padding: 1.5rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.section-header h2 {
+    font-family: var(--font-stat);
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--glass-text-dark-muted);
+    margin-bottom: 0.3rem;
+}
+.section-header p {
+    font-size: 0.75rem;
+    color: var(--glass-text-dark-muted);
+    opacity: 0.5;
+    line-height: 1.5;
+}
+
+/* ── Bento Grid: Option D+ ── */
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* ══════════════════════════════════════════════
+   PROMINENCE TIERS
+   Hero > Important > Supporting
+   Each tier gets different min-heights, character sizes, text treatment
+   ══════════════════════════════════════════════ */
+
+/* ── Card Base ── */
+.work-card {
+    border-radius: 16px;
+    position: relative;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    font-family: inherit;
+    overflow: visible;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.work-card:hover { transform: translateY(-3px); z-index: 10; }
+
+/* ── Span sizes with prominence ── */
+/* Hero: the flagship card */
+.card-span-4.tier-hero { grid-column: span 4; min-height: 440px; }
+/* Important: cards that carry weight */
+.card-span-2.tier-important { grid-column: span 2; min-height: 380px; }
+.card-span-3.tier-important { grid-column: span 3; min-height: 400px; }
+/* Supporting: useful context, lighter touch */
+.card-span-2.tier-supporting { grid-column: span 2; min-height: 320px; }
+.card-span-3.tier-supporting { grid-column: span 3; min-height: 340px; }
+
+/* ── Layer 1: Card Background ── */
+.card-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    z-index: 0;
+}
+.card-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.1);
+    pointer-events: none;
+}
+
+/* Card outer border */
+.work-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    pointer-events: none;
+    z-index: 5;
+}
+.work-card:hover::before { border-color: rgba(255,255,255,0.15); }
+
+/* Hero cards get a subtle accent border on hover */
+.tier-hero:hover::before { border-color: rgba(212, 168, 83, 0.3); }
+
+/* Per-card backgrounds */
+.card-analyst .card-bg { background: linear-gradient(135deg, #3D3830 0%, #2C2825 50%, #3A3228 100%); }
+.card-veteran .card-bg { background: linear-gradient(120deg, #3A3428 0%, #2E2820 50%, #3D3528 100%); }
+.card-tinkerer .card-bg { background: linear-gradient(145deg, #35322A 0%, #2A2822 50%, #383228 100%); }
+.card-artist .card-bg { background: linear-gradient(130deg, #2E3235 0%, #252A2C 50%, #303538 100%); }
+.card-storyteller .card-bg { background: linear-gradient(140deg, #352E35 0%, #2A2528 50%, #382E35 100%); }
+.card-student .card-bg { background: linear-gradient(125deg, #2E3328 0%, #252A22 50%, #303528 100%); }
+.card-explorer .card-bg { background: linear-gradient(135deg, #3A3028 0%, #2E2520 50%, #3D3025 100%); }
+.card-engineer .card-bg { background: linear-gradient(140deg, #2C3035 0%, #222628 50%, #2E3238 100%); }
+.card-connector .card-bg { background: linear-gradient(128deg, #382E30 0%, #2C2425 50%, #3A2E30 100%); }
+
+/* ── Layer 2: Character ── */
+.card-character {
+    position: absolute;
+    z-index: 4;
+    pointer-events: none;
+}
+.card-character .char-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    transition: filter 0.3s ease, transform 0.4s ease;
+}
+.work-card:hover .char-img {
+    filter: drop-shadow(0 6px 20px rgba(0,0,0,0.4));
+}
+
+/* Character placeholder — contextual activity description */
+.card-character .char-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+.char-placeholder .char-emoji {
+    line-height: 1;
+}
+.char-placeholder .char-activity {
+    font-size: 0.55rem;
+    font-family: 'Space Mono', monospace;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    line-height: 1.3;
+    max-width: 120px;
+    letter-spacing: 0.02em;
+}
+
+/* ── Character sizes by tier ── */
+
+/* Hero: character is BIG — compositional anchor */
+.tier-hero .card-character {
+    width: 220px;
+    height: 240px;
+}
+/* Important: character holds its own */
+.tier-important.card-span-3 .card-character {
+    width: 180px;
+    height: 200px;
+}
+.tier-important.card-span-2 .card-character {
+    width: 150px;
+    height: 180px;
+}
+/* Supporting: character present but lighter */
+.tier-supporting.card-span-3 .card-character {
+    width: 140px;
+    height: 150px;
+}
+.tier-supporting.card-span-2 .card-character {
+    width: 110px;
+    height: 130px;
+}
+
+/* ── Character positions (each card unique) ── */
+/* Analyst (Hero span-4): character top-right, looking at phone/app */
+.card-analyst .card-character { right: 2.5rem; top: 0.5rem; }
+/* Veteran (Important span-2): character left, balances right-aligned text */
+.card-veteran .card-character { left: 0.8rem; top: -0.8rem; width: 190px !important; height: 250px !important; }
+/* Tinkerer (Important span-3): character top-left, tinkering */
+.card-tinkerer .card-character { left: 0.5rem; top: -1rem; }
+/* Artist (Supporting span-3): character right, painting */
+.card-artist .card-character { right: 0.5rem; top: 0.3rem; }
+/* Storyteller (Supporting span-2): character centered */
+.card-storyteller .card-character { left: 50%; top: 0.2rem; transform: translateX(-50%); }
+/* Student (Supporting span-2): character centered, reading */
+.card-student .card-character { left: 50%; top: 0.2rem; transform: translateX(-50%); }
+/* Explorer (Supporting span-2): character centered */
+.card-explorer .card-character { left: 50%; top: 0.2rem; transform: translateX(-50%); }
+/* Engineer (Important span-3): character left, examining */
+.card-engineer .card-character { left: 0.8rem; top: -0.5rem; }
+/* Connector (Important span-3): character center-right */
+.card-connector .card-character { right: 1.5rem; top: 0rem; }
+
+/* ── Layer 3: Glassmorphism Text ── */
+.card-overlay {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex: 1;
+    padding: 1.2rem;
+    border-radius: 16px;
+}
+
+/* ── VARIED GLASS SHELF TREATMENTS ── */
+
+/* Default glass shelf — compact, content-sized */
+.card-glass {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+/* HERO glass: wider padding, subtle accent left border, more breathing room */
+.tier-hero .card-glass {
+    padding: 1.3rem 1.5rem;
+    border-left: 2px solid rgba(212, 168, 83, 0.4);
+    gap: 0.35rem;
+}
+
+/* IMPORTANT glass: slightly bigger padding */
+.tier-important .card-glass {
+    padding: 1.1rem 1.3rem;
+    gap: 0.3rem;
+}
+
+/* SUPPORTING glass: tighter, compact */
+.tier-supporting .card-glass {
+    padding: 0.8rem 1rem;
+    gap: 0.2rem;
+}
+
+/* Layout variations */
+.layout-a .card-glass { align-items: flex-start; }
+.layout-b .card-glass { align-items: flex-end; text-align: right; }
+.layout-b .work-tags { justify-content: flex-end; }
+.layout-c .card-glass { align-items: center; text-align: center; }
+.layout-c .work-tags { justify-content: center; }
+
+/* ── TYPOGRAPHY BY TIER ── */
+
+.work-eyebrow {
+    font-family: var(--font-stat);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--glass-text-dark-muted);
+}
+/* Eyebrow scales with tier */
+.tier-hero .work-eyebrow { font-size: 0.8rem; letter-spacing: 0.14em; }
+.tier-important .work-eyebrow { font-size: 0.7rem; }
+.tier-supporting .work-eyebrow { font-size: 0.6rem; }
+
+/* Stat headline */
+.work-stat {
+    font-family: var(--font-stat);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    color: var(--glass-text-dark);
+    text-transform: uppercase;
+}
+/* Hero: commanding headline */
+.tier-hero .work-stat { font-size: 3.2rem; letter-spacing: 0.05em; }
+/* Important: strong but not dominant */
+.tier-important .work-stat { font-size: 2.2rem; }
+.tier-important.card-span-2 .work-stat { font-size: 1.9rem; }
+/* Supporting: present, understated */
+.tier-supporting .work-stat { font-size: 1.5rem; }
+.tier-supporting.card-span-3 .work-stat { font-size: 1.7rem; }
+
+/* Description */
+.work-desc {
+    color: var(--glass-text-dark-secondary);
+    line-height: 1.4;
+}
+.tier-hero .work-desc { font-size: 0.85rem; max-width: 55ch; }
+.tier-important .work-desc { font-size: 0.78rem; }
+.tier-supporting .work-desc { font-size: 0.7rem; }
+
+/* Tags */
+.work-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-top: 0.4rem; }
+.work-tag {
+    padding: 0.2rem 0.55rem;
+    background: rgba(255,255,255,0.08);
+    color: var(--glass-text-dark-secondary);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 500px;
+    font-size: 0.65rem;
+}
+.tier-supporting .work-tag { font-size: 0.58rem; padding: 0.15rem 0.45rem; }
+
+/* ── Per-Card Headline Fonts ── */
+.card-analyst .work-stat { font-family: 'Space Mono', monospace; font-weight: 700; text-transform: none; letter-spacing: 0.02em; }
+.card-veteran .work-stat { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; }
+.card-tinkerer .work-stat { font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 0.06em; }
+.card-artist .work-stat { font-family: 'Caveat', cursive; font-weight: 700; text-transform: none; }
+.card-storyteller .work-stat { font-family: 'Lora', serif; font-weight: 700; font-style: italic; text-transform: none; }
+.card-student .work-stat { font-family: 'Josefin Sans', sans-serif; font-weight: 600; letter-spacing: 0.08em; }
+.card-explorer .work-stat { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.02em; text-transform: none; }
+.card-engineer .work-stat { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.06em; }
+.card-connector .work-stat { font-family: 'Corben', cursive; font-weight: 700; text-transform: none; }
+
+/* Override sizes for fonts that need adjustment */
+.card-analyst.tier-hero .work-stat { font-size: 2.6rem; }
+.card-tinkerer .work-stat { font-size: 1.8rem; }
+.card-artist .work-stat { font-size: 2.4rem; }
+.card-connector .work-stat { font-size: 1.6rem; }
+
+/* ── Special card treatments ── */
+
+/* Testimonials: add a subtle quote-mark watermark feel */
+.card-connector .card-glass::before {
+    content: '"';
+    position: absolute;
+    top: -0.6rem;
+    left: 0.8rem;
+    font-family: 'Lora', serif;
+    font-size: 3rem;
+    color: rgba(212, 168, 83, 0.15);
+    line-height: 1;
+    pointer-events: none;
+}
+.card-connector .card-glass { position: relative; overflow: visible; }
+
+/* /Now card: subtle "live" indicator dot */
+.card-explorer .work-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #5BBA6F;
+    border-radius: 50%;
+    margin-right: 0.4rem;
+    animation: pulse-dot 2s ease-in-out infinite;
+    vertical-align: middle;
+}
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* MadLab: slight glow on hover — experimental feel */
+.card-tinkerer:hover .card-bg {
+    box-shadow: 0 0 30px rgba(212, 168, 83, 0.08);
+}
+
+/* Under the Hood: subtle code-bracket accent */
+.card-engineer .card-glass {
+    border-left: 2px solid rgba(255,255,255,0.12);
+}
+
+/* ── Hover: character reacts ── */
+.work-card:hover .card-character {
+    transform: translateY(-4px);
+}
+.card-veteran:hover .card-character { transform: translateX(-50%) translateY(-4px); }
+.card-storyteller:hover .card-character,
+.card-student:hover .card-character,
+.card-explorer:hover .card-character { transform: translateX(-50%) translateY(-4px); }
+
+/* ── Emoji sizing per tier ── */
+.tier-hero .char-emoji { font-size: 5.5rem; }
+.tier-important.card-span-3 .char-emoji { font-size: 4.5rem; }
+.tier-important.card-span-2 .char-emoji { font-size: 3.8rem; }
+.tier-supporting.card-span-3 .char-emoji { font-size: 3.5rem; }
+.tier-supporting.card-span-2 .char-emoji { font-size: 3rem; }
+
+/* ── Annotation bar ── */
+.annotation-bar {
+    max-width: 1440px;
+    margin: 2rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+.annotation-item {
+    text-align: center;
+}
+.annotation-item .tier-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.3rem;
+}
+.annotation-item .tier-desc {
+    font-size: 0.7rem;
+    color: var(--glass-text-dark-muted);
+    line-height: 1.4;
+}
+.tier-label.hero { color: var(--card-bg-accent); }
+.tier-label.important { color: #8BA88E; }
+.tier-label.supporting { color: var(--glass-text-dark-muted); }
+
+</style>
+</head>
+<body>
+
+<div class="section-header">
+    <h2>Enhanced D+: Character-Led, Varied Prominence</h2>
+    <p>Option D base (1440px wide + taller cards) with three prominence tiers. Hero cards dominate, important cards hold weight, supporting cards stay compact. Characters are big enough to carry compositional weight. Glass shelves vary in size and treatment per tier. Each character described by activity (placeholder until real PNGs).</p>
+</div>
+
+<div class="work-grid">
+
+    <!-- ═══ ROW 1 ═══ -->
+
+    <!-- ANALYST — HERO TIER (span-4) — Flagship card -->
+    <!-- Character: holding a phone, squinting at an app, looking unimpressed -->
+    <div class="work-card card-span-4 tier-hero layout-a card-analyst">
+        <div class="card-bg"></div>
+        <div class="card-character">
+            <div class="char-placeholder">
+                <span class="char-emoji">🔍</span>
+                <span class="char-activity">squinting at<br>a phone screen,<br>unimpressed</span>
+            </div>
+        </div>
+        <div class="card-overlay">
+            <div class="card-glass">
+                <span class="work-eyebrow">6 Teardowns &amp; Counting</span>
+                <span class="work-stat">How I'd've Built It</span>
+                <p class="work-desc">Product teardowns of popular apps: what works, what's broken, and what I'd rebuild from the ground up. Real analysis, not just hot takes.</p>
+                <div class="work-tags">
+                    <span class="work-tag">Instagram</span>
+                    <span class="work-tag">GEICO</span>
+                    <span class="work-tag">Airbnb</span>
+                    <span class="work-tag">Duolingo</span>
+                    <span class="work-tag">+2</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VETERAN — IMPORTANT TIER (span-2) — Credibility card -->
+    <!-- Character: standing tall in a blazer, arms crossed, knowing smile -->
+    <div class="work-card card-span-2 tier-important layout-b card-veteran">
+        <div class="card-bg"></div>
+        <div class="card-character">
+            <img class="char-img" src="images/Veteran.png" alt="The Veteran, standing confidently">
+        </div>
+        <div class="card-overlay">
+            <div class="card-glass">
+                <span class="work-eyebrow">15 Years Building</span>
+                <span class="work-stat">Career Highlights</span>
+                <p class="work-desc">0-to-1 launches, platform transformations, fractional consulting.</p>
+                <div class="work-tags">
+                    <span class="work-tag">Product</span>
+                    <span class="work-tag">Strategy</span>
+                    <span class="work-tag">Leadership</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ ROW 2 ═══ -->
+
+    <!-- TINKERER — IMPORTANT TIER (span-3) — Shows he builds -->
+    <!-- Character: hunched over a workbench, soldering, goggles on forehead -->
+    <div class="work-card card-span-3 tier-important layout-a card-tinkerer">
+        <div class="card-bg"></div>
+        <div class="card-character">
+            <div class="char-placeholder">
+                <span class="char-emoji">🔧</span>
+                <span class="char-activity">hunched over<br>a workbench,<br>goggles up</span>
+            </div>
+        </div>
+        <div class="card-overlay">
+            <div class="card-glass">
+                <span class="work-eyebrow">Apps &amp; Prototypes</span>
+                <span class="work-stat">MadLab</span>
+                <p class="work-desc">Things I built because I was curious. Side projects, prototypes, and happy accidents.</p>
+                <div class="work-tags">
+                    <span class="work-tag">Prototypes</span>
+                    <span class="work-tag">Apps</span>
+                    <span class="work-tag">Experiments</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARTIST — SUPPORTING TIER (span-3) — Creative range -->
+    <!-- Character: splattered in paint, holding a brush, mid-stroke -->
+    <div class="work-card card-span-3 tier-supporting layout-b card-artist">
+        <div class="card-bg"></div>
+        <div class="card-character">
+            <div class="char-placeholder">
+                <span class="char-emoji">🎨</span>
+                <span class="char-activity">splattered<br>in paint,<br>mid-stroke</span>
+            </div>
+        </div>
+        <div class="card-overlay">
+            <div class="card-glass">
+                <span class="work-eyebrow">Creative Portfolio</span>
+                <span class="work-stat">Studio</span>
+                <p class="work-desc">The other half of the brain. Music, photography, visual experiments.</p>
+                <div class="work-tags">
+                    <span class="work-tag">Music</span>
+                    <span class="work-tag">Photography</span>
+                    <span class="work-tag">Design</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ ROW 3 ═══ -->
+
+    <!-- STORYTELLER — SUPPORTING TIER (span-2) -->
+    <!-- Character: sitting on a stack of books, reading aloud, animated -->
+    <div class="work-card card-span-2 tier-supporting layout-a card-storyteller">
+        <div class="card-bg"></div>
+        <div class="card-character">
+            <div class="char-placeholder">
+                <span class="char-emoji">📖</span>
+                <span class="char-activity">sitting on<br>a book stack,<br>reading aloud</span>
+            </div>
+        </div>
+        <div class="card-overlay">
+            <div class="card-glass">
+                <span class="work-eyebrow">Essays &amp; Conversations</span>
+                <span class="work-stat">Blog &amp; Podcast</span>
+                <p class="work-desc">Long-form thinking on product, craft, and building things that matter.</p>
+                <div class="work-tags">
+                    <span class="work-tag">Articles</span>
+                    <span class="work-tag">Podcast</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STUDENT — SUPPORTING TIER (span-2) -->
+    <!-- Character: peeking over the top of a giant book, eyes wide -->
+    <div class="work-card card-span-2 tier-supporting layout-c card-student">
+        <div class="card-bg"></div>
+        <div class="card-character">
+            <div class="char-placeholder">
+                <span class="char-emoji">📚</span>
+                <span class="char-activity">peeking over<br>a giant book,<br>eyes wide</span>
+            </div>
+        </div>
+        <div class="card-overlay">
+            <div class="card-glass">
+                <span class="work-eyebrow">What I'm Studying</span>
+                <span class="work-stat">Learning</span>
+                <p class="work-desc">Consumer psychology, behavioral design, and the disciplines that sharpen the craft.</p>
+                <div class="work-tags">
+                    <span class="work-tag">AI/ML</span>
+                    <span class="work-tag">Product</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPLORER — SUPPORTING TIER (span-2) -->
+    <!-- Character: mid-stride with a compass, looking ahead -->
+    <div class="work-card card-span-2 tier-supporting layout-b card-explorer">
+        <div class="card-bg"></div>
+        <div class="card-character">
+            <div class="char-placeholder">
+                <span class="char-emoji">🧭</span>
+                <span class="char-activity">mid-stride,<br>compass out,<br>eyes forward</span>
+            </div>
+        </div>
+        <div class="card-overlay">
+            <div class="card-glass">
+                <span class="work-eyebrow">Right Now</span>
+                <span class="work-stat">/Now</span>
+                <p class="work-desc">What I'm working on, reading, and thinking about right now.</p>
+                <div class="work-tags">
+                    <span class="work-tag">Current</span>
+                    <span class="work-tag">Live</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ ROW 4 ═══ -->
+
+    <!-- ENGINEER — IMPORTANT TIER (span-3) — Meta-proof card -->
+    <!-- Character: examining a blueprint, pencil behind ear -->
+    <div class="work-card card-span-3 tier-important layout-a card-engineer">
+        <div class="card-bg"></div>
+        <div class="card-character">
+            <div class="char-placeholder">
+                <span class="char-emoji">⚙️</span>
+                <span class="char-activity">examining a<br>blueprint, pencil<br>behind ear</span>
+            </div>
+        </div>
+        <div class="card-overlay">
+            <div class="card-glass">
+                <span class="work-eyebrow">The Journey Behind the Build</span>
+                <span class="work-stat">Under the Hood</span>
+                <p class="work-desc">This site is the proof. How I think, design, and ship is laid bare in every decision.</p>
+                <div class="work-tags">
+                    <span class="work-tag">Code</span>
+                    <span class="work-tag">Design</span>
+                    <span class="work-tag">Process</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONNECTOR — IMPORTANT TIER (span-3) — Social proof -->
+    <!-- Character: gesturing warmly, speech bubble implied, inviting -->
+    <div class="work-card card-span-3 tier-important layout-b card-connector">
+        <div class="card-bg"></div>
+        <div class="card-character">
+            <div class="char-placeholder">
+                <span class="char-emoji">💬</span>
+                <span class="char-activity">gesturing<br>warmly, mid-<br>conversation</span>
+            </div>
+        </div>
+        <div class="card-overlay">
+            <div class="card-glass">
+                <span class="work-eyebrow">What People Say</span>
+                <span class="work-stat">Testimonials</span>
+                <p class="work-desc">What colleagues, founders, and leaders say about working with me.</p>
+                <div class="work-tags">
+                    <span class="work-tag">Colleagues</span>
+                    <span class="work-tag">Leaders</span>
+                    <span class="work-tag">Founders</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ── Tier Legend ── -->
+<div class="annotation-bar">
+    <div class="annotation-item">
+        <div class="tier-label hero">Hero Tier</div>
+        <div class="tier-desc">Flagship card. Largest character, biggest text, accent border. Dominates the grid. (How I'd've Built It)</div>
+    </div>
+    <div class="annotation-item">
+        <div class="tier-label important">Important Tier</div>
+        <div class="tier-desc">Cards that carry weight. Big characters, strong headlines. (Career, MadLab, Under the Hood, Testimonials)</div>
+    </div>
+    <div class="annotation-item">
+        <div class="tier-label supporting">Supporting Tier</div>
+        <div class="tier-desc">Useful context, lighter touch. Compact glass shelves, smaller text. (Studio, Blog, Learning, /Now)</div>
+    </div>
+</div>
+
+</body>
+</html>

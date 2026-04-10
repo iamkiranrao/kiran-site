@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Interactive comparison of bento grid layout options for different character space and prominence combinations.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bento Layout Options: Character Space Comparison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Archivo+Black&family=Orbitron:wght@400;700;900&family=Caveat:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Corben:wght@400;700&family=Josefin+Sans:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --card-bg-accent: #D4A853;
+    --glass-text-dark: #F0E6D8;
+    --glass-text-dark-secondary: #C8BBA8;
+    --glass-text-dark-muted: #9A8E80;
+    --font-stat: 'Bebas Neue', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background: #1a1715;
+    color: #f0e6d8;
+    padding: 1.5rem;
+}
+
+/* ── Option Selector ── */
+.option-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1a1715;
+    padding: 0.5rem 0;
+}
+.option-nav button {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.08);
+    color: #f0e6d8;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+.option-nav button:hover { background: rgba(255,255,255,0.15); }
+.option-nav button.active { background: var(--card-bg-accent); color: #1a1715; border-color: var(--card-bg-accent); }
+
+.option-section { display: none; }
+.option-section.visible { display: block; }
+
+.option-label {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+.option-desc {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+    max-width: 700px;
+}
+.option-specs {
+    font-size: 0.7rem;
+    opacity: 0.35;
+    margin-bottom: 1.5rem;
+    font-family: 'Space Mono', monospace;
+}
+
+/* ── Shared Card Styles ── */
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin: 0 auto;
+}
+
+.work-card {
+    border-radius: 16px;
+    position: relative;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    font-family: inherit;
+    overflow: visible;
+    transition: transform 0.3s ease;
+}
+.work-card:hover { transform: translateY(-3px); z-index: 10; }
+
+.card-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    z-index: 0;
+}
+.card-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.1);
+    pointer-events: none;
+}
+
+.work-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Backgrounds */
+.card-analyst .card-bg { background: linear-gradient(135deg, #3D3830 0%, #2C2825 50%, #3A3228 100%); }
+.card-veteran .card-bg { background: linear-gradient(120deg, #3A3428 0%, #2E2820 50%, #3D3528 100%); }
+.card-tinkerer .card-bg { background: linear-gradient(145deg, #35322A 0%, #2A2822 50%, #383228 100%); }
+.card-artist .card-bg { background: linear-gradient(130deg, #2E3235 0%, #252A2C 50%, #303538 100%); }
+.card-storyteller .card-bg { background: linear-gradient(140deg, #352E35 0%, #2A2528 50%, #382E35 100%); }
+.card-student .card-bg { background: linear-gradient(125deg, #2E3328 0%, #252A22 50%, #303528 100%); }
+.card-explorer .card-bg { background: linear-gradient(135deg, #3A3028 0%, #2E2520 50%, #3D3025 100%); }
+.card-engineer .card-bg { background: linear-gradient(140deg, #2C3035 0%, #222628 50%, #2E3238 100%); }
+.card-connector .card-bg { background: linear-gradient(128deg, #382E30 0%, #2C2425 50%, #3A2E30 100%); }
+
+/* Character */
+.card-character {
+    position: absolute;
+    z-index: 4;
+    pointer-events: none;
+}
+.card-character .char-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+.card-character .char-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+
+/* Glass overlay */
+.card-overlay {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex: 1;
+    padding: 1.2rem;
+    border-radius: 16px;
+}
+.card-glass {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+/* Layouts */
+.layout-a .card-glass { align-items: flex-start; }
+.layout-b .card-glass { align-items: flex-end; text-align: right; }
+.layout-b .work-tags { justify-content: flex-end; }
+.layout-c .card-glass { align-items: center; text-align: center; }
+.layout-c .work-tags { justify-content: center; }
+.layout-d .card-glass { align-items: center; text-align: center; justify-content: center; }
+.layout-d .work-tags { justify-content: center; }
+
+/* Typography */
+.work-eyebrow {
+    font-family: var(--font-stat);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--glass-text-dark-muted);
+}
+.work-stat {
+    font-family: var(--font-stat);
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    color: var(--glass-text-dark);
+    text-transform: uppercase;
+}
+.work-desc {
+    color: var(--glass-text-dark-secondary);
+    line-height: 1.4;
+    font-size: 0.75rem;
+}
+.work-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-top: 0.4rem; }
+.work-tag {
+    padding: 0.2rem 0.55rem;
+    background: rgba(255,255,255,0.08);
+    color: var(--glass-text-dark-secondary);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 500px;
+    font-size: 0.65rem;
+}
+
+/* Per-card fonts */
+.card-analyst .work-stat { font-family: 'Space Mono', monospace; font-weight: 700; text-transform: none; font-size: 1.8rem; letter-spacing: 0.02em; }
+.card-veteran .work-stat { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; }
+.card-tinkerer .work-stat { font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 0.06em; font-size: 1.5rem; }
+.card-artist .work-stat { font-family: 'Caveat', cursive; font-weight: 700; text-transform: none; font-size: 2.2rem; }
+.card-storyteller .work-stat { font-family: 'Lora', serif; font-weight: 700; font-style: italic; text-transform: none; }
+.card-student .work-stat { font-family: 'Josefin Sans', sans-serif; font-weight: 600; letter-spacing: 0.08em; }
+.card-explorer .work-stat { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.02em; text-transform: none; }
+.card-engineer .work-stat { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.06em; }
+.card-connector .work-stat { font-family: 'Corben', cursive; font-weight: 700; text-transform: none; font-size: 1.4rem; }
+
+/* ════════════════════════════════════════════════
+   OPTION A: Taller Cards
+   Same 1200px grid, increased min-heights
+   ════════════════════════════════════════════════ */
+#option-a .work-grid { max-width: 1200px; }
+#option-a .card-span-2 { grid-column: span 2; min-height: 360px; }
+#option-a .card-span-3 { grid-column: span 3; min-height: 380px; }
+#option-a .card-span-4 { grid-column: span 4; min-height: 400px; }
+#option-a .card-span-4 .card-character { width: 160px; height: 160px; }
+#option-a .card-span-3 .card-character { width: 130px; height: 130px; }
+#option-a .card-span-2 .card-character { width: 110px; height: 130px; }
+#option-a .card-veteran .card-character { left: 0.5rem; top: 0.5rem; }
+#option-a .card-analyst .card-character { right: 2rem; top: 0.8rem; }
+#option-a .card-tinkerer .card-character { right: 1.5rem; top: -20px; }
+#option-a .card-artist .card-character { left: 1rem; top: 0.8rem; }
+#option-a .card-storyteller .card-character { right: -12px; top: 0.5rem; }
+#option-a .card-student .card-character { left: 50%; top: 0.5rem; transform: translateX(-50%); }
+#option-a .card-explorer .card-character { left: 0.8rem; top: 0.6rem; }
+#option-a .card-engineer .card-character { left: -12px; top: 0.8rem; }
+#option-a .card-connector .card-character { left: 50%; top: 0.5rem; transform: translateX(-50%); }
+#option-a .card-span-4 .work-stat { font-size: 2.6rem; }
+#option-a .card-span-2 .work-stat { font-size: 1.6rem; }
+#option-a .card-span-2 .work-desc { font-size: 0.7rem; }
+#option-a .card-span-2 .char-placeholder { font-size: 3rem; }
+#option-a .card-span-3 .char-placeholder { font-size: 3.5rem; }
+#option-a .card-span-4 .char-placeholder { font-size: 4rem; }
+
+/* ════════════════════════════════════════════════
+   OPTION B: Wider Grid
+   1440px grid, same min-heights
+   ════════════════════════════════════════════════ */
+#option-b .work-grid { max-width: 1440px; }
+#option-b .card-span-2 { grid-column: span 2; min-height: 260px; }
+#option-b .card-span-3 { grid-column: span 3; min-height: 280px; }
+#option-b .card-span-4 { grid-column: span 4; min-height: 300px; }
+#option-b .card-span-4 .card-character { width: 170px; height: 170px; }
+#option-b .card-span-3 .card-character { width: 140px; height: 140px; }
+#option-b .card-span-2 .card-character { width: 110px; height: 120px; }
+#option-b .card-veteran .card-character { left: 0.5rem; top: 0.3rem; }
+#option-b .card-analyst .card-character { right: 2rem; top: 0.8rem; }
+#option-b .card-tinkerer .card-character { right: 1.5rem; top: -20px; }
+#option-b .card-artist .card-character { left: 1rem; top: 0.8rem; }
+#option-b .card-storyteller .card-character { right: -12px; top: 0.5rem; }
+#option-b .card-student .card-character { left: 50%; top: 0.5rem; transform: translateX(-50%); }
+#option-b .card-explorer .card-character { left: 0.8rem; top: 0.6rem; }
+#option-b .card-engineer .card-character { left: -12px; top: 0.8rem; }
+#option-b .card-connector .card-character { left: 50%; top: 0.5rem; transform: translateX(-50%); }
+#option-b .card-span-4 .work-stat { font-size: 2.6rem; }
+#option-b .card-span-2 .work-stat { font-size: 1.6rem; }
+#option-b .card-span-2 .work-desc { font-size: 0.7rem; }
+#option-b .card-span-2 .char-placeholder { font-size: 2.8rem; }
+#option-b .card-span-3 .char-placeholder { font-size: 3.5rem; }
+#option-b .card-span-4 .char-placeholder { font-size: 4rem; }
+
+/* ════════════════════════════════════════════════
+   OPTION C: Side-by-Side Layout
+   Character and text share horizontal space
+   Glass shelf becomes a side panel, not full-width bottom
+   ════════════════════════════════════════════════ */
+#option-c .work-grid { max-width: 1200px; }
+#option-c .card-span-2 { grid-column: span 2; min-height: 280px; }
+#option-c .card-span-3 { grid-column: span 3; min-height: 280px; }
+#option-c .card-span-4 { grid-column: span 4; min-height: 300px; }
+
+/* Override: character is no longer absolutely positioned */
+/* Instead, card uses a horizontal flex layout */
+#option-c .work-card {
+    flex-direction: row;
+    align-items: stretch;
+}
+#option-c .card-character {
+    position: relative;
+    z-index: 4;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 1rem 0 1rem 1rem;
+}
+#option-c .card-span-2 .card-character { width: 100px; }
+#option-c .card-span-3 .card-character { width: 130px; }
+#option-c .card-span-4 .card-character { width: 160px; }
+#option-c .card-character .char-img {
+    object-position: bottom center;
+}
+#option-c .card-overlay {
+    flex: 1;
+    justify-content: center;
+}
+#option-c .card-glass {
+    align-items: flex-start !important;
+    text-align: left !important;
+}
+#option-c .work-tags { justify-content: flex-start !important; }
+/* For layout-b cards, swap order so character goes right */
+#option-c .layout-b { flex-direction: row-reverse; }
+#option-c .layout-b .card-character { padding: 1rem 1rem 1rem 0; }
+/* Center layouts keep character on left */
+#option-c .layout-c .card-glass,
+#option-c .layout-d .card-glass { align-items: flex-start !important; text-align: left !important; }
+#option-c .card-span-2 .char-placeholder { font-size: 3rem; }
+#option-c .card-span-3 .char-placeholder { font-size: 3.5rem; }
+#option-c .card-span-4 .char-placeholder { font-size: 4.5rem; }
+#option-c .card-span-4 .work-stat { font-size: 2.6rem; }
+#option-c .card-span-2 .work-stat { font-size: 1.6rem; }
+#option-c .card-span-2 .work-desc { font-size: 0.7rem; }
+
+/* ════════════════════════════════════════════════
+   OPTION D: Wider + Taller (Combo)
+   1440px grid + increased min-heights
+   ════════════════════════════════════════════════ */
+#option-d .work-grid { max-width: 1440px; }
+#option-d .card-span-2 { grid-column: span 2; min-height: 350px; }
+#option-d .card-span-3 { grid-column: span 3; min-height: 370px; }
+#option-d .card-span-4 { grid-column: span 4; min-height: 390px; }
+#option-d .card-span-4 .card-character { width: 180px; height: 180px; }
+#option-d .card-span-3 .card-character { width: 150px; height: 150px; }
+#option-d .card-span-2 .card-character { width: 120px; height: 140px; }
+#option-d .card-veteran .card-character { left: 0.5rem; top: 0.3rem; }
+#option-d .card-analyst .card-character { right: 2rem; top: 0.8rem; }
+#option-d .card-tinkerer .card-character { right: 1.5rem; top: -20px; }
+#option-d .card-artist .card-character { left: 1rem; top: 0.8rem; }
+#option-d .card-storyteller .card-character { right: -12px; top: 0.5rem; }
+#option-d .card-student .card-character { left: 50%; top: 0.5rem; transform: translateX(-50%); }
+#option-d .card-explorer .card-character { left: 0.8rem; top: 0.6rem; }
+#option-d .card-engineer .card-character { left: -12px; top: 0.8rem; }
+#option-d .card-connector .card-character { left: 50%; top: 0.5rem; transform: translateX(-50%); }
+#option-d .card-span-4 .work-stat { font-size: 2.8rem; }
+#option-d .card-span-2 .work-stat { font-size: 1.6rem; }
+#option-d .card-span-2 .work-desc { font-size: 0.7rem; }
+#option-d .card-span-2 .char-placeholder { font-size: 3rem; }
+#option-d .card-span-3 .char-placeholder { font-size: 4rem; }
+#option-d .card-span-4 .char-placeholder { font-size: 4.5rem; }
+</style>
+</head>
+<body>
+
+<div class="option-nav">
+    <button class="active" onclick="showOption('a')">A: Taller Cards</button>
+    <button onclick="showOption('b')">B: Wider Grid</button>
+    <button onclick="showOption('c')">C: Side-by-Side</button>
+    <button onclick="showOption('d')">D: Wider + Taller</button>
+    <span style="opacity:0.35; font-size:0.75rem; margin-left:1rem;">Click to compare · Veteran.png on my-work card, emojis elsewhere</span>
+</div>
+
+<!-- ════ OPTION A: Taller Cards ════ -->
+<div class="option-section visible" id="option-a">
+    <div class="option-label">Option A: Taller Cards</div>
+    <div class="option-desc">Same 1200px max-width. Min-heights increased by ~100px (260→360, 280→380, 300→400). More vertical stage space above the glass shelf for characters.</div>
+    <div class="option-specs">max-width: 1200px · span-2: 360px · span-3: 380px · span-4: 400px</div>
+    <div class="work-grid">
+        <div class="work-card card-span-4 layout-a card-analyst"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:4rem">🔍</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">6 Teardowns</span><span class="work-stat">How I'd've Built It</span><p class="work-desc">Product teardowns of popular apps. What I'd keep, kill, and rebuild.</p><div class="work-tags"><span class="work-tag">Instagram</span><span class="work-tag">GEICO</span><span class="work-tag">Airbnb</span><span class="work-tag">+3</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-b card-veteran"><div class="card-bg"></div><div class="card-character"><img class="char-img" src="images/Veteran.png" alt="The Veteran"></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">15 Years Building</span><span class="work-stat">Career Highlights</span><p class="work-desc">0-to-1 launches, platform transformations, and fractional consulting.</p><div class="work-tags"><span class="work-tag">Product</span><span class="work-tag">Strategy</span><span class="work-tag">Leadership</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-a card-tinkerer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">🔧</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Apps &amp; Prototypes</span><span class="work-stat">MadLab</span><p class="work-desc">Things I built because I was curious. Side projects, prototypes, and happy accidents.</p><div class="work-tags"><span class="work-tag">Prototypes</span><span class="work-tag">Apps</span><span class="work-tag">Experiments</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-b card-artist"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">🎨</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Creative Portfolio</span><span class="work-stat">Studio</span><p class="work-desc">The other half of the brain. Music, photography, and visual experiments.</p><div class="work-tags"><span class="work-tag">Music</span><span class="work-tag">Photography</span><span class="work-tag">Design</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-a card-storyteller"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3rem">📖</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Essays &amp; Conversations</span><span class="work-stat">Blog &amp; Podcast</span><p class="work-desc">Long-form thinking on product, craft, and building things that matter.</p><div class="work-tags"><span class="work-tag">Articles</span><span class="work-tag">Podcast</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-c card-student"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3rem">📚</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">What I'm Studying</span><span class="work-stat">Learning</span><p class="work-desc">Consumer psychology, behavioral design, and the non-obvious disciplines that sharpen the craft.</p><div class="work-tags"><span class="work-tag">AI/ML</span><span class="work-tag">Product</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-b card-explorer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3rem">🧭</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Right Now</span><span class="work-stat">/Now</span><p class="work-desc">What I'm working on, reading, and thinking about right now.</p><div class="work-tags"><span class="work-tag">Current</span><span class="work-tag">Live</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-a card-engineer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">⚙️</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">The Journey Behind the Build</span><span class="work-stat">Under the Hood</span><p class="work-desc">This site is the proof. How I think, design, and ship is laid bare in every decision.</p><div class="work-tags"><span class="work-tag">Code</span><span class="work-tag">Design</span><span class="work-tag">Process</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-d card-connector"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">💬</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">What People Say</span><span class="work-stat">Testimonials</span><p class="work-desc">What colleagues, founders, and leaders say about working with me.</p><div class="work-tags"><span class="work-tag">Colleagues</span><span class="work-tag">Leaders</span></div></div></div></div>
+    </div>
+</div>
+
+<!-- ════ OPTION B: Wider Grid ════ -->
+<div class="option-section" id="option-b">
+    <div class="option-label">Option B: Wider Grid</div>
+    <div class="option-desc">Grid expands from 1200px to 1440px, eating into the side margins. Same card heights. Each card gets ~20% more horizontal room for character + text.</div>
+    <div class="option-specs">max-width: 1440px · span-2: 260px · span-3: 280px · span-4: 300px</div>
+    <div class="work-grid">
+        <div class="work-card card-span-4 layout-a card-analyst"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:4rem">🔍</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">6 Teardowns</span><span class="work-stat">How I'd've Built It</span><p class="work-desc">Product teardowns of popular apps. What I'd keep, kill, and rebuild.</p><div class="work-tags"><span class="work-tag">Instagram</span><span class="work-tag">GEICO</span><span class="work-tag">Airbnb</span><span class="work-tag">+3</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-b card-veteran"><div class="card-bg"></div><div class="card-character"><img class="char-img" src="images/Veteran.png" alt="The Veteran"></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">15 Years Building</span><span class="work-stat">Career Highlights</span><p class="work-desc">0-to-1 launches, platform transformations, and fractional consulting.</p><div class="work-tags"><span class="work-tag">Product</span><span class="work-tag">Strategy</span><span class="work-tag">Leadership</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-a card-tinkerer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">🔧</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Apps &amp; Prototypes</span><span class="work-stat">MadLab</span><p class="work-desc">Things I built because I was curious. Side projects, prototypes, and happy accidents.</p><div class="work-tags"><span class="work-tag">Prototypes</span><span class="work-tag">Apps</span><span class="work-tag">Experiments</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-b card-artist"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">🎨</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Creative Portfolio</span><span class="work-stat">Studio</span><p class="work-desc">The other half of the brain. Music, photography, and visual experiments.</p><div class="work-tags"><span class="work-tag">Music</span><span class="work-tag">Photography</span><span class="work-tag">Design</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-a card-storyteller"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:2.8rem">📖</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Essays &amp; Conversations</span><span class="work-stat">Blog &amp; Podcast</span><p class="work-desc">Long-form thinking on product, craft, and building things that matter.</p><div class="work-tags"><span class="work-tag">Articles</span><span class="work-tag">Podcast</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-c card-student"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:2.8rem">📚</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">What I'm Studying</span><span class="work-stat">Learning</span><p class="work-desc">Consumer psychology, behavioral design, and the non-obvious disciplines that sharpen the craft.</p><div class="work-tags"><span class="work-tag">AI/ML</span><span class="work-tag">Product</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-b card-explorer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:2.8rem">🧭</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Right Now</span><span class="work-stat">/Now</span><p class="work-desc">What I'm working on, reading, and thinking about right now.</p><div class="work-tags"><span class="work-tag">Current</span><span class="work-tag">Live</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-a card-engineer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">⚙️</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">The Journey Behind the Build</span><span class="work-stat">Under the Hood</span><p class="work-desc">This site is the proof. How I think, design, and ship is laid bare in every decision.</p><div class="work-tags"><span class="work-tag">Code</span><span class="work-tag">Design</span><span class="work-tag">Process</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-d card-connector"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">💬</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">What People Say</span><span class="work-stat">Testimonials</span><p class="work-desc">What colleagues, founders, and leaders say about working with me.</p><div class="work-tags"><span class="work-tag">Colleagues</span><span class="work-tag">Leaders</span></div></div></div></div>
+    </div>
+</div>
+
+<!-- ════ OPTION C: Side-by-Side ════ -->
+<div class="option-section" id="option-c">
+    <div class="option-label">Option C: Side-by-Side Layout</div>
+    <div class="option-desc">Character sits beside text horizontally instead of above it. Card becomes a two-column layout: character column + text column. Biggest layout change, but gives characters dedicated space.</div>
+    <div class="option-specs">max-width: 1200px · flex-direction: row · character gets own column</div>
+    <div class="work-grid">
+        <div class="work-card card-span-4 layout-a card-analyst"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:4.5rem">🔍</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">6 Teardowns</span><span class="work-stat">How I'd've Built It</span><p class="work-desc">Product teardowns of popular apps. What I'd keep, kill, and rebuild.</p><div class="work-tags"><span class="work-tag">Instagram</span><span class="work-tag">GEICO</span><span class="work-tag">Airbnb</span><span class="work-tag">+3</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-b card-veteran"><div class="card-bg"></div><div class="card-character"><img class="char-img" src="images/Veteran.png" alt="The Veteran"></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">15 Years Building</span><span class="work-stat">Career Highlights</span><p class="work-desc">0-to-1 launches, platform transformations, and fractional consulting.</p><div class="work-tags"><span class="work-tag">Product</span><span class="work-tag">Strategy</span><span class="work-tag">Leadership</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-a card-tinkerer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">🔧</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Apps &amp; Prototypes</span><span class="work-stat">MadLab</span><p class="work-desc">Things I built because I was curious. Side projects, prototypes, and happy accidents.</p><div class="work-tags"><span class="work-tag">Prototypes</span><span class="work-tag">Apps</span><span class="work-tag">Experiments</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-b card-artist"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">🎨</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Creative Portfolio</span><span class="work-stat">Studio</span><p class="work-desc">The other half of the brain. Music, photography, and visual experiments.</p><div class="work-tags"><span class="work-tag">Music</span><span class="work-tag">Photography</span><span class="work-tag">Design</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-a card-storyteller"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3rem">📖</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Essays &amp; Conversations</span><span class="work-stat">Blog &amp; Podcast</span><p class="work-desc">Long-form thinking on product, craft, and building things that matter.</p><div class="work-tags"><span class="work-tag">Articles</span><span class="work-tag">Podcast</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-c card-student"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3rem">📚</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">What I'm Studying</span><span class="work-stat">Learning</span><p class="work-desc">Consumer psychology, behavioral design, and the non-obvious disciplines that sharpen the craft.</p><div class="work-tags"><span class="work-tag">AI/ML</span><span class="work-tag">Product</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-b card-explorer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3rem">🧭</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Right Now</span><span class="work-stat">/Now</span><p class="work-desc">What I'm working on, reading, and thinking about right now.</p><div class="work-tags"><span class="work-tag">Current</span><span class="work-tag">Live</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-a card-engineer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">⚙️</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">The Journey Behind the Build</span><span class="work-stat">Under the Hood</span><p class="work-desc">This site is the proof. How I think, design, and ship is laid bare in every decision.</p><div class="work-tags"><span class="work-tag">Code</span><span class="work-tag">Design</span><span class="work-tag">Process</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-d card-connector"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3.5rem">💬</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">What People Say</span><span class="work-stat">Testimonials</span><p class="work-desc">What colleagues, founders, and leaders say about working with me.</p><div class="work-tags"><span class="work-tag">Colleagues</span><span class="work-tag">Leaders</span></div></div></div></div>
+    </div>
+</div>
+
+<!-- ════ OPTION D: Wider + Taller ════ -->
+<div class="option-section" id="option-d">
+    <div class="option-label">Option D: Wider + Taller (Combo)</div>
+    <div class="option-desc">Both: grid expands to 1440px AND card heights increase ~90px. Maximum breathing room. Characters get the most stage space. Uses available viewport.</div>
+    <div class="option-specs">max-width: 1440px · span-2: 350px · span-3: 370px · span-4: 390px</div>
+    <div class="work-grid">
+        <div class="work-card card-span-4 layout-a card-analyst"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:4.5rem">🔍</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">6 Teardowns</span><span class="work-stat">How I'd've Built It</span><p class="work-desc">Product teardowns of popular apps. What I'd keep, kill, and rebuild.</p><div class="work-tags"><span class="work-tag">Instagram</span><span class="work-tag">GEICO</span><span class="work-tag">Airbnb</span><span class="work-tag">+3</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-b card-veteran"><div class="card-bg"></div><div class="card-character"><img class="char-img" src="images/Veteran.png" alt="The Veteran"></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">15 Years Building</span><span class="work-stat">Career Highlights</span><p class="work-desc">0-to-1 launches, platform transformations, and fractional consulting.</p><div class="work-tags"><span class="work-tag">Product</span><span class="work-tag">Strategy</span><span class="work-tag">Leadership</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-a card-tinkerer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:4rem">🔧</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Apps &amp; Prototypes</span><span class="work-stat">MadLab</span><p class="work-desc">Things I built because I was curious. Side projects, prototypes, and happy accidents.</p><div class="work-tags"><span class="work-tag">Prototypes</span><span class="work-tag">Apps</span><span class="work-tag">Experiments</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-b card-artist"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:4rem">🎨</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Creative Portfolio</span><span class="work-stat">Studio</span><p class="work-desc">The other half of the brain. Music, photography, and visual experiments.</p><div class="work-tags"><span class="work-tag">Music</span><span class="work-tag">Photography</span><span class="work-tag">Design</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-a card-storyteller"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3rem">📖</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Essays &amp; Conversations</span><span class="work-stat">Blog &amp; Podcast</span><p class="work-desc">Long-form thinking on product, craft, and building things that matter.</p><div class="work-tags"><span class="work-tag">Articles</span><span class="work-tag">Podcast</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-c card-student"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3rem">📚</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">What I'm Studying</span><span class="work-stat">Learning</span><p class="work-desc">Consumer psychology, behavioral design, and the non-obvious disciplines that sharpen the craft.</p><div class="work-tags"><span class="work-tag">AI/ML</span><span class="work-tag">Product</span></div></div></div></div>
+        <div class="work-card card-span-2 layout-b card-explorer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:3rem">🧭</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">Right Now</span><span class="work-stat">/Now</span><p class="work-desc">What I'm working on, reading, and thinking about right now.</p><div class="work-tags"><span class="work-tag">Current</span><span class="work-tag">Live</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-a card-engineer"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:4rem">⚙️</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">The Journey Behind the Build</span><span class="work-stat">Under the Hood</span><p class="work-desc">This site is the proof. How I think, design, and ship is laid bare in every decision.</p><div class="work-tags"><span class="work-tag">Code</span><span class="work-tag">Design</span><span class="work-tag">Process</span></div></div></div></div>
+        <div class="work-card card-span-3 layout-d card-connector"><div class="card-bg"></div><div class="card-character"><div class="char-placeholder" style="font-size:4rem">💬</div></div><div class="card-overlay"><div class="card-glass"><span class="work-eyebrow">What People Say</span><span class="work-stat">Testimonials</span><p class="work-desc">What colleagues, founders, and leaders say about working with me.</p><div class="work-tags"><span class="work-tag">Colleagues</span><span class="work-tag">Leaders</span></div></div></div></div>
+    </div>
+</div>
+
+<script>
+function showOption(id) {
+    document.querySelectorAll('.option-section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.option-nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('option-' + id).classList.add('visible');
+    event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
