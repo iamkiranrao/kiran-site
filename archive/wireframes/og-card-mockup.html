@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Open Graph card mockup and comparison tool. Preview how pages appear when shared on social media with different og:image and og:description combinations.">
+<title>OG Card Comparison</title>
+<link rel="canonical" href="https://kiranrao.ai/og-card-mockup.html">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .comparison {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .card-container {
+    max-width: 520px;
+  }
+  .label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .label.current { color: #c47474; }
+  .label.proposed { color: #6b9e6b; }
+
+  /* Slack message simulation */
+  .slack-msg {
+    background: #222244;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .slack-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .slack-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    background: #4a90d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+  }
+  .slack-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+  }
+  .slack-time {
+    font-size: 12px;
+    color: #666;
+    margin-left: 4px;
+  }
+  .slack-text {
+    font-size: 15px;
+    color: #d1d1d1;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .slack-link {
+    color: #1d9bd1;
+    text-decoration: none;
+  }
+
+  /* OG Card */
+  .og-card {
+    border: 1px solid #3a3a5c;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1e1e36;
+  }
+  .og-image {
+    width: 100%;
+    aspect-ratio: 1200/630;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+  }
+  .og-image.generic {
+    background: #111;
+  }
+  .og-image.generic .og-img-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #e8e0d4;
+    font-style: italic;
+  }
+  .og-image.generic .og-img-sub {
+    font-size: 16px;
+    color: #888;
+    margin-top: 12px;
+  }
+  .og-image.generic .og-img-url {
+    font-size: 13px;
+    color: #666;
+    margin-top: 40px;
+  }
+
+  /* Per-post OG card image */
+  .og-image.perpost {
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f1a2e 100%);
+    padding: 40px;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .og-series-badge {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #7a9ec4;
+    background: rgba(122, 158, 196, 0.12);
+    padding: 4px 12px;
+    border-radius: 3px;
+    border: 1px solid rgba(122, 158, 196, 0.25);
+  }
+  .og-post-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f0ebe4;
+    line-height: 1.3;
+    max-width: 85%;
+  }
+  .og-post-subtitle {
+    font-size: 14px;
+    color: #999;
+    line-height: 1.5;
+    max-width: 80%;
+  }
+  .og-post-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .og-post-author {
+    font-size: 13px;
+    color: #888;
+    font-weight: 500;
+  }
+  .og-post-domain {
+    font-size: 12px;
+    color: #666;
+  }
+  .og-post-readtime {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .og-meta {
+    padding: 12px 16px;
+  }
+  .og-meta-domain {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 4px;
+  }
+  .og-meta-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #d1d1d1;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .og-meta-desc {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.4;
+  }
+
+  .verdict {
+    max-width: 600px;
+    text-align: center;
+    padding: 24px 32px;
+    background: rgba(122, 158, 196, 0.08);
+    border: 1px solid rgba(122, 158, 196, 0.2);
+    border-radius: 8px;
+  }
+  .verdict h2 {
+    font-size: 16px;
+    color: #7a9ec4;
+    margin-bottom: 12px;
+  }
+  .verdict p {
+    font-size: 14px;
+    color: #aaa;
+    line-height: 1.6;
+  }
+</style>
+    <script src="gate.js"></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
+    
+
+<div>
+  <h1>OG Card Comparison: What Sarah Sees in Slack</h1>
+  <p class="subtitle">When a PM shares the Apple Pay post link with a colleague</p>
+</div>
+
+<div class="comparison">
+  <!-- CURRENT -->
+  <div class="card-container">
+    <div class="label current">Current (generic site image)</div>
+    <div class="slack-msg">
+      <div class="slack-header">
+        <div class="slack-avatar">JM</div>
+        <div>
+          <span class="slack-name">James M.</span>
+          <span class="slack-time">2:34 PM</span>
+        </div>
+      </div>
+      <div class="slack-text">Sarah you need to read this - the section on token vault integration is exactly what we're dealing with right now<br><a href="#" class="slack-link">kiranrao.ai/blog/demystifying-apple-pay.html</a></div>
+      <div class="og-card">
+        <div class="og-image generic">
+          <div class="og-img-title">Kiran Rao</div>
+          <div class="og-img-sub">Builder of Products People Love</div>
+          <div class="og-img-url">kiranrao.ai</div>
+        </div>
+        <div class="og-meta">
+          <div class="og-meta-domain">kiranrao.ai</div>
+          <div class="og-meta-title">Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go'</div>
+          <div class="og-meta-desc">From Wells Fargo's 2014 launch complexity to today's seamless experience - understanding the architecture that makes Apple Pay work.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROPOSED -->
+  <div class="card-container">
+    <div class="label proposed">Proposed (per-post card)</div>
+    <div class="slack-msg">
+      <div class="slack-header">
+        <div class="slack-avatar">JM</div>
+        <div>
+          <span class="slack-name">James M.</span>
+          <span class="slack-time">2:34 PM</span>
+        </div>
+      </div>
+      <div class="slack-text">Sarah you need to read this - the section on token vault integration is exactly what we're dealing with right now<br><a href="#" class="slack-link">kiranrao.ai/blog/demystifying-apple-pay</a></div>
+      <div class="og-card">
+        <div class="og-image perpost">
+          <div class="og-series-badge">Demystified &middot; Part 1</div>
+          <div class="og-post-title">Demystifying Apple Pay</div>
+          <div class="og-post-subtitle">A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go'</div>
+          <div class="og-post-footer">
+            <span class="og-post-author">Kiran Rao</span>
+            <span class="og-post-readtime">11 min read</span>
+          </div>
+        </div>
+        <div class="og-meta">
+          <div class="og-meta-domain">kiranrao.ai</div>
+          <div class="og-meta-title">Demystifying Apple Pay: A Payment PM's Guide to What It Actually Takes to Deploy 'Just Tap and Go'</div>
+          <div class="og-meta-desc">From Wells Fargo's 2014 launch complexity to today's seamless experience - understanding the architecture that makes Apple Pay work.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="verdict">
+  <h2>What changes</h2>
+  <p>
+    Same Slack message. Same OG title and description. But the proposed version gives Sarah two things the current one doesn't: a URL she can read before clicking (<strong>demystifying-apple-pay</strong> vs <strong>demystifying-apple-pay</strong>), and a card image that tells her exactly what the article is about without reading the fine print. The series badge also signals there's more where this came from.
+  </p>
+</div>
+
+</body>
+</html>

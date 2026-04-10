@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluator Zone — Standalone Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20260404w">
+    <link rel="stylesheet" href="evaluator-styles.css?v=20260404w">
+    <style>
+        /* Minimal resets so the zone renders cleanly at top of page */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            color: #f0e6d3;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Force the zone to render immediately — no gate, no scroll needed */
+        .fenix-intro-zone {
+            margin: 2rem auto !important;
+            max-width: 1200px;
+        }
+
+        /* Debug banner */
+        .test-banner {
+            background: #1a1a2e;
+            border-bottom: 1px solid #333;
+            padding: 1rem 2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: #7B9ACC;
+        }
+        .test-banner code {
+            background: #222;
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            color: #aaa;
+        }
+
+        /* Override persona-accent vars that styles.css expects */
+        :root {
+            --persona-accent: #7B9ACC;
+            --border: #222;
+        }
+
+        /* Ensure body has persona-active + morph-complete classes for styles.css rules */
+    </style>
+</head>
+<body class="accent-frame-medium persona-active morph-complete">
+
+    <div class="test-banner">
+        <strong>Evaluator Zone — Standalone Test Page</strong> &nbsp;|&nbsp;
+        Check console (Cmd+Option+I) for <code>[EV]</code> logs &nbsp;|&nbsp;
+        Animations should fire immediately on load (no scrolling needed)
+    </div>
+
+    <!-- Context header + Fenix zone (mirrors index.html structure) -->
+    <section id="work">
+        <div class="fenix-context-header" id="fenix-context-header">
+            <h2 class="fenix-context-greeting">Welcome, <span class="fenix-context-name">Evaluator</span></h2>
+            <p class="fenix-context-reframe">This isn't a portfolio — it's a product Kiran built. Everything below is shaped by how you chose to explore it.</p>
+            <p class="fenix-context-invite">Here's what we've put together for you — and <strong>Fenix</strong> is here to help you navigate it.</p>
+        </div>
+        <div class="fenix-intro-zone">
+            <div class="fenix-intro-left">
+                <div class="fenix-intro-unlocks">
+                    <p class="unlock-heading-default">Pick a persona above to unlock personalized content and features.</p>
+                </div>
+            </div>
+            <div class="fenix-intro-divider"></div>
+            <div class="fenix-intro-right">
+                <div class="fenix-intro-logo-wrap">
+                    <img src="images/logo.png" alt="Fenix AI" class="fenix-intro-logo">
+                </div>
+                <h2 class="fenix-intro-title">Meet Fenix</h2>
+                <p class="fenix-intro-greeting">I'm Kiran's AI assistant. I can help you explore this site, learn about his work, or just have a conversation.</p>
+                <div class="fenix-intro-chips"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Load the evaluator experience JS -->
+    <script src="evaluator-experience.js?v=20260404w"></script>
+    <script>
+        // Immediately init the evaluator experience (no persona-system.js needed)
+        console.log('[TEST] Page loaded. Calling EvaluatorExperience.init()...');
+        if (window.EvaluatorExperience) {
+            window.EvaluatorExperience.init('evaluator');
+            console.log('[TEST] init() called. Zone should now have evaluator content.');
+        } else {
+            console.error('[TEST] EvaluatorExperience not found on window!');
+        }
+    </script>
+</body>
+</html>
