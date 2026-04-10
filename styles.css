@@ -3449,7 +3449,7 @@ body, nav, section, footer, .mobile-menu,
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 0 2rem;
 }
 
@@ -3463,10 +3463,10 @@ body, nav, section, footer, .mobile-menu,
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
+    justify-content: flex-start;
     padding-left: 3rem;
-    text-align: center;
+    text-align: left;
 }
 
 .fenix-intro-logo-wrap {

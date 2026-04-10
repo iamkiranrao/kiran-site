@@ -77,7 +77,12 @@
   })();
 
 
-  // ── Dynamic Pills — State Machine ────────────────
+  // ── Dynamic Pills — Option C: Agent conversational + Frontend contextual ──
+  //
+  // getDefaultPills() returns conversational suggestions based on state.
+  // getContextualPills() appends action pills driven by fenixState
+  // (e.g., "Connect via LinkedIn" when only first name captured).
+  // Both are merged when pills update: backend suggested > conversational > contextual.
 
   function getDefaultPills() {
     var ex = fenixState.explored;
@@ -85,6 +90,17 @@
     var msgs = ex.messagesExchanged;
     var pills = [];
 
+    // Initial state — before any conversation
+    if (msgs === 0) {
+      return [
+        { text: 'Show me resume options', action: 'resume', locked: false },
+        { text: 'What should I be asking?', action: 'questions', locked: false },
+        { text: 'How would we evaluate each other?', action: 'connect', locked: !connected },
+        { text: 'Give me a quick tour', action: 'tour', locked: false }
+      ];
+    }
+
+    // Late-stage nudge for unconnected visitors
     if (msgs >= 25 && !connected) {
       return [
         { text: 'Let\u2019s connect before I go', action: 'agent' },
@@ -92,66 +108,38 @@
       ];
     }
 
+    // Connected visitor — drive toward fit score and deeper exploration
     if (connected) {
-      if (!ex.fitScoreStarted) {
-        pills.push({ text: 'Let\u2019s evaluate fit', action: 'agent' });
-      }
-      if (!ex.resumeLensSelected) {
-        pills.push({ text: 'Show me resume options', action: 'agent' });
-      }
-      if (ex.panelsOpened.indexOf('resume') !== -1 && ex.panelsOpened.indexOf('questions') === -1) {
-        pills.push({ text: 'What questions do recruiters ask?', action: 'agent' });
-      }
-      if (pills.length < 3) {
-        pills.push({ text: 'What makes Kiran different?', action: 'agent' });
-      }
-      return pills.slice(0, 4);
+      if (!ex.fitScoreStarted) pills.push({ text: 'Let\u2019s evaluate fit', action: 'agent' });
+      if (!ex.resumeLensSelected) pills.push({ text: 'Show me resume options', action: 'agent' });
+      if (pills.length < 3) pills.push({ text: 'What makes Kiran different?', action: 'agent' });
+      return pills.slice(0, 3);
     }
 
-    if (ex.panelsOpened.indexOf('resume') !== -1) {
-      if (!ex.resumeLensSelected || ex.resumeLensSelected === 'ai') {
-        pills.push({ text: 'Show me the growth lens', action: 'agent' });
-      }
-      if (!ex.resumeLensSelected || ex.resumeLensSelected === 'growth') {
-        pills.push({ text: 'Show me the AI lens', action: 'agent' });
-      }
-      if (ex.panelsOpened.indexOf('questions') === -1) {
-        pills.push({ text: 'What questions do recruiters ask?', action: 'agent' });
-      }
-      pills.push({ text: 'Tell me about his work history', action: 'agent' });
-      if (msgs >= 3) {
-        pills.push({ text: 'How would we evaluate each other?', action: 'agent', locked: true });
-      }
-      return pills.slice(0, 4);
+    // Mid-conversation unconnected — suggest next steps
+    pills.push({ text: 'Show me resume options', action: 'agent' });
+    if (msgs >= 2) pills.push({ text: 'Tell me about his AI work', action: 'agent' });
+    if (ex.cardsClicked.length === 0) pills.push({ text: 'Give me a quick tour', action: 'agent' });
+    return pills.slice(0, 3);
+  }
+
+  // Contextual action pills — appended by frontend based on fenixState
+  function getContextualPills() {
+    var pills = [];
+    var connected = fenixState.visitor.connected;
+    var visitor = fenixState.visitor;
+
+    // If visitor has first name but no last name or company, nudge to complete identity
+    if (visitor.name && !connected) {
+      pills.push({ text: '\uD83D\uDD17 Connect with LinkedIn', action: 'connect', locked: false });
     }
 
-    if (ex.panelsOpened.indexOf('questions') !== -1 && ex.panelsOpened.indexOf('resume') === -1) {
-      pills.push({ text: 'Show me resume options', action: 'agent' });
-      pills.push({ text: 'What\u2019s his management style?', action: 'agent' });
-      if (msgs >= 3) {
-        pills.push({ text: 'How would we evaluate each other?', action: 'agent', locked: true });
-      }
-      return pills.slice(0, 4);
+    // If connected but hasn't started fit score
+    if (connected && !fenixState.explored.fitScoreStarted) {
+      pills.push({ text: '\u2696\uFE0F Build Fit Score', action: 'connect', locked: false });
     }
 
-    if (msgs >= 1) {
-      pills.push({ text: 'Show me resume options', action: 'agent' });
-      pills.push({ text: 'Tell me about his AI work', action: 'agent' });
-      if (ex.cardsClicked.length === 0) {
-        pills.push({ text: 'Give me a quick tour', action: 'agent' });
-      }
-      if (msgs >= 3) {
-        pills.push({ text: 'How would we evaluate each other?', action: 'agent', locked: true });
-      }
-      return pills.slice(0, 4);
-    }
-
-    return [
-      { text: 'Show me resume options', action: 'resume', locked: false },
-      { text: 'What should I be asking?', action: 'questions', locked: false },
-      { text: 'How would we evaluate each other?', action: 'connect', locked: !connected },
-      { text: 'Give me a quick tour', action: 'tour', locked: false }
-    ];
+    return pills;
   }
 
 
@@ -246,7 +234,7 @@
         source: 'fenix',
         page_url: window.location.href
       };
-      fetch('https://api.kirangorapalli.com/api/v1/fenix/feedback', {
+      fetch('https://api.kiranrao.ai/api/v1/fenix/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -291,6 +279,36 @@
         }, item.delay);
       }
     });
+
+    // Typing animation for Fenix opening message (fix: 2d)
+    var openingMsg = document.querySelector('.ev-opening-msg');
+    if (openingMsg) {
+      var fullText = openingMsg.getAttribute('data-opening-text');
+      var contentEl = openingMsg.querySelector('.ev-msg-content');
+      if (fullText && contentEl && !contentEl.textContent) {
+        typeOpeningMessage(contentEl, fullText);
+      }
+    }
+  }
+
+  // Character-by-character typing effect for the opening message
+  function typeOpeningMessage(element, text) {
+    var i = 0;
+    var speed = 12; // ms per character
+    element.classList.add('ev-typing');
+    function typeChar() {
+      if (i < text.length) {
+        // Add characters in small chunks for smoother rendering
+        var chunk = text.substring(i, Math.min(i + 3, text.length));
+        element.textContent += chunk;
+        i += chunk.length;
+        setTimeout(typeChar, speed);
+      } else {
+        element.classList.remove('ev-typing');
+      }
+    }
+    // Start after the chat panel reveals
+    setTimeout(typeChar, 400);
   }
 
 
@@ -350,6 +368,10 @@
   // ════════════════════════════════════════════════════
 
   function buildFenixColumn(container) {
+    // Column header above chat widget — mirrors the unlock cards header (fix: 2b)
+    var colHeader = el('div', 'ev-fenix-col-header', { html: 'Meet Fenix \u2014 <span class="ev-fenix-tagline">your guide to everything on this site</span>' });
+    container.appendChild(colHeader);
+
     var wrapper = el('div', 'ev-fenix-chat');
 
     var chatHeader = el('div', 'ev-chat-header');
@@ -362,7 +384,15 @@
     wrapper.appendChild(chatHeader);
 
     var messageArea = el('div', 'ev-chat-messages');
-    FC.addFenixMessage(messageArea, 'I can walk you through Kiran\'s experience, pull up the resume that fits your search, or — if you\'re up for it — help you both figure out whether this is actually a match. The buttons below are the fast paths. Or just ask me whatever\'s on your mind.');
+    // Opening message is added empty — text typed in by revealZoneElements (fix: 2d)
+    var openingText = 'I can walk you through Kiran\'s experience, pull up the resume that fits your search, or \u2014 if you\'re up for it \u2014 help you both figure out whether this is actually a match. The buttons below are the fast paths. Or just ask me whatever\'s on your mind.';
+    var openingBubble = el('div', 'ev-msg ev-msg-fenix ev-opening-msg');
+    var openingAvatar = el('img', 'ev-msg-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+    var openingContent = el('div', 'ev-msg-content');
+    openingBubble.appendChild(openingAvatar);
+    openingBubble.appendChild(openingContent);
+    openingBubble.setAttribute('data-opening-text', openingText);
+    messageArea.appendChild(openingBubble);
     wrapper.appendChild(messageArea);
 
     var pillContainer = el('div', 'ev-chat-pills');
@@ -510,13 +540,13 @@
 
   function buildUnlockCards(container) {
     var cardsWrap = el('div', 'ev-unlock-cards');
-    cardsWrap.appendChild(el('div', 'ev-unlock-cards-header', { text: 'These features were curated especially for you \u2198' }));
+    cardsWrap.appendChild(el('div', 'ev-unlock-cards-header', { html: 'These features were curated <span class="ev-emphasis">especially</span> for you \u2198' }));
 
     var cards = [
       {
         id: 'card-resume',
         icon: '\uD83D\uDCC4',
-        title: 'My Resume, Focused for Your Role',
+        title: 'Kiran\'s Resume, Focused on Your Role',
         tag: 'Explore freely',
         hook: 'Same experience, different emphasis — pick the lens that fits your search.',
         cta: '\u2192 Choose your lens',
@@ -574,6 +604,9 @@
         cardEl.classList.add('ev-card-visited');
         fenixState.explored.cardsClicked.push(card.id);
 
+        // Always swap to the relevant panel (fix: 3a — latest click wins)
+        showPanel(card.action);
+
         var messageArea = document.querySelector('.ev-chat-messages');
         if (messageArea) {
           var matchingPill = document.querySelector('.ev-chat-pill[data-action="' + card.action + '"]');
@@ -581,8 +614,6 @@
           flyCardToChat(cardEl, card.title, messageArea, function () {
             FC.sendToAgent(card.title, messageArea);
           });
-        } else {
-          showPanel(card.action);
         }
       });
 
@@ -673,11 +704,28 @@
 
     var selectedLensName = null;
 
+    // Map lens IDs to resume PDF files
+    var RESUME_PDF_MAP = {
+      'ai': 'template_previews/PM_1Pager.pdf',
+      'growth': 'template_previews/PMM_1Pager.pdf',
+      'mobile': 'template_previews/PjM_1Pager.pdf'
+    };
+    var selectedLensId = null;
+
     var footer = el('div', 'ev-lens-footer');
     var previewText = el('div', 'ev-preview-text');
     var downloadBtn = el('button', 'ev-btn-primary', { text: 'Download PDF' });
     downloadBtn.addEventListener('click', function () {
-      // TODO: actual resume download
+      if (!selectedLensId || !RESUME_PDF_MAP[selectedLensId]) return;
+      var link = document.createElement('a');
+      link.href = RESUME_PDF_MAP[selectedLensId];
+      link.download = 'Kiran_Rao_Resume_' + selectedLensName.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf';
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      fenixState.explored.resumeLensSelected = selectedLensId;
+      FC.saveFenixState();
     });
     append(footer, [previewText, downloadBtn]);
 
@@ -701,6 +749,7 @@
           c.classList.remove('ev-selected');
         });
         card.classList.add('ev-selected');
+        selectedLensId = lens.id;
         selectedLensName = lens.title;
         previewText.innerHTML = '<strong>' + lens.title + '</strong> resume ready<br><small>PDF \u00B7 ATS-compatible \u00B7 1 page</small>';
         footer.classList.add('ev-active');
@@ -759,14 +808,17 @@
     var manualCard = el('div', 'ev-connect-path-card');
     manualCard.appendChild(el('div', 'ev-path-icon', { html: '<span style="color:var(--ev-accent);">\u270E</span>' }));
     manualCard.appendChild(el('div', 'ev-path-title', { text: 'Introduce yourself' }));
-    manualCard.appendChild(el('div', 'ev-path-subtitle', { text: 'Name + company — that\'s it' }));
+    manualCard.appendChild(el('div', 'ev-path-subtitle', { text: 'First name, last name, company — that\'s it' }));
 
     var form = el('form', 'ev-connect-form');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       handleConnectSubmit(form);
     });
-    form.appendChild(el('input', 'ev-form-input', { type: 'text', name: 'name', placeholder: 'Your name', required: 'true' }));
+    var nameRow = el('div', 'ev-form-row');
+    nameRow.appendChild(el('input', 'ev-form-input ev-form-half', { type: 'text', name: 'first_name', placeholder: 'First name', required: 'true' }));
+    nameRow.appendChild(el('input', 'ev-form-input ev-form-half', { type: 'text', name: 'last_name', placeholder: 'Last name', required: 'true' }));
+    form.appendChild(nameRow);
     form.appendChild(el('input', 'ev-form-input', { type: 'text', name: 'company', placeholder: 'Company', required: 'true' }));
     form.appendChild(el('input', 'ev-form-input', { type: 'email', name: 'email', placeholder: 'Email (optional)' }));
     form.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Let\'s go' }));
@@ -813,22 +865,22 @@
 
   function handleConnectSubmit(form) {
     var formData = new FormData(form);
-    var name = formData.get('name');
-    var company = formData.get('company');
+    var firstName = (formData.get('first_name') || '').trim();
+    var lastName = (formData.get('last_name') || '').trim();
+    var company = (formData.get('company') || '').trim();
     var email = formData.get('email');
-    if (!name || !company) return;
+    if (!firstName || !lastName || !company) return;
 
     // Use core connect (handles localStorage, fenixState, adapter hook, guestbook POST)
     var result = FC.connectVisitor({
-      name: name,
+      first_name: firstName,
+      last_name: lastName,
       company: company,
       email: email || null,
       source: 'form'
     });
 
     if (!result.success) return;
-
-    var firstName = name.split(' ')[0];
     showFenixMessage('Much better. This site was built for exactly this — real people, not personas. Nice to actually meet you, ' + firstName + '.');
 
     setTimeout(function () {
@@ -1252,7 +1304,7 @@
     // Identity
     persona: 'evaluator',
     accentColor: '#C9A87C',
-    agentUrl: 'https://api.kirangorapalli.com/api/v1/fenix/agent',
+    agentUrl: 'https://api.kiranrao.ai/api/v1/fenix/agent',
     messageCap: 30,
 
     // Available tools (sent to backend)
@@ -1260,10 +1312,12 @@
 
     // UI
     buildUI: buildUI,
+    showPanel: showPanel,
     openingMessage: FENIX_OPENING,
 
-    // Pills
+    // Pills — Option C: agent conversational + frontend contextual
     getDefaultPills: getDefaultPills,
+    getContextualPills: getContextualPills,
 
     // Tools
     toolExecutors: toolExecutors,
@@ -1278,7 +1332,17 @@
     onConnect: function (data) {
       applyConnectedState();
     },
-    onPillAction: null,  // All pills route through agent
+    onPillAction: function (pill) {
+      // Handle contextual action pills (non-agent actions)
+      if (pill.action === 'connect' || pill.action === 'resume' || pill.action === 'questions') {
+        showPanel(pill.action);
+        return true; // handled — don't send to agent
+      }
+      if (pill.action === 'tour') {
+        return false; // let agent handle the tour
+      }
+      return false; // default: send to agent
+    },
     onToolResult: null,
     onDone: null
   };

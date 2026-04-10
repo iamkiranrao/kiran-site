@@ -3,7 +3,7 @@
 
 **Created:** April 3, 2026
 **Status:** Foundation established. Per-persona deep dives in progress.
-**Purpose:** The conversion architecture for kirangorapalli.com. Defines how the persona unlock system, Fenix introduction, and Connect module work together to transform anonymous visitors into identified connections. Read alongside SITE-WHY.md, ULTIMATE-PERSONA.md, and GO-TO-MARKET.md.
+**Purpose:** The conversion architecture for kiranrao.ai. Defines how the persona unlock system, Fenix introduction, and Connect module work together to transform anonymous visitors into identified connections. Read alongside SITE-WHY.md, ULTIMATE-PERSONA.md, and GO-TO-MARKET.md.
 
 ---
 
@@ -460,7 +460,7 @@ The Evaluator section below contains LOCKED designs from deep dive sessions. The
 Use this when starting a new session on unlock strategy work:
 
 ```
-## Continue: Unlock Strategy Deep Dives — kirangorapalli.com
+## Continue: Unlock Strategy Deep Dives — kiranrao.ai
 
 ### Context
 Read docs/UNLOCK-STRATEGY.md first. This is the master doc for the persona unlock system — how anonymous visitors convert to identified connections through a two-tier unlock architecture + Fenix concierge + embedded Connect flow.

@@ -12,7 +12,7 @@ The current `evaluator-experience.js` is functionally complete but visually brok
 The Evaluator experience was built by parallel agents late in a session. They optimized for functional completeness (SSE streaming, state management, scoring pipeline) but ignored visual quality. The result is programmatically generated DOM elements with basic utility CSS that looks nothing like the rest of the site. Additionally, the script may not be loading at all — the live site still shows the default persona-system.js rendering (old pills like "Something else" instead of "Give me a quick tour", no opening frame text).
 
 ### What to Do
-1. **Debug first**: Open the live site (kirangorapalli.com), select Evaluator persona, check browser console for JS errors. Figure out why `evaluator-experience.js` isn't taking over from the default persona-system.js rendering. The hook is in `persona-system.js` lines 802-806.
+1. **Debug first**: Open the live site (kiranrao.ai), select Evaluator persona, check browser console for JS errors. Figure out why `evaluator-experience.js` isn't taking over from the default persona-system.js rendering. The hook is in `persona-system.js` lines 802-806.
 
 2. **Rebuild the frontend** using `prototypes/evaluator-unlock-v1.html` (785 lines) as the VISUAL REFERENCE. That prototype has the right aesthetic — glass morphism, proper typography (Inter + Playfair Display), color palette (`--accent: #7B9ACC`), card styling, Fenix section layout. The production code should look like the prototype, not like a Bootstrap starter template.
 
@@ -61,7 +61,7 @@ All of these are documented in `docs/UNLOCK-STRATEGY.md`:
 - **`command-center/backend/routers/fit_score.py`** (505 lines) — FastAPI router. POST /api/fit-score/analyze streams SSE events. 3 Claude API calls: extraction/quality assessment, Role→Kiran scoring, Kiran→Role scoring. Preferred company string matching. Composites with +8% bonus. Gap summary generation. SSE field alignment verified.
 - **`command-center/backend/main.py`** — Router registered.
 - Backend needs a server restart to pick up the new router. Kiran needs to run: `cd ~/Kiran\'s\ Website/command-center/backend && python main.py`
-- CORS_ORIGINS env var must include `kirangorapalli.com`
+- CORS_ORIGINS env var must include `kiranrao.ai`
 
 ### 3. Frontend Exists but Needs Full Rebuild
 - **`evaluator-experience.js`** (1267+ lines) — Functionally complete but visually unacceptable. Use for LOGIC REFERENCE only (SSE parsing, state management, event handling). Rebuild the visual layer.

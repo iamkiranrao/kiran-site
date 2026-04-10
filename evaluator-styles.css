@@ -367,7 +367,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ev-text-secondary);
+  color: var(--ev-accent);
   margin-bottom: 0.75rem;
   opacity: 0;
   transform: translateY(-12px);
@@ -376,6 +376,34 @@
 .ev-unlock-cards-header.ev-revealed {
   opacity: 1;
   transform: translateY(0);
+}
+.ev-unlock-cards-header .ev-emphasis {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+
+/* Fenix column header — mirrors unlock cards header (fix: 2b) */
+.ev-fenix-col-header {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ev-accent);
+  margin-bottom: 0.75rem;
+}
+.ev-fenix-col-header .ev-fenix-tagline {
+  font-weight: 400;
+  color: var(--ev-text-secondary);
+  letter-spacing: 0.06em;
+}
+
+/* Typing cursor for opening message (fix: 2d) */
+.ev-typing::after {
+  content: '\u258C';
+  color: var(--ev-accent);
+  animation: ev-cursor-blink 0.8s ease infinite;
+  margin-left: 1px;
 }
 
 .ev-unlock-card {
@@ -597,7 +625,7 @@
   border: 1px solid var(--ev-border);
   border-top: none;
   border-radius: 0 0 8px 8px;
-  margin-top: -1px;
+  margin: -1px 4rem 0;
   opacity: 0;
   transform: translateY(-8px);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -822,6 +850,16 @@
   flex-direction: column;
   gap: 0.6rem;
   margin-top: 1rem;
+}
+
+.ev-form-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ev-form-half {
+  flex: 1;
+  min-width: 0;
 }
 
 .ev-form-input {

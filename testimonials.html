@@ -249,7 +249,7 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation — matches main site nav (fix: 13a) -->
     <nav>
         <div class="nav-container">
             <div class="nav-right">
@@ -257,30 +257,34 @@
                     <svg aria-hidden="true" class="wf-moon-icon" viewBox="0 0 24 24">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display:none;">
-                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/>
-                        <line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/>
-                        <line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                <button id="menuToggle" class="menu-toggle" aria-label="Open menu">&#9776;</button>
+                <button id="menuButton" class="menu-button">Menu</button>
             </div>
         </div>
     </nav>
 
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="mobile-menu">
-        <div class="mobile-menu-top">
+        <div class="mobile-menu-header">
             <div></div>
             <button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button>
         </div>
         <ul class="mobile-nav-links">
-            <li><a href="index.html">&#8600; Home</a></li>
-            <li><a href="the-work.html">&#8600; The Work</a></li>
-            <li><a href="how-id-built-it.html">&#8600; How I'd've Built It</a></li>
-            <li><a href="testimonials.html" class="active">&#8600; Testimonials</a></li>
+            <li><a href="index.html">&darr; Home</a></li>
+            <li><a href="the-work.html">&darr; The Work</a></li>
+            <li><a href="how-id-built-it.html">&darr; How I'd've Built It</a></li>
+            <li><a href="testimonials.html" class="active">&darr; Testimonials</a></li>
         </ul>
     </div>
 
@@ -300,9 +304,9 @@
 
         <!-- Static Feedback Form -->
         <section class="feedback-section">
-            <h2>Share Your Experience</h2>
+            <h2>Say Something Real</h2>
             <p class="feedback-subtitle">
-                Worked with Kiran? Explored the site? Got thoughts on Fenix? Your feedback helps shape what comes next.
+                This site exists because Kiran believes hiring should be a genuine human connection, not a keyword match. If you've experienced that firsthand &mdash; through working together, exploring this site, or talking with Fenix &mdash; your perspective matters here.
             </p>
 
             <form id="feedback-form" class="feedback-form">
@@ -311,7 +315,7 @@
                     <input type="text" name="company" placeholder="Company (optional)">
                 </div>
                 <input type="email" name="email" placeholder="Email (optional, never shared)">
-                <textarea name="feedback" placeholder="What's on your mind?" required minlength="10"></textarea>
+                <textarea name="feedback" placeholder="What stood out? What surprised you? What would you tell someone considering working with Kiran?" required minlength="10"></textarea>
 
                 <div class="feedback-rating-row">
                     <label>Rating (optional):</label>
@@ -339,15 +343,18 @@
         </section>
     </main>
 
+    <!-- Core app (nav, theme toggle, menu) — fix: 13b -->
+    <script src="app.js"></script>
+
     <!-- Fenix (content adapter for conversational feedback) -->
-    <script src="fenix-core.js?v=20260409h"></script>
-    <script src="fenix-adapters/content-adapter.js?v=20260409h"></script>
+    <script src="fenix-core.js?v=20260410a"></script>
+    <script src="fenix-adapters/content-adapter.js?v=20260410a"></script>
 
     <script>
     (function () {
         'use strict';
 
-        var API_BASE = 'https://api.kirangorapalli.com/api/v1/fenix';
+        var API_BASE = 'https://api.kiranrao.ai/api/v1/fenix';
         var selectedRating = 0;
 
         // ── Load Testimonials ──

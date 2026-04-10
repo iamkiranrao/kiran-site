@@ -189,7 +189,7 @@
         source: 'fenix',
         page_url: window.location.href
       };
-      fetch('https://api.kirangorapalli.com/api/v1/fenix/feedback', {
+      fetch('https://api.kiranrao.ai/api/v1/fenix/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -744,7 +744,7 @@
   var contentAdapter = {
     persona: fenixState.visitor.persona || 'general',
     accentColor: '#7B9ACC',
-    agentUrl: 'https://api.kirangorapalli.com/api/v1/fenix/agent',
+    agentUrl: 'https://api.kiranrao.ai/api/v1/fenix/agent',
     logoPath: BASE_PATH + 'images/logo.png',
     messageCap: 30,
 

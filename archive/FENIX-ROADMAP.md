@@ -44,7 +44,7 @@ Command Center (local FastAPI + Next.js)
 ```
 
 **Live services:**
-- Site: kirangorapalli.com (Netlify, from GitHub `kiran-site`)
+- Site: kiranrao.ai (Netlify, from GitHub `kiran-site`)
 - Fenix API: fenix-backend-omega.vercel.app (Vercel, from GitHub `fenix-backend`)
 - Database: Supabase project `gndzmmywtxvlukoavadj`
 - Embeddings: Voyage AI (`voyage-3-lite`, 512 dims)

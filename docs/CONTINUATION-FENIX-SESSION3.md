@@ -13,7 +13,7 @@ I'm continuing Fenix development. Last two sessions built the agentic Fenix laye
 
 ### What's deployed and working
 
-**Backend** (`api.kirangorapalli.com` / `fenix-backend-omega.vercel.app`):
+**Backend** (`api.kiranrao.ai` / `fenix-backend-omega.vercel.app`):
 - `POST /api/v1/fenix/agent` — agentic endpoint with 6 tools, RAG pipeline (319 Q&As + 153 chunks via Supabase pgvector), Claude tool_use API, multi-round tool loop (up to 5), SSE streaming
 - System prompt tuned on April 9 for better response depth — energy-matching instead of rigid word caps
 - `suggested_pills` SSE event — Claude suggests contextual follow-up pills, parsed from `[PILLS: "...", "..."]` at end of response
