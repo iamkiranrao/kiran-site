@@ -699,7 +699,7 @@ Restart your frontend and backend to pick up the changes.
 ### Kiran `06:00`
 
 I just finished publishing a blog:
-https://kirangorapalli.com/blog/demystifying-ach
+https://kiranrao.ai/blog/demystifying-ach
 
 multiple things went wrong:
 1.) The Blog and Podcast page didn't get updated with a new card for the blog.
@@ -1246,7 +1246,7 @@ Let me chronologically analyze the conversation:
    - Added `DELETE /sessions/{id}` backend endpoint
    - Added delete button with trash icon to session cards in list view
 
-4. **User reported blog publishing issues**: Published blog at kirangorapalli.com/blog/demystifying-ach with 4 problems:
+4. **User reported blog publishing issues**: Published blog at kiranrao.ai/blog/demystifying-ach with 4 problems:
    - Blog & Podcast page not updated with new card
    - Fenix doesn't know about the blog
    - Visual assets selected but never built/incorporated
@@ -1474,7 +1474,7 @@ Summary:
 
 6. All User Messages:
    - "This session is being continued from a previous conversation that ran out of context..." [continuation with summary of prior work, pending tasks were textarea replacement and delete sessions]
-   - "I just finished publishing a blog: https://kirangorapalli.com/blog/demystifying-ach multiple things went wrong: 1.) The Blog and Podcast page didn't get updated with a new card for the blog. 2.) Fenix doesn't seem to know anything about the blog 3.) There is a step in my process to build visual assets - I made selections but seems like they were never built or incorporated. 4.) There is an option to generate for medium and substack and its sayins cross-post ready: demystifying-ach-crosspost. md - but it doesn't say where it is saved so I can go look it up. I definetly need to see the final production ready blog with all the visual incorporated into it before I approve the final blog for production. Please help me fix all these issues."
+   - "I just finished publishing a blog: https://kiranrao.ai/blog/demystifying-ach multiple things went wrong: 1.) The Blog and Podcast page didn't get updated with a new card for the blog. 2.) Fenix doesn't seem to know anything about the blog 3.) There is a step in my process to build visual assets - I made selections but seems like they were never built or incorporated. 4.) There is an option to generate for medium and substack and its sayins cross-post ready: demystifying-ach-crosspost. md - but it doesn't say where it is saved so I can go look it up. I definetly need to see the final production ready blog with all the visual incorporated into it before I approve the final blog for production. Please help me fix all these issues."
    - "My established visual content rules don't seem to be followed. See Screenshot. Arrow that goes over FED ACG (70%) and TCH EPN 30% and arrow goes to.. nowwhere? At the bottom 31.5b transactions annually... is spilling out of the container. all the steps 1-5 needs to be centered in the container properly. Spell out what ODFI and RDFI are."
    - "Change the title to: Demystifying ACH Payments And replace: A new payments PM's guide to the network that quietly moves $80 trillion a year With: The Invisible Rail: How 75% of Your 'Digital' Payments Still Run Through a 50-Year-Old System You've Never Heard Of Also calculate and update the read time if necessary."
    - "OK. since I published this blog for the first time - lets recap everything you fixed. Tell me if they were one time fixes of systemic fixes that I will not have to encounter in the future."
@@ -1960,7 +1960,7 @@ Summary:
 
    Specific requests in this session:
    - Complete the git push of commit 85cbfec to production (kiran-site repo) — **COMPLETED**
-   - Investigate why Fenix (the RAG-powered AI assistant on kirangorapalli.com) was hallucinating Kiran's work history when asked about "ACH payments" — **COMPLETED (root cause identified)**
+   - Investigate why Fenix (the RAG-powered AI assistant on kiranrao.ai) was hallucinating Kiran's work history when asked about "ACH payments" — **COMPLETED (root cause identified)**
    - Fix the hallucination issue in Fenix's system prompt — **COMPLETED (code written)**
    - Push the fix to the fenix-backend repo — **IN PROGRESS (content modified in browser, needs final API push)**
 
@@ -2988,7 +2988,7 @@ Summary:
    - **JSONL transcript extraction returned 0 messages**: The JSONL format used nested `message` objects with `type` field, not top-level `role` field. Script checked for `role` at top level and found nothing. Kiran said "continue" — resolved by moving on to manual chat-drops approach.
    - **Kiran's manual git push failed**: Used placeholder paths (`/path/to/fenix-backend`). Fixed by explaining the paths were placeholders and suggesting GitHub web editor (Option B) instead.
    - **Fenix chat widget not opening in browser**: Clicked the icon multiple times, but the widget toggled without being visible in screenshots. Resolved by calling the Fenix API directly via `fetch()` from the browser JS console.
-   - **Fenix API validation error**: First API call sent `page_context` as an object — API expected a string. Fixed by sending as string: `page_context: 'Home page - kirangorapalli.com'`.
+   - **Fenix API validation error**: First API call sent `page_context` as an object — API expected a string. Fixed by sending as string: `page_context: 'Home page - kiranrao.ai'`.
 
 5. Problem Solving:
    - Successfully verified anti-hallucination fix is live (commit `2ef0e7f`, Vercel deployed, API response confirmed)
@@ -3461,7 +3461,7 @@ There it is. **Lines 413-416** are the second change:
 ```python
             content_registry_id = str(uuid.uuid5(
                 uuid.NAMESPACE_URL,
-                f"https://kirangorapalli.com{chunk.url}"
+                f"https://kiranrao.ai{chunk.url}"
             ))
 ```
 
@@ -3526,7 +3526,7 @@ Let me chronologically analyze the conversation:
 
 12. **Diagnosing the bug** - Read chunk_and_embed.py and content_extractor.py via browser JavaScript extraction. Found the root cause:
     - Registry ID computed as: `uuid5(NAMESPACE_URL, page["canonical_url"])` 
-    - Embedding reference computed as: `uuid5(NAMESPACE_URL, f"https://kirangorapalli.com{chunk.url}")`
+    - Embedding reference computed as: `uuid5(NAMESPACE_URL, f"https://kiranrao.ai{chunk.url}")`
     - When canonical_url differs from hardcoded domain + path, UUIDs diverge → FK violation
     - Also discovered chunk.content_id = page["id"] which is a slug from extractor, not a UUID
 
@@ -3560,7 +3560,7 @@ Summary:
    - **Foreign Key constraint violation**: 40 out of 197 embeddings failed because `content_embeddings.content_registry_id` referenced a UUID not present in `content_registry`. Root cause was a UUID mismatch between how registry IDs and embedding references were computed.
    - **UUID5 deterministic generation**: Both registry and embedding IDs are generated using `uuid.uuid5(uuid.NAMESPACE_URL, url_string)` — but they used different URL strings.
    - **CodeMirror 6 editor limitations**: GitHub's web editor uses CM6 which doesn't expose the view instance for programmatic access. Keyboard shortcuts (Ctrl+H, Ctrl+F, Ctrl+G) don't work via browser automation.
-   - **Content extraction pipeline**: `content_extractor.py` scans HTML files, extracts text/sections, generates metadata including `canonical_url` (from `<link rel="canonical">` tag or fallback to `https://kirangorapalli.com{path}`) and `id` (a slug like `geico-mobile-app-teardown`).
+   - **Content extraction pipeline**: `content_extractor.py` scans HTML files, extracts text/sections, generates metadata including `canonical_url` (from `<link rel="canonical">` tag or fallback to `https://kiranrao.ai{path}`) and `id` (a slug like `geico-mobile-app-teardown`).
    - **GitHub Actions workflow_dispatch**: The reindex workflow supports manual triggering from the Actions UI.
    - **Supabase tables**: `content_registry` (stores page-level records) and `content_embeddings` (stores chunk-level vectors with FK to content_registry).
 
@@ -3596,7 +3596,7 @@ Summary:
      ```python
      content_registry_id = str(uuid.uuid5(
          uuid.NAMESPACE_URL,
-         f"https://kirangorapalli.com{chunk.url}"
+         f"https://kiranrao.ai{chunk.url}"
      ))
      ```
      
@@ -3620,7 +3620,7 @@ Summary:
    - **`fenix-backend/scripts/content_extractor.py`** (read-only, examined for diagnosis)
      - Key line showing how canonical_url is set:
      ```python
-     "canonical_url": meta.canonical or f"https://kirangorapalli.com{url}",
+     "canonical_url": meta.canonical or f"https://kiranrao.ai{url}",
      ```
      - Key function `build_content_id`:
      ```python
@@ -3647,7 +3647,7 @@ Summary:
      - Status: This was a transient issue, already resolved in subsequent runs. Batch size reduction to 8 texts per batch helped.
    
    - **40 FK errors in successful run #28**: `content_embeddings` insert failed for 40 chunks because `content_registry_id` didn't exist in `content_registry`. All 40 referenced the same missing ID `b9959c8b-e043-591c-8249-32a32ae6c73b`.
-     - Root cause: Registry uses `uuid5(page["canonical_url"])` but embeddings used `uuid5(f"https://kirangorapalli.com{chunk.url}")`. When a page's canonical URL differs from the constructed URL, UUIDs diverge.
+     - Root cause: Registry uses `uuid5(page["canonical_url"])` but embeddings used `uuid5(f"https://kiranrao.ai{chunk.url}")`. When a page's canonical URL differs from the constructed URL, UUIDs diverge.
      - Fix: Two-line change in chunk_and_embed.py (committed as `038787f`).
    
    - **Navigating to failed run via URL**: First attempt to navigate to the failed run used a made-up run ID (`13672654297`) which returned 404. Fixed by using JavaScript to extract the actual run URL from the page (`22697791760`), then used `find` tool to get the job URL (`65807991393`).

@@ -25,7 +25,7 @@ total_words: 8056
 We're getting close to context limits, yeah. Here's your continuation prompt — copy this into a fresh chat:
 
 ```
-## Continue: Persona Picker v4 for kirangorapalli.com
+## Continue: Persona Picker v4 for kiranrao.ai
 
 ### What's Done
 - **Phase 1 COMPLETE**: All 6 Midjourney characters generated and saved as WebP + PNG in `images/` folder
@@ -252,7 +252,7 @@ Want to tackle deploy now, or are you waiting on the video first? And where are 
 Here's your updated continuation prompt if you want to pick this up in a fresh session:
 
 ```
-## Continue: Persona Picker v4 for kirangorapalli.com
+## Continue: Persona Picker v4 for kiranrao.ai
 
 ### What's Done
 - **Phases 1–3 COMPLETE** (see prior sessions)
@@ -661,7 +661,7 @@ Summary:
 
 3. Files and Code Sections:
    - **persona-picker.html** (LIVE production file)
-     - This is the main deliverable — the persona picker page for kirangorapalli.com
+     - This is the main deliverable — the persona picker page for kiranrao.ai
      - Multiple edits made throughout the session:
      
      **Card border opacity increases:**

@@ -902,7 +902,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   Kiran is building a persona-driven portfolio website (kirangorapalli.com) where the first thing visitors see is an animated Pixar-style studio hero scene followed by 6 persona picker cards. Visitors self-identify with a persona, and the entire site experience adapts. The immediate work is generating 7 Midjourney assets: 1 hero scene + 6 persona character portraits. The user wants to nail the quality of every character before moving to implementation, as this is the first thing visitors see. The broader pipeline after Midjourney is: Runway Gen-4 (animate hero) → HeyGen (manifesto video) → HTML/CSS implementation of the persona picker cards.
+   Kiran is building a persona-driven portfolio website (kiranrao.ai) where the first thing visitors see is an animated Pixar-style studio hero scene followed by 6 persona picker cards. Visitors self-identify with a persona, and the entire site experience adapts. The immediate work is generating 7 Midjourney assets: 1 hero scene + 6 persona character portraits. The user wants to nail the quality of every character before moving to implementation, as this is the first thing visitors see. The broader pipeline after Midjourney is: Runway Gen-4 (animate hero) → HeyGen (manifesto video) → HTML/CSS implementation of the persona picker cards.
 
 2. Key Technical Concepts:
    - **Persona-driven site personalization**: 6 personas stored in localStorage, affecting content reordering, Fenix chat behavior, accent colors, and contextual framing
@@ -1551,7 +1551,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   Kiran is building a persona-driven portfolio website (kirangorapalli.com) where the first thing visitors see is an animated Pixar-style studio hero scene followed by 6 persona picker cards. This session focused on: (a) finalizing the remaining Midjourney character assets (Mei Craft, Wren Atlas, Kai Anand), (b) re-doing Quest Parekh to fix an anxious expression, (c) iterating on the hero scene to recreate Kiran's actual home office with specific personal items, (d) creating a comprehensive Midjourney prompting reference guide with practice projects, and (e) evaluating whether Midjourney is the best tool choice. The user's explicit intent: "I don't mind being diligent and feeling like we have the absolute best work represented here. This is the first thing a user sees when they load the site."
+   Kiran is building a persona-driven portfolio website (kiranrao.ai) where the first thing visitors see is an animated Pixar-style studio hero scene followed by 6 persona picker cards. This session focused on: (a) finalizing the remaining Midjourney character assets (Mei Craft, Wren Atlas, Kai Anand), (b) re-doing Quest Parekh to fix an anxious expression, (c) iterating on the hero scene to recreate Kiran's actual home office with specific personal items, (d) creating a comprehensive Midjourney prompting reference guide with practice projects, and (e) evaluating whether Midjourney is the best tool choice. The user's explicit intent: "I don't mind being diligent and feeling like we have the absolute best work represented here. This is the first thing a user sees when they load the site."
 
 2. Key Technical Concepts:
    - **Persona-driven site personalization**: 6 personas stored in localStorage, affecting content reordering, Fenix chat behavior, accent colors, and contextual framing

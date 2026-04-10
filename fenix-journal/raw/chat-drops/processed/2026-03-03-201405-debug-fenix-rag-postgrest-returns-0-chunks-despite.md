@@ -23,7 +23,7 @@ total_words: 18583
 ### Kiran `20:14`
 
 Debug Fenix RAG: PostgREST returns 0 chunks despite valid embeddings
-I need help fixing a bug in my Fenix AI assistant (kirangorapalli.com). The RAG retrieval returns 0 chunks at runtime even though the database is fully populated and the Supabase function works perfectly from SQL.
+I need help fixing a bug in my Fenix AI assistant (kiranrao.ai). The RAG retrieval returns 0 chunks at runtime even though the database is fully populated and the Supabase function works perfectly from SQL.
 Stack: Python/FastAPI on Vercel, Supabase pgvector, Voyage AI (voyage-3-lite, 512 dims)
 Repo: `iamkiranrao/fenix-backend` (private) — I'll open it in github.dev for edits.
 What works (all confirmed):
@@ -54,8 +54,8 @@ What I need:
 1. Confirm or disprove the PostgREST vector casting theory
 2. Apply the fix (or a better one) via github.dev
 3. Add debug logging (embedding dims, first 3 values, raw Supabase response) so future issues are diagnosable from Vercel logs
-4. Verify end-to-end by testing Fenix on kirangorapalli.com after Vercel redeploys
-Access: I have browser tabs open for Supabase SQL Editor, github.dev, Vercel logs, and kirangorapalli.com.
+4. Verify end-to-end by testing Fenix on kiranrao.ai after Vercel redeploys
+Access: I have browser tabs open for Supabase SQL Editor, github.dev, Vercel logs, and kiranrao.ai.
 
 
 The retrospective — what made this so painful:
@@ -320,7 +320,7 @@ Replace with:
 
 **Commit message:** `fix: send embedding as pgvector string literal for PostgREST + add RAG debug logging`
 
-Once you make these changes and commit, Vercel will auto-redeploy. Then we can test on kirangorapalli.com together.
+Once you make these changes and commit, Vercel will auto-redeploy. Then we can test on kiranrao.ai together.
 
 Would you like to make these edits yourself in github.dev, or should I try reconnecting Chrome one more time and retry?
 
@@ -486,7 +486,7 @@ The deployment is already live! I can see:
 
 - **4qHNa6czA** — Production, **Current**, Ready, 54s ago — commit `481461b fix: send embedding as pgvec...`
 
-That's our commit, already deployed and marked as "Current". Now let's test Fenix end-to-end on kirangorapalli.com.
+That's our commit, already deployed and marked as "Current". Now let's test Fenix end-to-end on kiranrao.ai.
 
 ---
 
@@ -504,13 +504,13 @@ Fenix is open and ready. I can see the chat panel with suggested questions. Let 
 
 ### Claude `20:41`
 
-The Chrome extension keeps disconnecting, likely because github.dev is still loaded on that tab and consuming resources. Let me try using the other tab (kirangorapalli.com) which is lighter:
+The Chrome extension keeps disconnecting, likely because github.dev is still loaded on that tab and consuming resources. Let me try using the other tab (kiranrao.ai) which is lighter:
 
 ---
 
 ### Claude `20:42`
 
-Good, the kirangorapalli.com tab works. I can see the error response. Let me close the github.dev tab (it's causing Chrome instability) and navigate to Vercel logs on that tab instead:
+Good, the kiranrao.ai tab works. I can see the error response. Let me close the github.dev tab (it's causing Chrome instability) and navigate to Vercel logs on that tab instead:
 
 ---
 
@@ -528,7 +528,7 @@ Console tracking started too late. Let me send another query with both console a
 
 ### Claude `21:04`
 
-Private repo — can't fetch it directly. Let me try a different approach. Let me use the kirangorapalli.com tab to navigate to Vercel logs instead, since that tab is working:
+Private repo — can't fetch it directly. Let me try a different approach. Let me use the kiranrao.ai tab to navigate to Vercel logs instead, since that tab is working:
 
 ---
 
@@ -695,14 +695,14 @@ This session is being continued from a previous conversation that ran out of con
 Analysis:
 Let me chronologically analyze the conversation:
 
-1. **Initial Request**: User wants to debug a RAG retrieval issue in their Fenix AI assistant (kirangorapalli.com). PostgREST returns 0 chunks despite valid embeddings. Stack: Python/FastAPI on Vercel, Supabase pgvector, Voyage AI (voyage-3-lite, 512 dims). Repo: `iamkiranrao/fenix-backend` (private).
+1. **Initial Request**: User wants to debug a RAG retrieval issue in their Fenix AI assistant (kiranrao.ai). PostgREST returns 0 chunks despite valid embeddings. Stack: Python/FastAPI on Vercel, Supabase pgvector, Voyage AI (voyage-3-lite, 512 dims). Repo: `iamkiranrao/fenix-backend` (private).
 
 2. **Root Cause Theory**: User suspects PostgREST can't correctly cast JSON array `[0.1, 0.2, ...]` to PostgreSQL's `vector(512)` type. The function executes without error but similarities fall below 0.3 threshold.
 
 3. **Proposed Fix**: Change `"query_embedding": query_embedding` to `"query_embedding": str(query_embedding)` in `search_similar_chunks()`.
 
 4. **My Actions**:
-   - Connected to Chrome, found tabs for Supabase, github.dev, kirangorapalli.com, Vercel logs
+   - Connected to Chrome, found tabs for Supabase, github.dev, kiranrao.ai, Vercel logs
    - Read the raw file `services/rag_service.py` from GitHub to confirm the theory
    - Confirmed the bug: line 137 sends `query_embedding` as a Python list, which httpx serializes as a JSON array. PostgREST can't implicitly cast this to `vector(512)`.
    
@@ -718,7 +718,7 @@ Let me chronologically analyze the conversation:
 
 8. **Vercel Deployment**: Deployment went live within ~54 seconds.
 
-9. **Testing Failed**: Navigated to kirangorapalli.com, opened Fenix chat, asked "What has Kiran built with AI?" — got "Something went wrong" / "No response received." API returned HTTP 200 but frontend showed error.
+9. **Testing Failed**: Navigated to kiranrao.ai, opened Fenix chat, asked "What has Kiran built with AI?" — got "Something went wrong" / "No response received." API returned HTTP 200 but frontend showed error.
 
 10. **Diagnosis**: Checked Vercel logs, found: `IndentationError: unexpected indent (rag_service.py, line 158)`. The second debug log line (line 158) had 8 spaces instead of 4 — github.dev auto-indented when I pressed Enter after line 157.
 
@@ -736,11 +736,11 @@ The SQL function `match_content_embeddings` takes `query_embedding vector(512)` 
 
 Summary:
 1. Primary Request and Intent:
-   The user needs to debug and fix a RAG retrieval bug in their Fenix AI assistant (kirangorapalli.com). The specific issue is that PostgREST returns 0 chunks at runtime even though the Supabase database has 112 valid embeddings and the `match_content_embeddings` SQL function works perfectly when called directly. The user wants:
+   The user needs to debug and fix a RAG retrieval bug in their Fenix AI assistant (kiranrao.ai). The specific issue is that PostgREST returns 0 chunks at runtime even though the Supabase database has 112 valid embeddings and the `match_content_embeddings` SQL function works perfectly when called directly. The user wants:
    - Confirm or disprove the PostgREST vector casting theory
    - Apply the fix via github.dev
    - Add debug logging (embedding dims, first 3 values, raw Supabase response)
-   - Verify end-to-end by testing Fenix on kirangorapalli.com after Vercel redeploys
+   - Verify end-to-end by testing Fenix on kiranrao.ai after Vercel redeploys
 
 2. Key Technical Concepts:
    - **PostgREST vector casting**: When `httpx.post(..., json=payload)` serializes a Python list as a JSON array `[0.1, 0.2, ...]`, PostgREST cannot implicitly cast it to pgvector's `vector(512)` type. Sending it as a string literal `"[0.1, 0.2, ...]"` via `str(query_embedding)` allows PostgreSQL to parse it correctly.
@@ -801,7 +801,7 @@ Summary:
    - **Applied the str() fix** via github.dev Find/Replace (worked on first attempt).
    - **Added debug logging** via direct line editing in github.dev (introduced indentation bug).
    - **Committed and deployed** successfully to Vercel (commit SHA 481461b).
-   - **Tested on kirangorapalli.com** — got "Something went wrong" error.
+   - **Tested on kiranrao.ai** — got "Something went wrong" error.
    - **Diagnosed the IndentationError** via Vercel logs panel.
    - **User fixed the indentation** themselves while I was attempting the fix.
    - **Pending verification**: Need to confirm user's fix deployed and test Fenix end-to-end.
@@ -817,14 +817,14 @@ Summary:
 
 7. Pending Tasks:
    - Verify the user's indentation fix deployed successfully on Vercel
-   - Test Fenix end-to-end on kirangorapalli.com to confirm RAG retrieval now works (returns >0 chunks with proper similarity scores)
+   - Test Fenix end-to-end on kiranrao.ai to confirm RAG retrieval now works (returns >0 chunks with proper similarity scores)
    - Check Vercel logs for the new debug logging output to confirm the `str(query_embedding)` fix produces correct RAG results
 
 8. Current Work:
    The user fixed the IndentationError on line 158 themselves and asked me to verify. I navigated to `https://vercel.com/kirans-projects-c87a9003/fenix-backend/deployments` to check the deployment status. The last screenshot shows the Vercel deployments page loaded, but I haven't yet confirmed whether the user's fix commit is the "Current" deployment or tested Fenix.
 
 9. Optional Next Step:
-   Verify the user's deployment is live on the Vercel deployments page, then navigate to kirangorapalli.com, open Fenix chat, send a test query like "What has Kiran built with AI?", and check both the frontend response and Vercel logs for the debug output (should now show `RAG search: dims=512, first3=[...]` and `RAG RPC response: N results`).
+   Verify the user's deployment is live on the Vercel deployments page, then navigate to kiranrao.ai, open Fenix chat, send a test query like "What has Kiran built with AI?", and check both the frontend response and Vercel logs for the debug output (should now show `RAG search: dims=512, first3=[...]` and `RAG RPC response: N results`).
    
    User's exact messages: "DID I DO IT" and "i fixed line 158 can u check" — I need to verify their fix worked by checking the deployment and testing Fenix.
 
@@ -1277,7 +1277,7 @@ This session is being continued from a previous conversation that ran out of con
 Analysis:
 Let me chronologically analyze the conversation:
 
-1. **Context from previous session**: The conversation is a continuation from a previous session that ran out of context. The original task was debugging a RAG retrieval issue in the Fenix AI assistant on kirangorapalli.com. The stack is Python/FastAPI on Vercel, Supabase pgvector, Voyage AI (voyage-3-lite, 512 dims). The root cause was PostgREST couldn't cast JSON array to PostgreSQL's vector(512) type. Fix was changing `"query_embedding": query_embedding` to `"query_embedding": str(query_embedding)`. Debug logging was added but introduced an IndentationError on line 158 (8 spaces instead of 4).
+1. **Context from previous session**: The conversation is a continuation from a previous session that ran out of context. The original task was debugging a RAG retrieval issue in the Fenix AI assistant on kiranrao.ai. The stack is Python/FastAPI on Vercel, Supabase pgvector, Voyage AI (voyage-3-lite, 512 dims). The root cause was PostgREST couldn't cast JSON array to PostgreSQL's vector(512) type. Fix was changing `"query_embedding": query_embedding` to `"query_embedding": str(query_embedding)`. Debug logging was added but introduced an IndentationError on line 158 (8 spaces instead of 4).
 
 2. **Session start**: The user's indentation fix hadn't landed on main. Multiple attempts to verify and fix through Chrome browser automation, with frequent Chrome extension disconnections.
 
@@ -1326,7 +1326,7 @@ ORDER BY cr.content_type, cr.title;
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran) needs to debug and fix the Fenix AI assistant's RAG retrieval on kirangorapalli.com. The initial bug (PostgREST vector casting) was fixed with `str(query_embedding)`, and an IndentationError was resolved by deleting line 158. Fenix now responds but **only returns results from career highlights and teardowns** — blogs and MadLab prototypes (like Langchart/LangGraph and Apple Pay) come back empty. The user asked for an in-depth retrospective with options. After receiving the retrospective, the user approved the recommended approach: **Option C (add observability by querying Supabase) then Option A (update fenix-index.json and force reindex)**. The user confirmed to proceed in the current chat.
+   The user (Kiran) needs to debug and fix the Fenix AI assistant's RAG retrieval on kiranrao.ai. The initial bug (PostgREST vector casting) was fixed with `str(query_embedding)`, and an IndentationError was resolved by deleting line 158. Fenix now responds but **only returns results from career highlights and teardowns** — blogs and MadLab prototypes (like Langchart/LangGraph and Apple Pay) come back empty. The user asked for an in-depth retrospective with options. After receiving the retrospective, the user approved the recommended approach: **Option C (add observability by querying Supabase) then Option A (update fenix-index.json and force reindex)**. The user confirmed to proceed in the current chat.
 
 2. Key Technical Concepts:
    - **PostgREST vector casting**: `str(query_embedding)` converts Python list to string literal for pgvector compatibility
@@ -1947,7 +1947,7 @@ This session is being continued from a previous conversation that ran out of con
 Analysis:
 Let me chronologically analyze the conversation from this session:
 
-1. **Session start**: This is a continuation from a previous session. The original task was debugging RAG retrieval in Fenix AI assistant on kirangorapalli.com. The previous session had fixed a PostgREST vector casting bug (`str(query_embedding)`) and an IndentationError on line 158.
+1. **Session start**: This is a continuation from a previous session. The original task was debugging RAG retrieval in Fenix AI assistant on kiranrao.ai. The previous session had fixed a PostgREST vector casting bug (`str(query_embedding)`) and an IndentationError on line 158.
 
 2. **Supabase SQL query**: I was trying to run a diagnostic SQL query in the Supabase SQL Editor to see what content was in the database. The CodeMirror/Monaco editor wouldn't accept typed text via Chrome automation. I used JavaScript (`window.monaco.editor.getModels()[0].setValue(query)`) to inject the query. The user ran the queries manually when clicking Run didn't work.
 
@@ -2004,7 +2004,7 @@ The user wants me to:
 
 Summary:
 1. Primary Request and Intent:
-   The session began as a continuation of debugging the Fenix AI assistant's RAG retrieval on kirangorapalli.com. The primary tasks were:
+   The session began as a continuation of debugging the Fenix AI assistant's RAG retrieval on kiranrao.ai. The primary tasks were:
    - **Diagnose and fix partial RAG coverage** — Fenix was only returning results from career highlights and teardowns, not blogs or prototypes
    - **Add keyword text-search fallback** — When semantic vector search returns 0 results, fall back to ILIKE keyword search
    - **Fix Fenix widget tooltips** — Two overlapping tooltips on the homepage ("Chat with Fenix" browser tooltip + "Ask me anything about Kiran's work" custom tooltip). User wants a single universal tooltip on all pages: **"Start here — I'll tailor this to what you care about"**, and wants tooltips to fit within their container.

@@ -472,7 +472,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -611,7 +611,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -634,7 +634,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -692,13 +692,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names
@@ -992,7 +992,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran) wanted a strategy session about the PersonaPicker feature on kirangorapalli.com. The session evolved through several phases:
+   The user (Kiran) wanted a strategy session about the PersonaPicker feature on kiranrao.ai. The session evolved through several phases:
    - Initial exploration of persona-related MD files for context
    - Discussion of the user journey from persona picker → index.html
    - Locking previously-made decisions into PERSONA-PICKER.md (hero video continuity, personalization scoped to Fenix)
@@ -1066,7 +1066,7 @@ Summary:
    - **Mixing resume personas with PersonaPicker:** I initially conflated the resume persona system (PM, PjM, PMM) with the website PersonaPicker. User corrected: "don't mix the resume and the persona picker. two different worlds. Focus on persona-picker only."
    - **Referencing the 30-50 target list:** I cited the "30-50 hand-picked outreach targets" framing from PERSONA-PICKER.md. User corrected: "again that is context from the resume work. Ignore that." The persona picker serves anyone who visits the site.
    - **Wrong page focus:** When user asked about the landing page components, I initially described the persona picker page components. User clarified: "No I'm talking about the index.html page which is the main page that you would land on after you pick the persona."
-   - **CC API 502 errors:** When posting journal entries and action items to `https://cc.kirangorapalli.com`, all requests returned 502. Fixed by saving payloads as JSON files in `fenix-journal/raw/pending-posts/` for later flushing.
+   - **CC API 502 errors:** When posting journal entries and action items to `https://cc.kiranrao.ai`, all requests returned 502. Fixed by saving payloads as JSON files in `fenix-journal/raw/pending-posts/` for later flushing.
 
 5. Problem Solving:
    - Resolved the conceptual separation between the persona picker page (baked) and the index.html personalization (forward-looking work)
@@ -1230,7 +1230,7 @@ Done. Here's what's in place:
 
 **Injected into all 25 HTML files** — every `.html` file in your site root now has `<script src="gate.js"></script>` in the `<head>`.
 
-**To go live:** commit and push. The gate deploys with your next Cloudflare Pages push. Anyone hitting kirangorapalli.com sees the "Under Construction" screen until they enter the password.
+**To go live:** commit and push. The gate deploys with your next Cloudflare Pages push. Anyone hitting kiranrao.ai sees the "Under Construction" screen until they enter the password.
 
 **To remove when ready for reveal:** delete `gate.js` and remove the `<script src="gate.js"></script>` line from all HTML files. One sed command will do it.
 
@@ -1252,7 +1252,7 @@ Good — 39 files staged. Now commit and push.
 
 ### Claude `22:23`
 
-Pushed. Cloudflare Pages will auto-deploy from main. Your site is now gated — anyone hitting kirangorapalli.com will see the "Under Construction" screen. Password is `workshop2026`.
+Pushed. Cloudflare Pages will auto-deploy from main. Your site is now gated — anyone hitting kiranrao.ai will see the "Under Construction" screen. Password is `workshop2026`.
 
 ---
 
@@ -1522,7 +1522,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -1661,7 +1661,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -1684,7 +1684,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -1742,13 +1742,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names

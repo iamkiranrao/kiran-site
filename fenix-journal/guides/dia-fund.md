@@ -33,7 +33,7 @@ DIA Fund operates as a Donor-Advised Fund (DAF) structure for tax-efficient givi
 - Educational content for other parents interested in teaching children about philanthropy
 - Contact form for press inquiries and partnership opportunities
 
-**Site Integration:** `kirangorapalli.com/the-dia-fund.html`
+**Site Integration:** `kiranrao.ai/the-dia-fund.html`
 - Shorter landing page (about section) linking to full thediafund.org site
 - Mentions in portfolio context (Scannibal case study references DIA Fund as the charitable backend)
 - Email signature and social media links include DIA Fund
@@ -202,7 +202,7 @@ If Dia develops interests (e.g., climate, education, technology), add partners a
 
 **Scannibal** is the primary funding engine for DIA Fund. Every paid subscription to Scannibal directs revenue to the fund.
 
-**kirangorapalli.com** includes DIA Fund links and positions it as part of Kiran's work philosophy (building products with purpose). It's not a portfolio case study, but a personal commitment.
+**kiranrao.ai** includes DIA Fund links and positions it as part of Kiran's work philosophy (building products with purpose). It's not a portfolio case study, but a personal commitment.
 
 **Command Center** does NOT manage DIA Fund operationally — it's external. However, it could eventually surface DIA Fund metrics on a dashboard for Kiran's reference.
 

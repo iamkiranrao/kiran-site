@@ -559,7 +559,7 @@ export default function FeedbackPage() {
                   {/* Page URL */}
                   {v.page_url && (
                     <span className="text-xs text-[var(--text-muted)] bg-[var(--bg-secondary)] px-2 py-0.5 rounded truncate max-w-[200px]">
-                      {v.page_url.replace("https://kirangorapalli.com", "").replace("https://kiranrao.ai", "") || "/"}
+                      {v.page_url.replace("https://kiranrao.ai", "").replace("https://kiranrao.ai", "") || "/"}
                     </span>
                   )}
 

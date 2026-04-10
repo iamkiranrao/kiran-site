@@ -5226,7 +5226,7 @@ This is a good question, and your instinct to leverage the site more is right �
 
 Here are some thoughts:
 
-**Make the link earn the click.** Instead of "portfolio," try something like "Product teardowns, prototypes & writing at kirangorapalli.com" — or whatever the actual URL is. Give it its own line near your name/tagline area rather than burying it. The link text should preview what they'll find, because a recruiter won't click a mystery link but might click something that promises to show how you think.
+**Make the link earn the click.** Instead of "portfolio," try something like "Product teardowns, prototypes & writing at kiranrao.ai" — or whatever the actual URL is. Give it its own line near your name/tagline area rather than burying it. The link text should preview what they'll find, because a recruiter won't click a mystery link but might click something that promises to show how you think.
 
 **Use it differently at different stages.** During the application stage, the resume does the heavy lifting and the site is supplementary. But during the interview stage, the site becomes your most powerful tool. When you get a first-round screen, you can say something like "I put together a teardown of [relevant product] on my site — happy to walk through my thinking." That reframes the site from passive portfolio to active demonstration of how you approach problems. It also gives you control over the conversation's direction.
 

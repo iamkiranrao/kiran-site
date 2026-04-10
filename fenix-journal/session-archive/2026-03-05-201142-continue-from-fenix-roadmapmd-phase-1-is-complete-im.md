@@ -378,7 +378,7 @@ It's already in your local folder and on GitHub. Click **Run**. You should see "
 
 **Step 2: Check Vercel.** Go to your Vercel dashboard → fenix-backend project. Commit `27d9682` should be deploying or already green. Wait for it to finish.
 
-**Step 3: Test.** Go to [kirangorapalli.com](https://kirangorapalli.com), open the Fenix widget, and ask: **"What has Kiran built with AI?"**
+**Step 3: Test.** Go to [kiranrao.ai](https://kiranrao.ai), open the Fenix widget, and ask: **"What has Kiran built with AI?"**
 
 **Step 4: Verify.** Go back to Supabase → SQL Editor → run:
 
@@ -709,7 +709,7 @@ The user hasn't been asked to test yet. The PAT should still be revoked.
 
 Summary:
 1. Primary Request and Intent:
-   The user ("Kiran") is building a portfolio site (kirangorapalli.com) with an AI assistant called Fenix and a Command Center for content management. The session started with Phase 1 complete and the user ready for Phase 2: Add Conversation Logging to Fenix Backend. After completing Phase 2, the user moved on to Phase 3: Build MadLab Module in Command Center. The overarching goal is following the FENIX-ROADMAP.md through sequential phases.
+   The user ("Kiran") is building a portfolio site (kiranrao.ai) with an AI assistant called Fenix and a Command Center for content management. The session started with Phase 1 complete and the user ready for Phase 2: Add Conversation Logging to Fenix Backend. After completing Phase 2, the user moved on to Phase 3: Build MadLab Module in Command Center. The overarching goal is following the FENIX-ROADMAP.md through sequential phases.
 
    **Phase 2 goals (COMPLETED):** Create conversations, messages, and training_data tables in Supabase. Wire up Fenix backend to log every chat interaction with search metadata (similarity scores, search type). Include training_data in RAG retrieval.
 
@@ -1059,7 +1059,7 @@ what are you building here for the madlab - can you recap what the end to end fl
 
 Sure — here's the full picture of what MadLab does end to end.
 
-MadLab is a module in your Command Center that lets you create polished "overview pages" for your prototypes on kirangorapalli.com/madlab. Think of it as the same co-creation workflow you already have for teardowns and blog posts, but purpose-built for showcasing the things you build in your MadLab.
+MadLab is a module in your Command Center that lets you create polished "overview pages" for your prototypes on kiranrao.ai/madlab. Think of it as the same co-creation workflow you already have for teardowns and blog posts, but purpose-built for showcasing the things you build in your MadLab.
 
 **The flow works like this:**
 
@@ -1085,7 +1085,7 @@ does it actually built a working prototype?
 
 No — MadLab doesn't build the prototype itself. It builds the **overview page** that showcases a prototype you've already built (or are building).
 
-So the insurance chatbot prototype at `kirangorapalli.com/prototypes/insurance-chatbot/index.html` — that's the actual working thing you built by hand. MadLab generates the `overview.html` that sits next to it: the page that explains what it does, why you built it, how it works, what you learned, and invites visitors to try it. Think of it as the "case study" companion page for each prototype.
+So the insurance chatbot prototype at `kiranrao.ai/prototypes/insurance-chatbot/index.html` — that's the actual working thing you built by hand. MadLab generates the `overview.html` that sits next to it: the page that explains what it does, why you built it, how it works, what you learned, and invites visitors to try it. Think of it as the "case study" companion page for each prototype.
 
 The output is a static HTML page that slots into your existing site structure and gets committed to your repo via the git handler. It doesn't generate any application code, APIs, or interactive functionality — just the narrative and presentation layer.
 
@@ -1094,7 +1094,7 @@ The output is a static HTML page that slots into your existing site structure an
 ### Kiran `22:10`
 
 I want to keep things simple. I've already published one prototype:
-https://kirangorapalli.com/prototypes/insurance-chatbot/overview
+https://kiranrao.ai/prototypes/insurance-chatbot/overview
 
 Just follow this template?
 
@@ -1300,7 +1300,7 @@ Let me also note the linter changes that were confirmed - they match what I had 
 
 Summary:
 1. Primary Request and Intent:
-   The user ("Kiran") is building a portfolio site (kirangorapalli.com) with an AI assistant (Fenix) and a Command Center for content management. This session continued from a previous conversation where Phase 1 (site validation) and Phase 2 (conversation logging) were completed. Phase 3 (MadLab Module) was being verified.
+   The user ("Kiran") is building a portfolio site (kiranrao.ai) with an AI assistant (Fenix) and a Command Center for content management. This session continued from a previous conversation where Phase 1 (site validation) and Phase 2 (conversation logging) were completed. Phase 3 (MadLab Module) was being verified.
 
    **Phase 3 was initially built as a complex 7-step co-creation workflow**, but the user explicitly requested simplification after seeing the existing insurance-chatbot overview page. The user said: "I want to keep things simple. I've already published one prototype... Just follow this template?" and confirmed "yes" to simplifying.
 
@@ -1309,7 +1309,7 @@ Summary:
    Most recently, the user shared a **Dialogflow chatbot URL (BotasaurusRex)** and asked for help writing content for each section of the MadLab template for this bot. The user wants to create an overview page for BotasaurusRex using the simplified MadLab flow.
 
 2. Key Technical Concepts:
-   - **MadLab Module**: A Command Center module for creating overview pages for prototypes on kirangorapalli.com/madlab
+   - **MadLab Module**: A Command Center module for creating overview pages for prototypes on kiranrao.ai/madlab
    - **Template injection**: Canonical HTML template with `{{PLACEHOLDER}}` markers, Python replaces placeholders with content
    - **Dialogflow**: Google's chatbot platform used for BotasaurusRex
    - **Session-based state**: JSON state persistence to `/tmp/command-center/madlab/{session_id}/state.json`
@@ -1378,7 +1378,7 @@ Summary:
    - "I'm on the last step of the madlab flow and I'm getting a network error"
    - "what are you building here for the madlab - can you recap what the end to end flow actually does?"
    - "does it actually built a working prototype?"
-   - "I want to keep things simple. I've already published one prototype: https://kirangorapalli.com/prototypes/insurance-chatbot/overview Just follow this template?"
+   - "I want to keep things simple. I've already published one prototype: https://kiranrao.ai/prototypes/insurance-chatbot/overview Just follow this template?"
    - "yes" (confirming simplification)
    - "change the problem to details"
    - "I built a bot with google dialog flow: https://console.dialogflow.com/api-client/demo/embedded/790d592c-9da4-4180-af19-c6edf09028c9 Help me come up with content for each of the section in the madlab template"
@@ -1752,7 +1752,7 @@ Committed. Now let me push:
 
 Done — pushed and deploying. Here's what went live:
 
-**Overview page:** `kirangorapalli.com/prototypes/jurassic-bites/overview.html` — full write-up with glossary, details, architecture diagram, try-it guide, and related link to the Insurance AI Assistant.
+**Overview page:** `kiranrao.ai/prototypes/jurassic-bites/overview.html` — full write-up with glossary, details, architecture diagram, try-it guide, and related link to the Insurance AI Assistant.
 
 **MadLab hub:** The Chatbots & AI Assistants category now shows 3 projects, with Jurassic Bites listed between Insurance AI Assistant and HR Onboarding Bot.
 
@@ -2067,7 +2067,7 @@ Key files created/modified:
 
 Summary:
 1. Primary Request and Intent:
-   The user ("Kiran") is building a portfolio site (kirangorapalli.com) with a MadLab section showcasing AI prototypes. This session focused on building two new prototypes for the "Chatbots & AI Assistants" category:
+   The user ("Kiran") is building a portfolio site (kiranrao.ai) with a MadLab section showcasing AI prototypes. This session focused on building two new prototypes for the "Chatbots & AI Assistants" category:
 
    **Jurassic Bites (Dialogflow bot)**: User wanted to build a Google Dialogflow bot that demonstrates the platform's pros and cons. After an initial false start (general knowledge bot built manually in the console), the user said "stop and startover" and asked for a use case that stress-tests the platform. I suggested a restaurant reservation bot. User confirmed, wanted it to replace the existing BotasaurusRex agent, have a fun name, and include ~15 intents. Built as a Dialogflow agent ZIP export, plus a MadLab overview page.
 
@@ -2751,7 +2751,7 @@ Let me trace through the conversation chronologically:
 
 13. **Checked GitHub**: fenix-backend repo already has Phase 2 commit pushed ("Phase 2: Add conversation logging, search metadata...") from 3 hours ago. Vercel shows Production deployed 3 hours ago. So everything is already deployed.
 
-14. **Tested conversation logging**: Opened kirangorapalli.com, clicked Fenix widget, asked "What has Kiran built in insurance tech?", got a response about the Insurance AI Assistant prototype. Then ran SQL query in Supabase and confirmed:
+14. **Tested conversation logging**: Opened kiranrao.ai, clicked Fenix widget, asked "What has Kiran built in insurance tech?", got a response about the Insurance AI Assistant prototype. Then ran SQL query in Supabase and confirmed:
     - User message logged: "What has Kiran built in insurance tech?" with NULL search_type
     - Assistant message logged with search_type: "semantic", rag_chunks_used: 2, similarity_scores: [0.5548, 0.4422]
 
@@ -2982,7 +2982,7 @@ Now let me run it with Cmd+Enter:
 2. "What is Kiran approach to building products?" — philosophy  
 3. "What tools does Kiran use for AI projects?" — technical
 
-Now let me test the retrieval by asking Fenix a matching question on the live site. Let me switch to kirangorapalli.com and open the Fenix widget.
+Now let me test the retrieval by asking Fenix a matching question on the live site. Let me switch to kiranrao.ai and open the Fenix widget.
 
 ---
 

@@ -19,7 +19,7 @@ The module uses a two-layer architecture: **public submission APIs** called from
 ### Backend Stack
 
 **FastAPI Router** (`routers/feedback.py`)
-- **Public endpoints**: `POST /api/feedback/submit` and `POST /api/feedback/testimonial/submit` receive submissions from the landing page (kirangorapalli.com)
+- **Public endpoints**: `POST /api/feedback/submit` and `POST /api/feedback/testimonial/submit` receive submissions from the landing page (kiranrao.ai)
 - **Dashboard endpoints**: `GET /api/feedback/stats`, `GET /api/feedback/list`, `DELETE /api/feedback/{id}` for feedback management; `GET /api/feedback/testimonials/stats`, `GET /api/feedback/testimonials/list`, `PATCH /api/feedback/testimonials/{id}/status`, `DELETE /api/feedback/testimonials/{id}` for testimonial curation
 
 **Supabase Service** (`services/feedback_service.py`)
@@ -41,9 +41,9 @@ The module uses a two-layer architecture: **public submission APIs** called from
 
 ### Landing Page Integration
 
-**App.js** (kirangorapalli.com)
-- Feedback form POSTs JSON to `https://api.kirangorapalli.com/api/feedback/submit` with optional rating and comment
-- Testimonial form POSTs JSON to `https://api.kirangorapalli.com/api/feedback/testimonial/submit` with required name, optional role, testimonial text, and is_public flag
+**App.js** (kiranrao.ai)
+- Feedback form POSTs JSON to `https://api.kiranrao.ai/api/feedback/submit` with optional rating and comment
+- Testimonial form POSTs JSON to `https://api.kiranrao.ai/api/feedback/testimonial/submit` with required name, optional role, testimonial text, and is_public flag
 
 ### Database Migration
 
@@ -57,7 +57,7 @@ SQL migration (`migrations/001_feedback_tables.sql`) creates both tables with:
 Backend `.env` includes CORS origins to allow requests from:
 - localhost:3000 (local Command Center)
 - localhost:3001 (local landing page)
-- kirangorapalli.com and www.kirangorapalli.com (production site)
+- kiranrao.ai and www.kiranrao.ai (production site)
 
 ## Key Decisions
 

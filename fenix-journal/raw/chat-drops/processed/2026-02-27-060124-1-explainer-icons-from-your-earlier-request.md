@@ -25,11 +25,11 @@ total_words: 72687
 1 — Explainer Icons (from your earlier request):
 "I want to add a subtle help/explainer icon on key pages — specifically the teardown ('How I'd've Built It') pages, MadLab prototypes, and Studio pages. The goal is threefold: help me understand my own work better, give visitors context on what's happening under the hood, and create structured content that Fenix can eventually ingest. Start by reading the insurance chatbot prototype (prototypes/insurance-chatbot/index.html), a teardown page (teardowns/geico-mobile-app.html), and the madlab and studio pages to understand the current layout. Then propose: (a) where to place the icon on each page type, (b) the UI pattern (tooltip vs panel vs modal), and (c) a repeatable content template for the explainer text. Follow all rules in CONTENT-RULES.md. Always ask before deploying to Netlify — I'm low on credit."
 #2 — Fenix Foundation (from your earlier request):
-"We need to structure the foundation of kirangorapalli.com so it scales to support Fenix. Here's what Fenix is: an AI agent layer that will sit on top of the site and act as a portfolio concierge. Fenix will be able to answer questions about Kiran's work, walk visitors through teardowns and prototypes, explain design decisions, and surface relevant case studies based on what a visitor is looking for. It needs to ingest structured content from the site — teardowns, prototypes, blog posts, studio work — and understand the relationships between them (e.g., a teardown links to a prototype, a prototype demonstrates certain skills, a blog post expands on a theme). Start by auditing the current site structure, file organisation, and content patterns across all pages. Then propose an architecture plan covering: content schema/metadata standards for AI ingestion, file structure changes, how teardowns/prototypes/blog/studio content should be structured so Fenix can reason about them, what semantic relationships need to be captured, and what needs to change now vs later. Read CONTENT-RULES.md for context on existing rules. Always ask before deploying to Netlify — I'm low on credit."
+"We need to structure the foundation of kiranrao.ai so it scales to support Fenix. Here's what Fenix is: an AI agent layer that will sit on top of the site and act as a portfolio concierge. Fenix will be able to answer questions about Kiran's work, walk visitors through teardowns and prototypes, explain design decisions, and surface relevant case studies based on what a visitor is looking for. It needs to ingest structured content from the site — teardowns, prototypes, blog posts, studio work — and understand the relationships between them (e.g., a teardown links to a prototype, a prototype demonstrates certain skills, a blog post expands on a theme). Start by auditing the current site structure, file organisation, and content patterns across all pages. Then propose an architecture plan covering: content schema/metadata standards for AI ingestion, file structure changes, how teardowns/prototypes/blog/studio content should be structured so Fenix can reason about them, what semantic relationships need to be captured, and what needs to change now vs later. Read CONTENT-RULES.md for context on existing rules. Always ask before deploying to Netlify — I'm low on credit."
 #3 — Blog & Podcast Content:
 "The blog-podcast.html page has 4 blog articles and 4 podcast episodes with written excerpts but all links point to href='#'. I need to either: (a) create actual article pages for each blog post, or (b) restructure the blog section so it works without individual pages (e.g., expandable cards). The 4 blog topics are: 'The product manager's job isn't to have the best ideas', 'AI features that actually stick', 'Why I still write PRDs', and 'Building for trust in fintech'. Read CONTENT-RULES.md for voice, spelling, and anti-AI rules. Also update the RSS feed (rss.xml) — its last build date is Feb 16 and version shows v1.0.19, but the footer says v1.0.23. Always ask before deploying to Netlify — I'm low on credit."
 #4 — Site Cleanup & SEO:
-"Run a cleanup pass on kirangorapalli.com. Here's what needs fixing: (1) Remove backup files: index.backup.html, app.backup.js, styles.backup.css. (2) Investigate the /site directory — it contains duplicates of all pages; remove if it's not needed. (3) Update sitemap.xml to include madlab.html, studio.html, and all teardown pages. (4) Add JSON-LD structured data: Person schema on homepage, Article schema on blog/teardown pages, BreadcrumbList on subpages. (5) Add aria-hidden='true' to all decorative SVGs (nav icons, social icons). (6) Add page-specific OG images or at minimum unique og:title and og:description for each page. Read CONTENT-RULES.md for context. Always ask before deploying to Netlify — I'm low on credit."
+"Run a cleanup pass on kiranrao.ai. Here's what needs fixing: (1) Remove backup files: index.backup.html, app.backup.js, styles.backup.css. (2) Investigate the /site directory — it contains duplicates of all pages; remove if it's not needed. (3) Update sitemap.xml to include madlab.html, studio.html, and all teardown pages. (4) Add JSON-LD structured data: Person schema on homepage, Article schema on blog/teardown pages, BreadcrumbList on subpages. (5) Add aria-hidden='true' to all decorative SVGs (nav icons, social icons). (6) Add page-specific OG images or at minimum unique og:title and og:description for each page. Read CONTENT-RULES.md for context. Always ask before deploying to Netlify — I'm low on credit."
 #5 — Teardown Expansion (Google, Apple, Amazon):
 "The how-id-built-it.html page has 3 teardown cards marked 'Coming soon': Google, Apple, and Amazon. I need to either build these teardowns or decide which ones to prioritise. Start by reading the existing GEICO teardown (teardowns/geico-mobile-app.html) and the Instagram teardown to understand the format, depth, and structure. Then propose which company to tackle next and outline the teardown structure. Each teardown should follow the same format as existing ones and comply with CONTENT-RULES.md (especially the anti-AI authenticity rules and British English standard). Always ask before deploying to Netlify — I'm low on credit."
 
@@ -365,7 +365,7 @@ Analysis:
 Let me go through the conversation chronologically to capture all details.
 
 **Message 1 - User's Initial Request:**
-The user presented 5 major workstreams for kirangorapalli.com:
+The user presented 5 major workstreams for kiranrao.ai:
 1. Explainer Icons - help/context icons on teardown, MadLab, and studio pages
 2. Fenix Foundation - structuring the site to support an AI agent layer
 3. Blog & Podcast Content - creating actual article pages or restructuring
@@ -478,7 +478,7 @@ The user has NOT yet received my recommendation based on the research. That's th
 
 Summary:
 1. Primary Request and Intent:
-   The user presented 5 workstreams for kirangorapalli.com (a product manager portfolio site). After choosing to start with research, they prioritised Task #1 (Explainer Icons) and Task #2 (Fenix Foundation).
+   The user presented 5 workstreams for kiranrao.ai (a product manager portfolio site). After choosing to start with research, they prioritised Task #1 (Explainer Icons) and Task #2 (Fenix Foundation).
 
    **Task #1 - Explainer Icons:** Add subtle help/context icons on teardown pages, MadLab prototypes, and Studio pages. Three goals: (a) help Kiran understand his own work, (b) give visitors context on what's under the hood, (c) create structured content for Fenix AI ingestion. User clarified: first-person voice, explain key concepts/terms for people who don't know what's happening under the hood.
 
@@ -819,7 +819,7 @@ Analysis:
 Let me trace through the conversation chronologically from where the previous summary left off.
 
 **Previous summary context:**
-- 5 workstreams for kirangorapalli.com
+- 5 workstreams for kiranrao.ai
 - Tasks 1 (Explainer Icons) and 2 (Fenix Foundation) were being worked on
 - User had raised concerns about explainer panels being over-engineered, too AI-generated, too curated
 - Research was done showing 5-block panels are too much
@@ -916,7 +916,7 @@ The user said "build this into the rules" and mentioned "Command center" - I nee
 
 Summary:
 1. Primary Request and Intent:
-   The user has 5 workstreams for kirangorapalli.com (portfolio site). Currently working on Task #1 (Explainer Icons) and Task #2 (Fenix Foundation).
+   The user has 5 workstreams for kiranrao.ai (portfolio site). Currently working on Task #1 (Explainer Icons) and Task #2 (Fenix Foundation).
 
    **Evolution of Task #1 through this session:**
    - Started with 5-block structured slide panels ([?] icons) on teardown/prototype/MadLab pages
@@ -2512,7 +2512,7 @@ Analysis:
 Let me trace through this conversation chronologically from the beginning.
 
 **Context from previous session summary:**
-- 5 workstreams for kirangorapalli.com
+- 5 workstreams for kiranrao.ai
 - Task #1 (Explainer Icons) was in progress - user had raised concerns about over-engineering
 - The recommendation to strip to 2-block approach had been delivered
 - User approved it, changes were applied, rules were updated
@@ -2622,7 +2622,7 @@ Files modified in this session:
 
 Summary:
 1. Primary Request and Intent:
-   The user has 5 workstreams for kirangorapalli.com. This session focused on Task #1 (Explainer Icons → Per-Page Glossary) and debugging the Command Center app.
+   The user has 5 workstreams for kiranrao.ai. This session focused on Task #1 (Explainer Icons → Per-Page Glossary) and debugging the Command Center app.
 
    **Task #1 Evolution (this session):**
    - Started by implementing the single site-wide glossary page approach (replacing per-section [?] icons)
@@ -3364,7 +3364,7 @@ Analysis:
 Let me trace through this conversation chronologically from the beginning of this session.
 
 **Context from previous session summary:**
-- 5 workstreams for kirangorapalli.com
+- 5 workstreams for kiranrao.ai
 - Task #1 (Explainer Icons → Per-Page Glossary) was completed
 - Command Center debugging was in progress
 - Multiple issues fixed: anthropic SDK version, API credits, missing publish button
@@ -3443,7 +3443,7 @@ Let me trace through this conversation chronologically from the beginning of thi
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran) has 5 workstreams for kirangorapalli.com. This session focused on two main areas:
+   The user (Kiran) has 5 workstreams for kiranrao.ai. This session focused on two main areas:
    
    **A. Finishing the Command Center's Publish Flow:**
    - Started by completing the publish button placement in the teardown workflow UI
@@ -4255,7 +4255,7 @@ Analysis:
 Let me trace through this conversation chronologically from the beginning of this session.
 
 **Context from previous session summary:**
-- 5 workstreams for kirangorapalli.com
+- 5 workstreams for kiranrao.ai
 - Multiple issues with Command Center's publish flow were fixed in prior sessions
 - Key changes: local-first publish, template-based HTML assembly, streaming API, two-step preview/deploy
 - Airbnb session data was lost from /tmp/
@@ -4351,7 +4351,7 @@ Let me trace through this conversation chronologically from the beginning of thi
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran) is working on kirangorapalli.com with 5 workstreams. This session focused on making the Airbnb teardown page (`airbnb-mobile.html`) visually match the Instagram teardown, enforcing all CONTENT-RULES.md visual rules, and ensuring the Command Center produces correct teardowns going forward.
+   The user (Kiran) is working on kiranrao.ai with 5 workstreams. This session focused on making the Airbnb teardown page (`airbnb-mobile.html`) visually match the Instagram teardown, enforcing all CONTENT-RULES.md visual rules, and ensuring the Command Center produces correct teardowns going forward.
 
    Specific requests:
    - Fix visual differences between the Airbnb and Instagram teardown pages
@@ -4952,7 +4952,7 @@ Analysis:
 Let me trace through this entire conversation chronologically, capturing all details.
 
 **Session Context (from previous session summary):**
-- 5 workstreams for kirangorapalli.com
+- 5 workstreams for kiranrao.ai
 - Multiple issues with Command Center's publish flow were fixed in prior sessions
 - Key changes: local-first publish, template-based HTML assembly, streaming API, two-step preview/deploy
 - Airbnb teardown HTML existed on Netlify but with wrong styling
@@ -5026,7 +5026,7 @@ Then immediately followed by a summary request.
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran) is building kirangorapalli.com with 5 workstreams. This session focused on:
+   The user (Kiran) is building kiranrao.ai with 5 workstreams. This session focused on:
    - **Fixing the git deploy error** when publishing from Command Center (resolved - root cause was "nothing to commit")
    - **Fixing the Airbnb presence across the site**: missing company card on main page, broken interstitial page (airbnb.html was auto-generated with wrong structure), wrong breadcrumb ("Travel" instead of "Airbnb")
    - **Adding a respectful language rule** to CONTENT-RULES.md and auditing + fixing all violations site-wide
@@ -6444,7 +6444,7 @@ Analysis:
 Let me trace through the entire conversation chronologically.
 
 **Message 1 - System continuation from previous session:**
-The conversation started with a detailed summary of prior work across multiple sessions on kirangorapalli.com. Key context: 5 workstreams, Command Center fixes, Airbnb teardown pages, content rules, respectful language audit.
+The conversation started with a detailed summary of prior work across multiple sessions on kiranrao.ai. Key context: 5 workstreams, Command Center fixes, Airbnb teardown pages, content rules, respectful language audit.
 
 **Message 2 - User's first request:**
 "do a code audit for both the website and command central. Make sure that everything looks pristine. Also change the icon on the airbnb page in the mobile card to have a mobile phone icon. then push to production"
@@ -6552,7 +6552,7 @@ This is the user's MOST RECENT request. They want WordWeaver to have a TWO-STEP 
 Summary:
 1. Primary Request and Intent:
 
-   Kiran is building kirangorapalli.com with a Command Center (FastAPI + Next.js) for content management. This session covered:
+   Kiran is building kiranrao.ai with a Command Center (FastAPI + Next.js) for content management. This session covered:
    
    - **Code audit** of both website and Command Center, fixing all issues found
    - **Airbnb icon fix** - change mobile card icon to phone SVG
@@ -7090,7 +7090,7 @@ Analysis:
 Let me trace through the conversation chronologically:
 
 **Message 1 - System continuation from previous session:**
-A detailed summary of prior work across multiple sessions on kirangorapalli.com. Key context includes 5 workstreams, Command Center fixes, Airbnb teardown pages, content rules, respectful language audit. The most recent pending task was modifying WordWeaver publish flow to be two-step (local preview → git deploy).
+A detailed summary of prior work across multiple sessions on kiranrao.ai. Key context includes 5 workstreams, Command Center fixes, Airbnb teardown pages, content rules, respectful language audit. The most recent pending task was modifying WordWeaver publish flow to be two-step (local preview → git deploy).
 
 **Message 2 - User: "r u there?"**
 Simple check-in. I confirmed I was ready.
@@ -7171,7 +7171,7 @@ After fix, navigated back and clicked into session — now shows correctly:
 Summary:
 1. Primary Request and Intent:
 
-   Kiran is building kirangorapalli.com with a Command Center (FastAPI + Next.js) for content management. This session focused on:
+   Kiran is building kiranrao.ai with a Command Center (FastAPI + Next.js) for content management. This session focused on:
    
    - **WordWeaver two-step publish flow**: Continuing from a prior session, the user wanted WordWeaver to save blog posts locally for preview FIRST, then deploy to git/Netlify as a separate step (matching the teardown builder's pattern).
    - **Debug publish UI not showing**: User completed an Apple Pay blog post in WordWeaver but couldn't see any publish option. I debugged via Chrome and found multiple rendering bugs.
@@ -7750,7 +7750,7 @@ Analysis:
 Let me trace through the conversation chronologically:
 
 **Context from previous session (summary):**
-- Working on kirangorapalli.com with Command Center (FastAPI + Next.js)
+- Working on kiranrao.ai with Command Center (FastAPI + Next.js)
 - Fixed WordWeaver two-step publish flow (Save Preview → Deploy to Production)
 - Fixed publish UI not showing, raw markdown being saved instead of HTML, "previewing" status not in isComplete check
 - Apple Pay blog post preview assembled at `blog/626c9a18.html` (38KB)
@@ -7857,7 +7857,7 @@ Current state of files:
 Summary:
 1. Primary Request and Intent:
 
-   The user (Kiran) is building kirangorapalli.com with a Command Center (FastAPI + Next.js). This session focused on two things:
+   The user (Kiran) is building kiranrao.ai with a Command Center (FastAPI + Next.js). This session focused on two things:
 
    **A. First-person fix:** The opening paragraph of the Apple Pay blog post used second-person ("you're watching", "your engineering team") and needed to be changed to first-person ("I'm watching", "my engineering team").
 
@@ -8375,7 +8375,7 @@ Analysis:
 Let me trace through the conversation chronologically:
 
 **Previous session context (from summary):**
-- Working on kirangorapalli.com with Command Center (FastAPI + Next.js)
+- Working on kiranrao.ai with Command Center (FastAPI + Next.js)
 - Fixed WordWeaver two-step publish flow
 - Apple Pay blog post preview at `blog/626c9a18.html`
 - Standing rules: ask before deploying to Netlify, run content checks, never recreate CSS, respectful language
@@ -8420,7 +8420,7 @@ Standing rules from user:
 Summary:
 1. Primary Request and Intent:
 
-   The user (Kiran) is building kirangorapalli.com with a Command Center (FastAPI + Next.js). This session continued from a prior conversation focused on an Apple Pay blog post with an inline SVG architecture diagram.
+   The user (Kiran) is building kiranrao.ai with a Command Center (FastAPI + Next.js). This session continued from a prior conversation focused on an Apple Pay blog post with an inline SVG architecture diagram.
 
    **Key requests this session:**
    
@@ -9074,7 +9074,7 @@ This session is being continued from a previous conversation that ran out of con
 Analysis:
 Let me chronologically analyze the conversation:
 
-1. **Session continuation** - This session continued from a previous conversation about kirangorapalli.com with an Apple Pay blog post. The summary provided extensive context about prior work.
+1. **Session continuation** - This session continued from a previous conversation about kiranrao.ai with an Apple Pay blog post. The summary provided extensive context about prior work.
 
 2. **Read time, title, and tags check** - User asked "is this still a 7 minute read and is the title still the best title? see if you want to add more tags (paze etc)". I counted words (2,619 words = ~11 min), evaluated the title, and suggested tag additions.
 
@@ -9127,7 +9127,7 @@ Git commits this session:
 Summary:
 1. Primary Request and Intent:
 
-   The user (Kiran) is iterating on an Apple Pay blog post on kirangorapalli.com and its publishing infrastructure. This session continued from a prior conversation.
+   The user (Kiran) is iterating on an Apple Pay blog post on kiranrao.ai and its publishing infrastructure. This session continued from a prior conversation.
 
    **Completed requests this session:**
    
@@ -9706,7 +9706,7 @@ The two biggest differences: the URL itself (`626c9a18.html` vs `demystifying-ap
 
 Ok. so I definetly need og cards for all the content i am building. How do I build this into my process and into my rules? Also is there a way to make the per post card more visually appealing?.
 
-Also one thing to note. please make a note in the right places so that this is not an issue going forward. I own kirangorapalli.com and my netlify app is pointed to it. so no need to mention netflify in any user facing context.
+Also one thing to note. please make a note in the right places so that this is not an issue going forward. I own kiranrao.ai and my netlify app is pointed to it. so no need to mention netflify in any user facing context.
 
 Lastly - i keep getting messages that I am running out of netlify credit. I'm spending a lot of time building my website so there are so many changes to deploy and test. Hopefully in the near future when we reach stable state - i won't burn through so many credits and it will be just maintence. But is there a better solution that you would suggest? This is my home on the internet going forward - I am happy to invest in the right scalable foundation to make sure things run smoothly.
 
@@ -9828,9 +9828,9 @@ All clean. The only two remaining "netlify" mentions are the rule texts that say
 
 All done. Here's a summary of what was updated:
 
-**CONTENT-RULES.md** — Added two new subsections under Section 9 (Site-Wide Visual Rules): "Canonical Domain" (kirangorapalli.com is the only user-facing domain, netlify is an implementation detail) and "Open Graph Cards" (every shareable page needs its own OG image with specs for dimensions, content, and per-content-type requirements). Added checks #11 (OG card) and #12 (domain) to the Pre-Publish Checklist.
+**CONTENT-RULES.md** — Added two new subsections under Section 9 (Site-Wide Visual Rules): "Canonical Domain" (kiranrao.ai is the only user-facing domain, netlify is an implementation detail) and "Open Graph Cards" (every shareable page needs its own OG image with specs for dimensions, content, and per-content-type requirements). Added checks #11 (OG card) and #12 (domain) to the Pre-Publish Checklist.
 
-**Domain swap** — Replaced `kirangorapalli.netlify.app` with `kirangorapalli.com` across all rule files, config files, backend services, templates, and prompts. That covers CONTENT-RULES.md, ARCHITECTURE-RULES.md, ARCHITECTURE.md, MIGRATION-RUNBOOK.md, fenix-index.json, apple-pay-medium-substack.md, all WordWeaver and Teardown Builder backend files (service, router, templates), and all strategy/process docs.
+**Domain swap** — Replaced `kirangorapalli.netlify.app` with `kiranrao.ai` across all rule files, config files, backend services, templates, and prompts. That covers CONTENT-RULES.md, ARCHITECTURE-RULES.md, ARCHITECTURE.md, MIGRATION-RUNBOOK.md, fenix-index.json, apple-pay-medium-substack.md, all WordWeaver and Teardown Builder backend files (service, router, templates), and all strategy/process docs.
 
 **Still pending (for the architecture rework)**: 37 HTML files across the live site still have the netlify domain in their canonical/OG/JSON-LD tags. These should be batch-updated as part of the URL slug + hosting migration work. Also pending: actually generating the per-post OG card images and wiring the auto-generation into the WordWeaver and Teardown Builder deploy flows.
 
@@ -9858,7 +9858,7 @@ None of these files are tracked by git — they're all local documentation. The 
 
 There's nothing new to push right now. All the rule files, config files, and backend code changes are saved locally in your workspace — they'll be committed when the `command-center/` directory and the rule docs get added to git tracking as part of the architecture rework.
 
-To recap everything done across this session: the content rules now mandate US English, per-post OG cards, and kirangorapalli.com as the canonical domain. Those rules are reflected in the WordWeaver profile, service, router, Teardown Builder, templates, and all documentation. The Apple Pay blog post itself was converted to US English and pushed. And you have the OG card comparison mockup showing the before/after of what link sharing looks like.
+To recap everything done across this session: the content rules now mandate US English, per-post OG cards, and kiranrao.ai as the canonical domain. Those rules are reflected in the WordWeaver profile, service, router, Teardown Builder, templates, and all documentation. The Apple Pay blog post itself was converted to US English and pushed. And you have the OG card comparison mockup showing the before/after of what link sharing looks like.
 
 ---
 
@@ -9878,7 +9878,7 @@ Good. Now I have everything I need. Let me write the prompt:
 
 Here's your prompt: [View URL Slug Rework Prompt](computer:///sessions/sharp-fervent-mayer/mnt/Kiran's Website/URL-SLUG-REWORK-PROMPT.md)
 
-It covers seven steps: auditing current URLs and proposing new slugs (with approval before changes), renaming files and updating all internal references across both root and `site/` mirrors, replacing every `kirangorapalli.netlify.app` reference with `kirangorapalli.com` across all 37+ HTML files, setting up 301 redirects so old links don't break, updating the Command Center backend templates, generating per-post OG card images, and a full verification sweep at the end.
+It covers seven steps: auditing current URLs and proposing new slugs (with approval before changes), renaming files and updating all internal references across both root and `site/` mirrors, replacing every `kirangorapalli.netlify.app` reference with `kiranrao.ai` across all 37+ HTML files, setting up 301 redirects so old links don't break, updating the Command Center backend templates, generating per-post OG card images, and a full verification sweep at the end.
 
 The prompt includes the complete file structure map so the new session has full context from the start.
 

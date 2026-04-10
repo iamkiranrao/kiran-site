@@ -82,7 +82,7 @@ I need to find if there's a config for the API URL already in the app.js, and th
 
 ### Claude `23:07`
 
-The backend API URL is `https://api.kirangorapalli.com`. Now let me update the feedback and testimonial form handlers in app.js:
+The backend API URL is `https://api.kiranrao.ai`. Now let me update the feedback and testimonial form handlers in app.js:
 
 ---
 
@@ -124,11 +124,11 @@ Everything checks out — all files are consistent. Here's a summary of what was
 - Added to the sidebar via `constants.ts` + `MessageSquare` icon in `Sidebar.tsx`
 
 **Landing Page (`app.js`)**
-- Feedback form now POSTs JSON to `https://api.kirangorapalli.com/api/feedback/submit`
-- Testimonial form now POSTs JSON to `https://api.kirangorapalli.com/api/feedback/testimonial/submit`
+- Feedback form now POSTs JSON to `https://api.kiranrao.ai/api/feedback/submit`
+- Testimonial form now POSTs JSON to `https://api.kiranrao.ai/api/feedback/testimonial/submit`
 
 **CORS**
-- Updated `.env` to include `kirangorapalli.com` origins so the landing page can hit the API
+- Updated `.env` to include `kiranrao.ai` origins so the landing page can hit the API
 
 **One thing you'll need to do before this goes live:** run the SQL migration at `command-center/backend/migrations/001_feedback_tables.sql` in your Supabase SQL Editor to create the `site_feedback` and `testimonials` tables.
 
@@ -615,9 +615,9 @@ I see the form is already filled with text from the previous attempt. Let me cli
 
 ### Claude `23:33`
 
-Found it — the API is returning **404 Not Found** on `https://api.kirangorapalli.com/api/feedback/submit`. That means the backend hasn't been redeployed yet with the new feedback router. The code was pushed to GitHub, but the backend server needs to be restarted/redeployed to pick up the changes.
+Found it — the API is returning **404 Not Found** on `https://api.kiranrao.ai/api/feedback/submit`. That means the backend hasn't been redeployed yet with the new feedback router. The code was pushed to GitHub, but the backend server needs to be restarted/redeployed to pick up the changes.
 
-How do you deploy your backend? It looks like it runs at `api.kirangorapalli.com`. Is it on Heroku, Render, Railway, or somewhere else? You'll need to trigger a redeploy there — either it auto-deploys from GitHub (and might need a few more minutes) or you may need to manually restart it.
+How do you deploy your backend? It looks like it runs at `api.kiranrao.ai`. Is it on Heroku, Render, Railway, or somewhere else? You'll need to trigger a redeploy there — either it auto-deploys from GitHub (and might need a few more minutes) or you may need to manually restart it.
 
 Can you check where your backend is hosted so we can trigger the redeploy?
 
@@ -628,9 +628,9 @@ Can you check where your backend is hosted so we can trigger the redeploy?
 Platform Architecture — System Context for AI Sessions
 This document contains everything an AI assistant needs to understand the architecture, codebase, conventions, and constraints of Kiran Rao's personal platform. Paste this into any new session as context.
 1. Platform Overview
-kirangorapalli.com is a personal brand platform for Kiran Rao, a Senior Product Manager with 10+ years in insurance technology and AI. The platform has three main components:
-1. Portfolio Website — Static HTML/CSS/JS site hosted on Cloudflare Pages (domain: kirangorapalli.com)
-2. Fenix Backend — FastAPI serverless API on Vercel (domain: api.kirangorapalli.com, repo: iamkiranrao/fenix-backend). Fenix is the AI assistant embedded on the site.
+kiranrao.ai is a personal brand platform for Kiran Rao, a Senior Product Manager with 10+ years in insurance technology and AI. The platform has three main components:
+1. Portfolio Website — Static HTML/CSS/JS site hosted on Cloudflare Pages (domain: kiranrao.ai)
+2. Fenix Backend — FastAPI serverless API on Vercel (domain: api.kiranrao.ai, repo: iamkiranrao/fenix-backend). Fenix is the AI assistant embedded on the site.
 3. Command Center — Internal admin tool (Next.js frontend + FastAPI backend, runs locally). Used for content creation, Fenix training, analytics, and publishing workflows.
 All three share a single Git repo (`iamkiranrao/kiran-site`) except the Fenix backend which has its own repo (`iamkiranrao/fenix-backend`).
 2. Repository Structure
@@ -759,7 +759,7 @@ Portfolio Website
 * Google Analytics 4 (G-8Q795C1RJ5)
 * Microsoft Clarity (vpgxcc8q5n)
 * Hosted on Cloudflare Pages
-Fenix Backend (api.kirangorapalli.com)
+Fenix Backend (api.kiranrao.ai)
 * Python 3.11, FastAPI (serverless on Vercel)
 * Claude API (Anthropic) — model: `claude-sonnet-4-20250514`
 * Voyage AI — embeddings model: `voyage-3-lite` (512 dimensions)
@@ -931,7 +931,7 @@ Dashboard Pages
 * `/dashboard/feedback/page.tsx` — Feedback/testimonial viewer
 * `/dashboard/tools/page.tsx` — External tool links
 * `/dashboard/help/page.tsx` — Documentation
-8. Fenix Backend Architecture (api.kirangorapalli.com)
+8. Fenix Backend Architecture (api.kiranrao.ai)
 Conversational AI Engine (services/fenix_service.py)
 * Fenix speaks ABOUT Kiran in third person: "Kiran built..." not "I built..."
 * Persona is INFERRED from question keywords, not selected by visitor
@@ -971,7 +971,7 @@ Fenix Widget (fenix-widget.js)
 * Markdown rendering (bold, italic, links, lists, code)
 * 8 curated suggestion questions
 * Max message length: 2000 characters
-* API endpoint: https://api.kirangorapalli.com/api/v1/fenix/chat
+* API endpoint: https://api.kiranrao.ai/api/v1/fenix/chat
 9. Key Design Decisions & Constraints
 Python 3.9.6 Compatibility (Command Center)
 * Use `Optional[dict]` NOT `dict | None`
@@ -1000,7 +1000,7 @@ Embedding Approach
 * Storage: Supabase pgvector
 * Fallback: hash-based pseudo-embeddings if Voyage API unavailable
 10. Deployment Architecture
-Component Platform Domain Repo Portfolio Site Cloudflare Pages kirangorapalli.com iamkiranrao/kiran-site Fenix API Vercel (serverless) api.kirangorapalli.com iamkiranrao/fenix-backend Database Supabase gndzmmywtxvlukoavadj.supabase.co — Command Center Local dev localhost:3000 (FE) / :8000 (BE) iamkiranrao/kiran-site
+Component Platform Domain Repo Portfolio Site Cloudflare Pages kiranrao.ai iamkiranrao/kiran-site Fenix API Vercel (serverless) api.kiranrao.ai iamkiranrao/fenix-backend Database Supabase gndzmmywtxvlukoavadj.supabase.co — Command Center Local dev localhost:3000 (FE) / :8000 (BE) iamkiranrao/kiran-site
 CI/CD
 * Push to main → Cloudflare Pages deploys static site
 * Push to main → Vercel deploys Fenix backend
@@ -1036,7 +1036,7 @@ Service Purpose Required For Anthropic (Claude API) LLM for all AI features Ever
 
 ### Claude `23:42`
 
-The backend is on **Vercel** (in the `fenix-backend` repo), not in the `kiran-site` repo. That's why the 404 — we pushed the feedback router to `kiran-site` but the API at `api.kirangorapalli.com` deploys from `iamkiranrao/fenix-backend`.
+The backend is on **Vercel** (in the `fenix-backend` repo), not in the `kiran-site` repo. That's why the 404 — we pushed the feedback router to `kiran-site` but the API at `api.kiranrao.ai` deploys from `iamkiranrao/fenix-backend`.
 
 We need to add the feedback endpoints to the Fenix backend repo instead. Let me check what's there.
 
@@ -1044,7 +1044,7 @@ We need to add the feedback endpoints to the Fenix backend repo instead. Let me 
 
 ### Claude `23:43`
 
-This is just a subset in the kiran-site repo — the actual Vercel-deployed fenix-backend repo is separate. The Fenix API at `api.kirangorapalli.com` serves from `iamkiranrao/fenix-backend` on Vercel, which has its own API route structure.
+This is just a subset in the kiran-site repo — the actual Vercel-deployed fenix-backend repo is separate. The Fenix API at `api.kiranrao.ai` serves from `iamkiranrao/fenix-backend` on Vercel, which has its own API route structure.
 
 We have two options here:
 
@@ -1129,13 +1129,13 @@ Let me chronologically trace through the entire conversation:
 9. **Supabase Migration**: I opened Supabase SQL editor, typed the SQL (which had newline issues on first attempt), cleared and re-pasted via clipboard API, ran it. Tables were confirmed created (both `site_feedback` and `testimonials` showed in query results).
 
 10. **Testing - 404 Error**: User reported "Something went wrong please try again." I captured the network request:
-    - `POST https://api.kirangorapalli.com/api/feedback/submit` → **404 Not Found**
+    - `POST https://api.kiranrao.ai/api/feedback/submit` → **404 Not Found**
 
-11. **Root Cause Discovery**: The architecture doc (pasted by user as system context) revealed that `api.kirangorapalli.com` is served by the **fenix-backend** repo (`iamkiranrao/fenix-backend`) deployed on **Vercel** — NOT from the `command-center/backend` in the `kiran-site` repo. The command-center backend only runs locally on port 8000.
+11. **Root Cause Discovery**: The architecture doc (pasted by user as system context) revealed that `api.kiranrao.ai` is served by the **fenix-backend** repo (`iamkiranrao/fenix-backend`) deployed on **Vercel** — NOT from the `command-center/backend` in the `kiran-site` repo. The command-center backend only runs locally on port 8000.
 
 12. **Pivot to Supabase Direct**: Since the fenix-backend repo couldn't be cloned (PAT didn't have access), I pivoted to having the landing page forms POST directly to Supabase's REST API instead.
 
-13. **Updated app.js**: Changed the fetch URL from `api.kirangorapalli.com/api/feedback/submit` to `gndzmmywtxvlukoavadj.supabase.co/rest/v1/site_feedback` with the appropriate headers.
+13. **Updated app.js**: Changed the fetch URL from `api.kiranrao.ai/api/feedback/submit` to `gndzmmywtxvlukoavadj.supabase.co/rest/v1/site_feedback` with the appropriate headers.
 
 14. **Anon Key Issue**: I used a placeholder anon key in the code. I tried to find the real anon key in the codebase (no luck) and then tried to navigate to Supabase API settings to get it, but the page wasn't loading properly.
 
@@ -1165,7 +1165,7 @@ Summary:
 
 2. Key Technical Concepts:
    - **Architecture**: The platform has 3 components — static site on Cloudflare Pages (`kiran-site` repo), Fenix backend on Vercel (`fenix-backend` repo), and Command Center (local dev tool, also in `kiran-site` repo)
-   - **Critical discovery**: `api.kirangorapalli.com` is served by the **fenix-backend** Vercel repo, NOT the command-center backend. The command-center backend only runs locally on port 8000.
+   - **Critical discovery**: `api.kiranrao.ai` is served by the **fenix-backend** Vercel repo, NOT the command-center backend. The command-center backend only runs locally on port 8000.
    - **Supabase** (project `gndzmmywtxvlukoavadj`) as the database with pgvector, PostgreSQL, RLS policies
    - **Command Center pattern**: Router → Service → Supabase, with corresponding Next.js dashboard pages
    - **Module registration pattern**: constants.ts entry → Sidebar.tsx icon → backend router → backend service → main.py registration → frontend page.tsx
@@ -1206,11 +1206,11 @@ Summary:
      - Added `MessageSquare` to lucide-react import and iconMap
 
    - **`command-center/backend/.env`** (MODIFIED)
-     - Updated CORS_ORIGINS to include `https://kirangorapalli.com,https://www.kirangorapalli.com`
+     - Updated CORS_ORIGINS to include `https://kiranrao.ai,https://www.kiranrao.ai`
      - Note: This file is gitignored and was NOT pushed
 
    - **`app.js`** (MODIFIED — the landing page JavaScript)
-     - First update: Changed feedback form to POST to `https://api.kirangorapalli.com/api/feedback/submit` (this caused 404)
+     - First update: Changed feedback form to POST to `https://api.kiranrao.ai/api/feedback/submit` (this caused 404)
      - Second update (current, local only): Changed to POST directly to Supabase REST API at `https://gndzmmywtxvlukoavadj.supabase.co/rest/v1/site_feedback`
      - Current state of feedback form handler:
      ```javascript
@@ -1238,7 +1238,7 @@ Summary:
      }
      ```
      - **CRITICAL ISSUE**: The anon key used (`eyJ...OYQQ`) is unverified — needs to be retrieved from the Supabase dashboard API settings page
-     - The testimonial form handler still points to the old `api.kirangorapalli.com` URL and has NOT been updated to use Supabase direct yet
+     - The testimonial form handler still points to the old `api.kiranrao.ai` URL and has NOT been updated to use Supabase direct yet
 
    - **`FEEDBACK-DEPLOYMENT-GUIDE.md`** (NEW) — Deployment guide markdown file (now partially outdated due to architecture pivot)
 
@@ -1248,7 +1248,7 @@ Summary:
    - **`git push heroku main` failed**: No heroku remote exists. Fixed by discovering the only remote is `origin` (GitHub) and using `git push origin main`.
    - **Supabase SQL syntax error**: First paste merged the SQL comment with CREATE statement due to newline loss in `type` action. Fixed by using JavaScript `navigator.clipboard.writeText()` to properly copy the SQL, then Cmd+A → Delete → Cmd+V.
    - **Supabase policy already exists error**: Second run of SQL failed with "policy already exists" — confirmed this meant the tables WERE successfully created by the first (broken) run. Verified with `SELECT table_name FROM information_schema.tables` query.
-   - **404 on feedback submit (MAIN ISSUE)**: `POST https://api.kirangorapalli.com/api/feedback/submit` returned 404. Root cause: `api.kirangorapalli.com` runs from the `fenix-backend` Vercel repo, NOT the `command-center/backend` in `kiran-site`. The feedback router was pushed to the wrong repo.
+   - **404 on feedback submit (MAIN ISSUE)**: `POST https://api.kiranrao.ai/api/feedback/submit` returned 404. Root cause: `api.kiranrao.ai` runs from the `fenix-backend` Vercel repo, NOT the `command-center/backend` in `kiran-site`. The feedback router was pushed to the wrong repo.
    - **PAT auth failure for fenix-backend clone**: The GitHub PAT from kiran-site doesn't have access to the fenix-backend repo. Couldn't clone it.
    - **Supabase API settings page not loading**: Navigation to Supabase settings/API page showed blank content. Unresolved.
 
@@ -1258,7 +1258,7 @@ Summary:
    - **Solved**: Code pushed to GitHub (two commits)
    - **Ongoing**: The landing page forms still don't work because:
      1. The `app.js` was updated locally to use Supabase REST API directly, but the **anon key needs to be verified** from the Supabase dashboard (page wasn't loading)
-     2. The **testimonial form** handler in app.js still points to the old `api.kirangorapalli.com` URL
+     2. The **testimonial form** handler in app.js still points to the old `api.kiranrao.ai` URL
      3. The updated `app.js` hasn't been pushed yet
      4. RLS policies may need an explicit anon INSERT policy (current policy uses `USING(true) WITH CHECK(true)` which should work for all roles, but untested with anon)
 
@@ -1284,11 +1284,11 @@ Summary:
    - **Test end-to-end** that both forms actually save data to Supabase
 
 8. Current Work:
-   I was in the process of pivoting the landing page form submissions from the non-existent `api.kirangorapalli.com/api/feedback/submit` endpoint to posting directly to Supabase's REST API. I had:
+   I was in the process of pivoting the landing page form submissions from the non-existent `api.kiranrao.ai/api/feedback/submit` endpoint to posting directly to Supabase's REST API. I had:
    - Updated the feedback form handler in `app.js` to use `https://gndzmmywtxvlukoavadj.supabase.co/rest/v1/site_feedback` 
    - Used a JWT that appears to be an anon key (matching iat/exp of the service_role key but with `"role":"anon"`) — but this key is **unverified**
    - Was trying to navigate to the Supabase API settings page (`https://supabase.com/dashboard/project/gndzmmywtxvlukoavadj/settings/api`) to retrieve the real anon key, but the page kept showing blank/not loading
-   - The testimonial form handler has NOT been updated yet — still points to `api.kirangorapalli.com`
+   - The testimonial form handler has NOT been updated yet — still points to `api.kiranrao.ai`
    - Nothing has been pushed since the pivot — the live site still has the 404-causing code
 
 9. Optional Next Step:
@@ -1425,9 +1425,9 @@ Both forms are working perfectly. The testimonial form shows "Thank you! Your te
 
 Everything is working. Here's a summary of what was done:
 
-**Feedback & Testimonial forms are now live and functional.** Both forms at the bottom of kirangorapalli.com now save submissions directly to your Supabase database.
+**Feedback & Testimonial forms are now live and functional.** Both forms at the bottom of kiranrao.ai now save submissions directly to your Supabase database.
 
-What was fixed: The forms were originally pointing to `api.kirangorapalli.com/api/feedback/submit`, which returned a 404 because that endpoint doesn't exist on the fenix-backend. I switched both forms to POST directly to Supabase's REST API using your project's anon key, bypassing the need for a backend middleman entirely.
+What was fixed: The forms were originally pointing to `api.kiranrao.ai/api/feedback/submit`, which returned a 404 because that endpoint doesn't exist on the fenix-backend. I switched both forms to POST directly to Supabase's REST API using your project's anon key, bypassing the need for a backend middleman entirely.
 
 What was deployed: the `site_feedback` and `testimonials` tables in Supabase (created earlier), plus the updated `app.js` (commit `f4d61f9`). The Command Center dashboard module for managing feedback and testimonials was also pushed in earlier commits and is ready to use once you run it locally.
 
@@ -2485,7 +2485,7 @@ Let me chronologically trace through the entire conversation:
 1. **Context Recovery**: The session began with a context recovery summary from a previous conversation about fixing feedback/testimonial forms on the landing page.
 
 2. **Feedback/Testimonial Fix Continuation**: 
-   - Got the real Supabase anon key from `api.kirangorapalli.com/api/v1/auth/config` endpoint
+   - Got the real Supabase anon key from `api.kiranrao.ai/api/v1/auth/config` endpoint
    - Real anon key: `[REDACTED_JWT]`
    - Updated both feedback and testimonial forms in app.js to use Supabase REST API directly
    - Tested both via browser console - both returned 201
@@ -2544,7 +2544,7 @@ Let me chronologically trace through the entire conversation:
     - Created `hero-video-prototype.html` with full Canvas-based animation
     - Features: floating UI components (phone wireframes, cards, buttons, nav bars, toggles, charts), connection nodes with lines, grid pattern, wireframe morphing, warm radial glow
     - Pushed to live site via /tmp clone (commit `705520d`)
-    - Successfully loaded at `kirangorapalli.com/hero-video-prototype`
+    - Successfully loaded at `kiranrao.ai/hero-video-prototype`
     - Screenshot captured showing the animation with text overlay
 
 Key errors throughout:
@@ -2556,7 +2556,7 @@ Key errors throughout:
 Summary:
 1. Primary Request and Intent:
    The conversation covered multiple tasks:
-   - **Fix feedback & testimonial forms** (continued from previous session): Wire the landing page forms to a backend that captures inputs. Forms were updated to POST directly to Supabase REST API after discovering that `api.kirangorapalli.com` is served by a separate fenix-backend Vercel repo, not the command-center backend.
+   - **Fix feedback & testimonial forms** (continued from previous session): Wire the landing page forms to a backend that captures inputs. Forms were updated to POST directly to Supabase REST API after discovering that `api.kiranrao.ai` is served by a separate fenix-backend Vercel repo, not the command-center backend.
    - **Fix duplicate Amazon cards**: Remove duplicate Amazon company cards in the "How I'd've Built It" section of `how-id-built-it.html` and `site/how-id-built-it.html`.
    - **Remove "Fenix - My AI" from menus universally**: Delete the `<li><a href="...#work">↘ Fenix - My AI</a></li>` menu item from all 48 HTML files across the site, including command-center templates.
    - **Hero video research & production brief**: Extensive research and recommendations on the hero video — specs, sizing, real estate, privacy-friendly approaches (abstract vs Pixar avatar), tools, and prompts. User explicitly pushed back on pure abstract gradients, wanting the video to tie into the site's theme/purpose.
@@ -2565,7 +2565,7 @@ Summary:
 2. Key Technical Concepts:
    - **Supabase REST API (PostgREST)**: Direct POST to `https://gndzmmywtxvlukoavadj.supabase.co/rest/v1/{table}` with `apikey` and `Authorization` headers using the anon key
    - **RLS Policies**: Existing `FOR ALL` policies with `USING(true) WITH CHECK(true)` apply to all roles including `anon` — no additional policies needed
-   - **Supabase Anon Key**: Retrieved from `https://api.kirangorapalli.com/api/v1/auth/config` endpoint (used by `auth-gate.js`)
+   - **Supabase Anon Key**: Retrieved from `https://api.kiranrao.ai/api/v1/auth/config` endpoint (used by `auth-gate.js`)
    - **Cloudflare Pages deployment**: Site deploys automatically on `git push origin main` to the `kiran-site` repo
    - **Architecture**: Static site on Cloudflare Pages (`kiran-site` repo), Fenix backend on Vercel (`fenix-backend` repo), Command Center (local dev, also in `kiran-site`)
    - **Canvas 2D Animation**: Used for the hero video prototype with multiple layered elements (grid, glow, wireframes, nodes, UI components)
@@ -2630,7 +2630,7 @@ Summary:
      - Pushed as commit `705520d`
 
    - **`js/auth-gate.js`** (READ only)
-     - Key discovery: this file fetches Supabase config including anon key from `https://api.kirangorapalli.com/api/v1/auth/config`
+     - Key discovery: this file fetches Supabase config including anon key from `https://api.kiranrao.ai/api/v1/auth/config`
 
    - **`command-center/backend/services/feedback_service.py`** (CREATED in previous session)
    - **`command-center/backend/routers/feedback.py`** (CREATED in previous session)
@@ -2670,10 +2670,10 @@ Summary:
    - Test cleanup: There are test entries in both `site_feedback` and `testimonials` Supabase tables from verification testing.
 
 8. Current Work:
-   The most recently completed work was building and deploying the "Builder's Workshop" hero video prototype (`hero-video-prototype.html`). The prototype was pushed to the live site (commit `705520d`) and a screenshot was successfully captured showing the animation running at `https://kirangorapalli.com/hero-video-prototype`. The screenshot shows a dark background with warm amber connection nodes, grid lines, and floating UI component wireframes, with the hero text ("Kiran Rao / Builder of Products People Love / San Francisco, California") overlaid at the bottom with a gradient fade for readability. The user had just said "yes" to building this prototype and it has been deployed but the user hasn't yet given feedback on the visual result.
+   The most recently completed work was building and deploying the "Builder's Workshop" hero video prototype (`hero-video-prototype.html`). The prototype was pushed to the live site (commit `705520d`) and a screenshot was successfully captured showing the animation running at `https://kiranrao.ai/hero-video-prototype`. The screenshot shows a dark background with warm amber connection nodes, grid lines, and floating UI component wireframes, with the hero text ("Kiran Rao / Builder of Products People Love / San Francisco, California") overlaid at the bottom with a gradient fade for readability. The user had just said "yes" to building this prototype and it has been deployed but the user hasn't yet given feedback on the visual result.
 
 9. Optional Next Step:
-   Wait for user feedback on the prototype visible at `https://kirangorapalli.com/hero-video-prototype`. The user said "yes" to building it and it's now live. Based on their reaction, potential next steps include:
+   Wait for user feedback on the prototype visible at `https://kiranrao.ai/hero-video-prototype`. The user said "yes" to building it and it's now live. Based on their reaction, potential next steps include:
    - Refining the animation (more/fewer elements, different speeds, colors, component types)
    - Integrating it into the actual `index.html` hero section (replacing the current placeholder)
    - Or pivoting the approach based on user feedback
@@ -2691,7 +2691,7 @@ The prototype is already loaded in the browser. Let me take a screenshot so you 
 
 ### Claude `00:53`
 
-Here's the "Builder's Workshop" hero video prototype running live at [kirangorapalli.com/hero-video-prototype](https://kirangorapalli.com/hero-video-prototype). 
+Here's the "Builder's Workshop" hero video prototype running live at [kiranrao.ai/hero-video-prototype](https://kiranrao.ai/hero-video-prototype). 
 
 What you're seeing is a Canvas-based animation with:
 
@@ -2819,7 +2819,7 @@ Everything is working perfectly. The menu slides out with all the navigation lin
 
 ### Claude `01:00`
 
-All fixed. The prototype now has the full site navigation — dark mode toggle (sun/moon icon), share button, and Menu button with the slide-out drawer — all layered properly above the canvas animation. You can see it live at [kirangorapalli.com/hero-video-prototype](https://kirangorapalli.com/hero-video-prototype).
+All fixed. The prototype now has the full site navigation — dark mode toggle (sun/moon icon), share button, and Menu button with the slide-out drawer — all layered properly above the canvas animation. You can see it live at [kiranrao.ai/hero-video-prototype](https://kiranrao.ai/hero-video-prototype).
 
 ---
 
@@ -3009,7 +3009,7 @@ Let me scroll up slightly to see the full "My Story" section with heading:
 
 ### Claude `01:22`
 
-That's the full preview live at [kirangorapalli.com/hero-video-prototype](https://kirangorapalli.com/hero-video-prototype.html?nocache=abc123). Here's the flow:
+That's the full preview live at [kiranrao.ai/hero-video-prototype](https://kiranrao.ai/hero-video-prototype.html?nocache=abc123). Here's the flow:
 
 **Above the fold** — Full-viewport Builder's Workshop canvas animation with your name, tagline, and location overlaid. Nav with dark mode toggle, share, and menu in the top right. "Scroll Down" indicator at bottom right.
 

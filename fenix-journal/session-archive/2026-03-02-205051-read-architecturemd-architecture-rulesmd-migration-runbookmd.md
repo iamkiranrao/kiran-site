@@ -78,7 +78,7 @@ I can see the `fenix-backend` project deployed "1m ago" with commit message "Pha
 
 ### Claude `21:12`
 
-Deploy is **Ready** (green dot) — commit `65d0c50` "Phase 3 Step 3.1: Add form submission API" is live on `api.kirangorapalli.com`. Error rate 0%. Let me verify the forms endpoint works by testing it in the browser.
+Deploy is **Ready** (green dot) — commit `65d0c50` "Phase 3 Step 3.1: Add form submission API" is live on `api.kiranrao.ai`. Error rate 0%. Let me verify the forms endpoint works by testing it in the browser.
 
 ---
 
@@ -182,7 +182,7 @@ Here's where we stand, Kiran:
 - **Email notification** — Resend integration ready (will activate once you provide a Resend API key)
 - **Verified end-to-end** — test submission from Swagger UI returned 200, data confirmed in Supabase
 
-You can see the live API docs at **api.kirangorapalli.com/api/docs** — the forms endpoint is documented with examples and schema.
+You can see the live API docs at **api.kiranrao.ai/api/docs** — the forms endpoint is documented with examples and schema.
 
 **Next up is Step 3.2 — Supabase Auth Integration** (magic link login, optional Google/GitHub OAuth, auth middleware for gated pages). Want to keep going?
 
@@ -240,7 +240,7 @@ Now save the Site URL change:
 
 ### Claude `21:23`
 
-Site URL is now `https://kirangorapalli.com`. I see the "Save changes" button is still showing — let me click it to save.
+Site URL is now `https://kiranrao.ai`. I see the "Save changes" button is still showing — let me click it to save.
 
 ---
 
@@ -258,7 +258,7 @@ Now add a second URL for localhost dev:
 
 ### Claude `21:25`
 
-Good — first URL `https://kirangorapalli.com/**` is entered and a second field appeared. Let me type the localhost dev URL.
+Good — first URL `https://kiranrao.ai/**` is entered and a second field appeared. Let me type the localhost dev URL.
 
 ---
 
@@ -271,10 +271,10 @@ Now click "Save URLs":
 ### Claude `21:25`
 
 Both redirect URLs are saved:
-- `https://kirangorapalli.com/**` (production)
+- `https://kiranrao.ai/**` (production)
 - `http://localhost:3000/**` (development)
 
-Site URL is `https://kirangorapalli.com`. Auth configuration is done. Now let me build the backend code — the auth check endpoint and update the auth middleware.
+Site URL is `https://kiranrao.ai`. Auth configuration is done. Now let me build the backend code — the auth check endpoint and update the auth middleware.
 
 ---
 
@@ -363,7 +363,7 @@ Now let me update PROGRESS.md with Step 3.2 completion.
 - Verified end-to-end: test submission stored in Supabase
 
 **Phase 3, Step 3.2 (Supabase Auth)** — Complete and live:
-- Supabase Auth configured: Site URL → `kirangorapalli.com`, redirect URLs for prod + dev
+- Supabase Auth configured: Site URL → `kiranrao.ai`, redirect URLs for prod + dev
 - `GET /api/v1/auth/check` — verifies Bearer token, returns user profile
 - `POST /api/v1/auth/magic-link` — sends passwordless login email (rate limited 3/min)
 - `GET /api/v1/auth/me` — returns authenticated user profile
@@ -438,7 +438,7 @@ Let me chronologically analyze the conversation:
    - Tested via Swagger UI - got 200 response, verified data in Supabase
 
 7. **Phase 3, Step 3.2 - Supabase Auth Integration**: 
-   - Configured Supabase Auth: updated Site URL to kirangorapalli.com, added redirect URLs
+   - Configured Supabase Auth: updated Site URL to kiranrao.ai, added redirect URLs
    - Built real `core/auth.py` with Supabase token verification
    - Built `api/v1/auth/check.py` with 3 endpoints
    - Committed, pushed, Vercel deployed
@@ -454,7 +454,7 @@ Key technical details:
 - GitHub PAT: `ghp_[REDACTED]`
 - Supabase project: `gndzmmywtxvlukoavadj`
 - Vercel project: `kirans-projects-c87a9003/fenix-backend`
-- Live API: `api.kirangorapalli.com`
+- Live API: `api.kiranrao.ai`
 - career-highlights.html already has gated content structure at line 1242 with classes `gated-section-wrapper`, `gated-content locked`, `gate-overlay`
 - The comment says "DEV MODE: Change 'unlocked' back to 'locked' when ready to go live" - currently set to "locked"
 
@@ -462,12 +462,12 @@ The `api/index.py` was modified (per system reminder) and currently has health, 
 
 Summary:
 1. Primary Request and Intent:
-   The user asked to read ARCHITECTURE.md, ARCHITECTURE-RULES.md, MIGRATION-RUNBOOK.md, and PROGRESS.md, then stated "We're on Phase 2. Pick up from Step 2." This is a multi-phase migration project for kirangorapalli.com, moving from Netlify to Cloudflare Pages + Vercel + Supabase + Stripe. After assessing that Phase 2 was already complete, the user confirmed continuing through Phase 3 (Forms + Auth + Command Center Migration), completing Steps 3.1 and 3.2, and was actively working on Step 3.3 (Access Control for Gated Pages) when the summary was requested. The user confirmed "yes" to continuing with Step 3.3 and asked how many steps are in Phase 3 (answer: 5 steps, 2 done).
+   The user asked to read ARCHITECTURE.md, ARCHITECTURE-RULES.md, MIGRATION-RUNBOOK.md, and PROGRESS.md, then stated "We're on Phase 2. Pick up from Step 2." This is a multi-phase migration project for kiranrao.ai, moving from Netlify to Cloudflare Pages + Vercel + Supabase + Stripe. After assessing that Phase 2 was already complete, the user confirmed continuing through Phase 3 (Forms + Auth + Command Center Migration), completing Steps 3.1 and 3.2, and was actively working on Step 3.3 (Access Control for Gated Pages) when the summary was requested. The user confirmed "yes" to continuing with Step 3.3 and asked how many steps are in Phase 3 (answer: 5 steps, 2 done).
 
 2. Key Technical Concepts:
    - **Vercel serverless deployment** — FastAPI backend auto-deploys on git push to `iamkiranrao/fenix-backend`
    - **Supabase** — PostgreSQL + pgvector + Auth (magic link login, redirect URLs)
-   - **Cloudflare Pages** — static site hosting for kirangorapalli.com
+   - **Cloudflare Pages** — static site hosting for kiranrao.ai
    - **Pydantic validation models** — typed form validation (FeedbackSubmission, TestimonialSubmission, ContactSubmission)
    - **Rate limiting** — sliding window per-IP in-memory rate limiter
    - **Honeypot spam detection** — hidden field silently discards bot submissions
@@ -543,7 +543,7 @@ Summary:
      - `testimonials` form: name, role, testimonial textarea, public checkbox, uses `data-netlify="true"`
 
 4. Errors and Fixes:
-   - **Proxy blocking outbound requests**: `curl` to `api.kirangorapalli.com` failed with 403 from proxy allowlist. Fix: relied on browser-based verification via Swagger UI instead.
+   - **Proxy blocking outbound requests**: `curl` to `api.kiranrao.ai` failed with 403 from proxy allowlist. Fix: relied on browser-based verification via Swagger UI instead.
    - **Git clone auth failure**: `git clone https://github.com/iamkiranrao/fenix-backend.git` failed (private repo). Fix: found GitHub PAT in Command Center's `.env` file and used `https://PAT@github.com/...` URL.
    - **Git author identity unknown**: First commit failed with "Author identity unknown". Fix: set `git config user.email "kiranrao@gmail.com"` and `git config user.name "Kiran Rao"`.
 
@@ -960,7 +960,7 @@ Now let me check the Vercel deployment — let me switch to the Vercel tab:
 ### Claude `22:52`
 
 I can see:
-- The **previous deployment** (commit `b3de664` — "Phase 3 Step 3.4") is **Ready** (green dot) and live at `api.kirangorapalli.com`
+- The **previous deployment** (commit `b3de664` — "Phase 3 Step 3.4") is **Ready** (green dot) and live at `api.kiranrao.ai`
 - The **latest commit** (store_key fix) is currently **Building** (orange dot)
 - 0% error rate, 119 edge requests, 14 function invocations
 
@@ -975,7 +975,7 @@ This session is being continued from a previous conversation that ran out of con
 Analysis:
 Let me chronologically analyze the conversation:
 
-1. **Session Start**: This is a continuation from a previous conversation that ran out of context. The summary covers Sessions 6-9 of a multi-phase migration project for kirangorapalli.com. Previous work completed Phases 1-2 and Steps 3.1-3.2 of Phase 3.
+1. **Session Start**: This is a continuation from a previous conversation that ran out of context. The summary covers Sessions 6-9 of a multi-phase migration project for kiranrao.ai. Previous work completed Phases 1-2 and Steps 3.1-3.2 of Phase 3.
 
 2. **Step 3.3 — Access Control for Gated Pages**: The assistant was asked to continue with Step 3.3. Key work:
    - Explored career-highlights.html's existing gate structure (CSS classes, gate prompt, old Netlify function validation JS)
@@ -1020,13 +1020,13 @@ Important technical details:
 - Website repo: `/sessions/jolly-happy-darwin/mnt/Kiran's Website/`
 - GitHub PAT: `ghp_[REDACTED]`
 - Supabase project: `gndzmmywtxvlukoavadj`
-- Live API: `api.kirangorapalli.com`
+- Live API: `api.kiranrao.ai`
 - Vercel project: `kirans-projects-c87a9003/fenix-backend`
 - kv_store uses `store_key` (not `key`) as column name
 
 Summary:
 1. Primary Request and Intent:
-   The user is executing a multi-phase migration of kirangorapalli.com from Netlify to Cloudflare Pages + Vercel + Supabase + Stripe. This session continued from a previous conversation (Sessions 6-9) where Phase 2 and Steps 3.1-3.2 were completed. The user's explicit requests in this session were:
+   The user is executing a multi-phase migration of kiranrao.ai from Netlify to Cloudflare Pages + Vercel + Supabase + Stripe. This session continued from a previous conversation (Sessions 6-9) where Phase 2 and Steps 3.1-3.2 were completed. The user's explicit requests in this session were:
    - Continue with Step 3.3 (Access Control for Gated Pages) — confirmed with "yes"
    - Continue with Step 3.4 (Port Command Center Services) — confirmed with "yes please"
    - Take over Chrome browser to run the SQL migration in Supabase — "can you take over the chrome browser and complete that action item on supabase? And then yes continue"
@@ -1128,7 +1128,7 @@ Summary:
 
    **Frontend (kiran-site repo at `/sessions/jolly-happy-darwin/mnt/Kiran's Website/`)**:
 
-   - **`js/auth-gate.js`** — NEW. Reusable client-side auth gate using Supabase JS SDK. Auto-initializes on DOMContentLoaded. Fetches config from `https://api.kirangorapalli.com/api/v1/auth/config`, checks session, handles magic link callback, toggles locked/unlocked classes, shows email login prompt. Includes legacy access code bridge for migration.
+   - **`js/auth-gate.js`** — NEW. Reusable client-side auth gate using Supabase JS SDK. Auto-initializes on DOMContentLoaded. Fetches config from `https://api.kiranrao.ai/api/v1/auth/config`, checks session, handles magic link callback, toggles locked/unlocked classes, shows email login prompt. Includes legacy access code bridge for migration.
 
    - **`career-highlights.html`** — Modified. Removed old Netlify `/.netlify/functions/validate-code` JS block (~120 lines). Added Supabase JS CDN + auth-gate.js script tags before `</body>`. Existing gate CSS and HTML structure (`.gated-content.locked`, `.gate-overlay`, `.gate-prompt`) reused as-is.
 
@@ -1182,7 +1182,7 @@ Summary:
    - Test on desktop and mobile
    - Verify SSE streaming through Vercel serverless
    
-   The Swagger UI is available at `https://api.kirangorapalli.com/api/docs` for testing endpoints. The user said "And then yes continue" after the Supabase migration, indicating they want to proceed with Step 3.5 once the deploy is verified.
+   The Swagger UI is available at `https://api.kiranrao.ai/api/docs` for testing endpoints. The user said "And then yes continue" after the Supabase migration, indicating they want to proceed with Step 3.5 once the deploy is verified.
 
 If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: /sessions/jolly-happy-darwin/mnt/.claude/projects/-sessions-jolly-happy-darwin/bfe3a71f-87ca-4335-9552-abaf872c8ad1.jsonl
 Please continue the conversation from where we left off without asking the user any further questions. Continue with the last task that you were asked to work on.
@@ -1197,7 +1197,7 @@ I can see the latest commit (store_key fix) is still "Building" (3m ago). The pr
 
 ### Claude `22:55`
 
-The latest deployment (c0ef50d — store_key fix) is now **Ready** and live on `api.kirangorapalli.com`. Let me now proceed to Step 3.5 — Integration Testing.
+The latest deployment (c0ef50d — store_key fix) is now **Ready** and live on `api.kiranrao.ai`. Let me now proceed to Step 3.5 — Integration Testing.
 
 ---
 
@@ -1705,7 +1705,7 @@ This session is being continued from a previous conversation that ran out of con
 Analysis:
 Let me chronologically analyze the conversation:
 
-1. **Session Start**: This is a continuation from a previous conversation that ran out of context. The summary covers Sessions 6-9 of a multi-phase migration project for kirangorapalli.com. Previous work completed Phases 1-2 and Steps 3.1-3.4 of Phase 3.
+1. **Session Start**: This is a continuation from a previous conversation that ran out of context. The summary covers Sessions 6-9 of a multi-phase migration project for kiranrao.ai. Previous work completed Phases 1-2 and Steps 3.1-3.4 of Phase 3.
 
 2. **Step 3.5 Integration Testing**: The assistant was continuing from where the previous session left off - the Supabase SQL migration was done, store_key fix was committed, and Vercel was building.
 
@@ -1752,7 +1752,7 @@ Key technical details:
 - Website repo: `/sessions/jolly-happy-darwin/mnt/Kiran's Website/`
 - GitHub PAT: `ghp_[REDACTED]`
 - Supabase project: `gndzmmywtxvlukoavadj`
-- Live API: `api.kirangorapalli.com`
+- Live API: `api.kiranrao.ai`
 - Vercel project: `kirans-projects-c87a9003/fenix-backend`
 - New Anthropic API key name: "Fenix Backend"
 - kv_store uses `store_key` (not `key`) as column name
@@ -1760,7 +1760,7 @@ Key technical details:
 
 Summary:
 1. Primary Request and Intent:
-   The user is executing a multi-phase migration of kirangorapalli.com from Netlify to Cloudflare Pages + Vercel + Supabase + Stripe + Claude API. This session continued from a previous conversation (Sessions 6-9) where Phases 1-2 and Steps 3.1-3.4 of Phase 3 were completed. The user's explicit requests in this session were:
+   The user is executing a multi-phase migration of kiranrao.ai from Netlify to Cloudflare Pages + Vercel + Supabase + Stripe + Claude API. This session continued from a previous conversation (Sessions 6-9) where Phases 1-2 and Steps 3.1-3.4 of Phase 3 were completed. The user's explicit requests in this session were:
    - Continue from where left off (Step 3.5 Integration Testing) — from the context compaction prompt
    - "give me the prompt to do that in a new chat" — asking for the Phase 4 kickoff prompt
    - "Do you want to resolve the issue with anthropic key before we move to phase 4?" — suggesting resolving the missing Anthropic API key
@@ -1872,7 +1872,7 @@ Summary:
    - Website repo: `/sessions/jolly-happy-darwin/mnt/Kiran's Website/`
    - GitHub PAT: `ghp_[REDACTED]`
    - Supabase project: `gndzmmywtxvlukoavadj`
-   - Live API: `api.kirangorapalli.com`
+   - Live API: `api.kiranrao.ai`
    - All 6 Vercel env vars now set: SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_KEY, CORS_ORIGINS, ENVIRONMENT, ANTHROPIC_API_KEY
 
 If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: /sessions/jolly-happy-darwin/mnt/.claude/projects/-sessions-jolly-happy-darwin/bfe3a71f-87ca-4335-9552-abaf872c8ad1.jsonl

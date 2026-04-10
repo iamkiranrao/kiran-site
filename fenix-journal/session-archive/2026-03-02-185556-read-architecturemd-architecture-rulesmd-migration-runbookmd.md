@@ -94,7 +94,7 @@ Let me verify the full structure looks right:
 The scaffold is ready — 22 files matching the runbook's project structure. Here's what we built:
 
 **Core infrastructure (ready now):**
-- `api/index.py` — FastAPI app with CORS (locked to `kirangorapalli.com`), structured error handlers, route mounting
+- `api/index.py` — FastAPI app with CORS (locked to `kiranrao.ai`), structured error handlers, route mounting
 - `api/health.py` — Health check that verifies API, database, pgvector, and Claude API key
 - `core/config.py` — Pydantic Settings that fails loudly if required env vars are missing
 - `core/database.py` — Supabase client with connection reuse for serverless
@@ -111,7 +111,7 @@ The scaffold is ready — 22 files matching the runbook's project structure. Her
 
 1. Go to **github.com/new**
 2. Repository name: **`fenix-backend`**
-3. Description: *"Backend platform for kirangorapalli.com — Fenix AI, forms, auth, store, APIs"*
+3. Description: *"Backend platform for kiranrao.ai — Fenix AI, forms, auth, store, APIs"*
 4. **Private** repo (we can make it public later if you want)
 5. **Don't** initialize with README (we already have one)
 6. Click **Create repository**
@@ -687,7 +687,7 @@ PROGRESS.md was updated to reflect Step 1.1 completion and session 6 log.
 
 Summary:
 1. Primary Request and Intent:
-   User asked to read ARCHITECTURE.md, ARCHITECTURE-RULES.md, MIGRATION-RUNBOOK.md, and PROGRESS.md, then pick up Phase 1, Step 1.1 of the migration runbook. The goal is to evolve kirangorapalli.com from a static Netlify site (now on Cloudflare Pages after Phase 0) to a full platform with Vercel backend, Supabase data platform, Stripe payments, and Claude AI. Phase 1 covers backend infrastructure setup: creating Vercel project, Supabase project, configuring environment variables, DNS planning, and database schema setup.
+   User asked to read ARCHITECTURE.md, ARCHITECTURE-RULES.md, MIGRATION-RUNBOOK.md, and PROGRESS.md, then pick up Phase 1, Step 1.1 of the migration runbook. The goal is to evolve kiranrao.ai from a static Netlify site (now on Cloudflare Pages after Phase 0) to a full platform with Vercel backend, Supabase data platform, Stripe payments, and Claude AI. Phase 1 covers backend infrastructure setup: creating Vercel project, Supabase project, configuring environment variables, DNS planning, and database schema setup.
 
 2. Key Technical Concepts:
    - **Vercel serverless deployment** — FastAPI Python app deployed as serverless functions, auto-deploys from git push to main
@@ -729,11 +729,11 @@ Summary:
      }
      ```
 
-   - **/sessions/admiring-funny-meitner/fenix-backend/api/index.py** — Main FastAPI app with CORS middleware (locked to kirangorapalli.com), structured error handlers (FenixError, validation, generic), health router mounted at /api. Future routers commented out for fenix, forms, auth, store, admin, madlab. Root endpoint at `/` returns service info.
+   - **/sessions/admiring-funny-meitner/fenix-backend/api/index.py** — Main FastAPI app with CORS middleware (locked to kiranrao.ai), structured error handlers (FenixError, validation, generic), health router mounted at /api. Future routers commented out for fenix, forms, auth, store, admin, madlab. Root endpoint at `/` returns service info.
      ```python
      app = FastAPI(
          title="Fenix Backend",
-         description="Backend platform for kirangorapalli.com — Fenix AI, forms, auth, store, and APIs",
+         description="Backend platform for kiranrao.ai — Fenix AI, forms, auth, store, and APIs",
          version="0.1.0",
          docs_url="/api/docs",
          redoc_url="/api/redoc",
@@ -804,7 +804,7 @@ Summary:
 
 7. Pending Tasks:
    - **Step 1.3 — Configure Vercel Environment Variables:** Need to add SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_KEY, ANTHROPIC_API_KEY, CORS_ORIGINS, ENVIRONMENT to Vercel dashboard. Was navigated to the Vercel env vars page when summary was requested.
-   - **Step 1.4 — DNS/Domain Planning:** Start with fenix-backend-omega.vercel.app default URL, plan api.kirangorapalli.com custom domain later.
+   - **Step 1.4 — DNS/Domain Planning:** Start with fenix-backend-omega.vercel.app default URL, plan api.kiranrao.ai custom domain later.
    - **Step 1.5 — Database Schema Setup:** Create all PostgreSQL tables (conversations, messages, training_queue, content_registry, content_embeddings, form_submissions, products, orders, users, api_keys, analytics) with RLS policies, indexes, timestamps.
    - **Update PROGRESS.md** with Step 1.2 completion and ongoing progress.
    - **User needs to revoke GitHub PAT** (ghp_[REDACTED]) — reminded multiple times.
@@ -816,7 +816,7 @@ Summary:
    - `SUPABASE_ANON_KEY` = `[REDACTED_JWT]`
    - `SUPABASE_SERVICE_KEY` = `[REDACTED_JWT]`
    - `ANTHROPIC_API_KEY` = needs to be provided by Kiran
-   - `CORS_ORIGINS` = `https://kirangorapalli.com`
+   - `CORS_ORIGINS` = `https://kiranrao.ai`
    - `ENVIRONMENT` = `production`
 
 9. Optional Next Step:
@@ -864,7 +864,7 @@ That worked perfectly. Vercel auto-parsed all 5 environment variables from the p
 1. **SUPABASE_URL** → `https://gndzmmywtxvlukoavadj.supabase.co`
 2. **SUPABASE_ANON_KEY** → (JWT token)
 3. **SUPABASE_SERVICE_KEY** → (JWT token)
-4. **CORS_ORIGINS** → `https://kirangorapalli.com`
+4. **CORS_ORIGINS** → `https://kiranrao.ai`
 5. **ENVIRONMENT** → `production`
 
 All values look correct. Let me scroll down to verify the settings and click Save.
@@ -1058,7 +1058,7 @@ Let me pull up the migration runbook and the Cloudflare DNS tab to plan this out
 
 ### Claude `20:11`
 
-Good — I can see the current DNS records for kirangorapalli.com. Let me also read the Step 1.4 section of the runbook.
+Good — I can see the current DNS records for kiranrao.ai. Let me also read the Step 1.4 section of the runbook.
 
 ---
 
@@ -1066,25 +1066,25 @@ Good — I can see the current DNS records for kirangorapalli.com. Let me also r
 
 Good, I have the full picture. Here's the current state of DNS and the plan:
 
-**Current DNS records for kirangorapalli.com:**
+**Current DNS records for kiranrao.ai:**
 
 | Type | Name | Content | Proxy |
 |------|------|---------|-------|
-| TXT | kirangorapalli.com | google-site-verification=2... | DNS only |
-| CNAME | www | kirangorapalli.com | Proxied |
-| Worker | kirangorapalli.com | kiran-site | Proxied |
+| TXT | kiranrao.ai | google-site-verification=2... | DNS only |
+| CNAME | www | kiranrao.ai | Proxied |
+| Worker | kiranrao.ai | kiran-site | Proxied |
 
 The runbook recommends starting with the default Vercel URL (`fenix-backend-omega.vercel.app`) and adding a custom domain later — which I agree with. But let me document the full plan and set up the CNAME now so it's ready when we need it.
 
-The plan for `api.kirangorapalli.com`:
+The plan for `api.kiranrao.ai`:
 
 ---
 
 ### Claude `20:12`
 
-Good — the architecture diagram references `api.kirangorapalli.com` as the Vercel endpoint. Here's what Step 1.4 looks like in practice:
+Good — the architecture diagram references `api.kiranrao.ai` as the Vercel endpoint. Here's what Step 1.4 looks like in practice:
 
-**DNS Plan for api.kirangorapalli.com:**
+**DNS Plan for api.kiranrao.ai:**
 
 The setup is straightforward — we add a CNAME record in Cloudflare pointing `api` to Vercel, then add the custom domain on the Vercel side. Let me do both now.
 
@@ -1094,7 +1094,7 @@ First, let me add the custom domain on Vercel:
 
 ### Claude `20:13`
 
-I can see the Domains page with only `fenix-backend-omega.vercel.app` currently assigned. Let me add `api.kirangorapalli.com` as a custom domain. I'll type it in the search/add field.
+I can see the Domains page with only `fenix-backend-omega.vercel.app` currently assigned. Let me add `api.kiranrao.ai` as a custom domain. I'll type it in the search/add field.
 
 ---
 
@@ -1106,13 +1106,13 @@ That's the search/filter field. I need to click "Add Existing" to add the domain
 
 ### Claude `20:14`
 
-The "Add Domain" dialog has `api.kirangorapalli.com` pre-filled, connected to the Production environment. This is exactly what we want. Let me click Save.
+The "Add Domain" dialog has `api.kiranrao.ai` pre-filled, connected to the Production environment. This is exactly what we want. Let me click Save.
 
 ---
 
 ### Claude `20:14`
 
-`api.kirangorapalli.com` has been added to Vercel and is showing in the domains list. It's still loading its configuration status (gray placeholder under the domain name). The `fenix-backend-omega.vercel.app` shows "Valid Configuration" with a green checkmark. Let me click on `api.kirangorapalli.com` to see what DNS configuration Vercel needs.
+`api.kiranrao.ai` has been added to Vercel and is showing in the domains list. It's still loading its configuration status (gray placeholder under the domain name). The `fenix-backend-omega.vercel.app` shows "Valid Configuration" with a green checkmark. Let me click on `api.kiranrao.ai` to see what DNS configuration Vercel needs.
 
 ---
 
@@ -1285,7 +1285,7 @@ The form is showing correctly now:
 - **Type:** CNAME
 - **Name:** api
 - **Target:** 7201a113112aaf00.vercel-dns-017.com
-- The preview text says: "api.kirangorapalli.com is an alias of 7201a113112aaf00.vercel-dns-017.com and has its traffic proxied through Cloudflare."
+- The preview text says: "api.kiranrao.ai is an alias of 7201a113112aaf00.vercel-dns-017.com and has its traffic proxied through Cloudflare."
 
 But the proxy is still **Proxied** (orange cloud ON). Vercel requires it to be **DNS only** (grey cloud). Let me click the toggle to turn it off.
 
@@ -1304,7 +1304,7 @@ This session is being continued from a previous conversation that ran out of con
 Analysis:
 Let me go through the conversation chronologically to capture all important details.
 
-1. This is a continuation from a previous conversation that ran out of context. The summary provided gives extensive background on Phase 0 (complete) and Phase 1 (in progress) of migrating kirangorapalli.com from a static site to a full platform.
+1. This is a continuation from a previous conversation that ran out of context. The summary provided gives extensive background on Phase 0 (complete) and Phase 1 (in progress) of migrating kiranrao.ai from a static site to a full platform.
 
 2. The conversation picks up at Step 1.3 - Configure Vercel Environment Variables. Previous sessions completed:
    - Step 1.1: Created Vercel account, fenix-backend repo, scaffolded project, deployed
@@ -1322,7 +1322,7 @@ Let me go through the conversation chronologically to capture all important deta
    - User asked about learning skills to do all this independently
    - Discussed IBM Full Stack certificate
    - Started Step 1.4 - DNS/Domain Planning
-   - Added api.kirangorapalli.com to Vercel domains
+   - Added api.kiranrao.ai to Vercel domains
    - Vercel showed CNAME record needed: api → 7201a113112aaf00.vercel-dns-017.com (proxy disabled)
    - Struggled extensively with Cloudflare's react-select dropdown for DNS record type
    - Eventually got CNAME selected, filled in Name=api and Target=7201a113112aaf00.vercel-dns-017.com
@@ -1349,13 +1349,13 @@ Current state: In the Cloudflare DNS form with CNAME record partially configured
 
 Summary:
 1. Primary Request and Intent:
-   The user asked to continue Phase 1 of the migration runbook for kirangorapalli.com, picking up from Step 1.3 (Configure Environment Variables). The overall goal is evolving from a static Cloudflare Pages site to a full platform with Vercel backend, Supabase data platform, Stripe payments, and Claude AI. During this session, the user also asked to: rename the Supabase project, find a region near San Francisco, learn what skills would be needed to build all this independently, evaluate the IBM Full Stack Software Developer Professional Certificate, and proceed with Step 1.4 (DNS/Domain Planning). The user also provided a new GitHub PAT for pushing code.
+   The user asked to continue Phase 1 of the migration runbook for kiranrao.ai, picking up from Step 1.3 (Configure Environment Variables). The overall goal is evolving from a static Cloudflare Pages site to a full platform with Vercel backend, Supabase data platform, Stripe payments, and Claude AI. During this session, the user also asked to: rename the Supabase project, find a region near San Francisco, learn what skills would be needed to build all this independently, evaluate the IBM Full Stack Software Developer Professional Certificate, and proceed with Step 1.4 (DNS/Domain Planning). The user also provided a new GitHub PAT for pushing code.
 
 2. Key Technical Concepts:
    - Vercel environment variables configuration and redeployment
    - Pydantic Settings validation (required vs optional fields causing cascading failures)
    - Supabase project naming and region selection (AWS us-west-2 Oregon = closest to SF)
-   - DNS CNAME records for custom domain routing (api.kirangorapalli.com → Vercel)
+   - DNS CNAME records for custom domain routing (api.kiranrao.ai → Vercel)
    - Cloudflare DNS management with proxy toggle (Proxied vs DNS-only for Vercel compatibility)
    - React-select component automation challenges in Cloudflare dashboard
    - JavaScript clipboard paste events for bulk environment variable import
@@ -1385,11 +1385,11 @@ Summary:
 
    - **/sessions/admiring-funny-meitner/mnt/Kiran's Website/MIGRATION-RUNBOOK.md** (read for reference)
      - Step 1.3: Configure Environment Variables (completed)
-     - Step 1.4: DNS/Domain Planning — start with default Vercel URL, add `api.kirangorapalli.com` as custom domain later via CNAME
+     - Step 1.4: DNS/Domain Planning — start with default Vercel URL, add `api.kiranrao.ai` as custom domain later via CNAME
      - Step 1.5: Database Schema Setup — create all PostgreSQL tables
 
    - **/sessions/admiring-funny-meitner/mnt/Kiran's Website/ARCHITECTURE.md** (read for reference)
-     - Confirmed architecture diagram references `api.kirangorapalli.com` as the Vercel endpoint (line 616)
+     - Confirmed architecture diagram references `api.kiranrao.ai` as the Vercel endpoint (line 616)
 
 4. Errors and Fixes:
    - **Vercel env vars bulk paste failed**: Typing .env contents into the Key field character-by-character didn't trigger Vercel's auto-parse. Fixed by using JavaScript `ClipboardEvent` with `DataTransfer` to simulate a real paste event, which Vercel's react handler properly detected and split into 5 separate key-value pairs.
@@ -1409,7 +1409,7 @@ Summary:
    - Fixed cascading health check failures by making anthropic_api_key optional
    - Verified Supabase connectivity from Vercel — health check now properly reaches the database (gets PostgREST error about missing tables, which is expected before Step 1.5)
    - Renamed Supabase project to "fenix-backend"
-   - Added api.kirangorapalli.com as custom domain on Vercel
+   - Added api.kiranrao.ai as custom domain on Vercel
    - Obtained the required CNAME target from Vercel: `7201a113112aaf00.vercel-dns-017.com`
    - Partially filled the Cloudflare DNS record form (Type=CNAME, Name=api, Target filled) but proxy toggle is still unresolved
 
@@ -1420,27 +1420,27 @@ Summary:
 
 7. Pending Tasks:
    - **Complete DNS CNAME record in Cloudflare** — toggle proxy to "DNS only" and click Save
-   - **Verify api.kirangorapalli.com resolves** — check Vercel domain status changes from "Invalid Configuration" to valid
-   - **Update CORS_ORIGINS** in Vercel to also allow `api.kirangorapalli.com` if needed
+   - **Verify api.kiranrao.ai resolves** — check Vercel domain status changes from "Invalid Configuration" to valid
+   - **Update CORS_ORIGINS** in Vercel to also allow `api.kiranrao.ai` if needed
    - **Step 1.5 — Database Schema Setup** — create all PostgreSQL tables (conversations, messages, training_queue, content_registry, content_embeddings, form_submissions, products, orders, users, api_keys, analytics) with RLS policies, indexes, timestamps via Supabase SQL editor
    - **Update PROGRESS.md** with Steps 1.2, 1.3, 1.4 completion
    - **User should revoke GitHub PAT** (`ghp_[REDACTED]`) after work is done
    - **ANTHROPIC_API_KEY** still needs to be added to Vercel when user provides it (optional for now)
 
 8. Current Work:
-   Actively working on **Step 1.4 — DNS/Domain Planning**. Specifically, adding a CNAME DNS record in Cloudflare to point `api.kirangorapalli.com` to Vercel's DNS target `7201a113112aaf00.vercel-dns-017.com`. The Cloudflare DNS record form is currently filled with Type=CNAME, Name=api, Target=7201a113112aaf00.vercel-dns-017.com, but the **proxy status toggle is still set to "Proxied" (orange cloud) and needs to be switched to "DNS only" (grey cloud)** before clicking Save. Vercel explicitly requires proxy to be disabled for custom domain verification.
+   Actively working on **Step 1.4 — DNS/Domain Planning**. Specifically, adding a CNAME DNS record in Cloudflare to point `api.kiranrao.ai` to Vercel's DNS target `7201a113112aaf00.vercel-dns-017.com`. The Cloudflare DNS record form is currently filled with Type=CNAME, Name=api, Target=7201a113112aaf00.vercel-dns-017.com, but the **proxy status toggle is still set to "Proxied" (orange cloud) and needs to be switched to "DNS only" (grey cloud)** before clicking Save. Vercel explicitly requires proxy to be disabled for custom domain verification.
 
    Key infrastructure already live:
    - **GitHub repo:** `iamkiranrao/fenix-backend` (private)
    - **Vercel URL:** `https://fenix-backend-omega.vercel.app`
-   - **Vercel custom domain:** `api.kirangorapalli.com` (added, pending DNS verification)
+   - **Vercel custom domain:** `api.kiranrao.ai` (added, pending DNS verification)
    - **Supabase project:** `gndzmmywtxvlukoavadj` (us-west-2, renamed to "fenix-backend", pgvector enabled)
    - **Health check:** `/api/health?quick=1` returns `{"status": "healthy"}`; full health check returns `{"status": "degraded"}` with API healthy, database/vector_store showing "table not found" (expected — schema not yet created in Step 1.5), LLM "unconfigured" (no Anthropic key yet)
    - **Vercel env vars configured:** SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_KEY, CORS_ORIGINS, ENVIRONMENT
    - **Git remote configured with PAT:** `ghp_[REDACTED]`
 
 9. Optional Next Step:
-   Complete the Cloudflare DNS CNAME record by toggling the proxy to "DNS only" and saving. Then verify on the Vercel domains page that `api.kirangorapalli.com` shows "Valid Configuration". The user explicitly said "yes lets go with step 1.4" and the CNAME record creation is the core action of this step. After DNS is configured, proceed to Step 1.5 (Database Schema Setup) and update PROGRESS.md.
+   Complete the Cloudflare DNS CNAME record by toggling the proxy to "DNS only" and saving. Then verify on the Vercel domains page that `api.kiranrao.ai` shows "Valid Configuration". The user explicitly said "yes lets go with step 1.4" and the CNAME record creation is the core action of this step. After DNS is configured, proceed to Step 1.5 (Database Schema Setup) and update PROGRESS.md.
 
 If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: /sessions/admiring-funny-meitner/mnt/.claude/projects/-sessions-admiring-funny-meitner/3924660f-7046-4be7-82f1-651db9831787.jsonl
 Please continue the conversation from where we left off without asking the user any further questions. Continue with the last task that you were asked to work on.
@@ -1485,13 +1485,13 @@ The CNAME record was saved successfully. I can see it in the DNS records list:
 
 - **CNAME** | **api** | **7201a113112aaf00.vercel-d...** | **DNS only** | Auto
 
-Now let me switch to the Vercel domains page to verify that `api.kirangorapalli.com` is being recognized properly.
+Now let me switch to the Vercel domains page to verify that `api.kiranrao.ai` is being recognized properly.
 
 ---
 
 ### Claude `20:33`
 
-The page is still loading the domain status indicators. Let me click Refresh on the `api.kirangorapalli.com` domain to check if DNS has propagated.
+The page is still loading the domain status indicators. Let me click Refresh on the `api.kiranrao.ai` domain to check if DNS has propagated.
 
 ---
 
@@ -1499,7 +1499,7 @@ The page is still loading the domain status indicators. Let me click Refresh on 
 
 Excellent! DNS propagation was almost instant. Vercel now shows:
 
-- **api.kirangorapalli.com** — blue checkmark, "Generating SSL Certificate" (in progress)
+- **api.kiranrao.ai** — blue checkmark, "Generating SSL Certificate" (in progress)
 - **fenix-backend-omega.vercel.app** — blue checkmark, "Valid Configuration"
 
 The DNS is verified and Vercel is generating an SSL certificate for the custom domain. This typically takes just a minute or two. Let me wait a moment and refresh to confirm it completes.
@@ -1514,7 +1514,7 @@ Still generating the SSL certificate — this is normal and can take a few minut
 
 ### Claude `20:35`
 
-**Step 1.4 is complete!** The custom domain is fully live. Hitting `https://api.kirangorapalli.com/api/health?quick=1` returns:
+**Step 1.4 is complete!** The custom domain is fully live. Hitting `https://api.kiranrao.ai/api/health?quick=1` returns:
 
 ```json
 {"status":"healthy","timestamp":"2026-03-02T20:35:08.664019+00:00","version":"0.1.0","checks":{"api":{"status":"healthy"}}}
@@ -1696,7 +1696,7 @@ Now add the session log entries for sessions 7 and 8:
 **Step 1.4 — DNS/Domain Planning:**
 - Added CNAME record in Cloudflare: `api` → `7201a113112aaf00.vercel-dns-017.com` (DNS only)
 - Vercel verified the domain and auto-provisioned an SSL certificate
-- `https://api.kirangorapalli.com` is live and serving traffic
+- `https://api.kiranrao.ai` is live and serving traffic
 
 **Step 1.5 — Database Schema Setup:**
 - Created all 11 PostgreSQL tables (conversations, messages, training_queue, content_registry, content_embeddings, form_submissions, products, orders, users, api_keys, analytics)
@@ -1705,7 +1705,7 @@ Now add the session log entries for sessions 7 and 8:
 - Created a pgvector IVFFlat index for fast similarity search
 - Added health check support objects (`_health_check` table + `check_pgvector()` function)
 
-**Full health check at `api.kirangorapalli.com/api/health` now returns all green:** API healthy, database healthy, vector_store healthy. Only LLM is "unconfigured" (expected — Anthropic key comes later).
+**Full health check at `api.kiranrao.ai/api/health` now returns all green:** API healthy, database healthy, vector_store healthy. Only LLM is "unconfigured" (expected — Anthropic key comes later).
 
 PROGRESS.md has been updated with the full session log. When you're ready to continue, the next step is **Phase 2 — Backend Scaffolding**, though much of it (project structure, core utilities, health check) was already built in Session 6. That phase should go quickly!
 

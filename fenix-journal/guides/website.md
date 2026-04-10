@@ -1,6 +1,6 @@
 ---
 module: website
-title: Portfolio Website (kirangorapalli.com)
+title: Portfolio Website (kiranrao.ai)
 created: 2026-03-11
 last_updated: 2026-03-12
 version: 2
@@ -10,7 +10,7 @@ version: 2
 
 ## Overview
 
-The portfolio website at kirangorapalli.com is Kiran's personal brand platform — part professional showcase, part creative playground. It's a static HTML/CSS/JavaScript site with no build tools, hosted on Cloudflare Pages and connected to a Fenix AI backend for an embedded conversational assistant. The site showcases product work, creative projects, professional insights, and AI experiments in an authentic, understated design.
+The portfolio website at kiranrao.ai is Kiran's personal brand platform — part professional showcase, part creative playground. It's a static HTML/CSS/JavaScript site with no build tools, hosted on Cloudflare Pages and connected to a Fenix AI backend for an embedded conversational assistant. The site showcases product work, creative projects, professional insights, and AI experiments in an authentic, understated design.
 
 ## Architecture
 
@@ -19,7 +19,7 @@ The portfolio website at kirangorapalli.com is Kiran's personal brand platform �
 - **Styling**: Vanilla CSS3 with CSS custom properties (variables) for theme switching, Inter font from Google Fonts
 - **JavaScript**: Vanilla JS (no npm dependencies) for client-side interactions
 - **Hosting**: Cloudflare Pages for the static site, Vercel for the Fenix backend API
-- **Domain**: kirangorapalli.com (custom domain, previously on Netlify, migrated to Cloudflare Pages)
+- **Domain**: kiranrao.ai (custom domain, previously on Netlify, migrated to Cloudflare Pages)
 - **Analytics**: Google Analytics 4 + Microsoft Clarity
 
 **File Structure:**
@@ -112,8 +112,8 @@ The portfolio website at kirangorapalli.com is Kiran's personal brand platform �
 - Tightened copy throughout for clarity and directness
 
 **Mar 6, 2026 — Feedback and testimonials system**
-- Wired feedback form to backend API (`https://api.kirangorapalli.com/api/feedback/submit`)
-- Wired testimonial form to backend API (`https://api.kirangorapalli.com/api/feedback/testimonial/submit`)
+- Wired feedback form to backend API (`https://api.kiranrao.ai/api/feedback/submit`)
+- Wired testimonial form to backend API (`https://api.kiranrao.ai/api/feedback/testimonial/submit`)
 - Changed submission from Netlify Forms to custom FastAPI backend for more control
 - Created Supabase tables (`site_feedback`, `testimonials`) to persist submissions
 - Built admin dashboard in Command Center for managing feedback and testimonials
@@ -157,7 +157,7 @@ The portfolio website at kirangorapalli.com is Kiran's personal brand platform �
 - Supabase tables for persistent feedback storage (created Mar 6)
 
 **Known limitations:**
-- Feedback/testimonial forms rely on backend being live at `api.kirangorapalli.com` — if API is down, forms will show "something went wrong"
+- Feedback/testimonial forms rely on backend being live at `api.kiranrao.ai` — if API is down, forms will show "something went wrong"
 - Language selector is disabled but code preserved — re-enabling requires uncommenting translations.js script and removing the `if (translationsEnabled)` gates in app.js
 - Hero video is placeholder (5:2 aspect ratio, 1920×768 dimensions) — actual video needs to be sourced and embedded
 
@@ -189,7 +189,7 @@ The portfolio website at kirangorapalli.com is Kiran's personal brand platform �
 
 **Long-term:**
 - Content recommendation engine (see `fenix.md` guide for AI assistant evolution plans)
-- Custom domain for Fenix API (currently api.kirangorapalli.com)
+- Custom domain for Fenix API (currently api.kiranrao.ai)
 
 **Deferred/deprioritized:**
 - Email capture for newsletter (Causes section mentions audience but no subscription form)

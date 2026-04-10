@@ -629,7 +629,7 @@ Summary:
          replacements = {
              "{{TITLE}}": fragments.get("title", ...),
              "{{TAGLINE}}": fragments.get("tagline", ...),
-             "{{CANONICAL_URL}}": f"https://kirangorapalli.com/teardowns/{company_slug}-{product_slug}.html",
+             "{{CANONICAL_URL}}": f"https://kiranrao.ai/teardowns/{company_slug}-{product_slug}.html",
              ... # all ~30 placeholder mappings
              "{{VERSION}}": "v1.0.24",
              "{{LAST_UPDATED}}": f"Updated {today}",
@@ -1083,7 +1083,7 @@ The old broken file (375 lines, truncated, hardcoded blue gradients, wrong CSS c
 - Same GA4, Clarity analytics, fenix-widget.css/js
 - Complete 4-section teardown: Discovery, Keep/Kill/Build, Redesign (with SVG wireframes), and Business Case
 
-Give it a minute or two for GitHub Pages to deploy, then check `kirangorapalli.com/teardowns/intuit-turbo-tax.html` — it should now look and feel identical to the Instagram teardown.
+Give it a minute or two for GitHub Pages to deploy, then check `kiranrao.ai/teardowns/intuit-turbo-tax.html` — it should now look and feel identical to the Instagram teardown.
 
 ---
 
@@ -1363,7 +1363,7 @@ Let me chronologically go through the conversation:
 
 Summary:
 1. Primary Request and Intent:
-   The user is executing Phase 1 of the Fenix & Command Center roadmap for kirangorapalli.com. In this conversation specifically:
+   The user is executing Phase 1 of the Fenix & Command Center roadmap for kiranrao.ai. In this conversation specifically:
    - Fix the intuit-turbo-tax.html teardown that was pushed to production with the wrong (old/broken) version due to a git rebase conflict resolution error in a previous conversation
    - Ensure the rebuilt file uses the EXACT same CSS/HTML template as meta-instagram.html (pixel-perfect matching demanded by user in prior conversation)
    - Run visual content rules from CONTENT-RULES.md against the teardown and fix all SVG violations (text overflow, wrong class prefixes, wrong curve types)
@@ -1908,7 +1908,7 @@ The core problem: The teardown builder's template (`teardown-template.html`) doe
 Summary:
 1. Primary Request and Intent:
 
-   **Previous conversation context**: User was executing Phase 1 of the Fenix & Command Center roadmap for kirangorapalli.com. Prior work included rebuilding intuit-turbo-tax.html with correct template, fixing SVG visual rules, adding Command Center features (delete session, published teardowns list), and updating teardown builder rules engine.
+   **Previous conversation context**: User was executing Phase 1 of the Fenix & Command Center roadmap for kiranrao.ai. Prior work included rebuilding intuit-turbo-tax.html with correct template, fixing SVG visual rules, adding Command Center features (delete session, published teardowns list), and updating teardown builder rules engine.
 
    **This conversation's requests (in order)**:
    - Commit and push all untracked Command Center and site files
@@ -2220,7 +2220,7 @@ The user is asking about consistency and whether this will keep happening. They 
 Summary:
 1. Primary Request and Intent:
 
-   **Previous conversation context**: User was executing Phase 1 of the Fenix & Command Center roadmap for kirangorapalli.com. Prior work included rebuilding intuit-turbo-tax.html, fixing SVG visual rules, adding Command Center features, creating a teardown process infographic (snake-path design), and more.
+   **Previous conversation context**: User was executing Phase 1 of the Fenix & Command Center roadmap for kiranrao.ai. Prior work included rebuilding intuit-turbo-tax.html, fixing SVG visual rules, adding Command Center features, creating a teardown process infographic (snake-path design), and more.
 
    **This conversation's requests (in order)**:
    - Continue from where the previous conversation left off — fix the Spotify teardown template to match the canonical Instagram/GEICO format
@@ -2827,10 +2827,10 @@ Going forward, any teardown you deploy through the Command Center's "Deploy to P
 
 ### Kiran `00:56`
 
-When I ask fenix about spotify: it is pointing me to a URL that doesn't exist: https://kirangorapalli.com/how-id-ve-built-it/spotify
+When I ask fenix about spotify: it is pointing me to a URL that doesn't exist: https://kiranrao.ai/how-id-ve-built-it/spotify
 
 This is the only spotify related URL that I have created.
-https://kirangorapalli.com/teardowns/spotify-playlist-discovery
+https://kiranrao.ai/teardowns/spotify-playlist-discovery
 
  can you please fix and make sure that any incorrect URLs are removed and not indexed or consumed by fenix?
 
@@ -2877,7 +2877,7 @@ This session is being continued from a previous conversation that ran out of con
 Analysis:
 Let me chronologically analyze the conversation:
 
-1. **Session continuation**: This session continues from a previous conversation about Phase 1 of the Fenix & Command Center roadmap for kirangorapalli.com. Previous work included fixing the Spotify teardown template, CSS/scripts matching, and various visual issues.
+1. **Session continuation**: This session continues from a previous conversation about Phase 1 of the Fenix & Command Center roadmap for kiranrao.ai. Previous work included fixing the Spotify teardown template, CSS/scripts matching, and various visual issues.
 
 2. **First task - Fix visual overflow issues**: Journey stages grid (5 columns but 6 stages), SVG sentiment curve text clipping, wireframe overflow. Fixed by changing grid to 6 columns, widening SVG viewBox from 800 to 860, adding overflow protection CSS, adding tablet breakpoint.
 
@@ -2899,7 +2899,7 @@ Let me chronologically analyze the conversation:
 
 9. **Spotify not showing in published**: Because Spotify was deployed manually (not through Command Center's deploy endpoint), the session status was never updated to "published". Added Spotify to hardcoded published list and removed from _SEED_SESSIONS.
 
-10. **Fenix URL issue**: User reported Fenix pointing to non-existent URL `https://kirangorapalli.com/how-id-ve-built-it/spotify`. The correct URL is `/teardowns/spotify-playlist-discovery.html`. Found that Spotify is not in fenix-index.json at all - Fenix LLM was hallucinating the URL.
+10. **Fenix URL issue**: User reported Fenix pointing to non-existent URL `https://kiranrao.ai/how-id-ve-built-it/spotify`. The correct URL is `/teardowns/spotify-playlist-discovery.html`. Found that Spotify is not in fenix-index.json at all - Fenix LLM was hallucinating the URL.
 
 11. **User's latest message**: User says they had Spotify showing in the in-progress section, hit delete there, and is now asking if that action deleted it everywhere. They also want a detailed conversation summary.
 
@@ -2913,7 +2913,7 @@ Key pending work:
 Summary:
 1. Primary Request and Intent:
 
-   This session continues Phase 1 of the Fenix & Command Center roadmap for kirangorapalli.com. The user's requests in order:
+   This session continues Phase 1 of the Fenix & Command Center roadmap for kiranrao.ai. The user's requests in order:
 
    - **Fix visual overflow issues** in the Spotify teardown (text spilling out of containers, padding not being added, journey stages grid overflow)
    - **Unify the sentiment chart format** across all teardowns — user discovered Spotify used a completely different SVG format (gradient stroke, no dots) vs the canonical Airbnb format (colored dots, left Y-axis labels, X-axis stage labels)
@@ -2921,7 +2921,7 @@ Summary:
    - **Systematically prevent SVG text overflow** in the future with codified rules
    - **Fix Command Center deploy flow**: After clicking "Deploy to production", redirect to teardown builder home and show the deployed teardown under Published (not In Progress)
    - **Fix Spotify not showing in Published section** in Command Center
-   - **Fix Fenix pointing to non-existent URL** `https://kirangorapalli.com/how-id-ve-built-it/spotify` — the correct URL is `https://kirangorapalli.com/teardowns/spotify-playlist-discovery.html`
+   - **Fix Fenix pointing to non-existent URL** `https://kiranrao.ai/how-id-ve-built-it/spotify` — the correct URL is `https://kiranrao.ai/teardowns/spotify-playlist-discovery.html`
    - **User's final concern**: They deleted Spotify from the "In Progress" section in Command Center and want to know if that deleted it everywhere. They also requested a detailed conversation summary.
 
 2. Key Technical Concepts:
@@ -3066,7 +3066,7 @@ Summary:
    
    - "spotify is not showing in the published section can you fix it?"
    
-   - "When I ask fenix about spotify: it is pointing me to a URL that doesn't exist: https://kirangorapalli.com/how-id-ve-built-it/spotify This is the only spotify related URL that I have created. https://kirangorapalli.com/teardowns/spotify-playlist-discovery can you please fix and make sure that any incorrect URLs are removed and not indexed or consumed by fenix?"
+   - "When I ask fenix about spotify: it is pointing me to a URL that doesn't exist: https://kiranrao.ai/how-id-ve-built-it/spotify This is the only spotify related URL that I have created. https://kiranrao.ai/teardowns/spotify-playlist-discovery can you please fix and make sure that any incorrect URLs are removed and not indexed or consumed by fenix?"
    
    - "Continue from where you left off."
    
@@ -3094,7 +3094,7 @@ Summary:
 
    The immediate next step is to address the user's two concerns from their most recent message:
    
-   1. **Answer the delete question**: Verify that clicking delete on the Spotify session in Command Center only removed the session JSON from `/tmp/command-center/teardowns/`, NOT the deployed teardown file. The `deleteSessionById` function in the frontend calls the backend delete endpoint which removes the session state file — it does not touch the git repo or deployed HTML files. Spotify should still be live at `https://kirangorapalli.com/teardowns/spotify-playlist-discovery.html` and still in the hardcoded published list.
+   1. **Answer the delete question**: Verify that clicking delete on the Spotify session in Command Center only removed the session JSON from `/tmp/command-center/teardowns/`, NOT the deployed teardown file. The `deleteSessionById` function in the frontend calls the backend delete endpoint which removes the session state file — it does not touch the git repo or deployed HTML files. Spotify should still be live at `https://kiranrao.ai/teardowns/spotify-playlist-discovery.html` and still in the hardcoded published list.
 
    2. **Complete the Fenix fix** (from the user's explicit request: "can you please fix and make sure that any incorrect URLs are removed and not indexed or consumed by fenix?"):
       - Add Spotify entry to `fenix-index.json` with correct URL `/teardowns/spotify-playlist-discovery.html`
@@ -3164,7 +3164,7 @@ The teardown page is live and loading correctly. Let me take a quick screenshot 
 
 Everything is confirmed working. Here's the summary of what was done:
 
-**Delete action — no damage.** Deleting Spotify from Command Center's "In Progress" only removed the session state file from the backend's temp storage. The deployed teardown at `kirangorapalli.com/teardowns/spotify-playlist-discovery.html` is untouched and live (confirmed via screenshot above). It also still appears in the Published section thanks to the hardcoded entry we added earlier.
+**Delete action — no damage.** Deleting Spotify from Command Center's "In Progress" only removed the session state file from the backend's temp storage. The deployed teardown at `kiranrao.ai/teardowns/spotify-playlist-discovery.html` is untouched and live (confirmed via screenshot above). It also still appears in the Published section thanks to the hardcoded entry we added earlier.
 
 **Fenix URL fix — complete.** The root cause of Fenix pointing to the non-existent `/how-id-ve-built-it/spotify` was that Spotify simply wasn't in `fenix-index.json`. The LLM was guessing a URL pattern. I've now:
 
@@ -3257,7 +3257,7 @@ The breadcrumb already links through `spotify.html` — that's correct. Now let 
 
 ### Claude `01:12`
 
-Done. The Spotify interstitial hub page is now live at `kirangorapalli.com/teardowns/spotify.html`, matching the exact pattern of Meta, GEICO, Airbnb, and Intuit. It features the Playlist Discovery card (linking to the actual teardown) plus Wrapped and Podcasts as coming-soon placeholders. The "How I'd've Built It" card now routes through the hub, and the breadcrumb on the teardown already pointed to `spotify.html` correctly.
+Done. The Spotify interstitial hub page is now live at `kiranrao.ai/teardowns/spotify.html`, matching the exact pattern of Meta, GEICO, Airbnb, and Intuit. It features the Playlist Discovery card (linking to the actual teardown) plus Wrapped and Podcasts as coming-soon placeholders. The "How I'd've Built It" card now routes through the hub, and the breadcrumb on the teardown already pointed to `spotify.html` correctly.
 
 ---
 
@@ -3627,7 +3627,7 @@ This session is being continued from a previous conversation that ran out of con
 Analysis:
 Let me chronologically analyze the conversation:
 
-1. **Session continuation**: This session continues from a previous conversation about Phase 1 of the Fenix & Command Center roadmap for kirangorapalli.com. The previous session summary covers extensive work on Spotify teardown fixes, sentiment chart unification, SVG text containment rules, Command Center deploy flow, and Fenix URL hallucination issues.
+1. **Session continuation**: This session continues from a previous conversation about Phase 1 of the Fenix & Command Center roadmap for kiranrao.ai. The previous session summary covers extensive work on Spotify teardown fixes, sentiment chart unification, SVG text containment rules, Command Center deploy flow, and Fenix URL hallucination issues.
 
 2. **Spotify card missing from How I'd've Built It page**: User reported the Spotify card was missing from the main "How I'd've Built It" page. I found no Spotify entry in how-id-built-it.html - only in the footer social links. Added a company card linking to `teardowns/spotify-playlist-discovery.html` before the `<!-- NEW-COMPANY-CARD -->` marker. Pushed and verified.
 
@@ -3663,7 +3663,7 @@ Current state: Amazon IS in content_registry (confirmed via Supabase screenshot)
 Summary:
 1. Primary Request and Intent:
 
-   This session continues Phase 1 of the Fenix & Command Center roadmap for kirangorapalli.com. The user's requests in order:
+   This session continues Phase 1 of the Fenix & Command Center roadmap for kiranrao.ai. The user's requests in order:
 
    - **Add Spotify card to "How I'd've Built It" page** — Spotify card was missing from the main teardown listing page
    - **Create Spotify interstitial hub page** — Every other teardown company (Meta, GEICO, Airbnb, Intuit) has an interstitial page like `teardowns/meta.html` but Spotify was linking directly to the teardown. User said: "spotify is missing an interstatial page like every other teardown."
@@ -3792,7 +3792,7 @@ Summary:
    - **`fenix-backend/scripts/chunk_and_embed.py`** — Splits extracted content into semantic chunks, generates Voyage AI embeddings, stores in Supabase pgvector
    - **`fenix-backend/services/rag_service.py`** — RAG pipeline: embed query → pgvector nearest-neighbor search → top-k chunks → augmented context for LLM
    - **`.github/workflows/fenix-reindex.yml`** — GitHub Actions workflow that auto-triggers on push to main, runs content_extractor → chunk_and_embed pipeline
-   - **`fenix-widget.js`** — Frontend widget that sends POST to `https://api.kirangorapalli.com/api/v1/fenix/chat` via SSE
+   - **`fenix-widget.js`** — Frontend widget that sends POST to `https://api.kiranrao.ai/api/v1/fenix/chat` via SSE
 
 4. Errors and Fixes:
 

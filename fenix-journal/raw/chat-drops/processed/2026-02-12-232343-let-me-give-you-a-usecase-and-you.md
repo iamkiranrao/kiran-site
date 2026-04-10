@@ -2988,7 +2988,7 @@ Here's the full breakdown:
 | **Supabase** | PostgreSQL + pgvector for Fenix RAG, training data, conversations | Free tier → $0 (Pro is $25/mo if you outgrow it) |
 | **Voyage AI** | Embeddings for Fenix semantic search (`voyage-3-lite`) | ~$1–5/mo at your volume |
 | **GitHub** | Source control + OAuth for NextAuth | $0 (free tier) |
-| **Domain** | kirangorapalli.com registration + DNS | ~$1/mo ($12/yr) |
+| **Domain** | kiranrao.ai registration + DNS | ~$1/mo ($12/yr) |
 | **Render** | Onboardly prototype hosting | $0 (free tier) |
 | **Frontend/Backend hosting** | Next.js + FastAPI running locally | $0 (self-hosted) |
 

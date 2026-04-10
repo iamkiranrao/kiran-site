@@ -56,7 +56,7 @@ Okay, I've got a clear picture now. Here's where things stand:
 
 ---
 
-**You're building the persona picker for kirangorapalli.com** — the hero landing page experience where visitors choose one of 6 personas (Evaluator, Seeker, Practitioner, Learner, Explorer, Inner Circle), each represented by a Pixar-style Midjourney character. The entire site then reshapes around their selection.
+**You're building the persona picker for kiranrao.ai** — the hero landing page experience where visitors choose one of 6 personas (Evaluator, Seeker, Practitioner, Learner, Explorer, Inner Circle), each represented by a Pixar-style Midjourney character. The entire site then reshapes around their selection.
 
 **What's done:**
 
@@ -808,7 +808,7 @@ Yes. And yes. but before you update the titles and names. Can we please think th
 
 ### Claude `09:57`
 
-Great call. Let's think about who's *actually* going to land on kirangorapalli.com and what they call themselves in their own head — not fancy titles, but how they'd describe their visit in one sentence.
+Great call. Let's think about who's *actually* going to land on kiranrao.ai and what they call themselves in their own head — not fancy titles, but how they'd describe their visit in one sentence.
 
 ---
 

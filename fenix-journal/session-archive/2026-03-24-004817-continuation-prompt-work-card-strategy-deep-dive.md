@@ -25,7 +25,7 @@ total_words: 31435
 Continuation Prompt: Work Card Strategy Deep Dive
 Paste this into a new Cowork session to continue the card evaluation.
 Context
-I'm Kiran. I'm building kirangorapalli.com — a portfolio site with a persona picker that routes visitors through 6 archetypes: Evaluator (recruiter/hiring manager), Seeker (founder/fractional client), Practitioner (PM/designer/data), Learner (career grower), Technologist (CTO/AI lead), and Inner Circle (personal network).
+I'm Kiran. I'm building kiranrao.ai — a portfolio site with a persona picker that routes visitors through 6 archetypes: Evaluator (recruiter/hiring manager), Seeker (founder/fractional client), Practitioner (PM/designer/data), Learner (career grower), Technologist (CTO/AI lead), and Inner Circle (personal network).
 In my last session, we did a framework-driven analysis of whether the 8 current work cards on index.html are the right 8 for these personas. The analysis is NOT LOCKED — I need to make final decisions.
 Where We Left Off
 The Framework (Three Lenses)
@@ -209,7 +209,7 @@ The AI positioning is also well-timed. You're not claiming to be an AI researche
 
 Here's what I want to challenge you on: **there's a gap between the site you're building and the go-to-market motion that would actually get it in front of hiring decision-makers at Apple, Anthropic, Adobe, etc.**
 
-The site is extraordinary as an artifact. Genuinely. The persona picker, Fenix, the personalization architecture — no PM portfolio does this. But extraordinary artifacts don't distribute themselves. Your target audience — VP Product at Anthropic, Director of PM at Apple, a hiring manager at Airbnb — isn't browsing the web looking for PM portfolios. They're not going to stumble across kirangorapalli.com organically.
+The site is extraordinary as an artifact. Genuinely. The persona picker, Fenix, the personalization architecture — no PM portfolio does this. But extraordinary artifacts don't distribute themselves. Your target audience — VP Product at Anthropic, Director of PM at Apple, a hiring manager at Airbnb — isn't browsing the web looking for PM portfolios. They're not going to stumble across kiranrao.ai organically.
 
 So the site is necessary but not sufficient. The site is the *destination*. You still need the *distribution*. And right now, from everything I've seen in your docs, the distribution strategy is underspecified. The site answers "what will they see when they arrive?" but not "how do they arrive?"
 
@@ -346,7 +346,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -485,7 +485,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -508,7 +508,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -566,13 +566,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names
@@ -931,7 +931,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -1070,7 +1070,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -1093,7 +1093,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -1151,13 +1151,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names
@@ -1398,7 +1398,7 @@ Summary:
    - **Persona Accent Colors**: Steel Blue, Warm Gunmetal, Jade Green, Lavender Purple, Cherry Red, Rusty Orange
    - **Site Stack**: Vanilla HTML/CSS/JS, Cloudflare Pages, Google Analytics 4, Microsoft Clarity, Inter font
    - **Fenix**: AI assistant with RAG pipeline (Supabase + pgvector + Voyage AI embeddings)
-   - **Command Center API**: https://cc.kirangorapalli.com with API key auth via Cloudflare Tunnel
+   - **Command Center API**: https://cc.kiranrao.ai with API key auth via Cloudflare Tunnel
    - **Session Capture Pipeline**: JSONL parsing → transcript archive → chat drops → Fenix Journal entries → CC API posts → ACTION-TRACKER updates
    - **Relational vs Transactional Design**: Core principle crystallized — site optimizes for genuine connection, not conversion
    - **"The Medium Is the Message"**: The site's novel architecture IS the proof of Kiran's capability
@@ -1856,7 +1856,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   This is a continuation session from a previous conversation about Kiran's personal website (kirangorapalli.com). The previous session crystallized foundational principles: the site is a permanent home (not a job campaign), relational connection is the northstar, the Ultimate Persona is defined by mindset (pattern-breakers who hire pattern-breakers), and the site's architecture IS the proof of capability. Two of four strategy docs created in the prior session needed revision.
+   This is a continuation session from a previous conversation about Kiran's personal website (kiranrao.ai). The previous session crystallized foundational principles: the site is a permanent home (not a job campaign), relational connection is the northstar, the Ultimate Persona is defined by mindset (pattern-breakers who hire pattern-breakers), and the site's architecture IS the proof of capability. Two of four strategy docs created in the prior session needed revision.
 
    Kiran's explicit requests in this session:
    - Wanted comprehensive tactical analysis of what the foundational WHY/persona work means for building
@@ -2086,7 +2086,7 @@ D7 - We'll get to this as we work through component by component.
 
 ### Claude `04:45`
 
-Good — D6 confirmed. `fenix-widget.js` is a fully functional 778-line chat widget with SSE streaming, Flame On toggle with onboarding flow, session persistence, suggestion pool, tooltip system, inline feedback, markdown rendering, and citations. This is not a placeholder — it's production code hitting `api.kirangorapalli.com`. The enhancements you mentioned (persona visual cues) are additive, not foundational.
+Good — D6 confirmed. `fenix-widget.js` is a fully functional 778-line chat widget with SSE streaming, Flame On toggle with onboarding flow, session persistence, suggestion pool, tooltip system, inline feedback, markdown rendering, and citations. This is not a placeholder — it's production code hitting `api.kiranrao.ai`. The enhancements you mentioned (persona visual cues) are additive, not foundational.
 
 Now for D1 — the hero visual specs. Let me look at what the persona selector page uses and what the hero section currently expects.
 
@@ -2573,7 +2573,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -2712,7 +2712,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -2735,7 +2735,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -2793,13 +2793,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names

@@ -509,7 +509,7 @@ The toast is still showing. Let me click the **Redeploy** button more precisely.
 
 ### Claude `00:28`
 
-The redeploy dialog shows the current deployment from the "Phase 4: Content pipeline, RAG service, OG cards, and vector search migration" commit (19 minutes ago). Domains: `fenix-backend-omega.vercel.app` and `api.kirangorapalli.com`. Let me confirm the redeploy.
+The redeploy dialog shows the current deployment from the "Phase 4: Content pipeline, RAG service, OG cards, and vector search migration" commit (19 minutes ago). Domains: `fenix-backend-omega.vercel.app` and `api.kiranrao.ai`. Let me confirm the redeploy.
 
 ---
 
@@ -645,14 +645,14 @@ Key files in workspace:
 
 Infrastructure:
 - GitHub repo: iamkiranrao/fenix-backend (private)
-- Vercel: fenix-backend-omega.vercel.app / api.kirangorapalli.com
+- Vercel: fenix-backend-omega.vercel.app / api.kiranrao.ai
 - Supabase: project gndzmmywtxvlukoavadj (us-west-2)
 - Supabase URL: https://gndzmmywtxvlukoavadj.supabase.co
 - Voyage AI: account created, API key generated
 
 Summary:
 1. Primary Request and Intent:
-   The user is starting Phase 5 (Fenix MVP) of the kirangorapalli.com platform migration. Before writing Phase 5 code, they need to complete 4 pre-requisites from Phase 4:
+   The user is starting Phase 5 (Fenix MVP) of the kiranrao.ai platform migration. Before writing Phase 5 code, they need to complete 4 pre-requisites from Phase 4:
    1. Push Phase 4 files to the fenix-backend GitHub repo
    2. Run migrations/002_rag_match_function.sql in Supabase SQL Editor
    3. Decide on embedding model (Voyage AI vs alternatives)
@@ -2519,7 +2519,7 @@ Dimensions: 1024
       "title": "The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI",
       "section": "_summary",
       "tokens": 138,
-      "text_preview": "Page: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\nType: blog.\nURL: https://kirangorapalli.com/blog/jpmorgan-llm-suite-ai-adoption.html\n\nSummary: Case study of Bank o..."
+      "text_preview": "Page: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\nType: blog.\nURL: https://kiranrao.ai/blog/jpmorgan-llm-suite-ai-adoption.html\n\nSummary: Case study of Bank o..."
     },
     {
       "id": "9c928502-84e9-46e5-9bd2-280b2efe80a5",
@@ -2615,7 +2615,7 @@ Dimensions: 1024
       "title": "Blog & Podcast - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: Blog & Podcast - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
+      "text_preview": "Page: Blog & Podcast - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
     },
     {
       "id": "4119c1de-7acc-4f59-a057-37681aa58316",
@@ -2903,7 +2903,7 @@ Dimensions: 1024
       "title": "How I'd've Built It - Kiran Rao",
       "section": "_summary",
       "tokens": 42,
-      "text_preview": "Page: How I'd've Built It - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
+      "text_preview": "Page: How I'd've Built It - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
     },
     {
       "id": "99ac7ef7-4171-4f0f-b07d-fa245c875022",
@@ -3063,7 +3063,7 @@ Dimensions: 1024
       "title": "Kiran Rao - Builder of Products People Love",
       "section": "_summary",
       "tokens": 45,
-      "text_preview": "Page: Kiran Rao - Builder of Products People Love.\nType: homepage.\nURL: https://kirangorapalli.com/index.html\n\nSummary: Main landing page with work cards linking to all sections"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love.\nType: homepage.\nURL: https://kiranrao.ai/index.html\n\nSummary: Main landing page with work cards linking to all sections"
     },
     {
       "id": "cd26d492-6b21-46f0-b368-3d928163f5a1",
@@ -3191,7 +3191,7 @@ Dimensions: 1024
       "title": "MadLab - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: MadLab - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
+      "text_preview": "Page: MadLab - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
     },
     {
       "id": "4c1fccd5-8a47-46f2-a0ff-1001114c4867",
@@ -3247,7 +3247,7 @@ Dimensions: 1024
       "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "_summary",
       "tokens": 137,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\nType: prototype.\nURL: https://kirangorapalli.com/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\nType: prototype.\nURL: https://kiranrao.ai/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
     },
     {
       "id": "3c214c14-92c0-4492-b31f-ce02a8407313",
@@ -3327,7 +3327,7 @@ Dimensions: 1024
       "title": "Studio - Kiran Rao",
       "section": "_summary",
       "tokens": 39,
-      "text_preview": "Page: Studio - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
+      "text_preview": "Page: Studio - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
     },
     {
       "id": "b7e3eb89-5b74-4885-9d89-6843c98070ed",
@@ -3463,7 +3463,7 @@ Dimensions: 1024
       "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 168,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\nType: teardown.\nURL: https://kiranrao.ai/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
     },
     {
       "id": "3ce4f38c-0f09-410e-81f7-17c4baa01176",
@@ -3479,7 +3479,7 @@ Dimensions: 1024
       "title": "GEICO Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 57,
-      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
+      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kiranrao.ai/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
     },
     {
       "id": "556c82e7-dd5d-40ff-b333-aec5901c43dc",
@@ -3543,7 +3543,7 @@ Dimensions: 1024
       "title": "Instagram Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 155,
-      "text_preview": "Page: Instagram Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\nType: teardown.\nURL: https://kiranrao.ai/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
     },
     {
       "id": "51949a82-db29-4007-b97b-bf97a2315359",
@@ -3559,7 +3559,7 @@ Dimensions: 1024
       "title": "Meta Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 63,
-      "text_preview": "Page: Meta Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
+      "text_preview": "Page: Meta Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kiranrao.ai/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
     }
   ]
 }%                                                                                                                      kiran@mac fenix-backend %
@@ -3666,7 +3666,7 @@ Also important: The chunk_and_embed.py script config still says EMBEDDING_DIMENS
 
 Summary:
 1. Primary Request and Intent:
-   The user is completing Phase 5 pre-requisites for the Fenix MVP (kirangorapalli.com platform). Four pre-requisites need completion before Phase 5 code:
+   The user is completing Phase 5 pre-requisites for the Fenix MVP (kiranrao.ai platform). Four pre-requisites need completion before Phase 5 code:
    1. ✅ Push Phase 4 files to fenix-backend GitHub repo (done in prior session)
    2. ✅ Run migrations/002_rag_match_function.sql in Supabase (done in prior session)
    3. ✅ Decide on embedding model - Voyage AI chosen (done in prior session)
@@ -3861,7 +3861,7 @@ Summary:
 
    **Infrastructure details for reference:**
    - GitHub repo: iamkiranrao/fenix-backend (private)
-   - Vercel: fenix-backend-omega.vercel.app / api.kirangorapalli.com
+   - Vercel: fenix-backend-omega.vercel.app / api.kiranrao.ai
    - Supabase: project gndzmmywtxvlukoavadj (us-west-2)
    - Supabase URL: https://gndzmmywtxvlukoavadj.supabase.co
    - Voyage AI: account created, API key: pa-[REDACTED]
@@ -4523,7 +4523,7 @@ Dimensions: 1024
       "title": "The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI",
       "section": "_summary",
       "tokens": 138,
-      "text_preview": "Page: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\nType: blog.\nURL: https://kirangorapalli.com/blog/jpmorgan-llm-suite-ai-adoption.html\n\nSummary: Case study of Bank o..."
+      "text_preview": "Page: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\nType: blog.\nURL: https://kiranrao.ai/blog/jpmorgan-llm-suite-ai-adoption.html\n\nSummary: Case study of Bank o..."
     },
     {
       "id": "9c928502-84e9-46e5-9bd2-280b2efe80a5",
@@ -4619,7 +4619,7 @@ Dimensions: 1024
       "title": "Blog & Podcast - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: Blog & Podcast - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
+      "text_preview": "Page: Blog & Podcast - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
     },
     {
       "id": "4119c1de-7acc-4f59-a057-37681aa58316",
@@ -4907,7 +4907,7 @@ Dimensions: 1024
       "title": "How I'd've Built It - Kiran Rao",
       "section": "_summary",
       "tokens": 42,
-      "text_preview": "Page: How I'd've Built It - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
+      "text_preview": "Page: How I'd've Built It - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
     },
     {
       "id": "99ac7ef7-4171-4f0f-b07d-fa245c875022",
@@ -5067,7 +5067,7 @@ Dimensions: 1024
       "title": "Kiran Rao - Builder of Products People Love",
       "section": "_summary",
       "tokens": 45,
-      "text_preview": "Page: Kiran Rao - Builder of Products People Love.\nType: homepage.\nURL: https://kirangorapalli.com/index.html\n\nSummary: Main landing page with work cards linking to all sections"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love.\nType: homepage.\nURL: https://kiranrao.ai/index.html\n\nSummary: Main landing page with work cards linking to all sections"
     },
     {
       "id": "cd26d492-6b21-46f0-b368-3d928163f5a1",
@@ -5195,7 +5195,7 @@ Dimensions: 1024
       "title": "MadLab - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: MadLab - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
+      "text_preview": "Page: MadLab - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
     },
     {
       "id": "4c1fccd5-8a47-46f2-a0ff-1001114c4867",
@@ -5251,7 +5251,7 @@ Dimensions: 1024
       "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "_summary",
       "tokens": 137,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\nType: prototype.\nURL: https://kirangorapalli.com/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\nType: prototype.\nURL: https://kiranrao.ai/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
     },
     {
       "id": "3c214c14-92c0-4492-b31f-ce02a8407313",
@@ -5331,7 +5331,7 @@ Dimensions: 1024
       "title": "Studio - Kiran Rao",
       "section": "_summary",
       "tokens": 39,
-      "text_preview": "Page: Studio - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
+      "text_preview": "Page: Studio - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
     },
     {
       "id": "b7e3eb89-5b74-4885-9d89-6843c98070ed",
@@ -5467,7 +5467,7 @@ Dimensions: 1024
       "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 168,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\nType: teardown.\nURL: https://kiranrao.ai/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
     },
     {
       "id": "3ce4f38c-0f09-410e-81f7-17c4baa01176",
@@ -5483,7 +5483,7 @@ Dimensions: 1024
       "title": "GEICO Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 57,
-      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
+      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kiranrao.ai/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
     },
     {
       "id": "556c82e7-dd5d-40ff-b333-aec5901c43dc",
@@ -5547,7 +5547,7 @@ Dimensions: 1024
       "title": "Instagram Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 155,
-      "text_preview": "Page: Instagram Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\nType: teardown.\nURL: https://kiranrao.ai/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
     },
     {
       "id": "51949a82-db29-4007-b97b-bf97a2315359",
@@ -5563,7 +5563,7 @@ Dimensions: 1024
       "title": "Meta Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 63,
-      "text_preview": "Page: Meta Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
+      "text_preview": "Page: Meta Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kiranrao.ai/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
     }
   ]
 }%                                                                                                                      kiran@mac fenix-backend % cd ~/Kiran\'s\ Website/fenix-backend
@@ -5861,7 +5861,7 @@ Dimensions: 512
       "title": "The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI",
       "section": "_summary",
       "tokens": 138,
-      "text_preview": "Page: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\nType: blog.\nURL: https://kirangorapalli.com/blog/jpmorgan-llm-suite-ai-adoption.html\n\nSummary: Case study of Bank o..."
+      "text_preview": "Page: The Bank That Got 213,000 Employees to Actually Use AI - By Not Calling It AI.\nType: blog.\nURL: https://kiranrao.ai/blog/jpmorgan-llm-suite-ai-adoption.html\n\nSummary: Case study of Bank o..."
     },
     {
       "id": "efe87ffd-1cff-45f0-a34b-5faf6fa6ad66",
@@ -5957,7 +5957,7 @@ Dimensions: 512
       "title": "Blog & Podcast - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: Blog & Podcast - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
+      "text_preview": "Page: Blog & Podcast - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/blog-podcast.html\n\nSummary: Blog articles and podcast episodes"
     },
     {
       "id": "b3b69bc3-6247-4dc0-9436-476c113c9ed0",
@@ -6245,7 +6245,7 @@ Dimensions: 512
       "title": "How I'd've Built It - Kiran Rao",
       "section": "_summary",
       "tokens": 42,
-      "text_preview": "Page: How I'd've Built It - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
+      "text_preview": "Page: How I'd've Built It - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/how-id-built-it.html\n\nSummary: Teardown hub page listing all company teardowns"
     },
     {
       "id": "2ea1a0ff-70c8-4e30-8adb-5cf6f398d867",
@@ -6405,7 +6405,7 @@ Dimensions: 512
       "title": "Kiran Rao - Builder of Products People Love",
       "section": "_summary",
       "tokens": 45,
-      "text_preview": "Page: Kiran Rao - Builder of Products People Love.\nType: homepage.\nURL: https://kirangorapalli.com/index.html\n\nSummary: Main landing page with work cards linking to all sections"
+      "text_preview": "Page: Kiran Rao - Builder of Products People Love.\nType: homepage.\nURL: https://kiranrao.ai/index.html\n\nSummary: Main landing page with work cards linking to all sections"
     },
     {
       "id": "9f29e992-f82b-4ae3-90da-7275402aab8b",
@@ -6533,7 +6533,7 @@ Dimensions: 512
       "title": "MadLab - Kiran Rao",
       "section": "_summary",
       "tokens": 37,
-      "text_preview": "Page: MadLab - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
+      "text_preview": "Page: MadLab - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/madlab.html\n\nSummary: Prototype hub with Netflix-style category rows"
     },
     {
       "id": "12f7b67f-00df-41e3-8ca3-07890f090e81",
@@ -6589,7 +6589,7 @@ Dimensions: 512
       "title": "Insurance AI Assistant - MadLab | Kiran Rao",
       "section": "_summary",
       "tokens": 137,
-      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\nType: prototype.\nURL: https://kirangorapalli.com/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
+      "text_preview": "Page: Insurance AI Assistant - MadLab | Kiran Rao.\nType: prototype.\nURL: https://kiranrao.ai/prototypes/insurance-chatbot/overview.html\n\nSummary: Working chatbot prototype that handles mu..."
     },
     {
       "id": "ce797755-554d-480e-8af3-23a748721cdf",
@@ -6669,7 +6669,7 @@ Dimensions: 512
       "title": "Studio - Kiran Rao",
       "section": "_summary",
       "tokens": 39,
-      "text_preview": "Page: Studio - Kiran Rao.\nType: hub-page.\nURL: https://kirangorapalli.com/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
+      "text_preview": "Page: Studio - Kiran Rao.\nType: hub-page.\nURL: https://kiranrao.ai/studio.html\n\nSummary: Creative work hub - passion projects, not deliverables"
     },
     {
       "id": "fa2243a3-9df7-4173-b846-31d2ee6e0cd7",
@@ -6805,7 +6805,7 @@ Dimensions: 512
       "title": "GEICO Mobile App Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 168,
-      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
+      "text_preview": "Page: GEICO Mobile App Teardown - Kiran Rao.\nType: teardown.\nURL: https://kiranrao.ai/teardowns/geico-mobile-app.html\n\nSummary: Analysis of GEICO's mobile app AI assistant. The assistant ..."
     },
     {
       "id": "a2400034-4f70-4c1b-842e-bb754175baaf",
@@ -6821,7 +6821,7 @@ Dimensions: 512
       "title": "GEICO Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 57,
-      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
+      "text_preview": "Page: GEICO Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kiranrao.ai/teardowns/geico.html\n\nSummary: Company hub page for GEICO product teardowns. Currently features the mobile ..."
     },
     {
       "id": "dced1ff7-a823-482e-8213-5c3e0de6468c",
@@ -6885,7 +6885,7 @@ Dimensions: 512
       "title": "Instagram Teardown - Kiran Rao",
       "section": "_summary",
       "tokens": 155,
-      "text_preview": "Page: Instagram Teardown - Kiran Rao.\nType: teardown.\nURL: https://kirangorapalli.com/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
+      "text_preview": "Page: Instagram Teardown - Kiran Rao.\nType: teardown.\nURL: https://kiranrao.ai/teardowns/meta-instagram.html\n\nSummary: Analysis of Instagram's content discovery experience. Examines how t..."
     },
     {
       "id": "5fe546f7-4345-4de0-a36d-d4ac863909e0",
@@ -6901,7 +6901,7 @@ Dimensions: 512
       "title": "Meta Teardowns - Kiran Rao",
       "section": "_summary",
       "tokens": 63,
-      "text_preview": "Page: Meta Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kirangorapalli.com/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
+      "text_preview": "Page: Meta Teardowns - Kiran Rao.\nType: teardown-hub.\nURL: https://kiranrao.ai/teardowns/meta.html\n\nSummary: Company hub page for Meta product teardowns. Currently features the Instagram ..."
     }
   ]
 }%                                                                                                                      kiran@mac fenix-backend %
@@ -6922,7 +6922,7 @@ Now let me check how the content_registry `id` is generated:
 
 ### Claude `02:44`
 
-Found it! The homepage has `canonical_url: "https://kirangorapalli.com/"` but the embedding code constructs `"https://kirangorapalli.com/index.html"`. So the 20 homepage chunks (there are 20 homepage chunks) can't find their parent content_registry entry. That accounts for the 40 errors (20 chunks × 2 batches that failed).
+Found it! The homepage has `canonical_url: "https://kiranrao.ai/"` but the embedding code constructs `"https://kiranrao.ai/index.html"`. So the 20 homepage chunks (there are 20 homepage chunks) can't find their parent content_registry entry. That accounts for the 40 errors (20 chunks × 2 batches that failed).
 
 Let me fix the embedding code to use the same canonical URL:
 
@@ -6942,7 +6942,7 @@ Now let me read how chunk.url is set vs how content_registry_id is derived:
 
 ### Claude `02:44`
 
-The chunk's `url` field is set from `page["url"]` which is something like `/index.html`. But the content_registry uses `page["canonical_url"]` which for the homepage is `https://kirangorapalli.com/` (not `/index.html`). The fix is to use `page["canonical_url"]` consistently. Let me fix the `store_embeddings` function:
+The chunk's `url` field is set from `page["url"]` which is something like `/index.html`. But the content_registry uses `page["canonical_url"]` which for the homepage is `https://kiranrao.ai/` (not `/index.html`). The fix is to use `page["canonical_url"]` consistently. Let me fix the `store_embeddings` function:
 
 ---
 
@@ -7034,7 +7034,7 @@ Let me take a practical approach — the rate limits should have reset by now (i
 
 Kiran, I found and fixed the root cause of the 40 missing embeddings. Here's what happened:
 
-**The bug:** The homepage has `canonical_url: "https://kirangorapalli.com/"` but the embedding code was constructing `"https://kirangorapalli.com/index.html"`. Since the content_registry ID is generated from the canonical URL and the embedding FK was generated from the constructed URL, they didn't match — causing the FK constraint violation for all 20 homepage chunks (× 2 batch retries = 40 errors).
+**The bug:** The homepage has `canonical_url: "https://kiranrao.ai/"` but the embedding code was constructing `"https://kiranrao.ai/index.html"`. Since the content_registry ID is generated from the canonical URL and the embedding FK was generated from the constructed URL, they didn't match — causing the FK constraint violation for all 20 homepage chunks (× 2 batch retries = 40 errors).
 
 **The fix:** I added a `canonical_url` field to each chunk and now both content_registry and embeddings use the same canonical URL for ID generation.
 
@@ -7106,7 +7106,7 @@ You gave me this prompt asked me to run it and then paste the final output when 
 The final output is much too large for the chat.
 
 Kiran, I found and fixed the root cause of the 40 missing embeddings. Here's what happened:
-The bug: The homepage has `canonical_url: "https://kirangorapalli.com/"` but the embedding code was constructing `"https://kirangorapalli.com/index.html"`. Since the content_registry ID is generated from the canonical URL and the embedding FK was generated from the constructed URL, they didn't match — causing the FK constraint violation for all 20 homepage chunks (× 2 batch retries = 40 errors).
+The bug: The homepage has `canonical_url: "https://kiranrao.ai/"` but the embedding code was constructing `"https://kiranrao.ai/index.html"`. Since the content_registry ID is generated from the canonical URL and the embedding FK was generated from the constructed URL, they didn't match — causing the FK constraint violation for all 20 homepage chunks (× 2 batch retries = 40 errors).
 The fix: I added a `canonical_url` field to each chunk and now both content_registry and embeddings use the same canonical URL for ID generation.
 The files are already saved to your local folder. Please wait about 2 minutes for Voyage rate limits to reset, then re-run the same command:
 

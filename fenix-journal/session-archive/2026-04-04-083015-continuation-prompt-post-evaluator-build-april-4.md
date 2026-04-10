@@ -29,7 +29,7 @@ The current `evaluator-experience.js` is functionally complete but visually brok
 The Problem
 The Evaluator experience was built by parallel agents late in a session. They optimized for functional completeness (SSE streaming, state management, scoring pipeline) but ignored visual quality. The result is programmatically generated DOM elements with basic utility CSS that looks nothing like the rest of the site. Additionally, the script may not be loading at all — the live site still shows the default persona-system.js rendering (old pills like "Something else" instead of "Give me a quick tour", no opening frame text).
 What to Do
-1. Debug first: Open the live site (kirangorapalli.com), select Evaluator persona, check browser console for JS errors. Figure out why `evaluator-experience.js` isn't taking over from the default persona-system.js rendering. The hook is in `persona-system.js` lines 802-806.
+1. Debug first: Open the live site (kiranrao.ai), select Evaluator persona, check browser console for JS errors. Figure out why `evaluator-experience.js` isn't taking over from the default persona-system.js rendering. The hook is in `persona-system.js` lines 802-806.
 2. Rebuild the frontend using `prototypes/evaluator-unlock-v1.html` (785 lines) as the VISUAL REFERENCE. That prototype has the right aesthetic — glass morphism, proper typography (Inter + Playfair Display), color palette (`--accent: #7B9ACC`), card styling, Fenix section layout. The production code should look like the prototype, not like a Bootstrap starter template.
 3. Keep the backend as-is. `command-center/backend/routers/fit_score.py` works. The SSE event format is correct. The frontend just needs to consume it properly while looking good.
 4. The frontend must handle these flows:
@@ -67,7 +67,7 @@ All of these are documented in `docs/UNLOCK-STRATEGY.md`:
 * `command-center/backend/routers/fit_score.py` (505 lines) — FastAPI router. POST /api/fit-score/analyze streams SSE events. 3 Claude API calls: extraction/quality assessment, Role→Kiran scoring, Kiran→Role scoring. Preferred company string matching. Composites with +8% bonus. Gap summary generation. SSE field alignment verified.
 * `command-center/backend/main.py` — Router registered.
 * Backend needs a server restart to pick up the new router. Kiran needs to run: `cd ~/Kiran\'s\ Website/command-center/backend && python main.py`
-* CORS_ORIGINS env var must include `kirangorapalli.com`
+* CORS_ORIGINS env var must include `kiranrao.ai`
 3. Frontend Exists but Needs Full Rebuild
 * `evaluator-experience.js` (1267+ lines) — Functionally complete but visually unacceptable. Use for LOGIC REFERENCE only (SSE parsing, state management, event handling). Rebuild the visual layer.
 * `evaluator-styles.css` (395 lines) — Supplementary CSS. Will likely be replaced during rebuild.
@@ -183,7 +183,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran) provided an extensive continuation prompt to rebuild the Evaluator persona frontend on kirangorapalli.com to production quality. The current `evaluator-experience.js` is functionally complete (SSE streaming, state management, connect flow) but visually broken — it doesn't match the site's design language. The backend (`fit_score.py`) is solid and should be kept untouched. The frontend must be rebuilt using `prototypes/evaluator-unlock-v1.html` as the VISUAL REFERENCE while preserving all logic from the existing JS.
+   The user (Kiran) provided an extensive continuation prompt to rebuild the Evaluator persona frontend on kiranrao.ai to production quality. The current `evaluator-experience.js` is functionally complete (SSE streaming, state management, connect flow) but visually broken — it doesn't match the site's design language. The backend (`fit_score.py`) is solid and should be kept untouched. The frontend must be rebuilt using `prototypes/evaluator-unlock-v1.html` as the VISUAL REFERENCE while preserving all logic from the existing JS.
 
    Specific requirements:
    - Debug why evaluator-experience.js may not be rendering properly
@@ -3477,7 +3477,7 @@ Either way, I have everything I need to build both sides now. The architecture d
 - **Endpoint pattern**: `POST /api/v1/fenix/agent` (follows the existing `/api/v1/fenix/chat` pattern)
 - **Entry point**: `api/chat.py` is the existing chat endpoint — I'll create `api/agent.py` alongside it
 - **Vercel config**: Serverless functions in `api/` directory, auto-routed
-- **Backend domain**: `api.kirangorapalli.com`
+- **Backend domain**: `api.kiranrao.ai`
 
 Should I mount the fenix-backend repo separately, or should I write the backend files here and you'll copy them over?
 
@@ -3811,7 +3811,7 @@ Now let me also make sure CORS allows the site domain. Let me check:
 
 ### Claude `06:53`
 
-Good — CORS is set to `kirangorapalli.com`. The frontend makes requests from that domain so that's correct.
+Good — CORS is set to `kiranrao.ai`. The frontend makes requests from that domain so that's correct.
 
 Now let me do a quick review of everything to make sure the frontend and backend contracts match:
 
@@ -3950,7 +3950,7 @@ That's the old cached version — Cloudflare is serving the pre-agent JS. Let me
 
 Pushed. Give it a minute for Cloudflare to build, then hard-refresh the page (`Cmd+Shift+R`). The new cache-bust param `v=20260408a` will force the fresh JS/CSS to load.
 
-When you type "Hello" this time, it should hit the agent endpoint at `api.kirangorapalli.com/api/v1/fenix/agent` instead of showing the stub response. If the Vercel deploy is still building, you'll see the graceful fallback ("I'm having a moment...") until it's ready.
+When you type "Hello" this time, it should hit the agent endpoint at `api.kiranrao.ai/api/v1/fenix/agent` instead of showing the stub response. If the Vercel deploy is still building, you'll see the graceful fallback ("I'm having a moment...") until it's ready.
 
 ---
 
@@ -3979,7 +3979,7 @@ Two issues. Let me check if Cloudflare is even serving the file, and check the a
 
 Two problems found:
 
-1. **Frontend**: The site redirects to `kiranrao.ai` not `kirangorapalli.com`. Let me use the right domain.
+1. **Frontend**: The site redirects to `kiranrao.ai` not `kiranrao.ai`. Let me use the right domain.
 2. **Backend**: The agent endpoint returns 404 on Vercel. The deploy may have failed or the routing isn't working.
 
 ---
@@ -4345,7 +4345,7 @@ Summary:
    - **evaluator-experience.js** — Core frontend file for the evaluator persona experience. Major additions for the agent layer:
      - Added `fenixState` conversation state object with sessionStorage persistence:
        ```javascript
-       var FENIX_AGENT_URL = 'https://api.kirangorapalli.com/api/v1/fenix/agent';
+       var FENIX_AGENT_URL = 'https://api.kiranrao.ai/api/v1/fenix/agent';
        var FENIX_MSG_CAP = 30;
        var fenixState = {
          messages: [],
@@ -4482,7 +4482,7 @@ Summary:
    - **Session 2 work (from roadmap)**: RAG integration tuning, full system prompt authoring, conversation logging for the agent endpoint
    - **Session 3 work (from roadmap)**: Multi-turn tool chain handling, error handling, typing indicator, speech-to-text, mobile responsiveness
    - **Test the live site interaction thoroughly** — Fenix responded to "Hello" successfully, but tool use (clicking cards, pills triggering agent) hasn't been tested live yet
-   - The `FENIX_AGENT_URL` in evaluator-experience.js points to `https://api.kirangorapalli.com/api/v1/fenix/agent` — need to verify this custom domain routes to Vercel correctly (tested against `fenix-backend-omega.vercel.app` directly)
+   - The `FENIX_AGENT_URL` in evaluator-experience.js points to `https://api.kiranrao.ai/api/v1/fenix/agent` — need to verify this custom domain routes to Vercel correctly (tested against `fenix-backend-omega.vercel.app` directly)
 
 8. Current Work:
    The most recent work was deploying and debugging the Phase 1 agentic Fenix. After three failed Vercel deploys (all caused by git identity — `kiran@kirans-mbp.lan` not recognized by GitHub), Kiran set the correct git config and pushed. The agent endpoint went live at `fenix-backend-omega.vercel.app/api/v1/fenix/agent`. I verified it with curl showing streaming text_delta events. Kiran then tested on the live site and reported "hello / Hey! I'm Fenix, Kiran's AI assistant..." — confirming the frontend is correctly calling the backend and rendering the streaming response.
@@ -4492,7 +4492,7 @@ Summary:
 9. Optional Next Step:
    Test tool use on the live site — click a card (e.g., "My Resume, Focused for Your Role") or pill (e.g., "Show me resume options") and verify that Fenix responds with both text AND tool_use events that actually open panels on the page. The basic text streaming is confirmed working; tool execution needs live verification.
    
-   Also worth verifying: the `FENIX_AGENT_URL` in the frontend points to `https://api.kirangorapalli.com/api/v1/fenix/agent` (the custom domain), but all testing was done against `https://fenix-backend-omega.vercel.app/api/v1/fenix/agent` (the Vercel domain). Need to confirm the custom domain routes correctly, or the frontend will get CORS/404 errors.
+   Also worth verifying: the `FENIX_AGENT_URL` in the frontend points to `https://api.kiranrao.ai/api/v1/fenix/agent` (the custom domain), but all testing was done against `https://fenix-backend-omega.vercel.app/api/v1/fenix/agent` (the Vercel domain). Need to confirm the custom domain routes correctly, or the frontend will get CORS/404 errors.
 
 If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: /sessions/dreamy-wonderful-fermat/mnt/.claude/projects/-sessions-dreamy-wonderful-fermat/d1695991-ee56-4409-90bd-1f65b0a79574.jsonl
 Continue the conversation from where it left off without asking the user any further questions. Resume directly — do not acknowledge the summary, do not recap what was happening, do not preface with "I'll continue" or similar. Pick up the last task as if the break never happened.
@@ -4501,13 +4501,13 @@ Continue the conversation from where it left off without asking the user any fur
 
 ### Claude `07:13`
 
-The custom domain `api.kirangorapalli.com` is returning a 404 — it's hitting Vercel but not routing to the Fenix backend app. Let me check the Vercel domain directly to confirm the backend is still up, and then look at what's going on with the custom domain setup.
+The custom domain `api.kiranrao.ai` is returning a 404 — it's hitting Vercel but not routing to the Fenix backend app. Let me check the Vercel domain directly to confirm the backend is still up, and then look at what's going on with the custom domain setup.
 
 ---
 
 ### Claude `07:13`
 
-Interesting. The agent endpoint works perfectly on `fenix-backend-omega.vercel.app`, but the root `/` returns 404 on both domains. The custom domain `api.kirangorapalli.com` is also returning 404 for the root — which suggests the domain might be pointing to a different Vercel project, or there's a routing issue. Let me test the agent endpoint on the custom domain specifically:
+Interesting. The agent endpoint works perfectly on `fenix-backend-omega.vercel.app`, but the root `/` returns 404 on both domains. The custom domain `api.kiranrao.ai` is also returning 404 for the root — which suggests the domain might be pointing to a different Vercel project, or there's a routing issue. Let me test the agent endpoint on the custom domain specifically:
 
 ---
 
@@ -4519,7 +4519,7 @@ The custom domain is working perfectly for all API routes. The root `/` 404 is j
 
 ### Claude `07:13`
 
-Good news — `api.kirangorapalli.com` is fully operational. The agent endpoint, health check, and all API routes work correctly on the custom domain. The frontend's `FENIX_AGENT_URL` pointing to `https://api.kirangorapalli.com/api/v1/fenix/agent` is correct.
+Good news — `api.kiranrao.ai` is fully operational. The agent endpoint, health check, and all API routes work correctly on the custom domain. The frontend's `FENIX_AGENT_URL` pointing to `https://api.kiranrao.ai/api/v1/fenix/agent` is correct.
 
 Now let me test tool use specifically — sending a message that should trigger Fenix to use tools:
 
@@ -4572,7 +4572,7 @@ Finally, update the open questions section since they're all resolved:
 Here's where everything stands:
 
 **All verified and working:**
-- `api.kirangorapalli.com` routes correctly to Vercel — health check, agent endpoint, and all API routes confirmed
+- `api.kiranrao.ai` routes correctly to Vercel — health check, agent endpoint, and all API routes confirmed
 - Tool use is working end-to-end: "Show me resume options" triggers `open_panel(resume)`, "scroll to the work section" triggers `scroll_to_section(work)` + `select_resume_lens(ai)` — Fenix is using multiple tools in a single turn when appropriate
 - FENIX-AGENT-SPEC.md updated to v1.0 — marked Phase 1 as complete, linked to the roadmap, fixed the lens enums (ai/growth/mobile instead of the draft's pm/pmm/pjm), updated all inventory checkboxes, resolved all open questions
 
@@ -5517,7 +5517,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -5656,7 +5656,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -5679,7 +5679,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -5737,13 +5737,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names

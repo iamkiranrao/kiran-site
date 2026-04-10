@@ -189,7 +189,7 @@ Per-post OG cards — process and rules
 This needs to live in two places: CONTENT-RULES.md (so it's enforced on every publish) and the WordWeaver flow (so it's automated). The rule is simple: every page that can be shared — blog posts, teardowns, prototype overviews — gets its own OG image. No more falling back to the generic site card. The WordWeaver publish step should auto-generate the card as part of the deploy process, not as an afterthought.
 For making them more visually appealing — the mockup I showed you is the baseline (title, series badge, subtitle, author, read time on a dark background). But there's room to go further. You could incorporate a subtle graphic element that's unique to each series — maybe a faint icon or pattern that ties to the "Demystified" brand, or a different accent color per series. You could also include a small headshot, which builds personal brand recognition when your posts show up repeatedly in someone's Slack. The key constraint is that OG cards render at small sizes in most contexts, so the title needs to be readable at roughly 400px wide. Big, bold text wins over clever design at that scale.
 The domain issue
-You're right — if kirangorapalli.com is the canonical domain, every user-facing reference should use it. That means OG URLs, canonical tags, JSON-LD, the footer, and any hardcoded references in the WordWeaver prompts and cross-post templates. I'll make a note in the content rules.
+You're right — if kiranrao.ai is the canonical domain, every user-facing reference should use it. That means OG URLs, canonical tags, JSON-LD, the footer, and any hardcoded references in the WordWeaver prompts and cross-post templates. I'll make a note in the content rules.
 Hosting
 This is the one I'd spend the most time thinking about. Netlify's free tier gives you 300 build minutes per month and 100GB bandwidth. If you're burning through credits, it's almost certainly the build minutes — every `git push` triggers a deploy, and if you're iterating heavily (which you are), that adds up fast.
 A few paths forward:
@@ -208,7 +208,7 @@ This is also worth factoring into the architecture rework conversation you menti
 Got it — I see three things to fold into the architecture rules:
 
 1. **Per-post OG cards** as a scalability standard (every shareable page gets its own, automated in the publish pipeline)
-2. **Domain canonicalization** (`kirangorapalli.com` everywhere, no mixed references)
+2. **Domain canonicalization** (`kiranrao.ai` everywhere, no mixed references)
 3. **Hosting migration to Cloudflare Pages** — unlimited builds, better CDN, no credit anxiety
 
 That last one is a significant architecture decision. Before I update the rules and runbook, let me make sure I understand your intent:
@@ -456,7 +456,7 @@ yes please
 
 That's our handoff file. It tracks where we are, what's done, what's pending on you, known issues, and a session log. I'll update it at the end of every working session.
 
-**To kick off Phase 0, the ball is in your court:** create a Cloudflare account at cloudflare.com and add your domain `kirangorapalli.com`. Once that's done, let me know (same chat or new one) and I'll handle the rest — connecting the repo, configuring Pages, running the domain canonicalization sweep across all your HTML files, and verifying nothing broke.
+**To kick off Phase 0, the ball is in your court:** create a Cloudflare account at cloudflare.com and add your domain `kiranrao.ai`. Once that's done, let me know (same chat or new one) and I'll handle the rest — connecting the repo, configuring Pages, running the domain canonicalization sweep across all your HTML files, and verifying nothing broke.
 
 ---
 
@@ -474,7 +474,7 @@ I can see your Command Center is open. Let me navigate to Cloudflare to get star
 
 ### Claude `09:46`
 
-You're already ahead of me — you've got a Cloudflare account and `kirangorapalli.com` is added. I can see one issue to fix: it's showing **"Invalid nameservers"** which means your domain registrar (wherever you bought the domain) hasn't been updated to point to Cloudflare's nameservers yet.
+You're already ahead of me — you've got a Cloudflare account and `kiranrao.ai` is added. I can see one issue to fix: it's showing **"Invalid nameservers"** which means your domain registrar (wherever you bought the domain) hasn't been updated to point to Cloudflare's nameservers yet.
 
 Let me click into the domain to see what nameservers Cloudflare wants you to use, and check the current DNS setup.
 
@@ -505,14 +505,14 @@ Let me scroll down a bit more to see the nameservers Cloudflare assigned.
 Here's the full picture. Here's what I see and what needs to happen:
 
 **Current DNS records** (imported by Cloudflare from your registrar):
-- 2 A records for `kirangorapalli.com` → pointing to IP addresses (likely your current hosting)
+- 2 A records for `kiranrao.ai` → pointing to IP addresses (likely your current hosting)
 - 2 A records for `www` → pointing to different IP addresses
 
 **Cloudflare's assigned nameservers** (these need to be set at your registrar):
 - `felipe.ns.cloudflare.com`
 - `marissa.ns.cloudflare.com`
 
-**What you need to do:** Go to wherever you bought `kirangorapalli.com` (GoDaddy, Namecheap, Google Domains, Squarespace Domains, etc.) and change the nameservers from the current ones to these two Cloudflare nameservers. Once that propagates (usually 1–2 hours, sometimes up to 24), Cloudflare becomes active and we can set up Cloudflare Pages.
+**What you need to do:** Go to wherever you bought `kiranrao.ai` (GoDaddy, Namecheap, Google Domains, Squarespace Domains, etc.) and change the nameservers from the current ones to these two Cloudflare nameservers. Once that propagates (usually 1–2 hours, sometimes up to 24), Cloudflare becomes active and we can set up Cloudflare Pages.
 
 ---
 
@@ -542,9 +542,9 @@ I can only see tabs in my tab group — your Squarespace tab must be in a differ
 
 ### Claude `09:48`
 
-I can see your Squarespace Domains dashboard with both domains — `fenixconsulting.ai` and `kirangorapalli.com` (both active, Squarespace provider). Nice — the `fenixconsulting.ai` domain is an interesting one too.
+I can see your Squarespace Domains dashboard with both domains — `fenixconsulting.ai` and `kiranrao.ai` (both active, Squarespace provider). Nice — the `fenixconsulting.ai` domain is an interesting one too.
 
-Let me click into `kirangorapalli.com` to get to the DNS/nameserver settings.
+Let me click into `kiranrao.ai` to get to the DNS/nameserver settings.
 
 ---
 
@@ -651,7 +651,7 @@ Let me chronologically analyze the entire conversation:
 
 5. **Migration Runbook creation**: User asked for a runbook with time estimates. I created MIGRATION-RUNBOOK.md with 8 phases totaling 20-28 hours.
 
-6. **Hosting discussion**: User asked about Netlify being replaced - I clarified Vercel recommendation. User then shared extensive notes about OG cards, domain canonicalization (kirangorapalli.com), and hosting concerns (Netlify build minute limits, Cloudflare Pages recommendation).
+6. **Hosting discussion**: User asked about Netlify being replaced - I clarified Vercel recommendation. User then shared extensive notes about OG cards, domain canonicalization (kiranrao.ai), and hosting concerns (Netlify build minute limits, Cloudflare Pages recommendation).
 
 7. **Comprehensive architecture discussion**: User listed all their needs - forms, access control, e-commerce store, MadLab APIs/webapps, Fenix. Asked for best architecture that scales. I presented 3 options (Distributed Stack, Consolidate on Vercel, Full Railway) with costs. Recommended Option A: Cloudflare Pages + Vercel + Supabase + Stripe + Claude API.
 
@@ -665,7 +665,7 @@ Let me chronologically analyze the entire conversation:
 10. **PROGRESS.md creation**: Created the session tracking file.
 
 11. **Cloudflare setup**: User asked me to help set up domain on Cloudflare via browser. I:
-    - Opened Cloudflare dashboard - found account already exists with kirangorapalli.com added
+    - Opened Cloudflare dashboard - found account already exists with kiranrao.ai added
     - Found "Invalid nameservers" issue
     - Checked DNS records - saw 4 nsone.net nameservers (Netlify's)
     - Cloudflare assigned: felipe.ns.cloudflare.com and marissa.ns.cloudflare.com
@@ -684,7 +684,7 @@ Key files created/modified:
 - PROGRESS.md (created)
 
 Domain details:
-- kirangorapalli.com on Squarespace Domains
+- kiranrao.ai on Squarespace Domains
 - fenixconsulting.ai also owned (seen in Squarespace)
 - Cloudflare account: Kiranrao@gmail.com
 - Cloudflare nameservers: felipe.ns.cloudflare.com, marissa.ns.cloudflare.com
@@ -696,7 +696,7 @@ Need to click "Save" to apply the changes.
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran Rao) is migrating his portfolio website (kirangorapalli.com) from a static Netlify-hosted site to a full platform architecture. The overarching goals are:
+   The user (Kiran Rao) is migrating his portfolio website (kiranrao.ai) from a static Netlify-hosted site to a full platform architecture. The overarching goals are:
    - Build Fenix, a personalized AI concierge assistant (the flagship feature) powered by Claude API with RAG, persona-driven conversations, agentic capabilities, multilingual support (Spanish), speech-to-text, and an admin training loop
    - Support forms (feedback, testimonials), access-controlled pages, an e-commerce store (Stripe), public APIs/web apps (MadLab), and OG card generation
    - Establish a scalable, multi-device architecture: Cloudflare Pages (static hosting) + Vercel (backend) + Supabase (database/auth/vectors/storage) + Stripe (payments) + Claude API (LLM)
@@ -712,7 +712,7 @@ Summary:
    - Stripe Checkout for PCI-compliant payments
    - Supabase Auth for access-controlled pages (magic links, OAuth)
    - OG card auto-generation (1200×630px, per-page, in publish pipeline)
-   - Domain canonicalization (kirangorapalli.com everywhere)
+   - Domain canonicalization (kiranrao.ai everywhere)
    - DNS nameserver migration (Squarespace registrar → Cloudflare nameservers)
    - Persona-driven AI (hiring manager, engineer, collaborator, curious)
    - Agentic capabilities (smart navigation, meeting booking via Calendly, follow-up emails, custom summary generation)
@@ -778,7 +778,7 @@ Summary:
    - Phase 1-8 of the migration runbook (backend infrastructure through production hardening)
 
 8. Current Work:
-   Actively executing Phase 0, Step 0.1 of the Migration Runbook - updating nameservers at Squarespace Domains registrar from Netlify's nsone.net servers to Cloudflare's nameservers. In the browser (Squarespace Domains dashboard for kirangorapalli.com), the "UPDATE NAMESERVERS" dialog is open with:
+   Actively executing Phase 0, Step 0.1 of the Migration Runbook - updating nameservers at Squarespace Domains registrar from Netlify's nsone.net servers to Cloudflare's nameservers. In the browser (Squarespace Domains dashboard for kiranrao.ai), the "UPDATE NAMESERVERS" dialog is open with:
    - Nameserver 1: `felipe.ns.cloudflare.com` (typed in)
    - Nameserver 2: `marissa.ns.cloudflare.com` (typed in)
    
@@ -786,7 +786,7 @@ Summary:
 
    Browser tabs currently open:
    - Tab 1831708885: Command Center (localhost:3000/dashboard/wordweaver)
-   - Tab 1831709015: Cloudflare DNS Records for kirangorapalli.com
+   - Tab 1831709015: Cloudflare DNS Records for kiranrao.ai
    - Tab 1831709018: Squarespace Domains - Domain Nameservers page (active, with UPDATE NAMESERVERS dialog open)
 
 9. Optional Next Step:
@@ -865,7 +865,7 @@ Cloudflare is now showing **"Waiting for your registrar to propagate your new na
 
 ### Claude `10:00`
 
-Cloudflare confirms: **"Cloudflare is now checking the nameservers for kirangorapalli.com. Please wait a few hours for an update."**
+Cloudflare confirms: **"Cloudflare is now checking the nameservers for kiranrao.ai. Please wait a few hours for an update."**
 
 The nameserver update at Squarespace is done. While we wait for propagation, let's move forward with things we can do now — verifying the DNS records in Cloudflare and starting the domain canonicalization sweep on your HTML files. Let me check the DNS records first.
 
@@ -887,14 +887,14 @@ Good — the DNS Records page is loaded. I can see the domain is "pending" (wait
 
 I can see the DNS records that Cloudflare imported. These are the old Netlify A records pointing to Netlify's load balancer IPs. Here's what we have:
 
-- **A** `kirangorapalli.com` → `13.52.188.95` (Proxied)
-- **A** `kirangorapalli.com` → `52.52.192.191` (Proxied)
+- **A** `kiranrao.ai` → `13.52.188.95` (Proxied)
+- **A** `kiranrao.ai` → `52.52.192.191` (Proxied)
 - **A** `www` → `98.84.224.111` (Proxied)
 - **A** `www` → `18.208.88.157` (Proxied)
 
 These are Netlify's IP addresses. Once we connect the repo to Cloudflare Pages, we'll need to update these records. But for now, these records will keep the site working during the transition — Cloudflare will proxy traffic to Netlify's servers until we switch over to Cloudflare Pages.
 
-The DNS records look fine for the transition period. Now while we wait for nameserver propagation, let's tackle the domain canonicalization sweep — updating all the HTML files that still reference `kirangorapalli.netlify.app` to use `kirangorapalli.com` instead.
+The DNS records look fine for the transition period. Now while we wait for nameserver propagation, let's tackle the domain canonicalization sweep — updating all the HTML files that still reference `kirangorapalli.netlify.app` to use `kiranrao.ai` instead.
 
 ---
 
@@ -926,13 +926,13 @@ Zero remaining references. Now let me also check for any `data-netlify` form att
 
 Good — there are `data-netlify` form attributes in `index.html` and `site/index.html`. Per the runbook, those are addressed in Phase 3 when we migrate forms to Supabase, so we'll leave those for now. They won't break anything — they just won't function as forms until we set up the new backend.
 
-Let me also quickly verify that `kirangorapalli.com` references look correct by spot-checking a file.
+Let me also quickly verify that `kiranrao.ai` references look correct by spot-checking a file.
 
 ---
 
 ### Claude `10:02`
 
-All canonical URLs, OG tags, and structured data now correctly point to `kirangorapalli.com`.
+All canonical URLs, OG tags, and structured data now correctly point to `kiranrao.ai`.
 
 ---
 
@@ -943,7 +943,7 @@ Here's a summary of where we stand:
 **Completed today:**
 1. **Nameservers updated** — Squarespace now points to `felipe.ns.cloudflare.com` and `marissa.ns.cloudflare.com`
 2. **DNS records verified** — Cloudflare has the existing A records for the root domain and www (currently pointing to Netlify's IPs, which is fine during transition)
-3. **Domain canonicalization sweep done** — Replaced `kirangorapalli.netlify.app` → `kirangorapalli.com` across all 46 files (HTML, XML, JS, TSX, Python). Zero old references remain.
+3. **Domain canonicalization sweep done** — Replaced `kirangorapalli.netlify.app` → `kiranrao.ai` across all 46 files (HTML, XML, JS, TSX, Python). Zero old references remain.
 
 **Waiting on:**
 - **Nameserver propagation** — Cloudflare says 1-2 hours typically, up to 24 hours. Once this completes, your domain will be managed by Cloudflare.
@@ -982,7 +982,7 @@ I can see `fenixconsulting.ai` is entered, "Quick scan for DNS records" is selec
 
 ### Claude `10:08`
 
-Plan selection page for fenixconsulting.ai. Free plan is what we need — same as kirangorapalli.com. Let me select it.
+Plan selection page for fenixconsulting.ai. Free plan is what we need — same as kiranrao.ai. Let me select it.
 
 ---
 
@@ -1035,19 +1035,19 @@ I can see the "I updated my nameservers" button. First, let me go to Squarespace
 
 ### Claude `10:10`
 
-I can see fenixconsulting.ai's current nameservers — four Google Domains nameservers (ns-cloud-b1 through b4.googledomains.com). I need to click "USE CUSTOM NAMESERVERS" to switch to the Cloudflare ones. Note this page has a slightly different layout than kirangorapalli.com — it shows "USE CUSTOM NAMESERVERS" instead of "UPDATE NAMESERVERS" since it's currently on default nameservers.
+I can see fenixconsulting.ai's current nameservers — four Google Domains nameservers (ns-cloud-b1 through b4.googledomains.com). I need to click "USE CUSTOM NAMESERVERS" to switch to the Cloudflare ones. Note this page has a slightly different layout than kiranrao.ai — it shows "USE CUSTOM NAMESERVERS" instead of "UPDATE NAMESERVERS" since it's currently on default nameservers.
 
 ---
 
 ### Claude `10:10`
 
-Google auth verification popped up again — same as before with kirangorapalli.com. Let me take a screenshot to see what's on the Google sign-in page.
+Google auth verification popped up again — same as before with kiranrao.ai. Let me take a screenshot to see what's on the Google sign-in page.
 
 ---
 
 ### Claude `10:11`
 
-It looks like the Chrome extension disconnected — likely when the Google auth popup opened in a new tab. This is the same Google verification step that happened with kirangorapalli.com. 
+It looks like the Chrome extension disconnected — likely when the Google auth popup opened in a new tab. This is the same Google verification step that happened with kiranrao.ai. 
 
 Here's what you need to do manually to finish this:
 
@@ -1065,7 +1065,7 @@ Here's what you need to do manually to finish this:
 **Then in Cloudflare (fenixconsulting.ai tab):**
 1. Click **"I updated my nameservers"** at the bottom of the page
 
-Once you've done that (or once the Chrome extension reconnects), let me know and I'll verify everything and continue with the next steps. We're making great progress — kirangorapalli.com is already active on Cloudflare, and the domain canonicalization is done across all 46 files.
+Once you've done that (or once the Chrome extension reconnects), let me know and I'll verify everything and continue with the next steps. We're making great progress — kiranrao.ai is already active on Cloudflare, and the domain canonicalization is done across all 46 files.
 
 ---
 
@@ -1141,13 +1141,13 @@ Yep, still here! Let me check where we landed with Cloudflare after clicking "I 
 
 ### Claude `10:17`
 
-fenixconsulting.ai is now added to Cloudflare and showing **"Waiting for your registrar to propagate your new nameservers"** — exactly the same status kirangorapalli.com went through (and that one already went active). Let me click "Check nameservers now" to trigger an early check.
+fenixconsulting.ai is now added to Cloudflare and showing **"Waiting for your registrar to propagate your new nameservers"** — exactly the same status kiranrao.ai went through (and that one already went active). Let me click "Check nameservers now" to trigger an early check.
 
 ---
 
 ### Claude `10:17`
 
-Cloudflare confirms it's checking the nameservers for fenixconsulting.ai. That'll propagate in the background just like kirangorapalli.com did.
+Cloudflare confirms it's checking the nameservers for fenixconsulting.ai. That'll propagate in the background just like kiranrao.ai did.
 
 ---
 
@@ -1155,7 +1155,7 @@ Cloudflare confirms it's checking the nameservers for fenixconsulting.ai. That'l
 
 Both domains are now set up on Cloudflare:
 
-- **kirangorapalli.com** — Already **Active** on Cloudflare
+- **kiranrao.ai** — Already **Active** on Cloudflare
 - **fenixconsulting.ai** — Nameservers updated, waiting for propagation (should go active within a couple hours)
 
 Both are on the Free plan with DNS records imported. Ready to move on to connecting the GitHub repo to Cloudflare Pages whenever you are, or if there's anything else you want to handle first.
@@ -1273,11 +1273,11 @@ Let me chronologically analyze the entire conversation:
 
 3. I had trouble with the Squarespace form fields - typing and keyboard shortcuts didn't work reliably. I eventually used the `form_input` tool to directly set values in the input fields.
 
-4. Successfully updated kirangorapalli.com nameservers from nsone.net (Netlify) to Cloudflare (felipe.ns.cloudflare.com and marissa.ns.cloudflare.com).
+4. Successfully updated kiranrao.ai nameservers from nsone.net (Netlify) to Cloudflare (felipe.ns.cloudflare.com and marissa.ns.cloudflare.com).
 
 5. Verified DNS records in Cloudflare - saw 4 A records pointing to Netlify IPs, which is fine during transition.
 
-6. Ran domain canonicalization sweep - used bash sed command to replace `kirangorapalli.netlify.app` with `kirangorapalli.com` across 46 files.
+6. Ran domain canonicalization sweep - used bash sed command to replace `kirangorapalli.netlify.app` with `kiranrao.ai` across 46 files.
 
 7. User asked to also point fenixconsulting.ai to Cloudflare. Added it to Cloudflare (Free plan), DNS records imported (Squarespace IPs + email records), and updated nameservers at Squarespace from Google Domains (ns-cloud-b1-4.googledomains.com) to Cloudflare.
 
@@ -1294,7 +1294,7 @@ Let me chronologically analyze the entire conversation:
 13. I eventually decided to just try deploying with the default settings and clicked Deploy. That's where we are now - waiting to see the deploy result.
 
 Key files modified:
-- 46 files had `kirangorapalli.netlify.app` replaced with `kirangorapalli.com`
+- 46 files had `kirangorapalli.netlify.app` replaced with `kiranrao.ai`
 - PROGRESS.md was updated with session 2 log
 
 Key errors:
@@ -1316,8 +1316,8 @@ Current state: Just clicked "Deploy" on the Cloudflare Workers & Pages setup for
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran Rao) is migrating his portfolio website (kirangorapalli.com) from Netlify to a full platform architecture. This session focused on Phase 0 of the migration: moving DNS/hosting from Netlify to Cloudflare. The overarching goals remain building Fenix (AI concierge), forms, auth, e-commerce, and public APIs on a stack of Cloudflare Pages + Vercel + Supabase + Stripe + Claude API. The immediate tasks this session were:
-   - Complete nameserver migration for kirangorapalli.com from Netlify to Cloudflare
+   The user (Kiran Rao) is migrating his portfolio website (kiranrao.ai) from Netlify to a full platform architecture. This session focused on Phase 0 of the migration: moving DNS/hosting from Netlify to Cloudflare. The overarching goals remain building Fenix (AI concierge), forms, auth, e-commerce, and public APIs on a stack of Cloudflare Pages + Vercel + Supabase + Stripe + Claude API. The immediate tasks this session were:
+   - Complete nameserver migration for kiranrao.ai from Netlify to Cloudflare
    - Add and configure fenixconsulting.ai on Cloudflare (user explicitly requested this)
    - Run domain canonicalization sweep (replace old netlify.app URLs)
    - Connect the GitHub repo (kiran-site) to Cloudflare Pages for auto-deployment
@@ -1326,7 +1326,7 @@ Summary:
    - DNS nameserver migration (Squarespace registrar → Cloudflare nameservers)
    - Cloudflare Pages for static site hosting (replacing Netlify)
    - Cloudflare Workers & Pages unified platform (new UI merges both)
-   - Domain canonicalization (kirangorapalli.com as canonical everywhere)
+   - Domain canonicalization (kiranrao.ai as canonical everywhere)
    - OG tags, canonical links, structured data URLs
    - `wrangler deploy` vs `wrangler pages deploy` for static sites
    - DNS propagation (nameserver changes take 1-24 hours)
@@ -1334,9 +1334,9 @@ Summary:
 
 3. Files and Code Sections:
    - **46 HTML/XML/JS/TSX/Python files** across the website repo
-     - All had `kirangorapalli.netlify.app` replaced with `kirangorapalli.com`
+     - All had `kirangorapalli.netlify.app` replaced with `kiranrao.ai`
      - Includes canonical links, OG tags, twitter:image, structured data URLs, sitemap, robots.txt, RSS
-     - Replaced via: `find . -type f \( -name "*.html" -o -name "*.xml" -o -name "*.txt" -o -name "*.js" -o -name "*.tsx" -o -name "*.py" \) -exec grep -l "kirangorapalli\.netlify\.app" {} \; | xargs sed -i 's/kirangorapalli\.netlify\.app/kirangorapalli.com/g'`
+     - Replaced via: `find . -type f \( -name "*.html" -o -name "*.xml" -o -name "*.txt" -o -name "*.js" -o -name "*.tsx" -o -name "*.py" \) -exec grep -l "kirangorapalli\.netlify\.app" {} \; | xargs sed -i 's/kirangorapalli\.netlify\.app/kiranrao.ai/g'`
      - Verified with grep showing 0 remaining references
 
    - **`/sessions/tender-youthful-bardeen/mnt/Kiran's Website/PROGRESS.md`**
@@ -1348,7 +1348,7 @@ Summary:
      - Session 2 log documents: nameserver updates, canonicalization sweep, fenixconsulting.ai addition
 
    - **`/sessions/tender-youthful-bardeen/mnt/Kiran's Website/index.html`** (spot-checked)
-     - Confirmed canonical, OG, twitter, and structured data URLs now point to `kirangorapalli.com`
+     - Confirmed canonical, OG, twitter, and structured data URLs now point to `kiranrao.ai`
      - Still has `data-netlify="true"` form attributes (to be removed in Phase 3)
 
    - **Other key existing files** (from prior session, not modified this session):
@@ -1359,7 +1359,7 @@ Summary:
 4. Errors and Fixes:
    - **Squarespace form input not accepting typed text**: Triple-click + type and cmd+a + type both failed to replace input field values. Fixed by using the `form_input` tool with element refs to directly set values.
    - **cmd+a selected entire page**: When trying to select text in a nameserver input field, cmd+a selected the whole page instead of just the field contents. Fixed by switching to `form_input` tool approach.
-   - **Click on "Save" hit "ADD NAMESERVER" instead**: The first attempt to click Save on kirangorapalli.com nameserver dialog accidentally clicked "ADD NAMESERVER", creating an empty Nameserver 3 field. Fixed by finding and clicking the delete button for Nameserver 3 using ref, then finding and clicking Save using ref.
+   - **Click on "Save" hit "ADD NAMESERVER" instead**: The first attempt to click Save on kiranrao.ai nameserver dialog accidentally clicked "ADD NAMESERVER", creating an empty Nameserver 3 field. Fixed by finding and clicking the delete button for Nameserver 3 using ref, then finding and clicking Save using ref.
    - **Chrome extension disconnected during Google auth**: When clicking "USE CUSTOM NAMESERVERS" for fenixconsulting.ai, Squarespace opened a Google auth popup in a new tab, which disconnected the Chrome extension. User completed auth manually and reconnected.
    - **Cloudflare Pages vs Workers UI confusion**: The new Cloudflare dashboard has merged Workers and Pages into "Workers & Pages". The creation flow defaults to Worker-style configuration with `npx wrangler deploy`. There's no separate Pages creation flow anymore. Attempted to find a Pages-specific path via "Looking to deploy Pages? Get started" link but it redirected to the same unified flow. Decided to proceed with the default `npx wrangler deploy` configuration.
 
@@ -1367,7 +1367,7 @@ Summary:
    - Solved nameserver migration for both domains by navigating Squarespace's multi-step auth flow and form inputs
    - Solved domain canonicalization with a single bash command across 46 files, verified with zero remaining references
    - Currently working through Cloudflare's new unified Workers & Pages deployment flow for a static HTML site — clicked Deploy and waiting for result
-   - kirangorapalli.com already shows as **Active** on Cloudflare (propagation was fast)
+   - kiranrao.ai already shows as **Active** on Cloudflare (propagation was fast)
    - fenixconsulting.ai nameserver propagation still in progress
 
 6. All User Messages:
@@ -1382,7 +1382,7 @@ Summary:
 7. Pending Tasks:
    - Wait for Cloudflare Pages deployment result (just clicked Deploy)
    - If deploy fails, add `wrangler.json` config to repo for static asset serving
-   - Add custom domain (kirangorapalli.com) to the Cloudflare Pages project
+   - Add custom domain (kiranrao.ai) to the Cloudflare Pages project
    - Verify site works on Cloudflare
    - Commit the domain canonicalization changes to git (46 files changed)
    - Decommission Netlify
@@ -1412,7 +1412,7 @@ Summary:
      }
    }
    ```
-   Then commit it and retry the deployment. After successful deployment, add the custom domain kirangorapalli.com to the Cloudflare Pages project.
+   Then commit it and retry the deployment. After successful deployment, add the custom domain kiranrao.ai to the Cloudflare Pages project.
 
 If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: /sessions/tender-youthful-bardeen/mnt/.claude/projects/-sessions-tender-youthful-bardeen/a03bc14b-f902-4ff9-b417-13f4b8cb4001.jsonl
 Please continue the conversation from where we left off without asking the user any further questions. Continue with the last task that you were asked to work on.
@@ -1427,7 +1427,7 @@ Good, I'm back on the overview page. The deployment is live at `kiran-site.kiran
 
 ### Claude `10:31`
 
-Your site is loading perfectly on Cloudflare! "Kiran Rao — Builder of Products People Love" is rendering beautifully at `kiran-site.kiranrao.workers.dev`. Now let's add your custom domain `kirangorapalli.com`. Let me go back to the Cloudflare dashboard and connect it.
+Your site is loading perfectly on Cloudflare! "Kiran Rao — Builder of Products People Love" is rendering beautifully at `kiran-site.kiranrao.workers.dev`. Now let's add your custom domain `kiranrao.ai`. Let me go back to the Cloudflare dashboard and connect it.
 
 ---
 
@@ -1463,13 +1463,13 @@ Now let me click "+ Add" to add the custom domain.
 
 ### Claude `10:33`
 
-A side panel opened with two options: "Custom domain" and "Route". I need to click "Custom domain" to connect kirangorapalli.com.
+A side panel opened with two options: "Custom domain" and "Route". I need to click "Custom domain" to connect kiranrao.ai.
 
 ---
 
 ### Claude `10:33`
 
-The "Custom domain" panel is open with a "Domain" input field. Let me type in `kirangorapalli.com`.
+The "Custom domain" panel is open with a "Domain" input field. Let me type in `kiranrao.ai`.
 
 ---
 
@@ -1481,7 +1481,7 @@ Now let me click "Add domain".
 
 ### Claude `10:34`
 
-Cloudflare is showing exactly what it will do: it'll add a DNS record pointing `kirangorapalli.com` to the `kiran-site` Worker, with type "Worker", and provision an HTTPS certificate automatically. This is exactly what we need. Let me click "Add domain" to confirm.
+Cloudflare is showing exactly what it will do: it'll add a DNS record pointing `kiranrao.ai` to the `kiran-site` Worker, with type "Worker", and provision an HTTPS certificate automatically. This is exactly what we need. Let me click "Add domain" to confirm.
 
 ---
 
@@ -1505,7 +1505,7 @@ I can see the dialog has a submit button at ref_827. Let me click that.
 
 ### Claude `10:36`
 
-I can see the 4 old A records pointing to Netlify IPs. I need to delete the 2 root domain A records (`kirangorapalli.com` pointing to `13.52.188.95` and `52.52.192.191`) since those conflict with the custom domain assignment. The `www` records can stay for now. Let me delete the first root A record.
+I can see the 4 old A records pointing to Netlify IPs. I need to delete the 2 root domain A records (`kiranrao.ai` pointing to `13.52.188.95` and `52.52.192.191`) since those conflict with the custom domain assignment. The `www` records can stay for now. Let me delete the first root A record.
 
 ---
 
@@ -1535,7 +1535,7 @@ I see the same view — the Delete button is there. Let me use the find tool to 
 
 ### Claude `10:38`
 
-A confirmation dialog appeared asking to delete the A record for `kirangorapalli.com` → `13.52.188.95`. Let me click "Delete" to confirm.
+A confirmation dialog appeared asking to delete the A record for `kiranrao.ai` → `13.52.188.95`. Let me click "Delete" to confirm.
 
 ---
 
@@ -1547,7 +1547,7 @@ The dialog is still showing. Let me click the "Delete" button in the dialog more
 
 ### Claude `10:39`
 
-The first A record (`13.52.188.95`) is deleted. Now I see 3 remaining records. I need to delete the second root domain A record (`kirangorapalli.com` → `52.52.192.191`). Let me click Edit on that one.
+The first A record (`13.52.188.95`) is deleted. Now I see 3 remaining records. I need to delete the second root domain A record (`kiranrao.ai` → `52.52.192.191`). Let me click Edit on that one.
 
 ---
 
@@ -1591,7 +1591,7 @@ The side panel opened again with "Custom domain" and "Route" options. Let me cli
 
 ### Claude `10:46`
 
-The "Custom domain" form is open with the Domain input field. Let me type `kirangorapalli.com` and submit.
+The "Custom domain" form is open with the Domain input field. Let me type `kiranrao.ai` and submit.
 
 ---
 
@@ -1603,22 +1603,22 @@ Now let me find and click the submit button in the dialog.
 
 ### Claude `10:47`
 
-The custom domain `kirangorapalli.com` has been successfully added! I can see it now listed in the Domains & Routes table as a "Custom domain" with value `kirangorapalli.com`. 
+The custom domain `kiranrao.ai` has been successfully added! I can see it now listed in the Domains & Routes table as a "Custom domain" with value `kiranrao.ai`. 
 
-Now let me verify the site loads on the custom domain. Let me also add `www.kirangorapalli.com` while we're at it — but first, let me test the root domain.
+Now let me verify the site loads on the custom domain. Let me also add `www.kiranrao.ai` while we're at it — but first, let me test the root domain.
 
 ---
 
 ### Claude `10:47`
 
-**Your site is live at `kirangorapalli.com`!** It's loading perfectly with HTTPS, Cloudflare CDN, and your full portfolio site. The URL bar confirms `https://kirangorapalli.com/`.
+**Your site is live at `kiranrao.ai`!** It's loading perfectly with HTTPS, Cloudflare CDN, and your full portfolio site. The URL bar confirms `https://kiranrao.ai/`.
 
 Here's a recap of what we just accomplished in this session:
 
 1. **Deployed kiran-site to Cloudflare Workers & Pages** — connected your GitHub repo (`iamkiranrao/kiran-site`) and deployed successfully
 2. **Deleted old Netlify A records** — removed the two root domain A records (`13.52.188.95` and `52.52.192.191`) that were pointing to Netlify
-3. **Added custom domain** — `kirangorapalli.com` is now a custom domain on your Cloudflare Workers project with auto-provisioned HTTPS
-4. **Verified the site is live** — `https://kirangorapalli.com` renders your full portfolio site through Cloudflare's CDN
+3. **Added custom domain** — `kiranrao.ai` is now a custom domain on your Cloudflare Workers project with auto-provisioned HTTPS
+4. **Verified the site is live** — `https://kiranrao.ai` renders your full portfolio site through Cloudflare's CDN
 
 Now let me update PROGRESS.md to capture all this work.
 
@@ -1634,14 +1634,14 @@ Now let me update the Known Issues section to reflect the current state:
 
 Here's the summary, Kiran:
 
-**Your site is officially live on Cloudflare!** `https://kirangorapalli.com` is now served from Cloudflare's global CDN with auto-HTTPS, DDoS protection, and git-based auto-deployment from your `iamkiranrao/kiran-site` repo.
+**Your site is officially live on Cloudflare!** `https://kiranrao.ai` is now served from Cloudflare's global CDN with auto-HTTPS, DDoS protection, and git-based auto-deployment from your `iamkiranrao/kiran-site` repo.
 
 Here's what we did this session:
 
 1. Connected your GitHub repo to Cloudflare Workers & Pages and deployed successfully
 2. Deleted the 2 old Netlify A records that were blocking the custom domain
-3. Added `kirangorapalli.com` as a custom domain with auto-HTTPS
-4. Verified the site loads perfectly at `https://kirangorapalli.com`
+3. Added `kiranrao.ai` as a custom domain with auto-HTTPS
+4. Verified the site loads perfectly at `https://kiranrao.ai`
 5. Updated PROGRESS.md with the session 3 log
 
 **Still remaining for Phase 0 completion:**
@@ -1661,13 +1661,13 @@ lets keep going with phase 0 items.
 
 ### Claude `10:49`
 
-Let me start by cleaning up the `www` DNS records. I'll navigate back to the DNS settings for kirangorapalli.com.
+Let me start by cleaning up the `www` DNS records. I'll navigate back to the DNS settings for kiranrao.ai.
 
 ---
 
 ### Claude `10:50`
 
-I can see the current DNS records: the new Worker record for `kirangorapalli.com` → `kiran-site`, and 2 old `www` A records pointing to Netlify IPs. I need to delete both `www` A records and then add a CNAME for `www` pointing to `kirangorapalli.com`. Let me delete the first one.
+I can see the current DNS records: the new Worker record for `kiranrao.ai` → `kiran-site`, and 2 old `www` A records pointing to Netlify IPs. I need to delete both `www` A records and then add a CNAME for `www` pointing to `kiranrao.ai`. Let me delete the first one.
 
 ---
 
@@ -1685,9 +1685,9 @@ First www A record deleted. One more to go — `www` → `18.208.88.157`. Let me
 
 ### Claude `10:52`
 
-All old Netlify records are gone. Now there's only one DNS record — the Worker record for `kirangorapalli.com` → `kiran-site`. DNS is clean. 
+All old Netlify records are gone. Now there's only one DNS record — the Worker record for `kiranrao.ai` → `kiran-site`. DNS is clean. 
 
-Now I need to add a CNAME record for `www` pointing to `kirangorapalli.com` so that `www.kirangorapalli.com` redirects to the root domain. Let me click "Add record".
+Now I need to add a CNAME record for `www` pointing to `kiranrao.ai` so that `www.kiranrao.ai` redirects to the root domain. Let me click "Add record".
 
 ---
 
@@ -1742,15 +1742,15 @@ Let me chronologically analyze the conversation:
 
 4. Verified the site loads correctly by navigating to `https://kiran-site.kiranrao.workers.dev/` - showed "Kiran Rao - Builder of Products People Love".
 
-5. Went to Settings > Domains & Routes to add custom domain. Clicked "+ Add", selected "Custom domain", entered `kirangorapalli.com`.
+5. Went to Settings > Domains & Routes to add custom domain. Clicked "+ Add", selected "Custom domain", entered `kiranrao.ai`.
 
 6. First attempt to add custom domain failed with error: "This domain is already in use. Please delete the corresponding record in DNS settings or enter another domain and try again." - caused by existing Netlify A records.
 
 7. Navigated to DNS settings, deleted 2 root domain A records (13.52.188.95 and 52.52.192.191) pointing to old Netlify IPs.
 
-8. Went back to Workers & Pages settings, added custom domain `kirangorapalli.com` again - this time it worked. Cloudflare created a Worker DNS record.
+8. Went back to Workers & Pages settings, added custom domain `kiranrao.ai` again - this time it worked. Cloudflare created a Worker DNS record.
 
-9. Verified site loads at `https://kirangorapalli.com/` - confirmed working perfectly.
+9. Verified site loads at `https://kiranrao.ai/` - confirmed working perfectly.
 
 10. Updated PROGRESS.md with Session 3 log documenting all the work done.
 
@@ -1758,7 +1758,7 @@ Let me chronologically analyze the conversation:
 
 12. Started cleaning up www DNS records - deleted both old www A records (98.84.224.111 and 18.208.88.157).
 
-13. Currently trying to add a CNAME record for `www` pointing to `kirangorapalli.com`. Having trouble with the Type dropdown in Cloudflare's DNS record form - it's a combobox that's difficult to interact with. Used JavaScript to type "CNAME" into the combobox, and the dropdown shows "CNAME" as an option but hasn't been selected yet.
+13. Currently trying to add a CNAME record for `www` pointing to `kiranrao.ai`. Having trouble with the Type dropdown in Cloudflare's DNS record form - it's a combobox that's difficult to interact with. Used JavaScript to type "CNAME" into the combobox, and the dropdown shows "CNAME" as an option but hasn't been selected yet.
 
 Key errors:
 - Squarespace form inputs not accepting typed text (from previous session)
@@ -1767,20 +1767,20 @@ Key errors:
 
 Files modified:
 - PROGRESS.md - updated with Session 3 log, active step changed, known issues updated
-- 46 HTML/XML/JS files had netlify.app replaced with kirangorapalli.com (previous session)
+- 46 HTML/XML/JS files had netlify.app replaced with kiranrao.ai (previous session)
 
-Current state: The CNAME dropdown shows "CNAME" option visible but not yet selected. Need to click on the CNAME option in the dropdown to select it, then fill in name=www and target=kirangorapalli.com.
+Current state: The CNAME dropdown shows "CNAME" option visible but not yet selected. Need to click on the CNAME option in the dropdown to select it, then fill in name=www and target=kiranrao.ai.
 
 Summary:
 1. Primary Request and Intent:
-   Kiran Rao is migrating his portfolio website (kirangorapalli.com) from Netlify to Cloudflare. The overarching project involves building a full platform with Fenix (AI concierge), forms, auth, e-commerce, and public APIs on Cloudflare Pages + Vercel + Supabase + Stripe + Claude API. This session focused on Phase 0 completion: deploying to Cloudflare Workers & Pages, connecting the custom domain, cleaning up old DNS records, and preparing to decommission Netlify. The user explicitly requested "lets keep going with phase 0 items" after the initial deployment and domain setup was completed.
+   Kiran Rao is migrating his portfolio website (kiranrao.ai) from Netlify to Cloudflare. The overarching project involves building a full platform with Fenix (AI concierge), forms, auth, e-commerce, and public APIs on Cloudflare Pages + Vercel + Supabase + Stripe + Claude API. This session focused on Phase 0 completion: deploying to Cloudflare Workers & Pages, connecting the custom domain, cleaning up old DNS records, and preparing to decommission Netlify. The user explicitly requested "lets keep going with phase 0 items" after the initial deployment and domain setup was completed.
 
 2. Key Technical Concepts:
    - Cloudflare Workers & Pages (unified platform replacing separate Pages)
    - Custom domain configuration on Cloudflare Workers
    - DNS record management (A records, CNAME records, Worker records)
    - Static asset Workers (Cloudflare's approach for static sites)
-   - Domain canonicalization (kirangorapalli.com as canonical URL)
+   - Domain canonicalization (kiranrao.ai as canonical URL)
    - HTTPS certificate auto-provisioning by Cloudflare
    - GitHub repo integration with Cloudflare for auto-deployment
    - DNS record conflicts when migrating between hosting providers
@@ -1799,24 +1799,24 @@ Summary:
        - Connected GitHub repo (`iamkiranrao/kiran-site`) to Cloudflare Workers & Pages
        - Site deployed successfully at `kiran-site.kiranrao.workers.dev`
        - Deleted 2 old Netlify A records from Cloudflare DNS (`13.52.188.95`, `52.52.192.191`)
-       - Successfully added `kirangorapalli.com` as custom domain on kiran-site Worker
-       - **Verified site is live at `https://kirangorapalli.com`**
+       - Successfully added `kiranrao.ai` as custom domain on kiran-site Worker
+       - **Verified site is live at `https://kiranrao.ai`**
        - **Next:** Clean up www DNS records, set up www→root redirect, decommission Netlify
        ```
 
-   - **Cloudflare DNS Records for kirangorapalli.com** (current state):
-     - Only 1 record remains: Worker type, `kirangorapalli.com` → `kiran-site`, Proxied, Auto TTL
+   - **Cloudflare DNS Records for kiranrao.ai** (current state):
+     - Only 1 record remains: Worker type, `kiranrao.ai` → `kiran-site`, Proxied, Auto TTL
      - All 4 old Netlify A records have been deleted (2 root + 2 www)
      - Nameservers: felipe.ns.cloudflare.com, marissa.ns.cloudflare.com
 
    - **Cloudflare Workers & Pages project `kiran-site`**:
      - Deployed from GitHub repo `iamkiranrao/kiran-site`
      - Available at: `kiran-site.kiranrao.workers.dev`
-     - Custom domain: `kirangorapalli.com` (active)
+     - Custom domain: `kiranrao.ai` (active)
      - Build command: `npx wrangler deploy`
 
 4. Errors and Fixes:
-   - **Custom domain "already in use" error**: When trying to add `kirangorapalli.com` as custom domain, Cloudflare returned "This domain is already in use. Please delete the corresponding record in DNS settings." Fixed by navigating to DNS settings and deleting the 2 old Netlify A records (13.52.188.95 and 52.52.192.191), then re-adding the custom domain successfully.
+   - **Custom domain "already in use" error**: When trying to add `kiranrao.ai` as custom domain, Cloudflare returned "This domain is already in use. Please delete the corresponding record in DNS settings." Fixed by navigating to DNS settings and deleting the 2 old Netlify A records (13.52.188.95 and 52.52.192.191), then re-adding the custom domain successfully.
    - **Accidentally navigated to upload page**: Clicking "Visit" button navigated to the "Upload static files" page instead of the live site. Fixed by clicking "Back" and opening the site URL in a new tab instead.
    - **Notification popup blocking UI**: Cloudflare "Logpush & Tail Workers has moved" notification kept appearing and blocking clicks. Fixed by using `find` tool to locate the dismiss button by ref and clicking it.
    - **"Add domain" button not clickable by coordinates**: The "Add domain" submit button in the side panel wasn't responding to coordinate clicks. Fixed by using `read_page` to find the submit button ref (`ref_827`) and clicking via ref.
@@ -1825,7 +1825,7 @@ Summary:
 5. Problem Solving:
    - Successfully deployed static site to Cloudflare Workers & Pages via the new unified Workers/Pages flow
    - Resolved DNS conflicts by identifying and removing old Netlify A records before adding the custom domain
-   - Verified end-to-end that `https://kirangorapalli.com` loads the portfolio site correctly through Cloudflare CDN
+   - Verified end-to-end that `https://kiranrao.ai` loads the portfolio site correctly through Cloudflare CDN
    - Deleted all 4 old Netlify DNS records (2 root, 2 www)
    - Currently troubleshooting the Cloudflare DNS form's Type combobox to add a CNAME record for `www`
 
@@ -1834,7 +1834,7 @@ Summary:
    - "lets keep going with phase 0 items."
 
 7. Pending Tasks:
-   - Add www CNAME record pointing to kirangorapalli.com (in progress - dropdown interaction issue)
+   - Add www CNAME record pointing to kiranrao.ai (in progress - dropdown interaction issue)
    - Set up www→root redirect rule in Cloudflare
    - Remove `netlify.toml` and `netlify/` directory from repo
    - Commit all changes to git (46 canonicalization files + netlify cleanup)
@@ -1842,10 +1842,10 @@ Summary:
    - Update PROGRESS.md with final Phase 0 completion status
 
 8. Current Work:
-   Adding a CNAME DNS record for `www` pointing to `kirangorapalli.com` in the Cloudflare DNS management page. The Type dropdown combobox now shows "CNAME" typed in the input with the CNAME option visible in the dropdown list below it, but the option needs to be clicked to actually select it. After selecting CNAME, the form fields will change to show "Name" and "Target" instead of "Name" and "IPv4 address", and I'll need to enter `www` for the name and `kirangorapalli.com` for the target.
+   Adding a CNAME DNS record for `www` pointing to `kiranrao.ai` in the Cloudflare DNS management page. The Type dropdown combobox now shows "CNAME" typed in the input with the CNAME option visible in the dropdown list below it, but the option needs to be clicked to actually select it. After selecting CNAME, the form fields will change to show "Name" and "Target" instead of "Name" and "IPv4 address", and I'll need to enter `www` for the name and `kiranrao.ai` for the target.
 
 9. Optional Next Step:
-   Click the "CNAME" option visible in the dropdown list to select it, then fill in Name=`www` and Target=`kirangorapalli.com`, and click Save. The dropdown is currently open showing "CNAME" as a selectable option. After the CNAME record is added, proceed to set up a Cloudflare redirect rule for www→root, then move on to removing Netlify config files from the repo and committing changes. This directly continues the user's request to "lets keep going with phase 0 items."
+   Click the "CNAME" option visible in the dropdown list to select it, then fill in Name=`www` and Target=`kiranrao.ai`, and click Save. The dropdown is currently open showing "CNAME" as a selectable option. After the CNAME record is added, proceed to set up a Cloudflare redirect rule for www→root, then move on to removing Netlify config files from the repo and committing changes. This directly continues the user's request to "lets keep going with phase 0 items."
 
 If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: /sessions/tender-youthful-bardeen/mnt/.claude/projects/-sessions-tender-youthful-bardeen/a03bc14b-f902-4ff9-b417-13f4b8cb4001.jsonl
 Please continue the conversation from where we left off without asking the user any further questions. Continue with the last task that you were asked to work on.
@@ -1866,7 +1866,7 @@ The dropdown shows "CNAME" typed in and the CNAME option is visible below. Now I
 
 ### Claude `10:57`
 
-CNAME is now properly selected — the form changed to show "Target (required)" with "E.g. www.example.com" placeholder instead of "IPv4 address". Now I need to fill in the Name field with `www` and the Target field with `kirangorapalli.com`.
+CNAME is now properly selected — the form changed to show "Target (required)" with "E.g. www.example.com" placeholder instead of "IPv4 address". Now I need to fill in the Name field with `www` and the Target field with `kiranrao.ai`.
 
 ---
 
@@ -1893,9 +1893,9 @@ Let me verify the form looks correct before saving.
 The form looks perfect. I can see:
 - **Type:** CNAME
 - **Name:** www
-- **Target:** kirangorapalli.com
+- **Target:** kiranrao.ai
 - **Proxy status:** Proxied
-- The preview text confirms: "www.kirangorapalli.com is an alias of kirangorapalli.com and has its traffic proxied through Cloudflare."
+- The preview text confirms: "www.kiranrao.ai is an alias of kiranrao.ai and has its traffic proxied through Cloudflare."
 
 Now let me click **Save**.
 
@@ -1911,8 +1911,8 @@ The form is still showing — it doesn't look like the Save button was clicked. 
 
 The CNAME record was saved successfully. The DNS records now show:
 
-1. **CNAME** — `www` → `kirangorapalli.com` (Proxied, Auto TTL)
-2. **Worker** — `kirangorapalli.com` → `kiran-site` (Proxied, Auto TTL)
+1. **CNAME** — `www` → `kiranrao.ai` (Proxied, Auto TTL)
+2. **Worker** — `kiranrao.ai` → `kiran-site` (Proxied, Auto TTL)
 
 Now let me move on to the next task: setting up a www→root redirect rule in Cloudflare.
 
@@ -1960,7 +1960,7 @@ The template is perfectly configured:
 - **Target URL:** `https://${1}` (strips the www and redirects to root)
 - **Status code:** 301 (permanent redirect)
 
-This is exactly what we need — when someone visits `https://www.kirangorapalli.com/anything`, it redirects to `https://kirangorapalli.com/anything`. Let me click **Deploy**.
+This is exactly what we need — when someone visits `https://www.kiranrao.ai/anything`, it redirects to `https://kiranrao.ai/anything`. Let me click **Deploy**.
 
 ---
 
@@ -2099,7 +2099,7 @@ Pushed successfully. Now for decommissioning Netlify — let me navigate to the 
 
 ### Claude `11:07`
 
-I can see the Netlify dashboard with the `kirangorapalli.com` project. I can see it just auto-deployed from the push we just made ("Published at 3:06 AM (a few seconds ago)"). 
+I can see the Netlify dashboard with the `kiranrao.ai` project. I can see it just auto-deployed from the push we just made ("Published at 3:06 AM (a few seconds ago)"). 
 
 To decommission, I need to go into the site settings and delete the site. Let me click on the project first.
 
@@ -2149,7 +2149,7 @@ The delete confirmation dialog is showing. It asks to type `kirangorapalli` to c
 
 ### Claude `11:10`
 
-The project `kirangorapalli.com` is still showing in the list. It seems the delete didn't go through — possibly the confirmation text was typed into the wrong field or the deployment dropdown intercepted the input. Let me try again by navigating directly to the project's danger zone.
+The project `kiranrao.ai` is still showing in the list. It seems the delete didn't go through — possibly the confirmation text was typed into the wrong field or the deployment dropdown intercepted the input. Let me try again by navigating directly to the project's danger zone.
 
 ---
 
@@ -2185,7 +2185,7 @@ The URL changed to the Projects list page. Let me verify the project was actuall
 
 ### Claude `11:12`
 
-The Netlify project has been successfully deleted! The Projects page now shows "Add your project to Netlify" with no existing projects listed — the `kirangorapalli.com` project is completely gone.
+The Netlify project has been successfully deleted! The Projects page now shows "Add your project to Netlify" with no existing projects listed — the `kiranrao.ai` project is completely gone.
 
 Let me mark everything as complete.
 
@@ -2197,7 +2197,7 @@ Let me mark everything as complete.
 
 **DNS Cleanup:**
 - Deleted 2 old `www` A records pointing to Netlify IPs
-- Added CNAME record: `www` → `kirangorapalli.com` (Proxied)
+- Added CNAME record: `www` → `kiranrao.ai` (Proxied)
 
 **Redirect Rule:**
 - Deployed Cloudflare "Redirect from WWW to root" rule — 301 redirect from `https://www.*` → `https://${1}`
@@ -2215,7 +2215,7 @@ Your site is now **fully running on Cloudflare** with clean DNS, www→root redi
 
 ### Kiran `11:13`
 
-can you make sure that www.fenixconsulting.ai also points to the same website as www.kirangorapalli.com
+can you make sure that www.fenixconsulting.ai also points to the same website as www.kiranrao.ai
 
 ---
 
@@ -2239,10 +2239,10 @@ I can see the current DNS records for fenixconsulting.ai. There are:
 - A CNAME for `www` → `ext-sq.squarespace.com` (old Squarespace site)
 - Various TXT records (DMARC, DKIM, SPF)
 
-To make both `www.fenixconsulting.ai` and `fenixconsulting.ai` redirect to `kirangorapalli.com`, I need to:
-1. Update the `www` CNAME to point to `kirangorapalli.com` instead of Squarespace
+To make both `www.fenixconsulting.ai` and `fenixconsulting.ai` redirect to `kiranrao.ai`, I need to:
+1. Update the `www` CNAME to point to `kiranrao.ai` instead of Squarespace
 2. Replace the 4 Squarespace A records with a single proxied A record (Cloudflare needs a proxied record to handle redirects)
-3. Create a redirect rule to send all fenixconsulting.ai traffic to kirangorapalli.com
+3. Create a redirect rule to send all fenixconsulting.ai traffic to kiranrao.ai
 
 Let me start by updating the `www` CNAME. I'll click Edit on that record.
 
@@ -2250,7 +2250,7 @@ Let me start by updating the `www` CNAME. I'll click Edit on that record.
 
 ### Claude `11:15`
 
-The edit form is open for the www CNAME record, showing `ext-sq.squarespace.com` as the current target. I need to change it to `kirangorapalli.com`. Let me find the Target input and update it.
+The edit form is open for the www CNAME record, showing `ext-sq.squarespace.com` as the current target. I need to change it to `kiranrao.ai`. Let me find the Target input and update it.
 
 ---
 
@@ -2262,7 +2262,7 @@ Now let me save this change.
 
 ### Claude `11:16`
 
-The www CNAME is now updated — it shows `www` → `kirangorapalli.com` (Proxied). Now I need to deal with the 4 root A records pointing to Squarespace IPs. I'll delete 3 of them and replace the last one with a dummy IP (192.0.2.1 — a reserved "documentation" IP) so Cloudflare can proxy and redirect root domain traffic. Actually, a cleaner approach is to delete all 4 and add a single proxied A record with `192.0.2.1` (this is a standard Cloudflare pattern for redirect-only domains).
+The www CNAME is now updated — it shows `www` → `kiranrao.ai` (Proxied). Now I need to deal with the 4 root A records pointing to Squarespace IPs. I'll delete 3 of them and replace the last one with a dummy IP (192.0.2.1 — a reserved "documentation" IP) so Cloudflare can proxy and redirect root domain traffic. Actually, a cleaner approach is to delete all 4 and add a single proxied A record with `192.0.2.1` (this is a standard Cloudflare pattern for redirect-only domains).
 
 Let me delete the 4 Squarespace A records first. I'll also delete the `_domainconnect` CNAME since that's a Squarespace verification record we no longer need.
 
@@ -2319,9 +2319,9 @@ Let me chronologically analyze the conversation:
 
 1. This is a continuation from a previous conversation that ran out of context. The summary covers extensive prior work on building a portfolio website platform for Kiran Rao, migrating from Netlify to Cloudflare.
 
-2. The conversation picked up with the CNAME dropdown issue in Cloudflare DNS for kirangorapalli.com - trying to add a www CNAME record.
+2. The conversation picked up with the CNAME dropdown issue in Cloudflare DNS for kiranrao.ai - trying to add a www CNAME record.
 
-3. Successfully selected CNAME type by typing "CNAME" and pressing Enter, then used form_input to set Name=www and Target=kirangorapalli.com. Saved successfully.
+3. Successfully selected CNAME type by typing "CNAME" and pressing Enter, then used form_input to set Name=www and Target=kiranrao.ai. Saved successfully.
 
 4. Set up www→root redirect rule using Cloudflare's built-in "Redirect from WWW to root" template. Deployed as a 301 redirect.
 
@@ -2333,7 +2333,7 @@ Let me chronologically analyze the conversation:
 
 8. Decommissioned Netlify by navigating to the danger zone and deleting the project. Had to try twice - first attempt the confirmation text went to wrong field.
 
-9. User then asked: "can you make sure that www.fenixconsulting.ai also points to the same website as www.kirangorapalli.com"
+9. User then asked: "can you make sure that www.fenixconsulting.ai also points to the same website as www.kiranrao.ai"
 
 10. Navigated to Cloudflare DNS for fenixconsulting.ai. Found existing records:
     - 4 A records pointing to Squarespace IPs (198.49.23.145, 198.185.159.144, 198.185.159.145, 198.49.23.144)
@@ -2341,7 +2341,7 @@ Let me chronologically analyze the conversation:
     - CNAME www → ext-sq.squarespace.com
     - TXT records for DMARC, DKIM, SPF
 
-11. Updated www CNAME from ext-sq.squarespace.com to kirangorapalli.com - saved successfully.
+11. Updated www CNAME from ext-sq.squarespace.com to kiranrao.ai - saved successfully.
 
 12. Edited first A record from 198.49.23.145 to 192.0.2.1 (placeholder IP for redirect-only proxied domains) - saved successfully.
 
@@ -2361,22 +2361,22 @@ Current state of fenixconsulting.ai DNS:
 - A record: 198.185.159.145 (needs deletion)
 - A record: 198.49.23.144 (needs deletion)
 - CNAME: _domainconnect → Squarespace (should delete)
-- CNAME: www → kirangorapalli.com (updated)
+- CNAME: www → kiranrao.ai (updated)
 - TXT records (keep)
 
 After DNS cleanup, still need to:
-- Create redirect rule for fenixconsulting.ai → kirangorapalli.com
+- Create redirect rule for fenixconsulting.ai → kiranrao.ai
 - Verify redirects work
 
 Summary:
 1. Primary Request and Intent:
-   Kiran Rao is migrating his portfolio website (kirangorapalli.com) from Netlify to Cloudflare as Phase 0 of a larger platform build. This session continued from a previous context compaction. The initial work was completing Phase 0 items: adding www CNAME for kirangorapalli.com, setting up www→root redirect, removing Netlify config files, committing changes, and decommissioning Netlify. After Phase 0 was completed, the user then asked to make `www.fenixconsulting.ai` also point to the same website as `www.kirangorapalli.com`, which involves reconfiguring fenixconsulting.ai DNS from Squarespace to redirect to kirangorapalli.com.
+   Kiran Rao is migrating his portfolio website (kiranrao.ai) from Netlify to Cloudflare as Phase 0 of a larger platform build. This session continued from a previous context compaction. The initial work was completing Phase 0 items: adding www CNAME for kiranrao.ai, setting up www→root redirect, removing Netlify config files, committing changes, and decommissioning Netlify. After Phase 0 was completed, the user then asked to make `www.fenixconsulting.ai` also point to the same website as `www.kiranrao.ai`, which involves reconfiguring fenixconsulting.ai DNS from Squarespace to redirect to kiranrao.ai.
 
 2. Key Technical Concepts:
    - Cloudflare Workers & Pages (unified platform for static site hosting)
    - DNS record management (A records, CNAME records, Worker records)
    - Cloudflare Redirect Rules (wildcard pattern 301 redirects)
-   - Domain canonicalization (kirangorapalli.com as canonical URL)
+   - Domain canonicalization (kiranrao.ai as canonical URL)
    - Placeholder IP `192.0.2.1` (RFC 5737 documentation IP for redirect-only proxied Cloudflare domains)
    - www→root redirect patterns using Cloudflare templates
    - Cloudflare proxied DNS records (orange cloud) for redirect handling
@@ -2393,11 +2393,11 @@ Summary:
        **Duration:** ~1 session
        **What happened:**
        - Deleted 2 old `www` A records from Cloudflare DNS (`98.84.224.111`, `18.208.88.157`)
-       - Added CNAME record: `www` → `kirangorapalli.com` (Proxied, Auto TTL)
+       - Added CNAME record: `www` → `kiranrao.ai` (Proxied, Auto TTL)
        - Deployed Cloudflare Redirect Rule: "Redirect from WWW to root" — 301 redirect `https://www.*` → `https://${1}`
        - Removed `netlify.toml` (root + site/) and `netlify/functions/` directory from repo
        - Updated PROGRESS.md with session log and fixed known issues
-       - **DNS state:** 2 records — Worker (`kirangorapalli.com` → `kiran-site`) + CNAME (`www` → `kirangorapalli.com`)
+       - **DNS state:** 2 records — Worker (`kiranrao.ai` → `kiran-site`) + CNAME (`www` → `kiranrao.ai`)
        - **Next:** Decommission Netlify site, commit all changes, begin Phase 1
        ```
 
@@ -2407,9 +2407,9 @@ Summary:
    - **`/sessions/tender-youthful-bardeen/mnt/Kiran's Website/site/netlify/functions/validate-code.js`** — Deleted
    - **Git commit `e3f0c33`**: "Phase 0: Migrate hosting from Netlify to Cloudflare" — 49 files changed (URL canonicalization across 46 HTML/XML files + Netlify file deletions + PROGRESS.md)
 
-   - **Cloudflare DNS Records for kirangorapalli.com** (final state):
-     - Worker: `kirangorapalli.com` → `kiran-site` (Proxied, Auto TTL)
-     - CNAME: `www` → `kirangorapalli.com` (Proxied, Auto TTL)
+   - **Cloudflare DNS Records for kiranrao.ai** (final state):
+     - Worker: `kiranrao.ai` → `kiran-site` (Proxied, Auto TTL)
+     - CNAME: `www` → `kiranrao.ai` (Proxied, Auto TTL)
 
    - **Cloudflare DNS Records for fenixconsulting.ai** (current in-progress state):
      - A: `fenixconsulting.ai` → `192.0.2.1` (Proxied) — updated from Squarespace IP
@@ -2417,10 +2417,10 @@ Summary:
      - A: `fenixconsulting.ai` → `198.185.159.145` (Proxied) — TO BE DELETED
      - A: `fenixconsulting.ai` → `198.49.23.144` (Proxied) — TO BE DELETED
      - CNAME: `_domainconnect` → `_domainconnect.domains.s...` (Proxied) — Squarespace verification, should delete
-     - CNAME: `www` → `kirangorapalli.com` (Proxied) — UPDATED from ext-sq.squarespace.com
+     - CNAME: `www` → `kiranrao.ai` (Proxied) — UPDATED from ext-sq.squarespace.com
      - TXT: `_dmarc`, `_domainkey`, SPF — keep these
 
-   - **Cloudflare Redirect Rule for kirangorapalli.com**:
+   - **Cloudflare Redirect Rule for kiranrao.ai**:
      - "Redirect from WWW to root [Template]" — Active
      - Match: `https://www.*` → Target: `https://${1}` — 301 redirect
 
@@ -2434,26 +2434,26 @@ Summary:
 
 5. Problem Solving:
    - Successfully completed entire Phase 0 migration: deployed to Cloudflare, configured DNS, set up redirects, cleaned up Netlify config, committed and pushed, deleted Netlify project
-   - Currently solving fenixconsulting.ai DNS reconfiguration to redirect to kirangorapalli.com — updating DNS records from Squarespace to Cloudflare redirect-only configuration
-   - Strategy for fenixconsulting.ai: Keep one A record with placeholder IP 192.0.2.1 (proxied), update www CNAME to kirangorapalli.com, delete old Squarespace A records, then create a Cloudflare redirect rule
+   - Currently solving fenixconsulting.ai DNS reconfiguration to redirect to kiranrao.ai — updating DNS records from Squarespace to Cloudflare redirect-only configuration
+   - Strategy for fenixconsulting.ai: Keep one A record with placeholder IP 192.0.2.1 (proxied), update www CNAME to kiranrao.ai, delete old Squarespace A records, then create a Cloudflare redirect rule
 
 6. All user messages:
    - Long context continuation message with summary of previous sessions (covering the entire project history, DNS migration, Cloudflare deployment)
    - "lets keep going with phase 0 items." (from previous context, summarized)
-   - "can you make sure that www.fenixconsulting.ai also points to the same website as www.kirangorapalli.com"
+   - "can you make sure that www.fenixconsulting.ai also points to the same website as www.kiranrao.ai"
    - When asked about Netlify decommission approach: "what do you recommend"
 
 7. Pending Tasks:
    - Delete remaining 3 Squarespace A records from fenixconsulting.ai DNS (198.185.159.144, 198.185.159.145, 198.49.23.144)
    - Optionally delete `_domainconnect` CNAME (Squarespace verification record)
-   - Create Cloudflare redirect rule for fenixconsulting.ai → kirangorapalli.com (both root and www)
+   - Create Cloudflare redirect rule for fenixconsulting.ai → kiranrao.ai (both root and www)
    - Verify the redirects work for both www.fenixconsulting.ai and fenixconsulting.ai
 
 8. Current Work:
-   Working on reconfiguring fenixconsulting.ai DNS to redirect to kirangorapalli.com per the user's request: "can you make sure that www.fenixconsulting.ai also points to the same website as www.kirangorapalli.com". Have completed: updating www CNAME to kirangorapalli.com, changing first A record to placeholder IP 192.0.2.1. Currently in the process of deleting the second A record (198.185.159.144) — the edit form is open and the Delete button has been found (`ref_1060`) but not yet clicked.
+   Working on reconfiguring fenixconsulting.ai DNS to redirect to kiranrao.ai per the user's request: "can you make sure that www.fenixconsulting.ai also points to the same website as www.kiranrao.ai". Have completed: updating www CNAME to kiranrao.ai, changing first A record to placeholder IP 192.0.2.1. Currently in the process of deleting the second A record (198.185.159.144) — the edit form is open and the Delete button has been found (`ref_1060`) but not yet clicked.
 
 9. Optional Next Step:
-   Click the Delete button (`ref_1060`) to delete the A record for 198.185.159.144, then continue deleting the remaining 2 Squarespace A records (198.185.159.145 and 198.49.23.144). After DNS cleanup, navigate to Rules → Redirect Rules for fenixconsulting.ai and create a redirect rule that sends all `fenixconsulting.ai` and `www.fenixconsulting.ai` traffic to `https://kirangorapalli.com` with a 301 redirect. This directly continues the user's request: "can you make sure that www.fenixconsulting.ai also points to the same website as www.kirangorapalli.com"
+   Click the Delete button (`ref_1060`) to delete the A record for 198.185.159.144, then continue deleting the remaining 2 Squarespace A records (198.185.159.145 and 198.49.23.144). After DNS cleanup, navigate to Rules → Redirect Rules for fenixconsulting.ai and create a redirect rule that sends all `fenixconsulting.ai` and `www.fenixconsulting.ai` traffic to `https://kiranrao.ai` with a 301 redirect. This directly continues the user's request: "can you make sure that www.fenixconsulting.ai also points to the same website as www.kiranrao.ai"
 
 If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: /sessions/tender-youthful-bardeen/mnt/.claude/projects/-sessions-tender-youthful-bardeen/a03bc14b-f902-4ff9-b417-13f4b8cb4001.jsonl
 Please continue the conversation from where we left off without asking the user any further questions. Continue with the last task that you were asked to work on.
@@ -2520,7 +2520,7 @@ All Squarespace A records are deleted. The DNS records now look clean:
 
 - **A:** `fenixconsulting.ai` → `192.0.2.1` (Proxied) — placeholder for redirect
 - **CNAME:** `_domainconnect` → Squarespace (should delete this too)
-- **CNAME:** `www` → `kirangorapalli.com` (Proxied) — correct
+- **CNAME:** `www` → `kiranrao.ai` (Proxied) — correct
 - **TXT:** `_dmarc`, `_domainkey`, SPF — keep these
 
 Let me also delete the `_domainconnect` CNAME since it's a Squarespace verification record no longer needed.
@@ -2532,10 +2532,10 @@ Let me also delete the `_domainconnect` CNAME since it's a Squarespace verificat
 DNS is now clean. The records for fenixconsulting.ai are:
 
 - **A:** `fenixconsulting.ai` → `192.0.2.1` (Proxied) — placeholder for redirect
-- **CNAME:** `www` → `kirangorapalli.com` (Proxied)
+- **CNAME:** `www` → `kiranrao.ai` (Proxied)
 - **TXT:** `_dmarc`, `_domainkey`, SPF — email records (keeping)
 
-Now I need to create a redirect rule so that `fenixconsulting.ai` (root) also redirects to `kirangorapalli.com`. Let me navigate to Rules → Redirect Rules.
+Now I need to create a redirect rule so that `fenixconsulting.ai` (root) also redirects to `kiranrao.ai`. Let me navigate to Rules → Redirect Rules.
 
 ---
 
@@ -2568,7 +2568,7 @@ I can see the Rules Overview page with templates. The "Redirect to a different d
 The template is loaded with a form. I need to:
 1. Change the rule name
 2. Change the match to "All incoming requests" (since we want all fenixconsulting.ai traffic redirected)
-3. Set the target URL to `https://kirangorapalli.com`
+3. Set the target URL to `https://kiranrao.ai`
 
 First, let me update the rule name. I'll clear the current name and type a new one.
 
@@ -2589,14 +2589,14 @@ Now let me scroll down to see the redirect target URL section and update it.
 ### Claude `11:25`
 
 I can see the full form now. The settings look good:
-- Rule name: "Redirect fenixconsulting.ai to kirangorapalli.com"
+- Rule name: "Redirect fenixconsulting.ai to kiranrao.ai"
 - Match: "All incoming requests" is selected
 - Type: Dynamic
-- Expression: `concat("https://globalstore.example.net", http.request.uri.path)` — I need to change this to use `kirangorapalli.com`
+- Expression: `concat("https://globalstore.example.net", http.request.uri.path)` — I need to change this to use `kiranrao.ai`
 - Status code: 301 — correct
 - Preserve query string: checked — good
 
-Let me update the Expression field to point to kirangorapalli.com.
+Let me update the Expression field to point to kiranrao.ai.
 
 ---
 
@@ -2610,7 +2610,7 @@ Now let me deploy the rule.
 
 The redirect rule is deployed and **Active**! It shows:
 
-- **Name:** Redirect fenixconsulting.ai to kirangorapalli.com
+- **Name:** Redirect fenixconsulting.ai to kiranrao.ai
 - **Match against:** All incoming requests
 - **Action:** 301 redirect to `concat("https://kir...`
 - **Status:** Active
@@ -2621,7 +2621,7 @@ Now let me verify the redirects work. Let me test by navigating to fenixconsulti
 
 ### Claude `11:25`
 
-`fenixconsulting.ai` successfully redirected to `kirangorapalli.com` — the site is loading correctly! The tab title shows "Kiran Rao - Builder of Products People Love" and the URL shows `https://kirangorapalli.com/`. 
+`fenixconsulting.ai` successfully redirected to `kiranrao.ai` — the site is loading correctly! The tab title shows "Kiran Rao - Builder of Products People Love" and the URL shows `https://kiranrao.ai/`. 
 
 Now let me also test `www.fenixconsulting.ai`:
 
@@ -2629,7 +2629,7 @@ Now let me also test `www.fenixconsulting.ai`:
 
 ### Claude `11:26`
 
-Both redirects are working perfectly. `www.fenixconsulting.ai` also redirects to `kirangorapalli.com`. The tab URL confirms it landed on `https://kirangorapalli.com/`.
+Both redirects are working perfectly. `www.fenixconsulting.ai` also redirects to `kiranrao.ai`. The tab URL confirms it landed on `https://kiranrao.ai/`.
 
 ---
 
@@ -2641,15 +2641,15 @@ Everything is set up and verified. Here's a summary of what was done for fenixco
 - Deleted 3 old Squarespace A records (198.185.159.144, 198.185.159.145, 198.49.23.144)
 - Deleted the `_domainconnect` CNAME (Squarespace verification record)
 - Kept 1 A record: `fenixconsulting.ai` → `192.0.2.1` (proxied placeholder for redirect)
-- Updated CNAME: `www` → `kirangorapalli.com` (proxied)
+- Updated CNAME: `www` → `kiranrao.ai` (proxied)
 - Kept TXT records for email (DMARC, DKIM, SPF)
 
 **Redirect rule:**
-- Deployed "Redirect fenixconsulting.ai to kirangorapalli.com" — 301 redirect matching all incoming requests, using a dynamic expression that preserves the URL path
+- Deployed "Redirect fenixconsulting.ai to kiranrao.ai" — 301 redirect matching all incoming requests, using a dynamic expression that preserves the URL path
 
 **Verified:**
-- `https://fenixconsulting.ai` → redirects to `https://kirangorapalli.com`
-- `https://www.fenixconsulting.ai` → redirects to `https://kirangorapalli.com`
+- `https://fenixconsulting.ai` → redirects to `https://kiranrao.ai`
+- `https://www.fenixconsulting.ai` → redirects to `https://kiranrao.ai`
 
 Both domains now point to your main site. Would you like me to update PROGRESS.md with this session's work, or move on to something else?
 
@@ -2674,7 +2674,7 @@ Looking at the Phase 0 steps in the runbook:
 - **Step 0.5** — Domain Canonicalization Sweep — DONE (46 files updated)
 - **Step 0.6** — Decommission Netlify — DONE (deleted from Netlify dashboard, removed config files)
 
-Plus the extra work we just did: fenixconsulting.ai DNS reconfigured to redirect to kirangorapalli.com.
+Plus the extra work we just did: fenixconsulting.ai DNS reconfigured to redirect to kiranrao.ai.
 
 **Phase 0 is fully complete.** All six steps are done, the git commit was pushed, Netlify is decommissioned, and fenixconsulting.ai is redirecting properly.
 
@@ -2728,10 +2728,10 @@ That gives the new session all the context it needs. If you can create your Verc
 
 URL Slug Rework - Prompt for New Session
 Context
-I own kirangorapalli.com. It's a static HTML portfolio site hosted on cloudflaire (deploying from a GitHub repo). The site has rule files (CONTENT-RULES.md, ARCHITECTURE-RULES.md) that govern all decisions - read them before making any changes.
+I own kiranrao.ai. It's a static HTML portfolio site hosted on cloudflaire (deploying from a GitHub repo). The site has rule files (CONTENT-RULES.md, ARCHITECTURE-RULES.md) that govern all decisions - read them before making any changes.
 The site currently has two problems with its URLs:
 1. Some slugs are meaningless hashes or unnecessarily long. For example, `blog/626c9a18.html` tells the reader nothing. The URL should be `blog/demystifying-apple-pay` instead. Similarly, `blog/the-bank-that-got-213000-employees-to-actually-use-ai.html` is too long - it should be something like `blog/jpmorgan-llm-suite-ai-adoption`.
-2. The domain `kirangorapalli.netlify.app` appears in 37+ HTML files in canonical URLs, OG tags, JSON-LD, Twitter cards, and sitemap.xml. The canonical domain is `kirangorapalli.com` - all references need to be updated. The content rules (CONTENT-RULES.md, Section 9, "Canonical Domain") already mandate this, but the existing HTML files haven't been updated yet.
+2. The domain `kirangorapalli.netlify.app` appears in 37+ HTML files in canonical URLs, OG tags, JSON-LD, Twitter cards, and sitemap.xml. The canonical domain is `kiranrao.ai` - all references need to be updated. The content rules (CONTENT-RULES.md, Section 9, "Canonical Domain") already mandate this, but the existing HTML files haven't been updated yet.
 What Needs to Happen
 Step 1: Audit Current URLs and Propose New Slugs
 Survey every HTML file on the site and propose a human-readable slug for each. The slug should be short, descriptive, and SEO-friendly. Here's the current inventory:
@@ -2772,8 +2772,8 @@ For every file that gets renamed:
 5. Update `og:url` meta tag.
 6. Update JSON-LD `url` fields.
 7. Update `sitemap.xml`.
-Step 3: Replace All `kirangorapalli.netlify.app` with `kirangorapalli.com`
-Across ALL 37+ HTML files, replace every instance of `kirangorapalli.netlify.app` with `kirangorapalli.com`. This affects:
+Step 3: Replace All `kirangorapalli.netlify.app` with `kiranrao.ai`
+Across ALL 37+ HTML files, replace every instance of `kirangorapalli.netlify.app` with `kiranrao.ai`. This affects:
 * `<link rel="canonical">` tags
 * `<meta property="og:url">` tags
 * `<meta property="og:image">` tags
@@ -2803,7 +2803,7 @@ The Command Center backend generates URLs for new content. Update these to use t
 * `command-center/backend/templates/blog-template.html` - blog post HTML template
 * `command-center/backend/templates/teardown-template.html` - teardown HTML template
 * `command-center/backend/routers/teardown.py` - has hardcoded URLs for existing teardowns
-Note: Most of these files already use `kirangorapalli.com` (updated in a prior session). Verify and fix any that were missed.
+Note: Most of these files already use `kiranrao.ai` (updated in a prior session). Verify and fix any that were missed.
 Step 6: Generate Per-Post OG Card Images
 Per CONTENT-RULES.md Section 9 ("Open Graph Cards"), every shareable page needs its own OG image instead of falling back to the generic site card. Generate OG card images (1200x630px) for:
 * Each blog post (title, series badge, subtitle, author, read time)
@@ -2815,11 +2815,11 @@ Step 7: Verify Everything
 2. Grep for any remaining references to old filenames (e.g., `626c9a18`).
 3. Verify `sitemap.xml` has all correct URLs.
 4. Verify the `_redirects` file covers every renamed URL.
-5. Check that every page's canonical URL, og:url, og:image, and JSON-LD url fields use `kirangorapalli.com`.
+5. Check that every page's canonical URL, og:url, og:image, and JSON-LD url fields use `kiranrao.ai`.
 6. Open a few pages in a browser and verify links work.
 Important Rules
 * Read CONTENT-RULES.md and ARCHITECTURE-RULES.md before starting.
-* The canonical domain is kirangorapalli.com. Never use the Netlify URL.
+* The canonical domain is kiranrao.ai. Never use the Netlify URL.
 * Every file in the root content directories has a mirror in `site/`. Always update both.
 * Don't push to production without checking with me first.
 * Never recreate CSS - copy from reference pages exactly.
@@ -2915,7 +2915,7 @@ Here's the slug mapping proposal for your approval:
 
 **Files that are fine as-is:** All teardowns (`airbnb.html`, `airbnb-mobile.html`, `geico.html`, `geico-mobile-app.html`, `meta.html`, `meta-instagram.html`), all root pages, all prototypes.
 
-**One thing I noticed:** The Apple Pay blog post already has a *different* canonical URL set in its HTML — `kirangorapalli.com/blog/demystifying-apple-pay-hidden-complexity.html` — but the actual file is `626c9a18.html`. So the canonical URL is already broken/mismatched. I'd suggest `demystifying-apple-pay.html` as the slug (shorter than the canonical that's already in there).
+**One thing I noticed:** The Apple Pay blog post already has a *different* canonical URL set in its HTML — `kiranrao.ai/blog/demystifying-apple-pay-hidden-complexity.html` — but the actual file is `626c9a18.html`. So the canonical URL is already broken/mismatched. I'd suggest `demystifying-apple-pay.html` as the slug (shorter than the canonical that's already in there).
 
 **Question on `blog-podcast.html`:** Your prompt mentioned evaluating whether it should be `blog.html`. Want me to rename it, or leave it?
 
@@ -3231,9 +3231,9 @@ Let me chronologically analyze the conversation:
 
 3. Successfully deleted A records (198.185.159.144, 198.185.159.145, 198.49.23.144) and the _domainconnect CNAME from Cloudflare DNS for fenixconsulting.ai.
 
-4. Created a Cloudflare Redirect Rule "Redirect fenixconsulting.ai to kirangorapalli.com" - 301 redirect matching all incoming requests with dynamic expression `concat("https://kirangorapalli.com", http.request.uri.path)`.
+4. Created a Cloudflare Redirect Rule "Redirect fenixconsulting.ai to kiranrao.ai" - 301 redirect matching all incoming requests with dynamic expression `concat("https://kiranrao.ai", http.request.uri.path)`.
 
-5. Verified both fenixconsulting.ai and www.fenixconsulting.ai redirect to kirangorapalli.com.
+5. Verified both fenixconsulting.ai and www.fenixconsulting.ai redirect to kiranrao.ai.
 
 6. User asked "whats next with phase 0?" - I checked PROGRESS.md and MIGRATION-RUNBOOK.md and confirmed Phase 0 is fully complete.
 
@@ -3293,9 +3293,9 @@ Current state: User wants Google Search Console, GA4, and Microsoft Clarity set 
 
 Summary:
 1. Primary Request and Intent:
-   Kiran Rao is migrating his portfolio website (kirangorapalli.com) from Netlify to Cloudflare as Phase 0 of a larger platform build. This session continued from a previous context compaction. The work in this session covered:
+   Kiran Rao is migrating his portfolio website (kiranrao.ai) from Netlify to Cloudflare as Phase 0 of a larger platform build. This session continued from a previous context compaction. The work in this session covered:
    
-   a. **Completing fenixconsulting.ai DNS reconfiguration** — making both fenixconsulting.ai and www.fenixconsulting.ai redirect to kirangorapalli.com by cleaning up Squarespace DNS records and creating Cloudflare redirect rules.
+   a. **Completing fenixconsulting.ai DNS reconfiguration** — making both fenixconsulting.ai and www.fenixconsulting.ai redirect to kiranrao.ai by cleaning up Squarespace DNS records and creating Cloudflare redirect rules.
    
    b. **URL Slug Rework** — The user provided a detailed 7-step plan to rename blog post files from meaningless hashes/long names to SEO-friendly slugs, update all internal references, create redirects, generate per-page OG card images, and verify everything. User explicitly said "can we just finish this tonight? right here right now?" and approved the changes with "make all the changes. regarding blog-podcast.html - leave that one untouched."
    
@@ -3307,7 +3307,7 @@ Summary:
    - Cloudflare Pages `_redirects` file format for URL redirects
    - URL slug SEO best practices (short, descriptive, human-readable)
    - OG card image generation (1200x630px, Playwright-based rendering)
-   - Domain canonicalization (kirangorapalli.com as canonical, never netlify.app)
+   - Domain canonicalization (kiranrao.ai as canonical, never netlify.app)
    - site/ mirror directory pattern (every root file has a copy in site/)
    - Google Search Console DNS verification via TXT record
    - GA4 vs Plausible/Fathom comparison (recommended GA4 for SEO depth)
@@ -3370,12 +3370,12 @@ Summary:
 
    - **Cloudflare DNS for fenixconsulting.ai** (final state):
      - A: `fenixconsulting.ai` → `192.0.2.1` (Proxied)
-     - CNAME: `www` → `kirangorapalli.com` (Proxied)
+     - CNAME: `www` → `kiranrao.ai` (Proxied)
      - TXT: `_dmarc`, `_domainkey`, SPF (kept for email)
 
    - **Cloudflare Redirect Rule for fenixconsulting.ai**:
-     - "Redirect fenixconsulting.ai to kirangorapalli.com" — Active
-     - Match: All incoming requests → 301 redirect to `concat("https://kirangorapalli.com", http.request.uri.path)`
+     - "Redirect fenixconsulting.ai to kiranrao.ai" — Active
+     - Match: All incoming requests → 301 redirect to `concat("https://kiranrao.ai", http.request.uri.path)`
 
    - **Git commits:**
      - `f06ea71`: "Mark Phase 0 complete, log Session 5 (fenixconsulting.ai redirect)"
@@ -3408,7 +3408,7 @@ Summary:
    - "take care of everything for me." (regarding setting up Search Console, GA4, and Clarity)
 
 7. Pending Tasks:
-   - **Set up Google Search Console** — Add DNS TXT verification record in Cloudflare for kirangorapalli.com. This requires navigating to Google Search Console in the browser, getting the verification TXT record, then adding it in Cloudflare DNS.
+   - **Set up Google Search Console** — Add DNS TXT verification record in Cloudflare for kiranrao.ai. This requires navigating to Google Search Console in the browser, getting the verification TXT record, then adding it in Cloudflare DNS.
    - **Set up GA4** — User needs to create a Google Analytics 4 property to get a measurement ID (G-XXXXXXXXXX), then add the gtag.js script to all HTML pages.
    - **Set up Microsoft Clarity** — User needs to create a Clarity project to get a project ID, then add the Clarity script tag to all HTML pages.
    - **Phase 1 (tomorrow)** — Backend Infrastructure (Vercel + Supabase), starting from Step 1.1.
@@ -3417,7 +3417,7 @@ Summary:
    The user said "take care of everything for me" in response to the analytics setup discussion. I had proposed setting up Google Search Console (DNS record in Cloudflare), GA4 (script tag), and Microsoft Clarity (script tag). For Search Console, I can add the DNS verification record directly. For GA4 and Clarity, account creation is needed to get measurement/project IDs. I had previously asked "want me to walk you through that in the browser, or would you rather create those accounts yourself and give me the IDs?" but the user's response was "take care of everything for me" — meaning I should handle it all via the browser.
 
 9. Optional Next Step:
-   Set up Google Search Console, GA4, and Microsoft Clarity for kirangorapalli.com. The user explicitly said "take care of everything for me" in response to the analytics setup. Start by navigating to Google Search Console in the browser to begin the DNS verification process, then proceed to GA4 and Clarity setup. This can all be done via browser automation in the Cloudflare tab and new tabs for Google/Microsoft services.
+   Set up Google Search Console, GA4, and Microsoft Clarity for kiranrao.ai. The user explicitly said "take care of everything for me" in response to the analytics setup. Start by navigating to Google Search Console in the browser to begin the DNS verification process, then proceed to GA4 and Clarity setup. This can all be done via browser automation in the Cloudflare tab and new tabs for Google/Microsoft services.
 
 If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: /sessions/tender-youthful-bardeen/mnt/.claude/projects/-sessions-tender-youthful-bardeen/a03bc14b-f902-4ff9-b417-13f4b8cb4001.jsonl
 Please continue the conversation from where we left off without asking the user any further questions. Continue with the last task that you were asked to work on.
@@ -3474,7 +3474,7 @@ Now let me click the CONTINUE button.
 
 ### Claude `12:10`
 
-Google Search Console detected that kirangorapalli.com uses Cloudflare and is offering automatic verification via Cloudflare's API. It says to press "Start Verification" to authorize Google to access your DNS account on Cloudflare. This is the easiest path — it'll handle the DNS TXT record automatically. Let me click "START VERIFICATION".
+Google Search Console detected that kiranrao.ai uses Cloudflare and is offering automatic verification via Cloudflare's API. It says to press "Start Verification" to authorize Google to access your DNS account on Cloudflare. This is the easiest path — it'll handle the DNS TXT record automatically. Let me click "START VERIFICATION".
 
 ---
 
@@ -3494,13 +3494,13 @@ Now I can see the TXT record for DNS verification. I need to grab the full verif
 
 I found the full TXT record value from the accessibility tree: `google-site-verification=2jGn0iieE_Z23DbIyaCmHECOhp7SYeg5hfj0pRZhYks`
 
-Now I need to add this as a TXT record in Cloudflare DNS for kirangorapalli.com. Let me navigate to the Cloudflare DNS settings for kirangorapalli.com.
+Now I need to add this as a TXT record in Cloudflare DNS for kiranrao.ai. Let me navigate to the Cloudflare DNS settings for kiranrao.ai.
 
 ---
 
 ### Claude `12:12`
 
-I'm on the Cloudflare DNS records page for kirangorapalli.com. I can see the existing records (CNAME www and Worker). Now I need to add a TXT record. Let me click "Add record".
+I'm on the Cloudflare DNS records page for kiranrao.ai. I can see the existing records (CNAME www and Worker). Now I need to add a TXT record. Let me click "Add record".
 
 ---
 
@@ -3572,7 +3572,7 @@ Now let me click Save.
 
 ### Claude `12:16`
 
-The TXT record has been saved successfully. I can see it in the DNS records list — `TXT` record for `kirangorapalli.com` with content `"google-site-verification=2..."` and status "DNS only". 
+The TXT record has been saved successfully. I can see it in the DNS records list — `TXT` record for `kiranrao.ai` with content `"google-site-verification=2..."` and status "DNS only". 
 
 Now let me go back to Google Search Console and click Verify to complete the verification.
 
@@ -3592,13 +3592,13 @@ Found the Verify buttons — they're DIVs with role="button". Let me click the c
 
 ### Claude `12:18`
 
-**Ownership verified!** Google Search Console has confirmed domain ownership for kirangorapalli.com via DNS record. Let me submit the sitemap while I'm here. Let me click "GO TO PROPERTY".
+**Ownership verified!** Google Search Console has confirmed domain ownership for kiranrao.ai via DNS record. Let me submit the sitemap while I'm here. Let me click "GO TO PROPERTY".
 
 ---
 
 ### Claude `12:18`
 
-Google Search Console is fully set up and verified for kirangorapalli.com. I can see the dashboard with Performance and Indexing sections (processing data). Now let me submit the sitemap. I'll click "Sitemaps" in the left sidebar.
+Google Search Console is fully set up and verified for kiranrao.ai. I can see the dashboard with Performance and Indexing sections (processing data). Now let me submit the sitemap. I'll click "Sitemaps" in the left sidebar.
 
 ---
 
@@ -3769,7 +3769,7 @@ Let me chronologically analyze the conversation:
 
 2. The previous session completed:
    - Phase 0 migration (Netlify to Cloudflare)
-   - fenixconsulting.ai DNS cleanup and redirect to kirangorapalli.com
+   - fenixconsulting.ai DNS cleanup and redirect to kiranrao.ai
    - URL slug rework (renaming blog posts, updating all references, creating redirects, generating OG cards)
    - All committed and pushed
 
@@ -3779,17 +3779,17 @@ Let me chronologically analyze the conversation:
    - Created a todo list with 5 items
    - Set up Google Search Console:
      - Navigated to search.google.com/search-console
-     - Entered kirangorapalli.com as domain property
+     - Entered kiranrao.ai as domain property
      - Switched from Cloudflare automatic verification to "Any DNS provider" manual TXT record
      - Got the TXT record: google-site-verification=2jGn0iieE_Z23DbIyaCmHECOhp7SYeg5hfj0pRZhYks
-     - Added TXT record in Cloudflare DNS for kirangorapalli.com
+     - Added TXT record in Cloudflare DNS for kiranrao.ai
      - Verified ownership successfully
-     - Submitted sitemap (https://kirangorapalli.com/sitemap.xml) - confirmed "Sitemap submitted successfully"
+     - Submitted sitemap (https://kiranrao.ai/sitemap.xml) - confirmed "Sitemap submitted successfully"
    
    - Started GA4 setup:
      - Navigated to analytics.google.com
      - Created account: "Kiran Rao"
-     - Created property: "kirangorapalli.com"
+     - Created property: "kiranrao.ai"
      - Set timezone: US / Los Angeles
      - Set currency: USD
      - Business details: Books & Literature (accidentally, meant Business & Industrial), Small (1-10 employees)
@@ -3797,7 +3797,7 @@ Let me chronologically analyze the conversation:
      - Accepted Google Analytics ToS and GDPR Data Processing Terms
      - Reached Step 5: Data collection
      - Selected "Web" platform
-     - Set up web stream: URL = kirangorapalli.com, Stream name = kirangorapalli.com
+     - Set up web stream: URL = kiranrao.ai, Stream name = kiranrao.ai
      - Enhanced measurement enabled (Page views, Scrolls, Outbound clicks + 4 more)
      - Was about to click "Create & continue" button (found as ref_235)
 
@@ -3815,14 +3815,14 @@ Let me chronologically analyze the conversation:
    - ARCHITECTURE-RULES.md and CONTENT-RULES.md governing the project
    - Various HTML files across the site
 
-7. Cloudflare DNS state for kirangorapalli.com (after this session):
-   - TXT: kirangorapalli.com → google-site-verification=2jGn0iieE_Z23DbIyaCmHECOhp7SYeg5hfj0pRZhYks (DNS only, Auto TTL)
-   - CNAME: www → kirangorapalli.com (Proxied, Auto TTL)
-   - Worker: kirangorapalli.com → kiran-site (Proxied, Auto TTL)
+7. Cloudflare DNS state for kiranrao.ai (after this session):
+   - TXT: kiranrao.ai → google-site-verification=2jGn0iieE_Z23DbIyaCmHECOhp7SYeg5hfj0pRZhYks (DNS only, Auto TTL)
+   - CNAME: www → kiranrao.ai (Proxied, Auto TTL)
+   - Worker: kiranrao.ai → kiran-site (Proxied, Auto TTL)
 
 Summary:
 1. Primary Request and Intent:
-   Kiran asked to set up comprehensive website analytics for kirangorapalli.com. After discussing options (Google Search Console for SEO, GA4 for traffic/user data, Microsoft Clarity for heatmaps/session replay), he said "take care of everything for me" — meaning set up all three tools end-to-end via browser automation. This is part of the broader project of building out his portfolio website platform, which recently completed Phase 0 (Netlify to Cloudflare migration) and a URL slug rework.
+   Kiran asked to set up comprehensive website analytics for kiranrao.ai. After discussing options (Google Search Console for SEO, GA4 for traffic/user data, Microsoft Clarity for heatmaps/session replay), he said "take care of everything for me" — meaning set up all three tools end-to-end via browser automation. This is part of the broader project of building out his portfolio website platform, which recently completed Phase 0 (Netlify to Cloudflare migration) and a URL slug rework.
 
 2. Key Technical Concepts:
    - Google Search Console domain verification via DNS TXT record
@@ -3833,10 +3833,10 @@ Summary:
    - Sitemap submission to Google Search Console
    - Browser automation via Claude in Chrome MCP tools
    - Cloudflare Pages hosting for static site
-   - Domain canonicalization (kirangorapalli.com)
+   - Domain canonicalization (kiranrao.ai)
 
 3. Files and Code Sections:
-   - **`/sessions/tender-youthful-bardeen/mnt/Kiran's Website/ARCHITECTURE-RULES.md`** — Read at start of session. Governs all architecture decisions. Key rules: canonical domain is kirangorapalli.com, Cloudflare Pages for static hosting, Vercel for backend, Supabase for data.
+   - **`/sessions/tender-youthful-bardeen/mnt/Kiran's Website/ARCHITECTURE-RULES.md`** — Read at start of session. Governs all architecture decisions. Key rules: canonical domain is kiranrao.ai, Cloudflare Pages for static hosting, Vercel for backend, Supabase for data.
    - **`/sessions/tender-youthful-bardeen/mnt/Kiran's Website/_redirects`** — Read at start. Contains 301 redirects for old blog slugs:
      ```
      /blog/626c9a18.html /blog/demystifying-apple-pay.html 301
@@ -3844,7 +3844,7 @@ Summary:
      /blog/the-bank-that-got-213000-employees-to-actually-use-ai.html /blog/jpmorgan-llm-suite-ai-adoption.html 301
      ```
    - **`/sessions/tender-youthful-bardeen/mnt/Kiran's Website/sitemap.xml`** and **`site/sitemap.xml`** — Read at start. Contains 15 URLs for the site. Sitemap was submitted to Google Search Console.
-   - **Cloudflare DNS for kirangorapalli.com** — Added new TXT record:
+   - **Cloudflare DNS for kiranrao.ai** — Added new TXT record:
      - Type: TXT
      - Name: @ (root)
      - Content: `google-site-verification=2jGn0iieE_Z23DbIyaCmHECOhp7SYeg5hfj0pRZhYks`
@@ -3862,7 +3862,7 @@ Summary:
 
 5. Problem Solving:
    - Successfully completed Google Search Console setup: domain verification via DNS TXT record in Cloudflare, sitemap submission confirmed.
-   - Successfully created GA4 account ("Kiran Rao") and property ("kirangorapalli.com") through the 5-step wizard, reaching the data stream creation step.
+   - Successfully created GA4 account ("Kiran Rao") and property ("kiranrao.ai") through the 5-step wizard, reaching the data stream creation step.
    - Ongoing: Need to complete GA4 data stream creation, get measurement ID, set up Microsoft Clarity, add script tags to all HTML pages, commit changes.
 
 6. All User Messages:
@@ -3872,14 +3872,14 @@ Summary:
 
 7. Pending Tasks:
    - **Complete GA4 data stream creation** — Click "Create & continue" to finalize the web stream and get the measurement ID (G-XXXXXXXXXX)
-   - **Set up Microsoft Clarity** — Navigate to clarity.microsoft.com, create a project for kirangorapalli.com, get the project ID
+   - **Set up Microsoft Clarity** — Navigate to clarity.microsoft.com, create a project for kiranrao.ai, get the project ID
    - **Add analytics script tags to all HTML pages** — Add GA4 gtag.js snippet and Clarity script to all HTML files (both root and site/ copies)
    - **Verify everything works and commit** — Test that scripts are in place, commit and push changes
 
 8. Current Work:
    I was in the middle of creating the GA4 web data stream. I had:
-   - Filled in Website URL: `kirangorapalli.com`
-   - Filled in Stream name: `kirangorapalli.com`
+   - Filled in Website URL: `kiranrao.ai`
+   - Filled in Stream name: `kiranrao.ai`
    - Enhanced measurement enabled (Page views, Scrolls, Outbound clicks + 4 more)
    - Found the "Create & continue" button as `ref_235`
    - Was about to click it to complete the data stream setup
@@ -3903,8 +3903,8 @@ I can see the GA4 data stream setup page with everything filled in. Let me click
 ### Claude `12:29`
 
 GA4 is fully set up. I can confirm the details:
-- **Stream Name:** kirangorapalli.com
-- **Stream URL:** https://kirangorapalli.com
+- **Stream Name:** kiranrao.ai
+- **Stream URL:** https://kiranrao.ai
 - **Stream ID:** 13689831666
 - **Measurement ID:** G-8Q795C1RJ5
 
@@ -3956,7 +3956,7 @@ Signed in successfully. I see the "Confirm your email" page with kiranrao@gmail.
 
 ### Claude `12:32`
 
-I see this requires accepting the Clarity Terms of Use. Should I accept them and continue setting up Clarity for kirangorapalli.com?
+I see this requires accepting the Clarity Terms of Use. Should I accept them and continue setting up Clarity for kiranrao.ai?
 
 ---
 
@@ -4099,9 +4099,9 @@ Everything is done! Here's a recap of what was accomplished:
 
 **Google Search Console** — Domain property verified via DNS TXT record in Cloudflare, sitemap submitted.
 
-**Google Analytics 4** — Account "Kiran Rao" and property "kirangorapalli.com" created. Measurement ID: **G-8Q795C1RJ5**. Enhanced measurement enabled (page views, scrolls, outbound clicks, and more).
+**Google Analytics 4** — Account "Kiran Rao" and property "kiranrao.ai" created. Measurement ID: **G-8Q795C1RJ5**. Enhanced measurement enabled (page views, scrolls, outbound clicks, and more).
 
-**Microsoft Clarity** — Project created for kirangorapalli.com using your Google account. Project ID: **vpgxcc8q5n**. Heatmaps and session recordings will start collecting once the site gets traffic.
+**Microsoft Clarity** — Project created for kiranrao.ai using your Google account. Project ID: **vpgxcc8q5n**. Heatmaps and session recordings will start collecting once the site gets traffic.
 
 **Analytics scripts** — GA4 and Clarity tracking code added to all 36 production HTML pages (root + site/ directories) and both content templates (blog + teardown) so future posts automatically include tracking. Committed and pushed to GitHub — Cloudflare Pages will auto-deploy.
 
@@ -4117,7 +4117,7 @@ can you give me a guide on how to use ga 4 and clarity?\
 
 ### Claude `18:45`
 
-Sure! Here's a practical guide for both tools now that they're live on kirangorapalli.com.
+Sure! Here's a practical guide for both tools now that they're live on kiranrao.ai.
 
 ---
 

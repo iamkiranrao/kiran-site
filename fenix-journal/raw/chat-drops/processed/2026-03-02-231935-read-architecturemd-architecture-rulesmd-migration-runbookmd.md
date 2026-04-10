@@ -178,7 +178,7 @@ Here's the honest breakdown of where things stand:
 
 **What exists now (Phases 1–4):** the plumbing. Vercel hosting, Supabase database, health check API, content extraction, chunking, vector search, OG card generation. All the infrastructure Fenix needs to draw from — but no Fenix yet.
 
-**Phase 5 is where we actually build Fenix.** That's the chat API, the persona system (hiring manager, engineer, collaborator, curious visitor), the SSE streaming, conversation persistence, and the chat widget that lives on your site. That's when someone visits kirangorapalli.com, clicks the Fenix FAB, picks a persona, asks a question, and gets a RAG-powered answer with citations back to your teardowns and blog posts.
+**Phase 5 is where we actually build Fenix.** That's the chat API, the persona system (hiring manager, engineer, collaborator, curious visitor), the SSE streaming, conversation persistence, and the chat widget that lives on your site. That's when someone visits kiranrao.ai, clicks the Fenix FAB, picks a persona, asks a question, and gets a RAG-powered answer with citations back to your teardowns and blog posts.
 
 So to directly answer your question: Phase 5 is the one where Fenix comes alive. Everything up through Phase 4 was making sure that when someone asks "What has Kiran built with AI?", there's a pipeline to find the right content chunks, and an infrastructure to serve the response. But the actual conversational experience — that's next.
 

@@ -55,7 +55,7 @@
   // ── Fenix Agent State ─────────────────────────────
   // Persistent conversation state sent to the backend with each request.
   // SessionStorage: survives page nav within the tab, gone on tab close.
-  var FENIX_AGENT_URL = 'https://api.kirangorapalli.com/api/v1/fenix/agent';
+  var FENIX_AGENT_URL = 'https://api.kiranrao.ai/api/v1/fenix/agent';
   var FENIX_MSG_CAP = 30;
 
   // Generate a UUID v4 for session tracking

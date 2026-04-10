@@ -81,7 +81,7 @@ MODULES = [
     },
     {
         "slug": "website",
-        "name": "Website (kirangorapalli.com)",
+        "name": "Website (kiranrao.ai)",
         "keywords": ["website", "portfolio", "framer", "kirangorapalli", "site", "homepage", "navigation", "deployment", "hosting"],
         "description": "The portfolio website — design, structure, deployment, and content.",
     },

@@ -32,7 +32,7 @@ What's next — Phase 4:
 * Build Fenix Dashboard frontend (`frontend/src/app/dashboard/fenix/page.tsx`) with overview cards, top queries table, failure log with "Train Fenix" action, content coverage heatmap, conversation browser, and search quality charts
 * All data comes from the `conversations` and `messages` tables in Supabase (project `gndzmmywtxvlukoavadj`)
 Key infrastructure:
-* Site: kirangorapalli.com (Netlify, from GitHub `kiran-site`)
+* Site: kiranrao.ai (Netlify, from GitHub `kiran-site`)
 * Fenix API: fenix-backend-omega.vercel.app (Vercel, from GitHub `fenix-backend`)
 * Database: Supabase project `gndzmmywtxvlukoavadj`
 * Command Center: local FastAPI backend (`command-center/backend/`) + Next.js frontend (`command-center/frontend/`)
@@ -186,7 +186,7 @@ Now I have the full picture. Here's where things stand:
 
 **For item 3 — testing keyword fallback (Step 1.6)** — I can tell you exactly how to test it now that I've read the code. The keyword fallback in `rag_service.py` kicks in when semantic vector search returns 0 results at the 0.2 threshold. It then extracts keywords (strips stop words, tries longest phrases first) and does an `ILIKE` substring search via the `keyword_search_content` RPC.
 
-To test it, go to your live Fenix widget on kirangorapalli.com and ask something phrased unusually enough that embeddings won't match but keywords will — something like:
+To test it, go to your live Fenix widget on kiranrao.ai and ask something phrased unusually enough that embeddings won't match but keywords will — something like:
 
 - "restaurant chatbot thing" (should keyword-match the Jurassic Bites prototype)
 - "that insurance demo" (should keyword-match insurance-related content)
@@ -291,7 +291,7 @@ Go to `http://localhost:3000/dashboard/fenix` in your browser. You should see th
 
 **Step 6: Test keyword fallback (Step 1.6)**
 
-Open your live site at kirangorapalli.com, click the Fenix chat widget, and ask something with odd phrasing like "tell me about that restaurant bot thing." Then come back to the Fenix Dashboard and check the Failures tab — if keyword fallback fired, you'll see it listed with a "Keyword fallback" tag.
+Open your live site at kiranrao.ai, click the Fenix chat widget, and ask something with odd phrasing like "tell me about that restaurant bot thing." Then come back to the Fenix Dashboard and check the Failures tab — if keyword fallback fired, you'll see it listed with a "Keyword fallback" tag.
 
 Let me know when you hit any step and I'll help troubleshoot.
 
@@ -615,7 +615,7 @@ That's live data pulling straight from Supabase — 13 conversations, 12 message
 
 Now click through the other tabs and let me know if any of them error out or show unexpected data. In particular, try **Top Queries**, **Failures**, and **Search Quality** — those are the most useful ones for understanding how Fenix is performing.
 
-For the keyword fallback test (Step 1.6), open a new browser tab to kirangorapalli.com, ask Fenix something with unusual phrasing, then come back and check the Failures tab to see if it logged the search type.
+For the keyword fallback test (Step 1.6), open a new browser tab to kiranrao.ai, ask Fenix something with unusual phrasing, then come back and check the Failures tab to see if it logged the search type.
 
 ---
 
@@ -681,7 +681,7 @@ what about the remaining item in phase 1
 
 Right — Step 1.6: "Test keyword fallback still works."
 
-Go to [kirangorapalli.com](https://kirangorapalli.com), open the Fenix chat widget, and ask something with weird phrasing that's unlikely to get a strong semantic match but has a keyword that exists in your content. Something like:
+Go to [kiranrao.ai](https://kiranrao.ai), open the Fenix chat widget, and ask something with weird phrasing that's unlikely to get a strong semantic match but has a keyword that exists in your content. Something like:
 
 - "that restaurant bot thing"
 - "jurassic prototype"
@@ -1056,7 +1056,7 @@ ok it is indexing.
 
 The workflow passed — all your prototypes should now be indexed in Supabase.
 
-Let's verify. Go ask Fenix on kirangorapalli.com:
+Let's verify. Go ask Fenix on kiranrao.ai:
 
 ```
 tell me about jurassic bites

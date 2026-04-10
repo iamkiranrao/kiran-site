@@ -658,7 +658,7 @@ All 3 entries backfilled with real Voyage embeddings, zero errors. Now let me te
 
 ### Claude `04:29`
 
-Now I also need to re-embed the first training entry (the "worst product decision" one) since it was saved with a hash fallback before we added the Voyage key. But first, did you restart the Command Center backend with the new VOYAGE_API_KEY? If so, let me test Fenix on your live site. Let me navigate to kirangorapalli.com and ask Fenix a question only training data would answer.
+Now I also need to re-embed the first training entry (the "worst product decision" one) since it was saved with a hash fallback before we added the Voyage key. But first, did you restart the Command Center backend with the new VOYAGE_API_KEY? If so, let me test Fenix on your live site. Let me navigate to kiranrao.ai and ask Fenix a question only training data would answer.
 
 ---
 
@@ -748,7 +748,7 @@ All exit criteria met. Let me update the roadmap.
 3. Tested the full training flow — created a session (100 questions generated), answered a question about the worst product decision, Claude did an editorial pass (minor grammar fixes, em dash formatting), approved and saved to Supabase with embedding
 4. Added `VOYAGE_API_KEY` to the Command Center `.env` for real embeddings
 5. Ran the backfill script — 3 older training entries got real Voyage embeddings (0 errors)
-6. Tested Fenix end-to-end on kirangorapalli.com:
+6. Tested Fenix end-to-end on kiranrao.ai:
    - "Favorite programming language?" → answered from training data (Python)
    - "Build vs buy decisions?" → answered from training interview (fintech analytics story)
    - "What teardowns?" → answered from **site content** (GEICO teardown) — training data didn't interfere
@@ -848,7 +848,7 @@ Let me go through the conversation chronologically:
 
 18. Backfill succeeded: "Found 3 training entries without embeddings... Done! 3/3 embedded, 0 errors."
 
-19. Tested Fenix end-to-end on kirangorapalli.com:
+19. Tested Fenix end-to-end on kiranrao.ai:
     - "What is Kiran's favorite programming language?" → Python answer from training data ✅
     - "What does Kiran think about build vs buy decisions?" → Fintech analytics story from training interview ✅
     - "What teardowns has Kiran written?" → Site content (GEICO teardown, MadLab) without training interference ✅

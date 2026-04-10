@@ -9631,7 +9631,7 @@ can u push that change to production?
 
 I can't push to your website from here — that needs to happen from your machine. How is your website hosted? If it's on GitHub Pages, you'd need to commit and push. If it's on Squarespace or another platform, you'd upload the file there.
 
-What's your setup for kirangorapalli.com?
+What's your setup for kiranrao.ai?
 
 ---
 

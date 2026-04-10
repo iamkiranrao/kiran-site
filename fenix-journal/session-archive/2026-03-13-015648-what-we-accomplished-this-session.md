@@ -29,7 +29,7 @@ What we accomplished this session:
 4. Flame On embeddings complete — 332/325 chunks embedded and live in Supabase
 5. Discussed notification center / inbox concept for Command Center
 Prompt for next chat:
-Continue work on Kiran's portfolio site (kirangorapalli.com) and Command Center. Read FENIX-ROADMAP.md and the architecture docs first.
+Continue work on Kiran's portfolio site (kiranrao.ai) and Command Center. Read FENIX-ROADMAP.md and the architecture docs first.
 Where we left off:
 1. Notification Center for Command Center — Design and build an inbox/notification center that surfaces actionable items in one place: feedback submissions (Netlify form + Fenix widget), journal entries pending review, question bank progress, scheduled task failures, embedding status, content freshness. Architecture: `notifications` table in Supabase, any process can write to it, frontend reads and displays as cards with type/timestamp/summary/action. This is the priority.
 2. Pending from Train Fenix — Speed improvements for 319-question workflow (batch mode, category sprints), caching best answers to disk (not just in-memory).
@@ -171,7 +171,7 @@ Session captured. Now here's your carry-forward prompt for the next chat:
 
 **Copy this into your next chat:**
 
-> **Continue work on Kiran's portfolio site (kirangorapalli.com) and Command Center. Read FENIX-ROADMAP.md and ARCHITECTURE.md first.**
+> **Continue work on Kiran's portfolio site (kiranrao.ai) and Command Center. Read FENIX-ROADMAP.md and ARCHITECTURE.md first.**
 > 
 > **Where we left off — Priority #1: Notification Center for Command Center**
 > 
@@ -212,7 +212,7 @@ Session captured to both archive and chat-drops (68 sessions total in your archi
 
 ### Kiran `02:04`
 
-Continue work on Kiran's portfolio site (kirangorapalli.com) and Command Center. Read FENIX-ROADMAP.md and ARCHITECTURE.md first.
+Continue work on Kiran's portfolio site (kiranrao.ai) and Command Center. Read FENIX-ROADMAP.md and ARCHITECTURE.md first.
 Where we left off — Priority #1: Notification Center for Command Center
 Design and build an inbox/notification center that surfaces actionable items in one place. This is the "operating system" layer — Kiran has many moving parts (Fenix training, journal pipeline, feedback, MadLab, scheduled tasks) and needs a single pane of glass showing what needs attention.
 What to track (agreed sources):
@@ -352,7 +352,7 @@ Take this feature out.
 
 ### Claude `05:46`
 
-Can you show me which page you're referring to? Is it the landing page of kirangorapalli.com — the release notes / changelog section? Let me take a look at the site to identify exactly what you want removed.
+Can you show me which page you're referring to? Is it the landing page of kiranrao.ai — the release notes / changelog section? Let me take a look at the site to identify exactly what you want removed.
 
 ---
 
@@ -725,7 +725,7 @@ Summary:
 1. Primary Request and Intent:
    - **Build Notification Center for Command Center** (completed): Create a unified inbox/notification system with Supabase table, backend service + router, frontend page, and sidebar badge. Wire existing services (feedback, testimonials) to emit notifications.
    - **Remove release notes footer** (completed): Remove version number, "Updated" date, Release Notes link, and RSS badge from all site pages.
-   - **Strategy session on personalization** (in progress): User wants to discuss and design a persona-driven personalization system for kirangorapalli.com. This is explicitly a strategy/design discussion — user said "Don't code anything till you and I agree on what is the right way to shape some of the ideas."
+   - **Strategy session on personalization** (in progress): User wants to discuss and design a persona-driven personalization system for kiranrao.ai. This is explicitly a strategy/design discussion — user said "Don't code anything till you and I agree on what is the right way to shape some of the ideas."
    - **Persona definition refinement** (in progress): Align on 6 personas across the entire system (question bank currently has 6, live Fenix backend only has 4). User wants confirmation the personas cover all bases.
    - **Mockup of persona picker** (completed): User asked for a visual mockup of how the persona picker would look on the landing page.
 
@@ -808,7 +808,7 @@ Summary:
 
 6. All user messages:
    - Carry-forward prompt describing previous session accomplishments and next priorities (Notification Center #1 priority)
-   - "Continue work on Kiran's portfolio site (kirangorapalli.com) and Command Center. Read FENIX-ROADMAP.md and ARCHITECTURE.md first..." (full priority list)
+   - "Continue work on Kiran's portfolio site (kiranrao.ai) and Command Center. Read FENIX-ROADMAP.md and ARCHITECTURE.md first..." (full priority list)
    - "I want to get rid of this on the main page. No one is going to read the release notes and stuff. Take this feature out."
    - "Help me understand something. How well can you track someone who visits my site? What intelligence do we have about them? Do we know how many times they have visited what they have interacted with what choices and selections they might have made?"
    - "This is a strategy session - I just want to talk through ideas in my head. Don't code anything till you and I agree on what is the right way to shape some of the ideas on my head. My primary concern is that we have a lot of content and can't really serve it up in a way that is intelligent..." (full personalization vision: interruptive video, persona picker, sign-in, content personalization, Duolingo-style feed)
@@ -2153,7 +2153,7 @@ Then you come back to me for Phase 4 — the code build. That's where I do my be
 **When you start a new session, paste this:**
 
 ```
-Continue work on the persona picker for kirangorapalli.com. 
+Continue work on the persona picker for kiranrao.ai. 
 Read these files first:
 - persona-picker-design-spec.md (all design decisions)
 - persona-picker-gameplan.md (execution plan and progress)
@@ -2307,7 +2307,7 @@ We went from "build a notification center" to defining an entirely new vision fo
 **When you come back to me,** paste this at the start of any new session:
 
 ```
-Continue work on the persona picker for kirangorapalli.com. 
+Continue work on the persona picker for kiranrao.ai. 
 Read these files first:
 - persona-picker-design-spec.md (all design decisions)
 - persona-picker-gameplan.md (execution plan and progress)
@@ -2372,7 +2372,7 @@ Beat 1 — The genuine hook. Reference something specific about their work that 
 
 Beat 2 — The bridge. One sentence about what you've built and why. Not "I'm looking for a job." Something like "I've been building something that I think represents a different way for product leaders to show how they think — and I'd love your reaction."
 
-Beat 3 — The link. "Here's what it looks like: [kirangorapalli.com]" — that's it. Low-pressure CTA. You're inviting them to experience something, not asking them to do something.
+Beat 3 — The link. "Here's what it looks like: [kiranrao.ai]" — that's it. Low-pressure CTA. You're inviting them to experience something, not asking them to do something.
 
 No resume attached. No "I'd love to chat about opportunities." The site does that work. If the persona picker, the animated studio, Fenix, and the personalized experience do their job, the person will click "Get In Touch" on their own. That's the whole point.
 
@@ -2601,7 +2601,7 @@ And give me a prompt to pick up with you in a new chat window tomorrow. I'm goin
 Session saved. Here's your carry-forward prompt for tomorrow:
 
 ```
-Continue work on the persona picker for kirangorapalli.com. Read these files first:
+Continue work on the persona picker for kiranrao.ai. Read these files first:
 - persona-picker-design-spec.md (all design decisions, personas, visual direction, my "why")
 - persona-picker-gameplan.md (execution plan and progress)
 - midjourney-guide.md (step-by-step Midjourney instructions with prompts)
@@ -2703,7 +2703,7 @@ Now let me save this session and get you that carry-forward prompt:
 Session saved. Here's your updated carry-forward prompt for tomorrow:
 
 ```
-Continue work on the persona picker for kirangorapalli.com. Read these files first:
+Continue work on the persona picker for kiranrao.ai. Read these files first:
 - persona-picker-design-spec.md (all design decisions, personas, visual direction, my "why", GTM strategy, manifesto framing)
 - persona-picker-gameplan.md (execution plan and progress)
 - midjourney-guide.md (step-by-step Midjourney instructions with prompts)
@@ -2951,7 +2951,7 @@ Summary:
 
    User's carry-forward prompt:
    ```
-   Continue work on the persona picker for kirangorapalli.com. Read these files first:
+   Continue work on the persona picker for kiranrao.ai. Read these files first:
    - persona-picker-design-spec.md (all design decisions, personas, visual direction, my "why", GTM strategy, manifesto framing)
    - persona-picker-gameplan.md (execution plan and progress)
    - midjourney-guide.md (step-by-step Midjourney instructions with prompts)

@@ -119,7 +119,7 @@ I think i want to be research based. I liked your approach for identifying the s
 All five research tracks are done. Before I synthesize, let me address what you said — you're absolutely right that the domain context needs to be baked in. Here's what I've understood from reading everything:
 
 **Who you are and what this is:**
-- kirangorapalli.com is a portfolio-turned-platform. It's not a corporate site — it's a one-person product thinker's workshop, open to the public.
+- kiranrao.ai is a portfolio-turned-platform. It's not a corporate site — it's a one-person product thinker's workshop, open to the public.
 - The site serves multiple audiences: hiring managers evaluating you, product leaders learning from your teardowns, practitioners exploring your prototypes, and eventually a broader audience via blog/podcast.
 - Command Center is your personal admin tool — it manages the content pipeline, tracks decisions, logs ideas, and orchestrates workflows like teardown building and resume customization. The only end user is you (and Claude as a collaborator).
 - Scannibal is a separate consumer product with its own voice and audience.
@@ -534,7 +534,7 @@ These are fixed monthly costs I can't determine from the codebase:
 5. **ElevenLabs** — What plan for Scannibal? Free tier, Starter ($5/mo), Creator ($22/mo)?
 6. **Midjourney** — Active subscription? Basic ($10/mo), Standard ($30/mo), Pro ($60/mo)?
 7. **Runway** — Active subscription? What tier?
-8. **Domain** — kirangorapalli.com registrar and annual cost?
+8. **Domain** — kiranrao.ai registrar and annual cost?
 9. **Any other subscriptions** I'm missing — Figma? Notion? Cursor? Any dev tools with monthly fees?
 
 Get those back to me whenever and I'll wire them into the cost module. For now, I have enough to design the architecture and start the ARCHITECTURE.md revision with the Platform Cost Monitor spec baked in.

@@ -10,7 +10,7 @@ version: 3
 
 ## Overview
 
-The Fenix Analytics Dashboard is a view within Command Center that provides visibility into how visitors interact with the Fenix AI assistant on kirangorapalli.com. It surfaces conversation metrics, RAG retrieval quality, persona distribution, search effectiveness, and content coverage — giving Kiran the data to iteratively improve Fenix's responses.
+The Fenix Analytics Dashboard is a view within Command Center that provides visibility into how visitors interact with the Fenix AI assistant on kiranrao.ai. It surfaces conversation metrics, RAG retrieval quality, persona distribution, search effectiveness, and content coverage — giving Kiran the data to iteratively improve Fenix's responses.
 
 This is an admin-only tool (runs locally as part of Command Center, not publicly deployed). For the Fenix AI assistant itself, see the `fenix.md` guide. For Command Center, see `command-center.md`.
 

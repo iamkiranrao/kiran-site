@@ -731,7 +731,7 @@ The most recent work completed was the second round of aggressive mechanical fix
 The user's **most recent message** shifts focus to understanding the violation landscape visually: "for the authenticity, visual and content pillars, I need to know if they are a.) external user facing (Vs internal dashboard) and I need to know where across my portfolio of works the issues surface easily in a visual dashboard. I care more about my website than other places. But I need to see a dashboard to help me visualize what is going on."
 
 This requires:
-1. Classifying which HTML files are external-facing (kirangorapalli.com website) vs internal (Command Center dashboard)
+1. Classifying which HTML files are external-facing (kiranrao.ai website) vs internal (Command Center dashboard)
 2. Building a visual dashboard/view that maps violations to specific portfolio sections (teardowns, blog, prototypes, root pages)
 3. Prioritizing the website over internal tools
 
@@ -1276,7 +1276,7 @@ Neither of these is hurting you today. The readability criticals are on pages wh
 
 The real reason to care is if you want the compliance score to be a trustworthy signal. Right now it says 41/100, which makes your site look unhealthy — but the actual visitor experience is fine. The score is punishing you for things that don't matter to real users. That's a standards calibration problem, not a content problem.
 
-If it were me, I'd adjust the standards to match reality: raise the FK threshold for certification/credential content, exclude MadLab prototypes from readability checks, and downgrade annotation-sizing to "info-ignored" for SVG diagrams under a certain complexity. That way the score reflects what actually matters to someone visiting kirangorapalli.com.
+If it were me, I'd adjust the standards to match reality: raise the FK threshold for certification/credential content, exclude MadLab prototypes from readability checks, and downgrade annotation-sizing to "info-ignored" for SVG diagrams under a certain complexity. That way the score reflects what actually matters to someone visiting kiranrao.ai.
 
 ---
 
@@ -1366,7 +1366,7 @@ Now I'll change the scoring to per-file averaging. The key change is on line 363
 
 Same 175 violations, same files, same actual site quality. The difference is the scoring formula now reflects reality: most of your files are clean, and the violations that exist are concentrated in a handful of SVG-heavy diagram pages. Per-file averaging means one complex payment flow diagram doesn't drag your entire Visual pillar to zero.
 
-The numbers now match what a visitor would actually experience browsing kirangorapalli.com.
+The numbers now match what a visitor would actually experience browsing kiranrao.ai.
 
 ---
 
@@ -1385,7 +1385,7 @@ This session is being continued from a previous conversation that ran out of con
 Summary:
 1. Primary Request and Intent:
 
-The user (Kiran) has been building a Standards & Compliance Dashboard for his Command Center website (kirangorapalli.com). This session continued from a previous one that brought the compliance score from 12→30.
+The user (Kiran) has been building a Standards & Compliance Dashboard for his Command Center website (kiranrao.ai). This session continued from a previous one that brought the compliance score from 12→30.
 
 **Sequential requests in this session:**
 - Build a visual portfolio health dashboard showing where violations surface across the website, classified as external vs internal, with emphasis on the website

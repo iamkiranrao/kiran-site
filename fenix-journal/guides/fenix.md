@@ -10,7 +10,7 @@ version: 2
 
 ## Overview
 
-Fenix is a conversational AI assistant embedded across kirangorapalli.com that answers questions about Kiran's work, experience, and expertise. It's not Kiran, but rather a knowledgeable guide that translates portfolio content into whatever context a visitor needs.
+Fenix is a conversational AI assistant embedded across kiranrao.ai that answers questions about Kiran's work, experience, and expertise. It's not Kiran, but rather a knowledgeable guide that translates portfolio content into whatever context a visitor needs.
 
 Fenix operates in two distinct modes:
 
@@ -40,7 +40,7 @@ The widget (`fenix-widget.js`) is a self-contained IIFE (immediately-invoked fun
 **Configuration:**
 
 ```javascript
-const API_BASE = 'https://api.kirangorapalli.com';
+const API_BASE = 'https://api.kiranrao.ai';
 const CHAT_ENDPOINT = `${API_BASE}/api/v1/fenix/chat`;
 const MAX_MESSAGE_LENGTH = 2000;
 const FLAME_ON_KEY = 'fenix_flame_on';
@@ -56,7 +56,7 @@ The widget automatically:
 
 ### Backend: FastAPI on Vercel
 
-The backend (`fenix_service.py`) runs on Vercel serverless at api.kirangorapalli.com and orchestrates the entire chat pipeline:
+The backend (`fenix_service.py`) runs on Vercel serverless at api.kiranrao.ai and orchestrates the entire chat pipeline:
 
 1. **Conversation management:** Creates or retrieves conversation from Supabase
 2. **Persona inference:** Analyzes user message + history for hiring_manager, engineer, collaborator, or curious
@@ -204,7 +204,7 @@ The initial release brings the following online:
 - Dashboard analytics (conversation count, personas, sources)
 - Dark/light mode support
 
-All deployed and live on kirangorapalli.com across 16+ pages.
+All deployed and live on kiranrao.ai across 16+ pages.
 
 ### Phase 6: Agentic Fenix (April 8, 2026)
 
@@ -292,13 +292,13 @@ Pills (quick-action buttons below the chat) upgraded from static to contextual. 
 
 **Original chat (all pages):**
 ```
-POST https://api.kirangorapalli.com/api/v1/fenix/chat
+POST https://api.kiranrao.ai/api/v1/fenix/chat
 ```
 Response: SSE with session, persona, chunk, citations, nudge, done events.
 
 **Agent (evaluator page):**
 ```
-POST https://api.kirangorapalli.com/api/v1/fenix/agent
+POST https://api.kiranrao.ai/api/v1/fenix/agent
 {
   "messages": [{"role": "user", "content": "..."}],
   "visitor": {"persona": "evaluator", "name": null, "connected": false},
@@ -309,7 +309,7 @@ Response: SSE with text_start, text_delta, text_end, tool_use, suggested_pills, 
 
 **Health check:**
 ```
-GET https://api.kirangorapalli.com/api/health
+GET https://api.kiranrao.ai/api/health
 ```
 
 ---

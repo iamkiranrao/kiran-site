@@ -14,5 +14,5 @@
 | MadLab | v1 | 2026-03-11 | `madlab.md` |
 | Resume Customizer | v1 | 2026-03-11 | `resume-customizer.md` |
 | Teardown Builder | v1 | 2026-03-11 | `teardown-builder.md` |
-| Website (kirangorapalli.com) | v1 | 2026-03-11 | `website.md` |
+| Website (kiranrao.ai) | v1 | 2026-03-11 | `website.md` |
 | WordWeaver | v1 | 2026-03-11 | `wordweaver.md` |

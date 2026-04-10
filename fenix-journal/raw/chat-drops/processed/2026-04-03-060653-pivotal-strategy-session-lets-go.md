@@ -314,7 +314,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -453,7 +453,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -476,7 +476,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -534,13 +534,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names
@@ -909,7 +909,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -1048,7 +1048,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -1071,7 +1071,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -1129,13 +1129,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names
@@ -1256,7 +1256,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   Kiran initiated a "Pivotal Strategy Session" to deep dive into three interconnected systems for kirangorapalli.com: (1) Persona Unlock — what each persona gets after selection, split into anonymous and connected tiers; (2) Fenix Introduction — the AI concierge's first appearance, guiding visitors through unlocks; (3) Connect Module — the conversion mechanism turning anonymous personas into identified persons. The session evolved from high-level architecture into a detailed deep dive on the Evaluator (Merritt/Recruiter) persona, with Kiran providing rich feedback on specific unlock ideas, emphasizing taking it slow, going persona by persona, and maintaining context across sessions. Kiran explicitly requested session capture and organizational setup before deep diving, creation of UNLOCK-STRATEGY.md as a foundational doc, and clear numbered/headed formatting in responses.
+   Kiran initiated a "Pivotal Strategy Session" to deep dive into three interconnected systems for kiranrao.ai: (1) Persona Unlock — what each persona gets after selection, split into anonymous and connected tiers; (2) Fenix Introduction — the AI concierge's first appearance, guiding visitors through unlocks; (3) Connect Module — the conversion mechanism turning anonymous personas into identified persons. The session evolved from high-level architecture into a detailed deep dive on the Evaluator (Merritt/Recruiter) persona, with Kiran providing rich feedback on specific unlock ideas, emphasizing taking it slow, going persona by persona, and maintaining context across sessions. Kiran explicitly requested session capture and organizational setup before deep diving, creation of UNLOCK-STRATEGY.md as a foundational doc, and clear numbered/headed formatting in responses.
 
 2. Key Technical Concepts:
    - Two-tier unlock architecture: "Explore freely" (anonymous) + "Connect to unlock" (identity-gated)
@@ -2351,7 +2351,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -2490,7 +2490,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -2513,7 +2513,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -2571,13 +2571,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names
@@ -2802,7 +2802,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   Kiran initiated a continuation of the "Pivotal Strategy Session" for kirangorapalli.com, with the explicit goal of designing one complete end-to-end user journey for a single persona — the Evaluator (Merritt Hunter / Recruiter). His direction: "No lets solve for the most complex and important. If we do the hard things - we should be able to navigate the easier ones more nimbly. go slow to go fast." The session covered 7 major design surfaces in sequence: (1a) visual format for unlock cards, (1b) Fenix's Evaluator introduction, (1c) Connect moment mechanics, (2a) Resume Lens unlock content, (2b) "What Recruiters Never Ask" personality unlock, (2c) Dual Fit Score flow, (3a-3b) post-connect flow and pager escalation. Kiran explicitly requested continuous logging: "Log and update your md files as we go along please. The work will spill over multiple sessions." He also requested parallel tracks: a "you track" (Claude builds mockup) and a "me track" (Kiran does homework on recruiter question answers). Near the end, Kiran asked for an honest assessment of whether the work is meaningfully contributing toward his career objectives.
+   Kiran initiated a continuation of the "Pivotal Strategy Session" for kiranrao.ai, with the explicit goal of designing one complete end-to-end user journey for a single persona — the Evaluator (Merritt Hunter / Recruiter). His direction: "No lets solve for the most complex and important. If we do the hard things - we should be able to navigate the easier ones more nimbly. go slow to go fast." The session covered 7 major design surfaces in sequence: (1a) visual format for unlock cards, (1b) Fenix's Evaluator introduction, (1c) Connect moment mechanics, (2a) Resume Lens unlock content, (2b) "What Recruiters Never Ask" personality unlock, (2c) Dual Fit Score flow, (3a-3b) post-connect flow and pager escalation. Kiran explicitly requested continuous logging: "Log and update your md files as we go along please. The work will spill over multiple sessions." He also requested parallel tracks: a "you track" (Claude builds mockup) and a "me track" (Kiran does homework on recruiter question answers). Near the end, Kiran asked for an honest assessment of whether the work is meaningfully contributing toward his career objectives.
 
 2. Key Technical Concepts:
    - Two-tier unlock architecture: anonymous (explore freely) + connected (identity-gated)
@@ -3825,7 +3825,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -3964,7 +3964,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -3987,7 +3987,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -4045,13 +4045,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names

@@ -10,7 +10,7 @@ version: 1.1
 
 ## Overview
 
-Persona Picker is a one-time conversion tool on the kirangorapalli.com landing page that asks visitors to select one of 6 illustrated personas. Each persona represents a different archetype (role, industry, career stage) within Kiran's target audience. Selection personalizes the Fenix chat agent experience — greeting, suggested prompts, tone, depth, and accent color in the widget. The main site (index.html) is universal; persona-driven customization lives in Fenix.
+Persona Picker is a one-time conversion tool on the kiranrao.ai landing page that asks visitors to select one of 6 illustrated personas. Each persona represents a different archetype (role, industry, career stage) within Kiran's target audience. Selection personalizes the Fenix chat agent experience — greeting, suggested prompts, tone, depth, and accent color in the widget. The main site (index.html) is universal; persona-driven customization lives in Fenix.
 
 The tool serves anyone who visits the site — it's the front door to a personalized guide experience, not a recruitment-specific funnel. The 6 personas are: Evaluator (Merritt), Seeker (Phil), Practitioner (Drew), Learner (Paige), Technologist (Ray Turing — replaced Explorer in Mar 2026), and Inner Circle (Keshav). Practitioner was reframed from PM-specific to cross-disciplinary ("Product · Design · Data").
 
@@ -126,7 +126,7 @@ Persona Picker is built with vanilla HTML/CSS/JS (zero dependencies) for maximum
 ### Page Integration
 
 **Landing Page Flow:**
-1. User visits kirangorapalli.com
+1. User visits kiranrao.ai
 2. Above the fold: Persona Picker modal appears
 3. User selects one persona and clicks "Continue"
 4. JavaScript stores choice in localStorage
@@ -203,7 +203,7 @@ Plan to generate personalized welcome video for each persona using HeyGen's Pixa
 
 **Files:**
 - Production source: `/Users/kiran/Kiran's Website/persona-picker-v4-production.html`
-- Live file: `persona-picker.html` (on kirangorapalli.com)
+- Live file: `persona-picker.html` (on kiranrao.ai)
 - Images: `assets/personas/` directory (WebP + PNG fallbacks)
 - Midjourney exports: `prototypes/persona-picker/midjourney-exports/` (archival)
 
@@ -239,7 +239,7 @@ Persona Picker is intended for hand-picked contacts, but if the link goes public
 ## Ideas & Future Direction
 
 **Personalized Landing Links**
-Generate unique URLs with pre-selected personas (e.g., `kirangorapalli.com/?persona=engineer`) for personalized outreach. Send these links in recruitment emails so the recipient's journey is immediately personalized.
+Generate unique URLs with pre-selected personas (e.g., `kiranrao.ai/?persona=engineer`) for personalized outreach. Send these links in recruitment emails so the recipient's journey is immediately personalized.
 
 **A/B Testing Personas**
 Collect analytics on which personas are selected most by traffic source, geography, referrer. Use data to refine messaging or add/remove personas.
@@ -266,7 +266,7 @@ Show testimonials from people with the same persona ("Appreciate the technical d
 
 ## Relationship to Other Components
 
-**Persona Picker is independent** — it lives on the static site (kirangorapalli.com) and doesn't depend on Command Center or Fenix backend. However, it does integrate with Fenix chat to personalize responses.
+**Persona Picker is independent** — it lives on the static site (kiranrao.ai) and doesn't depend on Command Center or Fenix backend. However, it does integrate with Fenix chat to personalize responses.
 
 **Fenix Assistant** reads the `@persona_selected` localStorage value and adjusts its system prompt accordingly. Same conversation engine, different context per persona.
 

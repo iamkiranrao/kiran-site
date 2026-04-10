@@ -23,7 +23,7 @@ total_words: 32908
 ### Kiran `08:49`
 
 Context: Kiran's Portfolio Site — Fenix AI Assistant (Phase 5 Complete)
-I'm building a conversational AI assistant called "Fenix" for my portfolio site at kirangorapalli.com. Phase 5 (Fenix MVP) is complete and live. Here's the full technical context:
+I'm building a conversational AI assistant called "Fenix" for my portfolio site at kiranrao.ai. Phase 5 (Fenix MVP) is complete and live. Here's the full technical context:
 Architecture:
 * Frontend: Vanilla JS widget (IIFE, no dependencies) — `fenix-widget.js` + `fenix-widget.css` loaded on every page via `<script defer>` and `<link>`
 * Backend: Python FastAPI on Vercel serverless (`fenix-backend` repo)
@@ -37,7 +37,7 @@ Infrastructure & Credentials:
 * Voyage AI key: `pa-[REDACTED]`
 * GitHub PAT (fenix-backend): `ghp_[REDACTED]`
 * kiran-site GitHub PAT: `github_pat_[REDACTED]`
-* Vercel project: `fenix-backend-omega.vercel.app` / `api.kirangorapalli.com`
+* Vercel project: `fenix-backend-omega.vercel.app` / `api.kiranrao.ai`
 * Cloudflare account: `e3f38eca2b3f09c372c146fba713c0bd`
 Repos:
 * `fenix-backend` — Python FastAPI backend (clone with fenix-backend PAT from `github.com/iamkiranrao/fenix-backend.git`)
@@ -161,7 +161,7 @@ All fixed and deployed. Here's the summary of what changed:
 - Changed the auto-FAB (for pages *without* a hardcoded button) to use `.ai-assistant-wrapper` / `.ai-assistant` classes, so it inherits your teal/glow/bounce styling from `styles.css`
 - Updated open/close handlers to target `.ai-assistant-wrapper` consistently
 
-The change is already live on kirangorapalli.com — one consistent teal FAB with your glow and bounce on every page.
+The change is already live on kiranrao.ai — one consistent teal FAB with your glow and bounce on every page.
 
 ---
 
@@ -481,7 +481,7 @@ This session is being continued from a previous conversation that ran out of con
 Analysis:
 Let me go through the conversation chronologically:
 
-1. **Initial Context**: User (Kiran) provided extensive context about Fenix AI assistant on his portfolio site kirangorapalli.com. Architecture: vanilla JS frontend widget, Python FastAPI backend on Vercel, RAG pipeline with Voyage AI → Supabase pgvector → Claude API. All credentials, repo info, and DB schema provided.
+1. **Initial Context**: User (Kiran) provided extensive context about Fenix AI assistant on his portfolio site kiranrao.ai. Architecture: vanilla JS frontend widget, Python FastAPI backend on Vercel, RAG pipeline with Voyage AI → Supabase pgvector → Claude API. All credentials, repo info, and DB schema provided.
 
 2. **First Task - Fix Duplicate FAB**: User reported two overlapping widgets on home page - his original (teal, glow, bounce) and a new black one. 
    - Root cause: `fenix-widget.js` checked for `#fenix-fab` or `.fenix-fab` but the hardcoded FAB used `.ai-assistant` class
@@ -530,7 +530,7 @@ Key errors encountered:
 
 Summary:
 1. Primary Request and Intent:
-   Kiran is building and iterating on "Fenix," a RAG-powered conversational AI assistant embedded on his portfolio site kirangorapalli.com. The conversation covered multiple sequential tasks:
+   Kiran is building and iterating on "Fenix," a RAG-powered conversational AI assistant embedded on his portfolio site kiranrao.ai. The conversation covered multiple sequential tasks:
    - Fix duplicate FAB buttons on the home page (original teal one + new black one overlapping)
    - Use the same FAB logo image inside the chat widget header avatar
    - Update the welcome text in the chat widget
@@ -641,7 +641,7 @@ Summary:
      - The main chat pipeline. Contains system prompt, persona inference, conversation management, nudge engine, training queue, and streaming logic.
      - **System prompt rewrite** (FENIX_BASE_PROMPT, lines 113-153):
      ```python
-     FENIX_BASE_PROMPT = """You are Fenix, an AI assistant on Kiran Rao's portfolio site (kirangorapalli.com).
+     FENIX_BASE_PROMPT = """You are Fenix, an AI assistant on Kiran Rao's portfolio site (kiranrao.ai).
 
      ## Who You Are
      - You are Fenix — a distinct assistant, NOT Kiran himself
@@ -1166,7 +1166,7 @@ The current work is trying to create the fenix-reindex.yml workflow file in the 
 
 Summary:
 1. Primary Request and Intent:
-   Kiran is building and iterating on "Fenix," a RAG-powered conversational AI assistant embedded on his portfolio site kirangorapalli.com. This session continued from a prior conversation that covered: fixing duplicate FAB buttons, avatar image, welcome text, creating an iteration roadmap, discussing dashboard architecture, shipping response quality improvements (citation dedup, tighter system prompt, randomized pills, tooltip CSS), and making responses shorter (80 word cap).
+   Kiran is building and iterating on "Fenix," a RAG-powered conversational AI assistant embedded on his portfolio site kiranrao.ai. This session continued from a prior conversation that covered: fixing duplicate FAB buttons, avatar image, welcome text, creating an iteration roadmap, discussing dashboard architecture, shipping response quality improvements (citation dedup, tighter system prompt, randomized pills, tooltip CSS), and making responses shorter (80 word cap).
 
    **This session's tasks (in order):**
    - **Debug Airbnb RAG failure** (continued from previous session) — Fenix claimed it had no Airbnb content despite teardown existing on site
@@ -1668,7 +1668,7 @@ We found the CM6 view programmatic access path (`cmContent.cmTile.view`) which c
 
 Summary:
 1. Primary Request and Intent:
-   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kirangorapalli.com. This session continued from a previous session that had:
+   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kiranrao.ai. This session continued from a previous session that had:
    - Debugged Airbnb RAG failure (missing VOYAGE_API_KEY)
    - Added error logging to RAG pipeline
    - Diagnosed Apple Pay blog not being indexed (0 blog content in DB)
@@ -2342,7 +2342,7 @@ The second session covered:
    - Summary: "Fenix Re-Index Complete - Content has been re-indexed into Fenix's knowledge base."
 
 8. **Verification attempt - testing Fenix with Apple Pay question**
-   - Navigated to kirangorapalli.com
+   - Navigated to kiranrao.ai
    - Opened Fenix chat widget
    - Typed "What has Kiran written about Apple Pay?" in the input field
    - Clicked send button
@@ -2416,7 +2416,7 @@ Workflow YAML timeout change: 5 → 15 minutes
 
 Summary:
 1. Primary Request and Intent:
-   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kirangorapalli.com. The overarching goal from previous sessions was: **"I need to automate a process for all future content publication to be automatically consumed by fenix. I don't want to be writing code in terminal."**
+   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kiranrao.ai. The overarching goal from previous sessions was: **"I need to automate a process for all future content publication to be automatically consumed by fenix. I don't want to be writing code in terminal."**
 
    This session focused on:
    - Pushing the Voyage AI rate-limit fix to `fenix-backend/scripts/chunk_and_embed.py` via GitHub's web editor (since the fenix-backend PAT is expired)
@@ -2592,9 +2592,9 @@ Summary:
    - **fenix-backend PAT needs regeneration** — the current PAT `ghp_[REDACTED]` is expired, so any future direct git pushes to fenix-backend will require a new token
 
 8. Current Work:
-   I was verifying that Fenix can now answer questions about blog content after the successful re-index. I navigated to kirangorapalli.com, opened the Fenix chat widget, typed "What has Kiran written about Apple Pay?" in the input field, and clicked the send button. The last screenshot still shows the question in the input field with the welcome screen visible — it's unclear if the send action registered or if Fenix is still loading a response.
+   I was verifying that Fenix can now answer questions about blog content after the successful re-index. I navigated to kiranrao.ai, opened the Fenix chat widget, typed "What has Kiran written about Apple Pay?" in the input field, and clicked the send button. The last screenshot still shows the question in the input field with the welcome screen visible — it's unclear if the send action registered or if Fenix is still loading a response.
 
-   The browser tab (tabId: 1831709514) is on `https://kirangorapalli.com/` with the Fenix chat widget open.
+   The browser tab (tabId: 1831709514) is on `https://kiranrao.ai/` with the Fenix chat widget open.
 
 9. Optional Next Step:
    Retry sending the Apple Pay question to Fenix (the send button click may not have registered) and verify Fenix returns a knowledgeable response about the Apple Pay blog content. This directly continues the verification step that was in progress. The last action was clicking the send button at coordinate (1519, 640) on the Fenix chat widget, with the text "What has Kiran written about Apple Pay?" in the input field.
@@ -2708,7 +2708,7 @@ So it reads from `core.config.get_settings()`. Let me check that config file.
 
 ### Claude `18:00`
 
-I can see the Vercel dashboard with the `fenix-backend` project (api.kirangorapalli.com). Let me click on it to access its settings and environment variables.
+I can see the Vercel dashboard with the `fenix-backend` project (api.kiranrao.ai). Let me click on it to access its settings and environment variables.
 
 ---
 
@@ -2721,7 +2721,7 @@ Let me trace through the entire conversation chronologically.
 
 **Context from Previous Sessions (via summary):**
 The conversation started from TWO previous sessions covering:
-1. Fixed UI bugs on kirangorapalli.com (duplicate FAB, chat avatar, welcome text)
+1. Fixed UI bugs on kiranrao.ai (duplicate FAB, chat avatar, welcome text)
 2. Created FENIX-ITERATION.md roadmap
 3. Made Fenix responses shorter (80 word cap)
 4. Debugged Airbnb RAG failure - root cause was missing VOYAGE_API_KEY in Vercel
@@ -2738,7 +2738,7 @@ The conversation started from TWO previous sessions covering:
 
 **This Session (Session 4) - Continuation:**
 
-1. **Reconnected to browser** - tabs_context_mcp showed 6 tabs including kirangorapalli.com and the GitHub Actions run page.
+1. **Reconnected to browser** - tabs_context_mcp showed 6 tabs including kiranrao.ai and the GitHub Actions run page.
 
 2. **Tried to verify Fenix chat** - The Fenix chat widget was open with "What has Kiran written about Apple Pay?" still in the input field. The previous send hadn't gone through.
 
@@ -2811,7 +2811,7 @@ Tabs:
 
 Summary:
 1. Primary Request and Intent:
-   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kirangorapalli.com. The overarching goal from previous sessions: **"I need to automate a process for all future content publication to be automatically consumed by fenix. I don't want to be writing code in terminal."**
+   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kiranrao.ai. The overarching goal from previous sessions: **"I need to automate a process for all future content publication to be automatically consumed by fenix. I don't want to be writing code in terminal."**
 
    This session continued verifying that the automated re-index pipeline works end-to-end, specifically testing whether Fenix can now answer questions about newly indexed blog content. The GitHub Actions workflow (Run #4) had already succeeded in the previous session (152 chunks, 19 pages embedded in ~9 minutes). This session focused on the verification step and debugging why Fenix couldn't retrieve the embedded content.
 
@@ -3203,7 +3203,7 @@ Let me trace through this conversation carefully.
 
 **Context from Previous Sessions (via summary):**
 The conversation started from multiple previous sessions covering:
-1. Fixed UI bugs on kirangorapalli.com
+1. Fixed UI bugs on kiranrao.ai
 2. Created FENIX-ITERATION.md roadmap
 3. Made Fenix responses shorter (80 word cap)
 4. Debugged Airbnb RAG failure - root cause was missing VOYAGE_API_KEY in Vercel
@@ -3283,7 +3283,7 @@ Tabs:
 
 Summary:
 1. Primary Request and Intent:
-   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kirangorapalli.com. The overarching goal from previous sessions: **"I need to automate a process for all future content publication to be automatically consumed by fenix. I don't want to be writing code in terminal."**
+   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kiranrao.ai. The overarching goal from previous sessions: **"I need to automate a process for all future content publication to be automatically consumed by fenix. I don't want to be writing code in terminal."**
 
    This session continued verifying that the automated re-index pipeline works end-to-end. The GitHub Actions workflow (Run #4) had already succeeded (152 chunks, 19 pages embedded). This session focused on debugging why Fenix couldn't retrieve the embedded content despite everything appearing correctly configured (VOYAGE_API_KEY set in Vercel, 112 chunks with 512-dim embeddings in Supabase, correct match function).
 
@@ -3398,7 +3398,7 @@ Summary:
    - Tab 1831709523-1831709529: Various site pages and GitHub Actions
 
 9. Optional Next Step:
-   Check the Vercel deployment status for fenix-backend. Once the deployment completes (should be triggered automatically by the push to main), navigate to kirangorapalli.com, open the Fenix chat widget, and test with a question like "What has Kiran written about AI adoption at banks?" or "Tell me about Kiran's blog post on Bank of America AI adoption" to verify that RAG retrieval now works correctly.
+   Check the Vercel deployment status for fenix-backend. Once the deployment completes (should be triggered automatically by the push to main), navigate to kiranrao.ai, open the Fenix chat widget, and test with a question like "What has Kiran written about AI adoption at banks?" or "Tell me about Kiran's blog post on Bank of America AI adoption" to verify that RAG retrieval now works correctly.
 
    The task being completed is verifying the automated re-index pipeline end-to-end: content is indexed → embeddings stored → RAG retrieval works → Fenix answers questions using blog content.
 
@@ -3731,7 +3731,7 @@ Let me trace through this conversation carefully.
 
 **Context from Previous Sessions (via summary at start):**
 The conversation spans multiple sessions covering:
-1. Fixed UI bugs on kirangorapalli.com
+1. Fixed UI bugs on kiranrao.ai
 2. Created FENIX-ITERATION.md roadmap
 3. Made Fenix responses shorter (80 word cap)
 4. Debugged Airbnb RAG failure - root cause was missing VOYAGE_API_KEY in Vercel
@@ -3758,7 +3758,7 @@ The conversation spans multiple sessions covering:
 
 3. **Vercel Deployment Check**: Screenshot showed deployment `6hbLyv9pT` with commit "Fix f-string format spec bug in RAG retrieval log..." was Ready, Production, Current (deployed 6 minutes ago).
 
-4. **First Fenix Test**: Navigated to kirangorapalli.com, opened Fenix chat widget, typed "What has Kiran written about AI adoption at banks?" using form_input on the textarea, clicked send button.
+4. **First Fenix Test**: Navigated to kiranrao.ai, opened Fenix chat widget, typed "What has Kiran written about AI adoption at banks?" using form_input on the textarea, clicked send button.
 
 5. **Test Result - FAILED**: After 10 seconds, Fenix showed two error messages: "Something went wrong." and "No response received. Please try again."
 
@@ -3799,7 +3799,7 @@ The conversation spans multiple sessions covering:
 
 10. **Vercel Deployment**: Checked deployments page - new deployment `CeaPu6aYq` with commit `8225157` was already Ready/Current.
 
-11. **Second Fenix Test**: Navigated to kirangorapalli.com, opened Fenix chat widget, typed "What has Kiran written about AI adoption at banks?" using form_input, found the send button. Was about to click send when the summary was requested.
+11. **Second Fenix Test**: Navigated to kiranrao.ai, opened Fenix chat widget, typed "What has Kiran written about AI adoption at banks?" using form_input, found the send button. Was about to click send when the summary was requested.
 
 Key repos and access:
 - kiran-site repo: PAT `github_pat_[REDACTED]` (scoped to kiran-site only)
@@ -3809,7 +3809,7 @@ Key repos and access:
 
 Summary:
 1. Primary Request and Intent:
-   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kirangorapalli.com. The overarching goal from previous sessions: **"I need to automate a process for all future content publication to be automatically consumed by fenix. I don't want to be writing code in terminal."**
+   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kiranrao.ai. The overarching goal from previous sessions: **"I need to automate a process for all future content publication to be automatically consumed by fenix. I don't want to be writing code in terminal."**
 
    This session continued the end-to-end verification of the automated re-index pipeline: content is indexed → embeddings stored → RAG retrieval works → Fenix answers questions using blog content. Specifically, testing Fenix after deploying a fix for an f-string format spec bug in rag_service.py, discovering a follow-on indentation error, fixing it, and re-testing.
 
@@ -3903,12 +3903,12 @@ Summary:
    - **fenix-backend PAT needs regeneration** — current PAT `ghp_[REDACTED]` is expired
 
 8. Current Work:
-   I just committed the indentation fix to `fenix-backend/services/rag_service.py` (commit `8225157`, message "Fix indentation on RAG logging lines (4 spaces, not 8)"). Vercel deployment `CeaPu6aYq` is already live and Ready. I navigated to kirangorapalli.com, opened the Fenix chat widget, typed "What has Kiran written about AI adoption at banks?" into the input field using `form_input`, and found the send button (`ref_202`). I was about to click the send button to test whether the fix resolved the RAG retrieval issue.
+   I just committed the indentation fix to `fenix-backend/services/rag_service.py` (commit `8225157`, message "Fix indentation on RAG logging lines (4 spaces, not 8)"). Vercel deployment `CeaPu6aYq` is already live and Ready. I navigated to kiranrao.ai, opened the Fenix chat widget, typed "What has Kiran written about AI adoption at banks?" into the input field using `form_input`, and found the send button (`ref_202`). I was about to click the send button to test whether the fix resolved the RAG retrieval issue.
 
    Browser tabs:
    - Tab 1831709510: Supabase Table Editor
    - Tab 1831709514: github.dev (VS Code) for rag_service.py
-   - Tab 1831709523: kirangorapalli.com with Fenix chat open and message typed
+   - Tab 1831709523: kiranrao.ai with Fenix chat open and message typed
    - Tab 1831709526: Blog post page
    - Tab 1831709520: GitHub file view of rag_service.py (after commit)
    - Tab 1831709529: Vercel deployments page
@@ -4012,7 +4012,7 @@ Let me trace through the conversation chronologically:
 
 **Previous Sessions (from summary at start):**
 The conversation spans multiple sessions covering:
-1. Fixed UI bugs on kirangorapalli.com
+1. Fixed UI bugs on kiranrao.ai
 2. Created FENIX-ITERATION.md roadmap
 3. Made Fenix responses shorter (80 word cap)
 4. Debugged Airbnb RAG failure - root cause was missing VOYAGE_API_KEY in Vercel
@@ -4039,7 +4039,7 @@ The conversation spans multiple sessions covering:
 
 **This session (session 7):**
 
-1. Started from continuation context. Took screenshot of kirangorapalli.com with Fenix chat open, message "What has Kiran written about AI adoption at banks?" typed in.
+1. Started from continuation context. Took screenshot of kiranrao.ai with Fenix chat open, message "What has Kiran written about AI adoption at banks?" typed in.
 
 2. Clicked send button at coordinates (1455, 619) on tab 1831709523.
 
@@ -4124,14 +4124,14 @@ rag_context = await retrieve(
 **Browser tabs:**
 - Tab 1831709510: Supabase SQL Editor
 - Tab 1831709514: github.dev (VS Code) for rag_service.py
-- Tab 1831709523: kirangorapalli.com with Fenix chat (test message sent, got response with 0 RAG chunks)
+- Tab 1831709523: kiranrao.ai with Fenix chat (test message sent, got response with 0 RAG chunks)
 - Tab 1831709526: Blog post page
 - Tab 1831709520: GitHub file view of rag_service.py
 - Tab 1831709529: Vercel logs
 
 Summary:
 1. Primary Request and Intent:
-   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kirangorapalli.com. The overarching goal across sessions: **automate content indexing so new blog posts are automatically consumed by Fenix**. The automated pipeline (GitHub Actions → content_extractor.py → chunk_and_embed.py → Supabase pgvector) was built and works. The current task is **verifying end-to-end that Fenix can actually answer questions using the indexed blog content**, which led to debugging why RAG retrieval returns 0 chunks despite 112 embeddings in the database.
+   Kiran is building "Fenix," a RAG-powered conversational AI on his portfolio site kiranrao.ai. The overarching goal across sessions: **automate content indexing so new blog posts are automatically consumed by Fenix**. The automated pipeline (GitHub Actions → content_extractor.py → chunk_and_embed.py → Supabase pgvector) was built and works. The current task is **verifying end-to-end that Fenix can actually answer questions using the indexed blog content**, which led to debugging why RAG retrieval returns 0 chunks despite 112 embeddings in the database.
 
 2. Key Technical Concepts:
    - **RAG Pipeline**: Voyage AI (voyage-3-lite, 512 dims) → Supabase pgvector similarity search via `match_content_embeddings` RPC → context injection into Claude API prompt
@@ -4248,7 +4248,7 @@ Summary:
    Browser tabs:
    - Tab 1831709510: Supabase SQL Editor (verified DB health)
    - Tab 1831709514: github.dev (VS Code) for rag_service.py
-   - Tab 1831709523: kirangorapalli.com with Fenix chat (sent test, got 0 RAG chunks response)
+   - Tab 1831709523: kiranrao.ai with Fenix chat (sent test, got 0 RAG chunks response)
    - Tab 1831709526: Blog post page
    - Tab 1831709520: GitHub file view of rag_service.py (using for JS fetch of raw files)
    - Tab 1831709529: Vercel logs
@@ -4721,7 +4721,7 @@ Here's a prompt you can paste into a fresh chat:
 
 **Debug Fenix RAG: PostgREST returns 0 chunks despite valid embeddings**
 
-I need help fixing a bug in my Fenix AI assistant (kirangorapalli.com). The RAG retrieval returns 0 chunks at runtime even though the database is fully populated and the Supabase function works perfectly from SQL.
+I need help fixing a bug in my Fenix AI assistant (kiranrao.ai). The RAG retrieval returns 0 chunks at runtime even though the database is fully populated and the Supabase function works perfectly from SQL.
 
 **Stack:** Python/FastAPI on Vercel, Supabase pgvector, Voyage AI (voyage-3-lite, 512 dims)
 
@@ -4759,9 +4759,9 @@ In `search_similar_chunks()`, change the payload from sending the raw list to se
 1. Confirm or disprove the PostgREST vector casting theory
 2. Apply the fix (or a better one) via github.dev
 3. Add debug logging (embedding dims, first 3 values, raw Supabase response) so future issues are diagnosable from Vercel logs
-4. Verify end-to-end by testing Fenix on kirangorapalli.com after Vercel redeploys
+4. Verify end-to-end by testing Fenix on kiranrao.ai after Vercel redeploys
 
-**Access:** I have browser tabs open for Supabase SQL Editor, github.dev, Vercel logs, and kirangorapalli.com.
+**Access:** I have browser tabs open for Supabase SQL Editor, github.dev, Vercel logs, and kiranrao.ai.
 
 ---
 

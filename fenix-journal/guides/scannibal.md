@@ -52,7 +52,7 @@ Scannibal operates in 9 scan modes: Food Label, Menu, Supplement, Skincare, Plan
 
 ### Backend Stack
 
-**API Gateway:** FastAPI at `https://api.kirangorapalli.com`
+**API Gateway:** FastAPI at `https://api.kiranrao.ai`
 - **Vision Analysis Endpoint:** `POST /api/v1/scannibal/analyze` — receives base64-encoded image + scan mode
 - **Charity Selection Endpoint:** `POST /api/v1/scannibal/onboarding/charity` — records user's primary charity choice
 - **Scan History Endpoint:** `GET /api/v1/scannibal/history` (requires session token) — retrieves past scans
@@ -143,7 +143,7 @@ Implementing Stripe subscription, charity settlement workflow, revenue reporting
 **Live:**
 - **App:** TestFlight beta on iOS (Apple review pending for App Store release)
 - **Landing Page:** scannibal.app hosted on Squarespace with DNS A records pointing to Squarespace servers
-- **Backend:** API endpoints live at api.kirangorapalli.com; Gemini integration tested and stable
+- **Backend:** API endpoints live at api.kiranrao.ai; Gemini integration tested and stable
 - **Database:** Supabase tables created; scan history and charity preferences tracking active
 
 **Beta Metrics:**
@@ -221,11 +221,11 @@ Build a public dashboard showing total proceeds contributed to Feeding America a
 
 ## Relationship to Other Components
 
-**Scannibal is NOT a Command Center module** — it's a standalone iOS product. However, it's tracked as a workstream in CC action items and shares infrastructure with the main site (API at api.kirangorapalli.com, Supabase database).
+**Scannibal is NOT a Command Center module** — it's a standalone iOS product. However, it's tracked as a workstream in CC action items and shares infrastructure with the main site (API at api.kiranrao.ai, Supabase database).
 
 **The DIA Fund** integration: Scannibal's charity revenue flows to DIA Fund's approved partners (Feeding America, Best Friends). DIA Fund landing page references Scannibal as a funding mechanism.
 
-**kirangorapalli.com** includes a link to scannibal.app in the navigation and portfolio section, but Scannibal is positioned as a separate product, not a portfolio case study.
+**kiranrao.ai** includes a link to scannibal.app in the navigation and portfolio section, but Scannibal is positioned as a separate product, not a portfolio case study.
 
 ---
 

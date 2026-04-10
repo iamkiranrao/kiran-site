@@ -27,7 +27,7 @@ Use this when starting a new chat session
 Paste this into your new chat:
 
 ```
-Continue work on the persona picker for kirangorapalli.com. We completed a major creative direction pivot last session. Read these files in order:
+Continue work on the persona picker for kiranrao.ai. We completed a major creative direction pivot last session. Read these files in order:
 
 1. persona-picker-design-spec.md — Original design decisions and persona definitions
 2. midjourney-prompts-v4.md — THE CURRENT DIRECTION: portrait 3:4 cards, glassmorphism, new names, new demographics, new poses, persona-colored accent lighting. This is the source of truth.
@@ -566,7 +566,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran) wants to continue building the persona picker for kirangorapalli.com. The project underwent a major creative pivot to portrait 3:4 cards with glassmorphism. The work spans two tracks: (A) making the HTML/CSS/JS production-ready (Phase 2), and (B) generating 6 Midjourney portrait character images (Phase 1). The persona picker is a ONE-TIME conversion tool for 30-50 hand-picked outreach targets at dream companies (Anthropic, Apple, Google, Disney, Pixar, Adobe). Every visitor gets ONE first impression — the experience must be exceptional.
+   The user (Kiran) wants to continue building the persona picker for kiranrao.ai. The project underwent a major creative pivot to portrait 3:4 cards with glassmorphism. The work spans two tracks: (A) making the HTML/CSS/JS production-ready (Phase 2), and (B) generating 6 Midjourney portrait character images (Phase 1). The persona picker is a ONE-TIME conversion tool for 30-50 hand-picked outreach targets at dream companies (Anthropic, Apple, Google, Disney, Pixar, Adobe). Every visitor gets ONE first impression — the experience must be exceptional.
 
 2. Key Technical Concepts:
    - Glassmorphism (backdrop-filter blur + semi-transparent backgrounds)
@@ -959,7 +959,7 @@ We're getting close to context limits, yeah. Here's your continuation prompt —
 ---
 
 ```
-## Continue: Persona Picker v4 for kirangorapalli.com
+## Continue: Persona Picker v4 for kiranrao.ai
 
 ### What's Done
 - **Phase 1 COMPLETE**: All 6 Midjourney characters generated and saved as WebP + PNG in `images/` folder

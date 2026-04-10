@@ -10,7 +10,7 @@ version: 1
 
 ## Overview
 
-Tools & Links is a central reference hub for all external dashboards, analytics services, and infrastructure tools that support kirangorapalli.com and its products. It provides quick-access cards organized by category with contextual help guides, maintenance checklists, and direct links to each service.
+Tools & Links is a central reference hub for all external dashboards, analytics services, and infrastructure tools that support kiranrao.ai and its products. It provides quick-access cards organized by category with contextual help guides, maintenance checklists, and direct links to each service.
 
 The module combines two things:
 
@@ -43,7 +43,7 @@ This separation keeps the dashboard UI lightweight while enabling rich, in-depth
   5. SEO & Performance (Search Console, PageSpeed Insights, Lighthouse CI)
   6. Command Center Backend (FastAPI, Swagger Docs)
   7. Products (Scannibal TestFlight, DIA Fund Squarespace)
-  8. Live Site (kirangorapalli.com, Status Page)
+  8. Live Site (kiranrao.ai, Status Page)
 
 - **Contextual Help Button:**
   - Click ? icon → slide-out panel (right side on desktop, bottom sheet on mobile) with full guide content

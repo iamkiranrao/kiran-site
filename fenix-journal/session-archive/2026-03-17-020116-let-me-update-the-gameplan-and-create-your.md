@@ -4737,7 +4737,7 @@ Both repos are now pushed to production. Here's the summary:
 
 **Scannibal API** (scannibal.app) — pushed: charity language updates, beverage card on landing page, terms of service, prompts
 
-**Main website** (kirangorapalli.com) — pushed 208 files: Scannibal assets & images, command center modules, Fenix journal entries, site-wide updates to teardowns/blog/landing pages
+**Main website** (kiranrao.ai) — pushed 208 files: Scannibal assets & images, command center modules, Fenix journal entries, site-wide updates to teardowns/blog/landing pages
 
 **Not pushed** (intentionally excluded):
 - `fenix-journal/session-archive/` and `raw/chat-drops/processed/` — these contain GitHub Personal Access Tokens embedded in captured chat transcripts. You'll want to redact those tokens before committing, or add `fenix-journal/session-archive/` to your `.gitignore`

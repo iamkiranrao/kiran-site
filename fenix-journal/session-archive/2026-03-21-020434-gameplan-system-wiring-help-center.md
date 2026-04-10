@@ -869,7 +869,7 @@ So 7 + 3 = **10 guides need to be written** to make the system exhaustive.
 The current Tools page is missing several things you actively use:
 
 - **Scannibal** — no link to scannibal.app or the Expo project or the GitHub repo (if it exists). The current "Scannibal (TestFlight)" link just goes to testflight.apple.com generically, not to the specific Scannibal TestFlight
-- **The DIA Fund** — thediafund.org is a real deployed site on Squarespace. The current link only goes to the kirangorapalli.com/the-dia-fund.html page, not the actual thediafund.org domain
+- **The DIA Fund** — thediafund.org is a real deployed site on Squarespace. The current link only goes to the kiranrao.ai/the-dia-fund.html page, not the actual thediafund.org domain
 - **Google Search Console** — has a link but no tool guide (we added one in Task 3, good)
 - **Squarespace** — hosts thediafund.org, not listed anywhere
 - **Expo/EAS** — if Scannibal uses Expo, there's likely an EAS dashboard
@@ -1031,9 +1031,9 @@ Summary:
    - `docs/Foundation/ToolGuides/microsoft-clarity.md` — Clarity guide (project vpgxcc8q5n), session recordings, heatmaps, dead clicks
    - `docs/Foundation/ToolGuides/github.md` — GitHub guide for kiran-site and fenix-backend repos, Actions reindex workflow, deployment flow
    - `docs/Foundation/ToolGuides/supabase.md` — Supabase guide (project gndzmmywtxvlukoavadj), SQL Editor for migrations, content_registry debugging
-   - `docs/Foundation/ToolGuides/cloudflare.md` — Cloudflare Pages guide for kirangorapalli.com hosting, deploys, cache, DNS
+   - `docs/Foundation/ToolGuides/cloudflare.md` — Cloudflare Pages guide for kiranrao.ai hosting, deploys, cache, DNS
    - `docs/Foundation/ToolGuides/vercel.md` — Vercel guide for Fenix backend (fenix-backend-omega.vercel.app), env vars, function logs
-   - `docs/Foundation/ToolGuides/google-search-console.md` — GSC guide (sc-domain:kirangorapalli.com), indexing, performance, sitemap
+   - `docs/Foundation/ToolGuides/google-search-console.md` — GSC guide (sc-domain:kiranrao.ai), indexing, performance, sitemap
    - `docs/Foundation/ToolGuides/MAINTENANCE-CHECKLIST.md` — Aggregated checklist: after every publish, weekly (15min), monthly (30min), quarterly (1hr), when something breaks triage order
 
    - `command-center/backend/services/tool_guides_service.py` — Reads markdown from `docs/Foundation/ToolGuides/`, extracts title/summary/sections, serves via list and detail endpoints

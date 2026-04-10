@@ -2423,7 +2423,7 @@ The file ends at line 588 — no route handler here. The actual API routes must 
 
 ### Claude `05:45`
 
-The API handler is likely deployed elsewhere (on Vercel as serverless). The chat endpoint at `api.kirangorapalli.com/api/v1/fenix/chat` calls `chat_stream()`. Since I can't find the route definition locally, the handler is probably on the deployed side. Let me check the widget to see what payload it sends, so I know what field name to use:
+The API handler is likely deployed elsewhere (on Vercel as serverless). The chat endpoint at `api.kiranrao.ai/api/v1/fenix/chat` calls `chat_stream()`. Since I can't find the route definition locally, the handler is probably on the deployed side. Let me check the widget to see what payload it sends, so I know what field name to use:
 
 ---
 
@@ -2794,7 +2794,7 @@ Done. Here's how the guides are now organized — 12 total, with clean separatio
 
 **The three you asked for:**
 - **`command-center.md`** (1,789W) — The admin platform itself: FastAPI + Next.js, all 15 routers, local-only, hosts all the tools
-- **`website.md`** (1,790W) — The portfolio site at kirangorapalli.com: static HTML/CSS/JS, Cloudflare Pages, design system
+- **`website.md`** (1,790W) — The portfolio site at kiranrao.ai: static HTML/CSS/JS, Cloudflare Pages, design system
 - **`fenix.md`** (2,273W) — The AI assistant end-to-end: widget, RAG pipeline, persona system, Flame On mode, training data
 
 **And the rest, now properly scoped:**
@@ -4658,7 +4658,7 @@ Great question. Let me break down what's happening and the full picture.
 The embedding process is taking all 72 files in your `fenix-journal/` folder — your build observations, session archives, "About Kiran" entries, "Build Journey" entries, "Connecting Threads" — and converting them into vector embeddings. Each file gets split into chunks, each chunk gets turned into a numerical representation (via Voyage AI's API), and those vectors get stored in your Supabase `content_embeddings` table tagged as `source_type: flame_on`. It's slow because Voyage AI's free tier rate-limits us to roughly 3 requests per minute, and the VM keeps killing the process, so I keep restarting it.
 
 **What this enables:**
-When Flame On is toggled on in the widget, Fenix searches these embeddings instead of (or in addition to) the published site content. So instead of only knowing what's on kirangorapalli.com, Fenix can draw from your raw thinking, build process, journal reflections, and session notes. It's the difference between "polished portfolio Fenix" and "behind-the-scenes Fenix."
+When Flame On is toggled on in the widget, Fenix searches these embeddings instead of (or in addition to) the published site content. So instead of only knowing what's on kiranrao.ai, Fenix can draw from your raw thinking, build process, journal reflections, and session notes. It's the difference between "polished portfolio Fenix" and "behind-the-scenes Fenix."
 
 **The end-to-end Flame On pipeline:**
 
@@ -5196,7 +5196,7 @@ Embeddings are **done**. All 332 chunks embedded and live in Supabase. Flame On 
 
 To your question — how to describe what you've built:
 
-The portfolio site (kirangorapalli.com) is your **personal platform**. It's not a static resume page — it's a living product. It has teardowns, blog posts, prototypes, career highlights, and Fenix (an AI assistant that knows your work and can have real conversations with visitors). It's closer to a personal product than a website.
+The portfolio site (kiranrao.ai) is your **personal platform**. It's not a static resume page — it's a living product. It has teardowns, blog posts, prototypes, career highlights, and Fenix (an AI assistant that knows your work and can have real conversations with visitors). It's closer to a personal product than a website.
 
 Command Center is the **operating system behind it**. I wouldn't call it a CMS because it does way more than manage content. It's where you:
 

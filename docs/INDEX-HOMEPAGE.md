@@ -9,7 +9,7 @@
 
 ## PAGE IDENTITY
 
-- **URL:** https://kirangorapalli.com/
+- **URL:** https://kiranrao.ai/
 - **Hosting:** Cloudflare Pages (deployed via GitHub → Cloudflare Workers)
 - **Stack:** Vanilla HTML/CSS/JS. No React, no build step. Inter font from Google Fonts.
 - **Analytics:** Google Analytics 4 (G-8Q795C1RJ5) + Microsoft Clarity (vpgxcc8q5n)

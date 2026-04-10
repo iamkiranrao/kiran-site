@@ -425,7 +425,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -564,7 +564,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -587,7 +587,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -645,13 +645,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names

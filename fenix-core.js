@@ -15,7 +15,7 @@
   'use strict';
 
   // ── Configuration Defaults ────────────────────────
-  var DEFAULT_AGENT_URL = 'https://api.kirangorapalli.com/api/v1/fenix/agent';
+  var DEFAULT_AGENT_URL = 'https://api.kiranrao.ai/api/v1/fenix/agent';
   var DEFAULT_MSG_CAP = 30;
   var _logoPath = 'images/logo.png'; // overridden by adapter.logoPath if set
 
@@ -56,18 +56,56 @@
     }
   };
 
+  // ── Conversation Mode Detection ────────────────────
+  // Two modes:
+  //   (a) Direct landing — fresh start, zero history, orient to THIS page.
+  //   (b) Fenix-guided navigation — ?fenix=continue signals continuation.
+  // Without the param, always start a fresh conversation.
+
+  var _urlParams = new URLSearchParams(window.location.search);
+  var _isContinuation = _urlParams.get('fenix') === 'continue';
+  var _autoOpenPanel = _urlParams.get('fenix-panel') || null;
+
+  // Clean up Fenix params from URL without reload (keep URL tidy)
+  if (_isContinuation || _autoOpenPanel) {
+    var cleanUrl = new URL(window.location.href);
+    cleanUrl.searchParams.delete('fenix');
+    cleanUrl.searchParams.delete('fenix-panel');
+    window.history.replaceState({}, '', cleanUrl.toString());
+  }
+
   // Restore from sessionStorage (survives page nav, not tab close)
   (function restoreFenixState() {
-    try {
-      var saved = sessionStorage.getItem('fenixState');
-      if (saved) {
-        var parsed = JSON.parse(saved);
-        fenixState.sessionId = parsed.sessionId || null;
-        fenixState.messages = parsed.messages || [];
-        fenixState.visitor = parsed.visitor || fenixState.visitor;
-        fenixState.explored = parsed.explored || fenixState.explored;
-      }
-    } catch (e) { /* ignore */ }
+    if (_isContinuation) {
+      // Fenix-guided navigation: restore ONLY the previous hop's context.
+      // If you go Homepage → Teardowns → Skills, when you land on Skills
+      // you should only have the Teardowns conversation, not the full chain.
+      try {
+        var saved = sessionStorage.getItem('fenixState');
+        if (saved) {
+          var parsed = JSON.parse(saved);
+          fenixState.sessionId = parsed.sessionId || null;
+          // Only carry messages from the last hop (stored at navigation time)
+          fenixState.messages = parsed.lastHopMessages || parsed.messages || [];
+          fenixState.visitor = parsed.visitor || fenixState.visitor;
+          fenixState.explored = parsed.explored || fenixState.explored;
+        }
+      } catch (e) { /* ignore */ }
+    } else {
+      // Direct landing: fresh start — wipe conversation history
+      // but preserve explored state for returning visitors
+      try {
+        var saved = sessionStorage.getItem('fenixState');
+        if (saved) {
+          var parsed = JSON.parse(saved);
+          // Keep explored state (what cards they've seen, etc.)
+          fenixState.explored = parsed.explored || fenixState.explored;
+        }
+      } catch (e) { /* ignore */ }
+      // Clear conversation — new page, new context
+      fenixState.messages = [];
+      sessionStorage.removeItem('fenixState');
+    }
     if (!fenixState.sessionId) {
       fenixState.sessionId = generateSessionId();
     }
@@ -85,14 +123,21 @@
     } catch (e) { /* ignore */ }
   })();
 
-  function saveFenixState() {
+  function saveFenixState(opts) {
+    opts = opts || {};
     try {
-      sessionStorage.setItem('fenixState', JSON.stringify({
+      var data = {
         sessionId: fenixState.sessionId,
         messages: fenixState.messages.slice(-40),
         visitor: fenixState.visitor,
         explored: fenixState.explored
-      }));
+      };
+      // When navigating, snapshot current messages as lastHopMessages
+      // so the destination page only gets THIS page's conversation, not the full chain
+      if (opts.forNavigation) {
+        data.lastHopMessages = fenixState.messages.slice(-20);
+      }
+      sessionStorage.setItem('fenixState', JSON.stringify(data));
     } catch (e) { /* ignore */ }
   }
 
@@ -458,11 +503,25 @@
           setInputEnabled(true);
           saveFenixState();
           // Update pills: backend suggestions > adapter state machine > nothing
+          // Then append contextual action pills from adapter (Option C)
+          var basePills;
           if (pendingSuggestedPills) {
-            updatePills(pendingSuggestedPills, adp);
+            basePills = pendingSuggestedPills;
             pendingSuggestedPills = null;
           } else if (adp && adp.getDefaultPills) {
-            updatePills(adp.getDefaultPills(), adp);
+            basePills = adp.getDefaultPills();
+          } else {
+            basePills = [];
+          }
+          // Merge contextual pills from adapter (e.g., LinkedIn connect nudge)
+          if (adp && adp.getContextualPills) {
+            var contextual = adp.getContextualPills();
+            if (contextual && contextual.length > 0) {
+              basePills = basePills.concat(contextual);
+            }
+          }
+          if (basePills.length > 0) {
+            updatePills(basePills.slice(0, 4), adp);
           }
           // Adapter lifecycle hook
           if (adp && adp.onDone) {
@@ -480,11 +539,21 @@
   // Adapter-specific UI updates happen via the onConnect hook.
 
   function connectVisitor(data) {
-    var name = (data.first_name || '') + (data.last_name ? ' ' + data.last_name : '');
-    name = name.trim() || data.name || '';
-    if (!name) return { success: false, reason: 'Name is required' };
+    var firstName = (data.first_name || '').trim();
+    var lastName = (data.last_name || '').trim();
+    // Support legacy single 'name' field — split into first/last
+    if (!firstName && data.name) {
+      var parts = data.name.trim().split(/\s+/);
+      firstName = parts[0] || '';
+      lastName = parts.slice(1).join(' ') || '';
+    }
+    var name = (firstName + (lastName ? ' ' + lastName : '')).trim();
+    if (!firstName) return { success: false, reason: 'First name is required' };
+    if (!lastName) return { success: false, reason: 'Last name is required' };
 
-    var company = data.company || null;
+    var company = (data.company || '').trim() || null;
+    if (!company) return { success: false, reason: 'Company is required' };
+
     var email = data.email || null;
     var source = data.source || 'chat';
 
@@ -546,6 +615,23 @@
   }
 
 
+  // ── Fenix-Guided Navigation ────────────────────────
+  // Navigate to a page while preserving conversation continuity.
+  // Adds ?fenix=continue so the destination page restores state.
+  function navigateWithFenix(url, opts) {
+    opts = opts || {};
+    // Save with forNavigation flag — snapshots current messages as lastHopMessages
+    // so destination only gets THIS page's conversation, not the full chain
+    saveFenixState({ forNavigation: true });
+    var dest = new URL(url, window.location.origin);
+    dest.searchParams.set('fenix', 'continue');
+    if (opts.panel) {
+      dest.searchParams.set('fenix-panel', opts.panel);
+    }
+    window.location.href = dest.toString();
+  }
+
+
   // ── Core Init ─────────────────────────────────────
   // Called by each page adapter with its config.
   // Sets up the adapter reference and lets the adapter build its UI.
@@ -580,6 +666,13 @@
       adapter.buildUI();
     }
 
+    // Auto-open panel on Fenix-guided navigation (fix: 13e)
+    if (_autoOpenPanel && adapter.showPanel) {
+      setTimeout(function () {
+        adapter.showPanel(_autoOpenPanel);
+      }, 300);
+    }
+
     // Save state after init
     saveFenixState();
   }
@@ -590,6 +683,8 @@
   window.FenixCore = {
     init: initCore,
     fenixState: fenixState,
+    isContinuation: _isContinuation,
+    autoOpenPanel: _autoOpenPanel,
     sendToAgent: function (text, messageArea) {
       sendToAgent(text, messageArea, _activeAdapter);
     },
@@ -605,6 +700,7 @@
     setInputEnabled: setInputEnabled,
     connectVisitor: connectVisitor,
     disconnectVisitor: disconnectVisitor,
+    navigateWithFenix: navigateWithFenix,
     el: el,
     append: append,
     generateSessionId: generateSessionId,

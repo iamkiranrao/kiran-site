@@ -99,7 +99,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   The user asked me to execute the "Claude Track" from HOMEPAGE-GAMEPLAN.md for kirangorapalli.com. This involves building a persona accent system foundation and then implementing components C1 (Nav), C2 (Single-page morph), C3 (About personalization), C4 (Fenix Intro shell), C7 (Footer), C8 (Fenix subpage module), and C9 (Toast). Throughout all components, I must implement every item from the "Implemented" table in the Persona Accent System section but NOT anything from the "Considered but NOT Implemented" table. The user explicitly said to follow build process gates in CLAUDE.md but NOT to wait for responses between components — to keep moving, make decisions, document them, and let the user review when done.
+   The user asked me to execute the "Claude Track" from HOMEPAGE-GAMEPLAN.md for kiranrao.ai. This involves building a persona accent system foundation and then implementing components C1 (Nav), C2 (Single-page morph), C3 (About personalization), C4 (Fenix Intro shell), C7 (Footer), C8 (Fenix subpage module), and C9 (Toast). Throughout all components, I must implement every item from the "Implemented" table in the Persona Accent System section but NOT anything from the "Considered but NOT Implemented" table. The user explicitly said to follow build process gates in CLAUDE.md but NOT to wait for responses between components — to keep moving, make decisions, document them, and let the user review when done.
 
 2. Key Technical Concepts:
    - **Persona Accent System**: Single CSS variable `--persona-accent` set from `localStorage.getItem('persona-accent')` drives all accent threading. No persona = unset variable, neutral defaults via CSS fallbacks.
@@ -931,7 +931,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   The user (Kiran) initially asked to execute the "Claude Track" from HOMEPAGE-GAMEPLAN.md for kirangorapalli.com — building a persona accent system and implementing components C1-C4, C7-C9. This was completed in a prior session. In THIS session, the work continued with:
+   The user (Kiran) initially asked to execute the "Claude Track" from HOMEPAGE-GAMEPLAN.md for kiranrao.ai — building a persona accent system and implementing components C1-C4, C7-C9. This was completed in a prior session. In THIS session, the work continued with:
    - Wiring C8 on subpages and verifying the complete build
    - Pushing to production and iterating based on live feedback
    - Fixing picker-mode to hide nav/hero-text on first load (only hero image + cards should show)
@@ -1998,7 +1998,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   This session continues from a previous conversation focused on building kirangorapalli.com's persona accent system. The user (Kiran) had identified 6 UI issues to fix. Fixes 1-3 were applied but not pushed in the prior session. This session completed all 6 fixes, then expanded into additional feature requests:
+   This session continues from a previous conversation focused on building kiranrao.ai's persona accent system. The user (Kiran) had identified 6 UI issues to fix. Fixes 1-3 were applied but not pushed in the prior session. This session completed all 6 fixes, then expanded into additional feature requests:
    
    - **Complete 6 UI fixes**: cropped italic 'f', FAB pulse color, section label dashes, Fenix widget position, pill opacity, pill avatar
    - **Add persona avatar to unlock section**: Large avatar next to the "As [Persona], here's what's unlocked:" section, matching Fenix logo size
@@ -2257,7 +2257,7 @@ Summary:
 8. Current Work:
    I was QA'ing the inner stroke fix in the browser. I had:
    1. Pushed the `::after` pseudo-element wrapper approach (commit `34c071a`)
-   2. Opened a new browser tab, navigated to kirangorapalli.com
+   2. Opened a new browser tab, navigated to kiranrao.ai
    3. Entered password `workshop2026`
    4. Set evaluator persona via `localStorage.setItem('persona', 'evaluator')`
    5. Scrolled to the unlock section and took a screenshot showing the avatar centered with what appears to be the accent border
@@ -2853,7 +2853,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -2992,7 +2992,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -3015,7 +3015,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -3073,13 +3073,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names
@@ -3298,7 +3298,7 @@ This session is being continued from a previous conversation that ran out of con
 
 Summary:
 1. Primary Request and Intent:
-   This session continued from a compacted conversation focused on the persona accent system for kirangorapalli.com. The key requests in this session were:
+   This session continued from a compacted conversation focused on the persona accent system for kiranrao.ai. The key requests in this session were:
    - **Fix inner stroke on avatars** — User reported they couldn't see the dark/white inner stroke on persona avatars (pill and unlock avatars).
    - **Audit HOMEPAGE-GAMEPLAN.md** — Check off what's done and come up with a plan for what's next.
    - **Explain "6 persona description variants"** — User wanted to understand what this content gap means with examples.
@@ -3315,7 +3315,7 @@ Summary:
    - **Password gate**: `workshop2026` stored in sessionStorage via `gate.js`.
    - **Stack**: Vanilla HTML/CSS/JS, no React, no build step. Inter + Playfair Display fonts. Dark mode default.
    - **Deployment**: GitHub Pages via `git push origin main`, Cloudflare CDN caching causes stale CSS.
-   - **Command Center API**: `https://cc.kirangorapalli.com` with API key `H3Ycu0N5kfv5MERh_5mYwYcMbGu6pYUv2y1KSgsMBLk` for Kiran's Journal and Action Items.
+   - **Command Center API**: `https://cc.kiranrao.ai` with API key `H3Ycu0N5kfv5MERh_5mYwYcMbGu6pYUv2y1KSgsMBLk` for Kiran's Journal and Action Items.
    - **Session capture skill**: Parses JSONL session files, generates Fenix Journal entries, posts to CC API.
 
 3. Files and Code Sections:
@@ -3603,7 +3603,7 @@ Zero remaining. Now verify URLs weren't broken:
 
 ### Claude `08:52`
 
-Done. "Kiran Gorapalli" → "Kiran Rao" across all 210 files — HTML pages, CSS, JS, JSON, XML, Python backend, templates, backups, journal entries, and markdown docs. Zero instances of "Gorapalli" remain. All `kirangorapalli.com` URLs and `kirangorapalli` GitHub references are untouched since those use lowercase.
+Done. "Kiran Gorapalli" → "Kiran Rao" across all 210 files — HTML pages, CSS, JS, JSON, XML, Python backend, templates, backups, journal entries, and markdown docs. Zero instances of "Gorapalli" remain. All `kiranrao.ai` URLs and `kirangorapalli` GitHub references are untouched since those use lowercase.
 
 ---
 
@@ -4684,7 +4684,7 @@ Key paths (relative to Kiran's Website root):
 - `fenix-journal/JOURNAL-GUIDE.md` — voice and style guidelines
 - `fenix-journal/guides/` — product guides (cross-cutting update target)
 - `ACTION-TRACKER.md` (project root) — unified action item tracker
-- Command Center API: `https://cc.kirangorapalli.com` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
+- Command Center API: `https://cc.kiranrao.ai` (for Kiran's Journal + Action Items posts). **All requests must include header `X-API-Key` with the value from CLAUDE.md.**
 
 ### Step 3: Run the session parser
 
@@ -4823,7 +4823,7 @@ Read the current `ACTION-TRACKER.md` from the project root. Scan the session con
 
 #### 4g: Post Kiran's Journal entries to Command Center API
 
-For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kirangorapalli.com/api/kirans-journal/`:
+For each strategic decision, principle, architecture choice, product philosophy insight, apprehension, or idea identified in the transcript, POST to `https://cc.kiranrao.ai/api/kirans-journal/`:
 
 ```json
 {
@@ -4846,7 +4846,7 @@ For each strategic decision, principle, architecture choice, product philosophy 
 
 #### 4h: Post Action Items to Command Center API
 
-For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kirangorapalli.com/api/action-items/`:
+For each explicit commitment, implicit task, follow-up, or incomplete work identified in the transcript, POST to `https://cc.kiranrao.ai/api/action-items/`:
 
 ```json
 {
@@ -4904,13 +4904,13 @@ For each file that was modified in the session but whose corresponding doc was N
 ```
 
 **If drift items are found:**
-1. POST each as an action item to `https://cc.kirangorapalli.com/api/action-items/` with:
+1. POST each as an action item to `https://cc.kiranrao.ai/api/action-items/` with:
    - `title`: "Update {doc}: {reason}"
    - `workstream`: inferred from the doc name
    - `priority`: "low"
    - `source`: "session-capture-drift-check"
    - `tags`: ["docs-drift", "auto-generated"]
-2. POST a docs_drift notification to `https://cc.kirangorapalli.com/api/notifications/` with:
+2. POST a docs_drift notification to `https://cc.kiranrao.ai/api/notifications/` with:
    - `type`: "docs_drift"
    - `title`: "{count} docs may need updating"
    - `summary`: list of doc names
