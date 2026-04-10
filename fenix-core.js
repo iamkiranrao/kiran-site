@@ -550,6 +550,7 @@
     var name = (firstName + (lastName ? ' ' + lastName : '')).trim();
     if (!firstName) return { success: false, reason: 'First name is required' };
     if (!lastName) return { success: false, reason: 'Last name is required' };
+    if (firstName.toLowerCase() === lastName.toLowerCase()) return { success: false, reason: 'First and last name cannot be the same' };
 
     var company = (data.company || '').trim() || null;
     if (!company) return { success: false, reason: 'Company is required' };
