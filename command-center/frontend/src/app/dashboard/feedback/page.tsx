@@ -231,6 +231,20 @@ export default function FeedbackPage() {
 
   // ── Actions ────────────────────────────────────────────────
 
+  const handleDeleteGuestbookEntry = async (id: string) => {
+    try {
+      const res = await fetch(
+        `${FENIX_API_URL}/api/admin/fenix-analytics/visitor-connects/${id}`,
+        { method: "DELETE", headers: { "X-API-Key": FENIX_API_KEY } }
+      );
+      if (!res.ok) throw new Error("Delete failed");
+      setGuestbookList((prev) => prev.filter((v) => v.id !== id));
+      setGuestbookTotal((prev) => prev - 1);
+    } catch (e: any) {
+      setError(e.message);
+    }
+  };
+
   const handleDeleteFeedback = async (id: string) => {
     try {
       await fetchApi(`/${id}`, { method: "DELETE" });
@@ -501,7 +515,7 @@ export default function FeedbackPage() {
               {guestbookList.map((v) => (
                 <div
                   key={v.id}
-                  className="flex items-center gap-4 rounded-xl p-4 transition-all hover:bg-[var(--bg-secondary)]"
+                  className="group flex items-center gap-4 rounded-xl p-4 transition-all hover:bg-[var(--bg-secondary)]"
                   style={{
                     backgroundColor: "var(--bg-card)",
                     border: "1px solid var(--border)",
@@ -553,6 +567,15 @@ export default function FeedbackPage() {
                   <span className="text-xs text-[var(--text-muted)] shrink-0">
                     {formatDateTime(v.connected_at)}
                   </span>
+
+                  {/* Delete */}
+                  <button
+                    onClick={() => handleDeleteGuestbookEntry(v.id)}
+                    className="opacity-0 group-hover:opacity-100 p-2 rounded-lg hover:bg-red-500/10 transition-all shrink-0"
+                    title="Delete"
+                  >
+                    <Trash2 size={14} className="text-red-400" />
+                  </button>
                 </div>
               ))}
             </div>
