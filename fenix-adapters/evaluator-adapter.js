@@ -442,6 +442,7 @@
     clone.className = 'ev-fly-clone';
     clone.textContent = titleText;
 
+    // Position at start using transform-friendly fixed origin
     clone.style.position = 'fixed';
     clone.style.left = startRect.left + 'px';
     clone.style.top = startRect.top + 'px';
@@ -456,24 +457,25 @@
     var midX = (startRect.left + endX) / 2;
     var midY = Math.min(startRect.top, endY) - 100;
 
+    // Compute deltas relative to start position for translate-based animation
+    var sx = startRect.left;
+    var sy = startRect.top;
+
     clone.offsetHeight;
 
     var keyframes = [
-      { left: startRect.left + 'px', top: startRect.top + 'px', opacity: 1, transform: 'scale(1)', offset: 0 },
-      { left: (startRect.left + midX) / 2 + 'px', top: (startRect.top + midY) / 2 + 'px', opacity: 1, transform: 'scale(0.95)', offset: 0.15 },
-      { left: midX + 'px', top: midY + 'px', opacity: 1, transform: 'scale(0.88)', offset: 0.4 },
-      { left: midX + (endX - midX) * 0.3 + 'px', top: midY + 'px', opacity: 1, transform: 'scale(0.85)', offset: 0.55 },
-      { left: (midX + endX) / 2 + 'px', top: (midY + endY) / 2 + 20 + 'px', opacity: 0.8, transform: 'scale(0.78)', offset: 0.75 },
-      { left: endX + 'px', top: endY + 'px', opacity: 0, transform: 'scale(0.65)', offset: 1 }
+      { transform: 'translate(0, 0) scale(1)', opacity: 1, offset: 0 },
+      { transform: 'translate(' + ((sx + midX) / 2 - sx) + 'px, ' + ((sy + midY) / 2 - sy) + 'px) scale(0.95)', opacity: 1, offset: 0.15 },
+      { transform: 'translate(' + (midX - sx) + 'px, ' + (midY - sy) + 'px) scale(0.88)', opacity: 1, offset: 0.4 },
+      { transform: 'translate(' + (midX + (endX - midX) * 0.3 - sx) + 'px, ' + (midY - sy) + 'px) scale(0.85)', opacity: 1, offset: 0.55 },
+      { transform: 'translate(' + ((midX + endX) / 2 - sx) + 'px, ' + ((midY + endY) / 2 + 20 - sy) + 'px) scale(0.78)', opacity: 0.8, offset: 0.75 },
+      { transform: 'translate(' + (endX - sx) + 'px, ' + (endY - sy) + 'px) scale(0.65)', opacity: 0, offset: 1 }
     ];
 
-    var animation = clone.animate(keyframes, {
-      duration: 1200,
-      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      fill: 'forwards'
-    });
-
-    animation.onfinish = function () {
+    var finished = false;
+    function onComplete() {
+      if (finished) return;
+      finished = true;
       if (clone.parentNode) clone.parentNode.removeChild(clone);
       cardEl.classList.remove('ev-card-departing');
       var bubble = FC.addVisitorMessage(messageArea, titleText);
@@ -484,7 +486,21 @@
         }, 800);
       }
       if (callback) callback();
-    };
+    }
+
+    try {
+      var animation = clone.animate(keyframes, {
+        duration: 1200,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        fill: 'forwards'
+      });
+      animation.onfinish = onComplete;
+    } catch (e) {
+      // Animation API not supported or failed — fall through to timeout
+    }
+
+    // Safety net: if onfinish doesn't fire within 1500ms, force completion
+    setTimeout(onComplete, 1500);
   }
 
 
