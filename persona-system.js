@@ -664,8 +664,8 @@
     if (!config) return;
     var nameEl = document.querySelector('.fenix-context-name');
     if (nameEl) {
-      // Check for connected name (persona → person)
-      var connectedName = localStorage.getItem('evaluator_name') || localStorage.getItem('connect_name');
+      // Check for connected name (persona → person): new core keys first, legacy fallback
+      var connectedName = localStorage.getItem('fenix_name') || localStorage.getItem('evaluator_name') || localStorage.getItem('connect_name');
       nameEl.textContent = connectedName || config.name;
     }
   }

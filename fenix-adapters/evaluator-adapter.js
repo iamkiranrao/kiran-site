@@ -736,7 +736,7 @@
     linkedinCard.appendChild(el('div', 'ev-path-title', { text: 'Connect with LinkedIn' }));
     linkedinCard.appendChild(el('div', 'ev-path-subtitle', { text: 'Instant access, one click' }));
     linkedinCard.addEventListener('click', function () {
-      // TODO: LinkedIn OAuth
+      startLinkedInConnect();
     });
     paths.appendChild(linkedinCard);
 
@@ -818,6 +818,104 @@
       showPanel('connect');
     }, 1200);
   }
+
+
+  // ════════════════════════════════════════════════════
+  // LINKEDIN OAUTH CONNECT
+  // ════════════════════════════════════════════════════
+
+  var SUPABASE_CONFIG_URL = 'https://api.kiranrao.ai/api/v1/auth/config';
+  var _supabaseClient = null;
+
+  function loadSupabaseSDK() {
+    return new Promise(function (resolve, reject) {
+      if (window.supabase && window.supabase.createClient) {
+        resolve();
+        return;
+      }
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+      script.onload = resolve;
+      script.onerror = function () { reject(new Error('Failed to load Supabase SDK')); };
+      document.head.appendChild(script);
+    });
+  }
+
+  function getSupabaseClient() {
+    if (_supabaseClient) return Promise.resolve(_supabaseClient);
+    return loadSupabaseSDK().then(function () {
+      return fetch(SUPABASE_CONFIG_URL).then(function (r) { return r.json(); });
+    }).then(function (config) {
+      _supabaseClient = window.supabase.createClient(config.supabase_url, config.supabase_anon_key);
+      return _supabaseClient;
+    });
+  }
+
+  function startLinkedInConnect() {
+    var subtitle = document.querySelector('.ev-linkedin .ev-path-subtitle');
+    if (subtitle) subtitle.textContent = 'Connecting...';
+
+    getSupabaseClient().then(function (sb) {
+      return sb.auth.signInWithOAuth({
+        provider: 'linkedin_oidc',
+        options: {
+          redirectTo: window.location.origin + window.location.pathname,
+          scopes: 'openid profile email'
+        }
+      });
+    }).then(function (result) {
+      if (result.error) {
+        console.error('[evaluator] LinkedIn OAuth error:', result.error);
+        if (subtitle) subtitle.textContent = 'Error — try the form instead';
+      }
+      // Browser will redirect to LinkedIn
+    }).catch(function (err) {
+      console.error('[evaluator] LinkedIn connect failed:', err);
+      if (subtitle) subtitle.textContent = 'Error — try the form instead';
+    });
+  }
+
+  // Check for LinkedIn OAuth callback on page load
+  function checkLinkedInCallback() {
+    // Supabase OAuth returns with hash fragment containing access_token
+    var hash = window.location.hash;
+    if (!hash || !hash.includes('access_token')) return;
+
+    getSupabaseClient().then(function (sb) {
+      return sb.auth.getSession();
+    }).then(function (result) {
+      var session = result.data.session;
+      if (!session || !session.user) return;
+
+      var user = session.user;
+      var meta = user.user_metadata || {};
+      var fullName = meta.full_name || meta.name || '';
+      var email = user.email || meta.email || '';
+      // LinkedIn OIDC doesn't reliably provide company, but name + email is great
+      var firstName = fullName.split(' ')[0] || '';
+      var lastName = fullName.split(' ').slice(1).join(' ') || '';
+
+      if (firstName) {
+        FC.connectVisitor({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          company: null
+        });
+
+        // Clean up URL hash
+        window.history.replaceState({}, '', window.location.pathname + window.location.search);
+
+        // Show welcome message
+        showFenixMessage('Much better. This site was built for exactly this — real people, not personas. Nice to actually meet you, ' + firstName + '.');
+      }
+    }).catch(function (err) {
+      console.error('[evaluator] LinkedIn callback handling failed:', err);
+    });
+  }
+
+  // Run callback check immediately
+  checkLinkedInCallback();
 
 
   // ════════════════════════════════════════════════════
@@ -1100,9 +1198,11 @@
   function transitionNameLabel() {
     var displayName = fenixState.visitor.name || '';
     if (!displayName) return;
-    var labels = document.querySelectorAll('.pill-persona-name, .hero-tagline');
+    // Target the context header name span ("The Evaluator" / "Explorer") + any legacy selectors
+    var labels = document.querySelectorAll('.fenix-context-name, .pill-persona-name, .hero-tagline');
     labels.forEach(function (label) {
-      if (label.textContent === 'The Evaluator') {
+      var text = label.textContent.trim();
+      if (text === 'The Evaluator' || text === 'Explorer' || text.indexOf('The ') === 0) {
         label.classList.add('ev-name-transitioning');
         setTimeout(function () {
           label.textContent = displayName;
