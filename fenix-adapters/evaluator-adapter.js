@@ -1268,6 +1268,11 @@
   function transitionNameLabel() {
     var displayName = fenixState.visitor.name || '';
     if (!displayName) return;
+    // Require at least two distinct words (first + last name) before replacing the label.
+    // Prevents partial identities like "Joe" or hallucinated "Joe Joe" from showing.
+    var nameParts = displayName.trim().split(/\s+/);
+    if (nameParts.length < 2) return;
+    if (nameParts[0].toLowerCase() === nameParts[1].toLowerCase()) return;
     // Target the context header name span ("The Evaluator" / "Explorer") + any legacy selectors
     var labels = document.querySelectorAll('.fenix-context-name, .pill-persona-name, .hero-tagline');
     labels.forEach(function (label) {
