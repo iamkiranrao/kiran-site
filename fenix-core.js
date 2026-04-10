@@ -486,6 +486,7 @@
 
     var company = data.company || null;
     var email = data.email || null;
+    var source = data.source || 'chat';
 
     fenixState.visitor.name = name;
     fenixState.visitor.company = company;
@@ -500,6 +501,25 @@
     } catch (e) { /* ignore */ }
 
     saveFenixState();
+
+    // Log to backend guestbook for form + LinkedIn connects.
+    // Agent tool connects (source='chat') are already logged server-side.
+    if (source !== 'chat') {
+      try {
+        fetch('https://api.kiranrao.ai/api/v1/fenix/connect', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            company: company,
+            email: email,
+            page_url: window.location.href,
+            conversation_id: fenixState.conversationId || null,
+            source: source
+          })
+        }).catch(function () { /* silent — guestbook logging is best-effort */ });
+      } catch (e) { /* ignore */ }
+    }
 
     // Notify the active adapter
     if (_activeAdapter && _activeAdapter.onConnect) {

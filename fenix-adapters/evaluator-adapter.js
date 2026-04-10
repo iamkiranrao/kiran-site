@@ -818,11 +818,12 @@
     var email = formData.get('email');
     if (!name || !company) return;
 
-    // Use core connect (handles localStorage, fenixState, adapter hook)
+    // Use core connect (handles localStorage, fenixState, adapter hook, guestbook POST)
     var result = FC.connectVisitor({
       name: name,
       company: company,
-      email: email || null
+      email: email || null,
+      source: 'form'
     });
 
     if (!result.success) return;
@@ -916,7 +917,8 @@
           first_name: firstName,
           last_name: lastName,
           email: email,
-          company: null
+          company: null,
+          source: 'linkedin'
         });
 
         // Clean up URL hash
