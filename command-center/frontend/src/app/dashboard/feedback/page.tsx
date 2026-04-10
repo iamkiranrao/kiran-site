@@ -65,7 +65,16 @@ interface VisitorConnect {
   company: string | null;
   email: string | null;
   page_url: string | null;
+  source: string;
   connected_at: string;
+}
+
+function sourceColor(source: string): string {
+  return { chat: "#60a5fa", form: "#34d399", linkedin: "#a78bfa" }[source] || "#888";
+}
+
+function sourceLabel(source: string): string {
+  return { chat: "Chat", form: "Form", linkedin: "LinkedIn" }[source] || source;
 }
 
 type Tab = "feedback" | "testimonials" | "guestbook";
@@ -521,6 +530,17 @@ export default function FeedbackPage() {
                       </p>
                     )}
                   </div>
+
+                  {/* Source badge */}
+                  <span
+                    className="px-2 py-0.5 rounded-full text-xs font-medium shrink-0"
+                    style={{
+                      backgroundColor: `${sourceColor(v.source)}20`,
+                      color: sourceColor(v.source),
+                    }}
+                  >
+                    {sourceLabel(v.source)}
+                  </span>
 
                   {/* Page URL */}
                   {v.page_url && (
