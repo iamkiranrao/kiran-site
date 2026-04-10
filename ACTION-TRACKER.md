@@ -1,7 +1,7 @@
 # ACTION TRACKER
-**Last synced:** Session 20 — Fit Score Deep Dive + Video Strategy (April 4, 2026)
-**Total open items:** 215 (+6 new Evaluator build items from Session 20)
-**Status:** Comprehensive workstream inventory across all modules; Evaluator design locked, build phase underway
+**Last synced:** Session 4 (UAT Fix Batch) — April 10, 2026
+**Total open items:** 221 (+6 new from Session 4)
+**Status:** Comprehensive workstream inventory; UAT fix batch mostly deployed; pager tool pending agreement
 
 ---
 
@@ -399,6 +399,21 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 140 | ✅ Phase 5.1-5.4: Train Fenix (setup + frontend) | DONE | Mar 19 | NO | Q&A bank (319 questions), training UI (5 views), embeddings |
 | 141 | 🟡 Phase 5.5: Test training integration | TODO | This week | YES | Run migration 004, backfill, verify end-to-end |
 
+### Session 4 UAT Fixes (April 10, 2026)
+| # | Action | Status | Timeline | Blocker | Notes |
+|---|--------|--------|----------|---------|-------|
+| 216 | ✅ Fix search_metadata bug in conversation_service.py | DONE | Apr 10 | NO | Root cause: insert tried writing to non-existent column. Assistant messages with tool calls were silently lost. |
+| 217 | ✅ Implement single-hop conversation context | DONE | Apr 10 | NO | lastHopMessages snapshot in fenix-core.js. Only previous page's conversation carried on navigation. |
+| 218 | ✅ Agent system prompt overhaul (5 fixes) | DONE | Apr 10 | NO | Warmer welcome, one-message-one-intent, single-thread outcomes, fit score flow, testimonial quality gate. |
+| 219 | ✅ Testimonials copy update (collaborative Direction B) | DONE | Apr 10 | NO | "Say Something Real" → "What Stood Out?" after 4-direction riff with Kiran. |
+| 220 | ✅ form_service.py domain fix | DONE | Apr 10 | NO | kirangorapalli.com → kiranrao.ai in email notification sender and body. |
+| 221 | 🟡 Clear backend HEAD.lock + push pager tool changes | TODO | Next session | YES — needs Kiran agreement | ping_kiran tool built without gates. Code ready but unpushed. Decide: Resend vs Pushover. |
+| 222 | 🟡 Build lens-specific resume PDFs | TODO | Kiran track | YES — Kiran-authored | 3 lens variants needed. Download code wired but pointing to wrong files. |
+| 223 | 🟡 Live test first-name-only connect scenario | TODO | Next session | NO | System prompt updated but never live-tested. |
+| 224 | 🟡 Full visual audit (margins/spacing/nav) | TODO | Next session | NO | Never started. Systematic pass across all pages and form factors. |
+| 225 | 🟡 Rotate exposed secrets (GitHub PAT + LinkedIn client secret) | TODO | ASAP | NO | Session archive contained keys. GitHub blocked push. Keys should be rotated. |
+| 226 | 🟡 Add metadata JSONB column to messages table | TODO | Low priority | NO | Tool call persistence deferred. Current debug logging sufficient. |
+
 ### Post-MVP Iteration (High Impact, Low Effort)
 | # | Action | Status | Timeline | Blocker | Notes |
 |---|--------|--------|----------|---------|-------|
@@ -434,5 +449,5 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 
 *This document is the single source of truth for all open action items. Update at session end to reflect completed work and new discoveries.*
 
-**Last Updated:** March 29, 2026
-**Next Review:** After technical upskilling phase planning and career-highlights infographic exploration begins
+**Last Updated:** April 10, 2026
+**Next Review:** After Session 5 — pager agreement, visual audit, foundation doc updates
