@@ -20,6 +20,7 @@ import {
   AlertTriangle,
   ArrowUpRight,
 } from "lucide-react";
+import ModuleHelp from "@/components/ModuleHelp";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -513,10 +514,13 @@ export default function TechCostsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-[var(--text-primary)] tracking-tight flex items-center gap-3">
-            <DollarSign size={24} />
-            Tech Cost Calculator
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl font-semibold text-[var(--text-primary)] tracking-tight flex items-center gap-3">
+              <DollarSign size={24} />
+              Tech Cost Calculator
+            </h1>
+            <ModuleHelp moduleSlug="tech-costs" />
+          </div>
           <p className="text-sm text-[var(--text-secondary)] mt-1">
             Full stack cost tracking — APIs, hosting, databases, and projections.
           </p>

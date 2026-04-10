@@ -109,18 +109,6 @@ export const MODULE_HELP: Record<string, ModuleHelpContent> = {
     ],
     guideSlug: "fenix-journal",
   },
-  "content-audit": {
-    summary:
-      "Automated QA system that scans all site content against editorial rules, invoking Claude to audit violations and report findings with severity levels and suggested corrections to enforce voice and accuracy standards.",
-    features: [
-      "Claude-powered semantic auditing (not regex-based)",
-      "Severity levels (high/medium/low) for triage",
-      "Comprehensive file discovery across site (teardowns, prototypes, pages)",
-      "HTML text extraction with entity decoding",
-      "Per-file and full-site audit modes with violation JSON output",
-    ],
-    guideSlug: "content-audit",
-  },
   feedback: {
     summary:
       "Public-facing collection system for site visitors to submit feedback and testimonials, with Supabase storage and a Command Center dashboard for reviewing, approving, and managing submissions.",
@@ -132,16 +120,6 @@ export const MODULE_HELP: Record<string, ModuleHelpContent> = {
       "Stat cards, filterable lists, and curation controls",
     ],
     guideSlug: "feedback-testimonials",
-  },
-  ideas: {
-    summary:
-      "Feature backlog and improvement ideas for Command Center. A lightweight scratchpad for capturing, organizing, and prioritizing future enhancements across all modules.",
-    features: [
-      "Quick-capture for new ideas with title and description",
-      "Category tagging to link ideas to specific modules",
-      "Priority and status tracking (new, planned, in progress, done)",
-      "Sortable and filterable list view",
-    ],
   },
   standards: {
     summary:

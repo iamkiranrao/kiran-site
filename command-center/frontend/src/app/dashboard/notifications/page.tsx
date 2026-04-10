@@ -28,6 +28,7 @@ import {
   BookHeart,
   FileWarning,
 } from "lucide-react";
+import ModuleHelp from "@/components/ModuleHelp";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -268,9 +269,12 @@ export default function NotificationsPage() {
             <Inbox size={20} style={{ color: "#fb923c" }} />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-[var(--text-primary)]">
-              Notification Center
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-xl font-bold text-[var(--text-primary)]">
+                Notification Center
+              </h1>
+              <ModuleHelp moduleSlug="notifications" />
+            </div>
             <p className="text-sm text-[var(--text-muted)]">
               Everything that needs your attention, in one place
             </p>
