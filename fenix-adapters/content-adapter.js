@@ -227,14 +227,40 @@
     injectInlinePrompts();
     injectStyles();
 
-    // If there's an existing conversation, show a badge on the tab
-    if (fenixState.messages.length > 0) {
+    // Fenix-guided navigation: auto-open panel and send arrival context to agent
+    if (FC.isContinuation) {
+      setTimeout(function () {
+        togglePanel();
+        // After panel opens and history replays, send a contextual arrival prompt
+        // to the agent so Fenix orients the visitor to the new page
+        setTimeout(function () {
+          var arrivalPrompt = buildArrivalPrompt();
+          if (arrivalPrompt) {
+            FC.sendToAgent(arrivalPrompt, messageArea);
+          }
+        }, 500);
+      }, 300);
+    } else if (fenixState.messages.length > 0) {
+      // Not a continuation but has history — show badge on tab
       var badge = document.querySelector('.fenix-tab-badge');
       if (badge) {
         badge.textContent = fenixState.messages.length;
         badge.style.display = 'flex';
       }
     }
+  }
+
+  function buildArrivalPrompt() {
+    // Build a hidden system-level prompt that tells the agent about the page
+    // the visitor just landed on, so Fenix can orient them.
+    var sectionList = SECTIONS.map(function (s) { return s.title; }).join(', ');
+    var prompt = '[SYSTEM: The visitor just arrived on "' + PAGE_TITLE + '" (page type: ' + PAGE_TYPE + ') via Fenix-guided navigation from the previous page. ';
+    prompt += 'Orient them to this page — briefly describe what they\'re looking at and suggest something specific to explore. ';
+    if (sectionList) {
+      prompt += 'Page sections: ' + sectionList + '. ';
+    }
+    prompt += 'Keep it to 2-3 sentences. Don\'t repeat the previous conversation — just welcome them to this new context.]';
+    return prompt;
   }
 
   function discoverSections() {
@@ -516,7 +542,7 @@
       '.fenix-sp-identity { display: flex; align-items: center; gap: 10px; }\n' +
       '.fenix-sp-avatar { width: 28px; height: 28px; border-radius: 50%; }\n' +
       '.fenix-sp-name { font-size: 14px; font-weight: 600; color: var(--ev-text-primary, #f0e6d3); }\n' +
-      '.fenix-sp-context { font-size: 11px; color: var(--ev-text-muted, #5a5347); margin-top: 1px; }\n' +
+      '.fenix-sp-context { font-size: 11px; color: var(--ev-text-muted, #8a8070); margin-top: 1px; }\n' +
       '.fenix-sp-close {\n' +
       '  width: 28px; height: 28px; border-radius: 6px; border: none;\n' +
       '  background: transparent; color: var(--ev-text-muted, #5a5347);\n' +
