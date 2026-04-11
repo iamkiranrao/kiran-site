@@ -292,23 +292,28 @@
   }
 
   // Character-by-character typing effect for the opening message
+  // Paced to feel like a spoken sentence — unhurried, registering with the reader.
   function typeOpeningMessage(element, text) {
     var i = 0;
-    var speed = 12; // ms per character
+    var baseSpeed = 32; // ms per character — spoken pace
     element.classList.add('ev-typing');
     function typeChar() {
       if (i < text.length) {
-        // Add characters in small chunks for smoother rendering
-        var chunk = text.substring(i, Math.min(i + 3, text.length));
-        element.textContent += chunk;
-        i += chunk.length;
-        setTimeout(typeChar, speed);
+        element.textContent += text[i];
+        // Natural rhythm: pause slightly longer after punctuation
+        var ch = text[i];
+        var delay = baseSpeed;
+        if (ch === '.' || ch === '!' || ch === '?') delay = baseSpeed * 8;
+        else if (ch === ',' || ch === '\u2014' || ch === ';') delay = baseSpeed * 4;
+        else if (ch === ' ') delay = baseSpeed * 1.2;
+        i++;
+        setTimeout(typeChar, delay);
       } else {
         element.classList.remove('ev-typing');
       }
     }
     // Start after the chat panel reveals
-    setTimeout(typeChar, 400);
+    setTimeout(typeChar, 600);
   }
 
 
@@ -385,7 +390,7 @@
 
     var messageArea = el('div', 'ev-chat-messages');
     // Opening message is added empty — text typed in by revealZoneElements (fix: 2d)
-    var openingText = 'I can walk you through Kiran\'s experience, pull up the resume that fits your search, or \u2014 if you\'re up for it \u2014 help you both figure out whether this is actually a match. The buttons below are the fast paths. Or just ask me whatever\'s on your mind.';
+    var openingText = 'Hey \u2014 welcome. I\'m Fenix, Kiran\'s AI. I\'m here to help you get the most out of this site \u2014 whether that\'s exploring his work, figuring out fit, or just asking whatever\'s on your mind. The buttons below are fast paths, or just type away.';
     var openingBubble = el('div', 'ev-msg ev-msg-fenix ev-opening-msg');
     var openingAvatar = el('img', 'ev-msg-avatar', { src: 'images/logo.png', alt: 'Fenix' });
     var openingContent = el('div', 'ev-msg-content');
