@@ -66,6 +66,12 @@
   var _isContinuation = _urlParams.get('fenix') === 'continue';
   var _autoOpenPanel = _urlParams.get('fenix-panel') || null;
 
+  // Index in fenixState.messages where THIS page's conversation starts.
+  // On continuation, messages before this index are carried context from the
+  // previous hop. When navigating again, only snapshot from this index forward
+  // so we get true single-hop isolation (A→B carries, but A doesn't leak to C).
+  var _hopStartIndex = 0;
+
   // Clean up Fenix params from URL without reload (keep URL tidy)
   if (_isContinuation || _autoOpenPanel) {
     var cleanUrl = new URL(window.location.href);
@@ -89,6 +95,9 @@
           fenixState.messages = parsed.lastHopMessages || parsed.messages || [];
           fenixState.visitor = parsed.visitor || fenixState.visitor;
           fenixState.explored = parsed.explored || fenixState.explored;
+          // Mark where the carried context ends — THIS page's conversation
+          // starts after this point. Used for single-hop isolation on next nav.
+          _hopStartIndex = fenixState.messages.length;
         }
       } catch (e) { /* ignore */ }
     } else {
@@ -144,10 +153,11 @@
         visitor: fenixState.visitor,
         explored: fenixState.explored
       };
-      // When navigating, snapshot current messages as lastHopMessages
-      // so the destination page only gets THIS page's conversation, not the full chain
+      // When navigating, snapshot only THIS page's messages as lastHopMessages.
+      // Messages before _hopStartIndex are carried context from the previous hop —
+      // exclude them so the destination only gets the current page's conversation.
       if (opts.forNavigation) {
-        data.lastHopMessages = fenixState.messages.slice(-20);
+        data.lastHopMessages = fenixState.messages.slice(_hopStartIndex).slice(-20);
       }
       sessionStorage.setItem('fenixState', JSON.stringify(data));
     } catch (e) { /* ignore */ }
