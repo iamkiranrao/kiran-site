@@ -100,16 +100,28 @@
           var parsed = JSON.parse(saved);
           // Keep explored state (what cards they've seen, etc.)
           fenixState.explored = parsed.explored || fenixState.explored;
+          // Preserve visitor identity (connected state)
+          fenixState.visitor = parsed.visitor || fenixState.visitor;
         }
       } catch (e) { /* ignore */ }
       // Clear conversation — new page, new context
       fenixState.messages = [];
+      // Fresh session ID so backend starts a clean conversation
+      fenixState.sessionId = generateSessionId();
       sessionStorage.removeItem('fenixState');
     }
-    if (!fenixState.sessionId) {
-      fenixState.sessionId = generateSessionId();
-    }
   })();
+
+  // Handle bfcache restoration (back/forward button)
+  // When the page is restored from bfcache, JS doesn't re-run,
+  // so stale conversation state can persist. Force a reset.
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted && !_isContinuation) {
+      fenixState.messages = [];
+      fenixState.sessionId = generateSessionId();
+      sessionStorage.removeItem('fenixState');
+    }
+  });
 
   // Restore connected visitor from localStorage (persists across tabs + sessions)
   (function restoreConnectedState() {
