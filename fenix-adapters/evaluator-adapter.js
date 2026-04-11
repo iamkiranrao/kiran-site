@@ -221,6 +221,25 @@
       return 'Connected as ' + result.name + (result.company ? ' from ' + result.company : '') + '. Gated features unlocked.';
     },
 
+    show_related_content: function (args) {
+      var topic = args.topic || 'related content';
+      if (args.url) {
+        // Save current conversation as lastHopMessages for single-hop context
+        var currentMessages = fenixState.messages.slice();
+        try {
+          var saved = JSON.parse(sessionStorage.getItem('fenixState') || '{}');
+          saved.lastHopMessages = currentMessages;
+          sessionStorage.setItem('fenixState', JSON.stringify(saved));
+        } catch (e) { /* ignore */ }
+        // Navigate with ?fenix=continue so the next page picks up context
+        var url = args.url;
+        var separator = url.indexOf('?') !== -1 ? '&' : '?';
+        window.location.href = url + separator + 'fenix=continue';
+        return 'Navigating to ' + topic + '...';
+      }
+      return 'Suggested exploring: ' + topic;
+    },
+
     collect_feedback: function (args) {
       // POST to fenix-backend feedback endpoint
       var payload = {
@@ -1318,7 +1337,7 @@
     messageCap: 30,
 
     // Available tools (sent to backend)
-    availableTools: ['open_panel', 'close_panel', 'select_resume_lens', 'scroll_to_section', 'get_visitor_context', 'start_fit_score', 'connect_visitor', 'collect_feedback'],
+    availableTools: ['open_panel', 'close_panel', 'select_resume_lens', 'scroll_to_section', 'get_visitor_context', 'start_fit_score', 'connect_visitor', 'collect_feedback', 'show_related_content'],
 
     // UI
     buildUI: buildUI,
