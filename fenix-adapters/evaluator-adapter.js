@@ -393,7 +393,10 @@
 
   function buildFenixColumn(container) {
     // Column header above chat widget — mirrors the unlock cards header (fix: 2b)
-    var colHeader = el('div', 'ev-fenix-col-header', { html: 'Meet Fenix \u2014 <span class="ev-fenix-tagline">your guide to everything on this site</span>' });
+    var colHeaderText = (hasExplored || isConnected)
+      ? 'Fenix \u2014 <span class="ev-fenix-tagline">ready when you are</span>'
+      : 'Meet Fenix \u2014 <span class="ev-fenix-tagline">your guide to everything on this site</span>';
+    var colHeader = el('div', 'ev-fenix-col-header', { html: colHeaderText });
     container.appendChild(colHeader);
 
     var wrapper = el('div', 'ev-fenix-chat');
@@ -408,8 +411,21 @@
     wrapper.appendChild(chatHeader);
 
     var messageArea = el('div', 'ev-chat-messages');
-    // Opening message is added empty — text typed in by revealZoneElements (fix: 2d)
-    var openingText = 'Hey \u2014 welcome. I\'m Fenix, Kiran\'s AI. I\'m here to help you get the most out of this site \u2014 whether that\'s exploring his work, figuring out fit, or just asking whatever\'s on your mind. The buttons below are fast paths, or just type away.';
+    // Opening message — contextual based on whether visitor has been here before
+    var hasExplored = fenixState.explored.pillsUsed.length > 0 ||
+                      fenixState.explored.cardsClicked.length > 0 ||
+                      fenixState.explored.panelsOpened.length > 0;
+    var isConnected = fenixState.visitor.connected;
+    var firstName = isConnected && fenixState.visitor.name ? fenixState.visitor.name.split(' ')[0] : '';
+
+    var openingText;
+    if (isConnected && firstName) {
+      openingText = 'Welcome back, ' + firstName + '. Pick up where you left off, or explore something new \u2014 I\'m here whenever you need me.';
+    } else if (hasExplored) {
+      openingText = 'Welcome back. Pick up where you left off, or try something new \u2014 I\'m here whenever you need me.';
+    } else {
+      openingText = 'Hey \u2014 welcome. I\'m Fenix, Kiran\'s AI. I\'m here to help you get the most out of this site \u2014 whether that\'s exploring his work, figuring out fit, or just asking whatever\'s on your mind. The buttons below are fast paths, or just type away.';
+    }
     var openingBubble = el('div', 'ev-msg ev-msg-fenix ev-opening-msg');
     var openingAvatar = el('img', 'ev-msg-avatar', { src: 'images/logo.png', alt: 'Fenix' });
     var openingContent = el('div', 'ev-msg-content');
