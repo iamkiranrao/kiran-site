@@ -223,6 +223,7 @@
 
   var panelOpen = false;
   var panelInitialized = false;
+  var arrivalSent = false;
   var messageArea = null;
 
   function buildUI() {
@@ -236,16 +237,21 @@
     injectInlinePrompts();
     injectStyles();
 
-    // Fenix-guided navigation: auto-open panel and send arrival context to agent
+    // Fenix-guided navigation: auto-open panel and send arrival context
     if (FC.isContinuation) {
+      // Set arrival context — will be included in next agent request payload
+      // as a system-level field, NOT as a visitor message.
+      if (!arrivalSent) {
+        arrivalSent = true;
+        FC.setArrivalContext(buildArrivalPrompt());
+      }
       setTimeout(function () {
         togglePanel();
-        // After panel opens and history replays, send a contextual arrival prompt
-        // to the agent so Fenix orients the visitor to the new page
+        // Trigger a silent agent call to get an arrival message
+        // Uses an empty user message marker that sendToAgent handles specially
         setTimeout(function () {
-          var arrivalPrompt = buildArrivalPrompt();
-          if (arrivalPrompt) {
-            FC.sendToAgent(arrivalPrompt, messageArea);
+          if (messageArea) {
+            FC.sendToAgent('[ARRIVAL]', messageArea);
           }
         }, 500);
       }, 300);

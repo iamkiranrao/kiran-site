@@ -302,8 +302,11 @@
   function sendToAgent(userText, messageArea, adapter) {
     if (!fenixState.ui.inputEnabled) return;
 
+    // [ARRIVAL] is a silent trigger — don't show in chat, don't count as a message
+    var isArrival = (userText === '[ARRIVAL]');
+
     var msgCap = (adapter && adapter.messageCap) || DEFAULT_MSG_CAP;
-    if (fenixState.explored.messagesExchanged >= msgCap) {
+    if (!isArrival && fenixState.explored.messagesExchanged >= msgCap) {
       addSystemMessage(messageArea, 'We\'ve had a great conversation. Want to continue it in person?');
       if (!fenixState.visitor.connected && adapter && adapter.onMessageCapReached) {
         adapter.onMessageCapReached();
@@ -311,14 +314,16 @@
       return;
     }
 
-    // Record the visitor message in state
-    fenixState.messages.push({
-      role: 'visitor',
-      type: 'text',
-      content: userText,
-      timestamp: Date.now()
-    });
-    fenixState.explored.messagesExchanged++;
+    if (!isArrival) {
+      // Record the visitor message in state (arrivals are invisible)
+      fenixState.messages.push({
+        role: 'visitor',
+        type: 'text',
+        content: userText,
+        timestamp: Date.now()
+      });
+      fenixState.explored.messagesExchanged++;
+    }
 
     // Disable input while Fenix is thinking
     fenixState.ui.inputEnabled = false;
@@ -356,6 +361,12 @@
     // Add available_tools if the adapter declares them
     if (adapter && adapter.availableTools) {
       payload.available_tools = adapter.availableTools;
+    }
+
+    // Arrival context — include it in the payload and clear the stored value
+    if (isArrival && _arrivalContext) {
+      payload.arrival_context = _arrivalContext;
+      _arrivalContext = null;
     }
 
     var fullResponse = '';
@@ -693,11 +704,16 @@
 
   // ── Public API ────────────────────────────────────
 
+  // Arrival context — set by content-adapter on Fenix-guided navigation.
+  // Included in the next agent request, then cleared.
+  var _arrivalContext = null;
+
   window.FenixCore = {
     init: initCore,
     fenixState: fenixState,
     isContinuation: _isContinuation,
     autoOpenPanel: _autoOpenPanel,
+    setArrivalContext: function (ctx) { _arrivalContext = ctx; },
     sendToAgent: function (text, messageArea) {
       sendToAgent(text, messageArea, _activeAdapter);
     },
