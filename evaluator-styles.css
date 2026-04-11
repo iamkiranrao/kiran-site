@@ -400,7 +400,7 @@
 
 /* Typing cursor for opening message (fix: 2d) */
 .ev-typing::after {
-  content: '\u258C';
+  content: '\258C';
   color: var(--ev-accent);
   animation: ev-cursor-blink 0.8s ease infinite;
   margin-left: 1px;
