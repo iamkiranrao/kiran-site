@@ -158,10 +158,19 @@
 
     show_related_content: function (args) {
       var topic = args.topic || 'related content';
-      // Navigate to the relevant page if URL provided
       if (args.url) {
-        window.open(args.url, '_blank');
-        return 'Opened ' + topic + ' in a new tab.';
+        // Save current conversation as lastHopMessages for single-hop context
+        var currentMessages = fenixState.messages.slice();
+        try {
+          var saved = JSON.parse(sessionStorage.getItem('fenixState') || '{}');
+          saved.lastHopMessages = currentMessages;
+          sessionStorage.setItem('fenixState', JSON.stringify(saved));
+        } catch (e) { /* ignore */ }
+        // Navigate with ?fenix=continue so the next page picks up context
+        var url = args.url;
+        var separator = url.indexOf('?') !== -1 ? '&' : '?';
+        window.location.href = url + separator + 'fenix=continue';
+        return 'Navigating to ' + topic + '...';
       }
       return 'Suggested exploring: ' + topic;
     },
