@@ -35,12 +35,87 @@
 - **Single-page morph:** ✅ 3-act choreography (cards exit → above-fold reveal → below-fold materialize). View Transitions API.
 - **Scroll indicator:** "↘ Scroll Down" — arrow renders in accent color when persona active.
 
-### 3. About Section ✅ (content gap: descriptions)
+### 3. About Section / Triptych ✅ (content gap: descriptions)
+
+#### Triptych Layout (index.html lines 260-323)
+
+The About section uses a three-column triptych layout that presents identity, context, and competency. All three columns are **persona-aware** — the intro line, description, and competency carousel reorder based on selected persona.
+
+**Column 1: Identity Anchor** (`.triptych-col-identity`)
+- Displays persona-swappable intro line via `PERSONA_CONFIG.introLine`
+- Default (no persona): "Equal parts strategist, storyteller, and builder."
+- Each persona has unique intro phrasing (e.g., Evaluator: "I build products that solve real problems for real people")
+- **Social links:** Always present, persona-aware subset
+  - LinkedIn: Universal across all personas
+  - GitHub: Visible for Technologist
+  - Substack: Visible for Practitioner, Learner, Inner Circle
+  - Custom links for each persona (expandable in PERSONA_CONFIG.socialLinks)
+
+**Column 2: Context** (`.triptych-col-context`)
+- **Eyebrow label:** "The elevator pitch ↘" (always visible, accent-colored)
+- **Description paragraph:** Persona-swappable via `PERSONA_CONFIG.description`
+- Current copy (all personas): "I lead product teams, geek out about AI, and believe the best work happens when you're genuinely curious about the people you're building for. This is my little corner of the internet: part portfolio, part playground."
+- **Status:** ❌ All 6 persona `description` fields are empty strings in PERSONA_CONFIG. Kiran Track to fill in persona-specific elevator pitches.
+
+**Column 3: Competency Carousel** (`.triptych-col-competency`)
+- **Eyebrow label:** "What I do best ↘" (always visible, accent-colored)
+- **6-card rotating carousel** with pagination + navigation
+  - Cards: Product Strategy, AI Integration, Digital Transformation, Growth & Adoption, Go-to-Market Strategy, Delivery & Execution
+  - Each card has: title (h3.competency-title), counter ("01 / 06", etc.), description (p.competency-desc)
+  - Persona-reorderable via `PERSONA_CONFIG.competencyOrder` array (index-based reordering)
+
+- **Navigation controls** (`.competency-nav`):
+  - Left/right carousel arrows (‹ and ›) — click to shift visible card
+  - 6 dot indicators (one per card) — click to jump to card N
+  - Active dot highlighted via `.competency-dot[data-index="X"]` pseudo-state
+
+- **Carousel behavior:**
+  - Single card visible at a time (width: 100% of carousel)
+  - Smooth horizontal scroll on arrow click
+  - Dots update in real-time as you navigate
+  - Wraps on last card (cycle back to first)
+
+- **Responsive:** Carousel maintains same look on mobile/tablet (single-column, full-width card)
+
+#### CSS Structure
+
+| Class | Purpose | Notes |
+|-------|---------|-------|
+| `.about-section` | Wrapper for entire About section | `id="about"`, includes section label |
+| `.about-triptych` | 3-column flex container | `flex-direction: row` on desktop, `column` on mobile |
+| `.triptych-col` | Individual column | `flex: 1`, padding, vertical alignment |
+| `.triptych-col-identity` | Column 1 | Contains intro line + social links |
+| `.triptych-col-context` | Column 2 | Contains eyebrow + description |
+| `.triptych-col-competency` | Column 3 | Contains competency carousel |
+| `.triptych-tagline` | Intro line text | Persona-swappable via `PERSONA_CONFIG.introLine` |
+| `.triptych-social` | Social links row | Flex row, icon links only |
+| `.triptych-description` | Description paragraph | Persona-swappable via `PERSONA_CONFIG.description` |
+| `.competency-eyebrow` | Eyebrow label | Small caps, accent color |
+| `.competency-carousel-wrap` | Wrapper for carousel + nav | Flex column |
+| `.competency-carousel` | Carousel container | Flex row, `overflow: hidden` |
+| `.competency-card` | Individual card | `flex-shrink: 0`, width: 100% |
+| `.competency-card-title` | Card title | Persona-reorderable text |
+| `.competency-card-counter` | Card counter | "XX / 06" format |
+| `.competency-card-desc` | Card description | Full paragraph |
+| `.competency-nav` | Navigation controls | Flex row, centered |
+| `.carousel-arrow` | Left/right arrow button | Hover state changes to accent color |
+| `.competency-dot` | Pagination dot | `opacity: 0.3` unfocused, `1` when active, `--persona-accent` color |
+
+#### Personalization (Track 1 & Track 2)
+
+- **Track 1 ("Look"):** Intro line, description, competency order swap based on `localStorage.getItem('persona')`
+- **Track 2 ("Does"):** Future expansion — each persona could unlock different competencies or additional context panels
+
+#### Mobile Behavior
+
+- 3-column layout stacks to single-column on ≤768px
+- Column widths: 100% mobile, ~33% desktop
+- Carousel maintains full-width card on mobile
+- Social links stack vertically if needed
+
 - **Left column intro:** ✅ Persona-swappable via `PERSONA_CONFIG.introLine`. Each persona has unique phrasing.
 - **Right column:** "(About)" label (accent-colored) + description paragraph + social links
-- **Description:** ❌ All 6 persona `description` fields are empty strings. Kiran Track.
-- **Social links:** ✅ Persona-specific — LinkedIn universal, GitHub for Technologist, Substack for Practitioner, etc.
-- **Competencies grid:** ✅ 6 tiles, persona-reorderable via `PERSONA_CONFIG.competencyOrder`:
+- **Competencies carousel:** ✅ 6 cards, persona-reorderable via `PERSONA_CONFIG.competencyOrder`:
   - Product Strategy, AI Integration, Digital Transformation, Growth & Adoption, Go-to-Market Strategy, Delivery & Execution
 
 ### 4. Fenix Intro Zone ✅

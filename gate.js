@@ -44,7 +44,7 @@
             />
             <button type="submit" style="
               padding:.6rem 1.2rem;
-              background:#b8753d;border:none;border-radius:6px;
+              background:#9b5f28;border:none;border-radius:6px;
               color:#f5f0eb;font-size:.9rem;font-weight:500;cursor:pointer;
             ">Enter</button>
           </form>

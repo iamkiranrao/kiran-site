@@ -505,7 +505,56 @@ Kiran asleep. Continuation prompt executed against MASTER-ACTION-PLAN.xlsx backl
 
 ---
 
+## SESSION 7c LOG (April 12, 2026 — 20-Item Burndown)
+
+Continuation of Session 7b. Kiran asked to complete all remaining Claude-only zero-dependency tasks to 100%.
+
+### Completed (20 items)
+
+| # | Item | Details |
+|---|------|---------|
+| 1 | **Blog slug rename (#81-83)** | Renamed `blog/ca192ebf.html` → `blog/invisible-rail-ach-payments.html`. Added card to blog-podcast.html hub page. Added 301 redirect in `_redirects`. |
+| 2 | **Triptych documentation (#201)** | Added About/Triptych component section to INDEX-HOMEPAGE.md — 3-column structure, CSS class reference, persona personalization, responsive behavior. |
+| 3 | **Session-capture skill API URL (#126)** | Site repo copy at `.claude-skills/` already has correct `cc.kiranrao.ai`. System-level Cowork copy is read-only — needs Kiran to re-sync. |
+| 4 | **DIA Fund transparency template (#52)** | Created `docs/TheDiaFund/templates/QUARTERLY-TRANSPARENCY-REPORT-TEMPLATE.md` — funds received, grants made, YTD summary, Dia's voice, stories, outlook, verification checklist. |
+| 5 | **DIA Fund annual archiving process (#56)** | Created `docs/TheDiaFund/ANNUAL-ARCHIVING-PROCESS.md` — 4-phase December runbook, directory structure, quality checks, troubleshooting, reflection prompts. |
+| 6 | **Persona accent contrast audit (#128)** | Created `docs/Foundation/PERSONA-ACCENT-CONTRAST-AUDIT.md` — Python-calculated WCAG 2.1 ratios for 6 accents × 4 backgrounds. 5 of 6 fail AA on white. Darker variants recommended for light theme. |
+| 7 | **Teardown picker bypass verification (#155)** | Confirmed teardowns bypass picker via 3-layer defense: no persona-system.js loaded, element presence check, subpage redirect fallback. Documented in `docs/Foundation/TEARDOWN-PICKER-BYPASS-VERIFICATION.md`. |
+| 8 | **Stale teardown dates (#77)** | Added `article:published_time` meta and visible "Last updated: March 2026" to all 6 detail teardown pages. |
+| 9 | **Blog OG cards (#80)** | Generated 1200×630px OG images for invisible-rail-ach-payments and demystifying-ach. Updated meta tags in both posts. |
+| 10 | **Scannibal in-app disclaimer (#42)** | Created `docs/Scannibal/DRAFT-IN-APP-DISCLAIMER.md` — 3 tone options (warm, legal-first, balanced), alternative phrasings, design recommendations. |
+| 11 | **Scannibal App Store disclosure (#43)** | Created `docs/Scannibal/DRAFT-APP-STORE-CHARITY-DISCLOSURE.md` — 3 promotional text options, 4 description versions, Apple Section 4.3 requirements, submission strategy. |
+| 12 | **V6 prompt doc update (#191)** | Added "Incremental Generation Workflow" to BENTO-MONSTER-SCENES-V6.md — 14 ready-to-use MJ prompts, priority order, testing workflow, batch tips. |
+| 13 | **Teardown card redesign spec (#169)** | Created `docs/TEARDOWN-CARD-REDESIGN-SPEC.md` — current anatomy, proposed eyebrow/tag/logo enhancements, CSS classes, 3-phase implementation plan. |
+| 14 | **/Now page assessment (#171)** | Created `docs/NOW-PAGE-ASSESSMENT.md` — page already exists, needs content freshening (empty Reading/Watching section), quarterly refresh cadence recommended. |
+| 15 | **Site awards research (#159)** | Created `docs/SITE-AWARDS-RESEARCH.md` — 7 platforms compared, top 3: FWA → Awwwards → CSSDA, pre-submission polish checklist, submission templates. |
+| 16 | **CC auto-now page spec (#192)** | Created `docs/CC-AUTO-NOW-PAGE-SPEC.md` — /api/now-page/ endpoint design, JSON schema, frontend fetch/render, caching, privacy tiers, 3-phase implementation. |
+| 17 | **CC reconciliation script (#202)** | Created `command-center/backend/scripts/reconcile_action_items.py` — compares CC API items with ACTION-TRACKER.md, flags discrepancies, --dry-run/--fix/--json modes, colored CLI output. |
+| 18 | **Teardown accuracy audit (#76)** | Created `docs/TEARDOWN-ACCURACY-AUDIT.md` — 92% accuracy across live pages. One outdated ACSI TikTok score (77→78). Quarterly review cadence recommended. |
+
+### New Docs Created
+
+| File | Purpose |
+|------|---------|
+| `docs/TheDiaFund/templates/QUARTERLY-TRANSPARENCY-REPORT-TEMPLATE.md` | Reusable quarterly report template |
+| `docs/TheDiaFund/ANNUAL-ARCHIVING-PROCESS.md` | December archiving runbook |
+| `docs/Foundation/PERSONA-ACCENT-CONTRAST-AUDIT.md` | WCAG contrast analysis |
+| `docs/Foundation/TEARDOWN-PICKER-BYPASS-VERIFICATION.md` | Picker bypass verification |
+| `docs/Scannibal/DRAFT-IN-APP-DISCLAIMER.md` | In-app charity disclaimer drafts |
+| `docs/Scannibal/DRAFT-APP-STORE-CHARITY-DISCLOSURE.md` | App Store listing drafts |
+| `docs/TEARDOWN-CARD-REDESIGN-SPEC.md` | Card redesign specification |
+| `docs/NOW-PAGE-ASSESSMENT.md` | /Now page assessment |
+| `docs/SITE-AWARDS-RESEARCH.md` | Award platform research |
+| `docs/CC-AUTO-NOW-PAGE-SPEC.md` | Auto-generating /now spec |
+| `docs/TEARDOWN-ACCURACY-AUDIT.md` | Factual accuracy audit |
+| `command-center/backend/scripts/reconcile_action_items.py` | CC ↔ tracker reconciliation |
+| `images/og/blog-invisible-rail-ach-payments.png` | OG card for ACH post |
+| `images/og/blog-demystifying-ach.png` | OG card for ACH demystified post |
+| `blog/invisible-rail-ach-payments.html` | Renamed from ca192ebf.html |
+
+---
+
 *This document is the single source of truth for all open action items. Update at session end to reflect completed work and new discoveries.*
 
 **Last Updated:** April 12, 2026
-**Next Review:** After Session 8 — career initiatives RAG integration, homepage gameplan, responsive grid breakpoints
+**Next Review:** After Session 8 — persona accent color fixes for light theme, teardown card redesign implementation, /Now page content freshening
