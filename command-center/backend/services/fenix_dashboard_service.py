@@ -421,6 +421,118 @@ def get_search_quality(days: int = 30) -> dict:
     }
 
 
+# ── Outcomes metrics ─────────────────────────────────────────────────
+
+
+def get_outcomes(days: int = 30) -> dict:
+    """Site-level outcomes: conversations, connections, testimonials,
+    fit scores, Fenix-driven navigation, engagement metrics."""
+    sb = _get_client()
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+
+    # Total conversations
+    convos = (
+        sb.table("conversations")
+        .select("id, session_id", count="exact")
+        .gte("started_at", cutoff)
+        .execute()
+    )
+    total_conversations = convos.count or 0
+    unique_visitors = len(set(c["session_id"] for c in convos.data)) if convos.data else 0
+
+    # Connected visitors (conversations with identity data in metadata)
+    connected = (
+        sb.table("conversations")
+        .select("id", count="exact")
+        .gte("started_at", cutoff)
+        .not_.is_("metadata->identity", "null")
+        .execute()
+    )
+    visitors_connected = connected.count or 0
+
+    # Testimonials collected (from feedback table if it exists)
+    try:
+        testimonials = (
+            sb.table("feedback")
+            .select("id", count="exact")
+            .gte("created_at", cutoff)
+            .execute()
+        )
+        testimonials_count = testimonials.count or 0
+    except Exception:
+        testimonials_count = 0
+
+    # Fit scores completed (check messages for fit-score tool usage)
+    fit_scores = (
+        sb.table("messages")
+        .select("id", count="exact")
+        .eq("role", "assistant")
+        .gte("created_at", cutoff)
+        .like("content", "%fit_score%")
+        .execute()
+    )
+    fit_scores_completed = fit_scores.count or 0
+
+    # Fenix-driven navigation (messages containing navigation links)
+    nav_msgs = (
+        sb.table("messages")
+        .select("id", count="exact")
+        .eq("role", "assistant")
+        .gte("created_at", cutoff)
+        .like("content", "%kiranrao.ai/%")
+        .execute()
+    )
+    pages_navigated = nav_msgs.count or 0
+
+    # Average conversation depth
+    if total_conversations > 0:
+        all_msgs = (
+            sb.table("messages")
+            .select("id", count="exact")
+            .gte("created_at", cutoff)
+            .execute()
+        )
+        total_messages = all_msgs.count or 0
+        avg_depth = round(total_messages / total_conversations, 1)
+    else:
+        total_messages = 0
+        avg_depth = 0
+
+    # Engagement rate (conversations with 3+ user messages / total)
+    if convos.data:
+        convo_ids = [c["id"] for c in convos.data]
+        engaged_count = 0
+        # Check message counts per conversation in batches
+        for cid in convo_ids:
+            msgs = (
+                sb.table("messages")
+                .select("id", count="exact")
+                .eq("conversation_id", cid)
+                .eq("role", "user")
+                .execute()
+            )
+            if (msgs.count or 0) >= 3:
+                engaged_count += 1
+        engagement_rate = round(engaged_count / total_conversations * 100, 1) if total_conversations else 0
+    else:
+        engaged_count = 0
+        engagement_rate = 0
+
+    return {
+        "total_conversations": total_conversations,
+        "unique_visitors": unique_visitors,
+        "visitors_connected": visitors_connected,
+        "testimonials_collected": testimonials_count,
+        "fit_scores_completed": fit_scores_completed,
+        "pages_navigated_via_fenix": pages_navigated,
+        "total_messages": total_messages,
+        "avg_conversation_depth": avg_depth,
+        "engaged_conversations": engaged_count,
+        "engagement_rate_pct": engagement_rate,
+        "period_days": days,
+    }
+
+
 # ── Training data stats ──────────────────────────────────────────────
 
 

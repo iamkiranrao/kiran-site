@@ -9,6 +9,7 @@ Endpoints:
   GET  /conversations          — browse conversation list
   GET  /conversations/{id}     — full conversation transcript
   GET  /search-quality         — similarity scores, search type distribution
+  GET  /outcomes               — site-level outcomes (connections, testimonials, fit scores)
   GET  /training               — training data stats
 """
 
@@ -24,6 +25,7 @@ from services.fenix_dashboard_service import (
     get_conversation_detail,
     get_search_quality,
     get_training_stats,
+    get_outcomes,
 )
 
 router = APIRouter()
@@ -113,6 +115,17 @@ async def search_quality(days: int = Query(30, ge=1, le=365)):
         raise HTTPException(
             status_code=500, detail=f"Failed to fetch search quality: {e}"
         )
+
+
+@router.get("/outcomes", response_model=dict)
+async def outcomes(days: int = Query(30, ge=1, le=365)):
+    """Site-level outcomes: conversations, connections, testimonials, fit scores, navigation."""
+    try:
+        return get_outcomes(days=days)
+    except RuntimeError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch outcomes: {e}")
 
 
 @router.get("/training", response_model=dict)
