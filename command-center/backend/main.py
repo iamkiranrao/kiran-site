@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from dotenv import load_dotenv
 
-from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs, evidence, fit_score
+from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs, evidence, fit_score, career_initiatives
 from utils.exceptions import CommandCenterError, NotFoundError, ValidationError, ConflictError
 
 load_dotenv(override=True)
@@ -164,6 +164,7 @@ app.include_router(standards.router, prefix="/api/standards", tags=["Standards &
 app.include_router(tech_costs.router, prefix="/api/tech-costs", tags=["Tech Cost Calculator"])
 app.include_router(evidence.router, prefix="/api/evidence", tags=["Evidence Management"])
 app.include_router(fit_score.router, prefix="/api/fit-score", tags=["Fit Score Analyzer"])
+app.include_router(career_initiatives.router, prefix="/api/career-initiatives", tags=["Career Initiatives"])
 
 
 if __name__ == "__main__":
