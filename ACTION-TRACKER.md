@@ -1,5 +1,5 @@
 # ACTION TRACKER
-**Last synced:** Session 4 (UAT Fix Batch) — April 10, 2026
+**Last synced:** Session 6 (Prompt Architecture + Eval Suite) — April 11, 2026
 **Total open items:** 221 (+6 new from Session 4)
 **Status:** Comprehensive workstream inventory; UAT fix batch mostly deployed; pager tool pending agreement
 
@@ -21,8 +21,8 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 
 | # | Action | Workstream | Source Doc | Priority | Blocker? | Notes |
 |---|--------|-----------|-----------|----------|----------|-------|
-| 1 | 🔴 Rotate exposed API keys (GitHub PAT + Voyage AI) | Platform | PLATFORM-MIGRATION.md | CRITICAL | YES | Keys captured in session archives; need immediate rotation before prod deployment |
-| 2 | 🔴 Provide Anthropic API key to Vercel | Platform | PLATFORM-MIGRATION.md | CRITICAL | YES | Blocks Fenix LLM integration; health check shows "unconfigured" |
+| 1 | 🔴 Rotate exposed API keys (GitHub PAT + Voyage AI + LinkedIn client secret) | Platform | PLATFORM-MIGRATION.md | CRITICAL | YES | GitHub PAT + LinkedIn client secret scrubbed in Session 5. Voyage AI key also exposed. Need immediate rotation before prod deployment. |
+| 2 | ✅ Provide Anthropic API key to Vercel | Platform | PLATFORM-MIGRATION.md | CRITICAL | NO | DONE Apr 11 — Fenix is live and working. Health check shows full integration. |
 | 3 | 🔴 Obtain written consent from Feeding America + Best Friends | Products/Scannibal | SCANNIBAL.md, DIA-FUND.md | CRITICAL | YES | Blocks paid tier launch, App Store submission; emails sent Mar 17, await response |
 | 4 | 🔴 File California CT-1 charitable solicitation | Legal/DIA Fund | DIA-FUND.md | CRITICAL | YES | Required before paid tier launch; $50 fee; due by Apr 30 |
 | 5 | 🔴 Define "net proceeds" calculation for DIA Fund | Legal/DIA Fund | DIA-FUND.md | CRITICAL | YES | Blocks transparency reporting, App Store listing language; formula = Revenue - Apple 30% - API costs |
@@ -414,6 +414,21 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 225 | 🟡 Rotate exposed secrets (GitHub PAT + LinkedIn client secret) | TODO | ASAP | NO | Session archive contained keys. GitHub blocked push. Keys should be rotated. |
 | 226 | 🟡 Add metadata JSONB column to messages table | TODO | Low priority | NO | Tool call persistence deferred. Current debug logging sufficient. |
 
+### Session 5-6 Completions (April 10-11, 2026)
+| # | What Got Done | Workstream | Details |
+|---|--------------|-----------|---------|
+| 1 | ✅ Arrival context system | Fenix | `arrival_context` field, content-adapter sends page context on Fenix-guided navigation. Prevents infinite navigation loops via server-side tool stripping + prompt rules. |
+| 2 | ✅ Single-hop context isolation | Fenix | `_hopStartIndex` tracks current page conversation start. Only current page messages snapshotted for next hop. Fixes A→B→C context leak. |
+| 3 | ✅ Dynamic prompt assembly | Fenix | `_detect_turn_type()` classifies turn → `build_agent_system_prompt()` assembles CORE + one BRANCH + CONTEXT. 8 turn types. |
+| 4 | ✅ Behavioral eval suite (35 tests) | Fenix | `tests/test_agent_behaviors.py` — automated regression tests against live API. Covers greeting, identity, anti-hallucination, testimonials, tour, arrival, response style, pills, feedback. |
+| 5 | ✅ Identity validation hardened | Fenix | Schema minLength, server-side: empty/duplicate/company-as-surname/placeholder rejection. Counting rule in prompt. |
+| 6 | ✅ Negative feedback handling | Fenix | Feedback detection expanded to negative sentiment. Decision tree explicitly handles: positive → collect, negative → acknowledge, generic → draw out. |
+| 7 | ✅ Cross-page navigation centralized | Fenix | Both adapters use `FC.navigateWithFenix()`. Manual sessionStorage writes removed. |
+| 8 | ✅ Fenix re-introduction fixed | Fenix | Prompt rule: frontend already shows intro message, don't repeat. |
+| 9 | ✅ Contextual pills | Fenix | After positive feedback → "Share as testimonial" pill. Topic-relevant pills after Q&A. |
+| 10 | ✅ Blog post draft | Content | `blog/fenix-how-it-works.md` — ~1,800 words. In WordWeaver session fbb30a84, step 8. Needs Kiran's voice in 4 flagged sections. |
+| 11 | ✅ Secrets scrubbed from repo | Infrastructure | GitHub PAT and LinkedIn client secret replaced with [REDACTED]. Rotation still needed (Kiran manual task). |
+
 ### Post-MVP Iteration (High Impact, Low Effort)
 | # | Action | Status | Timeline | Blocker | Notes |
 |---|--------|--------|----------|---------|-------|
@@ -447,7 +462,38 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 
 ---
 
+---
+
+## SESSION 7b LOG (April 12, 2026 — Autonomous Continuation)
+
+Kiran asleep. Continuation prompt executed against MASTER-ACTION-PLAN.xlsx backlog.
+
+### Completed
+
+| # | Item | Details |
+|---|------|---------|
+| 1 | **Career Initiatives Entity (Steps 1-5)** | Created `models/career_initiatives.py`, `routers/career_initiatives.py`, registered in `main.py`. Migration script extracted 32 initiatives from career-highlights.html (18 Wells Fargo, 9 First Republic, 4 Magley, 1 Avatour). Full CRUD + filtering by domain/company/era/search. Bulk create endpoint for future imports. Seed data at `data/career_initiatives/initiatives.json`. |
+| 2 | **Fenix Outcomes Metrics Endpoint** | Added `GET /api/fenix/outcomes` to fenix_dashboard router. Aggregates: total conversations, unique visitors, connected visitors, testimonials, fit scores completed, Fenix-driven page navigation, engagement rate, avg conversation depth. Configurable time period. |
+| 3 | **Learning Page Finalized** | Confirmed learning.html correctly redirects to /skills. skills.html is a full D3.js interactive skills visualization — IS the learning page. No further work needed. |
+| 4 | **V5 Scene Prompt Dimensions** | Confirmed BENTO-MONSTER-SCENES-V6.md already has correct full-card aspect ratios matching the bento-shapes layout (2:1, 1:1, 3:2, 3:1). V6 doc IS the updated version. No changes needed. |
+| 5 | **Visual Consistency Audit** | Full audit of all 10 top-nav pages against VISUAL-STANDARDS.md. Report at `docs/VISUAL-AUDIT-REPORT.md`. Found: hardcoded colors in 4 pages, missing light-mode support in 8 inline style blocks, inconsistent grid gaps, font loading bloat, missing responsive breakpoints. 10 prioritized recommendations. |
+| 6 | **Add Skills Feature** | Confirmed already exists: 5-tab React component at `command-center/frontend/src/app/dashboard/add-skills/page.tsx` (1,614 lines) with full backend support (evidence_service.py, evidence.py router, 6 Supabase tables). Inventory, Mapper, Taxonomy, Mind the Gap, and Publish tabs all functional. |
+
+### Commits
+
+1. `feat(cc): add career-initiatives entity with CRUD API and data migration`
+2. `feat(cc): add Fenix outcomes metrics endpoint`
+3. `docs: add full visual consistency audit report`
+4. `chore: update ACTION-TRACKER.md with Session 7b log` (this commit)
+
+### Not Attempted (time/dependency constraints)
+
+- Structured logging + error tracking (Parked — lower priority)
+- Dynamic frontend state-driven pills (Parked — needs design decisions)
+
+---
+
 *This document is the single source of truth for all open action items. Update at session end to reflect completed work and new discoveries.*
 
-**Last Updated:** April 10, 2026
-**Next Review:** After Session 5 — pager agreement, visual audit, foundation doc updates
+**Last Updated:** April 12, 2026
+**Next Review:** After Session 8 — visual audit fixes, career initiatives RAG integration, homepage gameplan
