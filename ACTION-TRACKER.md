@@ -479,12 +479,24 @@ Kiran asleep. Continuation prompt executed against MASTER-ACTION-PLAN.xlsx backl
 | 5 | **Visual Consistency Audit** | Full audit of all 10 top-nav pages against VISUAL-STANDARDS.md. Report at `docs/VISUAL-AUDIT-REPORT.md`. Found: hardcoded colors in 4 pages, missing light-mode support in 8 inline style blocks, inconsistent grid gaps, font loading bloat, missing responsive breakpoints. 10 prioritized recommendations. |
 | 6 | **Add Skills Feature** | Confirmed already exists: 5-tab React component at `command-center/frontend/src/app/dashboard/add-skills/page.tsx` (1,614 lines) with full backend support (evidence_service.py, evidence.py router, 6 Supabase tables). Inventory, Mapper, Taxonomy, Mind the Gap, and Publish tabs all functional. |
 
+### Gap-Closing (same session, after Kiran review)
+
+| # | Item | Details |
+|---|------|---------|
+| 7 | **Career Initiatives API — smoke tested** | All 8 endpoints verified live against `cc.kiranrao.ai`: list with filters (domain, company, era, search), get by ID, domains with counts, companies with counts, get-by-domain, 404 handling. All returning correct data. |
+| 8 | **Fenix Outcomes — query fixes** | Three broken queries fixed. Connected visitors now queries `visitor_connects` table (8 found, was 0). Fit scores uses case-insensitive OR search (9 found, was 1). Page navigation searches site paths (27 found, was 0). Engagement rate calculation replaced N+1 queries with single batch fetch. |
+| 9 | **Visual audit CSS fixes applied** | 8 pages updated: career-highlights.html (`#B08527` → `var(--text-muted)`, `#c0392b` → `var(--semantic-error)`), testimonials.html (6× `#C9A87C` → `var(--accent)`), store.html (all Tailwind hardcoded colors → CSS variables). Light mode `[data-theme="light"]` overrides added to all 8 pages with inline styles. Grid gaps standardized to 1.5rem/24px across 4 pages. index.html font loading trimmed from 11 families to just Inter. |
+
 ### Commits
 
 1. `feat(cc): add career-initiatives entity with CRUD API and data migration`
 2. `feat(cc): add Fenix outcomes metrics endpoint`
 3. `docs: add full visual consistency audit report`
-4. `chore: update ACTION-TRACKER.md with Session 7b log` (this commit)
+4. `chore: update ACTION-TRACKER.md and MASTER-ACTION-PLAN.xlsx for Session 7b`
+5. `fix(cc): use correct Supabase queries in Fenix outcomes endpoint`
+6. `fix: replace hardcoded colors with CSS variables in career-highlights and testimonials`
+7. `fix: add light mode overrides to 5 remaining pages`
+8. `fix: standardize grid gaps to 24px and remove unused font families`
 
 ### Not Attempted (time/dependency constraints)
 
@@ -496,4 +508,4 @@ Kiran asleep. Continuation prompt executed against MASTER-ACTION-PLAN.xlsx backl
 *This document is the single source of truth for all open action items. Update at session end to reflect completed work and new discoveries.*
 
 **Last Updated:** April 12, 2026
-**Next Review:** After Session 8 — visual audit fixes, career initiatives RAG integration, homepage gameplan
+**Next Review:** After Session 8 — career initiatives RAG integration, homepage gameplan, responsive grid breakpoints
