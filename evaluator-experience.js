@@ -258,9 +258,9 @@
   // Each returns a string result sent back to the backend.
   var toolExecutors = {
     open_panel: function (args) {
+      fenixState.ui.currentPanel = args.panel;
       showPanel(args.panel);
       fenixState.explored.panelsOpened.push(args.panel);
-      fenixState.ui.currentPanel = args.panel;
       return 'Opened the ' + args.panel + ' panel';
     },
 
