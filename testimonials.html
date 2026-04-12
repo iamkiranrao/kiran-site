@@ -91,7 +91,7 @@
             font-weight: 600;
         }
         .testimonial-rating {
-            color: #C9A87C;
+            color: var(--accent, #C9A87C);
             font-size: 0.8rem;
             margin-top: 0.5rem;
         }
@@ -155,7 +155,7 @@
         .feedback-form input:focus,
         .feedback-form textarea:focus {
             outline: none;
-            border-color: #C9A87C;
+            border-color: var(--accent, #C9A87C);
         }
         .feedback-form textarea {
             min-height: 120px;
@@ -189,7 +189,7 @@
         }
         .rating-star.active,
         .rating-star:hover {
-            color: #C9A87C;
+            color: var(--accent, #C9A87C);
         }
         .feedback-public-row {
             display: flex;
@@ -199,7 +199,7 @@
         .feedback-public-row input[type="checkbox"] {
             width: auto;
             margin-top: 0.15rem;
-            accent-color: #C9A87C;
+            accent-color: var(--accent, #C9A87C);
         }
         .feedback-public-row label {
             font-size: 0.85rem;
@@ -207,8 +207,8 @@
             line-height: 1.4;
         }
         .feedback-submit {
-            background: #C9A87C;
-            color: #0a0a0a;
+            background: var(--accent, #C9A87C);
+            color: var(--button-text, #0a0a0a);
             border: none;
             border-radius: 8px;
             padding: 0.75rem 1.5rem;
@@ -226,10 +226,10 @@
         }
         .feedback-success {
             padding: 1rem;
-            background: rgba(201, 168, 124, 0.1);
-            border: 1px solid rgba(201, 168, 124, 0.3);
+            background: var(--accent-bg, rgba(201, 168, 124, 0.1));
+            border: 1px solid var(--accent-border, rgba(201, 168, 124, 0.3));
             border-radius: 8px;
-            color: #C9A87C;
+            color: var(--accent, #C9A87C);
             font-size: 0.9rem;
             display: none;
         }
@@ -245,6 +245,82 @@
         @media (max-width: 600px) {
             .feedback-row { flex-direction: column; }
             .testimonials-hero h1 { font-size: 1.6rem; }
+        }
+
+        /* ── Light Mode Overrides ── */
+        [data-theme="light"] .testimonials-hero h1 {
+            color: var(--text-primary, #1a1a1a);
+        }
+        [data-theme="light"] .testimonials-hero p {
+            color: var(--text-secondary, #666);
+        }
+        [data-theme="light"] .testimonial-card {
+            background: var(--card-bg, rgba(0, 0, 0, 0.03));
+            border-color: var(--border-color, rgba(0, 0, 0, 0.08));
+        }
+        [data-theme="light"] .testimonial-card:hover {
+            border-color: rgba(0, 0, 0, 0.15);
+        }
+        [data-theme="light"] .testimonial-text {
+            color: var(--text-primary, #1a1a1a);
+        }
+        [data-theme="light"] .testimonial-author {
+            color: var(--text-secondary, #666);
+        }
+        [data-theme="light"] .testimonial-author strong {
+            color: var(--text-primary, #1a1a1a);
+        }
+        [data-theme="light"] .testimonial-rating {
+            color: var(--accent, #C9A87C);
+        }
+        [data-theme="light"] .testimonials-empty,
+        [data-theme="light"] .testimonials-loading {
+            color: var(--text-secondary, #666);
+        }
+        [data-theme="light"] .feedback-section h2 {
+            color: var(--text-primary, #1a1a1a);
+        }
+        [data-theme="light"] .feedback-section .feedback-subtitle {
+            color: var(--text-secondary, #666);
+        }
+        [data-theme="light"] .feedback-form input,
+        [data-theme="light"] .feedback-form textarea {
+            background: var(--input-bg, rgba(0, 0, 0, 0.05));
+            border-color: var(--border-color, rgba(0, 0, 0, 0.12));
+            color: var(--text-primary, #1a1a1a);
+        }
+        [data-theme="light"] .feedback-form input:focus,
+        [data-theme="light"] .feedback-form textarea:focus {
+            border-color: var(--accent, #C9A87C);
+        }
+        [data-theme="light"] .feedback-form input::placeholder,
+        [data-theme="light"] .feedback-form textarea::placeholder {
+            color: var(--text-muted, #999);
+        }
+        [data-theme="light"] .feedback-rating-row label {
+            color: var(--text-secondary, #666);
+        }
+        [data-theme="light"] .rating-star {
+            color: var(--text-muted, #bbb);
+        }
+        [data-theme="light"] .rating-star.active,
+        [data-theme="light"] .rating-star:hover {
+            color: var(--accent, #C9A87C);
+        }
+        [data-theme="light"] .feedback-public-row label {
+            color: var(--text-secondary, #666);
+        }
+        [data-theme="light"] .feedback-submit {
+            background: var(--accent, #C9A87C);
+            color: var(--button-text, #fff);
+        }
+        [data-theme="light"] .feedback-success {
+            background: var(--accent-bg, rgba(201, 168, 124, 0.1));
+            border-color: var(--accent-border, rgba(201, 168, 124, 0.3));
+            color: var(--accent, #C9A87C);
+        }
+        [data-theme="light"] .divider-line {
+            border-top-color: var(--border-color, rgba(0, 0, 0, 0.08));
         }
     </style>
 </head>
