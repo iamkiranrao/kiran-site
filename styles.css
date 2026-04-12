@@ -1040,6 +1040,18 @@ section {
     transition: all 0.3s ease;
 }
 
+@supports not (backdrop-filter: blur(1px)) {
+    .card-overlay { background: rgba(16, 14, 12, 0.95); }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .card-overlay {
+        background: rgb(16, 14, 12);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
 /* ── Position classes ── */
 .pos-bl .card-overlay { bottom: 0.75rem; left: 0.75rem; }
 .pos-br .card-overlay { bottom: 0.75rem; right: 0.75rem; }
@@ -1159,7 +1171,7 @@ section {
 /* TALL — 3x2 */
 .slot-tall { grid-column: 1 / 4; grid-row: 4 / 6; }
 .slot-tall .work-eyebrow { font-size: 0.75rem; }
-.slot-tall .work-stat { font-size: 2.6rem; }
+.slot-tall .work-stat { font-size: 2.5rem; }
 .slot-tall .work-desc { font-size: 0.8rem; }
 .slot-tall .card-overlay { max-width: 55%; }
 .slot-tall .card-glass { gap: 0.25rem; }
@@ -1392,7 +1404,8 @@ footer {
 }
 
 .testimonial-input:focus {
-    outline: none;
+    outline: 2px solid var(--text-secondary);
+    outline-offset: 2px;
     border-color: var(--text-secondary);
 }
 
@@ -1479,7 +1492,8 @@ footer {
 }
 
 .feedback-comment:focus {
-    outline: none;
+    outline: 2px solid var(--text-secondary);
+    outline-offset: 2px;
     border-color: var(--text-secondary);
 }
 
@@ -2518,6 +2532,18 @@ body, nav, section, footer, .mobile-menu,
     border: 1px solid var(--border-light);
 }
 
+@supports not (backdrop-filter: blur(1px)) {
+    .persona-picker-inline .lead-glass { background: rgba(10, 10, 10, 0.85); }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .persona-picker-inline .lead-glass {
+        background: rgb(10, 10, 10);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
 [data-theme="light"] .persona-picker-inline .lead-glass {
     background: rgba(245, 243, 240, 0.6);
     border-color: var(--border);
@@ -2690,6 +2716,22 @@ body, nav, section, footer, .mobile-menu,
 [data-theme="light"] .persona-picker-inline .card-glass {
     background: rgba(245, 243, 240, 0.7);
     border-top-color: var(--border);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+    .persona-picker-inline .card-glass { background: rgba(10, 8, 6, 0.9); }
+    [data-theme="light"] .persona-picker-inline .card-glass { background: rgba(245, 243, 240, 0.95); }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .persona-picker-inline .card-glass {
+        background: rgb(10, 8, 6);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+    [data-theme="light"] .persona-picker-inline .card-glass {
+        background: rgb(245, 243, 240);
+    }
 }
 
 .persona-picker-inline .card-title {
