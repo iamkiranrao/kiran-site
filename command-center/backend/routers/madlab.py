@@ -183,7 +183,7 @@ async def deploy_prototype(session_id: str):
 
         # Auto-capture evidence source for the skills page
         try:
-            from services.evidence_service import create_source, get_source
+            from services.evidence_service import create_source, get_source, generate_manifest
             try:
                 get_source(project_slug)  # Check if already exists
             except Exception:
@@ -193,6 +193,8 @@ async def deploy_prototype(session_id: str):
                     type="prototype",
                     url=f"prototypes/{project_slug}/overview.html",
                 )
+                # Generate updated manifest after creating source
+                generate_manifest()
             from services.notification_service import create_notification
             create_notification(
                 type="draft_content",

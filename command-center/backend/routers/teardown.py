@@ -585,7 +585,7 @@ async def deploy_teardown(session_id: str):
 
         # Auto-capture evidence source for the skills page
         try:
-            from services.evidence_service import create_source, get_source
+            from services.evidence_service import create_source, get_source, generate_manifest
             source_id = f"td-{company_slug}"
             teardown_label = f"{state['company']} {state['product']} Teardown"
             try:
@@ -598,6 +598,8 @@ async def deploy_teardown(session_id: str):
                     issuer="How I'd've Built It",
                     url=f"teardowns/{filename}",
                 )
+                # Generate updated manifest after creating source
+                generate_manifest()
             from services.notification_service import create_notification
             create_notification(
                 type="draft_content",
