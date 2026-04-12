@@ -483,6 +483,33 @@
                 padding: 2rem 1rem 1.5rem;
             }
         }
+
+        /* ============================================
+           LIGHT MODE OVERRIDES
+           ============================================ */
+        [data-theme="light"] .tab-button {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--text-secondary);
+        }
+        [data-theme="light"] .tab-button:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+        [data-theme="light"] .tab-button.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+        [data-theme="light"] .content-card {
+            border-color: var(--border);
+        }
+        [data-theme="light"] .content-card:hover {
+            border-color: var(--text-muted);
+        }
+        [data-theme="light"] .social-icon.github:hover {
+            border-color: #333;
+        }
     </style>
     <script src="gate.js"></script>
 </head>

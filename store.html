@@ -72,13 +72,13 @@
             justify-content: space-between;
             padding: 0.75rem 0;
             margin-bottom: 1.5rem;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid var(--border);
         }
 
         .mock-store-logo {
             font-size: 1.3rem;
             font-weight: 800;
-            color: #111827;
+            color: var(--text-primary);
             letter-spacing: -0.03em;
         }
 
@@ -91,7 +91,7 @@
         .mock-store-menu span {
             font-size: 0.8rem;
             font-weight: 500;
-            color: #4b5563;
+            color: var(--text-secondary);
             letter-spacing: 0.01em;
         }
 
@@ -105,20 +105,23 @@
             display: flex;
             align-items: center;
             gap: 0.4rem;
-            background: #f3f4f6;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             padding: 0.45rem 0.8rem;
+        }
+        [data-theme="light"] .mock-store-search {
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .mock-store-search svg {
             width: 14px;
             height: 14px;
-            color: #9ca3af;
+            color: var(--text-muted);
         }
 
         .mock-store-search span {
             font-size: 0.75rem;
-            color: #9ca3af;
+            color: var(--text-muted);
         }
 
         .mock-store-cart {
@@ -130,7 +133,7 @@
         .mock-store-cart svg {
             width: 22px;
             height: 22px;
-            color: #111827;
+            color: var(--text-primary);
         }
 
         .mock-store-cart-badge {
@@ -161,13 +164,17 @@
             font-weight: 600;
             padding: 0.4rem 1rem;
             border-radius: 20px;
-            background: #f3f4f6;
-            color: #4b5563;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+        [data-theme="light"] .mock-store-cat {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text-secondary);
         }
 
         .mock-store-cat.active {
-            background: #111827;
-            color: #fff;
+            background: var(--text-primary);
+            color: var(--bg-primary);
         }
 
         .mock-store-grid {
@@ -179,7 +186,10 @@
         .mock-product {
             border-radius: 12px;
             overflow: hidden;
-            background: #fff;
+            background: var(--bg-primary);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        [data-theme="light"] .mock-product {
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
 
@@ -239,7 +249,7 @@
 
         .mock-product-info {
             padding: 1rem 1.25rem 1.25rem;
-            background: #fff;
+            background: var(--bg-primary);
         }
 
         .mock-product-tag {
@@ -247,21 +257,21 @@
             font-weight: 600;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #9ca3af;
+            color: var(--text-muted);
             margin-bottom: 0.4rem;
         }
 
         .mock-product-name {
             font-size: 0.95rem;
             font-weight: 600;
-            color: #111827;
+            color: var(--text-primary);
             margin-bottom: 0.35rem;
             letter-spacing: -0.01em;
         }
 
         .mock-product-desc {
             font-size: 0.75rem;
-            color: #6b7280;
+            color: var(--text-secondary);
             line-height: 1.5;
             margin-bottom: 0.6rem;
         }
@@ -275,7 +285,7 @@
         .mock-product-price {
             font-size: 1rem;
             font-weight: 700;
-            color: #111827;
+            color: var(--text-primary);
         }
 
         .mock-product-btn {
@@ -284,8 +294,8 @@
             font-weight: 700;
             letter-spacing: 0.04em;
             text-transform: uppercase;
-            color: #fff;
-            background: #111827;
+            color: var(--bg-primary);
+            background: var(--text-primary);
             border-radius: 6px;
             padding: 0.5rem 0.9rem;
         }
@@ -363,6 +373,55 @@
         @media (max-width: 480px) {
             .mock-store-grid { grid-template-columns: 1fr; }
             .coming-soon-card { padding: 1.75rem 1.5rem; }
+        }
+
+        /* ============================================
+           LIGHT MODE OVERRIDES
+           ============================================ */
+        [data-theme="light"] .mock-store-nav {
+            border-color: var(--border);
+        }
+        [data-theme="light"] .mock-store-logo {
+            color: var(--text-primary);
+        }
+        [data-theme="light"] .mock-store-menu span {
+            color: var(--text-secondary);
+        }
+        [data-theme="light"] .mock-store-cart svg {
+            color: var(--text-primary);
+        }
+        [data-theme="light"] .mock-product {
+            background: var(--bg-primary);
+        }
+        [data-theme="light"] .mock-product-info {
+            background: var(--bg-primary);
+        }
+        [data-theme="light"] .mock-product-tag {
+            color: var(--text-muted);
+        }
+        [data-theme="light"] .mock-product-name {
+            color: var(--text-primary);
+        }
+        [data-theme="light"] .mock-product-desc {
+            color: var(--text-secondary);
+        }
+        [data-theme="light"] .mock-product-price {
+            color: var(--text-primary);
+        }
+        [data-theme="light"] .mock-product-btn {
+            color: var(--bg-primary);
+            background: var(--text-primary);
+        }
+        [data-theme="light"] .coming-soon-card {
+            background: var(--bg-primary);
+            border-color: var(--border);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+        }
+        [data-theme="light"] .coming-soon-title {
+            color: var(--text-primary);
+        }
+        [data-theme="light"] .coming-soon-text {
+            color: var(--text-secondary);
         }
     </style>
     <script src="gate.js"></script>
