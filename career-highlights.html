@@ -70,7 +70,7 @@
             position: relative;
             overflow: hidden;
             background: var(--bg-primary);
-            border: 3px solid #B08527;
+            border: 3px solid var(--text-muted);
         }
         .impact-video-canvas {
             width: 100%;
@@ -228,7 +228,7 @@
             border-color: var(--text-secondary);
         }
         .gate-input.error {
-            border-color: #c0392b;
+            border-color: var(--semantic-error, #c0392b);
             animation: shake 0.4s ease;
         }
         @keyframes shake {
@@ -259,7 +259,7 @@
 
         .gate-error-msg {
             font-size: 0.8rem;
-            color: #c0392b;
+            color: var(--semantic-error, #c0392b);
             margin-bottom: 1rem;
             min-height: 1.2em;
         }
@@ -1002,6 +1002,25 @@
             .timeline-role h2 { font-size: 1.15rem; }
             .impact-video-container { aspect-ratio: 4 / 3; }
             .consulting-pill { font-size: 0.65rem; }
+        }
+
+        /* ============================================
+           LIGHT MODE OVERRIDES
+           ============================================ */
+        [data-theme="light"] .impact-video-container {
+            border-color: var(--text-muted);
+        }
+
+        [data-theme="light"] .discretion-notice p {
+            color: var(--text-secondary);
+        }
+
+        [data-theme="light"] .gate-input.error {
+            border-color: var(--semantic-error, #c0392b);
+        }
+
+        [data-theme="light"] .gate-error-msg {
+            color: var(--semantic-error, #c0392b);
         }
     </style>
     <script src="gate.js"></script>
