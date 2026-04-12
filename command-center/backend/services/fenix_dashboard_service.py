@@ -440,17 +440,31 @@ def get_outcomes(days: int = 30) -> dict:
     total_conversations = convos.count or 0
     unique_visitors = len(set(c["session_id"] for c in convos.data)) if convos.data else 0
 
-    # Connected visitors (conversations with identity data in metadata)
-    connected = (
-        sb.table("conversations")
-        .select("id", count="exact")
-        .gte("started_at", cutoff)
-        .not_.is_("metadata->identity", "null")
-        .execute()
-    )
-    visitors_connected = connected.count or 0
+    # Connected visitors — use the visitor_connects guestbook table (source of truth)
+    # This is populated by log_visitor_connect() in conversation_service.py
+    try:
+        connects = (
+            sb.table("visitor_connects")
+            .select("id, name", count="exact")
+            .gte("connected_at", cutoff)
+            .execute()
+        )
+        visitors_connected = connects.count or 0
+    except Exception:
+        # Fallback: query conversations where metadata has connected_at field
+        try:
+            connected = (
+                sb.table("conversations")
+                .select("id", count="exact")
+                .gte("started_at", cutoff)
+                .not_.is_("metadata->>connected_at", "null")
+                .execute()
+            )
+            visitors_connected = connected.count or 0
+        except Exception:
+            visitors_connected = 0
 
-    # Testimonials collected (from feedback table if it exists)
+    # Testimonials collected (feedback table — all entries, not just approved)
     try:
         testimonials = (
             sb.table("feedback")
@@ -462,27 +476,35 @@ def get_outcomes(days: int = 30) -> dict:
     except Exception:
         testimonials_count = 0
 
-    # Fit scores completed (check messages for fit-score tool usage)
-    fit_scores = (
-        sb.table("messages")
-        .select("id", count="exact")
-        .eq("role", "assistant")
-        .gte("created_at", cutoff)
-        .like("content", "%fit_score%")
-        .execute()
-    )
-    fit_scores_completed = fit_scores.count or 0
+    # Fit scores — tool calls aren't persisted to messages table yet (TODO in codebase)
+    # Best heuristic: search assistant messages for fit score language
+    try:
+        fit_scores = (
+            sb.table("messages")
+            .select("id", count="exact")
+            .eq("role", "assistant")
+            .gte("created_at", cutoff)
+            .or_("content.ilike.%fit score%,content.ilike.%fit_score%,content.ilike.%Fit Score%")
+            .execute()
+        )
+        fit_scores_completed = fit_scores.count or 0
+    except Exception:
+        fit_scores_completed = 0
 
-    # Fenix-driven navigation (messages containing navigation links)
-    nav_msgs = (
-        sb.table("messages")
-        .select("id", count="exact")
-        .eq("role", "assistant")
-        .gte("created_at", cutoff)
-        .like("content", "%kiranrao.ai/%")
-        .execute()
-    )
-    pages_navigated = nav_msgs.count or 0
+    # Fenix-driven navigation — search for site links in assistant messages
+    # Links appear as markdown [text](url) or plain URLs in content
+    try:
+        nav_msgs = (
+            sb.table("messages")
+            .select("id", count="exact")
+            .eq("role", "assistant")
+            .gte("created_at", cutoff)
+            .or_("content.ilike.%kiranrao.ai/%,content.ilike.%/career%,content.ilike.%/teardown%,content.ilike.%/madlab%,content.ilike.%/studio%,content.ilike.%/blog%")
+            .execute()
+        )
+        pages_navigated = nav_msgs.count or 0
+    except Exception:
+        pages_navigated = 0
 
     # Average conversation depth
     if total_conversations > 0:
@@ -498,25 +520,26 @@ def get_outcomes(days: int = 30) -> dict:
         total_messages = 0
         avg_depth = 0
 
-    # Engagement rate (conversations with 3+ user messages / total)
+    # Engagement rate — use message counts per conversation
+    # Instead of N+1 queries, fetch all user messages and group in Python
+    engaged_count = 0
     if convos.data:
         convo_ids = [c["id"] for c in convos.data]
-        engaged_count = 0
-        # Check message counts per conversation in batches
-        for cid in convo_ids:
-            msgs = (
-                sb.table("messages")
-                .select("id", count="exact")
-                .eq("conversation_id", cid)
-                .eq("role", "user")
-                .execute()
-            )
-            if (msgs.count or 0) >= 3:
-                engaged_count += 1
-        engagement_rate = round(engaged_count / total_conversations * 100, 1) if total_conversations else 0
-    else:
-        engaged_count = 0
-        engagement_rate = 0
+        user_msgs = (
+            sb.table("messages")
+            .select("conversation_id")
+            .eq("role", "user")
+            .in_("conversation_id", convo_ids)
+            .execute()
+        )
+        # Count messages per conversation
+        msg_counts: dict[str, int] = {}
+        for m in user_msgs.data:
+            cid = m["conversation_id"]
+            msg_counts[cid] = msg_counts.get(cid, 0) + 1
+        engaged_count = sum(1 for c in msg_counts.values() if c >= 3)
+
+    engagement_rate = round(engaged_count / total_conversations * 100, 1) if total_conversations else 0
 
     return {
         "total_conversations": total_conversations,
