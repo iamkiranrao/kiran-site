@@ -87,7 +87,7 @@
         .causes-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.25rem;
+            gap: 1.5rem;
         }
 
         /* ============================================
@@ -331,6 +331,36 @@
             .causes-section { padding: 1.25rem 1rem 2rem; }
             .cause-card { padding: 1.25rem; }
             footer { padding: 2rem 1rem 1.5rem; }
+        }
+
+        /* ============================================
+           LIGHT MODE OVERRIDES
+           ============================================ */
+        [data-theme="light"] .cause-logo {
+            background: #ffffff;
+            border-color: var(--border);
+        }
+        [data-theme="light"] .cause-card {
+            border-color: var(--border);
+            background: var(--bg-primary);
+        }
+        [data-theme="light"] .cause-card:hover {
+            border-color: var(--text-muted);
+        }
+        [data-theme="light"] .cause-mission {
+            color: var(--text-secondary);
+            border-color: var(--border);
+        }
+        [data-theme="light"] .cause-donate {
+            color: var(--text-muted);
+            border-color: var(--border);
+        }
+        [data-theme="light"] .cause-donate:hover {
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+        [data-theme="light"] .social-icon.github:hover {
+            border-color: #333;
         }
     </style>
     <script src="gate.js"></script>

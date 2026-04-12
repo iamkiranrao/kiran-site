@@ -114,7 +114,7 @@
         /* Horizontal scroll container */
         .category-scroll {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             overflow-x: auto;
             overflow-y: hidden;
             padding: 0 4rem 1rem;
@@ -418,6 +418,33 @@
             .creative-card { flex: 0 0 220px; }
             .creative-thumb { height: 130px; }
             footer { padding: 2rem 1rem 1.5rem; }
+        }
+
+        /* ============================================
+           LIGHT MODE OVERRIDES
+           ============================================ */
+        [data-theme="light"] .creative-card {
+            border-color: var(--border);
+            background: var(--bg-primary);
+        }
+        [data-theme="light"] .creative-card:hover {
+            border-color: var(--text-muted);
+        }
+        [data-theme="light"] .creative-thumb {
+            background: #f5f5f5;
+            border-color: var(--border);
+        }
+        [data-theme="light"] .creative-status {
+            background: rgba(0,0,0,0.06);
+            color: var(--text-muted);
+        }
+        [data-theme="light"] .creative-tag {
+            background: #f0f0f0;
+            color: var(--text-secondary);
+            border-color: var(--border);
+        }
+        [data-theme="light"] .social-icon.github:hover {
+            border-color: #333;
         }
     </style>
     <script src="gate.js"></script>
