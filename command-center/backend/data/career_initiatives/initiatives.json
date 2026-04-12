@@ -1,0 +1,1519 @@
+[
+  {
+    "id": "25eafb2d",
+    "title": "AI-Assisted Reporting Platform",
+    "one_liner": "Pivoted core product from live inspections to async AI-powered reporting",
+    "company": "avatour",
+    "role": "VP of Product",
+    "era": "startup",
+    "year_start": 2025,
+    "year_end": null,
+    "domains": [
+      "ai-ml",
+      "zero-to-one",
+      "strategy"
+    ],
+    "tags": [
+      "AI",
+      "Strategy",
+      "0 to 1"
+    ],
+    "problem": "Avatour's core product was built for live remote inspections via 360 video. But the market for real-time walkthroughs was niche \u2014 limited TAM, long sales cycles, and heavy reliance on synchronous scheduling across time zones.",
+    "bet": "If we shifted from live-only to async AI-assisted reporting \u2014 where a single site visit generates structured, shareable inspection reports \u2014 we could serve a much larger market without requiring both parties to be online at the same time.",
+    "shipped": "AI summarization of 360 captures into structured reports. Auto-tagging of defects and observations. Conversational AI agent for report Q&A, reducing back-and-forth between field teams and reviewers.",
+    "outcome": "Expanded TAM by 3.2x to $45M. Reduced reporting time by 80%. Conversational agent cut support load by 37%. Unlocked new verticals (insurance, construction, facilities) that were previously impractical.",
+    "headline_metric_number": "3.2x",
+    "headline_metric_label": "TAM",
+    "outcome_metrics": [
+      {
+        "number": "3.2x",
+        "label": "TAM expansion"
+      },
+      {
+        "number": "80%",
+        "label": "Time savings"
+      },
+      {
+        "number": "37%",
+        "label": "Support reduction"
+      }
+    ],
+    "gallery_items": [
+      "360 capture interface",
+      "AI-generated inspection report",
+      "Conversational agent Q&A flow"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "9f263bdb",
+    "title": "Teen Banking Platform",
+    "one_liner": "Led mobile strategy that grew app user base and jumped JD Power rankings",
+    "company": "wells-fargo",
+    "role": "VP of Product, Mobile & AI Growth",
+    "era": "enterprise",
+    "year_start": 2023,
+    "year_end": 2025,
+    "domains": [
+      "payments",
+      "ai-ml",
+      "mobile",
+      "growth-adoption"
+    ],
+    "tags": [
+      "Mobile",
+      "Growth"
+    ],
+    "problem": "Wells Fargo's mobile app had strong download numbers but lagged in engagement and satisfaction. JD Power ranked it #9 among major banks. Users were downloading but not staying.",
+    "bet": "Rather than adding features, we focused on reducing friction in the top 10 daily workflows. If the core experience felt faster and more intuitive, retention and satisfaction would follow.",
+    "shipped": "Redesigned login, balance, and transfer flows. Reduced average task completion from 5 taps to 2. Added personalized quick actions on home screen. Performance optimization across Android and iOS.",
+    "outcome": "Active users grew from 18M to 32M. JD Power ranking jumped from #9 to #3. App Store rating improved 0.6 points. Mobile became the primary channel for balance and transfer activity.",
+    "headline_metric_number": "#9 to #3",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "18M to 32M",
+        "label": "Active users"
+      },
+      {
+        "number": "#9 to #3",
+        "label": "JD Power ranking"
+      }
+    ],
+    "gallery_items": [
+      "Redesigned home screen with quick actions",
+      "Simple transfer flow (2-tap)",
+      "JD Power ranking progression"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "c853b107",
+    "title": "Fargo AI Assistant \u2014 Consumer Scale",
+    "one_liner": "Scaled the bank's AI assistant from 4.1M to 27.5M active users",
+    "company": "wells-fargo",
+    "role": "VP of Product, Mobile & AI Growth",
+    "era": "enterprise",
+    "year_start": 2023,
+    "year_end": 2025,
+    "domains": [
+      "payments",
+      "ai-ml",
+      "mobile",
+      "growth-adoption"
+    ],
+    "tags": [
+      "AI",
+      "Scale",
+      "Mobile"
+    ],
+    "problem": "Fargo, the bank's AI assistant, had been live for two years but sat at 4.1M users \u2014 a fraction of the mobile app base. Support call volume was rising, and the assistant wasn't absorbing the load it was designed to handle. Customers either didn't know it existed or tried it once and didn't come back.",
+    "bet": "We believed the problem wasn't the AI itself \u2014 it was discovery and first-use experience. If we surfaced Fargo contextually (inside transactions, alerts, and search) rather than burying it in a menu, and invested in response quality for the top 50 intents, adoption would follow.",
+    "shipped": "Contextual entry points across the mobile app (transaction disputes, balance inquiries, bill pay). Rebuilt the top 50 conversation flows with improved NLU. Added proactive nudges based on user behavior patterns. Integrated Fargo responses into push notification workflows.",
+    "outcome": "Scaled from 4.1M to 27.5M active users in under 18 months. Support volume dropped 17%, saving an estimated $12M annually in call center costs. Fargo became the primary self-service channel for balance and transaction inquiries.",
+    "headline_metric_number": "27.5M",
+    "headline_metric_label": "users",
+    "outcome_metrics": [
+      {
+        "number": "4.1M to 27.5M",
+        "label": "Active users"
+      },
+      {
+        "number": "17%",
+        "label": "Support volume reduction"
+      },
+      {
+        "number": "~$12M",
+        "label": "Annual savings"
+      },
+      {
+        "number": "18 mo",
+        "label": "Time to scale"
+      }
+    ],
+    "gallery_items": [
+      "Before: Fargo buried in hamburger menu",
+      "After: Contextual entry in transaction view",
+      "Rebuilt conversation flow for disputes",
+      "Proactive nudge on push notification"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "55e3e451",
+    "title": "In-App Marketplace for Banking Products",
+    "one_liner": "Launched embedded marketplace for loans, deposits, and wealth products",
+    "company": "wells-fargo",
+    "role": "VP of Product, Mobile & AI Growth",
+    "era": "enterprise",
+    "year_start": 2023,
+    "year_end": 2025,
+    "domains": [
+      "payments",
+      "ai-ml",
+      "mobile",
+      "growth-adoption"
+    ],
+    "tags": [
+      "Fintech",
+      "Growth",
+      "Mobile"
+    ],
+    "problem": "Cross-sell happened almost entirely through branches and call centers. Mobile users had no way to discover or apply for new banking products in context. The app was a servicing tool, not a growth channel.",
+    "bet": "If we surfaced relevant products at the moment of intent \u2014 a credit card offer after a large purchase, a savings rate after a deposit \u2014 conversion would beat traditional channels. The app needed to become a storefront, not just a dashboard.",
+    "shipped": "Embedded marketplace in the app for loans, deposits, credit cards, and wealth products. Smart recommendations based on transaction data. Simple in-app application flows with pre-filled customer data.",
+    "outcome": "23% conversion rate on in-app product offers, significantly outperforming branch and call center channels. Mobile became a top-3 origination channel for consumer lending within the first year.",
+    "headline_metric_number": "23%",
+    "headline_metric_label": "conversion",
+    "outcome_metrics": [
+      {
+        "number": "23%",
+        "label": "Conversion rate"
+      },
+      {
+        "number": "Top 3",
+        "label": "Origination channel"
+      }
+    ],
+    "gallery_items": [
+      "Marketplace home screen",
+      "Contextual product recommendation",
+      "In-app application flow"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "d7ca1d02",
+    "title": "Engagement Toolkit for Feature Adoption",
+    "one_liner": "Built a reusable system to drive discovery and adoption of new features",
+    "company": "wells-fargo",
+    "role": "VP of Product, Mobile & AI Growth",
+    "era": "enterprise",
+    "year_start": 2023,
+    "year_end": 2025,
+    "domains": [
+      "payments",
+      "ai-ml",
+      "mobile",
+      "growth-adoption",
+      "platform"
+    ],
+    "tags": [
+      "Growth",
+      "Mobile",
+      "Platform"
+    ],
+    "problem": "The team was shipping features faster than users were finding them. New capabilities launched with minimal in-app awareness. Each product team was building its own one-off onboarding, creating inconsistent experiences and duplicated effort.",
+    "bet": "A shared engagement toolkit \u2014 tooltips, spotlights, coachmarks, and in-app announcements \u2014 would give every product team a consistent way to introduce features. One investment, compounding returns across every launch.",
+    "shipped": "Configurable engagement SDK with coachmarks, feature spotlights, progressive disclosure walkthroughs, and contextual tips. A/B testing framework for messaging variants. Analytics dashboard tracking feature discovery-to-adoption funnels.",
+    "outcome": "34% average increase in feature adoption for launches using the toolkit. Reduced time-to-first-use by 40% for new features. Adopted by 12 product teams across consumer mobile.",
+    "headline_metric_number": "+34% adoption",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "34%",
+        "label": "Adoption lift"
+      },
+      {
+        "number": "12",
+        "label": "Teams using toolkit"
+      }
+    ],
+    "gallery_items": [
+      "Coachmark and spotlight examples",
+      "Engagement SDK configuration",
+      "Adoption funnel dashboard"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "34eacf57",
+    "title": "Open Banking Initiative",
+    "one_liner": "API-first architecture enabling third-party integrations and data sharing",
+    "company": "wells-fargo",
+    "role": "VP of Product, Mobile & AI Growth",
+    "era": "enterprise",
+    "year_start": 2023,
+    "year_end": 2025,
+    "domains": [
+      "payments",
+      "ai-ml",
+      "mobile",
+      "growth-adoption",
+      "platform"
+    ],
+    "tags": [
+      "Platform",
+      "Transformation",
+      "API"
+    ],
+    "problem": "Wells Fargo's data layer was built on legacy point-to-point integrations. Third-party fintechs were screen-scraping customer data because there was no sanctioned API. This created security risk, poor user experience, and an inability to participate in the open banking system.",
+    "bet": "Migrating to an API-first architecture would eliminate screen scraping, improve data retrieval speed, and position the bank to participate in open banking partnerships rather than fight them.",
+    "shipped": "RESTful API gateway for consumer data access. Token-based third-party authentication replacing screen scraping. Developer portal for partner onboarding. Internal API standardization across mobile, web, and partner channels.",
+    "outcome": "35% faster data retrieval across all channels. Eliminated screen scraping for 90%+ of third-party connections. Enabled new fintech partnerships that were previously impossible due to integration constraints.",
+    "headline_metric_number": "35%",
+    "headline_metric_label": "faster",
+    "outcome_metrics": [
+      {
+        "number": "35%",
+        "label": "Faster retrieval"
+      },
+      {
+        "number": "90%+",
+        "label": "Scraping eliminated"
+      }
+    ],
+    "gallery_items": [
+      "API gateway architecture",
+      "Developer portal",
+      "Partner integration flow"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "9c55f759",
+    "title": "Segmentation and Personalization",
+    "one_liner": "Personalized app experience based on customer segment and behavior",
+    "company": "wells-fargo",
+    "role": "VP of Product, Mobile & AI Growth",
+    "era": "enterprise",
+    "year_start": 2023,
+    "year_end": 2025,
+    "domains": [
+      "payments",
+      "ai-ml",
+      "mobile",
+      "growth-adoption",
+      "personalization"
+    ],
+    "tags": [
+      "AI",
+      "Personalization",
+      "Mobile"
+    ],
+    "problem": "32 million users got the same app experience regardless of whether they were a college student with a checking account or a high-net-worth customer with a mortgage, brokerage, and credit line. One-size-fits-all was leaving value on the table.",
+    "bet": "If we segmented users by lifecycle stage, product portfolio, and behavioral patterns, we could tailor the home screen, feature surfacing, and product recommendations to each customer's actual context. Relevance would drive engagement.",
+    "shipped": "Customer segmentation engine using transaction history, product mix, and engagement signals. Dynamic home screen layouts per segment. Personalized quick actions and product recommendations. A/B testing framework for segment-level experiments.",
+    "outcome": "19% increase in daily active engagement. Personalized recommendations drove 2.3x higher click-through than generic placements. Laid the foundation for the AI-driven insights initiative that followed.",
+    "headline_metric_number": "+19% engagement",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "19%",
+        "label": "Engagement lift"
+      },
+      {
+        "number": "2.3x",
+        "label": "CTR improvement"
+      }
+    ],
+    "gallery_items": [
+      "Segment-specific home screens",
+      "Personalized quick actions",
+      "Segmentation logic flow"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "ea17529b",
+    "title": "Visual Overhaul",
+    "one_liner": "Modernized the mobile app's design system and visual language",
+    "company": "wells-fargo",
+    "role": "VP of Product, Mobile & AI Growth",
+    "era": "enterprise",
+    "year_start": 2023,
+    "year_end": 2025,
+    "domains": [
+      "payments",
+      "ai-ml",
+      "mobile",
+      "growth-adoption"
+    ],
+    "tags": [
+      "Design",
+      "Mobile",
+      "UX"
+    ],
+    "problem": "The mobile app's visual design hadn't been meaningfully updated in years. It looked dated compared to competitors and fintech challengers. App Store reviews consistently cited the UI as feeling \"old\" and \"clunky\" even when functionality was strong.",
+    "bet": "A comprehensive visual refresh \u2014 new typography, spacing, color system, and component library \u2014 would improve perceived quality without requiring major feature changes. Users judge capability by aesthetics whether we like it or not.",
+    "shipped": "New design system with updated typography, color palette, and spacing. Modernized component library across 200+ screens. Phased rollout to minimize disruption. Accessibility improvements baked into every component.",
+    "outcome": "App Store rating improved 0.6 points. \"Design\" and \"look and feel\" negative mentions in reviews dropped 45%. The updated design system reduced new screen development time by 30% through reusable components.",
+    "headline_metric_number": "+0.6 rating",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "+0.6",
+        "label": "App Store rating"
+      },
+      {
+        "number": "-45%",
+        "label": "Design complaints"
+      }
+    ],
+    "gallery_items": [
+      "Before and after comparison",
+      "New component library",
+      "Updated color and type system"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "7b845d1e",
+    "title": "Device Innovation with Apple and Google",
+    "one_liner": "First-mover integrations with new OS capabilities and hardware features",
+    "company": "wells-fargo",
+    "role": "VP of Product, Mobile & AI Growth",
+    "era": "enterprise",
+    "year_start": 2023,
+    "year_end": 2025,
+    "domains": [
+      "payments",
+      "ai-ml",
+      "mobile",
+      "growth-adoption"
+    ],
+    "tags": [
+      "Mobile",
+      "Innovation",
+      "Partnerships"
+    ],
+    "problem": "Apple and Google were shipping new device capabilities every year \u2014 widgets, dynamic island, live activities, wallet passes \u2014 and Wells Fargo was consistently 6-12 months behind competitors in adopting them. Customers expected their banking app to keep pace with the platform.",
+    "bet": "By embedding an engineering team in Apple and Google's early access programs, we could ship day-one support for new platform features. Being first would generate press, drive downloads, and signal to customers that Wells Fargo was a technology leader.",
+    "shipped": "Day-one support for iOS widgets, Dynamic Island live activities for transactions, Android app shortcuts, and Wear OS/Apple Watch complications. Deep integration with platform wallet and payment APIs. Dedicated device innovation squad with Apple/Google liaison relationships.",
+    "outcome": "Wells Fargo featured in Apple and Google keynote demos. Day-one launches became the standard rather than the exception. Widget and live activity adoption drove measurable increases in daily app opens.",
+    "headline_metric_number": "Day-1 launches",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "Day 1",
+        "label": "Platform launches"
+      },
+      {
+        "number": "Featured",
+        "label": "Keynote demos"
+      }
+    ],
+    "gallery_items": [
+      "iOS widget on home screen",
+      "Dynamic Island transaction view",
+      "Apple Watch complication"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "4342cb63",
+    "title": "Mobile Push, Alerts and Badging",
+    "one_liner": "Rebuilt the notification stack to drive re-engagement and reduce fraud response time",
+    "company": "wells-fargo",
+    "role": "VP of Product, Mobile & AI Growth",
+    "era": "enterprise",
+    "year_start": 2023,
+    "year_end": 2025,
+    "domains": [
+      "payments",
+      "ai-ml",
+      "mobile",
+      "growth-adoption",
+      "engagement"
+    ],
+    "tags": [
+      "Mobile",
+      "Engagement",
+      "Growth"
+    ],
+    "problem": "Push notifications were treated as an afterthought \u2014 generic, poorly timed, and high volume. Customers were disabling notifications entirely, which meant they missed fraud alerts, payment confirmations, and time-sensitive actions. Opt-out rates were climbing.",
+    "bet": "Fewer, smarter notifications would outperform the blast approach. If we made every push actionable and contextually relevant \u2014 and gave users granular control over what they received \u2014 they'd keep notifications on and engage with them.",
+    "shipped": "Rebuilt notification infrastructure with priority tiers (critical, transactional, promotional). Rich push with inline actions (approve, dispute, snooze). Granular notification preferences per category. Smart badging that clears contextually. Fraud alert fast-path with one-tap response.",
+    "outcome": "28% increase in push-driven app opens. Notification opt-out rate dropped 15%. Fraud alert response time improved from hours to minutes. Rich push actions reduced friction for common tasks by 60%.",
+    "headline_metric_number": "+28% opens",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "28%",
+        "label": "App opens via push"
+      },
+      {
+        "number": "-15%",
+        "label": "Opt-out rate"
+      }
+    ],
+    "gallery_items": [
+      "Rich push with inline actions",
+      "Notification preference center",
+      "Fraud alert fast-path"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "ba5156de",
+    "title": "AI-Driven Customer Insights",
+    "one_liner": "ML-powered spending insights and financial health signals surfaced in-app",
+    "company": "wells-fargo",
+    "role": "VP of Product, Mobile & AI Growth",
+    "era": "enterprise",
+    "year_start": 2023,
+    "year_end": 2025,
+    "domains": [
+      "payments",
+      "ai-ml",
+      "mobile",
+      "growth-adoption",
+      "personalization"
+    ],
+    "tags": [
+      "AI",
+      "Personalization",
+      "Mobile"
+    ],
+    "problem": "Customers had access to raw transaction data but no intelligence on top of it. They couldn't easily answer questions like \"am I spending more on dining this month?\" or \"is this subscription charge new?\" without manually scrolling through statements.",
+    "bet": "If we applied ML to transaction data and surfaced proactive insights \u2014 spending trends, unusual charges, recurring payment changes, savings opportunities \u2014 the app would shift from reactive record-keeping to proactive financial guidance.",
+    "shipped": "AI-powered spending categorization and trend analysis. Proactive alerts for unusual charges, subscription changes, and spending spikes. Monthly financial health summary with personalized recommendations. Integration with Fargo assistant for conversational exploration of insights.",
+    "outcome": "Users who engaged with insights showed 3.1x higher session frequency. Unusual charge alerts prevented an estimated $8M in disputed transactions annually. Insights became the second most-used feature after balance check.",
+    "headline_metric_number": "3.1x",
+    "headline_metric_label": "engagement",
+    "outcome_metrics": [
+      {
+        "number": "3.1x",
+        "label": "Session frequency"
+      },
+      {
+        "number": "~$8M",
+        "label": "Disputes prevented"
+      }
+    ],
+    "gallery_items": [
+      "Spending trend visualization",
+      "Unusual charge alert",
+      "Monthly financial health summary"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "5e00afc6",
+    "title": "Zelle P2P Payments",
+    "one_liner": "Launched real-time P2P payments for 1M+ high-net-worth clients",
+    "company": "first-republic",
+    "role": "Director, Product Management Manager - Payments & Digital Channels",
+    "era": "enterprise",
+    "year_start": 2016,
+    "year_end": 2023,
+    "domains": [
+      "payments",
+      "platform",
+      "growth-adoption",
+      "mobile"
+    ],
+    "tags": [
+      "Payments",
+      "Mobile"
+    ],
+    "problem": "First Republic's clients had no way to send real-time peer-to-peer payments through the bank's digital channels. They were using Venmo and third-party apps, moving money outside the bank's system. Competitors had already launched Zelle months earlier.",
+    "bet": "High-net-worth clients would adopt Zelle quickly if it was integrated natively into the mobile and web experience they already used daily. Speed to market mattered more than building a custom solution.",
+    "shipped": "Zelle integration across mobile and web for 1M+ clients. Seamless enrollment from within the app. Real-time send and receive with instant notifications. Fraud detection rules tailored to high-value transactions.",
+    "outcome": "Zelle adoption exceeded projections by 40% in the first quarter. P2P transaction volume grew steadily month over month. Kept client payment activity within the bank's system.",
+    "headline_metric_number": "+40% over forecast",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "40%",
+        "label": "Over forecast"
+      },
+      {
+        "number": "1M+",
+        "label": "Clients enrolled"
+      }
+    ],
+    "gallery_items": [
+      "Zelle enrollment flow",
+      "Send money experience",
+      "Transaction confirmation"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "d3a87c2d",
+    "title": "Apple Pay",
+    "one_liner": "Contactless payments with same-day card provisioning for debit and credit",
+    "company": "first-republic",
+    "role": "Director, Product Management Manager - Payments & Digital Channels",
+    "era": "enterprise",
+    "year_start": 2016,
+    "year_end": 2023,
+    "domains": [
+      "payments",
+      "platform",
+      "growth-adoption",
+      "mobile"
+    ],
+    "tags": [
+      "Payments",
+      "Mobile",
+      "Partnerships"
+    ],
+    "problem": "Clients were asking for contactless payment support and First Republic had no Apple Pay integration. The bank's card provisioning process was slow, requiring days to add cards to digital wallets. Competitors offered instant provisioning.",
+    "bet": "Same-day card provisioning would differentiate First Republic's Apple Pay launch. If clients could add their card to Apple Wallet instantly from within the app, adoption would be significantly higher than industry averages.",
+    "shipped": "Apple Pay support for debit and credit cards. Same-day in-app provisioning with one-tap activation. Push notifications for contactless transactions. Integration with Apple's Wallet API for real-time card status.",
+    "outcome": "Apple Pay became the fastest-adopted feature in the app's history. Contactless transaction volume grew 27% within the first quarter. Client satisfaction scores for payments improved measurably.",
+    "headline_metric_number": "Fastest adoption",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "27%",
+        "label": "Volume increase"
+      },
+      {
+        "number": "#1",
+        "label": "Fastest adopted feature"
+      }
+    ],
+    "gallery_items": [
+      "In-app card provisioning",
+      "Apple Wallet integration",
+      "Contactless payment confirmation"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "f7d77106",
+    "title": "Core Platform Migration",
+    "one_liner": "Led end-to-end migration from Fiserv to FIS across digital channels",
+    "company": "first-republic",
+    "role": "Director, Product Management Manager - Payments & Digital Channels",
+    "era": "enterprise",
+    "year_start": 2016,
+    "year_end": 2023,
+    "domains": [
+      "payments",
+      "platform",
+      "growth-adoption"
+    ],
+    "tags": [
+      "Transformation",
+      "Platform"
+    ],
+    "problem": "The existing Fiserv core was limiting the bank's ability to launch new digital products. Integration complexity was adding months to every initiative. Revenue growth was flatlining.",
+    "bet": "A full platform migration to FIS would be painful upfront but would unlock the product velocity needed to compete. The key was migrating without disrupting existing clients.",
+    "shipped": "Phased migration of digital channels from Fiserv to FIS. Zero-downtime cutover strategy. Rebuilt integration layer for payments, lending, and wealth management.",
+    "outcome": "18% YoY revenue growth post-migration. New product launch cycle dropped from 6 months to 6 weeks. Zero client-impacting incidents during cutover.",
+    "headline_metric_number": "+18% revenue",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "18%",
+        "label": "YoY revenue growth"
+      },
+      {
+        "number": "6mo to 6wk",
+        "label": "Launch cycle"
+      }
+    ],
+    "gallery_items": [
+      "Migration architecture diagram",
+      "Phased cutover timeline",
+      "Post-migration metrics dashboard"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "7253a49f",
+    "title": "Eagle Tracker Portfolio Management Tool",
+    "one_liner": "Built portfolio tracking and analytics tool for wealth management clients",
+    "company": "first-republic",
+    "role": "Director, Product Management Manager - Payments & Digital Channels",
+    "era": "enterprise",
+    "year_start": 2016,
+    "year_end": 2023,
+    "domains": [
+      "payments",
+      "platform",
+      "growth-adoption",
+      "wealth",
+      "mobile"
+    ],
+    "tags": [
+      "Wealth",
+      "0 to 1",
+      "Mobile"
+    ],
+    "problem": "Wealth management clients had no self-service way to view portfolio performance, asset allocation, or gain/loss data digitally. They relied on quarterly statements and phone calls with their relationship manager for basic portfolio questions.",
+    "bet": "A real-time portfolio management tool embedded in the mobile app would reduce RM call volume for routine inquiries and give clients the transparency they expected from a modern wealth platform.",
+    "shipped": "Eagle Tracker: real-time portfolio dashboard with asset allocation views, performance charts, gain/loss tracking, and holdings detail. Integrated across mobile and web. Customizable watchlists and alerts for portfolio thresholds.",
+    "outcome": "Significantly reduced routine portfolio inquiry calls to relationship managers. Clients gained real-time visibility into their investments for the first time. Became a key differentiator in wealth client retention conversations.",
+    "headline_metric_number": "Real-time views",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "Real-time",
+        "label": "Portfolio visibility"
+      },
+      {
+        "number": "Reduced",
+        "label": "RM inquiry calls"
+      }
+    ],
+    "gallery_items": [
+      "Portfolio dashboard overview",
+      "Asset allocation breakdown",
+      "Performance chart views"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "7961ae6f",
+    "title": "Digital Wealth Management Platform",
+    "one_liner": "Launched end-to-end digital wealth platform for clients and advisors",
+    "company": "first-republic",
+    "role": "Director, Product Management Manager - Payments & Digital Channels",
+    "era": "enterprise",
+    "year_start": 2016,
+    "year_end": 2023,
+    "domains": [
+      "payments",
+      "platform",
+      "growth-adoption",
+      "wealth"
+    ],
+    "tags": [
+      "Wealth",
+      "Platform",
+      "0 to 1"
+    ],
+    "problem": "First Republic's wealth management experience was almost entirely offline. Account opening, document collection, investment preferences, and advisor communication all happened through paper, email, and phone calls. The experience didn't match the bank's premium brand.",
+    "bet": "A comprehensive digital wealth platform \u2014 covering onboarding, document management, advisor messaging, and investment tracking \u2014 would modernize the client experience and free advisors to focus on high-value conversations instead of paperwork.",
+    "shipped": "Digital wealth onboarding with e-signature and document upload. Secure advisor-client messaging within the app. Investment preference questionnaires and risk profiling. Consolidated wealth dashboard alongside banking accounts.",
+    "outcome": "Reduced wealth onboarding time significantly. Advisor capacity increased as routine tasks moved digital. Client satisfaction scores for wealth services improved. Platform became a competitive differentiator for client acquisition.",
+    "headline_metric_number": "Full platform",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "Digital",
+        "label": "End-to-end onboarding"
+      },
+      {
+        "number": "Increased",
+        "label": "Advisor capacity"
+      }
+    ],
+    "gallery_items": [
+      "Wealth onboarding flow",
+      "Advisor messaging interface",
+      "Consolidated wealth dashboard"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "fd7cd653",
+    "title": "Stealth Mode on Mobile for Privacy",
+    "one_liner": "Privacy mode that hides balances and sensitive data in public settings",
+    "company": "first-republic",
+    "role": "Director, Product Management Manager - Payments & Digital Channels",
+    "era": "enterprise",
+    "year_start": 2016,
+    "year_end": 2023,
+    "domains": [
+      "payments",
+      "platform",
+      "growth-adoption",
+      "mobile"
+    ],
+    "tags": [
+      "Privacy",
+      "Mobile",
+      "UX"
+    ],
+    "problem": "High-net-worth clients were uncomfortable checking balances or reviewing transactions in public \u2014 airports, offices, coffee shops. With large balances visible on screen, the app felt risky to use outside of private settings. Some clients avoided the app entirely when in public.",
+    "bet": "A one-tap \"stealth mode\" that masked balances, account numbers, and transaction amounts would make clients feel safe using the app anywhere. Privacy would drive frequency.",
+    "shipped": "Stealth mode toggle that instantly masks all balances, account numbers, and transaction amounts with blur or placeholder values. Persists across sessions until toggled off. Quick-reveal with biometric tap for individual values. Configurable per account.",
+    "outcome": "Became one of the most talked-about features among the client base. Increased mobile session frequency among high-balance clients. Generated positive press coverage as a privacy-first innovation in banking.",
+    "headline_metric_number": "Client favorite",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "Increased",
+        "label": "Session frequency"
+      },
+      {
+        "number": "Press",
+        "label": "Industry coverage"
+      }
+    ],
+    "gallery_items": [
+      "Normal view vs stealth mode",
+      "Quick-reveal biometric tap",
+      "Stealth mode settings"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "dbcbed8f",
+    "title": "DOC AI \u2014 Data Extraction for Compliance",
+    "one_liner": "AI-powered document processing to automate compliance data extraction",
+    "company": "first-republic",
+    "role": "Director, Product Management Manager - Payments & Digital Channels",
+    "era": "enterprise",
+    "year_start": 2016,
+    "year_end": 2023,
+    "domains": [
+      "payments",
+      "platform",
+      "growth-adoption",
+      "ai-ml"
+    ],
+    "tags": [
+      "AI",
+      "Compliance",
+      "Automation"
+    ],
+    "problem": "Compliance teams were manually reviewing and extracting data from thousands of documents \u2014 tax forms, identification, financial statements, legal filings. The process was slow, error-prone, and couldn't scale with growing regulatory requirements.",
+    "bet": "AI-powered document extraction (OCR + NLP) could automate the bulk of data capture from structured and semi-structured documents, reducing manual review to exception handling only.",
+    "shipped": "DOC AI engine for automated extraction from tax documents, IDs, financial statements, and legal filings. Confidence scoring with human-in-the-loop review for low-confidence extractions. Integration with compliance workflow systems. Support for 50+ document types.",
+    "outcome": "85% of document data extraction fully automated. Processing time per document dropped from minutes to seconds. Error rate lower than manual review. Freed compliance staff to focus on judgment-based reviews.",
+    "headline_metric_number": "85%",
+    "headline_metric_label": "automation",
+    "outcome_metrics": [
+      {
+        "number": "85%",
+        "label": "Fully automated"
+      },
+      {
+        "number": "50+",
+        "label": "Document types"
+      }
+    ],
+    "gallery_items": [
+      "Document upload and classification",
+      "AI extraction with confidence scores",
+      "Human-in-the-loop review queue"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "214b1724",
+    "title": "Digital Closing Application for Loans",
+    "one_liner": "End-to-end digital loan closing with e-signature and document management",
+    "company": "first-republic",
+    "role": "Director, Product Management Manager - Payments & Digital Channels",
+    "era": "enterprise",
+    "year_start": 2016,
+    "year_end": 2023,
+    "domains": [
+      "payments",
+      "platform",
+      "growth-adoption",
+      "lending"
+    ],
+    "tags": [
+      "Lending",
+      "Digital",
+      "0 to 1"
+    ],
+    "problem": "Loan closings required clients to come into a branch, review stacks of paper documents, and sign everything in person. The process took days of scheduling and was especially frustrating for busy professionals and clients in other cities.",
+    "bet": "A fully digital closing experience \u2014 document review, e-signature, notarization, and funding confirmation all within the app \u2014 would dramatically reduce closing times and remove the biggest friction point in the lending experience.",
+    "shipped": "Digital closing application with secure document delivery, in-app review with annotation, e-signature integration, remote online notarization support, and real-time closing status tracking. Automated document assembly from loan origination data.",
+    "outcome": "Closing time reduced from days to hours. Eliminated the need for in-branch visits for most loan types. Client satisfaction for the lending experience improved significantly. Operational cost per closing dropped substantially.",
+    "headline_metric_number": "Days to hours",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "Days to hrs",
+        "label": "Closing time"
+      },
+      {
+        "number": "Eliminated",
+        "label": "Branch visits"
+      }
+    ],
+    "gallery_items": [
+      "Document review interface",
+      "E-signature flow",
+      "Closing status tracker"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "21f040f9",
+    "title": "Enhancements to Banker Platform",
+    "one_liner": "Modernized internal tools for relationship managers and branch staff",
+    "company": "first-republic",
+    "role": "Director, Product Management Manager - Payments & Digital Channels",
+    "era": "enterprise",
+    "year_start": 2016,
+    "year_end": 2023,
+    "domains": [
+      "payments",
+      "platform",
+      "growth-adoption"
+    ],
+    "tags": [
+      "Platform",
+      "Internal Tools"
+    ],
+    "problem": "Relationship managers were juggling multiple legacy systems to serve clients \u2014 one for accounts, another for loans, a third for wealth. Context-switching between tools during client conversations was slow and created a fragmented experience for both bankers and clients.",
+    "bet": "A unified banker platform with a single client view \u2014 combining accounts, loans, wealth, and communication history \u2014 would reduce time-per-interaction and let RMs focus on the relationship rather than the tooling.",
+    "shipped": "Unified client 360 view for relationship managers. Consolidated account, loan, and wealth data in a single interface. Quick-action workflows for common RM tasks. Client activity timeline showing digital and branch interactions. Integrated CRM notes and follow-up tracking.",
+    "outcome": "30% improvement in RM efficiency for client servicing tasks. Reduced average interaction time. Bankers reported significantly higher satisfaction with internal tools. Platform became the foundation for future internal product investments.",
+    "headline_metric_number": "+30% efficiency",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "30%",
+        "label": "RM efficiency gain"
+      },
+      {
+        "number": "Unified",
+        "label": "Client 360 view"
+      }
+    ],
+    "gallery_items": [
+      "Client 360 unified view",
+      "Quick-action workflows",
+      "Activity timeline"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "9054c501",
+    "title": "DailyChange Gamified Payments App",
+    "one_liner": "Gamified round-up savings app that increased ACH transfers by 27%",
+    "company": "wells-fargo",
+    "role": "AVP - Digital Product Manager (Auth and Mobile)",
+    "era": "enterprise",
+    "year_start": 2012,
+    "year_end": 2016,
+    "domains": [
+      "payments",
+      "mobile",
+      "zero-to-one"
+    ],
+    "tags": [
+      "0 to 1",
+      "Payments",
+      "Gamification"
+    ],
+    "problem": "Younger customers weren't engaging with traditional savings products. The bank needed a low-friction way to drive deposits and build savings habits among a demographic that wasn't setting up recurring transfers.",
+    "bet": "A gamified \"set it and forget it\" round-up product \u2014 where every debit card purchase rounds to the nearest dollar and sweeps the difference to savings \u2014 would drive engagement without requiring behavior change. Adding streaks, milestones, and social nudges would make saving feel like a game, not a chore.",
+    "shipped": "DailyChange: automatic round-up on debit transactions with gamification layer. Real-time savings tracker with streaks and milestones. Customizable multiplier (1x, 2x, 5x round-ups). Monthly savings summary with goal tracking and achievement badges.",
+    "outcome": "27% increase in ACH transfers. Average user saved $38/month without actively trying. The product became a key acquisition hook for younger demographics.",
+    "headline_metric_number": "+27% ACH",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "27%",
+        "label": "ACH growth"
+      },
+      {
+        "number": "$38/mo",
+        "label": "Avg. savings"
+      }
+    ],
+    "gallery_items": [
+      "Round-up transaction view",
+      "Savings tracker with streaks",
+      "Goal tracking & multiplier settings"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "2dad7bd7",
+    "title": "Enterprise Multi-Factor Authentication",
+    "one_liner": "Enterprise rollout of MFA across online and mobile, securing 25M+ users",
+    "company": "wells-fargo",
+    "role": "AVP - Digital Product Manager (Auth and Mobile)",
+    "era": "enterprise",
+    "year_start": 2012,
+    "year_end": 2016,
+    "domains": [
+      "payments",
+      "mobile",
+      "zero-to-one",
+      "security",
+      "growth-adoption"
+    ],
+    "tags": [
+      "Security",
+      "Scale",
+      "Mobile"
+    ],
+    "problem": "Single-factor authentication left 25M+ active users vulnerable. Account takeover attempts were rising, regulatory pressure was increasing, and the bank had no consistent MFA solution across its online and mobile channels.",
+    "bet": "A unified MFA rollout across both online and mobile \u2014 rather than channel-by-channel \u2014 would close the security gap faster and create a consistent experience. The key was doing it without tanking login completion rates.",
+    "shipped": "Multi-factor authentication across online banking and mobile app for 25M+ active users. SMS, email, and authenticator app options. Adaptive step-up authentication based on risk signals. Seamless enrollment flows to minimize drop-off during migration.",
+    "outcome": "Unauthorized access reduced by 40%. 25M+ active users secured with minimal impact on login completion rates. Established the authentication foundation that biometrics and device fingerprinting would later build on.",
+    "headline_metric_number": "-40% unauth access",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "-40%",
+        "label": "Unauthorized access"
+      },
+      {
+        "number": "25M+",
+        "label": "Users secured"
+      }
+    ],
+    "gallery_items": [
+      "MFA enrollment flow",
+      "Step-up challenge screen",
+      "Authentication method selection"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "7cf71738",
+    "title": "Biometric Login Integration",
+    "one_liner": "Touch ID and Android Fingerprint login driving 60%+ adoption",
+    "company": "wells-fargo",
+    "role": "AVP - Digital Product Manager (Auth and Mobile)",
+    "era": "enterprise",
+    "year_start": 2012,
+    "year_end": 2016,
+    "domains": [
+      "payments",
+      "mobile",
+      "zero-to-one",
+      "security"
+    ],
+    "tags": [
+      "Security",
+      "Mobile",
+      "UX"
+    ],
+    "problem": "Even with MFA in place, password-based login was still the primary entry point. Customers were forgetting passwords, getting locked out, and abandoning sessions. Login success rates were lower than they needed to be for an app serving millions.",
+    "bet": "Integrating biometric authentication \u2014 Touch ID on iOS, Android Fingerprint on Android \u2014 would simultaneously improve security and reduce friction. Faster login would drive higher session frequency and fewer support calls.",
+    "shipped": "Touch ID and Android Fingerprint integration for mobile login and transaction approval. Biometric enrollment during first login post-update. Fallback to passcode for failed biometric attempts. Support for both authentication and transaction signing.",
+    "outcome": "60%+ biometric adoption among mobile users. Login success rates improved by 25%. Password reset calls dropped significantly. Set the precedent for all future authentication investments at Wells Fargo.",
+    "headline_metric_number": "60%",
+    "headline_metric_label": "+ adoption",
+    "outcome_metrics": [
+      {
+        "number": "60%+",
+        "label": "Biometric adoption"
+      },
+      {
+        "number": "+25%",
+        "label": "Login success rate"
+      }
+    ],
+    "gallery_items": [
+      "Touch ID login prompt",
+      "Android Fingerprint integration",
+      "Biometric enrollment flow"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "cd506983",
+    "title": "Device Fingerprinting & Behavioral Analytics",
+    "one_liner": "Risk-based authentication using device signals and behavioral patterns",
+    "company": "wells-fargo",
+    "role": "AVP - Digital Product Manager (Auth and Mobile)",
+    "era": "enterprise",
+    "year_start": 2012,
+    "year_end": 2016,
+    "domains": [
+      "payments",
+      "mobile",
+      "zero-to-one",
+      "security",
+      "ai-ml",
+      "fraud"
+    ],
+    "tags": [
+      "Security",
+      "AI",
+      "Fraud"
+    ],
+    "problem": "Account takeover (ATO) attacks were getting more sophisticated. Stolen credentials could bypass MFA if attackers had access to a victim's phone or email. Static authentication rules weren't adapting to evolving threat patterns.",
+    "bet": "Layering device fingerprinting and behavioral analytics on top of existing authentication would catch bad actors that credentials alone couldn't. If the device, location, or behavior pattern didn't match, step up the challenge \u2014 invisibly to legitimate users.",
+    "shipped": "Device fingerprinting engine capturing hardware, OS, and browser signals. Behavioral analytics tracking login patterns, navigation habits, and session timing. Risk scoring engine that triggered adaptive step-up authentication. Continuous authentication signals throughout the session, not just at login.",
+    "outcome": "35% drop in account takeover attempts. Legitimate users experienced fewer challenges due to trusted device recognition. Fraud detection shifted from reactive to proactive. Established the risk-based authentication layer still in use today.",
+    "headline_metric_number": "-35% ATO",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "-35%",
+        "label": "ATO attempts"
+      },
+      {
+        "number": "Fewer",
+        "label": "False challenges"
+      }
+    ],
+    "gallery_items": [
+      "Risk scoring dashboard",
+      "Device trust signals",
+      "Adaptive challenge flow"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "2995104a",
+    "title": "Cardless ATM Access",
+    "one_liner": "Mobile-authenticated cardless withdrawals across 12K+ ATMs",
+    "company": "wells-fargo",
+    "role": "AVP - Digital Product Manager (Auth and Mobile)",
+    "era": "enterprise",
+    "year_start": 2012,
+    "year_end": 2016,
+    "domains": [
+      "payments",
+      "mobile",
+      "zero-to-one",
+      "security"
+    ],
+    "tags": [
+      "0 to 1",
+      "Mobile",
+      "Security"
+    ],
+    "problem": "Physical card fraud at ATMs \u2014 skimming, cloning, shoulder surfing \u2014 was a persistent and costly problem. Customers who lost or forgot their card had no way to access cash. The ATM experience hadn't evolved in decades.",
+    "bet": "If customers could authenticate ATM withdrawals through their mobile app instead of a physical card, it would eliminate the skimming attack vector entirely and give customers a faster, more convenient way to access cash.",
+    "shipped": "Cardless ATM access via mobile authentication across 12,000+ Wells Fargo ATMs. One-time access codes generated in the app. NFC tap-to-authenticate for supported devices. Biometric confirmation before code generation for added security.",
+    "outcome": "Physical card fraud reduced by 30% at enabled ATMs. Expanded secure cash access across 12K+ ATMs nationwide. Customers used cardless access even when they had their card \u2014 the experience was simply better.",
+    "headline_metric_number": "-30% card fraud",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "-30%",
+        "label": "Card fraud"
+      },
+      {
+        "number": "12K+",
+        "label": "ATMs enabled"
+      }
+    ],
+    "gallery_items": [
+      "Cardless ATM initiation in app",
+      "One-time code generation",
+      "NFC tap-to-authenticate"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "781d72fd",
+    "title": "Alerts Next Gen",
+    "one_liner": "Rebuilt the alerts platform to deliver smarter, real-time notifications across channels",
+    "company": "wells-fargo",
+    "role": "AVP - Digital Product Manager (Auth and Mobile)",
+    "era": "enterprise",
+    "year_start": 2012,
+    "year_end": 2016,
+    "domains": [
+      "payments",
+      "mobile",
+      "zero-to-one"
+    ],
+    "tags": [
+      "Alerts",
+      "Push Notifications",
+      "Real-time",
+      "Multi-channel"
+    ],
+    "problem": "Legacy alerts system was batch-processed with limited customization. Customers received delayed or irrelevant notifications, leading to low engagement and missed fraud events.",
+    "bet": "A modern, event-driven alerts platform with granular customer preferences and real-time delivery would increase engagement and strengthen fraud detection.",
+    "shipped": "Next-generation alerts engine with real-time event processing. Configurable alert preferences across push, SMS, and email. Smart bundling to reduce notification fatigue. Priority escalation for security-related alerts.",
+    "outcome": "Faster alert delivery, higher customer engagement with notifications, and improved fraud response times across the digital banking portfolio.",
+    "headline_metric_number": "Next Gen",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "Real-time",
+        "label": "Alert delivery"
+      },
+      {
+        "number": "Multi-channel",
+        "label": "Push, SMS, Email"
+      }
+    ],
+    "gallery_items": [
+      "Alert preferences dashboard",
+      "Real-time notification flow",
+      "Smart alert bundling"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "39f280d9",
+    "title": "Digital Redesign and Replatforming",
+    "one_liner": "Led the redesign and migration of digital banking to a modern platform architecture",
+    "company": "wells-fargo",
+    "role": "AVP - Digital Product Manager (Auth and Mobile)",
+    "era": "enterprise",
+    "year_start": 2012,
+    "year_end": 2016,
+    "domains": [
+      "payments",
+      "mobile",
+      "zero-to-one"
+    ],
+    "tags": [
+      "Replatforming",
+      "UX Redesign",
+      "Architecture",
+      "Migration"
+    ],
+    "problem": "Legacy digital banking platform was built on aging infrastructure. Feature velocity was slow, the UX was dated, and the tech stack made it difficult to ship modern experiences at scale.",
+    "bet": "A full redesign paired with platform migration would unlock faster development cycles, improve the customer experience, and position the digital channel for future growth.",
+    "shipped": "End-to-end digital banking redesign with modernized UI patterns. Platform migration from legacy monolith to a more modular architecture. Phased rollout to minimize customer disruption. Updated information architecture and navigation.",
+    "outcome": "Modernized digital banking experience with improved usability, faster feature delivery, and a scalable foundation for future product development.",
+    "headline_metric_number": "Replatform",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "Full",
+        "label": "UX redesign"
+      },
+      {
+        "number": "Modern",
+        "label": "Platform stack"
+      }
+    ],
+    "gallery_items": [
+      "Before and after redesign",
+      "New platform architecture",
+      "Migration rollout plan"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "8027c4d5",
+    "title": "Managed Student Loans Digital Roadmap",
+    "one_liner": "Owned the digital product roadmap for the student lending portfolio",
+    "company": "wells-fargo",
+    "role": "AVP - Digital Product Manager (Auth and Mobile)",
+    "era": "enterprise",
+    "year_start": 2012,
+    "year_end": 2016,
+    "domains": [
+      "payments",
+      "mobile",
+      "zero-to-one",
+      "lending"
+    ],
+    "tags": [
+      "Student Loans",
+      "Product Roadmap",
+      "Digital Servicing",
+      "Lending"
+    ],
+    "problem": "Student loan servicing was primarily offline. Borrowers lacked self-service tools for payments, deferment, and account management, driving high call center volume and poor satisfaction.",
+    "bet": "A dedicated digital roadmap for student loans would reduce servicing costs, improve borrower satisfaction, and bring the lending experience in line with the rest of the digital banking portfolio.",
+    "shipped": "Digital student loan dashboard with payment management, autopay enrollment, and deferment request flows. Self-service tools for loan details, payoff quotes, and document access. Integrated into the broader online and mobile banking experience.",
+    "outcome": "Improved borrower self-service rates, reduced call center volume for student loan inquiries, and a cohesive digital servicing experience for the lending portfolio.",
+    "headline_metric_number": "Roadmap",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "Self-serve",
+        "label": "Loan management"
+      },
+      {
+        "number": "Reduced",
+        "label": "Call center volume"
+      }
+    ],
+    "gallery_items": [
+      "Student loan dashboard",
+      "Payment management flow",
+      "Self-service tools"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "74a88351",
+    "title": "Starbucks Card Mobile App",
+    "one_liner": "Digitized the Starbucks rewards card to drive a better omnichannel experience",
+    "company": "magley",
+    "role": "Senior Consultant - Tech Innovations",
+    "era": "consulting",
+    "year_start": 2002,
+    "year_end": 2012,
+    "domains": [
+      "platform",
+      "mobile"
+    ],
+    "tags": [
+      "Mobile",
+      "Loyalty",
+      "Omnichannel",
+      "Rewards"
+    ],
+    "problem": "The Starbucks rewards experience was tied to a physical card. Customers had to carry it separately, reload it in-store, and had no way to manage their rewards digitally. The myStarbucks mobile app existed but lacked card integration.",
+    "bet": "A companion mobile app that digitized the rewards card and allowed mobile recharge would drive omnichannel engagement and make the card experience seamless.",
+    "shipped": "Starbucks Card mobile app as a companion to myStarbucks. First-in-industry digital wallet feature enabling in-app payments. Mobile recharge of the rewards card \u2014 a top customer feature request. Redesigned rewards portal online with profile onboarding to support the app.",
+    "outcome": "45% app adoption. The mobile app became one of the top 10 downloaded apps in both Google Play and the Apple App Store.",
+    "headline_metric_number": "45%",
+    "headline_metric_label": "adoption",
+    "outcome_metrics": [
+      {
+        "number": "45%",
+        "label": "App adoption"
+      },
+      {
+        "number": "Top 10",
+        "label": "App Store ranking"
+      },
+      {
+        "number": "First",
+        "label": "In-industry digital wallet"
+      }
+    ],
+    "gallery_items": [
+      "Starbucks Card app",
+      "Digital wallet payment",
+      "Mobile recharge flow"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "8f2c203a",
+    "title": "Online Bill Pay Redesign",
+    "one_liner": "Redesigned customer onboarding for ACH-based Bill Pay across business and consumer accounts",
+    "company": "magley",
+    "role": "Senior Consultant - Tech Innovations",
+    "era": "consulting",
+    "year_start": 2002,
+    "year_end": 2012,
+    "domains": [
+      "platform",
+      "payments"
+    ],
+    "tags": [
+      "Payments",
+      "ACH",
+      "Bill Pay",
+      "Onboarding"
+    ],
+    "problem": "Bill Pay onboarding was cumbersome, with separate flows for business and consumer accounts. Adoption lagged behind competitors and the experience didn't reflect Wachovia's digital banking ambitions.",
+    "bet": "A redesigned, unified onboarding experience for ACH-based Bill Pay would lift adoption and strengthen Wachovia's position among top online banking platforms.",
+    "shipped": "Redesigned onboarding for online Bill Pay using ACH for both business and consumer accounts. Defined business rules for physical vs. electronic checks, data encryption, eligibility, permissions, stop payments, and automatic overdraft protection. Built a feature roadmap including real-time alerts and notifications. Identified partnership opportunities with business banking, statements, and third-party financial tools.",
+    "outcome": "38% increase in Bill Pay adoption. Consolidated Wachovia's standing as the 4th best online banking platform among major US banks.",
+    "headline_metric_number": "+38% adoption",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "+38%",
+        "label": "Bill Pay adoption"
+      },
+      {
+        "number": "#4",
+        "label": "US online banking rank"
+      }
+    ],
+    "gallery_items": [
+      "Bill Pay onboarding flow",
+      "ACH payment setup",
+      "Alerts and notifications"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "e49797e3",
+    "title": "OnQ - Proprietary Hotel ERP Platform",
+    "one_liner": "Product strategy for a proprietary ERP powering hotel operations, inventory, finance, and guest experience",
+    "company": "magley",
+    "role": "Senior Consultant - Tech Innovations",
+    "era": "consulting",
+    "year_start": 2002,
+    "year_end": 2012,
+    "domains": [
+      "platform"
+    ],
+    "tags": [
+      "ERP",
+      "Hospitality",
+      "Product Strategy",
+      "CRM"
+    ],
+    "problem": "Hilton properties ran on fragmented systems for operations, inventory, finance, and guest management. There was no unified platform, making it difficult to drive consistent guest experiences and operational efficiency at scale.",
+    "bet": "A proprietary, fully integrated ERP platform would unify hotel operations, improve revenue per available room, and enable personalized guest experiences across the Hilton portfolio.",
+    "shipped": "OnQ - a proprietary ERP platform covering hotel operations, inventory management, finance, and guest experience. Conducted user research and gathered feedback to inform roadmap and feature prioritization. Launched digital innovations including automated self check-in and check-out. Defined features for a custom CRM enabling personalization and preference management.",
+    "outcome": "10-point RevPAR gain for properties that migrated to the new platform. Improved operational consistency and guest personalization across the Hilton portfolio.",
+    "headline_metric_number": "+10pt RevPAR",
+    "headline_metric_label": "",
+    "outcome_metrics": [
+      {
+        "number": "+10pt",
+        "label": "RevPAR gain"
+      },
+      {
+        "number": "Automated",
+        "label": "Self check-in/out"
+      }
+    ],
+    "gallery_items": [
+      "OnQ platform dashboard",
+      "Self check-in flow",
+      "CRM personalization"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  },
+  {
+    "id": "db021658",
+    "title": "Yahoo! Messenger Product Strategy",
+    "one_liner": "Product evolution of a messaging platform with 10.6M users",
+    "company": "magley",
+    "role": "Senior Consultant - Tech Innovations",
+    "era": "consulting",
+    "year_start": 2002,
+    "year_end": 2012,
+    "domains": [
+      "platform"
+    ],
+    "tags": [
+      "Consumer",
+      "Messaging",
+      "Product Strategy",
+      "Go-to-Market"
+    ],
+    "problem": "Yahoo! Messenger had a large user base but needed product evolution to stay competitive. Engagement opportunities with adjacent Yahoo properties (Games, Photos, Search) were untapped, and the user experience needed optimization.",
+    "bet": "Cross-pollinating Messenger with Yahoo's other products and optimizing the core experience would deepen engagement and create new differentiation opportunities.",
+    "shipped": "Product enhancements through cross-functional collaboration with Yahoo! Games, Photos, and Search. UX optimizations that increased time spent. Worked with marketing and sales on product positioning, messaging, and go-to-market strategies. Monitored market trends to identify opportunities for innovation, differentiation, and collaboration.",
+    "outcome": "Users spending an average of 57 minutes per day on the app. Stronger integration across the Yahoo system and clearer product positioning in a competitive messaging market.",
+    "headline_metric_number": "57",
+    "headline_metric_label": "min/day",
+    "outcome_metrics": [
+      {
+        "number": "10.6M",
+        "label": "Users"
+      },
+      {
+        "number": "57 min",
+        "label": "Daily avg. usage"
+      }
+    ],
+    "gallery_items": [
+      "Yahoo! Messenger interface",
+      "Cross-product integrations",
+      "Engagement metrics"
+    ],
+    "public": true,
+    "fenix_indexed": true,
+    "notes": "",
+    "created_at": "2026-04-12T07:46:19.709272+00:00",
+    "updated_at": "2026-04-12T07:46:19.709272+00:00"
+  }
+]
