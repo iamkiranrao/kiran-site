@@ -147,9 +147,9 @@
 
   var toolExecutors = {
     open_panel: function (args) {
+      fenixState.ui.currentPanel = args.panel;
       showPanel(args.panel);
       fenixState.explored.panelsOpened.push(args.panel);
-      fenixState.ui.currentPanel = args.panel;
       return 'Opened the ' + args.panel + ' panel';
     },
 
@@ -426,6 +426,47 @@
     openingBubble.setAttribute('data-opening-text', openingText);
     messageArea.appendChild(openingBubble);
     wrapper.appendChild(messageArea);
+
+    // ── Typing Animation for Opening Message ──
+    (function typeOpeningMessage() {
+      var introZone = container.closest('.fenix-intro-zone');
+      if (!introZone) {
+        // If no intro zone, just fill content immediately
+        openingContent.textContent = openingText;
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            observer.unobserve(introZone);
+            animateTyping(openingContent, openingText);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      observer.observe(introZone);
+
+      function animateTyping(contentEl, text) {
+        var index = 0;
+        var charDelay = 30; // ms per character
+
+        contentEl.textContent = '';
+        contentEl.classList.add('ev-msg-typing');
+
+        function typeNextChar() {
+          if (index < text.length) {
+            contentEl.textContent += text[index];
+            index++;
+            setTimeout(typeNextChar, charDelay);
+          } else {
+            contentEl.classList.remove('ev-msg-typing');
+          }
+        }
+
+        typeNextChar();
+      }
+    })();
 
     var pillContainer = el('div', 'ev-chat-pills');
     var pills = [
