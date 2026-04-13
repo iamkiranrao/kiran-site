@@ -13,6 +13,7 @@ import json
 import re
 import asyncio
 import os
+import time
 from typing import Optional, AsyncGenerator, List, Dict
 from pydantic import BaseModel
 from fastapi import APIRouter, Header, HTTPException
@@ -21,6 +22,40 @@ from utils.config import CLAUDE_MODEL, resolve_api_key, get_logger
 from services.claude_client import create_client
 
 logger = get_logger(__name__)
+
+
+# ── Retry wrapper for Claude API calls ─────────────────────────────────
+
+def call_claude_with_retry(client, max_retries=3, **kwargs):
+    """Call Claude API with retry logic for transient errors (429, 529)."""
+    for attempt in range(max_retries):
+        try:
+            return client.messages.create(**kwargs)
+        except Exception as e:
+            error_str = str(e)
+            is_retryable = any(code in error_str for code in ["529", "overloaded", "rate_limit", "429"])
+            if is_retryable and attempt < max_retries - 1:
+                wait_time = (attempt + 1) * 2  # 2s, 4s, 6s
+                logger.warning(f"Claude API retryable error (attempt {attempt + 1}/{max_retries}): {error_str[:100]}. Retrying in {wait_time}s...")
+                time.sleep(wait_time)
+                continue
+            # Not retryable or final attempt — raise friendly error
+            raise FriendlyAPIError(error_str)
+
+
+class FriendlyAPIError(Exception):
+    """Wraps Claude API errors with user-friendly messages."""
+    def __init__(self, raw_error: str):
+        self.raw_error = raw_error
+        if "529" in raw_error or "overloaded" in raw_error.lower():
+            self.friendly_message = "Claude's servers are temporarily at capacity. Please try again in a moment."
+        elif "429" in raw_error or "rate_limit" in raw_error.lower():
+            self.friendly_message = "We've hit a temporary rate limit. Please wait a few seconds and try again."
+        elif "401" in raw_error or "authentication" in raw_error.lower():
+            self.friendly_message = "There's an API configuration issue. Kiran has been notified."
+        else:
+            self.friendly_message = "Something went wrong generating the analysis. Please try again."
+        super().__init__(self.friendly_message)
 
 router = APIRouter()
 
@@ -195,7 +230,8 @@ INITIATIVE CATALOG:
 {INITIATIVE_CATALOG}
 """
 
-        extraction_response = client.messages.create(
+        extraction_response = call_claude_with_retry(
+            client,
             model=CLAUDE_MODEL,
             max_tokens=600,
             messages=[{"role": "user", "content": extraction_prompt}],
@@ -393,7 +429,8 @@ FULL INITIATIVE DETAILS (for the selected initiatives):
         yield f"data: {create_sse_event('narration', {'message': 'Building the evidence map...'})}\n\n"
         await asyncio.sleep(0.1)
 
-        narrative_response = client.messages.create(
+        narrative_response = call_claude_with_retry(
+            client,
             model=CLAUDE_MODEL,
             max_tokens=3000,
             messages=[{"role": "user", "content": narrative_prompt}],
@@ -494,9 +531,13 @@ FULL INITIATIVE DETAILS (for the selected initiatives):
 
         yield f"data: {create_sse_event('complete', {'company': company, 'role_title': role_title, 'preferred_company': preferred_match})}\n\n"
 
+    except FriendlyAPIError as e:
+        logger.error(f"Fit narrative API error: {e.raw_error}", exc_info=True)
+        yield f"data: {create_sse_event('error', {'message': e.friendly_message})}\n\n"
     except Exception as e:
         logger.error(f"Fit narrative streaming error: {str(e)}", exc_info=True)
-        yield f"data: {create_sse_event('error', {'message': str(e)})}\n\n"
+        friendly = "Something went wrong generating the analysis. Please try again."
+        yield f"data: {create_sse_event('error', {'message': friendly})}\n\n"
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────
