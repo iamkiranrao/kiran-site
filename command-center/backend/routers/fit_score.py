@@ -1,10 +1,10 @@
 """
-Fit Narrative Router — Builds a compelling case for Kiran's fit, streamed live.
+Fit Narrative Router — Shows how Kiran's experience maps to a role, streamed live.
 
-Replaces the old numerical scoring pipeline with a three-section narrative:
-  1. Direct alignment — where Kiran's experience maps cleanly to the JD
-  2. The advantage of different — where gaps become the pitch
-  3. What he brings that the JD doesn't ask for — unexpected value
+Generates a three-section narrative:
+  1. What Kiran has shipped that maps to the role
+  2. What he adds on top / where his experience creates unexpected leverage
+  3. The question worth asking
 
 Endpoints:
   POST /analyze         — Analyze job description and generate fit narrative
@@ -42,9 +42,7 @@ Industry experience: Banking/fintech (Wells Fargo, First Republic), hospitality 
 
 Technical skills: Mobile-first product development, API strategy, AI/ML integration, platform migration, Agile/Scrum
 
-Target direction: Breaking out of banking into consumer tech, AI-native companies, mobile-first products. Building this portfolio site itself demonstrates product thinking, AI integration, and full-stack execution.
-
-Key projects to reference when making the case:
+Key projects to reference:
 - Mobile banking app scaling: Led the product from 18M to 32M MAU while maintaining a 4.9 star rating. This involved performance optimization, feature prioritization under scale constraints, and balancing growth with stability.
 - AI revenue transformation: Took Wells Fargo's AI-driven product line from $4.1M to $27.5M revenue. Built the business case, secured executive buy-in, designed the rollout strategy, managed the cross-functional team.
 - Platform migration: Led a multi-year platform migration affecting millions of users with zero downtime. Required deep technical coordination, risk management, and phased rollout planning.
