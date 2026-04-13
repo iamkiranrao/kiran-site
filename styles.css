@@ -3363,7 +3363,7 @@ body, nav, section, footer, .mobile-menu,
 }
 
 .fenix-context-reframe {
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     color: var(--text-primary);
     line-height: 1.7;
     margin: 0 auto 0.25rem;
@@ -3371,7 +3371,7 @@ body, nav, section, footer, .mobile-menu,
 }
 
 .fenix-context-invite {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: var(--text-secondary);
     line-height: 1.7;
     margin: 0 auto;
