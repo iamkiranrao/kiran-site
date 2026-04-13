@@ -1171,15 +1171,15 @@
   background: rgba(0, 0, 0, 0.02);
 }
 
-.ev-narrative-section[data-section="direct_alignment"] {
+.ev-narrative-section[data-section="shipped_match"] {
   border-left-color: var(--ev-accent);
 }
 
-.ev-narrative-section[data-section="advantage_of_different"] {
+.ev-narrative-section[data-section="added_value"] {
   border-left-color: #4b9664;
 }
 
-.ev-narrative-section[data-section="unexpected_value"] {
+.ev-narrative-section[data-section="sharp_question"] {
   border-left-color: #c9a227;
 }
 
@@ -1192,11 +1192,11 @@
   margin: 0 0 0.75rem 0;
 }
 
-.ev-narrative-section[data-section="advantage_of_different"] .ev-narrative-section-header {
+.ev-narrative-section[data-section="added_value"] .ev-narrative-section-header {
   color: #4b9664;
 }
 
-.ev-narrative-section[data-section="unexpected_value"] .ev-narrative-section-header {
+.ev-narrative-section[data-section="sharp_question"] .ev-narrative-section-header {
   color: #c9a227;
 }
 

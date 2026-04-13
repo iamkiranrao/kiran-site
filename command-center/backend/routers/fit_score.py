@@ -12,6 +12,7 @@ Endpoints:
 """
 
 import json
+import re
 import asyncio
 from typing import Optional, AsyncGenerator
 from pydantic import BaseModel
@@ -175,30 +176,49 @@ JD TEXT:
         if preferred_match:
             preferred_note = f"\n\nNote: {company} is on Kiran's target company list — he is actively interested in this company. You can mention this naturally in section 3 if it fits."
 
-        narrative_prompt = f"""You are Fenix, Kiran Rao's AI agent. A recruiter or hiring manager has pasted a job description. Your job is to build a compelling, specific case for why Kiran is the right person for this role.
+        narrative_prompt = f"""You are Fenix, Kiran Rao's AI agent. A recruiter or hiring manager has pasted a job description. Your job is to build a compelling, specific, HONEST case for why Kiran is the right person for this role.
+
+STEP 1 — HONESTLY ASSESS THE FIT (do this silently, do NOT include in output):
+Read the JD carefully. Compare it against Kiran's profile. Ask yourself:
+- Is Kiran a strong, direct fit for this role? (his experience maps cleanly to most requirements)
+- Is Kiran a credible fit with some stretch? (solid foundation but gaps in specific areas)
+- Is this a significant reach? (major experience gaps)
+Be honest. This assessment determines which structure you use below.
 
 CRITICAL RULES:
 - NO percentages, NO scores, NO ratings, NO numerical assessments anywhere
-- NO band labels (Strong/Solid/Partial/Stretch)
-- NO "gap analysis" or "what would improve the score" framing
+- NEVER use the phrases "career transition", "career pivot", "different background", "non-traditional"
+- NEVER name Kiran's industry background as a category ("banking experience", "fintech background") — just describe what he shipped and let the results speak
+- NEVER defensively reframe anything. If something is a strength, state it as a strength. Period.
 - Write as Fenix speaking directly to the reader — confident, specific, not salesy
-- Reference actual projects and results from Kiran's profile (numbers, outcomes, scale)
-- Keep the total response between 150-250 words across all three sections
+- Reference actual projects and results from Kiran's profile — numbers, outcomes, scale
+- Use the JD's own language and terminology when describing Kiran's matching experience
+- Keep the total response between 150-250 words across all sections
 - Each section should be 2-4 sentences. Tight, scannable, no fluff
 - Do NOT use bullet points — write in flowing prose
 
-STRUCTURE (use these exact headers, each on its own line):
+STRUCTURE — Choose based on your honest assessment:
 
-**Where Kiran is a direct match**
-[2-4 sentences on the clearest alignments between JD requirements and Kiran's experience. Be specific — cite projects, scale, outcomes. Don't just say "strong PM experience" — say what he did and how it maps.]
+IF STRONG DIRECT FIT (use this when Kiran's experience maps directly to the role):
 
-**Where his different background is the advantage**
-[2-4 sentences reframing what might look like "gaps" as strengths. Banking/fintech experience isn't a limitation — it's a differentiated perspective. Career transition is cross-domain pattern recognition. Regulatory complexity is a strength in any regulated or scaling business. Make the case that what's different about Kiran is what makes him compelling.]
+**What Kiran has shipped that maps to this role**
+[2-4 sentences. Lead with the strongest matching experience. Cite specific projects, metrics, and scale using the JD's own language. Don't say "he has experience in X" — say what he did and the result. Every sentence should make the reader think "this person has done this exact job."]
 
-**What he brings that this JD doesn't ask for**
-[2-4 sentences on unexpected value. AI product experience (built a tool-using AI agent from scratch), full-stack product thinking (designed and built this entire site), whatever the JD doesn't mention but any smart hiring manager would want. Plant the seed: you're not just filling the role as written, you're upgrading it.]
+**What he adds on top of the role requirements**
+[2-4 sentences. Genuine additional value — things the JD doesn't explicitly ask for but any smart hiring manager wants. Hands-on AI product building (not just strategy — he built a working AI agent with tool-calling and RAG), data infrastructure at the schema level, complex platform migrations with zero downtime. Frame as compounding value, not a consolation prize.]
 
-End with a single closing line (not a separate section) that creates forward motion — something like "Want me to walk you through a specific project?" or "I can go deeper on any of these — just ask." Keep it natural, not formulaic.
+IF CREDIBLE FIT WITH STRETCH (use this when some requirements are a direct match but others require connecting dots):
+
+**What Kiran has shipped that maps to this role**
+[Same as above — lead with the direct matches. Be specific and metric-driven.]
+
+**Where his experience creates unexpected leverage**
+[2-4 sentences. WITHOUT naming the source industry or calling it "different," describe specific capabilities that give Kiran an edge. Focus on what he CAN do that most candidates for this role cannot. Regulated environments at scale, complex stakeholder navigation, building trust with millions of users where mistakes have real financial consequences.]
+
+FOR EITHER STRUCTURE, end with:
+
+**The question worth asking**
+[One sharp, role-specific question that reframes how the reader thinks about the position. NOT generic ("want me to walk you through a project?"). Make it specific to what the JD asks for and what Kiran has done. Example: "This role asks for someone who's transformed how millions of members get financial help with AI — Kiran has shipped exactly that. Want to see the playbook?" The question should imply Kiran has already solved the hardest problem in the JD.]
 {visitor_context}{preferred_note}
 
 JOB DESCRIPTION:
@@ -215,28 +235,28 @@ KIRAN'S PROFILE:
             messages=[{"role": "user", "content": narrative_prompt}],
         ) as stream:
             current_section = None
+            section_count = 0
             buffer = ""
+
+            # Section IDs for styling (mapped by order of appearance)
+            section_ids = ["shipped_match", "added_value", "sharp_question"]
 
             for text in stream.text_stream:
                 buffer += text
 
-                # Detect section headers
-                if "**Where Kiran is a direct match**" in buffer and current_section != "direct_alignment":
-                    current_section = "direct_alignment"
-                    yield f"data: {create_sse_event('section', {'id': 'direct_alignment', 'label': 'Where Kiran is a direct match'})}\n\n"
-                    # Remove the header from the buffer before sending as content
-                    buffer = buffer.replace("**Where Kiran is a direct match**", "").lstrip("\n")
+                # Detect any markdown bold header (** ... **)
+                header_match = re.search(r'\*\*([^*]+)\*\*', buffer)
+                if header_match:
+                    header_text = header_match.group(1).strip()
+                    section_id = section_ids[section_count] if section_count < len(section_ids) else f"section_{section_count}"
+                    section_count += 1
+                    current_section = section_id
 
-                elif "**Where his different background is the advantage**" in buffer and current_section != "advantage_of_different":
-                    current_section = "advantage_of_different"
-                    yield f"data: {create_sse_event('section', {'id': 'advantage_of_different', 'label': 'Where his different background is the advantage'})}\n\n"
-                    buffer = buffer.replace("**Where his different background is the advantage**", "").lstrip("\n")
+                    yield f"data: {create_sse_event('section', {'id': section_id, 'label': header_text})}\n\n"
 
-                elif "**What he brings that this JD doesn" in buffer and current_section != "unexpected_value":
-                    current_section = "unexpected_value"
-                    section_label = "What he brings that this JD doesn't ask for"
-                    yield f"data: {create_sse_event('section', {'id': 'unexpected_value', 'label': section_label})}\n\n"
-                    buffer = buffer.replace("**What he brings that this JD doesn't ask for**", "").lstrip("\n")
+                    # Remove the full header from buffer
+                    full_match = header_match.group(0)
+                    buffer = buffer[buffer.index(full_match) + len(full_match):].lstrip("\n")
 
                 # Send buffered text as narrative chunks (flush every few chars for smooth streaming)
                 if len(buffer) > 3:
