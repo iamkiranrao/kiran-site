@@ -473,6 +473,9 @@ nav {
     grid-template-columns: 1fr 1fr 1.2fr;
     min-height: 320px;
     margin-top: 1.5rem;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .triptych-col {
@@ -1677,70 +1680,7 @@ footer {
     animation: fadeInUp 1s ease 0.5s both;
 }
 
-/* Floating Fenix AI assistant button */
-.ai-assistant-wrapper {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.ai-assistant {
-    width: 68px;
-    height: 68px;
-    background: #00293C;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    border: 2px solid #003a54;
-    padding: 0px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    animation: fenix-pulse 3s ease-in-out infinite, fenix-bounce 8s ease-in-out infinite;
-    flex-shrink: 0;
-}
-
-[data-theme="light"] .ai-assistant {
-    background: #00293C;
-    border-color: #003a54;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-.fenix-fab-logo {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-/* Tooltip styles are in fenix-widget.css */
-
-.ai-assistant:hover {
-    transform: scale(1.1);
-    animation: none;
-    box-shadow: 0 6px 28px rgba(139, 30, 30, 0.4);
-}
-
-@keyframes fenix-pulse {
-    0%, 100% {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(139, 30, 30, 0.4);
-    }
-    50% {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 12px rgba(139, 30, 30, 0);
-    }
-}
-
-@keyframes fenix-bounce {
-    0%, 85%, 100% { transform: translateY(0); }
-    90% { transform: translateY(-8px); }
-    95% { transform: translateY(0); }
-    97% { transform: translateY(-4px); }
-}
+/* FAB removed — Fenix is accessed via the inline chat module */
 
 
 /* ============================================
@@ -1993,8 +1933,7 @@ footer {
     .contact-cta h2 { font-size: clamp(2rem, 10vw, 3rem); }
     .contact-link { font-size: 1rem; padding: 1rem 2rem; }
 
-    .ai-assistant-wrapper { bottom: 1.5rem; right: 1.5rem; }
-    .ai-assistant { width: 58px; height: 58px; padding: 3px; }
+    /* FAB removed */
     .fenix-section-logo { width: 100px; height: 100px; }
     .social-links { flex-wrap: wrap; }
     .social-icon { width: 40px; height: 40px; }
@@ -2483,19 +2422,7 @@ body, nav, section, footer, .mobile-menu,
                        0 0 40px color-mix(in srgb, var(--persona-accent) 15%, transparent); }
 }
 
-/* Override FAB pulse with persona color when active */
-.persona-active .ai-assistant {
-    animation: fenixPulsePersona 3s ease-in-out infinite, fenix-bounce 8s ease-in-out infinite;
-}
-
-@keyframes fenixPulsePersona {
-    0%, 100% {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 0 color-mix(in srgb, var(--persona-accent) 40%, transparent);
-    }
-    50% {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 12px color-mix(in srgb, var(--persona-accent) 0%, transparent);
-    }
-}
+/* FAB persona override removed */
 
 
 /* ── Contact Subtext ───────────────────────────── */
@@ -2891,8 +2818,7 @@ body, nav, section, footer, .mobile-menu,
 .picker-mode .numbers-section,
 .picker-mode #work,
 .picker-mode .contact-cta,
-.picker-mode footer,
-.picker-mode .ai-assistant-wrapper {
+.picker-mode footer {
     opacity: 0;
     pointer-events: none;
     position: absolute;
@@ -2924,12 +2850,7 @@ body, nav, section, footer, .mobile-menu,
     clip: auto;
 }
 
-.persona-active .ai-assistant-wrapper {
-    opacity: 1;
-    pointer-events: auto;
-    position: fixed;
-    width: auto;
-    height: auto;
+/* .ai-assistant-wrapper rule removed (FAB removed) */
     overflow: visible;
     clip: auto;
 }
@@ -3081,16 +3002,7 @@ body, nav, section, footer, .mobile-menu,
     pointer-events: auto !important;
 }
 
-.morph-content-in .ai-assistant-wrapper {
-    animation: fabFadeIn 0.5s var(--ease-decel) 0.65s forwards;
-    position: fixed !important;
-    width: auto !important;
-    height: auto !important;
-    overflow: visible !important;
-    clip: auto !important;
-    pointer-events: auto !important;
-    opacity: 0;
-}
+/* .ai-assistant-wrapper morph-content-in rule removed (FAB removed) */
 
 @keyframes contentRise {
     0%   { opacity: 0; transform: translateY(35px); filter: blur(6px); }
@@ -3098,10 +3010,7 @@ body, nav, section, footer, .mobile-menu,
     100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
-@keyframes fabFadeIn {
-    0%   { opacity: 0; transform: scale(0.7); }
-    100% { opacity: 1; transform: scale(1); }
-}
+/* fabFadeIn keyframes removed (FAB removed) */
 
 /* --- Morph complete: stable state, all animations done --- */
 .morph-complete nav,
@@ -3123,17 +3032,7 @@ body, nav, section, footer, .mobile-menu,
     transform: none;
 }
 
-.morph-complete .ai-assistant-wrapper {
-    opacity: 1;
-    pointer-events: auto;
-    position: fixed;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    clip: auto;
-    filter: none;
-    transform: none;
-}
+/* .ai-assistant-wrapper morph-complete rule removed (FAB removed) */
 
 /* --- Reverse morph: back to picker --- */
 .morph-reverse nav,
@@ -3143,8 +3042,7 @@ body, nav, section, footer, .mobile-menu,
 .morph-reverse .numbers-section,
 .morph-reverse #work,
 .morph-reverse .contact-cta,
-.morph-reverse footer,
-.morph-reverse .ai-assistant-wrapper {
+.morph-reverse footer {
     animation: cinematicFadeOut 0.5s var(--ease-cinematic) forwards;
 }
 
@@ -3512,6 +3410,9 @@ body, nav, section, footer, .mobile-menu,
     border-top: 1px solid var(--persona-accent, var(--border));
     border-bottom: 1px solid var(--persona-accent, var(--border));
     margin: 0;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .fenix-intro-left {
@@ -3858,7 +3759,6 @@ body, nav, section, footer, .mobile-menu,
     .morph-content-in #work,
     .morph-content-in .contact-cta,
     .morph-content-in footer,
-    .morph-content-in .ai-assistant-wrapper,
     .morph-reverse nav,
     .morph-reverse .hero-text,
     .morph-reverse .about-section,

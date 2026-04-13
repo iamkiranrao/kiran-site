@@ -978,11 +978,10 @@
       chipsEl.appendChild(chip);
     });
 
-    // Dismiss behavior → collapse to FAB
+    // Dismiss behavior
     var dismissBtn = module.querySelector('.fenix-subpage-dismiss');
     dismissBtn.addEventListener('click', function () {
       module.classList.add('dismissed');
-      // FAB gets accent ring (handled via CSS)
     });
 
     // Slim bar variant (switchable via class)
@@ -999,14 +998,7 @@
     }, { passive: true });
   }
 
-  // ── C8: FAB Accent Ring ────────────────────────────
-  function applyFabAccentRing() {
-    var accent = getPersonaAccent();
-    if (!accent) return;
-    var fab = document.querySelector('.ai-assistant');
-    if (!fab) return;
-    fab.classList.add('persona-accent-ring');
-  }
+  // C8: FAB removed — Fenix is accessed via the inline chat module
 
   // ── C9: Toast Accent Border ────────────────────────
   // Handled via CSS: .toast gets border-color from --persona-accent when persona is active
@@ -1029,8 +1021,7 @@
       applyAccentFrame();
       // Apply all personalization
       applyAllPersonalization(persona);
-      // FAB accent ring
-      applyFabAccentRing();
+      // FAB removed
     }
 
     // Init morph state

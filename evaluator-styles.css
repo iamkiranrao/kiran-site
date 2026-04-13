@@ -59,59 +59,123 @@
   transform: translateY(0);
 }
 
-/* ── Chat Header (compact identity anchor) ── */
+/* ── Chat Header (identity anchor with presence) ── */
 .ev-chat-header {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.85rem 1.25rem;
-  border-bottom: 1px solid var(--ev-border);
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 1.15rem;
+  border-bottom: none;
   background: rgba(20, 20, 20, 0.5);
+  position: relative;
+}
+
+/* Accent gradient line under header */
+.ev-chat-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1.25rem;
+  right: 1.25rem;
+  height: 1.5px;
+  background: linear-gradient(
+    90deg,
+    rgba(123, 154, 204, 0.5) 0%,
+    rgba(123, 154, 204, 0.15) 60%,
+    transparent 100%
+  );
 }
 
 [data-theme="light"] .ev-chat-header {
   background: rgba(245, 243, 240, 0.5);
 }
 
+[data-theme="light"] .ev-chat-header::after {
+  background: linear-gradient(
+    90deg,
+    rgba(90, 123, 168, 0.4) 0%,
+    rgba(90, 123, 168, 0.1) 60%,
+    transparent 100%
+  );
+}
+
 .ev-chat-avatar {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: 1.5px solid var(--ev-accent-border);
+  border: 1.5px solid rgba(123, 154, 204, 0.35);
   object-fit: contain;
   flex-shrink: 0;
-  box-shadow: 0 0 12px var(--ev-accent-glow);
+  box-shadow: 0 0 18px rgba(123, 154, 204, 0.2), 0 0 36px rgba(123, 154, 204, 0.08);
   animation: ev-avatarBreath 4s ease-in-out infinite;
 }
 
 @keyframes ev-avatarBreath {
-  0%, 100% { box-shadow: 0 0 12px var(--ev-accent-glow), 0 0 24px rgba(123, 154, 204, 0.08); }
-  50% { box-shadow: 0 0 18px rgba(123, 154, 204, 0.25), 0 0 36px rgba(123, 154, 204, 0.08); }
+  0%, 100% { box-shadow: 0 0 18px rgba(123, 154, 204, 0.2), 0 0 36px rgba(123, 154, 204, 0.08); }
+  50% { box-shadow: 0 0 24px rgba(123, 154, 204, 0.35), 0 0 48px rgba(123, 154, 204, 0.12); }
 }
 
 .ev-chat-header-info {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.1rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
   min-width: 0;
 }
 
 .ev-chat-header-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.05rem;
-  font-weight: 400;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
   color: var(--ev-text-primary);
+  letter-spacing: 0.02em;
 }
 
-.ev-chat-header-sub {
-  font-size: 0.85rem;
-  color: var(--ev-accent);
-  font-style: italic;
-  font-weight: 400;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* Status dot — green/yellow/red presence indicator */
+.ev-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.ev-status-dot--ready {
+  background: rgba(74, 190, 120, 0.85);
+  animation: ev-statusPulseGreen 2.5s ease-in-out infinite;
+}
+
+@keyframes ev-statusPulseGreen {
+  0%, 100% {
+    background: rgba(74, 190, 120, 0.85);
+    box-shadow: 0 0 4px rgba(74, 190, 120, 0.4);
+  }
+  50% {
+    background: rgba(74, 190, 120, 0.4);
+    box-shadow: 0 0 8px rgba(74, 190, 120, 0.2);
+  }
+}
+
+.ev-status-dot--thinking {
+  background: rgba(214, 180, 76, 0.85);
+  animation: ev-statusPulseYellow 1.2s ease-in-out infinite;
+}
+
+@keyframes ev-statusPulseYellow {
+  0%, 100% {
+    background: rgba(214, 180, 76, 0.85);
+    box-shadow: 0 0 4px rgba(214, 180, 76, 0.4);
+  }
+  50% {
+    background: rgba(214, 180, 76, 0.4);
+    box-shadow: 0 0 8px rgba(214, 180, 76, 0.2);
+  }
+}
+
+.ev-status-dot--error {
+  background: rgba(204, 88, 88, 0.85);
+  box-shadow: 0 0 4px rgba(204, 88, 88, 0.3);
+  animation: none;
 }
 
 /* ── Message Area (scrollable conversation) ── */
@@ -1522,7 +1586,8 @@
    ════════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: reduce) {
-  .ev-chat-avatar {
+  .ev-chat-avatar,
+  .ev-status-dot {
     animation: none !important;
   }
   .ev-fenix-chat,
