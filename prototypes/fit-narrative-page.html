@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fit Narrative — Dedicated Page Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-primary: #0a0a0a;
+    --bg-card: #111111;
+    --bg-card-hover: #161616;
+    --bg-surface: #0e0e0e;
+    --text-primary: #e8dcc8;
+    --text-secondary: #c8bba8;
+    --text-muted: #5a5347;
+    --border: #1e1e1e;
+    --border-light: #2a2a2a;
+    --accent: #7B9ACC;
+    --accent-glow: rgba(123, 154, 204, 0.12);
+    --accent-border: rgba(123, 154, 204, 0.25);
+    --accent-border-hover: rgba(123, 154, 204, 0.4);
+    --green: #4DAF8B;
+    --green-border: rgba(77, 175, 139, 0.25);
+    --gold: #c8a84e;
+    --gold-border: rgba(200, 168, 78, 0.25);
+    --panel-width: 380px;
+    --content-max: 860px;
+    --transition-fast: 200ms;
+    --transition-base: 300ms;
+    --transition-slow: 500ms;
+  }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ══════════════════════════════════════
+     ACCESS GUARD
+     Page checks for analysis context on load.
+     No context = redirect back to main site.
+     ══════════════════════════════════════ */
+  .fn-access-guard {
+    display: none; /* shown via JS if no context */
+    position: fixed; inset: 0;
+    background: var(--bg-primary);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .fn-access-guard a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-border);
+  }
+
+  /* ══════════════════════════════════════
+     LOADING / TRANSITION STATE
+     Shown on arrival while SSE processes.
+     ══════════════════════════════════════ */
+  .fn-loading {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fn-loading.fn-fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+  }
+
+  .fn-loading-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+    animation: fn-pulse 2s ease-in-out infinite;
+  }
+  @keyframes fn-pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+
+  .fn-loading-context {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fn-fadeIn 0.6s ease forwards 0.3s;
+  }
+
+  .fn-loading-narration {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 400px;
+    text-align: center;
+  }
+  .fn-loading-narration p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fn-fadeIn 0.5s ease forwards;
+  }
+  .fn-loading-narration p:nth-child(1) { animation-delay: 0.8s; }
+  .fn-loading-narration p:nth-child(2) { animation-delay: 2.2s; }
+  .fn-loading-narration p:nth-child(3) { animation-delay: 3.6s; }
+
+  @keyframes fn-fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fn-loading-bar {
+    width: 200px;
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    margin-top: 2rem;
+    overflow: hidden;
+    opacity: 0;
+    animation: fn-fadeIn 0.4s ease forwards 1s;
+  }
+  .fn-loading-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--accent);
+    border-radius: 1px;
+    animation: fn-progress 4.5s ease-in-out forwards 1s;
+  }
+  @keyframes fn-progress {
+    0% { width: 0%; }
+    30% { width: 35%; }
+    60% { width: 60%; }
+    85% { width: 80%; }
+    100% { width: 100%; }
+  }
+
+  /* ══════════════════════════════════════
+     PAGE LAYOUT
+     Main content + side panel
+     ══════════════════════════════════════ */
+  .fn-page {
+    display: flex;
+    min-height: 100vh;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  .fn-page.fn-visible { opacity: 1; }
+
+  .fn-main {
+    flex: 1;
+    padding: 0 3rem 4rem;
+    max-width: calc(100% - var(--panel-width));
+    overflow-y: auto;
+    margin-top: 0; /* nav spacer handles top spacing */
+  }
+
+  /* ══════════════════════════════════════
+     TOP NAV — Matches site homepage nav
+     ══════════════════════════════════════ */
+  .fn-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50; /* below Fenix panel (60) so panel overlaps */
+    padding: 1.25rem 2.5rem;
+    background: var(--bg-primary);
+  }
+  .fn-nav__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Left side: breadcrumb back to site */
+  .fn-nav__left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .fn-nav__back {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity var(--transition-fast);
+  }
+  .fn-nav__back:hover { opacity: 0.75; }
+  .fn-nav__back svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--text-primary);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .fn-nav__sep {
+    color: var(--border-light);
+    font-size: 0.85rem;
+    user-select: none;
+    margin: 0 0.15rem;
+  }
+  .fn-nav__current {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  /* Right side: theme toggle + menu — matches homepage */
+  .fn-nav__right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .fn-theme-toggle {
+    background: var(--text-primary);
+    border: 2.5px solid var(--text-primary);
+    border-radius: 50%;
+    width: 51px;
+    height: 51px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+  .fn-theme-toggle:hover { opacity: 0.8; }
+  .fn-theme-toggle svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: var(--bg-primary);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.3s ease;
+  }
+  .fn-theme-toggle:hover svg { transform: rotate(20deg); }
+
+  .fn-menu-btn {
+    background: var(--text-primary);
+    border: 2.5px solid var(--text-primary);
+    color: var(--bg-primary);
+    font-family: inherit;
+    font-size: 1.18rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.75rem 1.75rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.01em;
+  }
+  .fn-menu-btn:hover { opacity: 0.85; }
+
+  /* Push content below fixed nav */
+  .fn-nav-spacer {
+    height: 90px;
+  }
+
+  /* ══════════════════════════════════════
+     TAB 1: FIT NARRATIVE
+     ══════════════════════════════════════ */
+  .fn-narrative {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding-top: 3rem;
+  }
+
+  /* ── Meta Lead-In ── */
+  .fn-meta {
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 100%; /* let text breathe across the full content width */
+  }
+  .fn-meta__eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .fn-meta__headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+    font-weight: 500;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: 1.25rem;
+    white-space: nowrap; /* keep as single statement on one line */
+  }
+  .fn-meta__body {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 100%; /* use full content width — no artificial compression */
+    text-wrap: pretty;
+  }
+  .fn-meta__body strong {
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* ── Header Card ── */
+  .fn-header {
+    border: 1px solid var(--accent-border);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    background: linear-gradient(135deg, rgba(123, 154, 204, 0.04) 0%, transparent 60%);
+    margin-bottom: 3rem;
+  }
+  .fn-header__company {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+  .fn-header__role {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+  }
+  .fn-header__verdict {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+  }
+  .fn-header__verdict strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .fn-header__preferred {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.1rem;
+    background: rgba(200, 168, 78, 0.08);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .fn-header__preferred .fn-star {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  /* ── Evidence Section ── */
+  .fn-evidence-section {
+    margin-bottom: 3rem;
+  }
+  .fn-section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 1.25rem;
+  }
+  .fn-section-label--primary {
+    color: var(--accent);
+    background: rgba(123, 154, 204, 0.08);
+    border: 1px solid var(--accent-border);
+  }
+  .fn-section-label--added {
+    color: var(--green);
+    background: rgba(77, 175, 139, 0.08);
+    border: 1px solid var(--green-border);
+  }
+  .fn-section-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: -0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── Evidence Cards — 2-col grid ── */
+  .fn-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 900px) {
+    .fn-cards { grid-template-columns: 1fr; }
+  }
+
+  .fn-card {
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    cursor: pointer;
+    transition: border-color var(--transition-base), background var(--transition-base);
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fn-cardIn 0.4s ease forwards;
+  }
+  .fn-card:hover {
+    border-color: var(--accent-border-hover);
+    background: var(--bg-card-hover);
+  }
+  .fn-card--green:hover {
+    border-color: rgba(77, 175, 139, 0.4);
+  }
+  .fn-card:nth-child(1) { animation-delay: 0s; }
+  .fn-card:nth-child(2) { animation-delay: 0.1s; }
+  .fn-card:nth-child(3) { animation-delay: 0.2s; }
+
+  @keyframes fn-cardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fn-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .fn-card__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+  .fn-card__metric {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .fn-card__metric--blue {
+    color: var(--accent);
+    background: rgba(123, 154, 204, 0.08);
+    border: 1px solid var(--accent-border);
+  }
+  .fn-card__metric--green {
+    color: var(--green);
+    background: rgba(77, 175, 139, 0.08);
+    border: 1px solid var(--green-border);
+  }
+
+  .fn-card__context {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    text-wrap: pretty;
+  }
+
+  .fn-card__jd-match {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding: 0.6rem 0.8rem;
+    background: rgba(123, 154, 204, 0.04);
+    border-left: 2px solid var(--accent-border);
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 0.75rem;
+  }
+  .fn-card__jd-match--green {
+    background: rgba(77, 175, 139, 0.04);
+    border-left-color: var(--green-border);
+  }
+  .fn-card__jd-match strong {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  /* Expandable detail */
+  .fn-card__detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .fn-card.expanded .fn-card__detail {
+    max-height: 600px;
+  }
+  .fn-card__detail-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .fn-card__detail p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .fn-card__expand {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+    cursor: pointer;
+  }
+  .fn-card__expand .collapse-text { display: none; }
+  .fn-card.expanded .fn-card__expand .expand-text { display: none; }
+  .fn-card.expanded .fn-card__expand .collapse-text { display: inline; }
+
+  .fn-card__company-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: rgba(90, 83, 71, 0.15);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.5rem;
+  }
+
+  /* ── Divider ── */
+  .fn-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+
+  /* ── Cutting Room Floor ── */
+  .fn-cutting-floor {
+    margin-bottom: 3rem;
+  }
+  .fn-section-label--gold {
+    color: var(--gold);
+    background: rgba(200, 168, 78, 0.08);
+    border: 1px solid var(--gold-border);
+  }
+  .fn-cutting-intro {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    max-width: 640px;
+    text-wrap: pretty;
+  }
+  .fn-floor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  @media (max-width: 900px) {
+    .fn-floor-grid { grid-template-columns: 1fr; }
+  }
+  .fn-floor-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    background: var(--bg-surface);
+    opacity: 0;
+    animation: fn-cardIn 0.3s ease forwards;
+  }
+  .fn-floor-card:nth-child(1) { animation-delay: 0s; }
+  .fn-floor-card:nth-child(2) { animation-delay: 0.08s; }
+  .fn-floor-card:nth-child(3) { animation-delay: 0.16s; }
+  .fn-floor-card__title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+  }
+  .fn-floor-card__sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+  .fn-floor-card__metric {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold);
+  }
+
+  /* ── Key Takeaway ── */
+  .fn-takeaway {
+    border: 1px solid var(--gold-border);
+    border-radius: 10px;
+    padding: 1.75rem 2rem;
+    background: rgba(200, 168, 78, 0.03);
+    margin-bottom: 3rem;
+  }
+  .fn-takeaway__label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .fn-takeaway__text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+  }
+  .fn-takeaway__text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* ── Follow-ups & Share ── */
+  .fn-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+  .fn-pill {
+    background: none;
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 0.5rem 1.1rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+  .fn-pill:hover {
+    border-color: var(--accent-border);
+    color: var(--text-primary);
+  }
+
+  .fn-share {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 4rem;
+  }
+  .fn-share-btn {
+    background: rgba(123, 154, 204, 0.08);
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--accent);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+  }
+  .fn-share-btn:hover {
+    background: rgba(123, 154, 204, 0.14);
+  }
+
+  /* ══════════════════════════════════════
+     EXPLORE MORE — links to existing site pages
+     ══════════════════════════════════════ */
+  .fn-explore {
+    margin-bottom: 4rem;
+    padding-top: 2rem;
+  }
+  .fn-explore__label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+  .fn-explore__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  @media (max-width: 900px) {
+    .fn-explore__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .fn-explore__grid { grid-template-columns: 1fr; }
+  }
+  .fn-explore__card {
+    display: block;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-base);
+  }
+  .fn-explore__card:hover {
+    border-color: var(--accent-border-hover);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+  .fn-explore__card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fn-explore__card-title .fn-arrow {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+  }
+  .fn-explore__card:hover .fn-arrow {
+    color: var(--accent);
+    transform: translateX(2px);
+  }
+  .fn-explore__card-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  /* ══════════════════════════════════════
+     FENIX SIDE PANEL
+     Slide-in from right, persistent
+     ══════════════════════════════════════ */
+  .fn-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: var(--panel-width);
+    height: 100vh;
+    background: #0d0d0d;
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    z-index: 60;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .fn-panel.fn-panel-open {
+    transform: translateX(0);
+  }
+
+  .fn-panel__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    position: relative;
+  }
+  .fn-panel__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  .fn-panel__name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+  }
+  .fn-panel__reading {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.1rem;
+  }
+  .fn-panel__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0.35rem 0.5rem;
+    line-height: 1;
+    border-radius: 4px;
+    transition: color var(--transition-fast), background var(--transition-fast);
+  }
+  .fn-panel__close:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .fn-panel__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .fn-msg {
+    max-width: 90%;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .fn-msg--fenix {
+    color: var(--text-secondary);
+    padding: 0.75rem 1rem;
+    background: rgba(123, 154, 204, 0.06);
+    border-radius: 0 10px 10px 10px;
+    border: 1px solid rgba(123, 154, 204, 0.1);
+  }
+  .fn-msg--fenix strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .fn-panel__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .fn-panel__pill {
+    background: none;
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 0.35rem 0.8rem;
+    font-family: inherit;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+  .fn-panel__pill:hover {
+    border-color: var(--accent-border);
+    color: var(--text-secondary);
+  }
+
+  .fn-panel__input {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .fn-panel__input input {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-family: inherit;
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    outline: none;
+  }
+  .fn-panel__input input::placeholder { color: var(--text-muted); }
+  .fn-panel__input input:focus { border-color: var(--accent-border); }
+  .fn-panel__input button {
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    color: #0a0a0a;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Panel toggle (edge tab when closed) */
+  .fn-panel-toggle {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 55;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    padding: 0.75rem 0.5rem;
+    cursor: pointer;
+    transition: opacity var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    writing-mode: vertical-rl;
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .fn-panel-toggle img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    writing-mode: horizontal-tb;
+  }
+  body.panel-open .fn-panel-toggle { opacity: 0; pointer-events: none; }
+
+  /* Shift main content when panel is open */
+  body.panel-open .fn-main {
+    max-width: calc(100% - var(--panel-width));
+  }
+  body:not(.panel-open) .fn-main {
+    max-width: 100%;
+  }
+  body:not(.panel-open) .fn-topbar {
+    max-width: 100%;
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE
+     ══════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .fn-panel { width: 320px; }
+    .fn-main { padding: 0 2rem 3rem; }
+    .fn-topbar { padding: 0 2rem; }
+  }
+
+  @media (max-width: 768px) {
+    .fn-panel {
+      width: 100%;
+      border-left: none;
+    }
+    body.panel-open .fn-main { display: none; }
+    .fn-main { max-width: 100% !important; padding: 0 1.25rem 3rem; }
+    .fn-nav { padding: 1rem 1.25rem; }
+    .fn-nav__current { display: none; }
+    .fn-nav__sep { display: none; }
+    .fn-menu-btn { padding: 0.6rem 1.25rem; font-size: 1rem; }
+    .fn-theme-toggle { width: 44px; height: 44px; }
+    .fn-cards { grid-template-columns: 1fr; }
+    .fn-floor-grid { grid-template-columns: 1fr; }
+    .fn-header { padding: 1.5rem; }
+  }
+
+  /* ══════════════════════════════════════
+     REDUCED MOTION
+     ══════════════════════════════════════ */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body class="panel-open">
+
+  <!-- ════════════════════════════════════
+       LOADING / TRANSITION STATE
+       ════════════════════════════════════ -->
+  <div class="fn-loading" id="fn-loading">
+    <img src="../images/logo.png" alt="Fenix" class="fn-loading-avatar"
+         onerror="this.style.background='#7B9ACC';this.style.width='56px';this.style.height='56px';this.style.borderRadius='50%'">
+    <div class="fn-loading-context">Preparing your analysis&hellip;</div>
+    <div class="fn-loading-narration">
+      <p>Reading the role requirements&hellip;</p>
+      <p>Mapping Kiran&rsquo;s experience to Stripe&rsquo;s Senior Product Manager role&hellip;</p>
+      <p>Building the evidence map&hellip;</p>
+    </div>
+    <div class="fn-loading-bar">
+      <div class="fn-loading-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       TOP BAR — Tabs + Back
+       ════════════════════════════════════ -->
+  <!-- ════════════════════════════════════
+       TOP NAV — Same look as homepage
+       z-index 50 sits behind Fenix panel (60)
+       ════════════════════════════════════ -->
+  <nav class="fn-nav">
+    <div class="fn-nav__container">
+      <div class="fn-nav__left">
+        <a href="/" class="fn-nav__back">
+          <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          kiranrao.ai
+        </a>
+        <span class="fn-nav__sep">/</span>
+        <span class="fn-nav__current">Fit Narrative</span>
+      </div>
+      <div class="fn-nav__right">
+        <button class="fn-theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+          <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <button class="fn-menu-btn">Menu</button>
+      </div>
+    </div>
+  </nav>
+  <div class="fn-nav-spacer"></div>
+
+  <!-- ════════════════════════════════════
+       PAGE
+       ════════════════════════════════════ -->
+  <div class="fn-page" id="fn-page">
+    <div class="fn-main">
+
+      <!-- ── TAB 1: FIT NARRATIVE ── -->
+      <div class="fn-narrative fn-active" id="tab-narrative">
+
+        <!-- Meta Lead-In -->
+        <div class="fn-meta">
+          <div class="fn-meta__eyebrow">What you have just unlocked</div>
+          <div class="fn-meta__headline">Fenix gives you insights beyond your standard resume.</div>
+          <div class="fn-meta__body">
+            Fenix analyzed your job description against Kiran&rsquo;s full career history
+            and selected the initiatives that map to what you&rsquo;re actually looking for.
+            Each card below is a real project &mdash; the problem, what he shipped, and the outcome.
+            <strong>This is what a resume forces you to cut.</strong>
+          </div>
+        </div>
+
+        <!-- Header Card -->
+        <div class="fn-header">
+          <div class="fn-header__company">Stripe</div>
+          <div class="fn-header__role">Senior Product Manager, Revenue &amp; Financial Infrastructure</div>
+          <div class="fn-header__verdict">
+            <strong>Strong fit across infrastructure thinking and cross-functional delivery.</strong>
+            Kiran&rsquo;s career is defined by building financial products at the intersection of
+            compliance, user experience, and systems architecture &mdash; exactly the compound skillset
+            this role demands. His track record shows he doesn&rsquo;t just ship features; he builds
+            the platforms that make features possible.
+          </div>
+          <div class="fn-header__preferred"><span class="fn-star">&starf;</span> Kiran is actively interested in Stripe</div>
+        </div>
+
+        <!-- PRIMARY MATCHES -->
+        <div class="fn-evidence-section">
+          <div class="fn-section-label fn-section-label--primary">Direct match &mdash; shipped work that maps to this JD</div>
+          <div class="fn-cards">
+
+            <!-- Card 1 -->
+            <div class="fn-card" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" aria-expanded="false">
+              <div class="fn-card__top">
+                <div class="fn-card__title">Real-Time ACH Processing System</div>
+                <div class="fn-card__metric fn-card__metric--blue">$2.1B processed</div>
+              </div>
+              <div class="fn-card__context">Built the end-to-end system that processes same-day ACH transactions at Wells Fargo, replacing batch processing with real-time.</div>
+              <div class="fn-card__jd-match"><strong>JD asks:</strong> &ldquo;Experience building and scaling payment infrastructure handling high transaction volumes&rdquo;</div>
+              <div class="fn-card__detail">
+                <div class="fn-card__detail-label">The problem</div>
+                <p>Wells Fargo&rsquo;s ACH system processed everything in overnight batches. Customers waited 2-3 days for transfers that fintechs were completing in hours. The legacy infrastructure couldn&rsquo;t handle real-time without a fundamental rearchitecture.</p>
+                <div class="fn-card__detail-label">What he shipped</div>
+                <p>Designed a real-time processing pipeline with Nacha compliance built in. Coordinated across Treasury, Operations, and Engineering. Launched same-day ACH for consumer and commercial accounts with zero downtime migration.</p>
+                <div class="fn-card__detail-label">The outcome</div>
+                <p>$2.1B processed in the first year. Customer complaints about transfer speed dropped 67%. The architecture became the template for three subsequent payment modernization projects.</p>
+              </div>
+              <div class="fn-card__expand">
+                <span class="expand-text">&darr; full story</span>
+                <span class="collapse-text">&uarr; collapse</span>
+              </div>
+              <span class="fn-card__company-tag">Wells Fargo</span>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="fn-card" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" aria-expanded="false">
+              <div class="fn-card__top">
+                <div class="fn-card__title">Regulatory Compliance Engine</div>
+                <div class="fn-card__metric fn-card__metric--blue">4 agencies</div>
+              </div>
+              <div class="fn-card__context">Created a unified compliance framework that satisfied OCC, CFPB, SEC, and state banking requirements simultaneously.</div>
+              <div class="fn-card__jd-match"><strong>JD asks:</strong> &ldquo;Navigate complex regulatory environments while maintaining product velocity&rdquo;</div>
+              <div class="fn-card__detail">
+                <div class="fn-card__detail-label">The problem</div>
+                <p>Each new product feature required separate compliance reviews from four different regulatory bodies. Reviews took 6-8 weeks each, creating a 6-month bottleneck for any cross-cutting feature.</p>
+                <div class="fn-card__detail-label">What he shipped</div>
+                <p>Built a shared compliance framework that mapped requirements across agencies. Single review process that satisfied all four simultaneously. Embedded compliance checkpoints into the product development cycle.</p>
+                <div class="fn-card__detail-label">The outcome</div>
+                <p>Review cycle dropped from 6 months to 6 weeks. Product team shipped 3x more features in the following year. Framework adopted by two other business lines.</p>
+              </div>
+              <div class="fn-card__expand">
+                <span class="expand-text">&darr; full story</span>
+                <span class="collapse-text">&uarr; collapse</span>
+              </div>
+              <span class="fn-card__company-tag">Wells Fargo</span>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="fn-card" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" aria-expanded="false">
+              <div class="fn-card__top">
+                <div class="fn-card__title">Client Onboarding Platform</div>
+                <div class="fn-card__metric fn-card__metric--blue">68% faster</div>
+              </div>
+              <div class="fn-card__context">Redesigned the institutional client onboarding experience from a 3-week paper process to a 5-day digital flow.</div>
+              <div class="fn-card__jd-match"><strong>JD asks:</strong> &ldquo;Improve developer and merchant onboarding experiences&rdquo;</div>
+              <div class="fn-card__detail">
+                <div class="fn-card__detail-label">The problem</div>
+                <p>Institutional clients waited 3+ weeks to go live. The process required 47 form fields across 6 paper forms, manual KYC/AML checks, and three separate approval chains. First Republic was losing deals to fintechs with same-day onboarding.</p>
+                <div class="fn-card__detail-label">What he shipped</div>
+                <p>Digital onboarding portal with pre-fill from existing data sources. Automated KYC/AML via API integrations. Parallel approval workflows instead of sequential. Progressive disclosure — only ask what&rsquo;s needed for the client&rsquo;s specific product mix.</p>
+                <div class="fn-card__detail-label">The outcome</div>
+                <p>Onboarding time dropped from 21 days to 5 days. NPS for the onboarding experience went from 34 to 71. First Republic attributed $12M in retained AUM to faster activation.</p>
+              </div>
+              <div class="fn-card__expand">
+                <span class="expand-text">&darr; full story</span>
+                <span class="collapse-text">&uarr; collapse</span>
+              </div>
+              <span class="fn-card__company-tag">First Republic</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ADDED VALUE -->
+        <div class="fn-evidence-section">
+          <div class="fn-section-label fn-section-label--added">Beyond the JD &mdash; what he adds on top</div>
+          <div class="fn-cards">
+
+            <div class="fn-card fn-card--green" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" aria-expanded="false">
+              <div class="fn-card__top">
+                <div class="fn-card__title">Spatial Computing Product (Avatour)</div>
+                <div class="fn-card__metric fn-card__metric--green">0→1 launch</div>
+              </div>
+              <div class="fn-card__context">Led product for a spatial computing startup — AR/VR remote collaboration platform from concept to market.</div>
+              <div class="fn-card__jd-match fn-card__jd-match--green"><strong>Why it matters:</strong> Demonstrates the ability to operate in ambiguous, high-velocity environments where the product category itself is undefined. Stripe&rsquo;s growth requires PMs who can build new product lines, not just optimize existing ones.</div>
+              <div class="fn-card__detail">
+                <div class="fn-card__detail-label">The problem</div>
+                <p>Avatour had technology but no product-market fit. The founding team could build AR/VR experiences but couldn&rsquo;t translate the technology into a product people would pay for.</p>
+                <div class="fn-card__detail-label">What he shipped</div>
+                <p>Defined the product strategy around enterprise remote site visits. Built the user research program. Shipped the MVP in 12 weeks. Iterated through 3 major pivots based on customer feedback.</p>
+                <div class="fn-card__detail-label">The outcome</div>
+                <p>Launched to paying enterprise customers. Product used by construction, real estate, and industrial inspection teams. Established product-market fit in the enterprise remote collaboration space.</p>
+              </div>
+              <div class="fn-card__expand">
+                <span class="expand-text">&darr; full story</span>
+                <span class="collapse-text">&uarr; collapse</span>
+              </div>
+              <span class="fn-card__company-tag">Avatour</span>
+            </div>
+
+            <div class="fn-card fn-card--green" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" aria-expanded="false">
+              <div class="fn-card__top">
+                <div class="fn-card__title">AI-Powered Career Platform (This Site)</div>
+                <div class="fn-card__metric fn-card__metric--green">Full-stack build</div>
+              </div>
+              <div class="fn-card__context">Built the platform you&rsquo;re using right now — AI agent, RAG pipeline, persona system, and this analysis engine.</div>
+              <div class="fn-card__jd-match fn-card__jd-match--green"><strong>Why it matters:</strong> Proves current, hands-on fluency with AI/ML product development, API design, and the full-stack thinking Stripe values for PMs who need to work closely with engineering.</div>
+              <div class="fn-card__detail">
+                <div class="fn-card__detail-label">What he shipped</div>
+                <p>A complete AI-powered career platform: Fenix (the AI agent with tool use and RAG), a persona-based experience system, this fit analysis engine, and a command center for content management. FastAPI backend, Anthropic Claude integration, Supabase for data, deployed on Vercel + Cloudflare.</p>
+              </div>
+              <div class="fn-card__expand">
+                <span class="expand-text">&darr; full story</span>
+                <span class="collapse-text">&uarr; collapse</span>
+              </div>
+              <span class="fn-card__company-tag">Personal Project</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- CUTTING ROOM FLOOR -->
+        <hr class="fn-divider">
+        <div class="fn-cutting-floor">
+          <div class="fn-section-label fn-section-label--gold">The cutting room floor</div>
+          <div class="fn-cutting-intro">
+            A resume would have stopped at the top matches. These are relevant projects
+            that didn&rsquo;t make the primary list &mdash; but any one of them tells you
+            something a resume can&rsquo;t.
+          </div>
+          <div class="fn-floor-grid">
+            <div class="fn-floor-card">
+              <div class="fn-floor-card__title">Cross-Border Payment Rails</div>
+              <div class="fn-floor-card__sub">International wire processing modernization</div>
+              <div class="fn-floor-card__metric">$800M+ volume</div>
+            </div>
+            <div class="fn-floor-card">
+              <div class="fn-floor-card__title">Fraud Detection Overhaul</div>
+              <div class="fn-floor-card__sub">ML-assisted transaction monitoring</div>
+              <div class="fn-floor-card__metric">40% false positive reduction</div>
+            </div>
+            <div class="fn-floor-card">
+              <div class="fn-floor-card__title">Developer API Documentation</div>
+              <div class="fn-floor-card__sub">Internal API developer experience</div>
+              <div class="fn-floor-card__metric">3x adoption rate</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KEY TAKEAWAY -->
+        <hr class="fn-divider">
+        <div class="fn-takeaway">
+          <div class="fn-takeaway__label">The key takeaway</div>
+          <div class="fn-takeaway__text">
+            Stripe&rsquo;s job description reads like a list of problems Kiran has already solved.
+            The difference is context: he solved them at a $1.9 trillion bank where every change
+            required regulatory approval and cross-organizational alignment. <strong>That&rsquo;s
+            not a limitation &mdash; it&rsquo;s proof that he can ship ambitious infrastructure
+            under real constraints,</strong> which is exactly what Stripe&rsquo;s scale demands.
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="fn-actions">
+          <button class="fn-pill">Try another role</button>
+          <button class="fn-pill">Copy summary</button>
+        </div>
+        <div class="fn-share">
+          <button class="fn-share-btn">Email this to yourself</button>
+          <button class="fn-share-btn">Email to a colleague</button>
+        </div>
+
+        <!-- ── Explore More — drive to existing site pages ── -->
+        <hr class="fn-divider">
+        <div class="fn-explore">
+          <div class="fn-explore__label">Keep exploring</div>
+          <div class="fn-explore__grid">
+            <a href="/track-record.html" class="fn-explore__card">
+              <div class="fn-explore__card-title">The Work <span class="fn-arrow">&rarr;</span></div>
+              <div class="fn-explore__card-desc">The full professional journey &mdash; 15 years across banking, fintech, spatial computing, and AI.</div>
+            </a>
+            <a href="/teardowns/" class="fn-explore__card">
+              <div class="fn-explore__card-title">Teardowns <span class="fn-arrow">&rarr;</span></div>
+              <div class="fn-explore__card-desc">Product thinking applied to real companies. How Kiran would approach problems others are solving.</div>
+            </a>
+            <a href="/blog/" class="fn-explore__card">
+              <div class="fn-explore__card-title">Blog <span class="fn-arrow">&rarr;</span></div>
+              <div class="fn-explore__card-desc">Writing about product strategy, AI, and what it means to build things that matter.</div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       FENIX SIDE PANEL
+       ════════════════════════════════════ -->
+  <button class="fn-panel-toggle" id="fn-panel-toggle" onclick="togglePanel()">
+    <img src="../images/logo.png" alt="" onerror="this.style.display='none'">
+    Fenix
+  </button>
+
+  <div class="fn-panel fn-panel-open" id="fn-panel">
+    <div class="fn-panel__header">
+      <img src="../images/logo.png" alt="Fenix" class="fn-panel__avatar"
+           onerror="this.style.background='#7B9ACC';this.style.width='32px';this.style.height='32px';this.style.borderRadius='50%'">
+      <div>
+        <div class="fn-panel__name">Fenix</div>
+        <div class="fn-panel__reading">Fit Analysis &middot; Stripe</div>
+      </div>
+      <button class="fn-panel__close" onclick="togglePanel()">&times;</button>
+    </div>
+
+    <div class="fn-panel__messages">
+      <div class="fn-msg fn-msg--fenix">
+        I&rsquo;ve mapped Kiran&rsquo;s experience to the <strong>Senior Product Manager</strong> role at <strong>Stripe</strong>. The analysis found 3 direct matches and 2 added-value initiatives that go beyond what the JD asked for.
+      </div>
+      <div class="fn-msg fn-msg--fenix" style="margin-top: 0.5rem;">
+        The evidence cards on the left are expandable &mdash; click any card to see the full story behind the project. Ask me anything about the analysis, or about how Kiran thinks about any of these problems.
+      </div>
+    </div>
+
+    <div class="fn-panel__pills">
+      <button class="fn-panel__pill">Why these matches?</button>
+      <button class="fn-panel__pill">Kiran&rsquo;s approach to infrastructure</button>
+      <button class="fn-panel__pill">Compare to the JD</button>
+    </div>
+
+    <div class="fn-panel__input">
+      <input type="text" placeholder="Ask about this analysis...">
+      <button>&rarr;</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       INTERACTION LOGIC
+       ════════════════════════════════════ -->
+  <script>
+    // ── Loading Transition ──
+    // In production: triggered when SSE 'extraction' event arrives.
+    // In prototype: auto-fires after 5s to simulate compute time.
+    setTimeout(function () {
+      var loading = document.getElementById('fn-loading');
+      var page = document.getElementById('fn-page');
+      loading.classList.add('fn-fade-out');
+      setTimeout(function () {
+        loading.style.display = 'none';
+        page.classList.add('fn-visible');
+      }, 600);
+    }, 5000);
+
+    // ── Side Panel Toggle ──
+    function togglePanel() {
+      var panel = document.getElementById('fn-panel');
+      var isOpen = panel.classList.contains('fn-panel-open');
+      panel.classList.toggle('fn-panel-open');
+      document.body.classList.toggle('panel-open');
+    }
+
+    // ── Card Expand/Collapse (keyboard) ──
+    document.querySelectorAll('.fn-card').forEach(function (card) {
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('expanded');
+          card.setAttribute('aria-expanded', card.classList.contains('expanded'));
+        }
+      });
+    });
+
+    // ── Access Guard ──
+    // In production: check sessionStorage for fenix_fit_context or URL param.
+    // If absent, show guard and redirect after delay.
+    // In prototype: skip (always show content).
+
+    // Production pattern:
+    // if (!sessionStorage.getItem('fenix_fit_context') && !new URLSearchParams(location.search).get('id')) {
+    //   document.querySelector('.fn-access-guard').style.display = 'flex';
+    //   setTimeout(function() { location.href = '/'; }, 3000);
+    // }
+  </script>
+
+</body>
+</html>

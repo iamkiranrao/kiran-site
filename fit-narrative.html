@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fit Narrative — Kiran Rao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-primary: #0a0a0a;
+    --bg-card: #111111;
+    --bg-card-hover: #161616;
+    --bg-surface: #0e0e0e;
+    --text-primary: #e8dcc8;
+    --text-secondary: #c8bba8;
+    --text-muted: #5a5347;
+    --border: #1e1e1e;
+    --border-light: #2a2a2a;
+    --accent: #7B9ACC;
+    --accent-glow: rgba(123, 154, 204, 0.12);
+    --accent-border: rgba(123, 154, 204, 0.25);
+    --accent-border-hover: rgba(123, 154, 204, 0.4);
+    --green: #4DAF8B;
+    --green-border: rgba(77, 175, 139, 0.25);
+    --gold: #c8a84e;
+    --gold-border: rgba(200, 168, 78, 0.25);
+    --fenix-panel-width: 380px;
+    --content-max: 860px;
+    --transition-fast: 200ms;
+    --transition-base: 300ms;
+    --transition-slow: 500ms;
+  }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ══════════════════════════════════════
+     ACCESS GUARD
+     Page checks for analysis context on load.
+     No context = redirect back to main site.
+     ══════════════════════════════════════ */
+  .fn-access-guard {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--bg-primary);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .fn-access-guard a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-border);
+  }
+
+  /* ══════════════════════════════════════
+     LOADING / TRANSITION STATE
+     Shown on arrival while SSE processes.
+     ══════════════════════════════════════ */
+  .fn-loading {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fn-loading.fn-fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+  }
+
+  .fn-loading-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+    animation: fn-pulse 2s ease-in-out infinite;
+  }
+  @keyframes fn-pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+
+  .fn-loading-context {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fn-fadeIn 0.6s ease forwards 0.3s;
+  }
+
+  .fn-loading-narration {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 400px;
+    text-align: center;
+  }
+  .fn-loading-narration p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fn-fadeIn 0.5s ease forwards;
+  }
+
+  @keyframes fn-fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fn-loading-bar {
+    width: 200px;
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    margin-top: 2rem;
+    overflow: hidden;
+    opacity: 0;
+    animation: fn-fadeIn 0.4s ease forwards 1s;
+  }
+  .fn-loading-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--accent);
+    border-radius: 1px;
+  }
+
+  /* ══════════════════════════════════════
+     PAGE LAYOUT
+     Main content + side panel
+     ══════════════════════════════════════ */
+  .fn-page {
+    display: flex;
+    min-height: 100vh;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  .fn-page.fn-visible { opacity: 1; }
+
+  .fn-main {
+    flex: 1;
+    padding: 0 3rem 4rem;
+    overflow-y: auto;
+    margin-top: 0;
+    transition: max-width var(--transition-base);
+  }
+  body.fenix-panel-open .fn-main {
+    max-width: calc(100% - var(--fenix-panel-width));
+  }
+  body:not(.fenix-panel-open) .fn-main {
+    max-width: 100%;
+  }
+
+  /* ══════════════════════════════════════
+     TOP NAV — Matches site homepage nav
+     ══════════════════════════════════════ */
+  .fn-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+    padding: 1.25rem 2.5rem;
+    background: var(--bg-primary);
+  }
+  .fn-nav__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .fn-nav__left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .fn-nav__back {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity var(--transition-fast);
+  }
+  .fn-nav__back:hover { opacity: 0.75; }
+  .fn-nav__back svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--text-primary);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .fn-nav__sep {
+    color: var(--border-light);
+    font-size: 0.85rem;
+    user-select: none;
+    margin: 0 0.15rem;
+  }
+  .fn-nav__current {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .fn-nav__right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .fn-theme-toggle {
+    background: var(--text-primary);
+    border: 2.5px solid var(--text-primary);
+    border-radius: 50%;
+    width: 51px;
+    height: 51px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+  .fn-theme-toggle:hover { opacity: 0.8; }
+  .fn-theme-toggle svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: var(--bg-primary);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.3s ease;
+  }
+  .fn-theme-toggle:hover svg { transform: rotate(20deg); }
+
+  .fn-menu-btn {
+    background: var(--text-primary);
+    border: 2.5px solid var(--text-primary);
+    color: var(--bg-primary);
+    font-family: inherit;
+    font-size: 1.18rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.75rem 1.75rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.01em;
+  }
+  .fn-menu-btn:hover { opacity: 0.85; }
+
+  .fn-nav-spacer {
+    height: 90px;
+  }
+
+  /* ══════════════════════════════════════
+     FIT NARRATIVE
+     ══════════════════════════════════════ */
+  .fn-narrative {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding-top: 3rem;
+  }
+
+  /* ── Meta Lead-In ── */
+  .fn-meta {
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 100%;
+  }
+  .fn-meta__eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .fn-meta__headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+    font-weight: 500;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: 1.25rem;
+    white-space: nowrap;
+  }
+  .fn-meta__body {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 100%;
+    text-wrap: pretty;
+  }
+  .fn-meta__body strong {
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* ── Header Card ── */
+  .fn-header {
+    border: 1px solid var(--accent-border);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    background: linear-gradient(135deg, rgba(123, 154, 204, 0.04) 0%, transparent 60%);
+    margin-bottom: 3rem;
+  }
+  .fn-header__company {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+  .fn-header__role {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+  }
+  .fn-header__verdict {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+  }
+  .fn-header__verdict strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .fn-header__preferred {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.1rem;
+    background: rgba(200, 168, 78, 0.08);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .fn-header__preferred .fn-star {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  /* ── Evidence Section ── */
+  .fn-evidence-section {
+    margin-bottom: 3rem;
+  }
+  .fn-section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 1.25rem;
+  }
+  .fn-section-label--primary {
+    color: var(--accent);
+    background: rgba(123, 154, 204, 0.08);
+    border: 1px solid var(--accent-border);
+  }
+  .fn-section-label--added {
+    color: var(--green);
+    background: rgba(77, 175, 139, 0.08);
+    border: 1px solid var(--green-border);
+  }
+  .fn-section-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: -0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── Evidence Cards — 2-col grid ── */
+  .fn-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 900px) {
+    .fn-cards { grid-template-columns: 1fr; }
+  }
+
+  .fn-card {
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    cursor: pointer;
+    transition: border-color var(--transition-base), background var(--transition-base);
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fn-cardIn 0.4s ease forwards;
+  }
+  .fn-card:hover {
+    border-color: var(--accent-border-hover);
+    background: var(--bg-card-hover);
+  }
+  .fn-card--green:hover {
+    border-color: rgba(77, 175, 139, 0.4);
+  }
+
+  @keyframes fn-cardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fn-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .fn-card__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+  .fn-card__metric {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .fn-card__metric--blue {
+    color: var(--accent);
+    background: rgba(123, 154, 204, 0.08);
+    border: 1px solid var(--accent-border);
+  }
+  .fn-card__metric--green {
+    color: var(--green);
+    background: rgba(77, 175, 139, 0.08);
+    border: 1px solid var(--green-border);
+  }
+
+  .fn-card__context {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    text-wrap: pretty;
+  }
+
+  .fn-card__jd-match {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding: 0.6rem 0.8rem;
+    background: rgba(123, 154, 204, 0.04);
+    border-left: 2px solid var(--accent-border);
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 0.75rem;
+  }
+  .fn-card__jd-match--green {
+    background: rgba(77, 175, 139, 0.04);
+    border-left-color: var(--green-border);
+  }
+  .fn-card__jd-match strong {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  /* Expandable detail */
+  .fn-card__detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .fn-card.expanded .fn-card__detail {
+    max-height: 600px;
+  }
+  .fn-card__detail-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .fn-card__detail p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .fn-card__expand {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+    cursor: pointer;
+  }
+  .fn-card__expand .collapse-text { display: none; }
+  .fn-card.expanded .fn-card__expand .expand-text { display: none; }
+  .fn-card.expanded .fn-card__expand .collapse-text { display: inline; }
+
+  .fn-card__company-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: rgba(90, 83, 71, 0.15);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.5rem;
+  }
+
+  /* ── Divider ── */
+  .fn-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+
+  /* ── Cutting Room Floor ── */
+  .fn-cutting-floor {
+    margin-bottom: 3rem;
+  }
+  .fn-section-label--gold {
+    color: var(--gold);
+    background: rgba(200, 168, 78, 0.08);
+    border: 1px solid var(--gold-border);
+  }
+  .fn-cutting-intro {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    max-width: 640px;
+    text-wrap: pretty;
+  }
+  .fn-floor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  @media (max-width: 900px) {
+    .fn-floor-grid { grid-template-columns: 1fr; }
+  }
+  .fn-floor-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    background: var(--bg-surface);
+    opacity: 0;
+    animation: fn-cardIn 0.3s ease forwards;
+  }
+  .fn-floor-card__title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+  }
+  .fn-floor-card__sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+  .fn-floor-card__metric {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold);
+  }
+
+  /* ── Key Takeaway ── */
+  .fn-takeaway {
+    border: 1px solid var(--gold-border);
+    border-radius: 10px;
+    padding: 1.75rem 2rem;
+    background: rgba(200, 168, 78, 0.03);
+    margin-bottom: 3rem;
+  }
+  .fn-takeaway__label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .fn-takeaway__text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+  }
+  .fn-takeaway__text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* ── Follow-ups & Share ── */
+  .fn-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+  .fn-pill {
+    background: none;
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 0.5rem 1.1rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+  .fn-pill:hover {
+    border-color: var(--accent-border);
+    color: var(--text-primary);
+  }
+
+  .fn-share {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 4rem;
+  }
+  .fn-share-btn {
+    background: rgba(123, 154, 204, 0.08);
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--accent);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+  }
+  .fn-share-btn:hover {
+    background: rgba(123, 154, 204, 0.14);
+  }
+
+  /* ══════════════════════════════════════
+     EXPLORE MORE
+     ══════════════════════════════════════ */
+  .fn-explore {
+    margin-bottom: 4rem;
+    padding-top: 2rem;
+  }
+  .fn-explore__label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+  .fn-explore__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  @media (max-width: 900px) {
+    .fn-explore__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .fn-explore__grid { grid-template-columns: 1fr; }
+  }
+  .fn-explore__card {
+    display: block;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-base);
+  }
+  .fn-explore__card:hover {
+    border-color: var(--accent-border-hover);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+  .fn-explore__card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fn-explore__card-title .fn-arrow {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+  }
+  .fn-explore__card:hover .fn-arrow {
+    color: var(--accent);
+    transform: translateX(2px);
+  }
+  .fn-explore__card-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE
+     ══════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .fn-main { padding: 0 2rem 3rem; }
+  }
+
+  @media (max-width: 768px) {
+    .fn-main { max-width: 100% !important; padding: 0 1.25rem 3rem; }
+    .fn-nav { padding: 1rem 1.25rem; }
+    .fn-nav__current { display: none; }
+    .fn-nav__sep { display: none; }
+    .fn-menu-btn { padding: 0.6rem 1.25rem; font-size: 1rem; }
+    .fn-theme-toggle { width: 44px; height: 44px; }
+    .fn-cards { grid-template-columns: 1fr; }
+    .fn-floor-grid { grid-template-columns: 1fr; }
+    .fn-header { padding: 1.5rem; }
+  }
+
+  /* ══════════════════════════════════════
+     REDUCED MOTION
+     ══════════════════════════════════════ */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* ══════════════════════════════════════
+     COPY TOAST
+     ══════════════════════════════════════ */
+  .fn-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    z-index: 1000;
+    pointer-events: none;
+    animation: fn-toastIn 0.3s ease forwards;
+  }
+  @keyframes fn-toastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  .fn-toast.fn-toast-fade {
+    animation: fn-toastOut 0.3s ease forwards;
+  }
+  @keyframes fn-toastOut {
+    to { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════
+       LOADING / TRANSITION STATE
+       ════════════════════════════════════ -->
+  <div class="fn-loading" id="fn-loading">
+    <img src="images/logo.png" alt="Fenix" class="fn-loading-avatar"
+         onerror="this.style.background='#7B9ACC';this.style.width='56px';this.style.height='56px';this.style.borderRadius='50%'">
+    <div class="fn-loading-context">Preparing your analysis&hellip;</div>
+    <div class="fn-loading-narration" id="fn-narration">
+    </div>
+    <div class="fn-loading-bar">
+      <div class="fn-loading-bar-fill" id="fn-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       TOP NAV — Same look as homepage
+       z-index 50 sits behind Fenix panel (60)
+       ════════════════════════════════════ -->
+  <nav class="fn-nav">
+    <div class="fn-nav__container">
+      <div class="fn-nav__left">
+        <a href="/" class="fn-nav__back">
+          <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          kiranrao.ai
+        </a>
+        <span class="fn-nav__sep">/</span>
+        <span class="fn-nav__current">Fit Narrative</span>
+      </div>
+      <div class="fn-nav__right">
+        <button class="fn-theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+          <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <button class="fn-menu-btn">Menu</button>
+      </div>
+    </div>
+  </nav>
+  <div class="fn-nav-spacer"></div>
+
+  <!-- ════════════════════════════════════
+       PAGE
+       ════════════════════════════════════ -->
+  <div class="fn-page" id="fn-page">
+    <div class="fn-main">
+      <div class="fn-narrative" id="fn-content">
+        <!-- Cards rendered dynamically here by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       FENIX CORE & ADAPTERS
+       ════════════════════════════════════ -->
+  <script>
+    window.FenixContentConfig = {
+      pageType: 'fit-narrative',
+      pageTitle: 'Fit Narrative',
+      basePath: '/'
+    };
+  </script>
+  <script src="fenix-core.js?v=20260413"></script>
+  <script src="fenix-adapters/content-adapter.js?v=20260413"></script>
+
+  <!-- ════════════════════════════════════
+       FIT NARRATIVE LOGIC
+       ════════════════════════════════════ -->
+  <script>
+    var API_BASE = 'https://cc.kiranrao.ai';
+    var API_KEY = 'H3Ycu0N5kfv5MERh_5mYwYcMbGu6pYUv2y1KSgsMBLk';
+
+    var fitState = {
+      company: '',
+      roleTitle: '',
+      preferredCompany: false
+    };
+
+    var cardAnimationDelays = {};
+    var floorCardDelays = {};
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return str.replace(/[&<>"']/g, function(c) { return map[c]; });
+    }
+
+    function showCopyToast(msg) {
+      var toast = document.createElement('div');
+      toast.className = 'fn-toast';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(function() {
+        toast.classList.add('fn-toast-fade');
+        setTimeout(function() { toast.remove(); }, 300);
+      }, 2000);
+    }
+
+    function updateProgressBar(percentage) {
+      var bar = document.getElementById('fn-progress-bar');
+      if (bar) {
+        bar.style.width = percentage + '%';
+      }
+    }
+
+    function addNarrationParagraph(text) {
+      var narrationDiv = document.getElementById('fn-narration');
+      if (narrationDiv) {
+        var p = document.createElement('p');
+        p.textContent = text;
+        narrationDiv.appendChild(p);
+      }
+    }
+
+    function transitionToCards() {
+      updateProgressBar(40);
+      var loading = document.getElementById('fn-loading');
+      var page = document.getElementById('fn-page');
+      loading.classList.add('fn-fade-out');
+      setTimeout(function() {
+        loading.style.display = 'none';
+        page.classList.add('fn-visible');
+      }, 600);
+    }
+
+    function renderVerdict(text) {
+      var verdictDiv = document.getElementById('fn-verdict');
+      if (!verdictDiv) return;
+      var html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      verdictDiv.innerHTML = html;
+    }
+
+    function renderEvidenceSection(matches, tier) {
+      var contentDiv = document.getElementById('fn-content');
+      if (!contentDiv) return;
+
+      var section = document.createElement('div');
+      section.className = 'fn-evidence-section';
+
+      var label = document.createElement('div');
+      label.className = 'fn-section-label';
+      if (tier === 'primary') {
+        label.className += ' fn-section-label--primary';
+        label.textContent = 'Direct match \u2014 shipped work that maps to this JD';
+      } else {
+        label.className += ' fn-section-label--added';
+        label.textContent = 'Beyond the JD \u2014 what he adds on top';
+      }
+      section.appendChild(label);
+
+      var cardsDiv = document.createElement('div');
+      cardsDiv.className = 'fn-cards';
+
+      matches.forEach(function(match, idx) {
+        var card = document.createElement('div');
+        card.className = tier === 'added' ? 'fn-card fn-card--green' : 'fn-card';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-expanded', 'false');
+
+        var delay = idx * 0.12;
+        card.style.animationDelay = delay + 's';
+        cardAnimationDelays[card] = delay;
+
+        card.onclick = function() { card.classList.toggle('expanded'); };
+        card.onkeydown = function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            card.classList.toggle('expanded');
+            card.setAttribute('aria-expanded', card.classList.contains('expanded'));
+          }
+        };
+
+        var top = document.createElement('div');
+        top.className = 'fn-card__top';
+
+        var titleDiv = document.createElement('div');
+        titleDiv.className = 'fn-card__title';
+        titleDiv.textContent = match.title || '';
+        top.appendChild(titleDiv);
+
+        var metric = document.createElement('div');
+        metric.className = tier === 'added' ? 'fn-card__metric fn-card__metric--green' : 'fn-card__metric fn-card__metric--blue';
+        metric.textContent = match.metric || '';
+        top.appendChild(metric);
+
+        card.appendChild(top);
+
+        var context = document.createElement('div');
+        context.className = 'fn-card__context';
+        context.textContent = match.context || '';
+        card.appendChild(context);
+
+        var jdMatch = document.createElement('div');
+        jdMatch.className = tier === 'added' ? 'fn-card__jd-match fn-card__jd-match--green' : 'fn-card__jd-match';
+        var jdHtml = (match.jd_match || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        jdMatch.innerHTML = jdHtml;
+        card.appendChild(jdMatch);
+
+        var detail = document.createElement('div');
+        detail.className = 'fn-card__detail';
+
+        if (match.problem) {
+          var problemLabel = document.createElement('div');
+          problemLabel.className = 'fn-card__detail-label';
+          problemLabel.textContent = 'The problem';
+          detail.appendChild(problemLabel);
+          var problemText = document.createElement('p');
+          problemText.textContent = match.problem;
+          detail.appendChild(problemText);
+        }
+
+        if (match.shipped) {
+          var shippedLabel = document.createElement('div');
+          shippedLabel.className = 'fn-card__detail-label';
+          shippedLabel.textContent = 'What he shipped';
+          detail.appendChild(shippedLabel);
+          var shippedText = document.createElement('p');
+          shippedText.textContent = match.shipped;
+          detail.appendChild(shippedText);
+        }
+
+        if (match.outcome) {
+          var outcomeLabel = document.createElement('div');
+          outcomeLabel.className = 'fn-card__detail-label';
+          outcomeLabel.textContent = 'The outcome';
+          detail.appendChild(outcomeLabel);
+          var outcomeText = document.createElement('p');
+          outcomeText.textContent = match.outcome;
+          detail.appendChild(outcomeText);
+        }
+
+        card.appendChild(detail);
+
+        var expand = document.createElement('div');
+        expand.className = 'fn-card__expand';
+        expand.innerHTML = '<span class="expand-text">&darr; full story</span><span class="collapse-text">&uarr; collapse</span>';
+        card.appendChild(expand);
+
+        var tag = document.createElement('span');
+        tag.className = 'fn-card__company-tag';
+        tag.textContent = match.company || '';
+        card.appendChild(tag);
+
+        cardsDiv.appendChild(card);
+      });
+
+      section.appendChild(cardsDiv);
+      contentDiv.appendChild(section);
+
+      if (tier === 'primary') {
+        updateProgressBar(70);
+      }
+    }
+
+    function renderCuttingFloor(matches) {
+      var contentDiv = document.getElementById('fn-content');
+      if (!contentDiv) return;
+
+      var divider = document.createElement('hr');
+      divider.className = 'fn-divider';
+      contentDiv.appendChild(divider);
+
+      var section = document.createElement('div');
+      section.className = 'fn-cutting-floor';
+
+      var label = document.createElement('div');
+      label.className = 'fn-section-label fn-section-label--gold';
+      label.textContent = 'The cutting room floor';
+      section.appendChild(label);
+
+      var intro = document.createElement('div');
+      intro.className = 'fn-cutting-intro';
+      intro.textContent = 'A resume would have stopped at the top matches. These are relevant projects that didn\u2019t make the primary list \u2014 but any one of them tells you something a resume can\u2019t.';
+      section.appendChild(intro);
+
+      var grid = document.createElement('div');
+      grid.className = 'fn-floor-grid';
+
+      matches.forEach(function(match, idx) {
+        var card = document.createElement('div');
+        card.className = 'fn-floor-card';
+
+        var delay = idx * 0.08;
+        card.style.animationDelay = delay + 's';
+        floorCardDelays[card] = delay;
+
+        var title = document.createElement('div');
+        title.className = 'fn-floor-card__title';
+        title.textContent = match.title || '';
+        card.appendChild(title);
+
+        var sub = document.createElement('div');
+        sub.className = 'fn-floor-card__sub';
+        sub.textContent = match.subtitle || '';
+        card.appendChild(sub);
+
+        var metric = document.createElement('div');
+        metric.className = 'fn-floor-card__metric';
+        metric.textContent = match.metric || '';
+        card.appendChild(metric);
+
+        grid.appendChild(card);
+      });
+
+      section.appendChild(grid);
+      contentDiv.appendChild(section);
+
+      updateProgressBar(85);
+    }
+
+    function renderKeyTakeaway(text) {
+      var contentDiv = document.getElementById('fn-content');
+      if (!contentDiv) return;
+
+      var divider = document.createElement('hr');
+      divider.className = 'fn-divider';
+      contentDiv.appendChild(divider);
+
+      var takeaway = document.createElement('div');
+      takeaway.className = 'fn-takeaway';
+
+      var label = document.createElement('div');
+      label.className = 'fn-takeaway__label';
+      label.textContent = 'The key takeaway';
+      takeaway.appendChild(label);
+
+      var textDiv = document.createElement('div');
+      textDiv.className = 'fn-takeaway__text';
+      var html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      textDiv.innerHTML = html;
+      takeaway.appendChild(textDiv);
+
+      contentDiv.appendChild(takeaway);
+    }
+
+    function composeSummaryText() {
+      var text = '';
+      var contentDiv = document.getElementById('fn-content');
+      if (!contentDiv) return text;
+
+      var company = fitState.company || 'Unknown Company';
+      var role = fitState.roleTitle || 'Unknown Role';
+
+      text += company + ' — ' + role + '\n\n';
+
+      var headerCard = contentDiv.querySelector('.fn-header');
+      if (headerCard) {
+        var verdict = headerCard.querySelector('.fn-header__verdict');
+        if (verdict) {
+          text += verdict.textContent + '\n\n';
+        }
+      }
+
+      text += '=== DIRECT MATCHES ===\n\n';
+      var primaryCards = contentDiv.querySelectorAll('.fn-evidence-section .fn-card:not(.fn-card--green)');
+      primaryCards.forEach(function(card) {
+        var titleEl = card.querySelector('.fn-card__title');
+        var contextEl = card.querySelector('.fn-card__context');
+        if (titleEl) text += titleEl.textContent + '\n';
+        if (contextEl) text += contextEl.textContent + '\n\n';
+      });
+
+      text += '=== ADDED VALUE ===\n\n';
+      var addedCards = contentDiv.querySelectorAll('.fn-card.fn-card--green');
+      addedCards.forEach(function(card) {
+        var titleEl = card.querySelector('.fn-card__title');
+        var contextEl = card.querySelector('.fn-card__context');
+        if (titleEl) text += titleEl.textContent + '\n';
+        if (contextEl) text += contextEl.textContent + '\n\n';
+      });
+
+      var takeaway = contentDiv.querySelector('.fn-takeaway__text');
+      if (takeaway) {
+        text += '=== KEY TAKEAWAY ===\n\n' + takeaway.textContent + '\n';
+      }
+
+      return text;
+    }
+
+    function finishNarrative() {
+      var contentDiv = document.getElementById('fn-content');
+      if (!contentDiv) return;
+
+      updateProgressBar(100);
+
+      var actions = document.createElement('div');
+      actions.className = 'fn-actions';
+
+      var tryButton = document.createElement('button');
+      tryButton.className = 'fn-pill';
+      tryButton.textContent = 'Try another role';
+      tryButton.onclick = function() {
+        location.href = '/';
+      };
+      actions.appendChild(tryButton);
+
+      var copyButton = document.createElement('button');
+      copyButton.className = 'fn-pill';
+      copyButton.textContent = 'Copy summary';
+      copyButton.onclick = function() {
+        var summary = composeSummaryText();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(summary).then(function() {
+            showCopyToast('Summary copied to clipboard');
+          }).catch(function() {
+            var textarea = document.createElement('textarea');
+            textarea.value = summary;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showCopyToast('Summary copied to clipboard');
+          });
+        } else {
+          var textarea = document.createElement('textarea');
+          textarea.value = summary;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          showCopyToast('Summary copied to clipboard');
+        }
+      };
+      actions.appendChild(copyButton);
+
+      contentDiv.appendChild(actions);
+
+      var share = document.createElement('div');
+      share.className = 'fn-share';
+
+      var emailSelf = document.createElement('button');
+      emailSelf.className = 'fn-share-btn';
+      emailSelf.textContent = 'Email this to yourself';
+      emailSelf.onclick = function() {
+        var visitorEmail = localStorage.getItem('fenix_email') || '';
+        var summary = composeSummaryText();
+        var subject = 'Your Fit Analysis for ' + fitState.company + ' — ' + fitState.roleTitle;
+        var body = summary;
+        if (visitorEmail) {
+          location.href = 'mailto:' + encodeURIComponent(visitorEmail) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        } else {
+          var email = prompt('What\u2019s your email address?');
+          if (email) {
+            location.href = 'mailto:' + encodeURIComponent(email) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+          }
+        }
+      };
+      share.appendChild(emailSelf);
+
+      var emailColleague = document.createElement('button');
+      emailColleague.className = 'fn-share-btn';
+      emailColleague.textContent = 'Email to a colleague';
+      emailColleague.onclick = function() {
+        var summary = composeSummaryText();
+        var subject = 'Check out: ' + fitState.company + ' — ' + fitState.roleTitle;
+        var body = summary;
+        location.href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      };
+      share.appendChild(emailColleague);
+
+      contentDiv.appendChild(share);
+
+      var divider = document.createElement('hr');
+      divider.className = 'fn-divider';
+      contentDiv.appendChild(divider);
+
+      var explore = document.createElement('div');
+      explore.className = 'fn-explore';
+
+      var exploreLabel = document.createElement('div');
+      exploreLabel.className = 'fn-explore__label';
+      exploreLabel.textContent = 'Keep exploring';
+      explore.appendChild(exploreLabel);
+
+      var grid = document.createElement('div');
+      grid.className = 'fn-explore__grid';
+
+      var cardTrackRecord = document.createElement('a');
+      cardTrackRecord.href = '/track-record.html';
+      cardTrackRecord.className = 'fn-explore__card';
+      cardTrackRecord.innerHTML = '<div class="fn-explore__card-title">The Work <span class="fn-arrow">\u2192</span></div><div class="fn-explore__card-desc">The full professional journey \u2014 15 years across banking, fintech, spatial computing, and AI.</div>';
+      grid.appendChild(cardTrackRecord);
+
+      var cardTeardowns = document.createElement('a');
+      cardTeardowns.href = '/teardowns/';
+      cardTeardowns.className = 'fn-explore__card';
+      cardTeardowns.innerHTML = '<div class="fn-explore__card-title">Teardowns <span class="fn-arrow">\u2192</span></div><div class="fn-explore__card-desc">Product thinking applied to real companies. How Kiran would approach problems others are solving.</div>';
+      grid.appendChild(cardTeardowns);
+
+      var cardBlog = document.createElement('a');
+      cardBlog.href = '/blog/';
+      cardBlog.className = 'fn-explore__card';
+      cardBlog.innerHTML = '<div class="fn-explore__card-title">Blog <span class="fn-arrow">\u2192</span></div><div class="fn-explore__card-desc">Writing about product strategy, AI, and what it means to build things that matter.</div>';
+      grid.appendChild(cardBlog);
+
+      explore.appendChild(grid);
+      contentDiv.appendChild(explore);
+    }
+
+    function handleSSE(event) {
+      if (!event || !event.type) return;
+
+      switch (event.type) {
+        case 'narration':
+          addNarrationParagraph(event.text || '');
+          updateProgressBar(20);
+          break;
+
+        case 'extraction':
+          fitState.company = event.company || '';
+          fitState.roleTitle = event.roleTitle || event.role_title || '';
+          fitState.preferredCompany = event.preferredCompany || event.preferred_company || false;
+          transitionToCards();
+
+          var contentDiv = document.getElementById('fn-content');
+          if (contentDiv) {
+            contentDiv.innerHTML = '';
+
+            var meta = document.createElement('div');
+            meta.className = 'fn-meta';
+
+            var eyebrow = document.createElement('div');
+            eyebrow.className = 'fn-meta__eyebrow';
+            eyebrow.textContent = 'What you have just unlocked';
+            meta.appendChild(eyebrow);
+
+            var headline = document.createElement('div');
+            headline.className = 'fn-meta__headline';
+            headline.textContent = 'Fenix gives you insights beyond your standard resume.';
+            meta.appendChild(headline);
+
+            var body = document.createElement('div');
+            body.className = 'fn-meta__body';
+            body.innerHTML = 'Fenix analyzed your job description against Kiran\u2019s full career history and selected the initiatives that map to what you\u2019re actually looking for. Each card below is a real project \u2014 the problem, what he shipped, and the outcome. <strong>This is what a resume forces you to cut.</strong>';
+            meta.appendChild(body);
+
+            contentDiv.appendChild(meta);
+
+            var header = document.createElement('div');
+            header.className = 'fn-header';
+
+            var company = document.createElement('div');
+            company.className = 'fn-header__company';
+            company.textContent = fitState.company;
+            header.appendChild(company);
+
+            var role = document.createElement('div');
+            role.className = 'fn-header__role';
+            role.textContent = fitState.roleTitle;
+            header.appendChild(role);
+
+            var verdict = document.createElement('div');
+            verdict.className = 'fn-header__verdict';
+            verdict.id = 'fn-verdict';
+            header.appendChild(verdict);
+
+            if (fitState.preferredCompany) {
+              var preferred = document.createElement('div');
+              preferred.className = 'fn-header__preferred';
+              preferred.innerHTML = '<span class="fn-star">&starf;</span> Kiran is actively interested in ' + escapeHtml(fitState.company);
+              header.appendChild(preferred);
+            }
+
+            contentDiv.appendChild(header);
+          }
+          break;
+
+        case 'verdict':
+          renderVerdict(event.text || '');
+          break;
+
+        case 'primary_matches':
+          renderEvidenceSection(event.matches || [], 'primary');
+          break;
+
+        case 'added_value':
+          renderEvidenceSection(event.matches || [], 'added');
+          break;
+
+        case 'cutting_floor':
+          renderCuttingFloor(event.matches || []);
+          break;
+
+        case 'key_takeaway':
+          renderKeyTakeaway(event.text || '');
+          break;
+
+        case 'complete':
+          finishNarrative();
+          break;
+
+        case 'decline':
+          var contentDiv = document.getElementById('fn-content');
+          if (contentDiv) {
+            contentDiv.innerHTML = '<p>This analysis is not available. <a href="/">Return to the main site</a>.</p>';
+          }
+          break;
+
+        case 'error':
+          console.error('Analysis error:', event.message || event.text);
+          var contentDiv = document.getElementById('fn-content');
+          if (contentDiv) {
+            contentDiv.innerHTML = '<p>An error occurred during analysis. <a href="/">Return to the main site</a>.</p>';
+          }
+          break;
+      }
+    }
+
+    function startAnalysis(jdText) {
+      var visitorName = localStorage.getItem('fenix_name') || 'Visitor';
+      var visitorCompany = localStorage.getItem('fenix_company') || '';
+
+      var payload = {
+        jd_text: jdText,
+        visitor_name: visitorName,
+        visitor_company: visitorCompany
+      };
+
+      fetch(API_BASE + '/api/fit-score/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': API_KEY
+        },
+        body: JSON.stringify(payload)
+      }).then(function(response) {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.body;
+      }).then(function(body) {
+        var reader = body.getReader();
+        var decoder = new TextDecoder();
+        var buffer = '';
+
+        function read() {
+          reader.read().then(function(result) {
+            if (result.done) {
+              handleSSE({ type: 'complete' });
+              return;
+            }
+
+            buffer += decoder.decode(result.value, { stream: true });
+            var lines = buffer.split('\n');
+
+            for (var i = 0; i < lines.length - 1; i++) {
+              var line = lines[i];
+              if (line.startsWith('data: ')) {
+                var dataStr = line.substring(6);
+                try {
+                  var event = JSON.parse(dataStr);
+                  handleSSE(event);
+                } catch (e) {
+                  console.error('Parse error:', e);
+                }
+              }
+            }
+
+            buffer = lines[lines.length - 1];
+            read();
+          }).catch(function(err) {
+            console.error('Stream error:', err);
+            handleSSE({ type: 'error', message: err.message });
+          });
+        }
+
+        read();
+      }).catch(function(err) {
+        console.error('Fetch error:', err);
+        handleSSE({ type: 'error', message: err.message });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var jdText = sessionStorage.getItem('fenix_fit_jd');
+      var urlParams = new URLSearchParams(location.search);
+      var idParam = urlParams.get('id');
+
+      if (!jdText && !idParam) {
+        var accessGuard = document.createElement('div');
+        accessGuard.className = 'fn-access-guard';
+        accessGuard.innerHTML = '<p>No analysis context found.</p><p><a href="/">Return to the main site</a> to start a new analysis.</p>';
+        document.body.insertBefore(accessGuard, document.body.firstChild);
+        accessGuard.style.display = 'flex';
+        return;
+      }
+
+      if (jdText) {
+        startAnalysis(jdText);
+      }
+    });
+  </script>
+
+</body>
+</html>
