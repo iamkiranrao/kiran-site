@@ -18,7 +18,7 @@
   var API_KEY = 'H3Ycu0N5kfv5MERh_5mYwYcMbGu6pYUv2y1KSgsMBLk';
 
   // ── Fenix Opening Frame Text (Locked — April 4, 2026) ──
-  var FENIX_OPENING = 'Quick context before we start. This isn\'t a portfolio site. It\'s a product Kiran built.\n\nThe resume comes in three versions, each tuned to a different kind of search. Paste a job description and I\'ll build a case for why Kiran fits — not a score, but a real argument based on his actual work. And I\'m not a template chatbot. I\'ve been trained on Kiran\'s actual work, his decisions, and how he thinks.\n\nThis site isn\'t designed for a 30-second skim. But every minute you spend here will surface insights you\'d otherwise spend weeks piecing together. The more you experience, the more you understand about how Kiran thinks and works.\n\nI\'m here to help you focus on what matters to you.';
+  var FENIX_OPENING = 'Quick context before we start. This isn\'t a portfolio site. It\'s a product Kiran built.\n\nThe resume comes in three versions, each tuned to a different kind of search. Got a role in mind? Paste the JD and I\'ll show you exactly how Kiran\'s experience maps to it. And I\'m not a template chatbot. I\'ve been trained on Kiran\'s actual work, his decisions, and how he thinks.\n\nThis site isn\'t designed for a 30-second skim. But every minute you spend here will surface insights you\'d otherwise spend weeks piecing together. The more you experience, the more you understand about how Kiran thinks and works.\n\nI\'m here to help you focus on what matters to you.';
 
   // ── Recruiter Questions (Kiran to author answers) ──
   var RECRUITER_QUESTIONS = [
@@ -953,10 +953,10 @@
       {
         id: 'card-fitscore',
         icon: '⚖️',
-        title: 'Why Kiran for This Role',
+        title: 'How Kiran\'s Experience Maps to Your Role',
         tag: 'Connect to unlock',
-        hook: 'Paste a job description and I\'ll build a real case — not a score, but a specific argument for why Kiran fits.',
-        cta: '→ Connect to see the case',
+        hook: 'Paste a job description and I\'ll show you exactly where Kiran\'s work lines up — specific projects, results, and scale.',
+        cta: '→ Connect to get started',
         gateReason: 'This works better when I know who I\'m talking to.',
         action: 'connect',
         locked: !state.connectedName
@@ -1187,7 +1187,7 @@
 
   function renderConnectGate(panel) {
     var heading = el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> Give me a job description and I\'ll build a real case for why Kiran fits — not a score, but a specific argument based on his actual work. Since this is personalized, I\'ll need to know who I\'m building it for.<br><br>Two ways to do that:'
+      html: '<em>Fenix:</em> Give me a job description and I\'ll show you how Kiran\'s experience maps to it — specific projects, results, scale. Since this is personalized, I\'ll need to know who I\'m putting it together for.<br><br>Two ways to do that:'
     });
     panel.appendChild(heading);
 
@@ -1242,7 +1242,7 @@
 
   function renderJDInput(panel) {
     panel.appendChild(el('p', 'ev-jd-greeting', {
-      text: 'Welcome, ' + state.connectedName + '. Paste the job description you\'re evaluating Kiran for, and I\'ll build the case.'
+      text: 'Welcome, ' + state.connectedName + '. Paste the job description and I\'ll map Kiran\'s experience to it.'
     }));
 
     var form = el('form', 'ev-jd-form');
@@ -1366,7 +1366,7 @@
       return readChunk();
     }).catch(function (err) {
       console.error('Fit Narrative API error:', err);
-      showFitScoreError('Could not generate the fit case. The backend may not be running. Please try again later.');
+      showFitScoreError('Something went wrong. The backend may not be running. Please try again later.');
     });
   }
 
