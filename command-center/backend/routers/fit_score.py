@@ -159,7 +159,7 @@ JD TEXT:
 
         yield f"data: {create_sse_event('preferred_company', {'match': preferred_match, 'company': company})}\n\n"
 
-        msg = f"Building the case for {company}'s {role_title} role..."
+        msg = f"Mapping Kiran's experience to {company}'s {role_title} role..."
         yield f"data: {create_sse_event('narration', {'message': msg})}\n\n"
         await asyncio.sleep(0.1)
 
@@ -176,7 +176,7 @@ JD TEXT:
         if preferred_match:
             preferred_note = f"\n\nNote: {company} is on Kiran's target company list — he is actively interested in this company. You can mention this naturally in section 3 if it fits."
 
-        narrative_prompt = f"""You are Fenix, Kiran Rao's AI agent. A recruiter or hiring manager has pasted a job description. Your job is to build a compelling, specific, HONEST case for why Kiran is the right person for this role.
+        narrative_prompt = f"""You are Fenix, Kiran Rao's AI agent. A recruiter or hiring manager has pasted a job description. Your job is to show them exactly how Kiran's experience maps to this role — specific, honest, and grounded in what he's actually shipped.
 
 STEP 1 — HONESTLY ASSESS THE FIT (do this silently, do NOT include in output):
 Read the JD carefully. Compare it against Kiran's profile. Ask yourself:
