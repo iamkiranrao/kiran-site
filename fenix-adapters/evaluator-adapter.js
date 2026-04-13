@@ -1071,8 +1071,17 @@
     var textarea = form.querySelector('.ev-jd-input');
     var jdText = textarea.value.trim();
     if (!jdText) return;
-    showFitScoreProcessing();
-    callFitScoreAPI(jdText);
+
+    // Stash JD in sessionStorage for the dedicated page to pick up
+    try {
+      sessionStorage.setItem('fenix_fit_jd', jdText);
+    } catch (e) {
+      console.error('[evaluator] Failed to stash JD:', e);
+    }
+
+    // Navigate to the dedicated fit narrative page
+    // navigateWithFenix preserves conversation context via lastHopMessages
+    FC.navigateWithFenix('/fit-narrative.html');
   }
 
   // ── Fit Narrative State ──
