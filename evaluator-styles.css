@@ -1436,6 +1436,26 @@
     gap: 1rem;
     text-align: center;
   }
+
+  /* Fenix intro zone — mobile font scaling (Rule 2) */
+  .ev-unlock-cards-header { font-size: 0.95rem; }
+  .ev-fenix-col-header { font-size: 0.95rem; }
+  .ev-card-title { font-size: 1rem; }
+  .ev-card-hook { font-size: 0.9rem; }
+  .ev-card-tag { font-size: 0.75rem; }
+  .ev-msg-content { font-size: 0.9rem; }
+  .ev-chat-pill { font-size: 0.85rem; }
+}
+
+@media (max-width: 480px) {
+  /* Fenix intro zone — small phone step-down (Rule 2) */
+  .ev-unlock-cards-header { font-size: 0.9rem; }
+  .ev-fenix-col-header { font-size: 0.9rem; }
+  .ev-card-title { font-size: 0.95rem; }
+  .ev-card-hook { font-size: 0.85rem; }
+  .ev-card-tag { font-size: 0.72rem; }
+  .ev-msg-content { font-size: 0.85rem; }
+  .ev-chat-pill { font-size: 0.8rem; }
 }
 
 

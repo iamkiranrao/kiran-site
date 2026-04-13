@@ -2037,6 +2037,8 @@ footer {
     .competency-card-title { font-size: 1.3rem; }
     .competency-card-desc { font-size: 0.9rem; }
     .competency-card { flex: 0 0 88%; }
+    .unlock-label { font-size: 0.95rem; }
+    .unlock-desc { font-size: 0.85rem; }
     .work-grid.bento {
         grid-template-columns: 1fr;
         grid-auto-rows: auto;
@@ -3687,6 +3689,8 @@ body, nav, section, footer, .mobile-menu,
     .unlock-content { text-align: center; }
     .fenix-intro-divider { width: 100%; height: 1px; }
     .fenix-intro-right { padding-left: 0; padding-top: 2rem; }
+    .unlock-label { font-size: 1rem; }
+    .unlock-desc { font-size: 0.9rem; }
 }
 
 
