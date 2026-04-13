@@ -340,3 +340,35 @@ When recommending an external tool, provide the prompt. Format:
 > **Why external:** [1-sentence explanation of the Claude fingerprint risk]
 
 This keeps Kiran in flow — he doesn't have to context-switch to figure out how to ask the tool for the right thing.
+
+## Non-Negotiable Working Behaviors
+
+These rules exist because they were violated repeatedly and caused friction. They are not guidelines — they are requirements. Every session, every task.
+
+### 1. Always go through the gates.
+
+The Build Process (Agreement → Gameplan → Pre-flight) applies to EVERY code, CSS, HTML, or content change pushed to production. "It's just a small CSS tweak" is not an excuse to skip gates. The gates are fastest when the change is small — state what you're changing, list the files, confirm responsive/light-dark/accessibility, get "let's go." This takes 30 seconds and prevents 30 minutes of rework.
+
+### 2. Mockup before implementation. Always.
+
+Any visual or content change gets a mockup (prototype HTML or clear before/after description) BEFORE touching production files. Kiran approves the mockup. Implementation matches the mockup exactly. If implementation diverges from the mockup, stop and re-confirm — do not silently deviate.
+
+### 3. Lead with a recommendation.
+
+When presenting options, always state which one you'd pick and why. Do not present a numbered list and wait for Kiran to choose. Have a point of view. Kiran can override it, but he shouldn't have to drag an opinion out of you.
+
+### 4. When Kiran says something looks wrong, measure first.
+
+Do not explain why the CSS should be correct. Do not say "it's a visual trick." Open the browser, run getBoundingClientRect(), check getComputedStyle(), take a screenshot. Verify with data, then respond. Kiran's eyes are more reliable than your assumptions about what the CSS should be doing.
+
+### 5. Read before you write.
+
+Every session that produces code: read the Tier 1 identity docs and the applicable Tier 2 docs BEFORE writing anything. This is in the Session Startup section and it is not optional. Continuation prompts do not exempt you from context loading.
+
+### 6. Parse instructions carefully.
+
+If an instruction is ambiguous, ask — don't assume the interpretation that lets you move fastest. "No mockup first" could mean "skip the mockup" or "do the mockup first." When in doubt, confirm. The cost of asking is 10 seconds. The cost of assuming wrong is a frustrated Kiran and wasted work.
+
+### 7. Don't optimize for speed. Optimize for precision.
+
+The earlier sessions worked well because changes were deliberate, verified, and aligned. Rushing to push code is not a feature. Getting it right the first time is.
