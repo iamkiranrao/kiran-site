@@ -1252,7 +1252,7 @@
     });
 
     form.appendChild(el('textarea', 'ev-jd-input', { placeholder: 'Paste the full job description here...' }));
-    form.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Why Kiran for this role' }));
+    form.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Show me' }));
 
     panel.appendChild(form);
   }
@@ -1433,7 +1433,10 @@
     var container = el('div', 'ev-fit-narrative');
 
     // Title
-    var title = el('h2', 'ev-narrative-title', { text: 'Why Kiran for this role' });
+    var titleText = fitNarrativeState.roleTitle && fitNarrativeState.company
+      ? fitNarrativeState.roleTitle + ' — ' + fitNarrativeState.company
+      : 'What Kiran Brings to Your Role';
+    var title = el('h2', 'ev-narrative-title', { text: titleText });
     container.appendChild(title);
 
     // Preferred company badge (if applicable)
