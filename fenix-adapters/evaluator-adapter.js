@@ -387,7 +387,7 @@
     // Column header above chat widget — mirrors the unlock cards header (fix: 2b)
     var colHeaderText = (hasExplored || isConnected)
       ? 'Fenix \u2014 <span class="ev-fenix-tagline">ready when you are</span>'
-      : 'Meet Fenix \u2014 <span class="ev-fenix-tagline">your guide to everything on this site</span>';
+      : 'MEET FENIX \u2014 <span class="ev-fenix-tagline">your guide to everything on this site ↘</span>';
     var colHeader = el('div', 'ev-fenix-col-header', { html: colHeaderText });
     container.appendChild(colHeader);
 

@@ -162,10 +162,10 @@
 .ev-msg-content {
   padding: 0.7rem 1rem;
   border-radius: 12px;
-  font-size: 0.82rem;
-  line-height: 1.65;
+  font-size: 0.88rem;
+  line-height: 1.6;
   color: var(--ev-text-secondary);
-  font-weight: 300;
+  font-weight: 400;
   max-width: 85%;
 }
 
@@ -234,7 +234,7 @@
   border: 1px solid var(--ev-border);
   padding: 0.45rem 0.85rem;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--ev-text-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -311,7 +311,7 @@
 
 .ev-chat-input::placeholder {
   color: var(--ev-text-muted);
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .ev-chat-input:focus {
@@ -363,9 +363,9 @@
 }
 
 .ev-unlock-cards-header {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ev-accent);
   margin-bottom: 0.75rem;
@@ -481,7 +481,7 @@
 
 .ev-card-tag {
   font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ev-accent);
@@ -492,7 +492,7 @@
   font-size: 0.85rem;
   color: var(--ev-text-secondary);
   line-height: 1.5;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .ev-card-cta {
@@ -640,7 +640,7 @@
   font-size: 0.85rem;
   color: var(--ev-text-secondary);
   line-height: 1.5;
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 1.5rem;
 }
 
@@ -781,7 +781,7 @@
   font-size: 0.82rem;
   color: var(--ev-text-secondary);
   line-height: 1.6;
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
   margin: 0;
 }
@@ -1199,7 +1199,7 @@
   font-size: 0.85rem;
   line-height: 1.6;
   margin: 0;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .ev-dimension-gap {
