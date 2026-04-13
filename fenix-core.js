@@ -44,7 +44,7 @@
       cardsClicked: [],
       panelsOpened: [],
       resumeLensSelected: null,
-      fitScoreStarted: false,
+      fitNarrativeStarted: false,
       pillsUsed: [],
       messagesExchanged: 0
     },

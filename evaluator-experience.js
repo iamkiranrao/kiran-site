@@ -80,7 +80,7 @@
       cardsClicked: [],
       panelsOpened: [],
       resumeLensSelected: null,
-      fitScoreStarted: false,
+      fitNarrativeStarted: false,
       pillsUsed: [],
       messagesExchanged: 0
     },
@@ -151,7 +151,7 @@
 
     // Post-connect: shift toward deeper exploration
     if (connected) {
-      if (!ex.fitScoreStarted) {
+      if (!ex.fitNarrativeStarted) {
         pills.push({ text: 'Let\u2019s evaluate fit', action: 'agent' });
       }
       if (!ex.resumeLensSelected) {
@@ -309,14 +309,14 @@
       return JSON.stringify(fenixState.explored);
     },
 
-    start_fit_score: function () {
+    start_fit_narrative: function () {
       if (!fenixState.visitor.connected) {
         showPanel('connect');
         fenixState.ui.currentPanel = 'connect';
         return 'Visitor not connected yet — opened the connect panel';
       }
       showPanel('connect'); // Shows JD input when connected
-      fenixState.explored.fitScoreStarted = true;
+      fenixState.explored.fitNarrativeStarted = true;
       fenixState.ui.currentPanel = 'connect';
       return 'Opened the Fit Narrative JD input';
     }
@@ -547,7 +547,7 @@
       select_resume_lens: 'Selecting the ' + (args && args.lens ? args.lens.toUpperCase() : '') + ' resume...',
       scroll_to_section: 'Scrolling to ' + (args && args.section ? args.section : '') + '...',
       get_visitor_context: 'Checking what you\'ve explored...',
-      start_fit_score: 'Setting up the fit analysis...'
+      start_fit_narrative: 'Setting up the fit analysis...'
     };
     var text = toolLabels[toolName] || 'Working on something...';
     var msg = el('div', 'ev-msg ev-msg-tool-thinking');
@@ -951,7 +951,7 @@
         locked: false
       },
       {
-        id: 'card-fitscore',
+        id: 'card-fit-narrative',
         icon: '⚖️',
         title: 'How Kiran\'s Experience Maps to Your Role',
         tag: 'Connect to unlock',
@@ -1323,7 +1323,7 @@
 
   function applyConnectedState() {
     // Unlock the locked card
-    var lockedCard = document.querySelector('[data-card="card-fitscore"]');
+    var lockedCard = document.querySelector('[data-card="card-fit-narrative"]');
     if (lockedCard) {
       lockedCard.classList.remove('ev-locked');
       var lockInd = lockedCard.querySelector('.ev-lock-indicator');

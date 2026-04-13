@@ -209,7 +209,7 @@ Also assign each selected initiative to a TIER:
 
 Return JSON only:
 {{
-  "company": "...",
+  "company": "..." (the hiring company name if clearly stated in the JD; empty string "" if not mentioned),
   "role_title": "...",
   "scorable": true/false,
   "diagnosis": "If not scorable, explain what's missing (max 1 sentence)",
