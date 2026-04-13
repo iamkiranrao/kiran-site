@@ -2264,7 +2264,7 @@ body, nav, section, footer, .mobile-menu,
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.85rem 1.2rem 0.85rem 0.65rem;
+    padding: 0.65rem 1.2rem 0.65rem 0.55rem;
     background: var(--text-primary);
     border: 2px solid var(--text-primary);
     border-radius: 999px;
