@@ -163,7 +163,7 @@ app.include_router(action_items.router, prefix="/api/action-items", tags=["Actio
 app.include_router(standards.router, prefix="/api/standards", tags=["Standards & Compliance"])
 app.include_router(tech_costs.router, prefix="/api/tech-costs", tags=["Tech Cost Calculator"])
 app.include_router(evidence.router, prefix="/api/evidence", tags=["Evidence Management"])
-app.include_router(fit_score.router, prefix="/api/fit-score", tags=["Fit Score Analyzer"])
+app.include_router(fit_score.router, prefix="/api/fit-score", tags=["Fit Narrative"])
 app.include_router(career_initiatives.router, prefix="/api/career-initiatives", tags=["Career Initiatives"])
 
 

@@ -3,7 +3,7 @@
  * EVALUATOR ADAPTER
  * Fenix page adapter for the Evaluator persona (Merritt).
  * Provides evaluator-specific tools, panels, unlock cards,
- * pills state machine, connect flow, and Fit Score integration.
+ * pills state machine, connect flow, and Fit Narrative integration.
  *
  * Requires: fenix-core.js loaded first.
  * Hook: persona-system.js calls EvaluatorExperience.init('evaluator')
@@ -136,7 +136,7 @@
 
     // If connected but hasn't started fit score
     if (connected && !fenixState.explored.fitScoreStarted) {
-      pills.push({ text: '\u2696\uFE0F Build Fit Score', action: 'connect', locked: false });
+      pills.push({ text: '\u2696\uFE0F Why Kiran for your role', action: 'connect', locked: false });
     }
 
     return pills;
@@ -205,7 +205,7 @@
       showPanel('connect');
       fenixState.explored.fitScoreStarted = true;
       fenixState.ui.currentPanel = 'connect';
-      return 'Opened the Fit Score JD input';
+      return 'Opened the Fit Narrative JD input';
     },
 
     connect_visitor: function (args) {
@@ -262,7 +262,7 @@
     select_resume_lens: function (args) { return 'Selecting the ' + (args && args.lens ? args.lens.toUpperCase() : '') + ' resume...'; },
     scroll_to_section: function (args) { return 'Scrolling to ' + (args && args.section ? args.section : '') + '...'; },
     get_visitor_context: 'Checking what you\'ve explored...',
-    start_fit_score: 'Setting up the Fit Score...',
+    start_fit_score: 'Setting up the fit analysis...',
     connect_visitor: 'Connecting you...',
     collect_feedback: 'Saving your feedback...'
   };
@@ -641,10 +641,10 @@
       {
         id: 'card-fitscore',
         icon: '\u2696\uFE0F',
-        title: 'Does This Role Fit Both of Us?',
+        title: 'Why Kiran for This Role',
         tag: 'Connect to unlock',
-        hook: 'Mutual evaluation — how your role matches my experience, and how it matches what I\'m looking for.',
-        cta: '\u2192 Connect to build your Fit Score',
+        hook: 'Paste a job description and I\'ll build a real case — not a score, but a specific argument for why Kiran fits.',
+        cta: '\u2192 Connect to see the case',
         gateReason: 'This works better when I know who I\'m talking to.',
         action: 'connect',
         locked: !fenixState.visitor.connected
@@ -865,7 +865,7 @@
 
   function renderConnectGate(panel) {
     var heading = el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> The Fit Score goes both ways — it evaluates how your role aligns with Kiran\'s experience, and how Kiran\'s priorities align with what you\'re offering. To make that work, I need a job description to analyze. And since this generates a personalized report, I\'ll need to know who I\'m building it for.<br><br>Two ways to do that:'
+      html: '<em>Fenix:</em> Give me a job description and I\'ll build a real case for why Kiran fits — not a score, but a specific argument based on his actual work. Since this is personalized, I\'ll need to know who I\'m building it for.<br><br>Two ways to do that:'
     });
     panel.appendChild(heading);
 
@@ -920,7 +920,7 @@
   function renderJDInput(panel) {
     var firstName = (fenixState.visitor.name || 'there').split(' ')[0];
     panel.appendChild(el('p', 'ev-jd-greeting', {
-      text: 'Welcome, ' + firstName + '. Got it. Now paste the job description you\'re evaluating Kiran for, and I\'ll build the Fit Score.'
+      text: 'Welcome, ' + firstName + '. Paste the job description you\'re evaluating Kiran for, and I\'ll build the case.'
     }));
 
     var form = el('form', 'ev-jd-form');
@@ -929,7 +929,7 @@
       handleJDSubmit(form);
     });
     form.appendChild(el('textarea', 'ev-jd-input', { placeholder: 'Paste the full job description here...' }));
-    form.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Build my Fit Score' }));
+    form.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Why Kiran for this role' }));
     panel.appendChild(form);
   }
 
@@ -1075,22 +1075,18 @@
     callFitScoreAPI(jdText);
   }
 
-  var fitScoreResults = {
-    roleToKiran: [],
-    kiranToRole: [],
-    roleToKiranComposite: 0,
-    kiranToRoleComposite: 0,
-    preferredCompany: false,
-    gapNotes: [],
+  // ── Fit Narrative State ──
+  var fitNarrativeState = {
     company: '',
-    roleTitle: ''
+    roleTitle: '',
+    preferredCompany: false,
+    narrativeStarted: false
   };
 
   function callFitScoreAPI(jdText) {
-    fitScoreResults = {
-      roleToKiran: [], kiranToRole: [],
-      roleToKiranComposite: 0, kiranToRoleComposite: 0,
-      preferredCompany: false, gapNotes: [], company: '', roleTitle: ''
+    fitNarrativeState = {
+      company: '', roleTitle: '',
+      preferredCompany: false, narrativeStarted: false
     };
 
     var payload = {
@@ -1126,8 +1122,8 @@
       }
       return readChunk();
     }).catch(function (err) {
-      console.error('Fit Score API error:', err);
-      showFitScoreError('Could not generate Fit Score. The backend may not be running. Please try again later.');
+      console.error('Fit Narrative API error:', err);
+      showFitScoreError('Could not generate the fit case. The backend may not be running. Please try again later.');
     });
   }
 
@@ -1137,42 +1133,39 @@
       if (line.indexOf('data: ') === 0) {
         try {
           var data = JSON.parse(line.substring(6));
-          handleFitScoreSSE(data);
+          handleFitNarrativeSSE(data);
         } catch (e) { /* ignore */ }
       }
     });
   }
 
-  function handleFitScoreSSE(event) {
+  function handleFitNarrativeSSE(event) {
     switch (event.type) {
       case 'narration':
         addNarrationLine(event.message);
         break;
-      case 'role_to_kiran':
-        fitScoreResults.roleToKiran.push({ name: event.name, score: event.score, band: event.band, reasoning: event.reasoning, gap_note: event.gap_note || null });
+      case 'section':
+        if (!fitNarrativeState.narrativeStarted) {
+          fitNarrativeState.narrativeStarted = true;
+          transitionToNarrativeDisplay();
+        }
+        appendSectionHeader(event.id, event.label);
         break;
-      case 'kiran_to_role':
-        fitScoreResults.kiranToRole.push({ name: event.name, score: event.score, band: event.band, reasoning: event.reasoning, gap_note: event.gap_note || null });
-        break;
-      case 'composite':
-        fitScoreResults.roleToKiranComposite = event.role_to_kiran;
-        fitScoreResults.kiranToRoleComposite = event.kiran_to_role;
+      case 'narrative_chunk':
+        appendNarrativeText(event.text);
         break;
       case 'preferred_company':
-        fitScoreResults.preferredCompany = event.match;
-        if (event.match) addNarrationLine('Cross-referencing against Kiran\'s target companies... match found.');
-        break;
-      case 'gap_notes':
-        fitScoreResults.gapNotes = event.summary || [];
+        fitNarrativeState.preferredCompany = event.match;
+        fitNarrativeState.company = event.company || '';
         break;
       case 'decline':
         showFitScoreDecline(event.message, event.missing || []);
         break;
       case 'complete':
         if (event.decline) break;
-        if (event.company) fitScoreResults.company = event.company;
-        if (event.role_title) fitScoreResults.roleTitle = event.role_title;
-        renderFitScoreResults();
+        if (event.company) fitNarrativeState.company = event.company;
+        if (event.role_title) fitNarrativeState.roleTitle = event.role_title;
+        finishNarrativeDisplay();
         break;
       case 'error':
         showFitScoreError(event.message || 'An error occurred.');
@@ -1182,7 +1175,7 @@
 
 
   // ════════════════════════════════════════════════════
-  // FIT SCORE PROCESSING & RESULTS
+  // FIT NARRATIVE PROCESSING & DISPLAY
   // ════════════════════════════════════════════════════
 
   function showFitScoreProcessing() {
@@ -1212,85 +1205,74 @@
     }
   }
 
-  function renderFitScoreResults() {
+  function transitionToNarrativeDisplay() {
     var panel = document.querySelector('.ev-expanded-panel.ev-panel-connect');
     if (!panel) return;
     panel.innerHTML = '';
 
-    var results = el('div', 'ev-results');
+    var container = el('div', 'ev-fit-narrative');
+    container.appendChild(el('h2', 'ev-narrative-title', { text: 'Why Kiran for this role' }));
 
-    var composites = el('div', 'ev-composites');
-    composites.appendChild(renderComposite('Role \u2192 Kiran', fitScoreResults.roleToKiranComposite, 'Can Kiran do this job?'));
-    composites.appendChild(renderComposite('Kiran \u2192 Role', fitScoreResults.kiranToRoleComposite, 'Does Kiran want this job?'));
-    results.appendChild(composites);
-
-    if (fitScoreResults.preferredCompany) {
-      results.appendChild(el('div', 'ev-preferred-badge', { text: '\u2605 This is a company Kiran is actively interested in' }));
+    if (fitNarrativeState.preferredCompany) {
+      container.appendChild(el('div', 'ev-preferred-badge', {
+        text: 'Kiran is actively interested in ' + fitNarrativeState.company
+      }));
     }
 
-    var dims = el('div', 'ev-dimensions');
-    dims.appendChild(el('h3', 'ev-dim-section-title', { text: 'Role \u2192 Kiran' }));
-    fitScoreResults.roleToKiran.forEach(function (d) { dims.appendChild(renderDimension(d)); });
-    dims.appendChild(el('h3', 'ev-dim-section-title', { text: 'Kiran \u2192 Role' }));
-    fitScoreResults.kiranToRole.forEach(function (d) { dims.appendChild(renderDimension(d)); });
-    results.appendChild(dims);
+    var body = el('div', 'ev-narrative-body');
+    body.setAttribute('id', 'ev-narrative-body');
+    container.appendChild(body);
+    panel.appendChild(container);
+  }
 
-    if (fitScoreResults.gapNotes.length > 0) {
-      var gapSection = el('div', 'ev-gap-summary');
-      gapSection.appendChild(el('h3', null, { text: 'What would increase these scores' }));
-      var gapList = el('ul');
-      fitScoreResults.gapNotes.forEach(function (note) { gapList.appendChild(el('li', null, { text: note })); });
-      gapSection.appendChild(gapList);
-      results.appendChild(gapSection);
+  function appendSectionHeader(sectionId, label) {
+    var body = document.getElementById('ev-narrative-body');
+    if (!body) return;
+
+    var section = el('div', 'ev-narrative-section');
+    section.setAttribute('data-section', sectionId);
+    section.appendChild(el('h3', 'ev-narrative-section-header', { text: label }));
+
+    var content = el('div', 'ev-narrative-section-content');
+    var prev = body.querySelector('#ev-narrative-active');
+    if (prev) prev.removeAttribute('id');
+    content.setAttribute('id', 'ev-narrative-active');
+    section.appendChild(content);
+
+    body.appendChild(section);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function appendNarrativeText(text) {
+    var target = document.getElementById('ev-narrative-active');
+    if (!target) target = document.getElementById('ev-narrative-body');
+    if (!target) return;
+
+    var existing = target.lastChild;
+    if (existing && existing.nodeType === 3) {
+      existing.textContent += text;
+    } else {
+      target.appendChild(document.createTextNode(text));
     }
 
-    var actions = el('div', 'ev-results-actions');
-    var dlBtn = el('button', 'ev-btn-primary', { text: 'Download as PDF' });
-    dlBtn.addEventListener('click', function () { /* TODO */ });
-    var emailBtn = el('button', 'ev-btn-secondary', { text: 'Email me this' });
-    emailBtn.addEventListener('click', function () { /* TODO */ });
-    append(actions, [dlBtn, emailBtn]);
-    results.appendChild(actions);
-
-    results.appendChild(el('p', 'ev-bridge-line', {
-      text: 'That\'s the picture from what I can see in the JD. If you want to explore any dimension deeper, just ask.'
-    }));
-
-    panel.appendChild(results);
+    var body = document.getElementById('ev-narrative-body');
+    if (body) body.scrollTop = body.scrollHeight;
   }
 
-  function renderComposite(label, score, subtitle) {
-    var card = el('div', 'ev-composite');
-    card.appendChild(el('div', 'ev-composite-direction', { text: label }));
-    var scoreEl = el('div', 'ev-composite-score', { text: score + '%' });
-    scoreEl.classList.add('ev-composite-score--' + getBand(score).toLowerCase());
-    card.appendChild(scoreEl);
-    card.appendChild(el('div', 'ev-composite-band', { text: getBand(score) }));
-    card.appendChild(el('div', 'ev-composite-subtitle', { text: subtitle }));
-    return card;
-  }
+  function finishNarrativeDisplay() {
+    var body = document.getElementById('ev-narrative-body');
+    if (!body) return;
+    var active = body.querySelector('#ev-narrative-active');
+    if (active) active.removeAttribute('id');
 
-  function renderDimension(d) {
-    var row = el('div', 'ev-dimension');
-    var header = el('div', 'ev-dimension-header');
-    header.appendChild(el('span', 'ev-dimension-name', { text: d.name }));
-    var scoreWrap = el('span');
-    scoreWrap.appendChild(el('span', 'ev-dimension-score', { text: d.score + '%' }));
-    scoreWrap.appendChild(el('span', 'ev-dimension-band', { text: d.band }));
-    header.appendChild(scoreWrap);
-    row.appendChild(header);
-    row.appendChild(el('p', 'ev-dimension-reasoning', { text: d.reasoning }));
-    if (d.gap_note) {
-      row.appendChild(el('p', 'ev-dimension-gap', { text: '\u2192 ' + d.gap_note }));
-    }
-    return row;
-  }
+    var panel = document.querySelector('.ev-fit-narrative');
+    if (!panel) return;
 
-  function getBand(score) {
-    if (score >= 85) return 'Strong';
-    if (score >= 65) return 'Solid';
-    if (score >= 45) return 'Partial';
-    return 'Stretch';
+    var actions = el('div', 'ev-narrative-actions');
+    var tryAnother = el('button', 'ev-btn-secondary', { text: 'Try with a different JD' });
+    tryAnother.addEventListener('click', function () { showPanel('connect'); });
+    actions.appendChild(tryAnother);
+    panel.appendChild(actions);
   }
 
   function showFitScoreDecline(reason, missing) {
