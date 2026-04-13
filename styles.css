@@ -3506,10 +3506,10 @@ body, nav, section, footer, .mobile-menu,
     align-items: stretch;
     gap: 0;
     min-height: 280px;
-    padding: 2rem 4rem;
+    padding: 2rem 0;
     border-top: 1px solid var(--persona-accent, var(--border));
     border-bottom: 1px solid var(--persona-accent, var(--border));
-    margin: 0 4rem;
+    margin: 0;
 }
 
 .fenix-intro-left {
@@ -3532,7 +3532,7 @@ body, nav, section, footer, .mobile-menu,
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    padding-left: 3rem;
+    padding-left: 2rem;
     text-align: left;
 }
 
@@ -3664,22 +3664,22 @@ body, nav, section, footer, .mobile-menu,
 
 .unlock-label {
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     margin-bottom: 0.2rem;
 }
 
 .unlock-desc {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 /* C4 Responsive */
 @media (max-width: 768px) {
     .fenix-intro-zone {
         flex-direction: column;
-        padding: 2rem 1.5rem;
-        margin: 0 1.5rem;
+        padding: 2rem 0;
+        margin: 0;
     }
     .fenix-intro-left { padding: 0; margin-bottom: 2rem; }
     .unlock-avatar-wrap { width: 80px; height: 80px; }
