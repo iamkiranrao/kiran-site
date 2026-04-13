@@ -3517,7 +3517,7 @@ body, nav, section, footer, .mobile-menu,
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 0 2rem;
+    padding: 0 2rem 0 0;
 }
 
 .fenix-intro-divider {
