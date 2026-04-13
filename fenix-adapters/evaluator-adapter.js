@@ -1257,13 +1257,13 @@
   function buildMetaLeadIn() {
     var wrap = el('div', 'ev-meta-leadin');
 
-    wrap.appendChild(el('div', 'ev-meta-leadin__eyebrow', { text: "What you're about to see" }));
+    wrap.appendChild(el('div', 'ev-meta-leadin__eyebrow', { text: 'What you have just unlocked' }));
     wrap.appendChild(el('div', 'ev-meta-leadin__headline', {
-      text: "A resume gives you 3 bullet points and asks you to guess the rest. This doesn't."
+      text: 'Fenix gives you insights beyond your standard resume.'
     }));
 
     var body = el('div', 'ev-meta-leadin__body');
-    body.innerHTML = 'Fenix just analyzed your job description against <span class="ev-meta-leadin__stat">32 career initiatives</span> from Kiran\u2019s history and selected the ones that map to what you\u2019re actually looking for. Each card below is a real project \u2014 the problem, what he shipped, and the outcome \u2014 with the detail that a one-page resume forces you to cut. <strong>You\u2019re seeing what\u2019s normally left on the cutting room floor.</strong>';
+    body.innerHTML = 'Fenix analyzed your job description against Kiran\u2019s full career history and selected the initiatives that map to what you\u2019re actually looking for. Each card below is a real project \u2014 the problem, what he shipped, and the outcome. <strong>This is what a resume forces you to cut.</strong>';
     wrap.appendChild(body);
 
     return wrap;
