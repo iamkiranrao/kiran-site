@@ -162,7 +162,7 @@
 .ev-msg-content {
   padding: 0.7rem 1rem;
   border-radius: 12px;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   color: var(--ev-text-secondary);
   font-weight: 400;
@@ -234,7 +234,7 @@
   border: 1px solid var(--ev-border);
   padding: 0.45rem 0.85rem;
   border-radius: 999px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--ev-text-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -363,7 +363,7 @@
 }
 
 .ev-unlock-cards-header {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -385,7 +385,7 @@
 
 /* Fenix column header — mirrors unlock cards header (fix: 2b) */
 .ev-fenix-col-header {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -474,14 +474,14 @@
 
 .ev-card-title {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   color: var(--ev-text-primary);
   margin: 0 0 0.15rem 0;
 }
 
 .ev-card-tag {
   font-family: 'Space Mono', monospace;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ev-accent);
@@ -489,9 +489,9 @@
 }
 
 .ev-card-hook {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--ev-text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 400;
 }
 
