@@ -1141,10 +1141,11 @@
       var contentDiv = document.getElementById('fn-content');
       if (!contentDiv) return text;
 
-      var company = fitState.company || 'Unknown Company';
+      var company = fitState.company && fitState.company.toLowerCase() !== 'not specified' ? fitState.company : '';
       var role = fitState.roleTitle || 'Unknown Role';
 
-      text += company + ' — ' + role + '\n\n';
+      text += company ? (company + ' — ' + role) : role;
+      text += '\n\n';
 
       var headerCard = contentDiv.querySelector('.fn-header');
       if (headerCard) {
@@ -1237,7 +1238,7 @@
       emailSelf.onclick = function() {
         var visitorEmail = localStorage.getItem('fenix_email') || '';
         var summary = composeSummaryText();
-        var subject = 'Your Fit Analysis for ' + fitState.company + ' — ' + fitState.roleTitle;
+        var subject = 'Your Fit Analysis' + (fitState.company ? ' for ' + fitState.company + ' — ' : ' — ') + fitState.roleTitle;
         var body = summary;
         if (visitorEmail) {
           location.href = 'mailto:' + encodeURIComponent(visitorEmail) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
@@ -1255,7 +1256,7 @@
       emailColleague.textContent = 'Email to a colleague';
       emailColleague.onclick = function() {
         var summary = composeSummaryText();
-        var subject = 'Check out: ' + fitState.company + ' — ' + fitState.roleTitle;
+        var subject = 'Check out: ' + (fitState.company ? fitState.company + ' — ' : '') + fitState.roleTitle;
         var body = summary;
         location.href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       };
@@ -1342,10 +1343,14 @@
             var header = document.createElement('div');
             header.className = 'fn-header';
 
-            var company = document.createElement('div');
-            company.className = 'fn-header__company';
-            company.textContent = fitState.company;
-            header.appendChild(company);
+            // Only show company badge if we have a real company name
+            var hasCompany = fitState.company && fitState.company.toLowerCase() !== 'not specified' && fitState.company.toLowerCase() !== 'unknown company' && fitState.company.toLowerCase() !== 'unknown';
+            if (hasCompany) {
+              var company = document.createElement('div');
+              company.className = 'fn-header__company';
+              company.textContent = fitState.company;
+              header.appendChild(company);
+            }
 
             var role = document.createElement('div');
             role.className = 'fn-header__role';
@@ -1357,7 +1362,7 @@
             verdict.id = 'fn-verdict';
             header.appendChild(verdict);
 
-            if (fitState.preferredCompany) {
+            if (fitState.preferredCompany && hasCompany) {
               var preferred = document.createElement('div');
               preferred.className = 'fn-header__preferred';
               preferred.innerHTML = '<span class="fn-star">&starf;</span> Kiran is actively interested in ' + escapeHtml(fitState.company);

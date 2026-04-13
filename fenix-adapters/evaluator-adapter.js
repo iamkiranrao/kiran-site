@@ -110,7 +110,7 @@
 
     // Connected visitor — drive toward fit score and deeper exploration
     if (connected) {
-      if (!ex.fitScoreStarted) pills.push({ text: 'Let\u2019s evaluate fit', action: 'agent' });
+      if (!ex.fitNarrativeStarted) pills.push({ text: 'Let\u2019s evaluate fit', action: 'agent' });
       if (!ex.resumeLensSelected) pills.push({ text: 'Let me show you the resume options', action: 'agent' });
       if (pills.length < 3) pills.push({ text: 'What makes Kiran different?', action: 'agent' });
       return pills.slice(0, 3);
@@ -135,7 +135,7 @@
     }
 
     // If connected but hasn't started fit score
-    if (connected && !fenixState.explored.fitScoreStarted) {
+    if (connected && !fenixState.explored.fitNarrativeStarted) {
       pills.push({ text: '\u2696\uFE0F What differentiates Kiran for your role', action: 'connect', locked: false });
     }
 
@@ -196,14 +196,14 @@
       return JSON.stringify(fenixState.explored);
     },
 
-    start_fit_score: function () {
+    start_fit_narrative: function () {
       if (!fenixState.visitor.connected) {
         showPanel('connect');
         fenixState.ui.currentPanel = 'connect';
         return 'Visitor not connected yet — opened the connect panel';
       }
       showPanel('connect');
-      fenixState.explored.fitScoreStarted = true;
+      fenixState.explored.fitNarrativeStarted = true;
       fenixState.ui.currentPanel = 'connect';
       return 'Opened the Fit Narrative JD input';
     },
@@ -262,7 +262,7 @@
     select_resume_lens: function (args) { return 'Selecting the ' + (args && args.lens ? args.lens.toUpperCase() : '') + ' resume...'; },
     scroll_to_section: function (args) { return 'Scrolling to ' + (args && args.section ? args.section : '') + '...'; },
     get_visitor_context: 'Checking what you\'ve explored...',
-    start_fit_score: 'Setting up the fit analysis...',
+    start_fit_narrative: 'Setting up the fit analysis...',
     connect_visitor: 'Connecting you...',
     collect_feedback: 'Saving your feedback...'
   };
@@ -639,7 +639,7 @@
         locked: false
       },
       {
-        id: 'card-fitscore',
+        id: 'card-fit-narrative',
         icon: '\u2696\uFE0F',
         title: 'What Differentiates Kiran for Your Role',
         tag: 'Connect to unlock',
@@ -1089,7 +1089,7 @@
   // ════════════════════════════════════════════════════
 
   function applyConnectedState() {
-    var lockedCard = document.querySelector('[data-card="card-fitscore"]');
+    var lockedCard = document.querySelector('[data-card="card-fit-narrative"]');
     if (lockedCard) {
       lockedCard.classList.remove('ev-locked');
       var lockInd = lockedCard.querySelector('.ev-lock-indicator');
@@ -1160,7 +1160,7 @@
     messageCap: 30,
 
     // Available tools (sent to backend)
-    availableTools: ['open_panel', 'close_panel', 'select_resume_lens', 'scroll_to_section', 'get_visitor_context', 'start_fit_score', 'connect_visitor', 'collect_feedback', 'show_related_content'],
+    availableTools: ['open_panel', 'close_panel', 'select_resume_lens', 'scroll_to_section', 'get_visitor_context', 'start_fit_narrative', 'connect_visitor', 'collect_feedback', 'show_related_content'],
 
     // UI
     buildUI: buildUI,
