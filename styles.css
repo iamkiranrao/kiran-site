@@ -3442,7 +3442,7 @@ body, nav, section, footer, .mobile-menu,
     text-align: center;
     padding: 2rem 4rem 2rem;
     margin: 0 4rem;
-    max-width: 720px;
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -3459,7 +3459,7 @@ body, nav, section, footer, .mobile-menu,
 .fenix-context-name {
     color: var(--persona-accent, var(--text-primary));
     font-style: italic;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .fenix-context-reframe {
