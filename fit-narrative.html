@@ -1394,6 +1394,11 @@
           break;
 
         case 'complete':
+          // Update URL with analysis ID for refresh/share
+          if (event.analysis_id) {
+            var newUrl = location.pathname + '?id=' + event.analysis_id;
+            history.replaceState(null, '', newUrl);
+          }
           finishNarrative();
           break;
 
@@ -1493,8 +1498,47 @@
 
       if (jdText) {
         startAnalysis(jdText);
+      } else if (idParam) {
+        loadSavedAnalysis(idParam);
       }
     });
+
+    function loadSavedAnalysis(analysisId) {
+      // Show a simpler loading state
+      var loading = document.getElementById('fn-loading');
+      var narration = document.getElementById('fn-narration');
+      if (narration) narration.textContent = 'Loading your analysis...';
+
+      fetch(API_BASE + '/api/fit-score/' + encodeURIComponent(analysisId), {
+        headers: { 'X-API-Key': API_KEY }
+      })
+      .then(function(resp) {
+        if (!resp.ok) throw new Error('Analysis not found');
+        return resp.json();
+      })
+      .then(function(data) {
+        var p = data.payload;
+        // Replay all events through handleSSE to reuse existing render logic
+        handleSSE({ type: 'extraction', company: p.company, role_title: p.role_title, preferred_company: p.preferred_company });
+        if (p.verdict) handleSSE({ type: 'verdict', text: p.verdict });
+        if (p.primary_matches && p.primary_matches.length) handleSSE({ type: 'primary_matches', matches: p.primary_matches });
+        if (p.added_value && p.added_value.length) handleSSE({ type: 'added_value', matches: p.added_value });
+        if (p.cutting_floor && p.cutting_floor.length) handleSSE({ type: 'cutting_floor', matches: p.cutting_floor });
+        if (p.key_takeaway) handleSSE({ type: 'key_takeaway', text: p.key_takeaway });
+        handleSSE({ type: 'complete', analysis_id: analysisId });
+      })
+      .catch(function(err) {
+        console.error('Failed to load analysis:', err);
+        var loading = document.getElementById('fn-loading');
+        if (loading) loading.style.display = 'none';
+        var page = document.getElementById('fn-page');
+        if (page) page.classList.add('fn-visible');
+        var content = document.getElementById('fn-content');
+        if (content) {
+          content.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 3rem;">This analysis could not be found. It may have expired. <a href="/" style="color: var(--accent);">Return to the main site</a> to start a new one.</p>';
+        }
+      });
+    }
   </script>
 
 </body>
