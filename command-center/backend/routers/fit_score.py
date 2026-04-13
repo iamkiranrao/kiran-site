@@ -20,6 +20,7 @@ from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
 from utils.config import CLAUDE_MODEL, resolve_api_key, get_logger
 from services.claude_client import create_client
+from services.fit_analysis_service import save_analysis, get_analysis
 
 logger = get_logger(__name__)
 
@@ -527,9 +528,30 @@ FULL INITIATIVE DETAILS (for the selected initiatives):
             yield f"data: {create_sse_event('key_takeaway', {'text': key_takeaway})}\n\n"
             await asyncio.sleep(0.1)
 
-        # ── STEP 6: Complete ──────────────────────────────────────────
+        # ── STEP 6: Save + Complete ──────────────────────────────────
 
-        yield f"data: {create_sse_event('complete', {'company': company, 'role_title': role_title, 'preferred_company': preferred_match})}\n\n"
+        # Persist the full analysis for URL-based retrieval
+        analysis_id = None
+        try:
+            payload = {
+                "company": company,
+                "role_title": role_title,
+                "preferred_company": preferred_match,
+                "verdict": verdict_text if 'verdict_text' in dir() else "",
+                "primary_matches": enriched_primary if 'enriched_primary' in dir() else [],
+                "added_value": enriched_added if 'enriched_added' in dir() else [],
+                "cutting_floor": enriched_floor if 'enriched_floor' in dir() else [],
+                "key_takeaway": key_takeaway,
+            }
+            analysis_id = save_analysis(payload=payload, jd_text=jd_text)
+            logger.info(f"Saved fit analysis: {analysis_id}")
+        except Exception as save_err:
+            logger.warning(f"Failed to save analysis (non-fatal): {save_err}")
+
+        complete_data = {'company': company, 'role_title': role_title, 'preferred_company': preferred_match}
+        if analysis_id:
+            complete_data['analysis_id'] = analysis_id
+        yield f"data: {create_sse_event('complete', complete_data)}\n\n"
 
     except FriendlyAPIError as e:
         logger.error(f"Fit narrative API error: {e.raw_error}", exc_info=True)
@@ -602,3 +624,19 @@ async def analyze_fit(
 async def health_check():
     """Health check endpoint."""
     return {"status": "ok", "service": "fit-narrative", "version": "2.0"}
+
+
+@router.get("/{analysis_id}")
+async def get_fit_analysis(analysis_id: str):
+    """
+    GET /api/fit-score/{analysis_id}
+
+    Retrieve a previously stored fit analysis by its ID.
+    Returns the full payload needed to reconstruct the page.
+    """
+    from utils.exceptions import NotFoundError
+    try:
+        result = get_analysis(analysis_id)
+        return result
+    except NotFoundError:
+        raise HTTPException(status_code=404, detail=f"Analysis '{analysis_id}' not found")
