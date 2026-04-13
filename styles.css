@@ -3440,7 +3440,7 @@ body, nav, section, footer, .mobile-menu,
 
 .fenix-context-header {
     text-align: center;
-    padding: 2rem 4rem 2rem;
+    padding: 2rem 4rem 4rem;
     margin: 0 4rem;
     max-width: 720px;
     margin-left: auto;
@@ -3466,10 +3466,8 @@ body, nav, section, footer, .mobile-menu,
     font-size: 1.05rem;
     color: var(--text-primary);
     line-height: 1.7;
-    margin: 0 0 0.5rem;
+    margin: 0 auto 0.25rem;
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .fenix-context-invite {
