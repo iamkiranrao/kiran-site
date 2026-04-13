@@ -241,7 +241,7 @@ RULES:
 - NEVER label Kiran's industry as a category — just describe what he shipped
 - NEVER defensively reframe. Strengths are strengths. Period.
 - Confident, direct, matter-of-fact. Not salesy, not apologetic.
-- 150-250 words total. 2-4 sentences per section. No bullet points — flowing prose.
+- 200-350 words total. 3-5 sentences per section. No bullet points — flowing prose.
 
 STRUCTURE:
 
@@ -268,7 +268,7 @@ SELECTED CAREER INITIATIVES (most relevant to this role):
         # Stream the narrative response
         with client.messages.stream(
             model=CLAUDE_MODEL,
-            max_tokens=1000,
+            max_tokens=1500,
             messages=[{"role": "user", "content": narrative_prompt}],
         ) as stream:
             current_section = None
@@ -284,6 +284,11 @@ SELECTED CAREER INITIATIVES (most relevant to this role):
                 # Detect any markdown bold header (** ... **)
                 header_match = re.search(r'\*\*([^*]+)\*\*', buffer)
                 if header_match:
+                    # Flush any text BEFORE the header as narrative content
+                    pre_header = buffer[:header_match.start()].strip()
+                    if pre_header:
+                        yield f"data: {create_sse_event('narrative_chunk', {'text': pre_header})}\n\n"
+
                     header_text = header_match.group(1).strip()
                     section_id = section_ids[section_count] if section_count < len(section_ids) else f"section_{section_count}"
                     section_count += 1
@@ -291,12 +296,23 @@ SELECTED CAREER INITIATIVES (most relevant to this role):
 
                     yield f"data: {create_sse_event('section', {'id': section_id, 'label': header_text})}\n\n"
 
-                    # Remove the full header from buffer
-                    full_match = header_match.group(0)
-                    buffer = buffer[buffer.index(full_match) + len(full_match):].lstrip("\n")
+                    # Keep only text AFTER the header
+                    buffer = buffer[header_match.end():].lstrip("\n")
+                    continue
 
-                # Send buffered text as narrative chunks (flush every few chars for smooth streaming)
-                if len(buffer) > 3:
+                # Hold buffer if it contains a partial header marker (** without closing **)
+                # This prevents flushing the start of a header as narrative text
+                partial_header = buffer.rfind("**")
+                if partial_header != -1 and buffer.count("**") % 2 != 0:
+                    # Flush everything before the partial header
+                    safe_text = buffer[:partial_header].strip()
+                    if safe_text:
+                        yield f"data: {create_sse_event('narrative_chunk', {'text': safe_text})}\n\n"
+                    buffer = buffer[partial_header:]
+                    continue
+
+                # Send buffered text as narrative chunks
+                if len(buffer) > 5:
                     yield f"data: {create_sse_event('narrative_chunk', {'text': buffer})}\n\n"
                     buffer = ""
 
