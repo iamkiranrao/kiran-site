@@ -1,7 +1,7 @@
 # ACTION TRACKER
-**Last synced:** Session 6 (Prompt Architecture + Eval Suite) — April 11, 2026
-**Total open items:** 221 (+6 new from Session 4)
-**Status:** Comprehensive workstream inventory; UAT fix batch mostly deployed; pager tool pending agreement
+**Last synced:** Sessions 9-10 (Fit Narrative V2 Build) — April 13, 2026
+**Total open items:** 228 (+3 new from Sessions 9-10)
+**Status:** Fit Narrative V2 backend complete, frontend card-based experience built (Phases 2-4); scorecard→narrative migration verified clean; 3 new workstream items tracked
 
 ---
 
@@ -428,6 +428,38 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 9 | ✅ Contextual pills | Fenix | After positive feedback → "Share as testimonial" pill. Topic-relevant pills after Q&A. |
 | 10 | ✅ Blog post draft | Content | `blog/fenix-how-it-works.md` — ~1,800 words. In WordWeaver session fbb30a84, step 8. Needs Kiran's voice in 4 flagged sections. |
 | 11 | ✅ Secrets scrubbed from repo | Infrastructure | GitHub PAT and LinkedIn client secret replaced with [REDACTED]. Rotation still needed (Kiran manual task). |
+
+### Session 8 Typography & Cross-Section Audit (April 12, 2026)
+| # | Action | Status | Timeline | Blocker | Notes |
+|---|--------|--------|----------|---------|-------|
+| 227 | ✅ Fix welcome section heading wrap + vertical centering | DONE | Apr 12 | NO | max-width moved to child paragraphs, container at 720px. Padding 0 4rem 4rem for vertical balance. |
+| 228 | ✅ Rewrite welcome section copy (3 sentences, 3 jobs) | DONE | Apr 12 | NO | Kiran-driven. Set expectations / validate choice / reveal flagship. Em dashes removed. |
+| 229 | ✅ Fix fenix-intro-zone double indenting | DONE | Apr 12 | NO | margin 0 4rem + padding 2rem 4rem = 128px/side. Fixed: padding 2rem 0, margin 0. |
+| 230 | ✅ Fix column padding asymmetry | DONE | Apr 12 | NO | Left 0 2rem 0 0, right 0 0 0 2rem. Symmetric at divider. |
+| 231 | ✅ Fix 28px vs 12px gap stacking | DONE | Apr 12 | NO | flex gap + margin-bottom stacked. Gap reduced to 0.75rem, header margin zeroed. |
+| 232 | ✅ Bump evaluator font sizes for consistency | DONE | Apr 12 | NO | Card titles 1.1rem, hooks 0.95rem, labels 1.1rem, descriptions 0.95rem. |
+| 233 | ✅ Add responsive 768px/480px breakpoints to evaluator-styles.css | DONE | Apr 12 | NO | Step-down pattern: -0.1rem at 768px, -0.15rem at 480px. |
+
+### Sessions 9-10: Fit Narrative V2 Build (April 13, 2026)
+| # | Action | Status | Timeline | Blocker | Notes |
+|---|--------|--------|----------|---------|-------|
+| 234 | ✅ Fit Narrative V2 Phase 1 — Backend rewrite (fit_score.py) | DONE | Apr 13 | NO | Complete backend rewrite. 10-event SSE sequence: narration→extraction→verdict→primary_matches→added_value→cutting_floor→key_takeaway→complete. Claude enrichment + initiative fallback. |
+| 235 | ✅ Fit Narrative V2 Phase 2 — Frontend card rendering | DONE | Apr 13 | NO | evaluator-styles.css: new card-based CSS (ev-meta-leadin, ev-header-card, ev-evidence-card, ev-cutting-floor, ev-key-takeaway, ev-follow-ups). evaluator-adapter.js + evaluator-experience.js: new V2 SSE handlers and render functions. |
+| 236 | ✅ Fit Narrative V2 Phase 3 — Sharing features | DONE | Apr 13 | NO | Copy summary (composeSummaryText + clipboard API), mailto link with pre-composed subject/body. Share link deferred to Phase 4. |
+| 237 | ✅ Fit Narrative V2 Phase 4 (partial) — Polish | DONE | Apr 13 | NO | Accessibility (role=button, tabindex, aria-expanded), stagger animations (CSS + JS delay), light/dark theme, dynamic font loading (Playfair Display + Space Mono). |
+| 238 | ✅ Scorecard → Narrative migration verification | DONE | Apr 13 | NO | Full audit. All visitor-facing copy updated. Internal identifiers (fitScoreStarted, start_fit_score, card-fitscore) left as-is intentionally. |
+| 239 | 🟡 Gap analysis framework (CC Fenix Training module) | TODO | Future | NO | Scrape JDs from target companies, extract requirements, map against initiatives.json, generate gap report. New workstream, depends on CC Fenix Training items 101-107. |
+| 240 | 🟡 Initiative vault expansion process | TODO | Future | NO | Process for expanding beyond 32 initiatives. Compliance/operational work that IS proof but isn't articulated. Living asset. |
+| 241 | 🟡 LinkedIn OAuth fix | TODO | Next session | NO | Broken since Session 8. Supabase OAuth with linkedin_oidc provider. Separate fix task. |
+| 242 | 🟡 Fit Narrative V2 — Share link (snapshot storage) | TODO | Future | NO | Requires Supabase table + permalink route. Deferred from Phase 3. |
+| 243 | 🟡 Fit Narrative V2 — Responsive tuning at panel width | TODO | Next session | NO | Evaluator panel is ~400px. Cards may need tighter padding. Needs Kiran in-browser testing. |
+| 244 | 🟡 Fit Narrative V2 — UAT with real JDs | TODO | Next session | NO | Test with Credit Karma, Anthropic, Stripe, non-tech PM role. Verify initiative selection and verdict quality. |
+| 234 | ✅ Codify cross-section rules in VISUAL-STANDARDS.md | DONE | Apr 12 | NO | Typography consistency rules + spacing consistency rules + responsive step-down table. |
+| 235 | ✅ Add Non-Negotiable Working Behaviors to CLAUDE.md | DONE | Apr 12 | NO | 7 rules codified from Session 4-8 violations. |
+| 236 | 🟡 Redesign Fenix chat header for personality/wow | TODO | Next session | NO | Currently 36px avatar, 1.05rem name. Needs mockup. Rec: 48px avatar, 1.3rem name. |
+| 237 | 🟡 Rewrite Fenix pills in Fenix's voice (push not pull) | TODO | Next session | NO | evaluator-adapter.js lines 96-99, 105-107, 113-122, 471-476. |
+| 238 | 🟡 Align bento/triptych/fenix max-width to 1440px | TODO | Next session | NO | Bento at 338px vs triptych/fenix at 64px on 2133px viewport. Add max-width: 1440px + margin: auto. |
+| 239 | 🟡 Remove Fenix FAB universally | TODO | Next session | NO | index.html 533-537, career-highlights.html, the-work.html. CSS at multiple locations in styles.css. |
 
 ### Post-MVP Iteration (High Impact, Low Effort)
 | # | Action | Status | Timeline | Blocker | Notes |

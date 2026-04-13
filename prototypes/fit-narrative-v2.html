@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fit Narrative v2 — Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0a;
+    color: #e8dcc8;
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.6;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+
+  /* ── Container (simulates the evaluator panel width) ── */
+  .narrative-container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* ── Header Card ── */
+  .narrative-header {
+    border: 1px solid rgba(123, 154, 204, 0.25);
+    border-radius: 12px;
+    padding: 1.75rem;
+    background: linear-gradient(135deg, rgba(123, 154, 204, 0.06) 0%, rgba(0,0,0,0) 60%);
+    margin-bottom: 1.75rem;
+  }
+
+  .narrative-header__role {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #f0e6d3;
+    margin-bottom: 0.25rem;
+  }
+
+  .narrative-header__company {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #7B9ACC;
+    margin-bottom: 1rem;
+  }
+
+  .narrative-header__verdict {
+    font-size: 0.95rem;
+    color: #c8bba8;
+    line-height: 1.6;
+  }
+
+  .narrative-header__verdict strong {
+    color: #e8dcc8;
+    font-weight: 500;
+  }
+
+  .preferred-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(75, 150, 100, 0.08);
+    border: 1px solid rgba(75, 150, 100, 0.25);
+    border-radius: 100px;
+    color: #4b9664;
+    font-size: 0.78rem;
+    font-weight: 500;
+    margin-top: 1rem;
+  }
+
+  /* ── Evidence Cards ── */
+  .evidence-section {
+    margin-bottom: 1.75rem;
+  }
+
+  .evidence-section__label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7B9ACC;
+    margin-bottom: 0.75rem;
+    padding-left: 0.25rem;
+  }
+
+  .evidence-section__label--green { color: #4b9664; }
+  .evidence-section__label--gold  { color: #c9a227; }
+
+  .evidence-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .evidence-card {
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    background: #141414;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .evidence-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .evidence-card--blue::before  { background: #7B9ACC; }
+  .evidence-card--green::before { background: #4b9664; }
+  .evidence-card--gold::before  { background: #c9a227; }
+
+  .evidence-card:hover {
+    border-color: #333;
+    background: #1a1a1a;
+  }
+
+  .evidence-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .evidence-card__project {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f0e6d3;
+  }
+
+  .evidence-card__metric {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #7B9ACC;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .evidence-card__metric--green { color: #4b9664; }
+  .evidence-card__metric--gold  { color: #c9a227; }
+
+  .evidence-card__context {
+    font-size: 0.88rem;
+    color: #a09080;
+    line-height: 1.6;
+  }
+
+  .evidence-card__detail {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #222;
+    font-size: 0.85rem;
+    color: #c8bba8;
+    line-height: 1.65;
+    display: none;
+  }
+
+  .evidence-card.expanded .evidence-card__detail {
+    display: block;
+  }
+
+  .evidence-card__expand {
+    display: block;
+    margin-top: 0.6rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: #5a5347;
+    transition: color 0.2s ease;
+  }
+
+  .evidence-card:hover .evidence-card__expand {
+    color: #7B9ACC;
+  }
+
+  .evidence-card.expanded .evidence-card__expand {
+    display: none;
+  }
+
+  /* ── Insight Callout ── */
+  .insight-callout {
+    border: 1px solid rgba(201, 162, 39, 0.2);
+    border-radius: 10px;
+    padding: 1.5rem;
+    background: rgba(201, 162, 39, 0.03);
+    margin-bottom: 1.75rem;
+    position: relative;
+  }
+
+  .insight-callout__icon {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-callout__text {
+    font-size: 0.95rem;
+    color: #e8dcc8;
+    line-height: 1.65;
+    font-style: italic;
+  }
+
+  .insight-callout__text strong {
+    font-style: normal;
+    color: #c9a227;
+    font-weight: 600;
+  }
+
+  /* ── Follow-up Actions ── */
+  .follow-ups {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .follow-up {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #2a2a2a;
+    border-radius: 100px;
+    background: transparent;
+    color: #c8bba8;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .follow-up:hover {
+    border-color: #7B9ACC;
+    color: #7B9ACC;
+    background: rgba(123, 154, 204, 0.06);
+  }
+
+  .follow-up__icon {
+    font-size: 0.9rem;
+  }
+
+  /* ── Divider ── */
+  .narrative-divider {
+    border: none;
+    border-top: 1px solid #1e1e1e;
+    margin: 0.25rem 0;
+  }
+
+  /* ── Company tag row ── */
+  .company-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.3rem;
+  }
+
+  .company-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.03em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.04);
+    color: #5a5347;
+  }
+
+  /* ── Annotations (for prototype only) ── */
+  .proto-annotation {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: #c9a227;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="proto-annotation">Prototype — Fit Narrative v2 — Credit Karma Senior Staff PM</div>
+
+<div class="narrative-container">
+
+  <!-- ═══════════ HEADER CARD ═══════════ -->
+  <div class="narrative-header">
+    <div class="narrative-header__company">Credit Karma</div>
+    <div class="narrative-header__role">Senior Staff Product Manager, Money</div>
+    <div class="narrative-header__verdict">
+      Kiran has spent the last decade building exactly what this role asks for — <strong>AI-powered financial products at scale, serving tens of millions of users</strong>, with the cross-functional complexity that comes with regulated environments. Here's the specific work that maps.
+    </div>
+    <div class="preferred-badge">★ Kiran is actively interested in Credit Karma</div>
+  </div>
+
+  <!-- ═══════════ DIRECT MATCH EVIDENCE ═══════════ -->
+  <div class="evidence-section">
+    <div class="evidence-section__label">Direct match — shipped work that maps to this role</div>
+    <div class="evidence-cards">
+
+      <div class="evidence-card evidence-card--blue" onclick="this.classList.toggle('expanded')">
+        <div class="evidence-card__top">
+          <div class="evidence-card__project">Fargo AI Assistant — Consumer Scale</div>
+          <div class="evidence-card__metric">4.1M → 27.5M users</div>
+        </div>
+        <div class="evidence-card__context">
+          Scaled the bank's AI assistant by rebuilding contextual entry points and optimizing the top 50 conversation flows. Support volume dropped 17%, saving ~$12M annually.
+        </div>
+        <div class="evidence-card__detail">
+          <strong>Problem:</strong> Fargo had been live for two years but sat at 4.1M users — a fraction of the mobile app base. Customers either didn't know it existed or tried it once and didn't come back.<br><br>
+          <strong>What Kiran shipped:</strong> Contextual entry points across the mobile app (transaction disputes, balance inquiries, bill pay). Rebuilt the top 50 conversation flows with improved NLU. Added proactive nudges based on user behavior patterns. Integrated responses into push notification workflows.<br><br>
+          <strong>JD match:</strong> This role asks for someone who can "leverage AI/ML to empower members' financial progress." Kiran did exactly this at 27.5M-user scale.
+        </div>
+        <div class="evidence-card__expand">↓ see full detail</div>
+        <div class="company-tags">
+          <span class="company-tag">Wells Fargo</span>
+          <span class="company-tag">AI/ML</span>
+          <span class="company-tag">27.5M users</span>
+        </div>
+      </div>
+
+      <div class="evidence-card evidence-card--blue" onclick="this.classList.toggle('expanded')">
+        <div class="evidence-card__top">
+          <div class="evidence-card__project">AI-Driven Customer Insights</div>
+          <div class="evidence-card__metric">3.1x session frequency</div>
+        </div>
+        <div class="evidence-card__context">
+          ML-powered spending insights and financial health signals surfaced proactively in-app, turning reactive banking into anticipatory financial guidance.
+        </div>
+        <div class="evidence-card__detail">
+          <strong>Problem:</strong> 32 million users got the same financial information regardless of context. Insights were buried in statements and required manual discovery.<br><br>
+          <strong>What Kiran shipped:</strong> Proactive spending alerts, unusual transaction detection, financial health score surfacing. ML models identified patterns and surfaced relevant insights at the moment they mattered.<br><br>
+          <strong>JD match:</strong> "Help members find the best financial products" — this is exactly that at scale. Kiran built the intelligence layer that turned passive accounts into proactive financial guidance.
+        </div>
+        <div class="evidence-card__expand">↓ see full detail</div>
+        <div class="company-tags">
+          <span class="company-tag">Wells Fargo</span>
+          <span class="company-tag">ML/Personalization</span>
+          <span class="company-tag">32M users</span>
+        </div>
+      </div>
+
+      <div class="evidence-card evidence-card--blue" onclick="this.classList.toggle('expanded')">
+        <div class="evidence-card__top">
+          <div class="evidence-card__project">Segmentation & Personalization</div>
+          <div class="evidence-card__metric">+19% engagement</div>
+        </div>
+        <div class="evidence-card__context">
+          Personalized app experience based on customer segment, lifecycle stage, and product mix across 32M users. Recommendations drove 2.3x higher CTR than generic placements.
+        </div>
+        <div class="evidence-card__detail">
+          <strong>What Kiran shipped:</strong> Customer segmentation engine using transaction history, product mix, and engagement signals. Dynamic home screen layouts per segment. Personalized quick actions and product recommendations. A/B testing framework for segment-level experiments.<br><br>
+          <strong>JD match:</strong> The role asks for unified member experiences across Credit Karma, TurboTax, and QuickBooks. Kiran built segment-aware personalization at exactly this scale — different needs, same platform, tailored for each.
+        </div>
+        <div class="evidence-card__expand">↓ see full detail</div>
+        <div class="company-tags">
+          <span class="company-tag">Wells Fargo</span>
+          <span class="company-tag">Personalization</span>
+          <span class="company-tag">A/B testing</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ ADDED VALUE ═══════════ -->
+  <div class="evidence-section">
+    <div class="evidence-section__label evidence-section__label--green">Beyond the JD — what he adds on top</div>
+    <div class="evidence-cards">
+
+      <div class="evidence-card evidence-card--green" onclick="this.classList.toggle('expanded')">
+        <div class="evidence-card__top">
+          <div class="evidence-card__project">In-App Marketplace for Financial Products</div>
+          <div class="evidence-card__metric evidence-card__metric--green">23% conversion</div>
+        </div>
+        <div class="evidence-card__context">
+          Built an embedded marketplace surfacing relevant financial products at the moment of intent — credit cards after large purchases, savings rates after deposits. Became a top-3 origination channel.
+        </div>
+        <div class="evidence-card__detail">
+          <strong>Why this matters for Credit Karma:</strong> Credit Karma's core model is matching members to financial products. Kiran has already built the contextual recommendation engine that drives this — and seen a 23% conversion rate doing it at scale with real transaction data triggering real offers.
+        </div>
+        <div class="evidence-card__expand">↓ why this matters</div>
+        <div class="company-tags">
+          <span class="company-tag">Wells Fargo</span>
+          <span class="company-tag">Marketplace</span>
+          <span class="company-tag">Growth</span>
+        </div>
+      </div>
+
+      <div class="evidence-card evidence-card--green" onclick="this.classList.toggle('expanded')">
+        <div class="evidence-card__top">
+          <div class="evidence-card__project">AI-Powered Portfolio Site (This Site)</div>
+          <div class="evidence-card__metric evidence-card__metric--green">Hands-on AI</div>
+        </div>
+        <div class="evidence-card__context">
+          Designed and built an AI agent from scratch — tool-calling, RAG over 319 Q&As, SSE streaming, identity gating. Not strategy decks. Working production code.
+        </div>
+        <div class="evidence-card__detail">
+          <strong>Why this matters for Credit Karma:</strong> The JD asks for someone who can "leverage AI/ML." Most PMs at this level direct AI work. Kiran ships it. He understands the architecture, the tradeoffs, and the failure modes because he's built them end-to-end.
+        </div>
+        <div class="evidence-card__expand">↓ why this matters</div>
+        <div class="company-tags">
+          <span class="company-tag">Side Project</span>
+          <span class="company-tag">AI/RAG</span>
+          <span class="company-tag">Full-stack</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="narrative-divider">
+
+  <!-- ═══════════ INSIGHT CALLOUT ═══════════ -->
+  <div class="insight-callout">
+    <div class="insight-callout__icon">💡</div>
+    <div class="insight-callout__text">
+      This role asks for someone who's <strong>transformed how millions of members get financial help through AI</strong>. Kiran took an AI assistant from 4.1M to 27.5M users while cutting support costs by $12M — then built the personalization layer that made 32M users' financial products contextually relevant. <strong>The playbook already exists. Want to see how it applies here?</strong>
+    </div>
+  </div>
+
+  <!-- ═══════════ FOLLOW-UP ACTIONS ═══════════ -->
+  <div class="follow-ups">
+    <button class="follow-up">
+      <span class="follow-up__icon">💬</span> Ask about the Fargo scale-up
+    </button>
+    <button class="follow-up">
+      <span class="follow-up__icon">📄</span> See the full track record
+    </button>
+    <button class="follow-up">
+      <span class="follow-up__icon">🔄</span> Try a different role
+    </button>
+    <button class="follow-up">
+      <span class="follow-up__icon">📋</span> Copy this summary
+    </button>
+  </div>
+
+</div>
+
+</body>
+</html>
