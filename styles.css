@@ -2264,7 +2264,7 @@ body, nav, section, footer, .mobile-menu,
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.45rem 1rem 0.45rem 0.45rem;
+    padding: 0.6rem 1.2rem 0.6rem 0.6rem;
     background: var(--text-primary);
     border: 2px solid var(--text-primary);
     border-radius: 999px;
@@ -2319,7 +2319,8 @@ body, nav, section, footer, .mobile-menu,
 }
 
 .pill-persona-name {
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.85rem;
     color: var(--persona-accent, var(--bg-primary));
 }
 
@@ -3458,6 +3459,7 @@ body, nav, section, footer, .mobile-menu,
 .fenix-context-name {
     color: var(--persona-accent, var(--text-primary));
     font-style: italic;
+    font-weight: 500;
 }
 
 .fenix-context-reframe {

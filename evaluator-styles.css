@@ -99,7 +99,7 @@
 
 .ev-chat-header-name {
   font-family: 'Playfair Display', serif;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 400;
   color: var(--ev-text-primary);
 }
@@ -385,9 +385,9 @@
 
 /* Fenix column header — mirrors unlock cards header (fix: 2b) */
 .ev-fenix-col-header {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ev-accent);
   margin-bottom: 0.75rem;
