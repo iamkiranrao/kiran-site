@@ -136,7 +136,7 @@
 
     // If connected but hasn't started fit score
     if (connected && !fenixState.explored.fitScoreStarted) {
-      pills.push({ text: '\u2696\uFE0F Why Kiran for your role', action: 'connect', locked: false });
+      pills.push({ text: '\u2696\uFE0F What Kiran brings to your role', action: 'connect', locked: false });
     }
 
     return pills;
@@ -641,7 +641,7 @@
       {
         id: 'card-fitscore',
         icon: '\u2696\uFE0F',
-        title: 'Why Kiran for This Role',
+        title: 'What Kiran Brings to Your Role',
         tag: 'Connect to unlock',
         hook: 'Paste a job description and I\'ll show you exactly where Kiran\'s work lines up — specific projects, results, and scale.',
         cta: '\u2192 Connect to get started',
@@ -929,7 +929,7 @@
       handleJDSubmit(form);
     });
     form.appendChild(el('textarea', 'ev-jd-input', { placeholder: 'Paste the full job description here...' }));
-    form.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Why Kiran for this role' }));
+    form.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Show me' }));
     panel.appendChild(form);
   }
 
@@ -1211,7 +1211,10 @@
     panel.innerHTML = '';
 
     var container = el('div', 'ev-fit-narrative');
-    container.appendChild(el('h2', 'ev-narrative-title', { text: 'Why Kiran for this role' }));
+    var titleText = fitNarrativeState.roleTitle && fitNarrativeState.company
+      ? fitNarrativeState.roleTitle + ' — ' + fitNarrativeState.company
+      : 'What Kiran Brings to Your Role';
+    container.appendChild(el('h2', 'ev-narrative-title', { text: titleText }));
 
     if (fitNarrativeState.preferredCompany) {
       container.appendChild(el('div', 'ev-preferred-badge', {
