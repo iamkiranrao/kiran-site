@@ -221,7 +221,9 @@ function launchFenix() {
     showToast('Loading Fenix...');
 }
 
-document.querySelector('.ai-assistant').addEventListener('click', () => launchFenix());
+// FAB removed — Fenix is accessed via inline chat module
+var aiFab = document.querySelector('.ai-assistant');
+if (aiFab) aiFab.addEventListener('click', () => launchFenix());
 
 const workIntroLogo = document.querySelector('.work-intro-logo');
 if (workIntroLogo) {

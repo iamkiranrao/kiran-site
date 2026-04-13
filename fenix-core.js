@@ -239,6 +239,14 @@
 
   // ── Input State Management ────────────────────────
 
+  // ── Status Dot — reflects Fenix state (ready/thinking/error) ──
+  function setStatusDot(state) {
+    var dot = document.querySelector('.ev-status-dot');
+    if (!dot) return;
+    dot.className = 'ev-status-dot ev-status-dot--' + state;
+    dot.setAttribute('title', state.charAt(0).toUpperCase() + state.slice(1));
+  }
+
   function setInputEnabled(enabled) {
     var input = document.querySelector('.ev-chat-input');
     var sendBtn = document.querySelector('.ev-chat-send');
@@ -339,6 +347,7 @@
     fenixState.ui.inputEnabled = false;
     fenixState.ui.fenixTyping = true;
     setInputEnabled(false);
+    setStatusDot('thinking');
 
     // Show typing indicator
     var typingIndicator = el('div', 'ev-msg ev-msg-fenix ev-typing-indicator');
@@ -410,6 +419,7 @@
             fenixState.ui.inputEnabled = true;
             fenixState.ui.fenixTyping = false;
             setInputEnabled(true);
+            setStatusDot('ready');
             saveFenixState();
             return;
           }
@@ -444,6 +454,7 @@
       fenixState.ui.inputEnabled = true;
       fenixState.ui.fenixTyping = false;
       setInputEnabled(true);
+      setStatusDot('error');
     });
 
     // SSE event handler state (scoped to this sendToAgent call)

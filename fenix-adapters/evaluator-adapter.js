@@ -93,10 +93,10 @@
     // Initial state — before any conversation
     if (msgs === 0) {
       return [
-        { text: 'Show me resume options', action: 'resume', locked: false },
-        { text: 'What should I be asking?', action: 'questions', locked: false },
+        { text: 'Let me show you the resume options', action: 'resume', locked: false },
+        { text: 'Here are questions worth asking', action: 'questions', locked: false },
         { text: 'How would we evaluate each other?', action: 'connect', locked: !connected },
-        { text: 'Give me a quick tour', action: 'tour', locked: false }
+        { text: 'Let me give you a quick tour', action: 'tour', locked: false }
       ];
     }
 
@@ -111,15 +111,15 @@
     // Connected visitor — drive toward fit score and deeper exploration
     if (connected) {
       if (!ex.fitScoreStarted) pills.push({ text: 'Let\u2019s evaluate fit', action: 'agent' });
-      if (!ex.resumeLensSelected) pills.push({ text: 'Show me resume options', action: 'agent' });
+      if (!ex.resumeLensSelected) pills.push({ text: 'Let me show you the resume options', action: 'agent' });
       if (pills.length < 3) pills.push({ text: 'What makes Kiran different?', action: 'agent' });
       return pills.slice(0, 3);
     }
 
     // Mid-conversation unconnected — suggest next steps
-    pills.push({ text: 'Show me resume options', action: 'agent' });
-    if (msgs >= 2) pills.push({ text: 'Tell me about his AI work', action: 'agent' });
-    if (ex.cardsClicked.length === 0) pills.push({ text: 'Give me a quick tour', action: 'agent' });
+    pills.push({ text: 'Let me show you the resume options', action: 'agent' });
+    if (msgs >= 2) pills.push({ text: 'Let me tell you about his AI work', action: 'agent' });
+    if (ex.cardsClicked.length === 0) pills.push({ text: 'Let me give you a quick tour', action: 'agent' });
     return pills.slice(0, 3);
   }
 
@@ -397,7 +397,9 @@
     var headerAvatar = el('img', 'ev-chat-avatar', { src: 'images/logo.png', alt: 'Fenix' });
     var headerInfo = el('div', 'ev-chat-header-info');
     headerInfo.appendChild(el('span', 'ev-chat-header-name', { text: 'Fenix' }));
-    headerInfo.appendChild(el('span', 'ev-chat-header-sub', { text: 'I know Kiran\'s work better than his resume does.' }));
+    var statusDot = el('span', 'ev-status-dot ev-status-dot--ready');
+    statusDot.setAttribute('title', 'Ready');
+    headerInfo.appendChild(statusDot);
     chatHeader.appendChild(headerAvatar);
     chatHeader.appendChild(headerInfo);
     wrapper.appendChild(chatHeader);
@@ -470,10 +472,10 @@
 
     var pillContainer = el('div', 'ev-chat-pills');
     var pills = [
-      { text: 'Show me resume options', action: 'resume', locked: false },
-      { text: 'What should I be asking?', action: 'questions', locked: false },
+      { text: 'Let me show you the resume options', action: 'resume', locked: false },
+      { text: 'Here are questions worth asking', action: 'questions', locked: false },
       { text: 'How would we evaluate each other?', action: 'connect', locked: !fenixState.visitor.connected },
-      { text: 'Give me a quick tour', action: 'tour', locked: false }
+      { text: 'Let me give you a quick tour', action: 'tour', locked: false }
     ];
 
     pills.forEach(function (pill) {
