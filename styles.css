@@ -3440,7 +3440,7 @@ body, nav, section, footer, .mobile-menu,
 
 .fenix-context-header {
     text-align: center;
-    padding: 2rem 4rem 4rem;
+    padding: 0 4rem 4rem;
     margin: 0 4rem;
     max-width: 720px;
     margin-left: auto;
@@ -3471,13 +3471,11 @@ body, nav, section, footer, .mobile-menu,
 }
 
 .fenix-context-invite {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     color: var(--text-secondary);
     line-height: 1.7;
-    margin: 0;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
+    max-width: 660px;
 }
 
 .fenix-context-invite strong {
@@ -3487,11 +3485,15 @@ body, nav, section, footer, .mobile-menu,
 
 @media (max-width: 768px) {
     .fenix-context-header {
-        padding: 2rem 1.5rem 1.5rem;
+        padding: 0 1.5rem 2rem;
         margin: 0 1.5rem;
     }
     .fenix-context-greeting {
         font-size: clamp(1.6rem, 5vw, 2.2rem);
+    }
+    .fenix-context-reframe,
+    .fenix-context-invite {
+        max-width: none;
     }
 }
 
