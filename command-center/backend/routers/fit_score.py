@@ -1,10 +1,8 @@
 """
 Fit Narrative Router — Shows how Kiran's experience maps to a role, streamed live.
 
-Generates a three-section narrative:
-  1. What Kiran has shipped that maps to the role
-  2. What he adds on top / where his experience creates unexpected leverage
-  3. The question worth asking
+Dynamically selects the most relevant career initiatives based on JD requirements,
+then generates a three-section narrative grounded in specific shipped work.
 
 Endpoints:
   POST /analyze         — Analyze job description and generate fit narrative
@@ -14,7 +12,8 @@ Endpoints:
 import json
 import re
 import asyncio
-from typing import Optional, AsyncGenerator
+import os
+from typing import Optional, AsyncGenerator, List, Dict
 from pydantic import BaseModel
 from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
@@ -25,30 +24,66 @@ logger = get_logger(__name__)
 
 router = APIRouter()
 
+# ── Load Career Initiatives ──────────────────────────────────────────────
+
+INITIATIVES_PATH = os.path.join(
+    os.path.dirname(__file__), "..", "data", "career_initiatives", "initiatives.json"
+)
+
+def load_initiatives() -> List[Dict]:
+    """Load career initiatives from JSON file."""
+    try:
+        with open(INITIATIVES_PATH, "r") as f:
+            return json.load(f)
+    except Exception as e:
+        logger.error(f"Failed to load initiatives: {e}")
+        return []
+
+INITIATIVES = load_initiatives()
+
+def build_initiative_catalog() -> str:
+    """Build a compact catalog of all initiatives for the selection prompt."""
+    lines = []
+    for i, init in enumerate(INITIATIVES):
+        domains = ", ".join(init.get("domains", []))
+        metrics = "; ".join(
+            f"{m['number']} {m['label']}" for m in init.get("outcome_metrics", [])
+        )
+        lines.append(
+            f"[{i}] {init['title']} ({init['company']}, {init.get('role', '')}) "
+            f"| domains: {domains} | metrics: {metrics}"
+        )
+    return "\n".join(lines)
+
+INITIATIVE_CATALOG = build_initiative_catalog()
+
+def format_selected_initiatives(indices: List[int]) -> str:
+    """Format full detail for selected initiatives."""
+    sections = []
+    for idx in indices:
+        if 0 <= idx < len(INITIATIVES):
+            init = INITIATIVES[idx]
+            metrics = "\n".join(
+                f"  - {m['number']} {m['label']}" for m in init.get("outcome_metrics", [])
+            )
+            sections.append(
+                f"### {init['title']} ({init['company']}, {init.get('role', '')})\n"
+                f"**Problem:** {init.get('problem', '')}\n"
+                f"**Bet:** {init.get('bet', '')}\n"
+                f"**Shipped:** {init.get('shipped', '')}\n"
+                f"**Outcome:** {init.get('outcome', '')}\n"
+                f"**Metrics:**\n{metrics}"
+            )
+    return "\n\n".join(sections)
+
+
 # ── Constants ─────────────────────────────────────────────────────────────
 
-KIRAN_PROFILE = """
-Kiran Rao — Senior Product Manager, 15+ years experience.
-
-Career highlights:
-- Scaled flagship mobile banking app from 18M to 32M users (4.9 App Store rating)
-- Led AI integration at Fargo driving revenue from $4.1M to $27.5M and $52M+ projected savings
-- Built and managed $27.5M product portfolio across mobile banking, payments, digital platforms
-- Expert in A/B testing, experimentation, data-driven decision making
-- Led cross-functional teams of 15+ across engineering, design, data science
-- Certified ScrumMaster (CSM), Kellogg Executive Education
-
-Industry experience: Banking/fintech (Wells Fargo, First Republic), hospitality (Hilton, Starbucks), consulting (Magley & Associates)
-
-Technical skills: Mobile-first product development, API strategy, AI/ML integration, platform migration, Agile/Scrum
-
-Key projects to reference:
-- Mobile banking app scaling: Led the product from 18M to 32M MAU while maintaining a 4.9 star rating. This involved performance optimization, feature prioritization under scale constraints, and balancing growth with stability.
-- AI revenue transformation: Took Wells Fargo's AI-driven product line from $4.1M to $27.5M revenue. Built the business case, secured executive buy-in, designed the rollout strategy, managed the cross-functional team.
-- Platform migration: Led a multi-year platform migration affecting millions of users with zero downtime. Required deep technical coordination, risk management, and phased rollout planning.
-- This portfolio site: Built an AI-powered portfolio site from scratch — designed the product, wrote the frontend, built the backend, trained an AI agent (Fenix) on 319 Q&As, implemented tool-calling, RAG, streaming, identity gating. Demonstrates full-stack product thinking and hands-on AI integration.
-- Payments infrastructure: Built payment rails serving 11M+ users at JPMorgan Chase/First Republic, navigating regulatory compliance, fraud prevention, and real-time transaction processing.
-"""
+KIRAN_SUMMARY = """Kiran Rao — Senior Product Manager, 15+ years.
+Companies: Wells Fargo (VP Product, Mobile & AI Growth), First Republic (VP Digital Products), Avatour (VP Product), Magley & Associates (Consultant).
+Education: Kellogg Executive Education, Certified ScrumMaster.
+32 documented career initiatives spanning AI/ML, mobile at scale, payments, platform architecture, growth/adoption, personalization, security, lending, and zero-to-one products.
+Also built this portfolio site from scratch: AI agent (Fenix) with tool-calling, RAG, streaming, identity gating — hands-on proof of full-stack product + AI execution."""
 
 PREFERRED_COMPANIES = {
     "Anthropic", "OpenAI", "Google", "Apple", "NVIDIA",
@@ -98,31 +133,41 @@ async def fit_narrative_stream(
     try:
         client = create_client(api_key)
 
-        # ── STEP 1: Extract company, role; assess JD quality ──────────────
+        # ── STEP 1: Extract JD + select relevant initiatives (single call) ──
 
         yield f"data: {create_sse_event('narration', {'message': 'Reading the role requirements...'})}\n\n"
         await asyncio.sleep(0.1)
 
-        extraction_prompt = f"""Analyze this job description and extract:
-1. Company name (exact match from the text, or "Unknown" if not found)
-2. Job title
-3. Whether this JD has enough detail to build a meaningful fit assessment (needs at least: role responsibilities, required skills/experience, and seniority indicators)
+        extraction_prompt = f"""You have two jobs:
+
+JOB 1: Analyze this job description and extract the company, role title, and whether it has enough detail for a fit assessment.
+
+JOB 2: From the INITIATIVE CATALOG below, select the 5-8 initiatives that are MOST relevant to this JD's requirements. Pick initiatives where Kiran's shipped work directly addresses what the JD asks for. Prioritize:
+- Direct skill/domain matches (JD asks for AI experience → pick AI initiatives)
+- Scale matches (JD is for enterprise role → pick enterprise-scale work)
+- Capability matches (JD asks for cross-functional leadership → pick initiatives demonstrating that)
 
 Return JSON only:
 {{
   "company": "...",
   "role_title": "...",
   "scorable": true/false,
-  "diagnosis": "If not scorable, explain what's missing (max 1 sentence)"
+  "diagnosis": "If not scorable, explain what's missing (max 1 sentence)",
+  "selected_initiatives": [0, 3, 7, 12, 15]
 }}
 
+The selected_initiatives array should contain the INDEX NUMBERS from the catalog below. Pick 5-8 that best map to the JD requirements.
+
 JD TEXT:
-{jd_text}
+{jd_text[:3000]}
+
+INITIATIVE CATALOG:
+{INITIATIVE_CATALOG}
 """
 
         extraction_response = client.messages.create(
             model=CLAUDE_MODEL,
-            max_tokens=300,
+            max_tokens=500,
             messages=[{"role": "user", "content": extraction_prompt}],
         )
 
@@ -148,7 +193,17 @@ JD TEXT:
             yield f"data: {create_sse_event('complete', {'decline': True, 'decline_reason': diagnosis})}\n\n"
             return
 
-        # ── STEP 2: Check preferred companies ─────────────────────────────
+        # ── STEP 2: Build rich profile from selected initiatives ──────────
+
+        selected_indices = extraction.get("selected_initiatives", [])
+        if not selected_indices:
+            # Fallback: use first 6 initiatives
+            selected_indices = list(range(min(6, len(INITIATIVES))))
+
+        selected_profile = format_selected_initiatives(selected_indices)
+        logger.info(f"Selected {len(selected_indices)} initiatives for {company} {role_title}: {selected_indices}")
+
+        # ── STEP 3: Check preferred companies ─────────────────────────────
 
         preferred_match = any(
             pref.lower() in company.lower() or company.lower() in pref.lower()
@@ -161,7 +216,7 @@ JD TEXT:
         yield f"data: {create_sse_event('narration', {'message': msg})}\n\n"
         await asyncio.sleep(0.1)
 
-        # ── STEP 3: Generate fit narrative (streamed) ─────────────────────
+        # ── STEP 4: Generate fit narrative (streamed) ─────────────────────
 
         visitor_context = ""
         if visitor_name:
@@ -174,56 +229,40 @@ JD TEXT:
         if preferred_match:
             preferred_note = f"\n\nNote: {company} is on Kiran's target company list — he is actively interested in this company. You can mention this naturally in section 3 if it fits."
 
-        narrative_prompt = f"""You are Fenix, Kiran Rao's AI agent. A recruiter or hiring manager has pasted a job description. Your job is to show them exactly how Kiran's experience maps to this role — specific, honest, and grounded in what he's actually shipped.
+        narrative_prompt = f"""You are Fenix, Kiran Rao's AI agent. A recruiter or hiring manager has pasted a job description. Below are the specific career initiatives from Kiran's history that are most relevant to this role. Your job: map this evidence to their requirements. Fast, specific, undeniable.
 
-STEP 1 — HONESTLY ASSESS THE FIT (do this silently, do NOT include in output):
-Read the JD carefully. Compare it against Kiran's profile. Ask yourself:
-- Is Kiran a strong, direct fit for this role? (his experience maps cleanly to most requirements)
-- Is Kiran a credible fit with some stretch? (solid foundation but gaps in specific areas)
-- Is this a significant reach? (major experience gaps)
-Be honest. This assessment determines which structure you use below.
+The reader is comparing Kiran against a stack of candidates. Make the match the easiest to see.
 
-CRITICAL RULES:
-- NO percentages, NO scores, NO ratings, NO numerical assessments anywhere
-- NEVER use the phrases "career transition", "career pivot", "different background", "non-traditional"
-- NEVER name Kiran's industry background as a category ("banking experience", "fintech background") — just describe what he shipped and let the results speak
-- NEVER defensively reframe anything. If something is a strength, state it as a strength. Period.
-- Write as Fenix speaking directly to the reader — confident, specific, not salesy
-- Reference actual projects and results from Kiran's profile — numbers, outcomes, scale
-- Use the JD's own language and terminology when describing Kiran's matching experience
-- Keep the total response between 150-250 words across all sections
-- Each section should be 2-4 sentences. Tight, scannable, no fluff
-- Do NOT use bullet points — write in flowing prose
+RULES:
+- Every claim must trace to a specific initiative below. Cite the project name, the metric, the outcome. No vague references.
+- Use the JD's own language when describing Kiran's matching work. If the JD says "drive member engagement," don't say "improved user metrics" — say what Kiran did that drove member engagement and the number.
+- NO percentages, NO scores, NO ratings
+- NEVER use "career transition", "career pivot", "different background", "non-traditional"
+- NEVER label Kiran's industry as a category — just describe what he shipped
+- NEVER defensively reframe. Strengths are strengths. Period.
+- Confident, direct, matter-of-fact. Not salesy, not apologetic.
+- 150-250 words total. 2-4 sentences per section. No bullet points — flowing prose.
 
-STRUCTURE — Choose based on your honest assessment:
+STRUCTURE:
 
-IF STRONG DIRECT FIT (use this when Kiran's experience maps directly to the role):
+**[Write a section header that names the strongest match between Kiran's work and this specific role — use the JD's language]**
+[2-4 sentences. Lead with the initiative that most directly maps to the JD's core ask. State what Kiran shipped, the scale, the result. Then layer the next strongest match. Every sentence should make the reader think "this person has done exactly this."]
 
-**What Kiran has shipped that maps to this role**
-[2-4 sentences. Lead with the strongest matching experience. Cite specific projects, metrics, and scale using the JD's own language. Don't say "he has experience in X" — say what he did and the result. Every sentence should make the reader think "this person has done this exact job."]
-
-**What he adds on top of the role requirements**
-[2-4 sentences. Genuine additional value — things the JD doesn't explicitly ask for but any smart hiring manager wants. Hands-on AI product building (not just strategy — he built a working AI agent with tool-calling and RAG), data infrastructure at the schema level, complex platform migrations with zero downtime. Frame as compounding value, not a consolation prize.]
-
-IF CREDIBLE FIT WITH STRETCH (use this when some requirements are a direct match but others require connecting dots):
-
-**What Kiran has shipped that maps to this role**
-[Same as above — lead with the direct matches. Be specific and metric-driven.]
-
-**Where his experience creates unexpected leverage**
-[2-4 sentences. WITHOUT naming the source industry or calling it "different," describe specific capabilities that give Kiran an edge. Focus on what he CAN do that most candidates for this role cannot. Regulated environments at scale, complex stakeholder navigation, building trust with millions of users where mistakes have real financial consequences.]
-
-FOR EITHER STRUCTURE, end with:
+**[Write a section header that names additional value Kiran brings beyond what the JD asks for]**
+[2-4 sentences. What the JD doesn't ask for but any smart hiring manager wants. Draw from the initiatives — capabilities, scale of impact, or cross-domain experience that compounds. Frame as upside, not consolation.]
 
 **The question worth asking**
-[One sharp, role-specific question that reframes how the reader thinks about the position. NOT generic ("want me to walk you through a project?"). Make it specific to what the JD asks for and what Kiran has done. Example: "This role asks for someone who's transformed how millions of members get financial help with AI — Kiran has shipped exactly that. Want to see the playbook?" The question should imply Kiran has already solved the hardest problem in the JD.]
+[One sharp, specific question tied to the hardest problem in the JD. Imply that Kiran has already solved it. Not generic — reference a specific initiative and metric. The reader should think "I need to ask this person about that."]
 {visitor_context}{preferred_note}
 
 JOB DESCRIPTION:
 {jd_text[:3000]}
 
-KIRAN'S PROFILE:
-{KIRAN_PROFILE}
+KIRAN RAO — BACKGROUND:
+{KIRAN_SUMMARY}
+
+SELECTED CAREER INITIATIVES (most relevant to this role):
+{selected_profile}
 """
 
         # Stream the narrative response
