@@ -232,9 +232,10 @@ KIRAN'S PROFILE:
                     yield f"data: {create_sse_event('section', {'id': 'advantage_of_different', 'label': 'Where his different background is the advantage'})}\n\n"
                     buffer = buffer.replace("**Where his different background is the advantage**", "").lstrip("\n")
 
-                elif "**What he brings that this JD doesn't ask for**" in buffer and current_section != "unexpected_value":
+                elif "**What he brings that this JD doesn" in buffer and current_section != "unexpected_value":
                     current_section = "unexpected_value"
-                    yield f"data: {create_sse_event('section', {'id': 'unexpected_value', 'label': "What he brings that this JD doesn't ask for"})}\n\n"
+                    section_label = "What he brings that this JD doesn't ask for"
+                    yield f"data: {create_sse_event('section', {'id': 'unexpected_value', 'label': section_label})}\n\n"
                     buffer = buffer.replace("**What he brings that this JD doesn't ask for**", "").lstrip("\n")
 
                 # Send buffered text as narrative chunks (flush every few chars for smooth streaming)
