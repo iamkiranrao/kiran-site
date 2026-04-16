@@ -737,11 +737,11 @@
       },
       {
         id: 'card-poster',
-        icon: '\uD83D\uDDBC\uFE0F',
-        title: 'Office Morale Department',
-        tag: 'Just for fun',
-        hook: 'Motivational posters your office actually deserves. Download them. Print them. Tape them to the break room wall.',
-        cta: '\u2192 Generate a poster',
+        icon: '\uD83E\uDD21',
+        title: 'A Gift for Your Office Wall',
+        tag: 'You deserve this',
+        hook: 'I\'ve spent enough time in corporate to know what the break room really needs. These are printable, shareable, and funnier than anything HR has approved. You\'re welcome.',
+        cta: '\u2192 Fix office morale',
         action: 'poster',
         locked: false
       },
