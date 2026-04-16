@@ -132,20 +132,32 @@
     }
   });
 
+  // Validate connected visitor name — require first + last (two distinct words)
+  function isValidConnectedName(name) {
+    if (!name) return false;
+    var parts = name.trim().split(/\s+/);
+    return parts.length >= 2 && parts[0].toLowerCase() !== (parts[1] || '').toLowerCase();
+  }
+
   // Restore connected visitor from localStorage (persists across tabs + sessions)
   (function restoreConnectedState() {
     try {
+      // First: validate any visitor state restored from sessionStorage above
+      if (fenixState.visitor.connected && !isValidConnectedName(fenixState.visitor.name)) {
+        fenixState.visitor = { name: null, company: null, email: null, connected: false };
+        sessionStorage.removeItem('fenixState');
+      }
+
       if (localStorage.getItem('fenix_connected') === 'true') {
         var storedName = localStorage.getItem('fenix_name') || '';
-        // Validate: require first + last name (two distinct words)
-        // Cleans up stale single-name entries from before validation existed
-        var parts = storedName.trim().split(/\s+/);
-        if (parts.length < 2 || parts[0].toLowerCase() === (parts[1] || '').toLowerCase()) {
+        if (!isValidConnectedName(storedName)) {
           // Invalid name — wipe connected state entirely
           localStorage.removeItem('fenix_connected');
           localStorage.removeItem('fenix_name');
           localStorage.removeItem('fenix_company');
           localStorage.removeItem('fenix_email');
+          // Also reset in-memory state in case sessionStorage restored it
+          fenixState.visitor = { name: null, company: null, email: null, connected: false };
           return;
         }
         fenixState.visitor.name = storedName;

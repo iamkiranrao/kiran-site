@@ -63,21 +63,31 @@
     { title: 'DISRUPTION', tagline: 'What we call it when the intern accidentally deletes the production database.' }
   ];
 
-  // Stock photo backgrounds for posters — dramatic, cinematic Unsplash imagery
-  var POSTER_IMAGES = [
-    'images/posters/mountain.jpg',
-    'images/posters/boardroom.jpg',
-    'images/posters/sunset.jpg',
-    'images/posters/hallway.jpg',
-    'images/posters/storm.jpg',
-    'images/posters/cubicles.jpg',
-    'images/posters/eagle.jpg',
-    'images/posters/lighthouse.jpg',
-    'images/posters/staircase.jpg',
-    'images/posters/forest.jpg',
-    'images/posters/cliff.jpg',
-    'images/posters/office-night.jpg'
-  ];
+  // Mood → image mapping for thematic poster backgrounds
+  var MOOD_IMAGES = {
+    corporate: ['images/posters/boardroom.jpg', 'images/posters/cubicles.jpg', 'images/posters/hallway.jpg'],
+    epic:      ['images/posters/mountain.jpg', 'images/posters/eagle.jpg', 'images/posters/cliff.jpg'],
+    grind:     ['images/posters/office-night.jpg', 'images/posters/storm.jpg', 'images/posters/staircase.jpg'],
+    existential: ['images/posters/forest.jpg', 'images/posters/sunset.jpg', 'images/posters/lighthouse.jpg']
+  };
+
+  // Poster title → mood bucket
+  var POSTER_MOODS = {
+    'SYNERGY': 'corporate', 'ALIGNMENT': 'corporate', 'DEEP DIVE': 'corporate',
+    'STAKEHOLDERS': 'corporate', 'AGILE': 'corporate', 'CIRCLE BACK': 'corporate',
+    'TRANSPARENCY': 'corporate', 'ONE-ON-ONE': 'corporate',
+    'POTENTIAL': 'epic', 'VISION': 'epic', 'GROWTH': 'epic', 'INNOVATION': 'epic',
+    'LEADERSHIP': 'epic', 'DISRUPTION': 'epic', 'STRATEGY': 'epic', 'TEAMWORK': 'epic',
+    'OVERTIME': 'grind', 'DEADLINES': 'grind', 'URGENCY': 'grind', 'RESILIENCE': 'grind',
+    'BANDWIDTH': 'grind', 'OWNERSHIP': 'grind', 'PIPELINE': 'grind', 'PASSION': 'grind',
+    'FRIDAY': 'existential', 'BALANCE': 'existential', 'CULTURE': 'existential',
+    'EXPERIENCE': 'existential', 'LEVERAGE': 'existential', 'FEEDBACK': 'existential',
+    'PIVOT': 'existential', 'MENTORSHIP': 'existential'
+  };
+
+  var ALL_POSTER_IMAGES = [].concat(
+    MOOD_IMAGES.corporate, MOOD_IMAGES.epic, MOOD_IMAGES.grind, MOOD_IMAGES.existential
+  );
 
   var _posterHistory = [];
   var _posterGenerating = false;
@@ -96,8 +106,15 @@
     return poster;
   }
 
-  function getRandomImage() {
-    return POSTER_IMAGES[Math.floor(Math.random() * POSTER_IMAGES.length)];
+  function getImageForPoster(poster, mood) {
+    // Use mood from AI endpoint, or look up from poster title, or fall back to random
+    var bucket = mood ? MOOD_IMAGES[mood] : null;
+    if (!bucket && poster && poster.title) {
+      var posterMood = POSTER_MOODS[poster.title];
+      if (posterMood) bucket = MOOD_IMAGES[posterMood];
+    }
+    var pool = bucket || ALL_POSTER_IMAGES;
+    return pool[Math.floor(Math.random() * pool.length)];
   }
 
   // Try AI-generated poster from backend, fallback to local bank
@@ -740,7 +757,7 @@
         icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5"/><rect x="3" y="7" width="18" height="4" rx="1"/></svg>',
         title: 'A Gift for Your Office Wall',
         tag: 'From me to you',
-        hook: 'I\'ve spent enough time in corporate to know what the break room really needs. These are printable, shareable, and funnier than anything HR has approved. You\'re welcome \uD83D\uDE09',
+        hook: 'I\'ve spent enough time in corporate to know what the break room really needs. These are AI-generated, printable, and funnier than anything HR has approved. You\'re welcome \uD83D\uDE09',
         cta: '\u2192 Fix office morale',
         action: 'poster',
         locked: false
@@ -1312,9 +1329,9 @@
     var currentPoster = null;
     var currentImage = null;
 
-    function displayPoster(poster, imageSrc) {
+    function displayPoster(poster, imageSrc, mood) {
       currentPoster = poster;
-      currentImage = imageSrc || getRandomImage();
+      currentImage = imageSrc || getImageForPoster(poster, mood);
 
       // Fade out
       posterInner.classList.add('ev-poster-switching');
@@ -1348,7 +1365,7 @@
         aiBtn.disabled = false;
         aiBtn.textContent = '\u2728 Generate unique';
         if (poster) {
-          displayPoster(poster);
+          displayPoster(poster, null, poster.mood || null);
           statusEl.textContent = '\u2728 AI-generated original';
           setTimeout(function () { statusEl.textContent = ''; }, 3000);
         } else {
