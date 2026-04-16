@@ -1,11 +1,14 @@
 # Session Archive Index
 
-*Last updated: 2026-04-10 09:33 UTC*
+*Last updated: 2026-04-15 09:48 UTC*
 
-**Total sessions:** 101
+**Total sessions:** 104
 
 | Date | Title | Messages | Words | File |
 |------|-------|----------|-------|------|
+| 2026-04-14 | Continuation Prompt Fit Narrative V2 Build | 937 | 79984 | `2026-04-14-001319-continuation-prompt-fit-narrative-v2-build.md` |
+| 2026-04-13 | Session 9 Continuation Prompt Fenix Ui Polish | 336 | 39756 | `2026-04-13-042257-session-9-continuation-prompt-fenix-ui-polish.md` |
+| 2026-04-13 | Session 8 Continuation Prompt Strategy Sessions | 301 | 30723 | `2026-04-13-002906-session-8-continuation-prompt-strategy-sessions.md` |
 | 2026-04-10 | Continuation Prompt Session 4 Uat Fix Batch | 92 | 12161 | `2026-04-10-082102-continuation-prompt-session-4-uat-fix-batch.md` |
 | 2026-04-09 | Continuation Prompt Fenix Session 3 Created April | 576 | 49338 | `2026-04-09-081143-continuation-prompt-fenix-session-3-created-april.md` |
 | 2026-04-04 | Continuation Prompt Post Evaluator Build April 4 | 490 | 41311 | `2026-04-04-083015-continuation-prompt-post-evaluator-build-april-4.md` |

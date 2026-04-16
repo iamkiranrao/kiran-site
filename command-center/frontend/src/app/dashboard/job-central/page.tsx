@@ -153,7 +153,7 @@ interface RadarStats {
   companies_monitored: number;
 }
 
-type Tab = "radar" | "dashboard" | "applications" | "stories" | "prep" | "network" | "weekly";
+type Tab = "radar" | "dashboard" | "applications" | "network" | "weekly";
 
 // ── Constants ────────────────────────────────────────────────────
 
@@ -832,8 +832,6 @@ export default function JobCentralPage() {
           { key: "radar" as Tab, label: "Radar", icon: Radar },
           { key: "dashboard" as Tab, label: "Dashboard", icon: BarChart3 },
           { key: "applications" as Tab, label: "Applications", icon: Briefcase },
-          { key: "stories" as Tab, label: "Story Bank", icon: BookOpen },
-          { key: "prep" as Tab, label: "Interview Prep", icon: MessageSquare },
           { key: "network" as Tab, label: "Network", icon: Users },
           { key: "weekly" as Tab, label: "Weekly Plan", icon: ClipboardList },
         ]).map((t) => (
@@ -1659,111 +1657,6 @@ export default function JobCentralPage() {
               ))}
             </div>
           )}
-        </div>
-      )}
-
-      {/* ═══════════════ STORY BANK TAB ══════════════════════════ */}
-      {tab === "stories" && (
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-[var(--text-primary)]">Story Bank ({stories.length} stories)</h3>
-            <button onClick={() => { setEditStory(null); setShowStoryForm(true); }}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium"
-              style={{ backgroundColor: "var(--accent-blue)", color: "#fff" }}>
-              <Plus size={14} /> Add Story
-            </button>
-          </div>
-
-          <div className="relative mb-4">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
-            <input value={storySearch} onChange={(e) => setStorySearch(e.target.value)}
-              placeholder="Search stories by title, content, or framework..."
-              className="w-full rounded-lg pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)]"
-              style={inputStyle} />
-          </div>
-
-          {stories.length === 0 ? (
-            <div className="rounded-lg p-8 text-center" style={cardStyle}>
-              <BookOpen size={28} className="mx-auto mb-2 text-[var(--text-muted)]" />
-              <p className="text-sm text-[var(--text-secondary)]">No stories yet. Start adding your experiences!</p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {stories.map((story) => (
-                <div key={story.id} className="rounded-lg p-4" style={cardStyle}>
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <p className="text-sm font-medium text-[var(--text-primary)]">{story.title}</p>
-                      <p className="text-xs text-[var(--text-muted)]">{story.company}</p>
-                    </div>
-                    <div className="flex gap-1.5">
-                      <button onClick={() => { setEditStory(story); setShowStoryForm(true); }}
-                        className="text-[var(--text-muted)] hover:text-[var(--accent-blue)] p-1"><Edit3 size={14} /></button>
-                      <button onClick={() => handleDeleteStory(story.id)}
-                        className="text-[var(--text-muted)] hover:text-[var(--accent-red)] p-1"><Trash2 size={14} /></button>
-                    </div>
-                  </div>
-                  <p className="text-sm text-[var(--text-secondary)] mb-2 line-clamp-3">{story.content}</p>
-                  {story.frameworks && story.frameworks.length > 0 && (
-                    <div className="flex gap-1.5 flex-wrap">
-                      {story.frameworks.map((fw, i) => (
-                        <span key={i} className="text-xs px-2 py-0.5 rounded"
-                          style={{ backgroundColor: "rgba(59,130,246,0.15)", color: "var(--accent-blue)" }}>{fw}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* ═══════════════ INTERVIEW PREP TAB ══════════════════════ */}
-      {tab === "prep" && (
-        <div className="space-y-5">
-          <div className="rounded-lg p-5" style={cardStyle}>
-            <h3 className="text-sm font-medium text-[var(--text-primary)] mb-4">Framework Quick Reference</h3>
-            <div className="space-y-3">
-              {FRAMEWORKS.map((fw, idx) => (
-                <div key={idx} className="rounded-lg p-3" style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
-                  <p className="text-sm font-medium text-[var(--text-primary)]">{fw.name}</p>
-                  <p className="text-xs text-[var(--text-muted)] mb-2">{fw.description}</p>
-                  <div className="flex gap-1.5 flex-wrap">
-                    {fw.steps.map((step, i) => (
-                      <span key={i} className="text-xs px-2 py-0.5 rounded"
-                        style={{ backgroundColor: "rgba(59,130,246,0.15)", color: "var(--accent-blue)" }}>{step}</span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-lg p-5" style={cardStyle}>
-            <h3 className="text-sm font-medium text-[var(--text-primary)] mb-4">Common PM Interview Questions</h3>
-            <div className="space-y-2">
-              {COMMON_QUESTIONS.map((q, idx) => (
-                <div key={idx} className="flex items-center gap-3 rounded-lg p-3"
-                  style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
-                  <span className="text-xs px-2 py-0.5 rounded shrink-0"
-                    style={{ backgroundColor: "rgba(234,179,8,0.15)", color: "var(--accent-amber)" }}>{q.category}</span>
-                  <p className="text-sm text-[var(--text-secondary)] flex-1">{q.question}</p>
-                  <span className="text-xs px-2 py-0.5 rounded shrink-0"
-                    style={{ backgroundColor: "rgba(59,130,246,0.15)", color: "var(--accent-blue)" }}>{q.framework}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-lg p-5" style={cardStyle}>
-            <h3 className="text-sm font-medium text-[var(--text-primary)] mb-4">Pre-Interview Checklist</h3>
-            <div className="space-y-2">
-              {PRE_INTERVIEW_CHECKLIST.map((item, idx) => (
-                <PreInterviewItem key={idx} label={item} />
-              ))}
-            </div>
-          </div>
         </div>
       )}
 

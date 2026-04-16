@@ -1060,55 +1060,8 @@
 
 
 /* ════════════════════════════════════════════
-   FIT SCORE PROCESSING (Narrated Loading)
+   ANIMATIONS (shared)
    ════════════════════════════════════════════ */
-
-.ev-fit-processing {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  padding: 3rem 0;
-}
-
-.ev-fenix-avatar.ev-pulse {
-  animation: ev-pulse 2s infinite;
-}
-
-@keyframes ev-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.02); }
-}
-
-.ev-fit-narration {
-  width: 100%;
-  padding: 1.5rem;
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid var(--ev-border);
-  border-radius: 8px;
-  max-height: 350px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-[data-theme="light"] .ev-fit-narration {
-  background: rgba(0, 0, 0, 0.03);
-}
-
-.ev-narration-line {
-  color: var(--ev-text-primary);
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  padding: 0.6rem 0.8rem;
-  background: var(--ev-accent-glow);
-  border-left: 3px solid var(--ev-accent);
-  border-radius: 0 4px 4px 0;
-  animation: ev-slideInLeft 0.3s ease forwards;
-  opacity: 0;
-}
 
 @keyframes ev-slideInLeft {
   from { opacity: 0; transform: translateX(-10px); }
@@ -1142,18 +1095,6 @@
   opacity: 0;
   transform: translateY(-5px);
   transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-
-/* ════════════════════════════════════════════
-   FIT SCORE ERROR
-   ════════════════════════════════════════════ */
-
-.ev-error-message {
-  color: #cb5c72;
-  text-align: center;
-  font-size: 0.95rem;
-  padding: 1rem;
 }
 
 
@@ -1194,25 +1135,6 @@
   background: var(--ev-accent);
 }
 
-.ev-fit-narration::-webkit-scrollbar {
-  width: 6px;
-}
-
-.ev-fit-narration::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
-}
-
-.ev-fit-narration::-webkit-scrollbar-thumb {
-  background: var(--ev-accent-border);
-  border-radius: 3px;
-}
-
-.ev-fit-narration::-webkit-scrollbar-thumb:hover {
-  background: var(--ev-accent);
-}
-
-
 /* ════════════════════════════════════════════
    MOBILE RESPONSIVE
    ════════════════════════════════════════════ */
@@ -1232,27 +1154,6 @@
 
   .ev-fenix-pills {
     max-width: 100%;
-  }
-
-  .ev-follow-ups {
-    gap: 0.4rem;
-  }
-
-  .ev-cutting-floor__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .ev-evidence-card__top {
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .ev-evidence-card__metric {
-    align-self: flex-start;
-  }
-
-  .ev-share-actions {
-    flex-direction: column;
   }
 
   .ev-lens-footer.ev-active {
@@ -1358,7 +1259,6 @@
   .ev-msg-tool-thinking,
   .ev-msg-tool-result,
   .ev-msg-system,
-  .ev-narration-line,
   .ev-fly-clone {
     opacity: 1 !important;
     transform: none !important;

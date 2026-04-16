@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from dotenv import load_dotenv
 
-from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs, evidence, fit_score, career_initiatives
+from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs, evidence, fit_score, career_initiatives, gap_discovery, gap_closure, target_companies, gap_moves
 from utils.exceptions import CommandCenterError, NotFoundError, ValidationError, ConflictError
 
 load_dotenv(override=True)
@@ -109,6 +109,15 @@ class APIKeyMiddleware(BaseHTTPMiddleware):
         if request.url.path in ("/health", "/api/health"):
             return await call_next(request)
 
+        # Allow public feedback/testimonial endpoints without auth
+        public_paths = (
+            "/api/feedback/submit",
+            "/api/feedback/testimonial/submit",
+            "/api/feedback/testimonials/public",
+        )
+        if request.url.path in public_paths:
+            return await call_next(request)
+
         # Allow CORS preflight without auth
         if request.method == "OPTIONS":
             return await call_next(request)
@@ -165,6 +174,10 @@ app.include_router(tech_costs.router, prefix="/api/tech-costs", tags=["Tech Cost
 app.include_router(evidence.router, prefix="/api/evidence", tags=["Evidence Management"])
 app.include_router(fit_score.router, prefix="/api/fit-score", tags=["Fit Narrative"])
 app.include_router(career_initiatives.router, prefix="/api/career-initiatives", tags=["Career Initiatives"])
+app.include_router(gap_discovery.router, prefix="/api/gap-discovery", tags=["Gap Discovery"])
+app.include_router(gap_closure.router, prefix="/api/gap-discovery/closure-plans", tags=["Gap Closure"])
+app.include_router(target_companies.router, prefix="/api/target-companies", tags=["Target Companies"])
+app.include_router(gap_moves.router, prefix="/api/gap-discovery/moves", tags=["Gap Closure Moves"])
 
 
 if __name__ == "__main__":

@@ -38,6 +38,9 @@ SKIP_PATH_PATTERNS = [
     "docs/archive/",
     "docs/research/",
     "archive/",
+    "ACTION-TRACKER.md",
+    "SESSION-15-AUDIT-SUMMARY.md",
+    "/RESUME.md",
 ]
 
 # Old root-level doc files that have been moved into module folders — skip to avoid duplicates
@@ -62,6 +65,7 @@ LIBRARY_CACHE = os.path.join(data_dir("library"), "library_cache.json")
 
 # Color palette for top-level modules
 MODULE_COLORS = {
+    "Strategy": "#f59e0b",
     "Website": "#34d399",
     "Command Center": "#fb923c",
     "Scannibal": "#67e8f9",
@@ -69,6 +73,8 @@ MODULE_COLORS = {
     "Persona Picker": "#e879f9",
     "Fenix": "#2dd4bf",
     "Foundation": "#a78bfa",
+    "Career": "#ec4899",
+    "Session History": "#94a3b8",
 }
 
 # Folder name → display name mapping
@@ -87,6 +93,8 @@ FOLDER_DISPLAY_NAMES = {
     "SessionArchive": "Session Archive",
     "TechCosts": "Tech Costs",
     "MadLab": "MadLab",
+    "SessionHistory": "Session History",
+    "Bento": "Bento",
 }
 
 # Legacy rules for files OUTSIDE the new docs/ folder structure

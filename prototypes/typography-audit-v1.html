@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typography Audit — kiranrao.ai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-light: #f8f7f5;
+            --text-primary-dark: #f0e6d3;
+            --text-primary-light: #1a1a1a;
+            --text-secondary-dark: #b8b0a3;
+            --text-secondary-light: #666666;
+            --text-muted-dark: #7a7068;
+            --text-muted-light: #999999;
+            --accent-blue: #7B9ACC;
+            --accent-warm: #b8a895;
+            --divider-dark: #2a2a2a;
+            --divider-light: #e8e8e8;
+            --panel-bg-dark: #1a1a1a;
+            --panel-bg-light: #ffffff;
+            --border-dark: #333333;
+            --border-light: #e0e0e0;
+        }
+
+        body.light-mode {
+            --bg-dark: #f8f7f5;
+            --bg-light: #0a0a0a;
+            --text-primary-dark: #1a1a1a;
+            --text-primary-light: #f0e6d3;
+            --text-secondary-dark: #666666;
+            --text-secondary-light: #b8b0a3;
+            --text-muted-dark: #999999;
+            --text-muted-light: #7a7068;
+            --panel-bg-dark: #ffffff;
+            --panel-bg-light: #1a1a1a;
+            --divider-dark: #e8e8e8;
+            --divider-light: #2a2a2a;
+            --border-dark: #e0e0e0;
+            --border-light: #333333;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary-dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            padding: 2rem 2rem;
+            border-bottom: 1px solid var(--divider-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.02em;
+        }
+
+        .mode-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--panel-bg-dark);
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-dark);
+        }
+
+        .mode-toggle button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary-dark);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .mode-toggle button.active {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .mode-toggle button:hover {
+            color: var(--text-primary-dark);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-blue);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--divider-dark);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .panel {
+            background: var(--panel-bg-dark);
+            border: 1px solid var(--border-dark);
+            padding: 2rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .panel-label::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            margin-right: 0.75rem;
+        }
+
+        /* 1. TRIPTYCH */
+        .triptych-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .triptych-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .triptych-column.context {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .triptych-column.competency {
+            justify-content: flex-start;
+        }
+
+        .triptych-eyebrow {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #5a5347;
+            margin-bottom: 1rem;
+        }
+
+        .triptych-eyebrow-after {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #7a7068;
+            margin-bottom: 1rem;
+        }
+
+        .triptych-tagline {
+            font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.3;
+            color: var(--text-primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .triptych-description {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-primary-dark);
+        }
+
+        .triptych-before .triptych-column.context {
+            align-items: center;
+        }
+
+        .triptych-before .triptych-column.competency {
+            padding-top: 2rem;
+        }
+
+        .triptych-after .triptych-column {
+            align-items: flex-start;
+        }
+
+        /* 2. WELCOME MESSAGE */
+        .welcome-container {
+            max-width: 640px;
+            padding: 3rem 4rem 2rem;
+            text-align: center;
+        }
+
+        .welcome-container-after {
+            max-width: 720px;
+            padding: 2rem 4rem 2rem;
+        }
+
+        .welcome-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .welcome-heading-after {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            line-height: 1.2;
+        }
+
+        .welcome-heading em {
+            font-style: italic;
+            color: var(--accent-blue);
+        }
+
+        .welcome-heading-after em {
+            font-style: italic;
+            font-weight: 500;
+            color: var(--accent-blue);
+        }
+
+        .welcome-reframe {
+            font-size: 0.95rem;
+            color: var(--text-secondary-dark);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .welcome-reframe-after {
+            font-size: 1.05rem;
+            color: var(--text-primary-dark);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .welcome-invite {
+            font-size: 0.95rem;
+            color: var(--text-secondary-dark);
+            font-weight: 400;
+        }
+
+        /* 3. UNLOCK CARDS */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(123, 154, 204, 0.1), rgba(184, 168, 149, 0.05));
+            border: 1px solid var(--border-dark);
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-tag {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-blue);
+            margin-bottom: 0.75rem;
+            align-self: flex-start;
+        }
+
+        .card-tag-after {
+            font-size: 0.72rem;
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary-dark);
+        }
+
+        .card-hook {
+            font-size: 0.85rem;
+            font-weight: 300;
+            line-height: 1.5;
+            color: var(--text-secondary-dark);
+        }
+
+        .card-hook-after {
+            font-weight: 400;
+        }
+
+        /* 4. FENIX CHAT */
+        .fenix-header {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .fenix-header-after {
+            font-size: 0.9rem;
+            letter-spacing: 0.06em;
+        }
+
+        .fenix-header-upper {
+            text-transform: uppercase;
+        }
+
+        .fenix-header-lower {
+            text-transform: none;
+            font-weight: 400;
+        }
+
+        .fenix-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary-dark);
+        }
+
+        .fenix-name-after {
+            font-size: 1.05rem;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chat-message {
+            font-size: 0.82rem;
+            font-weight: 300;
+            line-height: 1.65;
+            color: var(--text-secondary-dark);
+            padding: 0.75rem;
+            background: rgba(123, 154, 204, 0.05);
+            border-left: 3px solid var(--accent-blue);
+            border-radius: 4px;
+        }
+
+        .chat-message-after {
+            font-size: 0.88rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .chat-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .pill {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.5rem 0.75rem;
+            background: rgba(123, 154, 204, 0.15);
+            border: 1px solid var(--border-dark);
+            border-radius: 12px;
+            color: var(--accent-blue);
+        }
+
+        .pill-after {
+            font-size: 0.8rem;
+        }
+
+        /* 5. FOOTER QUOTE */
+        .quote-section {
+            text-align: center;
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text-secondary-dark);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .quote-text-after {
+            color: #9a8e80;
+        }
+
+        .quote-attribution {
+            font-size: 0.85rem;
+            color: #5a5347;
+            font-weight: 400;
+        }
+
+        .quote-attribution-after {
+            font-size: 0.78rem;
+            color: #7a7068;
+        }
+
+        /* 6. NAV PERSONA PILL */
+        .nav-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--accent-warm);
+            padding: 0.5rem 1rem;
+            border-radius: 24px;
+            font-size: 0.8rem;
+        }
+
+        .nav-pill-after {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        .nav-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7B9ACC, #b8a895);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .nav-avatar-after {
+            width: 28px;
+            height: 28px;
+        }
+
+        .nav-label {
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.7;
+            color: var(--text-primary-dark);
+        }
+
+        .nav-label-after {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+
+        .nav-name {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--text-primary-dark);
+        }
+
+        .nav-name-after {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* 7. BY THE NUMBERS */
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .number-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .number-value {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            color: var(--accent-blue);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .number-label {
+            font-size: 0.85rem;
+            color: var(--text-primary-dark);
+            font-weight: 400;
+        }
+
+        @media (max-width: 1200px) {
+            .comparison {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .triptych-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .numbers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .numbers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Typography Audit — kiranrao.ai</h1>
+        <div class="mode-toggle">
+            <button class="active" onclick="setMode('dark')">Dark Mode</button>
+            <button onclick="setMode('light')">Light Mode</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 1. TRIPTYCH -->
+        <div class="section">
+            <h2 class="section-title">1. Triptych / About Section</h2>
+
+            <div class="comparison">
+                <!-- BEFORE -->
+                <div class="panel">
+                    <div class="panel-label">Before</div>
+                    <div class="triptych-layout triptych-before">
+                        <div class="triptych-column context">
+                            <div class="triptych-eyebrow">THE ELEVATOR PITCH ↘</div>
+                            <div class="triptych-tagline">Equal parts strategist, storyteller, and builder.</div>
+                            <div class="triptych-description">I lead product teams, geek out about AI, and believe the best work happens when you're genuinely curious about the people you're building for.</div>
+                        </div>
+                        <div style="width: 1px; background: var(--divider-dark);"></div>
+                        <div class="triptych-column competency">
+                            <div class="triptych-eyebrow">WHAT I DO BEST ↘</div>
+                            <div class="triptych-description">This is my little corner of the internet: part portfolio, part playground.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AFTER -->
+                <div class="panel">
+                    <div class="panel-label">After</div>
+                    <div class="triptych-layout triptych-after">
+                        <div class="triptych-column context">
+                            <div class="triptych-eyebrow-after">THE ELEVATOR PITCH ↘</div>
+                            <div class="triptych-tagline">Equal parts strategist, storyteller, and builder.</div>
+                            <div class="triptych-description">I lead product teams, geek out about AI, and believe the best work happens when you're genuinely curious about the people you're building for.</div>
+                        </div>
+                        <div style="width: 1px; background: var(--divider-dark);"></div>
+                        <div class="triptych-column competency">
+                            <div class="triptych-eyebrow-after">WHAT I DO BEST ↘</div>
+                            <div class="triptych-description">This is my little corner of the internet: part portfolio, part playground.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size: 0.9rem; color: var(--text-secondary-dark); margin-top: 1rem; padding: 1rem; background: var(--panel-bg-dark); border-radius: 8px; border-left: 3px solid var(--accent-blue);">
+                <strong>Key changes:</strong> Eyebrows slightly larger (0.9rem) and lighter muted color (#7a7068). Both eyebrows aligned to same baseline (flex-start) instead of different vertical positions.
+            </div>
+        </div>
+
+        <!-- 2. WELCOME MESSAGE -->
+        <div class="section">
+            <h2 class="section-title">2. Welcome Message</h2>
+
+            <div class="comparison">
+                <!-- BEFORE -->
+                <div class="panel">
+                    <div class="panel-label">Before</div>
+                    <div class="welcome-container">
+                        <h1 class="welcome-heading">Welcome, <em>The Evaluator</em></h1>
+                        <p class="welcome-reframe">This isn't a portfolio in the traditional sense. It's a reflection of how I think, what I've built, and the values I bring to any partnership.</p>
+                        <p class="welcome-invite">Here's what we've put together for you:</p>
+                    </div>
+                </div>
+
+                <!-- AFTER -->
+                <div class="panel">
+                    <div class="panel-label">After</div>
+                    <div class="welcome-container welcome-container-after">
+                        <h1 class="welcome-heading welcome-heading-after">Welcome, <em>The Evaluator</em></h1>
+                        <p class="welcome-reframe welcome-reframe-after">This isn't a portfolio in the traditional sense. It's a reflection of how I think, what I've built, and the values I bring to any partnership.</p>
+                        <p class="welcome-invite">Here's what we've put together for you:</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size: 0.9rem; color: var(--text-secondary-dark); margin-top: 1rem; padding: 1rem; background: var(--panel-bg-dark); border-radius: 8px; border-left: 3px solid var(--accent-blue);">
+                <strong>Key changes:</strong> Heading now scales with clamp(2.2rem, 5vw, 3.2rem) for better responsiveness. Reframe text bumped to 1.05rem and changed to primary color (the thesis). Invite text stays secondary (the transition). Container max-width increased to 720px.
+            </div>
+        </div>
+
+        <!-- 3. UNLOCK CARDS -->
+        <div class="section">
+            <h2 class="section-title">3. Unlock Cards</h2>
+
+            <div class="comparison">
+                <!-- BEFORE -->
+                <div class="panel">
+                    <div class="panel-label">Before</div>
+                    <div>
+                        <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-blue); margin-bottom: 1.5rem;">THESE FEATURES WERE CURATED ESPECIALLY FOR YOU ↘</div>
+                        <div class="cards-grid">
+                            <div class="card">
+                                <span class="card-tag">EXPLORE FREELY</span>
+                                <h3 class="card-title">Persona System</h3>
+                                <p class="card-hook">Customize your view based on your role. Whether you're evaluating product thinking or design philosophy.</p>
+                            </div>
+                            <div class="card">
+                                <span class="card-tag">EXPLORE FREELY</span>
+                                <h3 class="card-title">Career Timeline</h3>
+                                <p class="card-hook">A transparent look at my trajectory, decisions, and the people who shaped my perspective.</p>
+                            </div>
+                            <div class="card">
+                                <span class="card-tag">EXPLORE FREELY</span>
+                                <h3 class="card-title">Live Chat</h3>
+                                <p class="card-hook">Ask Fenix anything about the site, my work, or thoughts on product and leadership.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AFTER -->
+                <div class="panel">
+                    <div class="panel-label">After</div>
+                    <div>
+                        <div style="font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-blue); margin-bottom: 1.5rem;">THESE FEATURES WERE CURATED ESPECIALLY FOR YOU ↘</div>
+                        <div class="cards-grid">
+                            <div class="card">
+                                <span class="card-tag card-tag-after">EXPLORE FREELY</span>
+                                <h3 class="card-title">Persona System</h3>
+                                <p class="card-hook card-hook-after">Customize your view based on your role. Whether you're evaluating product thinking or design philosophy.</p>
+                            </div>
+                            <div class="card">
+                                <span class="card-tag card-tag-after">EXPLORE FREELY</span>
+                                <h3 class="card-title">Career Timeline</h3>
+                                <p class="card-hook card-hook-after">A transparent look at my trajectory, decisions, and the people who shaped my perspective.</p>
+                            </div>
+                            <div class="card">
+                                <span class="card-tag card-tag-after">EXPLORE FREELY</span>
+                                <h3 class="card-title">Live Chat</h3>
+                                <p class="card-hook card-hook-after">Ask Fenix anything about the site, my work, or thoughts on product and leadership.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size: 0.9rem; color: var(--text-secondary-dark); margin-top: 1rem; padding: 1rem; background: var(--panel-bg-dark); border-radius: 8px; border-left: 3px solid var(--accent-blue);">
+                <strong>Key changes:</strong> Section header bumped to 0.9rem. Card tags bumped from 0.6rem to 0.72rem. Card hook text weight increased from 300 to 400 for better readability.
+            </div>
+        </div>
+
+        <!-- 4. FENIX CHAT -->
+        <div class="section">
+            <h2 class="section-title">4. Fenix Chat Module</h2>
+
+            <div class="comparison">
+                <!-- BEFORE -->
+                <div class="panel">
+                    <div class="panel-label">Before</div>
+                    <div class="fenix-header">MEET FENIX — YOUR GUIDE TO EVERYTHING ON THIS SITE</div>
+                    <div class="fenix-name">Fenix</div>
+                    <div class="chat-messages">
+                        <div class="chat-message">Hi there! I'm Fenix, your guide to everything on this site. Feel free to ask me about Kiran's work, philosophy, or anything else you're curious about.</div>
+                        <div class="chat-message">I can help you navigate the site, understand his approach to product and design, or dive into specific projects and experiences.</div>
+                    </div>
+                    <div class="chat-pills">
+                        <div class="pill">What's your background?</div>
+                        <div class="pill">Recent projects</div>
+                        <div class="pill">Product philosophy</div>
+                        <div class="pill">Let's chat</div>
+                    </div>
+                </div>
+
+                <!-- AFTER -->
+                <div class="panel">
+                    <div class="panel-label">After</div>
+                    <div>
+                        <div class="fenix-header fenix-header-after">
+                            <span class="fenix-header-upper">MEET FENIX</span> — <span class="fenix-header-lower">your guide to everything on this site</span> ↘
+                        </div>
+                    </div>
+                    <div class="fenix-name fenix-name-after">Fenix</div>
+                    <div class="chat-messages">
+                        <div class="chat-message chat-message-after">Hi there! I'm Fenix, your guide to everything on this site. Feel free to ask me about Kiran's work, philosophy, or anything else you're curious about.</div>
+                        <div class="chat-message chat-message-after">I can help you navigate the site, understand his approach to product and design, or dive into specific projects and experiences.</div>
+                    </div>
+                    <div class="chat-pills">
+                        <div class="pill pill-after">What's your background?</div>
+                        <div class="pill pill-after">Recent projects</div>
+                        <div class="pill pill-after">Product philosophy</div>
+                        <div class="pill pill-after">Let's chat</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size: 0.9rem; color: var(--text-secondary-dark); margin-top: 1rem; padding: 1rem; background: var(--panel-bg-dark); border-radius: 8px; border-left: 3px solid var(--accent-blue);">
+                <strong>Key changes:</strong> Header now mixed case with "MEET FENIX" uppercase and tagline in sentence case at weight 400, letter-spacing 0.06em, plus ↘. Fenix name bumped to minimum 1.05rem. Chat messages: 0.88rem weight 400. Pills bumped to 0.8rem.
+            </div>
+        </div>
+
+        <!-- 5. FOOTER QUOTE -->
+        <div class="section">
+            <h2 class="section-title">5. Footer Quote</h2>
+
+            <div class="comparison">
+                <!-- BEFORE -->
+                <div class="panel">
+                    <div class="panel-label">Before</div>
+                    <div class="quote-section">
+                        <p class="quote-text">"Leadership is about making others better as a result of your presence and making sure that impact lasts in your absence."</p>
+                        <p class="quote-attribution">— Sheryl Sandberg</p>
+                    </div>
+                </div>
+
+                <!-- AFTER -->
+                <div class="panel">
+                    <div class="panel-label">After</div>
+                    <div class="quote-section">
+                        <p class="quote-text quote-text-after">"Leadership is about making others better as a result of your presence and making sure that impact lasts in your absence."</p>
+                        <p class="quote-attribution quote-attribution-after">— Sheryl Sandberg</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size: 0.9rem; color: var(--text-secondary-dark); margin-top: 1rem; padding: 1rem; background: var(--panel-bg-dark); border-radius: 8px; border-left: 3px solid var(--accent-blue);">
+                <strong>Key changes:</strong> Quote text color changed to #9a8e80 (softer, more muted). Attribution font-size reduced to 0.78rem and color lightened to #7a7068 for better balance with the quote.
+            </div>
+        </div>
+
+        <!-- 6. NAV PERSONA PILL -->
+        <div class="section">
+            <h2 class="section-title">6. Nav Bar Persona Pill</h2>
+
+            <div class="comparison">
+                <!-- BEFORE -->
+                <div class="panel">
+                    <div class="panel-label">Before</div>
+                    <div style="padding: 2rem; display: flex; align-items: center;">
+                        <div class="nav-pill">
+                            <div class="nav-avatar">E</div>
+                            <div>
+                                <div class="nav-label">Viewing as</div>
+                                <div class="nav-name">The Evaluator</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AFTER -->
+                <div class="panel">
+                    <div class="panel-label">After</div>
+                    <div style="padding: 2rem; display: flex; align-items: center;">
+                        <div class="nav-pill nav-pill-after">
+                            <div class="nav-avatar nav-avatar-after">E</div>
+                            <div>
+                                <div class="nav-label nav-label-after">Viewing as</div>
+                                <div class="nav-name nav-name-after">The Evaluator</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size: 0.9rem; color: var(--text-secondary-dark); margin-top: 1rem; padding: 1rem; background: var(--panel-bg-dark); border-radius: 8px; border-left: 3px solid var(--accent-blue);">
+                <strong>Key changes:</strong> Avatar size increased from 24px to 28px. Label bumped from 0.8rem to 0.85rem, opacity increased to 0.85. Persona name bumped to 0.85rem with weight 500. Pill padding slightly increased overall.
+            </div>
+        </div>
+
+        <!-- 7. BY THE NUMBERS -->
+        <div class="section">
+            <h2 class="section-title">7. By the Numbers</h2>
+
+            <div class="comparison">
+                <!-- BEFORE -->
+                <div class="panel">
+                    <div class="panel-label">Before</div>
+                    <div class="numbers-grid">
+                        <div class="number-stat">
+                            <div class="number-value">381</div>
+                            <div class="number-label">Persona → Person</div>
+                        </div>
+                        <div class="number-stat">
+                            <div class="number-value">25</div>
+                            <div class="number-label">Connect clicks</div>
+                        </div>
+                        <div class="number-stat">
+                            <div class="number-value">7</div>
+                            <div class="number-label">Return visits</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AFTER -->
+                <div class="panel">
+                    <div class="panel-label">After</div>
+                    <div class="numbers-grid">
+                        <div class="number-stat">
+                            <div class="number-value">381</div>
+                            <div class="number-label">Conversations started</div>
+                        </div>
+                        <div class="number-stat">
+                            <div class="number-value">25</div>
+                            <div class="number-label">Connection requests</div>
+                        </div>
+                        <div class="number-stat">
+                            <div class="number-value">7</div>
+                            <div class="number-label">Return visits</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size: 0.9rem; color: var(--text-secondary-dark); margin-top: 1rem; padding: 1rem; background: var(--panel-bg-dark); border-radius: 8px; border-left: 3px solid var(--accent-blue);">
+                <strong>Key changes:</strong> Typography stays the same (values clamp(2rem, 4vw, 3.5rem) in Playfair Display 700, labels 0.85rem). Label content updated to reflect changed narrative: "Conversations started," "Connection requests," "Return visits."
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setMode(mode) {
+            const body = document.body;
+            const buttons = document.querySelectorAll('.mode-toggle button');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            if (mode === 'light') {
+                body.classList.add('light-mode');
+                buttons[1].classList.add('active');
+            } else {
+                body.classList.remove('light-mode');
+                buttons[0].classList.add('active');
+            }
+
+            localStorage.setItem('typography-audit-mode', mode);
+        }
+
+        // Restore saved mode on page load
+        const savedMode = localStorage.getItem('typography-audit-mode') || 'dark';
+        setMode(savedMode);
+    </script>
+</body>
+</html>

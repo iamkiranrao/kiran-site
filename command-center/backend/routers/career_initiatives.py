@@ -187,12 +187,23 @@ def create_initiative(body: InitiativeCreate):
         "gallery_items": body.gallery_items,
         "public": body.public,
         "fenix_indexed": body.fenix_indexed,
+        "closed_gap_id": body.closed_gap_id,
+        "requirement_coverage": body.requirement_coverage,
         "notes": "",
         "created_at": now,
         "updated_at": now,
     }
     initiatives.append(initiative)
     _save(initiatives)
+
+    # If this initiative closes a gap, update the gap's closed_by_initiative_id
+    if body.closed_gap_id:
+        try:
+            from services.gap_discovery_service import link_gap_to_initiative
+            link_gap_to_initiative(body.closed_gap_id, initiative["id"])
+        except Exception as e:
+            logger.warning(f"Failed to link gap {body.closed_gap_id} to new initiative: {e}")
+
     return initiative
 
 
@@ -224,6 +235,8 @@ def create_initiatives_bulk(initiatives_data: List[InitiativeCreate]):
             "gallery_items": body.gallery_items,
             "public": body.public,
             "fenix_indexed": body.fenix_indexed,
+            "closed_gap_id": body.closed_gap_id,
+            "requirement_coverage": body.requirement_coverage,
             "notes": "",
             "created_at": now,
             "updated_at": now,

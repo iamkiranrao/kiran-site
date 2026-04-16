@@ -427,6 +427,73 @@ def update_gap_item(item_id: str, **kwargs) -> dict:
     return result.data[0]
 
 
+def create_vault_entry_from_gap(item_id: str) -> dict:
+    """When a gap is closed with built-proof/certified/reframed, auto-create a vault source entry.
+
+    Maps resolution_type → source type:
+      built-proof → prototype
+      certified → certification
+      reframed → project (reframed from existing work)
+
+    Also links the gap's fill_output as the source label, and sets
+    closed_by_initiative_id on the gap item.
+    """
+    gap = get_gap_item(item_id)
+    resolution = gap.get("resolution_type")
+    if resolution not in ("built-proof", "certified", "reframed"):
+        return {"skipped": True, "reason": f"Resolution '{resolution}' doesn't produce vault entry"}
+
+    # Check if already linked
+    if gap.get("closed_by_initiative_id"):
+        return {"skipped": True, "reason": "Already linked to a vault source", "source_id": gap["closed_by_initiative_id"]}
+
+    # Map resolution → source type
+    type_map = {
+        "built-proof": "prototype",
+        "certified": "certification",
+        "reframed": "project",
+    }
+    source_type = type_map[resolution]
+
+    # Generate a source ID from the gap ID
+    source_id = f"gap-{item_id}"
+    label = gap.get("fill_output") or gap.get("title", "Gap closure evidence")
+    company = gap.get("source_jd_company")
+    year = datetime.now().year
+
+    # Try to create (might already exist)
+    sb = _get_client()
+    try:
+        existing = sb.table("evidence_sources").select("id").eq("id", source_id).execute()
+        if existing.data:
+            # Already exists, just link it
+            update_gap_item(item_id, closed_by_initiative_id=source_id)
+            return {"created": False, "source_id": source_id, "message": "Source already existed, linked to gap"}
+
+        row = {
+            "id": source_id,
+            "label": label,
+            "type": source_type,
+            "issuer": company,
+            "year": year,
+        }
+        sb.table("evidence_sources").insert(row).execute()
+
+        # Link the gap to this source
+        update_gap_item(item_id, closed_by_initiative_id=source_id)
+
+        return {
+            "created": True,
+            "source_id": source_id,
+            "source_type": source_type,
+            "label": label,
+            "message": f"Created vault source '{label}' and linked to gap",
+        }
+    except Exception as e:
+        logger.error(f"Failed to create vault entry from gap {item_id}: {e}")
+        return {"error": str(e)}
+
+
 def delete_gap_item(item_id: str) -> dict:
     sb = _get_client()
     result = sb.table("evidence_gap_items").delete().eq("id", item_id).execute()

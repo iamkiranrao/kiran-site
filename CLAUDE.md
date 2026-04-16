@@ -9,7 +9,7 @@ Use AskUserQuestion with these options:
 - **Site / Frontend** — Already mounted. Immediately read Tier 1 identity docs + Tier 2 governance docs per the workstream table below.
 - **Fenix Backend** — Immediately mount `~/fenix-backend` using `request_cowork_directory(path="~/fenix-backend")`. Then read the Tier 1 + Tier 2 docs listed below and `api/v1/fenix/agent.py` from the mounted backend for ground truth.
 - **Command Center** — Already inside site repo at `command-center/`. Read the CC docs listed below.
-- **Resume / Job Prep** — Trigger the `customize-resume` skill. Read `docs/MASTER-PLAN.md` for career strategy context.
+- **Resume / Job Prep** — Trigger the `customize-resume` skill. Read `docs/Strategy/MASTER-PLAN.md` for career strategy context.
 - **Session Capture / Journal** — Trigger the `session-capture` skill. No extra mounts needed.
 - **Multiple / Everything** — Immediately mount `~/fenix-backend` using `request_cowork_directory(path="~/fenix-backend")`. Both folders will be available. Read Tier 1 identity docs.
 
@@ -44,9 +44,9 @@ These define why the site exists and who it's for. Read these before any session
 
 | Doc | What It Provides |
 |---|---|
-| `docs/SITE-WHY.md` | Why the site exists. Broken hiring system, permanent home thesis, medium-is-the-message principle. Read first, always. |
-| `docs/ULTIMATE-PERSONA.md` | Who it's for. The "Pattern-Breaker Who Hires Pattern-Breakers" — defined by mindset, not title. |
-| `docs/GO-TO-MARKET.md` | How they find the site. Distribution through work quality, network, community presence. |
+| `docs/Strategy/SITE-WHY.md` | Why the site exists. Broken hiring system, permanent home thesis, medium-is-the-message principle. Read first, always. |
+| `docs/Strategy/ULTIMATE-PERSONA.md` | Who it's for. The "Pattern-Breaker Who Hires Pattern-Breakers" — defined by mindset, not title. |
+| `docs/Strategy/GO-TO-MARKET.md` | How they find the site. Distribution through work quality, network, community presence. |
 
 These encode principles that override default assumptions:
 - The site is a **permanent home**, not a job search campaign.
@@ -66,16 +66,16 @@ These define how things work and how things get built. They evolve slowly — up
 | Doc | Domain | What It Provides |
 |---|---|---|
 | `docs/Foundation/ARCHITECTURE.md` | All | Full platform architecture, stack, deployment topology, conflict resolution hierarchy |
-| `docs/FENIX-AGENT-SPEC.md` | Fenix | Tool registry (9 tools), system prompt structure, SSE streaming contract, identity enforcement rules |
-| `docs/FENIX-MODULE-ARCHITECTURE.md` | Fenix | Core/adapter decomposition, conversation state machine, panel inventory |
+| `docs/Fenix/FENIX-AGENT-SPEC.md` | Fenix | Tool registry (9 tools), system prompt structure, SSE streaming contract, identity enforcement rules |
+| `docs/Fenix/FENIX-MODULE-ARCHITECTURE.md` | Fenix | Core/adapter decomposition, conversation state machine, panel inventory |
 | `docs/Foundation/BACKEND-STANDARDS.md` | Backend | FastAPI patterns, naming conventions, service layer patterns, error handling |
-| `docs/EXTERNAL-SERVICES-INVENTORY.md` | All | External service integrations (Anthropic, Voyage, Supabase, Cloudflare, Vercel, etc.) |
+| `docs/Foundation/EXTERNAL-SERVICES-INVENTORY.md` | All | External service integrations (Anthropic, Voyage, Supabase, Cloudflare, Vercel, etc.) |
 
 **Governance (rules for building):**
 
 | Doc | Domain | What It Provides |
 |---|---|---|
-| `docs/UNLOCK-STRATEGY.md` | Site/Fenix | Gating architecture — what's free vs. connected, Fenix's concierge role, per-persona unlock design |
+| `docs/Strategy/UNLOCK-STRATEGY.md` | Site/Fenix | Gating architecture — what's free vs. connected, Fenix's concierge role, per-persona unlock design |
 | `docs/Foundation/VISUAL-STANDARDS.md` | Frontend | Design system — colors, typography, components, oklch color space, accessibility |
 | `docs/Foundation/CONTENT-STANDARDS.md` | Content | Voice, editorial rules, per-content-type requirements, SEO/metadata |
 | `docs/Foundation/AUTHENTICITY-STANDARDS.md` | Content/Design | AI fingerprint detection framework, severity tiers, remediation playbook |
@@ -87,30 +87,31 @@ Tactical execution plans. Intensely useful while active, then they become histor
 
 | Doc | Feature | Status | What It Provides |
 |---|---|---|---|
-| `docs/MASTER-PLAN.md` | Everything | Active | Prioritized workstream sequence — Phase A/B/C, dependencies, Kiran's tasks |
-| `docs/PersonaPicker/PERSONA-PLAYBOOK.md` | Persona system | Active (not started) | Post-picker personalization — Track 1 (visual) + Track 2 (functional), 70-86 hrs, 5 phases |
-| `docs/BENTO-CARD-GAMEPLAN.md` | Bento cards | Active | 14 MJ images remaining, mobile/tablet locked, priority tiers for art generation |
-| `docs/FENIX-AI-ROADMAP.md` | Fenix | Active | Phases 2-4 roadmap — booking, live fit score, voice mode |
-| `docs/TR-V5-TRIMMING-GAMEPLAN.md` | Track Record | Active | 5-phase refinement plan (26→14-18 timeline pairs) |
-| `docs/CAREER-INITIATIVES-CC-GAMEPLAN.md` | Command Center | Active | Backend entity for career data, 7-step implementation |
-| `docs/HOMEPAGE-GAMEPLAN.md` | Homepage | Active | Component decisions, track split (Claude/Kiran/Joint) |
-| `docs/Foundation/PLATFORM-MIGRATION.md` | Infrastructure | Nearing done | Migration phases, remaining steps |
+| `docs/Strategy/MASTER-PLAN.md` | Everything | Active | Prioritized workstream sequence — Phase A (done: A1+A2), Phase B/C, dependencies, Kiran's tasks |
+| `docs/PersonaPicker/PERSONA-PLAYBOOK.md` | Persona system | Active (Track 1 done, Track 2 partial) | Post-picker personalization — Track 1 (visual) complete, Track 2 (functional) Tier 1 partial, Tier 2-3 not started |
+| `docs/Website/Homepage/Bento/BENTO-CARD-GAMEPLAN.md` | Bento cards | Active (code done, art pending) | 14 MJ images remaining for desktop persona-specific slots. Mobile/tablet locked. Persona mappings complete. |
+| `docs/Fenix/FENIX-AI-ROADMAP.md` | Fenix | Active (Phase 1 done, Phases 2-4 pending) | Updated April 15. Phase 1 reflects ground truth (10 tools, repo split, built status). Phases 2-4 annotated with persona picker and CC gap system context. |
+| `docs/Career/TR-V5-TRIMMING-GAMEPLAN.md` | Track Record | Archived | Bias framework extracted to `docs/Strategy/TRACK-RECORD-STRATEGY.md`. Original doc retained as historical reference only. |
+| `docs/Strategy/TRACK-RECORD-STRATEGY.md` | Career positioning | Active | Four biases, diagnostic tests, unexecuted strategic ideas. Applies to the-work.html, resume, interviews. |
+| `docs/Career/CAREER-INITIATIVES-CC-GAMEPLAN.md` | Command Center | Active (Steps 1-4 done) | Backend entity built. Data migration, RAG integration, admin UI still pending. |
+| `docs/Website/Homepage/HOMEPAGE-GAMEPLAN.md` | Homepage | Active (~90% done) | Claude Track 18/18 complete. Bento system shipped. Remaining: Kiran content items + visual comparisons. |
+| `docs/Foundation/PLATFORM-MIGRATION.md` | Infrastructure | Active (Phases 0-3 done) | Phases 4-8 remaining. Time estimates undercount actual persona/Fenix work done. |
 
 ### Tier 4: Reference (Look Up When Needed)
 
 Don't pre-load these. Pull them in when a specific question arises.
 
-**Page specs:** `docs/SITE-HOMEPAGE.md`, `docs/INDEX-HOMEPAGE.md`, `docs/SITE-BLOG.md`, `docs/SITE-TEARDOWNS.md`, `docs/SITE-MADLAB.md`, `docs/SITE-STUDIO.md`, `docs/SITE-CAREER.md`, `docs/SITE-SUPPORT.md`
+**Page specs:** `docs/Website/Homepage/SITE-HOMEPAGE.md`, `docs/Website/Homepage/INDEX-HOMEPAGE.md`, `docs/Website/Blog/SITE-BLOG.md`, `docs/Website/Teardowns/SITE-TEARDOWNS.md`, `docs/Website/MadLab/SITE-MADLAB.md`, `docs/Website/Studio/SITE-STUDIO.md`, `docs/Website/Career/SITE-CAREER.md`, `docs/Website/Support/SITE-SUPPORT.md`
 
 **Product specs:** `docs/Fenix/FENIX.md`, `docs/Scannibal/SCANNIBAL.md`, `docs/TheDiaFund/DIA-FUND.md`
 
 **CC module docs:** All CC-*MODULE*.md files in `docs/CommandCenter/`
 
-**Bento MJ prompts:** `docs/BENTO-MONSTER-PROMPT-KIT.md`, `docs/BENTO-MONSTER-PROMPTS-V4.md`, `docs/BENTO-MONSTER-SCENES-V6.md`, `docs/BENTO-RESPONSIVE-AUDIT.md`
+**Bento MJ prompts:** `docs/Website/Homepage/Bento/BENTO-MONSTER-PROMPT-KIT.md`, `docs/Website/Homepage/Bento/BENTO-MONSTER-PROMPTS-V4.md`, `docs/Website/Homepage/Bento/BENTO-MONSTER-SCENES-V6.md`, `docs/Website/Homepage/Bento/BENTO-RESPONSIVE-AUDIT.md`
 
 **Tool guides:** All files in `docs/Foundation/ToolGuides/` (Cloudflare, Vercel, Supabase, GitHub, GA4, Clarity, Search Console, maintenance checklist)
 
-**Continuation prompts:** `docs/TR-V6-CONTINUATION-PROMPT.md`, `docs/PersonaPicker/CONTINUATION-*.md`
+**Continuation prompts:** `docs/Career/TR-V6-CONTINUATION-PROMPT.md`, `docs/PersonaPicker/CONTINUATION-*.md`
 
 **Living operational doc:** `ACTION-TRACKER.md` (updated every session — current workstream status and blockers)
 
@@ -156,13 +157,13 @@ When Kiran says what he's working on, load this specific combination:
 - **Tier 1:** All three identity docs
 - **Tier 2:** UNLOCK-STRATEGY, VISUAL-STANDARDS
 - **Tier 3:** PERSONA-PLAYBOOK, MASTER-PLAN
-- **Tier 4:** docs/PERSONA-PICKER.md, PersonaPicker/CONTINUATION-*.md
+- **Tier 4:** docs/PersonaPicker/PERSONA-PICKER.md, PersonaPicker/CONTINUATION-*.md
 
 ### "Track Record / Career Page"
 - **Tier 1:** All three identity docs
 - **Tier 2:** CONTENT-STANDARDS, AUTHENTICITY-STANDARDS
-- **Tier 3:** TR-V5-TRIMMING-GAMEPLAN, CAREER-INITIATIVES-CC-GAMEPLAN
-- **Tier 4:** TR-V6-CONTINUATION-PROMPT, SITE-CAREER
+- **Tier 3:** TRACK-RECORD-STRATEGY (bias framework), CAREER-INITIATIVES-CC-GAMEPLAN
+- **Tier 4:** TR-V6-CONTINUATION-PROMPT, SITE-CAREER, TR-V5-TRIMMING-GAMEPLAN (archived, historical only)
 
 ### "Resume / Job Prep"
 - **Trigger:** `customize-resume` skill
@@ -372,3 +373,7 @@ If an instruction is ambiguous, ask — don't assume the interpretation that let
 ### 7. Don't optimize for speed. Optimize for precision.
 
 The earlier sessions worked well because changes were deliberate, verified, and aligned. Rushing to push code is not a feature. Getting it right the first time is.
+
+### 8. Disclose data provenance. Always.
+
+When any data is generated from Claude's training knowledge rather than sourced from real-world artifacts (job postings, user input, APIs, files on disk), say so explicitly before it enters any pipeline or system. "This is generated from my training data, not from a real source" — every time, no exceptions. Never populate a pipeline, database, or analysis system with synthetic data without Kiran's informed consent. The cost of this disclosure is one sentence. The cost of omitting it was an entire gap pipeline built on fabricated job descriptions (Session 15, April 2026). This rule exists because that happened.

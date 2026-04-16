@@ -1,0 +1,14 @@
+{
+  "name": "visual-audit",
+  "version": "1.0.0",
+  "description": "Automated visual, accessibility, and design system audit for kiranrao.ai",
+  "scripts": {
+    "test": "node audit.js",
+    "audit": "node audit.js"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@playwright/test": "^1.59.1",
+    "dotenv": "^16.6.1"
+  }
+}
