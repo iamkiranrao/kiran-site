@@ -666,6 +666,14 @@
     if (nameEl) {
       // Check for connected name (persona → person): new core keys first, legacy fallback
       var connectedName = localStorage.getItem('fenix_name') || localStorage.getItem('evaluator_name') || localStorage.getItem('connect_name');
+      // Validate: require at least first + last name (two distinct words)
+      // Prevents partial/test names like "Test" from replacing the persona label
+      if (connectedName) {
+        var parts = connectedName.trim().split(/\s+/);
+        if (parts.length < 2 || parts[0].toLowerCase() === parts[1].toLowerCase()) {
+          connectedName = null; // fail validation → use persona name
+        }
+      }
       nameEl.textContent = connectedName || config.name;
     }
   }

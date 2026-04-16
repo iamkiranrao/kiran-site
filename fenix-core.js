@@ -136,7 +136,19 @@
   (function restoreConnectedState() {
     try {
       if (localStorage.getItem('fenix_connected') === 'true') {
-        fenixState.visitor.name = localStorage.getItem('fenix_name') || null;
+        var storedName = localStorage.getItem('fenix_name') || '';
+        // Validate: require first + last name (two distinct words)
+        // Cleans up stale single-name entries from before validation existed
+        var parts = storedName.trim().split(/\s+/);
+        if (parts.length < 2 || parts[0].toLowerCase() === (parts[1] || '').toLowerCase()) {
+          // Invalid name — wipe connected state entirely
+          localStorage.removeItem('fenix_connected');
+          localStorage.removeItem('fenix_name');
+          localStorage.removeItem('fenix_company');
+          localStorage.removeItem('fenix_email');
+          return;
+        }
+        fenixState.visitor.name = storedName;
         fenixState.visitor.company = localStorage.getItem('fenix_company') || null;
         fenixState.visitor.email = localStorage.getItem('fenix_email') || null;
         fenixState.visitor.connected = true;
