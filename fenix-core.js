@@ -592,6 +592,10 @@
       lastName = parts.slice(1).join(' ') || '';
     }
     var name = (firstName + (lastName ? ' ' + lastName : '')).trim();
+    // Capitalize first letter of each name part (e.g. "kiran rao" → "Kiran Rao")
+    name = name.split(' ').map(function (w) {
+      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    }).join(' ');
     if (!firstName) return { success: false, reason: 'First name is required' };
     if (!lastName) return { success: false, reason: 'Last name is required' };
     if (firstName.toLowerCase() === lastName.toLowerCase()) return { success: false, reason: 'First and last name cannot be the same' };
