@@ -125,51 +125,13 @@
             line-height: 1.6;
         }
 
-        /* Prompt selector */
-        .prompt-selector {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        .prompt-selector label.prompt-label {
-            font-size: 0.85rem;
-            color: var(--text-secondary, #999);
+        /* Testimonial question prompt */
+        .testimonial-question {
+            font-size: 1.05rem;
             font-weight: 500;
-        }
-        .prompt-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .prompt-option {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.6rem;
-            padding: 0.6rem 0.9rem;
-            background: var(--card-bg, rgba(255,255,255,0.03));
-            border: 1px solid var(--border-color, rgba(255,255,255,0.08));
-            border-radius: 8px;
-            cursor: pointer;
-            transition: border-color 0.2s, background 0.2s;
-            font-size: 0.88rem;
             color: var(--text-primary, #e0e0e0);
-            line-height: 1.4;
-        }
-        .prompt-option:hover {
-            border-color: rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.05);
-        }
-        .prompt-option.selected {
-            border-color: var(--accent, #C9A87C);
-            background: rgba(201, 168, 124, 0.08);
-        }
-        .prompt-option input[type="radio"] {
-            accent-color: var(--accent, #C9A87C);
-            margin: 0;
-            margin-top: 0.2rem;
-            flex-shrink: 0;
-            width: auto;
+            line-height: 1.5;
+            margin-bottom: 0.25rem;
         }
 
         /* Shared form styles */
@@ -391,18 +353,8 @@
         [data-theme="light"] .testimonials-loading {
             color: var(--text-secondary, #666);
         }
-        [data-theme="light"] .prompt-option {
-            background: rgba(0,0,0,0.02);
-            border-color: rgba(0,0,0,0.08);
+        [data-theme="light"] .testimonial-question {
             color: var(--text-primary, #1a1a1a);
-        }
-        [data-theme="light"] .prompt-option:hover {
-            border-color: rgba(0,0,0,0.2);
-            background: rgba(0,0,0,0.04);
-        }
-        [data-theme="light"] .prompt-option.selected {
-            border-color: var(--accent, #C9A87C);
-            background: rgba(201, 168, 124, 0.08);
         }
         [data-theme="light"] .t-form input:not([type="radio"]):not([type="checkbox"]),
         [data-theme="light"] .t-form textarea,
@@ -510,9 +462,9 @@
 
         <!-- ═══ TESTIMONIAL SUBMISSION FORM ═══ -->
         <section class="testimonial-form-section">
-            <h2>Worked with Kiran?</h2>
+            <h2>Know Kiran?</h2>
             <p class="form-subtitle">
-                If you've collaborated with Kiran, managed him, reported to him, or partnered with him on something &mdash; he'd value your perspective. Pick a prompt below or write freely.
+                If you've worked with him, collaborated with him, or just know him well &mdash; he'd value hearing it in your words.
             </p>
 
             <form id="testimonial-form" class="t-form">
@@ -521,29 +473,9 @@
                     <input type="text" name="role" placeholder="Role / company (optional)">
                 </div>
 
-                <div class="prompt-selector">
-                    <label class="prompt-label">What would you like to share?</label>
-                    <div class="prompt-options" id="prompt-options">
-                        <label class="prompt-option">
-                            <input type="radio" name="prompt" value="colleague">
-                            What would you tell someone considering working with Kiran?
-                        </label>
-                        <label class="prompt-option">
-                            <input type="radio" name="prompt" value="stuck">
-                            Describe a time Kiran helped you get unstuck or changed how you thought about a problem.
-                        </label>
-                        <label class="prompt-option">
-                            <input type="radio" name="prompt" value="different">
-                            What does Kiran do differently than most people in his role?
-                        </label>
-                        <label class="prompt-option">
-                            <input type="radio" name="prompt" value="freeform" checked>
-                            I'll write my own.
-                        </label>
-                    </div>
-                </div>
+                <p class="testimonial-question">How would you describe Kiran to someone who's never met him?</p>
 
-                <textarea name="testimonial" id="testimonial-textarea" placeholder="Take your time. The best testimonials are specific &mdash; a project, a moment, a way of working that stuck with you." required minlength="30"></textarea>
+                <textarea name="testimonial" id="testimonial-textarea" placeholder="A project you worked on together, how he handles the hard moments, what makes him different &mdash; whatever comes to mind." required minlength="30"></textarea>
 
                 <div class="consent-row">
                     <input type="checkbox" name="is_public" id="is-public" checked>
@@ -552,7 +484,7 @@
                     </label>
                 </div>
 
-                <button type="submit" class="form-submit">Submit Testimonial</button>
+                <button type="submit" class="form-submit">Submit</button>
                 <div id="testimonial-success" class="form-success">
                     Thank you. This means a lot. Kiran will review it and, if you opted in, it'll appear on this page.
                 </div>
@@ -647,27 +579,6 @@
                     container.innerHTML = 'Testimonials will appear here once they\'re available.';
                 });
         }
-
-        // ── Prompt Selection ────────────────────────────────────
-        var promptOptions = document.querySelectorAll('.prompt-option');
-        var textarea = document.getElementById('testimonial-textarea');
-
-        var promptPlaceholders = {
-            colleague: 'What would you tell them? Be specific \u2014 a project, a trait, a moment that captures what it\'s like to work with Kiran.',
-            stuck: 'What was the situation? What did Kiran do? What changed as a result?',
-            different: 'Think about a specific example. What did Kiran do that surprised you or that you wouldn\'t have expected?',
-            freeform: 'Take your time. The best testimonials are specific \u2014 a project, a moment, a way of working that stuck with you.'
-        };
-
-        promptOptions.forEach(function (option) {
-            option.addEventListener('click', function () {
-                promptOptions.forEach(function (o) { o.classList.remove('selected'); });
-                option.classList.add('selected');
-                var radio = option.querySelector('input[type="radio"]');
-                radio.checked = true;
-                textarea.placeholder = promptPlaceholders[radio.value] || promptPlaceholders.freeform;
-            });
-        });
 
         // ── Testimonial Form Submission ─────────────────────────
         var tForm = document.getElementById('testimonial-form');
