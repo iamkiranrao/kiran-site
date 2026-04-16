@@ -37,7 +37,7 @@ from services.evidence_service import (
     get_item_detail, upsert_item_detail, delete_item_detail,
     # Gap items
     list_gap_items, get_gap_item, create_gap_item, update_gap_item,
-    delete_gap_item, gap_stats,
+    delete_gap_item, gap_stats, create_vault_entry_from_gap,
     # Manifest
     generate_manifest, get_stats,
 )
@@ -311,12 +311,33 @@ async def gap_item_update(item_id: str, body: GapItemUpdate):
         raise HTTPException(404, str(e))
 
 
+@router.post("/gap-items/{item_id}/create-vault-entry")
+async def gap_create_vault_entry(item_id: str):
+    """Auto-create a vault source entry when a gap is closed with built-proof/certified/reframed."""
+    try:
+        return create_vault_entry_from_gap(item_id)
+    except NotFoundError as e:
+        raise HTTPException(404, str(e))
+
+
 @router.delete("/gap-items/{item_id}")
 async def gap_item_delete(item_id: str):
     try:
         return delete_gap_item(item_id)
     except NotFoundError as e:
         raise HTTPException(404, str(e))
+
+
+# ── RAG Embedding Push ──────────────────────────────────────
+
+@router.post("/sources/{source_id}/embed", response_model=dict)
+async def embed_source(source_id: str):
+    """Push a vault source + its details into RAG embeddings for Fenix retrieval."""
+    try:
+        from services.evidence_embedding_service import embed_evidence_source
+        return embed_evidence_source(source_id)
+    except Exception as e:
+        raise HTTPException(500, f"Embedding failed: {str(e)}")
 
 
 # ── Publish ──────────────────────────────────────────────────

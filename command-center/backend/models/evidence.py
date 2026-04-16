@@ -139,6 +139,24 @@ class GapItemCreate(BaseModel):
     portfolio_value: Optional[str] = None
     tags: List[str] = Field(default_factory=list)
     sort_order: int = Field(default=0)
+    # Gap Coverage fields (Phase 2)
+    discovered_from: str = Field(default="manual", pattern=r"^(manual|jd-scan|resume-analysis|fenix-training)$")
+    source_jd_company: Optional[str] = None
+    source_jd_role: Optional[str] = None
+    requirement_frequency: int = Field(default=1, ge=1)
+    closed_by_initiative_id: Optional[str] = None
+    fill_tier: Optional[str] = Field(None, pattern=r"^(articulate|build-proof|certify|true-gap)$")
+    fill_action: Optional[str] = None
+    fill_time_estimate: Optional[str] = None
+    fill_output: Optional[str] = None
+    resolution_type: Optional[str] = Field(None, pattern=r"^(have-it|reframed|built-proof|certified|not-pursuing|not-a-gap)$")
+    resolution_note: Optional[str] = Field(None, max_length=500)
+    # Lens fields
+    seniority_level: Optional[str] = Field(None, pattern=r"^(ic|manager|director|vp-plus)$")
+    role_focus: Optional[str] = Field(None, pattern=r"^(ai-ml|growth|consumer|platform|enterprise|infrastructure)$")
+    # Interview prep
+    interview_questions: List[dict] = Field(default_factory=list)
+    prepared_answers: List[dict] = Field(default_factory=list)
 
 
 class GapItemUpdate(BaseModel):
@@ -160,3 +178,21 @@ class GapItemUpdate(BaseModel):
     portfolio_value: Optional[str] = None
     tags: Optional[List[str]] = None
     sort_order: Optional[int] = None
+    # Gap Coverage fields (Phase 2)
+    discovered_from: Optional[str] = Field(None, pattern=r"^(manual|jd-scan|resume-analysis|fenix-training)$")
+    source_jd_company: Optional[str] = None
+    source_jd_role: Optional[str] = None
+    requirement_frequency: Optional[int] = Field(None, ge=1)
+    closed_by_initiative_id: Optional[str] = None
+    fill_tier: Optional[str] = Field(None, pattern=r"^(articulate|build-proof|certify|true-gap)$")
+    fill_action: Optional[str] = None
+    fill_time_estimate: Optional[str] = None
+    fill_output: Optional[str] = None
+    resolution_type: Optional[str] = Field(None, pattern=r"^(have-it|reframed|built-proof|certified|not-pursuing|not-a-gap)$")
+    resolution_note: Optional[str] = Field(None, max_length=500)
+    # Lens fields
+    seniority_level: Optional[str] = Field(None, pattern=r"^(ic|manager|director|vp-plus)$")
+    role_focus: Optional[str] = Field(None, pattern=r"^(ai-ml|growth|consumer|platform|enterprise|infrastructure)$")
+    # Interview prep
+    interview_questions: Optional[List[dict]] = None
+    prepared_answers: Optional[List[dict]] = None

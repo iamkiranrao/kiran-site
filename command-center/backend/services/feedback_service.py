@@ -210,6 +210,21 @@ def update_testimonial_status(testimonial_id: str, status: str) -> dict:
     return {"success": True}
 
 
+def list_public_testimonials(limit: int = 50) -> dict:
+    """Return approved public testimonials for the website display wall."""
+    sb = _get_client()
+    result = (
+        sb.table("testimonials")
+        .select("name, role, testimonial, created_at")
+        .eq("status", "approved")
+        .eq("is_public", True)
+        .order("created_at", desc=True)
+        .limit(limit)
+        .execute()
+    )
+    return {"testimonials": result.data}
+
+
 def delete_testimonial(testimonial_id: str) -> dict:
     """Delete a testimonial."""
     sb = _get_client()

@@ -70,6 +70,10 @@ class InitiativeCreate(BaseModel):
     public: bool = True
     fenix_indexed: bool = True
 
+    # Gap Coverage linkage (Phase 3)
+    closed_gap_id: Optional[str] = None              # Links back to Mind the Gap item this initiative closed
+    requirement_coverage: List[str] = []             # Requirement patterns this initiative demonstrates
+
 
 class InitiativeUpdate(BaseModel):
     title: Optional[str] = None
@@ -92,3 +96,6 @@ class InitiativeUpdate(BaseModel):
     public: Optional[bool] = None
     fenix_indexed: Optional[bool] = None
     notes: Optional[str] = None
+    # Gap Coverage linkage (Phase 3)
+    closed_gap_id: Optional[str] = None
+    requirement_coverage: Optional[List[str]] = None

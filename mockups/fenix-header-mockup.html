@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fenix Chat Header — Before / After Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a0a;
+      color: #f0e6d3;
+      font-family: 'Inter', sans-serif;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #a08868;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .comparison {
+      display: flex;
+      gap: 3rem;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .version {
+      flex: 1;
+      min-width: 360px;
+      max-width: 440px;
+    }
+
+    .version-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #5a5347;
+      margin-bottom: 1rem;
+      padding-left: 0.25rem;
+    }
+    .version-label.proposed { color: #7B9ACC; }
+
+    /* ════════════════════════════════════════
+       SHARED CHAT FRAME
+       ════════════════════════════════════════ */
+    .chat-frame {
+      border: 1px solid #222;
+      border-radius: 12px;
+      background: #141414;
+      overflow: hidden;
+    }
+
+    /* ════════════════════════════════════════
+       CURRENT (BEFORE)
+       ════════════════════════════════════════ */
+    .current .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid #222;
+      background: rgba(20, 20, 20, 0.5);
+    }
+
+    .current .chat-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(123, 154, 204, 0.3);
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(123, 154, 204, 0.15);
+      animation: breathCurrent 4s ease-in-out infinite;
+      background: #1a1a2e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .current .chat-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @keyframes breathCurrent {
+      0%, 100% { box-shadow: 0 0 12px rgba(123, 154, 204, 0.15), 0 0 24px rgba(123, 154, 204, 0.08); }
+      50% { box-shadow: 0 0 18px rgba(123, 154, 204, 0.25), 0 0 36px rgba(123, 154, 204, 0.08); }
+    }
+
+    .current .header-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .current .header-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: #f0e6d3;
+    }
+
+    .current .header-sub {
+      font-size: 0.85rem;
+      color: #7B9ACC;
+      font-style: italic;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ════════════════════════════════════════
+       PROPOSED (AFTER)
+       ════════════════════════════════════════ */
+    .proposed .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.25rem 1.15rem;
+      border-bottom: none;
+      background: rgba(20, 20, 20, 0.5);
+      position: relative;
+    }
+
+    /* Accent gradient line under header */
+    .proposed .chat-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 1.25rem;
+      right: 1.25rem;
+      height: 1.5px;
+      background: linear-gradient(
+        90deg,
+        rgba(123, 154, 204, 0.5) 0%,
+        rgba(123, 154, 204, 0.15) 60%,
+        transparent 100%
+      );
+    }
+
+    .proposed .chat-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(123, 154, 204, 0.35);
+      flex-shrink: 0;
+      box-shadow: 0 0 18px rgba(123, 154, 204, 0.2), 0 0 36px rgba(123, 154, 204, 0.08);
+      animation: breathProposed 4s ease-in-out infinite;
+      background: #1a1a2e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .proposed .chat-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @keyframes breathProposed {
+      0%, 100% { box-shadow: 0 0 18px rgba(123, 154, 204, 0.2), 0 0 36px rgba(123, 154, 204, 0.08); }
+      50% { box-shadow: 0 0 24px rgba(123, 154, 204, 0.35), 0 0 48px rgba(123, 154, 204, 0.12); }
+    }
+
+    .proposed .header-info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .proposed .header-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #f0e6d3;
+      letter-spacing: 0.02em;
+    }
+
+    /* Status dot — universal color language */
+    .proposed .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Green — Ready (default) */
+    .proposed .status-dot.ready {
+      background: rgba(74, 190, 120, 0.85);
+      animation: statusPulseGreen 2.5s ease-in-out infinite;
+    }
+
+    @keyframes statusPulseGreen {
+      0%, 100% {
+        background: rgba(74, 190, 120, 0.85);
+        box-shadow: 0 0 4px rgba(74, 190, 120, 0.4);
+      }
+      50% {
+        background: rgba(74, 190, 120, 0.4);
+        box-shadow: 0 0 8px rgba(74, 190, 120, 0.2);
+      }
+    }
+
+    /* Yellow — Thinking */
+    .proposed .status-dot.thinking {
+      background: rgba(214, 180, 76, 0.85);
+      animation: statusPulseYellow 1.2s ease-in-out infinite;
+    }
+
+    @keyframes statusPulseYellow {
+      0%, 100% {
+        background: rgba(214, 180, 76, 0.85);
+        box-shadow: 0 0 4px rgba(214, 180, 76, 0.4);
+      }
+      50% {
+        background: rgba(214, 180, 76, 0.4);
+        box-shadow: 0 0 8px rgba(214, 180, 76, 0.2);
+      }
+    }
+
+    /* Red — Error / disconnected */
+    .proposed .status-dot.error {
+      background: rgba(204, 88, 88, 0.85);
+      box-shadow: 0 0 4px rgba(204, 88, 88, 0.3);
+      animation: none;
+    }
+
+    /* ════════════════════════════════════════
+       SHARED CHAT BODY (for context)
+       ════════════════════════════════════════ */
+    .chat-body {
+      padding: 1rem 1.25rem;
+      min-height: 120px;
+    }
+
+    .msg {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+
+    .msg-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid rgba(123, 154, 204, 0.3);
+      flex-shrink: 0;
+      margin-top: 2px;
+      background: #1a1a2e;
+      overflow: hidden;
+    }
+    .msg-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .msg-content {
+      background: rgba(123, 154, 204, 0.06);
+      border: 1px solid rgba(123, 154, 204, 0.12);
+      border-radius: 0 10px 10px 10px;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: #c8bba8;
+      max-width: 90%;
+    }
+
+    /* Pills */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem 1rem;
+      border-top: 1px solid #222;
+    }
+
+    .pill {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      padding: 0.45rem 0.85rem;
+      border: 1px solid rgba(123, 154, 204, 0.25);
+      border-radius: 20px;
+      background: rgba(123, 154, 204, 0.06);
+      color: #c8bba8;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .pill:hover {
+      border-color: rgba(123, 154, 204, 0.5);
+      background: rgba(123, 154, 204, 0.12);
+      color: #f0e6d3;
+    }
+
+    /* ════════════════════════════════════════
+       ANNOTATIONS
+       ════════════════════════════════════════ */
+    .annotations {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid rgba(123, 154, 204, 0.15);
+      border-radius: 8px;
+      background: rgba(123, 154, 204, 0.03);
+    }
+
+    .annotations h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #7B9ACC;
+      margin-bottom: 0.75rem;
+    }
+
+    .annotation-item {
+      font-size: 0.8rem;
+      color: #a08868;
+      line-height: 1.6;
+      margin-bottom: 0.35rem;
+    }
+    .annotation-item strong {
+      color: #c8bba8;
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .comparison { flex-direction: column; align-items: center; }
+      .version { min-width: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Fenix Chat Header — Before / After</h1>
+
+  <div class="comparison">
+
+    <!-- ── CURRENT ── -->
+    <div class="version current">
+      <div class="version-label">Current</div>
+      <div class="chat-frame">
+        <div class="chat-header">
+          <div class="chat-avatar"><img src="../images/logo.png" alt="Fenix" onerror="this.parentElement.innerHTML='&#x1F525;'"></div>
+          <div class="header-info">
+            <span class="header-name">Fenix</span>
+            <span class="header-sub">I know Kiran's work better than his resume does.</span>
+          </div>
+        </div>
+        <div class="chat-body">
+          <div class="msg">
+            <div class="msg-avatar"><img src="../images/logo.png" alt="Fenix" onerror="this.parentElement.innerHTML='&#x1F525;'"></div>
+            <div class="msg-content">Hey — welcome. I'm Fenix, Kiran's AI. I'm here to help you get the most out of this site — whether that's exploring his work, figuring out fit, or just asking whatever's on your mind.</div>
+          </div>
+        </div>
+        <div class="pills">
+          <span class="pill">Show me resume options</span>
+          <span class="pill">What should I be asking?</span>
+          <span class="pill">Give me a quick tour</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROPOSED ── -->
+    <div class="version proposed">
+      <div class="version-label proposed">Proposed</div>
+      <div class="chat-frame">
+        <div class="chat-header">
+          <div class="chat-avatar"><img src="../images/logo.png" alt="Fenix" onerror="this.parentElement.innerHTML='&#x1F525;'"></div>
+          <div class="header-info">
+            <span class="header-name">Fenix</span>
+            <span class="status-dot ready" title="Ready"></span>
+          </div>
+        </div>
+        <div class="chat-body">
+          <div class="msg">
+            <div class="msg-avatar"><img src="../images/logo.png" alt="Fenix" onerror="this.parentElement.innerHTML='&#x1F525;'"></div>
+            <div class="msg-content">Hey — welcome. I'm Fenix, Kiran's AI. I'm here to help you get the most out of this site — whether that's exploring his work, figuring out fit, or just asking whatever's on your mind.</div>
+          </div>
+        </div>
+        <div class="pills">
+          <span class="pill">Show me resume options</span>
+          <span class="pill">What should I be asking?</span>
+          <span class="pill">Give me a quick tour</span>
+        </div>
+      </div>
+
+      <!-- Status dot states demo -->
+      <div class="annotations" style="margin-top: 1.5rem; margin-bottom: 0;">
+        <h3>Status Dot States</h3>
+        <div style="display: flex; gap: 2rem; align-items: center; margin-top: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="status-dot ready"></span>
+            <span style="font-size: 0.78rem; color: #c8bba8;">Ready</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="status-dot thinking"></span>
+            <span style="font-size: 0.78rem; color: #c8bba8;">Thinking</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="status-dot error"></span>
+            <span style="font-size: 0.78rem; color: #c8bba8;">Error</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="annotations">
+        <h3>What changed</h3>
+        <div class="annotation-item"><strong>Font:</strong> Playfair Display 1.05rem → Space Grotesk 1.4rem / weight 500</div>
+        <div class="annotation-item"><strong>Avatar:</strong> 36px → 48px, border opacity 0.3 → 0.35</div>
+        <div class="annotation-item"><strong>Glow:</strong> 12px/24px → 18px/36px rest, 24px/48px peak</div>
+        <div class="annotation-item"><strong>Padding:</strong> 0.85rem → 1.25rem vertical</div>
+        <div class="annotation-item"><strong>Gap:</strong> 0.75rem → 1rem between avatar and text</div>
+        <div class="annotation-item"><strong>Divider:</strong> Solid 1px border → gradient accent line (steel blue fade)</div>
+        <div class="annotation-item"><strong>Subtitle:</strong> Removed entirely</div>
+        <div class="annotation-item"><strong>Status dot:</strong> 7px dot next to name — green (ready, 2.5s pulse), yellow (thinking, 1.2s pulse), red (error, static)</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

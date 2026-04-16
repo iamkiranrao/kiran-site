@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Section — Before/After</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #111;
+            color: #f0e6d3;
+            font-family: 'Inter', -apple-system, sans-serif;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #7a7068;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #7B9ACC;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .panel {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .panel-label {
+            position: absolute;
+            top: 12px;
+            left: 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #7a7068;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .panel-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #7B9ACC;
+        }
+
+        .recommended {
+            border-color: #7B9ACC;
+            box-shadow: 0 0 0 1px #7B9ACC;
+        }
+
+        /* ── Welcome Section Mock ── */
+        .welcome-mock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+        }
+
+        /* Fake hero bottom edge */
+        .hero-edge {
+            width: 100%;
+            height: 48px;
+            background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
+            border-bottom: 1px solid #222;
+        }
+
+        .welcome-heading {
+            font-family: 'Playfair Display', serif;
+            color: #f0e6d3;
+            margin-bottom: 1.25rem;
+            line-height: 1.2;
+        }
+
+        .welcome-heading em {
+            color: #7B9ACC;
+        }
+
+        .welcome-reframe {
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .welcome-invite {
+            font-size: 0.95rem;
+            color: #b8b0a3;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .welcome-invite strong {
+            color: #7B9ACC;
+            font-weight: 600;
+        }
+
+        /* ── Before-specific ── */
+        .before .welcome-heading {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 400;
+        }
+
+        .before .welcome-heading em {
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .before .welcome-reframe {
+            font-size: 1.05rem;
+            color: #f0e6d3;
+            max-width: 720px;
+        }
+
+        .before .welcome-invite {
+            max-width: 720px;
+        }
+
+        /* ── After-specific ── */
+        .after .welcome-heading {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 400;
+        }
+
+        .after .welcome-heading em {
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .after .welcome-reframe {
+            font-size: 1.05rem;
+            color: #f0e6d3;
+            max-width: 600px;
+        }
+
+        .after .welcome-invite {
+            max-width: 600px;
+        }
+
+        /* ── Annotation callouts ── */
+        .callout {
+            position: absolute;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #cb5c72;
+            background: rgba(203, 92, 114, 0.1);
+            border: 1px solid rgba(203, 92, 114, 0.3);
+            padding: 3px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        .callout-fix {
+            color: #4a9;
+            background: rgba(68, 170, 153, 0.1);
+            border-color: rgba(68, 170, 153, 0.3);
+        }
+
+        /* ── Changes Box ── */
+        .changes {
+            font-size: 0.85rem;
+            color: #b8b0a3;
+            padding: 1rem 1.25rem;
+            background: #1a1a1a;
+            border-radius: 8px;
+            border-left: 3px solid #7B9ACC;
+            line-height: 1.6;
+        }
+
+        .changes strong {
+            color: #7B9ACC;
+        }
+
+        .change-item {
+            margin-bottom: 0.4rem;
+        }
+
+        .change-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .tag-problem {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #cb5c72;
+            background: rgba(203, 92, 114, 0.15);
+            padding: 1px 6px;
+            border-radius: 3px;
+            margin-right: 0.25rem;
+        }
+
+        .tag-fix {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #4a9;
+            background: rgba(68, 170, 153, 0.15);
+            padding: 1px 6px;
+            border-radius: 3px;
+            margin-right: 0.25rem;
+        }
+
+        /* ── Orphan highlight ── */
+        .orphan {
+            background: rgba(203, 92, 114, 0.2);
+            border-radius: 3px;
+            padding: 0 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome Section — Before / After</h1>
+    <p class="subtitle">Fixing em weight, line orphan, and text width balance</p>
+
+    <div class="section-title">Welcome Message</div>
+
+    <div class="comparison">
+        <!-- BEFORE (current) -->
+        <div class="panel">
+            <div class="panel-label">Before (Current)</div>
+            <div class="hero-edge"></div>
+            <div class="welcome-mock before" style="position: relative;">
+                <div class="welcome-heading">Welcome, <em>The Evaluator</em></div>
+                <p class="welcome-reframe">This isn't a portfolio — it's a product Kiran built. Everything below is shaped by how you chose to explore it.</p>
+                <p class="welcome-invite">Here's what we've put together for you — and <strong>Fenix</strong> is here to help you navigate <span class="orphan">it.</span></p>
+
+                <!-- Annotations -->
+                <div class="callout" style="top: 8px; right: 16px;">em weight: 500 — too heavy at this scale</div>
+                <div class="callout" style="bottom: 12px; right: 16px;">orphan "it." on its own line</div>
+            </div>
+        </div>
+
+        <!-- AFTER -->
+        <div class="panel recommended">
+            <div class="panel-label">After</div>
+            <div class="hero-edge"></div>
+            <div class="welcome-mock after" style="position: relative;">
+                <div class="welcome-heading">Welcome, <em>The Evaluator</em></div>
+                <p class="welcome-reframe">This isn't a portfolio — it's a product Kiran built. Everything below is shaped by how you chose to explore it.</p>
+                <p class="welcome-invite">Here's what we've put together for you — and <strong>Fenix</strong> is here to help you navigate it.</p>
+
+                <!-- Annotations -->
+                <div class="callout callout-fix" style="top: 8px; right: 16px;">em weight: 400 — elegant, not competing</div>
+                <div class="callout callout-fix" style="bottom: 12px; right: 16px;">narrower max-width — no orphan</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="changes">
+        <strong>Key changes:</strong><br>
+        <div class="change-item"><span class="tag-problem">problem</span> Italic "The Evaluator" at weight 500 is too heavy at clamp(2.2–3.2rem) — competes with "Welcome,"</div>
+        <div class="change-item"><span class="tag-fix">fix</span> Drop .fenix-context-name back to font-weight: 400. Playfair italic is naturally distinctive enough.</div>
+        <div class="change-item"><span class="tag-problem">problem</span> Invite text wraps so "it." orphans on a third line at 720px max-width</div>
+        <div class="change-item"><span class="tag-fix">fix</span> Tighten reframe + invite max-width from 720px to 600px. Both lines wrap more evenly, no orphan, and the text block feels more centered under the heading.</div>
+    </div>
+
+</body>
+</html>

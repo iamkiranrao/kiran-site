@@ -34,6 +34,26 @@
     --transition-slow: 500ms;
   }
 
+  [data-theme="light"] {
+    --bg-primary: #f5f3f0;
+    --bg-card: #ffffff;
+    --bg-card-hover: #fafafa;
+    --bg-surface: #f0ede8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #888888;
+    --border: #e0e0e0;
+    --border-light: #ebebeb;
+    --accent: #5a7ba8;
+    --accent-glow: rgba(90, 123, 168, 0.10);
+    --accent-border: rgba(90, 123, 168, 0.25);
+    --accent-border-hover: rgba(90, 123, 168, 0.4);
+    --green: #3d8a6e;
+    --green-border: rgba(61, 138, 110, 0.25);
+    --gold: #9a7d2e;
+    --gold-border: rgba(154, 125, 46, 0.25);
+  }
+
   body {
     background: var(--bg-primary);
     color: var(--text-primary);
@@ -860,6 +880,33 @@
   <script src="fenix-adapters/content-adapter.js?v=20260413"></script>
 
   <!-- ════════════════════════════════════
+       THEME TOGGLE
+       ════════════════════════════════════ -->
+  <script>
+    (function() {
+      var toggle = document.querySelector('.fn-theme-toggle');
+      if (!toggle) return;
+
+      // Restore saved theme
+      var saved = localStorage.getItem('fenix_theme');
+      if (saved === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+
+      toggle.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'dark') {
+          document.documentElement.removeAttribute('data-theme');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+        try { localStorage.setItem('fenix_theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+
+  <!-- ════════════════════════════════════
        FIT NARRATIVE LOGIC
        ════════════════════════════════════ -->
   <script>
@@ -1184,6 +1231,8 @@
     function finishNarrative() {
       var contentDiv = document.getElementById('fn-content');
       if (!contentDiv) return;
+      // Guard against double-call (backend sends complete event + reader.done both trigger this)
+      if (contentDiv.querySelector('.fn-actions')) return;
 
       updateProgressBar(100);
 

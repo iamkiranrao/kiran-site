@@ -176,7 +176,7 @@
     learning:     'skills.html',
     now:          'now.html',
     underhood:    'under-the-hood.html',
-    testimonials: null
+    testimonials: 'testimonials.html'
   };
 
   /* ══════════════════════════════════════════════════

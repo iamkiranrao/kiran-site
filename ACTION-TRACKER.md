@@ -1,7 +1,7 @@
 # ACTION TRACKER
-**Last synced:** Sessions 9-10 (Fit Narrative V2 Build) — April 13, 2026
-**Total open items:** 228 (+3 new from Sessions 9-10)
-**Status:** Fit Narrative V2 backend complete, frontend card-based experience built (Phases 2-4); scorecard→narrative migration verified clean; 3 new workstream items tracked
+**Last synced:** Session 15 (Synthetic Data Crisis + Nuclear Reset) — April 15, 2026
+**Total open items:** 240 (+5 from Session 15)
+**Status:** Gap pipeline INVALIDATED — all data was synthetic (Claude-generated JDs, not real postings). Nuclear reset built. Manual JD feed flow ready. Pipeline awaits real JDs from Kiran. Build Process gate enforcement re-established as non-negotiable.
 
 ---
 
@@ -454,6 +454,35 @@ Items are extracted verbatim from source docs with status: 🔴 BLOCKED, 🟡 TO
 | 242 | 🟡 Fit Narrative V2 — Share link (snapshot storage) | TODO | Future | NO | Requires Supabase table + permalink route. Deferred from Phase 3. |
 | 243 | 🟡 Fit Narrative V2 — Responsive tuning at panel width | TODO | Next session | NO | Evaluator panel is ~400px. Cards may need tighter padding. Needs Kiran in-browser testing. |
 | 244 | 🟡 Fit Narrative V2 — UAT with real JDs | TODO | Next session | NO | Test with Credit Karma, Anthropic, Stripe, non-tech PM role. Verify initiative selection and verdict quality. |
+
+### Session 10b: Gap Coverage System (April 13, 2026)
+| # | Action | Status | Timeline | Blocker | Notes |
+|---|--------|--------|----------|---------|-------|
+| 245 | 🟡 Build Vault View — own CC page with CRUD + coverage map | TODO | Phase 1 (1-2 sessions) | NO | Card grid, filter sidebar (domain/company/era), expand to full detail, coverage map header. Steps 1-4 from CAREER-INITIATIVES-CC-GAMEPLAN.md. |
+| 246 | 🟡 Build Gap Discovery Engine — requirement extraction + coverage mapping + classification | TODO | Phase 2 (2-3 sessions) | YES — needs vault API | New CC backend module. Takes JD, extracts requirements, maps against vault, classifies with 4-tier fill strategy. Auto-pushes gaps to Mind the Gap. |
+| 247 | 🟡 Connect Resume Pipeline to Mind the Gap | TODO | Phase 3 (1 session) | YES — needs gap engine | Feed resume gap output into gap tracking with source=resume-analysis. Resume customizer reads initiatives.json for richer bullets. |
+| 248 | 🟡 Run Mind the Gap schema migration (discovered_from, fill strategy fields) | TODO | Before Phase 2 | NO | SQL in GAP-COVERAGE-SYSTEM-SPEC.md. Adds: discovered_from, source_jd_company/role, requirement_frequency, closed_by_initiative_id, fill_tier/action/time/output. |
+| 249 | 🟡 Merge Product Guides into Knowledge Library | TODO | Low priority | NO | Absorb as "Guides" category filter in KL. Preserve YAML metadata. Remove sidebar nav item. |
+| 250 | 🟡 Commit Fit Narrative V2 Phase 1 backend rewrite | TODO | Next session | NO | fit_score.py rewrite is on disk, not git committed. |
+| 251 | 🟡 GAP-COVERAGE-SYSTEM-SPEC.md — new unified spec created | Reference | — | NO | Ties together Vault, Mind the Gap, Gap Discovery Engine, Resume Pipeline. Build sequence, schema changes, success criteria defined. |
+
+### Session 11: Fit Narrative V2 Polish + Verification (April 13, 2026)
+| # | Action | Status | Timeline | Blocker | Notes |
+|---|--------|--------|----------|---------|-------|
+| 252 | ✅ Dead CSS cleanup — evaluator-styles.css | DONE | Apr 13 | NO | Removed 7 dead rule blocks: .ev-fit-processing, .ev-fenix-avatar.ev-pulse, .ev-fit-narration (incl. light override), .ev-narration-line, .ev-error-message, .ev-fit-narration scrollbar styles, dead mobile responsive rules (ev-cutting-floor__grid, ev-evidence-card__*, ev-share-actions, ev-follow-ups). Rendering moved to fit-narrative.html. |
+| 253 | ✅ Light theme support — fit-narrative.html | DONE | Apr 13 | NO | Added [data-theme="light"] CSS variable overrides for all 15 vars. Wired theme toggle button with localStorage persistence (fenix_theme key). |
+| 254 | ✅ Migration verification — all 5 entry points | DONE | Apr 13 | NO | Card click, Fenix pill, start_fit_narrative tool, contextual post-connect pill, JD submission — all verified routing to V2 experience. Copy/language audit clean: no "scorecard", "build a case", or "building the case" in visitor-facing text. |
+| 255 | 🟡 evaluator-experience.js full rewrite to sync with adapter pattern | TODO | Future | NO | Massively out of sync with evaluator-adapter.js. Still standalone implementation with duplicated state management, sendToAgent, handleAgentEvent, manual localStorage. Needs full rewrite to delegate to FenixCore like the adapter does. Low priority — adapter is the production file. |
+
+### Session 15: Synthetic Data Crisis + Nuclear Reset (April 15, 2026)
+| # | Action | Status | Timeline | Blocker | Notes |
+|---|--------|--------|----------|---------|-------|
+| 256 | ✅ Run nuclear pipeline reset | DONE | Apr 15 | NO | Kiran ran the reset. All synthetic data wiped. |
+| 257 | 🔴 Manually source real JDs from target company career pages | CRITICAL TODO | Tomorrow | YES — blocks pipeline rebuild | Visit each target company's careers page, find 1-3 consumer PM roles, paste full JD into "Paste a JD" modal. This is the foundation for everything. |
+| 258 | ✅ Add data provenance rule to CLAUDE.md | DONE | Apr 15 | NO | Rule #8 added to Non-Negotiable Working Behaviors. |
+| 259 | ✅ Audit career initiatives vault — confirmed real | DONE | Apr 15 | NO | Kiran confirmed: all career initiatives and skill mappings were sourced from his resumes and direct inputs. No synthetic data. |
+| 260 | ✅ Delete dead role_search_service.py file | DONE | Apr 15 | NO | File deleted. |
+
 | 234 | ✅ Codify cross-section rules in VISUAL-STANDARDS.md | DONE | Apr 12 | NO | Typography consistency rules + spacing consistency rules + responsive step-down table. |
 | 235 | ✅ Add Non-Negotiable Working Behaviors to CLAUDE.md | DONE | Apr 12 | NO | 7 rules codified from Session 4-8 violations. |
 | 236 | 🟡 Redesign Fenix chat header for personality/wow | TODO | Next session | NO | Currently 36px avatar, 1.05rem name. Needs mockup. Rec: 48px avatar, 1.3rem name. |
@@ -588,5 +617,32 @@ Continuation of Session 7b. Kiran asked to complete all remaining Claude-only ze
 
 *This document is the single source of truth for all open action items. Update at session end to reflect completed work and new discoveries.*
 
-**Last Updated:** April 12, 2026
-**Next Review:** After Session 8 — persona accent color fixes for light theme, teardown card redesign implementation, /Now page content freshening
+**Last Updated:** April 15, 2026 (Session 15 audit + cleanup)
+**Next Review:** After Session 16 — manual JD sourcing, homepage remaining items, Fenix widget hookup
+
+### Session 15 Audit Notes (April 15, 2026)
+
+**CC Action Items Cleaned Up (5 marked done):**
+- Nuclear pipeline reset — Kiran ran it
+- Data provenance rule added to CLAUDE.md (Rule #8)
+- Career initiatives vault audited — confirmed real (sourced from Kiran's resumes)
+- Fit Narrative V2 Phase 1 backend rewrite — fit_score.py completed
+- Fit Narrative V2 Phase 1 commit — code in place
+
+**Gameplan Doc Staleness Audit:**
+- `HOMEPAGE-GAMEPLAN.md` — C5 Work Cards updated from "NEEDS STRATEGY SESSION" to "✅ BENTO SYSTEM SHIPPED" (9 cards, persona mappings, mobile done)
+- `TR-V5-TRIMMING-GAMEPLAN.md` — MOSTLY STALE: page renamed to the-work.html, career initiatives moved to CC API, trimming phases never executed
+- `CAREER-INITIATIVES-CC-GAMEPLAN.md` — MOSTLY CURRENT: Steps 1-4 done, data migration + RAG integration + admin UI still pending
+- `FENIX-AI-ROADMAP.md` — PARTIALLY STALE: frontend (fenix-core.js) built but doc says "not yet built"; RAG numbers stale
+- `PLATFORM-MIGRATION.md` — MOSTLY CURRENT: Phases 0-3 done, time estimates undercount actual persona/Fenix work
+- `PERSONA-PLAYBOOK.md` — MOSTLY CURRENT: Track 1 100% done, Track 2 Tier 1 partial, Tier 2-3 not started
+- `GAP-CLOSURE-GAMEPLAN.md` — MOSTLY CURRENT: web search integration not implemented, Phase 3 deferred
+- `FIT-NARRATIVE-V2-GAMEPLAN.md` — MOSTLY CURRENT: Phase 1 done, Phase 2 frontend card rendering incomplete
+- `UNDER-THE-HOOD-GAMEPLAN.md` — MOSTLY CURRENT: page is placeholder, content not written
+
+**CC Module Help Text Gaps (15 modules without help):**
+career-hub, career-vault, gap-discovery, interview-prep, gap-moves, content-audit, ideas, job-radar, session-archive, target-companies, visual-audit, fit-score, career-initiatives, evidence, fenix-training
+
+**Product Guides:** 9 migrated to docs/, 13 still in legacy fenix-journal/guides/ location. Deduplication works but migration incomplete.
+
+**Tools & Links:** All 30 tool URLs valid. No stale links detected.

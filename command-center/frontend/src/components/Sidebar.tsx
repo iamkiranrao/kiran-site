@@ -4,8 +4,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { Wrench, PenTool, FileText, Target, Shield, ShieldCheck, ExternalLink, LogOut, Command, Beaker, Bot, BookOpen, BookMarked, MessageSquare, Radar, Lightbulb, Inbox, Library, CheckSquare, BookHeart, DollarSign, Layers } from "lucide-react";
-import { MODULES, APP_NAME } from "@/lib/constants";
+import {
+  Wrench, PenTool, FileText, Target, Shield, ShieldCheck, ExternalLink,
+  LogOut, Command, Beaker, Bot, BookOpen, BookMarked, MessageSquare,
+  Radar, Lightbulb, Inbox, Library, CheckSquare, BookHeart, DollarSign,
+  Layers, Briefcase, Crosshair, Building2, Compass, GraduationCap,
+} from "lucide-react";
+import { SIDEBAR_SECTIONS, APP_NAME } from "@/lib/constants";
 import { ThemeToggle } from "./ThemeToggle";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -29,6 +34,11 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   BookHeart,
   DollarSign,
   Layers,
+  Briefcase,
+  Crosshair,
+  Building2,
+  Compass,
+  GraduationCap,
 };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -73,45 +83,59 @@ export function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1">
-        {MODULES.map((mod) => {
-          const Icon = iconMap[mod.icon];
-          const isActive = pathname.startsWith(mod.href);
-
-          return (
-            <Link
-              key={mod.slug}
-              href={mod.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm ${
-                isActive
-                  ? "bg-[var(--bg-secondary)] text-[var(--text-primary)] font-medium"
-                  : "text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
-              }`}
-            >
-              {isActive && (
-                <div
-                  className="absolute left-0 w-[3px] h-5 rounded-r"
-                  style={{ backgroundColor: mod.color }}
-                />
-              )}
-              {Icon && (
-                <Icon
-                  size={18}
-                  className={isActive ? "text-[var(--text-primary)]" : "text-[var(--text-muted)]"}
-                />
-              )}
-              <span className="flex-1">{mod.label}</span>
-              {mod.slug === "notifications" && unreadCount > 0 && (
-                <span
-                  className="ml-auto px-1.5 py-0.5 rounded-full text-[10px] font-bold leading-none text-white"
-                  style={{ backgroundColor: "#fb923c", minWidth: "18px", textAlign: "center" }}
-                >
-                  {unreadCount > 99 ? "99+" : unreadCount}
+      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+        {SIDEBAR_SECTIONS.map((section, si) => (
+          <div key={si}>
+            {/* Section heading */}
+            {section.heading && (
+              <div className="px-3 pt-4 pb-1.5 first:pt-0">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+                  {section.heading}
                 </span>
-              )}
-            </Link>
-          );
-        })}
+              </div>
+            )}
+
+            {/* Section modules */}
+            {section.modules.map((mod) => {
+              const Icon = iconMap[mod.icon];
+              const isActive = pathname.startsWith(mod.href);
+
+              return (
+                <Link
+                  key={mod.slug}
+                  href={mod.href}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm ${
+                    isActive
+                      ? "bg-[var(--bg-secondary)] text-[var(--text-primary)] font-medium"
+                      : "text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
+                  }`}
+                >
+                  {isActive && (
+                    <div
+                      className="absolute left-0 w-[3px] h-5 rounded-r"
+                      style={{ backgroundColor: mod.color }}
+                    />
+                  )}
+                  {Icon && (
+                    <Icon
+                      size={18}
+                      className={isActive ? "text-[var(--text-primary)]" : "text-[var(--text-muted)]"}
+                    />
+                  )}
+                  <span className="flex-1">{mod.label}</span>
+                  {mod.slug === "notifications" && unreadCount > 0 && (
+                    <span
+                      className="ml-auto px-1.5 py-0.5 rounded-full text-[10px] font-bold leading-none text-white"
+                      style={{ backgroundColor: "#fb923c", minWidth: "18px", textAlign: "center" }}
+                    >
+                      {unreadCount > 99 ? "99+" : unreadCount}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        ))}
       </nav>
 
       {/* Footer */}

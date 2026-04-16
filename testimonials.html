@@ -19,7 +19,7 @@
       })(window, document, "clarity", "script", "vpgxcc8q5n");
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="What people are saying about Kiran Rao's work. Share your experience.">
+    <meta name="description" content="What people say about working with Kiran Rao. Read testimonials and share your experience.">
     <title>Testimonials - Kiran Rao</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,15 +31,15 @@
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Testimonials - Kiran Rao">
-    <meta property="og:description" content="What people are saying about Kiran Rao's work.">
+    <meta property="og:description" content="What people say about working with Kiran Rao.">
     <meta property="og:url" content="https://kiranrao.ai/testimonials.html">
 
     <style>
-        /* ── Testimonials Page Styles ── */
+        /* ── Page Layout ── */
         .testimonials-hero {
             max-width: 680px;
             margin: 0 auto;
-            padding: 4rem 1.5rem 2rem;
+            padding: 4rem 1.5rem 1.5rem;
             text-align: center;
         }
         .testimonials-hero h1 {
@@ -54,14 +54,16 @@
             line-height: 1.6;
         }
 
-        /* ── Testimonial Cards ── */
-        .testimonials-grid {
+        /* ── Testimonial Display Wall ── */
+        .testimonials-wall {
             max-width: 900px;
             margin: 0 auto;
-            padding: 1rem 1.5rem 3rem;
+            padding: 1.5rem 1.5rem 2rem;
+        }
+        .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            gap: 1.25rem;
         }
         .testimonial-card {
             background: var(--card-bg, rgba(255,255,255,0.03));
@@ -78,10 +80,9 @@
             line-height: 1.7;
             color: var(--text-primary, #e0e0e0);
             margin-bottom: 1rem;
-            font-style: italic;
         }
-        .testimonial-text::before { content: '\201C'; }
-        .testimonial-text::after { content: '\201D'; }
+        .testimonial-text::before { content: '\201C'; font-weight: 600; }
+        .testimonial-text::after { content: '\201D'; font-weight: 600; }
         .testimonial-author {
             font-size: 0.85rem;
             color: var(--text-secondary, #999);
@@ -90,57 +91,100 @@
             color: var(--text-primary, #e0e0e0);
             font-weight: 600;
         }
-        .testimonial-rating {
-            color: var(--accent, #C9A87C);
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-
         .testimonials-empty {
             max-width: 600px;
             margin: 0 auto;
-            padding: 3rem 1.5rem;
+            padding: 2rem 1.5rem;
             text-align: center;
             color: var(--text-secondary, #999);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
         .testimonials-loading {
             text-align: center;
-            padding: 3rem;
+            padding: 2rem;
             color: var(--text-secondary, #999);
         }
 
-        /* ── Feedback Form ── */
-        .feedback-section {
+        /* ── Testimonial Submission Form ── */
+        .testimonial-form-section {
             max-width: 600px;
             margin: 0 auto;
-            padding: 2rem 1.5rem 4rem;
+            padding: 2rem 1.5rem 3rem;
         }
-        .feedback-section h2 {
+        .testimonial-form-section h2 {
             font-size: 1.4rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--text-primary, #e0e0e0);
         }
-        .feedback-section .feedback-subtitle {
+        .testimonial-form-section .form-subtitle {
             font-size: 0.9rem;
             color: var(--text-secondary, #999);
             margin-bottom: 1.5rem;
-            line-height: 1.5;
+            line-height: 1.6;
         }
-        .feedback-form {
+
+        /* Prompt selector */
+        .prompt-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .prompt-selector label.prompt-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary, #999);
+            font-weight: 500;
+        }
+        .prompt-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .prompt-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 0.9rem;
+            background: var(--card-bg, rgba(255,255,255,0.03));
+            border: 1px solid var(--border-color, rgba(255,255,255,0.08));
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            font-size: 0.88rem;
+            color: var(--text-primary, #e0e0e0);
+            line-height: 1.4;
+        }
+        .prompt-option:hover {
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+        }
+        .prompt-option.selected {
+            border-color: var(--accent, #C9A87C);
+            background: rgba(201, 168, 124, 0.08);
+        }
+        .prompt-option input[type="radio"] {
+            accent-color: var(--accent, #C9A87C);
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        /* Shared form styles */
+        .t-form {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
-        .feedback-row {
+        .t-form-row {
             display: flex;
             gap: 1rem;
         }
-        .feedback-row > * {
+        .t-form-row > * {
             flex: 1;
         }
-        .feedback-form input,
-        .feedback-form textarea {
+        .t-form input,
+        .t-form textarea {
             background: var(--input-bg, rgba(255,255,255,0.05));
             border: 1px solid var(--border-color, rgba(255,255,255,0.12));
             border-radius: 8px;
@@ -152,61 +196,37 @@
             width: 100%;
             box-sizing: border-box;
         }
-        .feedback-form input:focus,
-        .feedback-form textarea:focus {
+        .t-form input:focus,
+        .t-form textarea:focus {
             outline: none;
             border-color: var(--accent, #C9A87C);
         }
-        .feedback-form textarea {
-            min-height: 120px;
+        .t-form textarea {
+            min-height: 140px;
             resize: vertical;
         }
-        .feedback-form input::placeholder,
-        .feedback-form textarea::placeholder {
+        .t-form input::placeholder,
+        .t-form textarea::placeholder {
             color: var(--text-muted, #666);
         }
-        .feedback-rating-row {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .feedback-rating-row label {
-            font-size: 0.85rem;
-            color: var(--text-secondary, #999);
-        }
-        .rating-stars {
-            display: flex;
-            gap: 0.25rem;
-        }
-        .rating-star {
-            cursor: pointer;
-            font-size: 1.3rem;
-            color: var(--text-muted, #444);
-            transition: color 0.15s;
-            background: none;
-            border: none;
-            padding: 0;
-        }
-        .rating-star.active,
-        .rating-star:hover {
-            color: var(--accent, #C9A87C);
-        }
-        .feedback-public-row {
+
+        .consent-row {
             display: flex;
             align-items: flex-start;
             gap: 0.5rem;
         }
-        .feedback-public-row input[type="checkbox"] {
+        .consent-row input[type="checkbox"] {
             width: auto;
             margin-top: 0.15rem;
             accent-color: var(--accent, #C9A87C);
         }
-        .feedback-public-row label {
+        .consent-row label {
             font-size: 0.85rem;
             color: var(--text-secondary, #999);
             line-height: 1.4;
         }
-        .feedback-submit {
+
+        .form-submit {
             background: var(--accent, #C9A87C);
             color: var(--button-text, #0a0a0a);
             border: none;
@@ -219,47 +239,142 @@
             transition: opacity 0.2s;
             align-self: flex-start;
         }
-        .feedback-submit:hover { opacity: 0.9; }
-        .feedback-submit:disabled {
+        .form-submit:hover { opacity: 0.9; }
+        .form-submit:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-        .feedback-success {
+
+        .form-success {
             padding: 1rem;
-            background: var(--accent-bg, rgba(201, 168, 124, 0.1));
-            border: 1px solid var(--accent-border, rgba(201, 168, 124, 0.3));
+            background: rgba(201, 168, 124, 0.1);
+            border: 1px solid rgba(201, 168, 124, 0.3);
             border-radius: 8px;
             color: var(--accent, #C9A87C);
             font-size: 0.9rem;
             display: none;
+            line-height: 1.5;
         }
-        .feedback-success.visible { display: block; }
+        .form-success.visible { display: block; }
 
-        .divider-line {
+        /* ── Divider ── */
+        .section-divider {
             max-width: 600px;
-            margin: 2rem auto;
+            margin: 1rem auto 2rem;
             border: none;
             border-top: 1px solid var(--border-color, rgba(255,255,255,0.08));
         }
 
-        @media (max-width: 600px) {
-            .feedback-row { flex-direction: column; }
-            .testimonials-hero h1 { font-size: 1.6rem; }
+        /* ── Feedback Section (below fold) ── */
+        .feedback-section {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+        .feedback-header {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+            margin-bottom: 0.4rem;
+        }
+        .feedback-header h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary, #e0e0e0);
+        }
+        .feedback-private-badge {
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted, #666);
+            background: rgba(255,255,255,0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+        .feedback-section .form-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-secondary, #999);
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        /* ── Light Mode Overrides ── */
-        [data-theme="light"] .testimonials-hero h1 {
+        /* Emoji rating */
+        .emoji-rating {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .emoji-btn {
+            font-size: 1.5rem;
+            background: var(--card-bg, rgba(255,255,255,0.03));
+            border: 1px solid var(--border-color, rgba(255,255,255,0.08));
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.15s;
+            line-height: 1;
+        }
+        .emoji-btn:hover {
+            border-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+        .emoji-btn.selected {
+            border-color: var(--accent, #C9A87C);
+            background: rgba(201, 168, 124, 0.1);
+            transform: scale(1.1);
+        }
+
+        .feedback-form textarea {
+            background: var(--input-bg, rgba(255,255,255,0.05));
+            border: 1px solid var(--border-color, rgba(255,255,255,0.12));
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-primary, #e0e0e0);
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 80px;
+            resize: vertical;
+        }
+        .feedback-form textarea:focus {
+            outline: none;
+            border-color: var(--accent, #C9A87C);
+        }
+        .feedback-form textarea::placeholder {
+            color: var(--text-muted, #666);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .t-form-row { flex-direction: column; }
+            .testimonials-hero h1 { font-size: 1.6rem; }
+            .testimonials-hero { padding-top: 3rem; }
+        }
+
+        /* ── Light Mode ── */
+        [data-theme="light"] .testimonials-hero h1,
+        [data-theme="light"] .testimonial-form-section h2,
+        [data-theme="light"] .feedback-header h2 {
             color: var(--text-primary, #1a1a1a);
         }
-        [data-theme="light"] .testimonials-hero p {
+        [data-theme="light"] .testimonials-hero p,
+        [data-theme="light"] .testimonial-form-section .form-subtitle,
+        [data-theme="light"] .feedback-section .form-subtitle {
             color: var(--text-secondary, #666);
         }
         [data-theme="light"] .testimonial-card {
-            background: var(--card-bg, rgba(0, 0, 0, 0.03));
-            border-color: var(--border-color, rgba(0, 0, 0, 0.08));
+            background: var(--card-bg, rgba(0,0,0,0.02));
+            border-color: var(--border-color, rgba(0,0,0,0.08));
         }
         [data-theme="light"] .testimonial-card:hover {
-            border-color: rgba(0, 0, 0, 0.15);
+            border-color: rgba(0,0,0,0.15);
         }
         [data-theme="light"] .testimonial-text {
             color: var(--text-primary, #1a1a1a);
@@ -270,62 +385,68 @@
         [data-theme="light"] .testimonial-author strong {
             color: var(--text-primary, #1a1a1a);
         }
-        [data-theme="light"] .testimonial-rating {
-            color: var(--accent, #C9A87C);
-        }
         [data-theme="light"] .testimonials-empty,
         [data-theme="light"] .testimonials-loading {
             color: var(--text-secondary, #666);
         }
-        [data-theme="light"] .feedback-section h2 {
+        [data-theme="light"] .prompt-option {
+            background: rgba(0,0,0,0.02);
+            border-color: rgba(0,0,0,0.08);
             color: var(--text-primary, #1a1a1a);
         }
-        [data-theme="light"] .feedback-section .feedback-subtitle {
-            color: var(--text-secondary, #666);
+        [data-theme="light"] .prompt-option:hover {
+            border-color: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.04);
         }
-        [data-theme="light"] .feedback-form input,
+        [data-theme="light"] .prompt-option.selected {
+            border-color: var(--accent, #C9A87C);
+            background: rgba(201, 168, 124, 0.08);
+        }
+        [data-theme="light"] .t-form input,
+        [data-theme="light"] .t-form textarea,
         [data-theme="light"] .feedback-form textarea {
-            background: var(--input-bg, rgba(0, 0, 0, 0.05));
-            border-color: var(--border-color, rgba(0, 0, 0, 0.12));
+            background: rgba(0,0,0,0.03);
+            border-color: rgba(0,0,0,0.12);
             color: var(--text-primary, #1a1a1a);
         }
-        [data-theme="light"] .feedback-form input:focus,
+        [data-theme="light"] .t-form input:focus,
+        [data-theme="light"] .t-form textarea:focus,
         [data-theme="light"] .feedback-form textarea:focus {
             border-color: var(--accent, #C9A87C);
         }
-        [data-theme="light"] .feedback-form input::placeholder,
+        [data-theme="light"] .t-form input::placeholder,
+        [data-theme="light"] .t-form textarea::placeholder,
         [data-theme="light"] .feedback-form textarea::placeholder {
             color: var(--text-muted, #999);
         }
-        [data-theme="light"] .feedback-rating-row label {
+        [data-theme="light"] .consent-row label {
             color: var(--text-secondary, #666);
         }
-        [data-theme="light"] .rating-star {
-            color: var(--text-muted, #bbb);
-        }
-        [data-theme="light"] .rating-star.active,
-        [data-theme="light"] .rating-star:hover {
-            color: var(--accent, #C9A87C);
-        }
-        [data-theme="light"] .feedback-public-row label {
-            color: var(--text-secondary, #666);
-        }
-        [data-theme="light"] .feedback-submit {
-            background: var(--accent, #C9A87C);
+        [data-theme="light"] .form-submit {
             color: var(--button-text, #fff);
         }
-        [data-theme="light"] .feedback-success {
-            background: var(--accent-bg, rgba(201, 168, 124, 0.1));
-            border-color: var(--accent-border, rgba(201, 168, 124, 0.3));
-            color: var(--accent, #C9A87C);
+        [data-theme="light"] .emoji-btn {
+            background: rgba(0,0,0,0.02);
+            border-color: rgba(0,0,0,0.08);
         }
-        [data-theme="light"] .divider-line {
-            border-top-color: var(--border-color, rgba(0, 0, 0, 0.08));
+        [data-theme="light"] .emoji-btn:hover {
+            border-color: rgba(0,0,0,0.2);
+        }
+        [data-theme="light"] .emoji-btn.selected {
+            border-color: var(--accent, #C9A87C);
+            background: rgba(201, 168, 124, 0.1);
+        }
+        [data-theme="light"] .feedback-private-badge {
+            color: var(--text-muted, #999);
+            background: rgba(0,0,0,0.04);
+        }
+        [data-theme="light"] .section-divider {
+            border-top-color: rgba(0,0,0,0.08);
         }
     </style>
 </head>
 <body>
-    <!-- Navigation — matches main site nav -->
+    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <div class="nav-right">
@@ -366,60 +487,102 @@
             <li><a href="skills.html">&darr; Skills</a></li>
             <li><a href="blog-podcast.html">&darr; Blog</a></li>
             <li><a href="now.html">&darr; Now</a></li>
+            <li><a href="testimonials.html">&darr; Testimonials</a></li>
             <li><a href="index.html#contact">&darr; Connect</a></li>
         </ul>
     </div>
 
     <main>
-        <!-- Hero -->
+        <!-- ═══ HERO ═══ -->
         <section class="testimonials-hero">
-            <h1>What People Are Saying</h1>
-            <p>Real feedback from people who've explored the site, worked with Kiran, or experienced Fenix. Unfiltered, unedited.</p>
+            <h1>Working with Kiran</h1>
+            <p>People who've collaborated with Kiran, been in the trenches with him, or watched him work. In their words.</p>
         </section>
 
-        <!-- Dynamic Testimonials -->
-        <div id="testimonials-container" class="testimonials-loading">
-            Loading testimonials...
-        </div>
+        <!-- ═══ TESTIMONIAL DISPLAY WALL ═══ -->
+        <section class="testimonials-wall">
+            <div id="testimonials-container" class="testimonials-loading">
+                Loading...
+            </div>
+        </section>
 
-        <hr class="divider-line">
-
-        <!-- Static Feedback Form -->
-        <section class="feedback-section">
-            <h2>What Stood Out?</h2>
-            <p class="feedback-subtitle">
-                People experience this site in wildly different ways. Some come for the teardowns, some for the AI, some just stumble in. Whatever brought you here &mdash; if it left an impression, Kiran would love to hear about it.
+        <!-- ═══ TESTIMONIAL SUBMISSION FORM ═══ -->
+        <section class="testimonial-form-section">
+            <h2>Worked with Kiran?</h2>
+            <p class="form-subtitle">
+                If you've collaborated with Kiran, managed him, reported to him, or partnered with him on something &mdash; he'd value your perspective. Pick a prompt below or write freely.
             </p>
 
-            <form id="feedback-form" class="feedback-form">
-                <div class="feedback-row">
+            <form id="testimonial-form" class="t-form">
+                <div class="t-form-row">
                     <input type="text" name="name" placeholder="Your name" required>
-                    <input type="text" name="company" placeholder="Company (optional)">
+                    <input type="text" name="role" placeholder="Role / company (optional)">
                 </div>
-                <input type="email" name="email" placeholder="Email (optional, never shared)">
-                <textarea name="feedback" placeholder="What stood out? What surprised you? What would you tell someone considering working with Kiran?" required minlength="10"></textarea>
 
-                <div class="feedback-rating-row">
-                    <label>Rating (optional):</label>
-                    <div class="rating-stars" id="rating-stars">
-                        <button type="button" class="rating-star" data-value="1">&#9733;</button>
-                        <button type="button" class="rating-star" data-value="2">&#9733;</button>
-                        <button type="button" class="rating-star" data-value="3">&#9733;</button>
-                        <button type="button" class="rating-star" data-value="4">&#9733;</button>
-                        <button type="button" class="rating-star" data-value="5">&#9733;</button>
+                <div class="prompt-selector">
+                    <label class="prompt-label">What would you like to share?</label>
+                    <div class="prompt-options" id="prompt-options">
+                        <label class="prompt-option">
+                            <input type="radio" name="prompt" value="colleague">
+                            What would you tell someone considering working with Kiran?
+                        </label>
+                        <label class="prompt-option">
+                            <input type="radio" name="prompt" value="stuck">
+                            Describe a time Kiran helped you get unstuck or changed how you thought about a problem.
+                        </label>
+                        <label class="prompt-option">
+                            <input type="radio" name="prompt" value="different">
+                            What does Kiran do differently than most people in his role?
+                        </label>
+                        <label class="prompt-option">
+                            <input type="radio" name="prompt" value="freeform" checked>
+                            I'll write my own.
+                        </label>
                     </div>
                 </div>
 
-                <div class="feedback-public-row">
-                    <input type="checkbox" name="public_ok" id="public-ok">
-                    <label for="public-ok">
-                        I'm fine with this being displayed publicly on the site. (Kiran reviews all testimonials before they go live.)
+                <textarea name="testimonial" id="testimonial-textarea" placeholder="Take your time. The best testimonials are specific &mdash; a project, a moment, a way of working that stuck with you." required minlength="30"></textarea>
+
+                <div class="consent-row">
+                    <input type="checkbox" name="is_public" id="is-public" checked>
+                    <label for="is-public">
+                        Display this publicly on the site. Kiran reviews everything before it goes live.
                     </label>
                 </div>
 
-                <button type="submit" class="feedback-submit">Send Feedback</button>
-                <div id="feedback-success" class="feedback-success">
-                    Thanks for sharing! Your feedback has been saved. If you opted for public display, it'll appear here after Kiran reviews it.
+                <button type="submit" class="form-submit">Submit Testimonial</button>
+                <div id="testimonial-success" class="form-success">
+                    Thank you. This means a lot. Kiran will review it and, if you opted in, it'll appear on this page.
+                </div>
+            </form>
+        </section>
+
+        <!-- ═══ DIVIDER ═══ -->
+        <hr class="section-divider">
+
+        <!-- ═══ FEEDBACK SECTION (private, below fold) ═══ -->
+        <section class="feedback-section" id="site-feedback">
+            <div class="feedback-header">
+                <h2>Site Feedback</h2>
+                <span class="feedback-private-badge">For Kiran's eyes</span>
+            </div>
+            <p class="form-subtitle">
+                How was the experience of being on this site? This doesn't get published &mdash; it helps Kiran make the site better.
+            </p>
+
+            <form id="feedback-form" class="feedback-form">
+                <div class="emoji-rating" id="emoji-rating">
+                    <button type="button" class="emoji-btn" data-value="love" title="Loved it">&#129321;</button>
+                    <button type="button" class="emoji-btn" data-value="like" title="Liked it">&#128578;</button>
+                    <button type="button" class="emoji-btn" data-value="neutral" title="It was fine">&#128528;</button>
+                    <button type="button" class="emoji-btn" data-value="dislike" title="Needs work">&#128533;</button>
+                </div>
+
+                <textarea name="comment" placeholder="Anything specific? What worked, what felt off, what you'd change." rows="3"></textarea>
+
+                <button type="submit" class="form-submit">Send Feedback</button>
+                <div id="feedback-success" class="form-success">
+                    Noted. Thanks for helping make this better.
                 </div>
             </form>
         </section>
@@ -436,122 +599,174 @@
     (function () {
         'use strict';
 
-        var API_BASE = 'https://api.kiranrao.ai/api/v1/fenix';
-        var selectedRating = 0;
+        var CC_API = 'https://cc.kiranrao.ai/api/feedback';
 
-        // ── Load Testimonials ──
+        // ── Load Testimonials ───────────────────────────────────
         function loadTestimonials() {
             var container = document.getElementById('testimonials-container');
 
-            fetch(API_BASE + '/testimonials')
+            fetch(CC_API + '/testimonials/public')
                 .then(function (res) { return res.json(); })
                 .then(function (data) {
-                    if (!data || data.length === 0) {
+                    var testimonials = data.testimonials || [];
+
+                    if (testimonials.length === 0) {
                         container.className = 'testimonials-empty';
-                        container.textContent = 'No testimonials yet. Be the first to share your experience!';
+                        container.innerHTML = 'No testimonials yet. If you\'ve worked with Kiran, yours could be the first.';
                         return;
                     }
 
                     container.className = 'testimonials-grid';
                     container.innerHTML = '';
 
-                    data.forEach(function (t) {
+                    testimonials.forEach(function (t) {
                         var card = document.createElement('div');
                         card.className = 'testimonial-card';
 
                         var text = document.createElement('div');
                         text.className = 'testimonial-text';
-                        text.textContent = t.feedback_text;
+                        text.textContent = t.testimonial;
                         card.appendChild(text);
 
                         var author = document.createElement('div');
                         author.className = 'testimonial-author';
-                        var nameHtml = '<strong>' + escapeHtml(t.visitor_name) + '</strong>';
-                        if (t.visitor_company) {
-                            nameHtml += ', ' + escapeHtml(t.visitor_company);
+                        var html = '<strong>' + escapeHtml(t.name) + '</strong>';
+                        if (t.role) {
+                            html += ' &mdash; ' + escapeHtml(t.role);
                         }
-                        author.innerHTML = nameHtml;
+                        author.innerHTML = html;
                         card.appendChild(author);
-
-                        if (t.rating) {
-                            var rating = document.createElement('div');
-                            rating.className = 'testimonial-rating';
-                            rating.textContent = '\u2605'.repeat(t.rating) + '\u2606'.repeat(5 - t.rating);
-                            card.appendChild(rating);
-                        }
 
                         container.appendChild(card);
                     });
                 })
                 .catch(function () {
                     container.className = 'testimonials-empty';
-                    container.textContent = 'Testimonials will appear here once they\'re available.';
+                    container.innerHTML = 'Testimonials will appear here once they\'re available.';
                 });
         }
 
-        // ── Star Rating ──
-        var stars = document.querySelectorAll('.rating-star');
-        stars.forEach(function (star) {
-            star.addEventListener('click', function () {
-                selectedRating = parseInt(star.getAttribute('data-value'));
-                stars.forEach(function (s) {
-                    s.classList.toggle('active', parseInt(s.getAttribute('data-value')) <= selectedRating);
-                });
-            });
-            star.addEventListener('mouseenter', function () {
-                var val = parseInt(star.getAttribute('data-value'));
-                stars.forEach(function (s) {
-                    s.classList.toggle('active', parseInt(s.getAttribute('data-value')) <= val);
-                });
-            });
-        });
-        document.getElementById('rating-stars').addEventListener('mouseleave', function () {
-            stars.forEach(function (s) {
-                s.classList.toggle('active', parseInt(s.getAttribute('data-value')) <= selectedRating);
+        // ── Prompt Selection ────────────────────────────────────
+        var promptOptions = document.querySelectorAll('.prompt-option');
+        var textarea = document.getElementById('testimonial-textarea');
+
+        var promptPlaceholders = {
+            colleague: 'What would you tell them? Be specific \u2014 a project, a trait, a moment that captures what it\'s like to work with Kiran.',
+            stuck: 'What was the situation? What did Kiran do? What changed as a result?',
+            different: 'Think about a specific example. What did Kiran do that surprised you or that you wouldn\'t have expected?',
+            freeform: 'Take your time. The best testimonials are specific \u2014 a project, a moment, a way of working that stuck with you.'
+        };
+
+        promptOptions.forEach(function (option) {
+            option.addEventListener('click', function () {
+                promptOptions.forEach(function (o) { o.classList.remove('selected'); });
+                option.classList.add('selected');
+                var radio = option.querySelector('input[type="radio"]');
+                radio.checked = true;
+                textarea.placeholder = promptPlaceholders[radio.value] || promptPlaceholders.freeform;
             });
         });
 
-        // ── Form Submission ──
-        var form = document.getElementById('feedback-form');
-        form.addEventListener('submit', function (e) {
+        // ── Testimonial Form Submission ─────────────────────────
+        var tForm = document.getElementById('testimonial-form');
+        tForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            var submitBtn = form.querySelector('.feedback-submit');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
+            var btn = tForm.querySelector('.form-submit');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
 
-            var formData = new FormData(form);
+            var formData = new FormData(tForm);
             var payload = {
-                visitor_name: formData.get('name'),
-                visitor_company: formData.get('company') || null,
-                visitor_email: formData.get('email') || null,
-                feedback_text: formData.get('feedback'),
-                rating: selectedRating || null,
-                public_ok: formData.get('public_ok') === 'on',
-                source: 'form',
-                page_url: window.location.href
+                name: formData.get('name'),
+                role: formData.get('role') || null,
+                testimonial: formData.get('testimonial'),
+                is_public: formData.get('is_public') === 'on'
             };
 
-            fetch(API_BASE + '/feedback', {
+            fetch(CC_API + '/testimonial/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             })
-            .then(function (res) { return res.json(); })
+            .then(function (res) {
+                if (!res.ok) throw new Error('Submit failed');
+                return res.json();
+            })
             .then(function () {
-                form.reset();
-                selectedRating = 0;
-                stars.forEach(function (s) { s.classList.remove('active'); });
-                document.getElementById('feedback-success').classList.add('visible');
-                submitBtn.textContent = 'Sent!';
+                tForm.reset();
+                document.getElementById('testimonial-success').classList.add('visible');
+                btn.textContent = 'Submitted';
+                // Re-select freeform prompt
+                promptOptions.forEach(function (o) { o.classList.remove('selected'); });
                 setTimeout(function () {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Send Feedback';
+                    btn.disabled = false;
+                    btn.textContent = 'Submit Testimonial';
+                }, 4000);
+            })
+            .catch(function () {
+                btn.disabled = false;
+                btn.textContent = 'Submit Testimonial';
+                alert('Something went wrong. Please try again.');
+            });
+        });
+
+        // ── Emoji Rating ────────────────────────────────────────
+        var selectedRating = '';
+        var emojiBtns = document.querySelectorAll('.emoji-btn');
+
+        emojiBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                selectedRating = btn.getAttribute('data-value');
+                emojiBtns.forEach(function (b) {
+                    b.classList.toggle('selected', b.getAttribute('data-value') === selectedRating);
+                });
+            });
+        });
+
+        // ── Feedback Form Submission ────────────────────────────
+        var fForm = document.getElementById('feedback-form');
+        fForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var comment = fForm.querySelector('textarea').value.trim();
+            if (!selectedRating && !comment) {
+                alert('Pick a reaction or leave a comment (or both).');
+                return;
+            }
+
+            var btn = fForm.querySelector('.form-submit');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            var payload = {
+                rating: selectedRating || null,
+                comment: comment || null
+            };
+
+            fetch(CC_API + '/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(function (res) {
+                if (!res.ok) throw new Error('Submit failed');
+                return res.json();
+            })
+            .then(function () {
+                fForm.reset();
+                selectedRating = '';
+                emojiBtns.forEach(function (b) { b.classList.remove('selected'); });
+                document.getElementById('feedback-success').classList.add('visible');
+                btn.textContent = 'Sent';
+                setTimeout(function () {
+                    btn.disabled = false;
+                    btn.textContent = 'Send Feedback';
                 }, 3000);
             })
             .catch(function () {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Feedback';
+                btn.disabled = false;
+                btn.textContent = 'Send Feedback';
                 alert('Something went wrong. Please try again.');
             });
         });
@@ -562,7 +777,7 @@
             return div.innerHTML;
         }
 
-        // Load on page ready
+        // Init
         loadTestimonials();
     })();
     </script>

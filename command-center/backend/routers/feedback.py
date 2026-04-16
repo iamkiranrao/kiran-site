@@ -15,6 +15,7 @@ from services.feedback_service import (
     submit_testimonial,
     get_testimonial_stats,
     list_testimonials,
+    list_public_testimonials,
     update_testimonial_status,
     delete_testimonial,
 )
@@ -40,6 +41,12 @@ async def public_submit_feedback(body: FeedbackSubmission, request: Request):
         ip=ip,
         user_agent=ua,
     )
+
+@router.get("/testimonials/public", response_model=dict)
+async def public_testimonials():
+    """Public: return approved public testimonials for the website display wall."""
+    return list_public_testimonials()
+
 
 @router.post("/testimonial/submit", response_model=dict)
 async def public_submit_testimonial(body: TestimonialSubmission):

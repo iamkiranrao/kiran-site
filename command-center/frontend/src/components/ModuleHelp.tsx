@@ -215,6 +215,47 @@ export const MODULE_HELP: Record<string, ModuleHelpContent> = {
       "Updated as modules evolve",
     ],
   },
+  "career-hub": {
+    summary:
+      "Four-stage career pipeline dashboard aggregating your entire job search strategy. Visualizes your foundation (initiatives, skills evidence), market intelligence (target companies, JD analyses, patterns), the delta (skill gaps and fill strategies), and execution (applications, interviews, resume customization).",
+    features: [
+      "Four-stage pipeline: What I Bring (foundation) → What They Want (intelligence) → The Delta (gaps) → Go Get It (execution)",
+      "Real-time data from Career Vault, target companies, gap discovery, and Job Central",
+      "Coverage metrics showing average alignment between your background and target roles",
+      "Market pattern aggregation across multiple JD analyses for cross-cutting insights",
+      "One-click navigation to drilldown modules (Career Vault, Gap Discovery, Interview Prep, Job Central)",
+    ],
+    guideSlug: "career-hub",
+  },
+  "career-vault": {
+    summary:
+      "Evidence inventory system for managing career initiatives, certifications, projects, and teardowns. Organize your professional achievements by domain, era, and company, then map them to 36 skills across 6 domains for portfolio proof of capability.",
+    features: [
+      "Manage initiatives: projects, prototypes, certifications, and teardowns with rich metadata",
+      "Organize by domain (ai-ml, payments, security, platform, etc.), era (enterprise, startup, consulting), and company",
+      "Public/private toggle for portfolio visibility and Fenix indexing",
+      "Skills evidence tracker: map sources to skills with visual domain breakdown",
+      "Publish JSON manifest to site repo for Skills page integration",
+      "Gap closure tracking — link initiatives to specific requirements you're filling",
+    ],
+    guideSlug: "career-vault",
+  },
+  "interview-prep": {
+    summary:
+      "Resume customizer with SSE-powered analysis, proposal workflow, and ATS keyword tracking. Tailor your resume to specific job descriptions with tracked changes, match scoring (0-100), and interactive section refinement using interview frameworks and story bank.",
+    features: [
+      "URL extraction for job descriptions from Greenhouse, Lever, Ashby, and other platforms",
+      "Claude-powered analysis phase: company research, role fit, keyword analysis, and proposal generation (SSE streaming)",
+      "Match scoring with before/after alignment percentages and critical/missing keyword highlights",
+      "Section-by-section review with tracked changes in Word format",
+      "Chat-based refinement: discuss sections with Claude, lock sections when approved",
+      "ATS keyword coverage analysis showing matched, missing, and critical keywords",
+      "Interview frameworks library (CIRCLES, RICE, STAR, North Star) for prep and story building",
+      "Story bank extraction: capture behavioral examples organized by framework and company",
+      "Application package generation: resume + cover letter + company brief + interview question bank",
+    ],
+    guideSlug: "interview-prep",
+  },
 };
 
 // ── Component ───────────────────────────────────────────────────
