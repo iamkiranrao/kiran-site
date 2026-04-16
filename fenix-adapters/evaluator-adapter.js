@@ -1208,7 +1208,7 @@
       var lockInd = lockedCard.querySelector('.ev-lock-indicator');
       if (lockInd) lockInd.remove();
       var tag = lockedCard.querySelector('.ev-card-tag');
-      if (tag) tag.textContent = 'Connected';
+      if (tag) tag.textContent = 'Unlocked';
     }
 
     var pills = document.querySelectorAll('.ev-chat-pill');
