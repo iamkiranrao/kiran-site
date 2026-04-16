@@ -28,6 +28,100 @@
 
   var FENIX_OPENING = 'Quick context before we start. This isn\'t a portfolio site. It\'s a product Kiran built.\n\nThe resume comes in three versions, each tuned to a different kind of search. Paste a job description and I\'ll show you exactly how Kiran\'s experience maps to it. And I\'m not a template chatbot. I\'ve been trained on Kiran\'s actual work, his decisions, and how he thinks.\n\nThis site isn\'t designed for a 30-second skim. But every minute you spend here will surface insights you\'d otherwise spend weeks piecing together. The more you experience, the more you understand about how Kiran thinks and works.\n\nI\'m here to help you focus on what matters to you.';
 
+  // ── Motivational Poster Content Bank ───────────
+  var POSTER_BANK = [
+    { title: 'SYNERGY', tagline: 'Because none of us wanted to do it alone, and now none of us can.' },
+    { title: 'EXPERIENCE', tagline: 'That thing you get right after you needed it.' },
+    { title: 'POTENTIAL', tagline: 'A nice way of saying you haven\'t actually done anything yet.' },
+    { title: 'STRATEGY', tagline: 'A word we use when we don\'t want to admit we\'re guessing.' },
+    { title: 'ALIGNMENT', tagline: 'When everyone agrees to pretend the same thing.' },
+    { title: 'BANDWIDTH', tagline: 'I would love to help, but I am just a poster.' },
+    { title: 'PIVOT', tagline: 'It\'s not failure if you rebrand it fast enough.' },
+    { title: 'DEEP DIVE', tagline: 'A meeting about having a meeting about a meeting.' },
+    { title: 'CIRCLE BACK', tagline: 'The corporate way of saying \u201CI forgot and I\u2019m hoping you did too.\u201D' },
+    { title: 'LEVERAGE', tagline: 'Nobody knows what this means. We\'ve been afraid to ask since 2011.' },
+    { title: 'FRIDAY', tagline: 'You made it. The bar is on the floor and you cleared it. Proud of you.' },
+    { title: 'OVERTIME', tagline: 'Because nothing says \u201Cwe value you\u201D like needing more of you for free.' },
+    { title: 'BALANCE', tagline: 'You can have it all. Just not at the same time. Or today. Maybe Thursday.' },
+    { title: 'CULTURE', tagline: 'Free snacks and a ping pong table cannot fix what\'s wrong here.' },
+    { title: 'RESILIENCE', tagline: 'We could fix the problem, but we\'d rather celebrate your ability to endure it.' },
+    { title: 'URGENCY', tagline: 'Everything is urgent. Nothing is important. Welcome to Tuesday.' },
+    { title: 'INNOVATION', tagline: 'We\'re going to do things differently around here. Starting with your job title.' },
+    { title: 'TEAMWORK', tagline: 'Together, we can spread the blame more evenly.' },
+    { title: 'DEADLINES', tagline: 'Nothing motivates quite like the crushing weight of someone else\'s poor planning.' },
+    { title: 'FEEDBACK', tagline: 'Here\'s a compliment sandwich where both pieces of bread are also feedback.' },
+    { title: 'STAKEHOLDERS', tagline: 'Everyone has a say. No one has a decision.' },
+    { title: 'AGILE', tagline: 'We removed the plan so we could fail faster.' },
+    { title: 'TRANSPARENCY', tagline: 'We\'re going to be really open about the things that don\'t matter.' },
+    { title: 'GROWTH', tagline: 'The company is growing. Your salary is not. These two things are unrelated.' },
+    { title: 'VISION', tagline: 'If you squint hard enough, the roadmap almost makes sense.' },
+    { title: 'OWNERSHIP', tagline: 'You\'re empowered to take full responsibility for things you didn\'t decide.' },
+    { title: 'PASSION', tagline: 'Because \u201Cwe can\'t afford to pay you what you\'re worth\u201D needed a nicer word.' },
+    { title: 'MENTORSHIP', tagline: 'Learning from someone else\'s mistakes while making entirely new ones.' },
+    { title: 'ONE-ON-ONE', tagline: 'Thirty minutes of pretending everything is fine, scheduled weekly.' },
+    { title: 'PIPELINE', tagline: 'Where ideas go to wait in line and quietly die.' },
+    { title: 'DISRUPTION', tagline: 'What we call it when the intern accidentally deletes the production database.' }
+  ];
+
+  // CSS gradient backgrounds for posters — dramatic, moody, printable
+  var POSTER_GRADIENTS = [
+    'linear-gradient(160deg, #0f2027 0%, #203a43 40%, #2c5364 100%)',
+    'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+    'linear-gradient(150deg, #2d1b4e 0%, #1a1035 50%, #0d0a1a 100%)',
+    'linear-gradient(140deg, #1b1b1b 0%, #2c2c2c 40%, #1a1a2e 100%)',
+    'linear-gradient(165deg, #0c1821 0%, #1b2838 50%, #324a5f 100%)',
+    'linear-gradient(130deg, #1a0a0a 0%, #2d1a1a 50%, #1a0a0a 100%)',
+    'linear-gradient(155deg, #0a1a0a 0%, #1a2d1a 50%, #0a1a0a 100%)',
+    'linear-gradient(145deg, #1c1c1c 0%, #383838 40%, #1c1c1c 100%)',
+    'linear-gradient(160deg, #1a1220 0%, #2a1f3d 50%, #1a1220 100%)',
+    'linear-gradient(135deg, #0d1117 0%, #161b22 50%, #21262d 100%)'
+  ];
+
+  var _posterHistory = [];
+  var _posterGenerating = false;
+
+  function getRandomPoster() {
+    // Avoid repeats until we've shown all 30
+    if (_posterHistory.length >= POSTER_BANK.length) {
+      _posterHistory = [];
+    }
+    var available = POSTER_BANK.filter(function (p, i) {
+      return _posterHistory.indexOf(i) === -1;
+    });
+    var idx = Math.floor(Math.random() * available.length);
+    var poster = available[idx];
+    _posterHistory.push(POSTER_BANK.indexOf(poster));
+    return poster;
+  }
+
+  function getRandomGradient() {
+    return POSTER_GRADIENTS[Math.floor(Math.random() * POSTER_GRADIENTS.length)];
+  }
+
+  // Try AI-generated poster from backend, fallback to local bank
+  function fetchAIPoster() {
+    if (_posterGenerating) return Promise.resolve(null);
+    _posterGenerating = true;
+    return fetch('https://api.kiranrao.ai/api/v1/fenix/poster', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ seed_count: POSTER_BANK.length })
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error('poster API error');
+        return r.json();
+      })
+      .then(function (data) {
+        _posterGenerating = false;
+        if (data.title && data.tagline) return data;
+        return null;
+      })
+      .catch(function () {
+        _posterGenerating = false;
+        return null;
+      });
+  }
+
   var RECRUITER_QUESTIONS = [
     {
       q: '"Tell me the story of you, but you can\'t say anything on your resume."',
@@ -732,6 +826,9 @@
           renderJDInput(panel);
         }
         break;
+      case 'poster':
+        renderPosterPanel(panel);
+        break;
     }
 
     state.currentPanel = panelType;
@@ -1149,6 +1246,231 @@
 
 
   // ════════════════════════════════════════════════════
+  // PANEL D: Motivational Poster Generator
+  // ════════════════════════════════════════════════════
+
+  function renderPosterPanel(panel) {
+    panel.classList.add('ev-poster-panel');
+
+    var heading = el('div', 'ev-panel-heading', {
+      html: '<em>Fenix:</em> Every office needs better motivational posters. Here — have some.'
+    });
+    panel.appendChild(heading);
+
+    // Poster display area
+    var posterFrame = el('div', 'ev-poster-frame');
+    var posterInner = el('div', 'ev-poster-inner');
+    var posterBg = el('div', 'ev-poster-bg');
+    var posterContent = el('div', 'ev-poster-content');
+    var posterTitle = el('div', 'ev-poster-title');
+    var posterTagline = el('div', 'ev-poster-tagline');
+    var posterWatermark = el('div', 'ev-poster-watermark', { text: 'kiranrao.ai' });
+
+    posterContent.appendChild(posterTitle);
+    posterContent.appendChild(posterTagline);
+    posterInner.appendChild(posterBg);
+    posterInner.appendChild(posterContent);
+    posterInner.appendChild(posterWatermark);
+    posterFrame.appendChild(posterInner);
+    panel.appendChild(posterFrame);
+
+    // Controls
+    var controls = el('div', 'ev-poster-controls');
+
+    var generateBtn = el('button', 'ev-btn-primary ev-poster-btn-generate', { text: 'Another one' });
+    var aiBtn = el('button', 'ev-btn-secondary ev-poster-btn-ai', { text: '\u2728 Generate unique' });
+    var downloadBtn = el('button', 'ev-btn-secondary ev-poster-btn-download', { text: '\u2B07 Download' });
+    var shareBtn = el('button', 'ev-btn-secondary ev-poster-btn-share', { text: '\uD83D\uDD17 Copy link' });
+
+    controls.appendChild(generateBtn);
+    controls.appendChild(aiBtn);
+    controls.appendChild(downloadBtn);
+    controls.appendChild(shareBtn);
+    panel.appendChild(controls);
+
+    // Status text (for share confirmation, AI loading, etc.)
+    var statusEl = el('div', 'ev-poster-status');
+    panel.appendChild(statusEl);
+
+    // Show first poster
+    var currentPoster = null;
+    var currentGradient = null;
+
+    function displayPoster(poster, gradient) {
+      currentPoster = poster;
+      currentGradient = gradient || getRandomGradient();
+
+      // Fade out
+      posterInner.classList.add('ev-poster-switching');
+      setTimeout(function () {
+        posterTitle.textContent = poster.title;
+        posterTagline.textContent = poster.tagline;
+        posterBg.style.background = currentGradient;
+        // Fade in
+        posterInner.classList.remove('ev-poster-switching');
+      }, 200);
+    }
+
+    // Initial poster
+    displayPoster(getRandomPoster());
+
+    // Generate from local bank
+    generateBtn.addEventListener('click', function () {
+      displayPoster(getRandomPoster());
+      statusEl.textContent = '';
+    });
+
+    // Generate via AI
+    aiBtn.addEventListener('click', function () {
+      aiBtn.disabled = true;
+      aiBtn.textContent = '\u2728 Generating...';
+      statusEl.textContent = '';
+
+      fetchAIPoster().then(function (poster) {
+        aiBtn.disabled = false;
+        aiBtn.textContent = '\u2728 Generate unique';
+        if (poster) {
+          displayPoster(poster);
+          statusEl.textContent = '\u2728 AI-generated original';
+          setTimeout(function () { statusEl.textContent = ''; }, 3000);
+        } else {
+          // Fallback to local
+          displayPoster(getRandomPoster());
+          statusEl.textContent = 'AI unavailable — here\'s one from the vault';
+          setTimeout(function () { statusEl.textContent = ''; }, 3000);
+        }
+      });
+    });
+
+    // Download as PNG
+    downloadBtn.addEventListener('click', function () {
+      renderPosterToCanvas(currentPoster, currentGradient).then(function (canvas) {
+        var link = document.createElement('a');
+        link.download = 'motivational-poster-' + currentPoster.title.toLowerCase().replace(/\s+/g, '-') + '.png';
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        statusEl.textContent = 'Downloaded!';
+        setTimeout(function () { statusEl.textContent = ''; }, 2000);
+      });
+    });
+
+    // Share — copy link
+    shareBtn.addEventListener('click', function () {
+      var encoded = btoa(JSON.stringify(currentPoster));
+      var url = window.location.origin + '/?poster=' + encodeURIComponent(encoded);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () {
+          statusEl.textContent = 'Link copied!';
+          setTimeout(function () { statusEl.textContent = ''; }, 2000);
+        });
+      } else {
+        // Fallback
+        var temp = document.createElement('textarea');
+        temp.value = url;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        statusEl.textContent = 'Link copied!';
+        setTimeout(function () { statusEl.textContent = ''; }, 2000);
+      }
+    });
+  }
+
+  // Render poster to high-res canvas for PNG download
+  function renderPosterToCanvas(poster, gradient) {
+    return new Promise(function (resolve) {
+      var W = 1200, H = 1600; // 3:4 portrait, print-quality
+      var canvas = document.createElement('canvas');
+      canvas.width = W;
+      canvas.height = H;
+      var ctx = canvas.getContext('2d');
+
+      // Black outer border
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, W, H);
+
+      // Inner poster area with gradient
+      var border = 40;
+      var innerW = W - border * 2;
+      var innerH = H - border * 2 - 180; // leave space for text below image
+
+      // Parse gradient and draw it
+      // For simplicity, draw a solid dark gradient approximation
+      var grd = ctx.createLinearGradient(border, border, border + innerW, border + innerH);
+      grd.addColorStop(0, '#0f2027');
+      grd.addColorStop(0.5, '#203a43');
+      grd.addColorStop(1, '#2c5364');
+      ctx.fillStyle = grd;
+      ctx.fillRect(border, border, innerW, innerH);
+
+      // Subtle vignette on image area
+      var vigGrd = ctx.createRadialGradient(W / 2, border + innerH / 2, innerW * 0.2, W / 2, border + innerH / 2, innerW * 0.7);
+      vigGrd.addColorStop(0, 'rgba(0,0,0,0)');
+      vigGrd.addColorStop(1, 'rgba(0,0,0,0.5)');
+      ctx.fillStyle = vigGrd;
+      ctx.fillRect(border, border, innerW, innerH);
+
+      // Thin gold border around image
+      ctx.strokeStyle = 'rgba(200, 168, 124, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(border + 8, border + 8, innerW - 16, innerH - 16);
+
+      // Title text
+      var titleY = border + innerH + 60;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '700 64px "Inter", Arial, sans-serif';
+      ctx.letterSpacing = '12px';
+      ctx.fillText(poster.title, W / 2, titleY);
+
+      // Decorative line under title
+      var lineY = titleY + 20;
+      ctx.strokeStyle = 'rgba(200, 168, 124, 0.5)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      var lineW = Math.min(ctx.measureText(poster.title).width + 40, innerW - 100);
+      ctx.moveTo((W - lineW) / 2, lineY);
+      ctx.lineTo((W + lineW) / 2, lineY);
+      ctx.stroke();
+
+      // Tagline text — wrap lines
+      ctx.fillStyle = '#c8bba8';
+      ctx.font = 'italic 28px "Inter", Arial, sans-serif';
+      var taglineY = lineY + 45;
+      var maxWidth = innerW - 80;
+      var words = poster.tagline.split(' ');
+      var lines = [];
+      var currentLine = '';
+      words.forEach(function (word) {
+        var test = currentLine ? currentLine + ' ' + word : word;
+        if (ctx.measureText(test).width > maxWidth) {
+          lines.push(currentLine);
+          currentLine = word;
+        } else {
+          currentLine = test;
+        }
+      });
+      if (currentLine) lines.push(currentLine);
+
+      lines.forEach(function (line, i) {
+        ctx.fillText(line, W / 2, taglineY + i * 38);
+      });
+
+      // Watermark
+      ctx.fillStyle = 'rgba(200, 168, 124, 0.25)';
+      ctx.font = '400 18px "Inter", Arial, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText('kiranrao.ai', W - border - 12, H - 16);
+
+      resolve(canvas);
+    });
+  }
+
+
+  // ════════════════════════════════════════════════════
   // ADAPTER DEFINITION
   // ════════════════════════════════════════════════════
 
@@ -1186,7 +1508,7 @@
     },
     onPillAction: function (pill) {
       // Handle contextual action pills (non-agent actions)
-      if (pill.action === 'connect' || pill.action === 'resume' || pill.action === 'questions') {
+      if (pill.action === 'connect' || pill.action === 'resume' || pill.action === 'questions' || pill.action === 'poster') {
         showPanel(pill.action);
         return true; // handled — don't send to agent
       }
