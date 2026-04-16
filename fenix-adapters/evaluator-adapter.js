@@ -63,18 +63,20 @@
     { title: 'DISRUPTION', tagline: 'What we call it when the intern accidentally deletes the production database.' }
   ];
 
-  // CSS gradient backgrounds for posters — dramatic, moody, printable
-  var POSTER_GRADIENTS = [
-    'linear-gradient(160deg, #0f2027 0%, #203a43 40%, #2c5364 100%)',
-    'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
-    'linear-gradient(150deg, #2d1b4e 0%, #1a1035 50%, #0d0a1a 100%)',
-    'linear-gradient(140deg, #1b1b1b 0%, #2c2c2c 40%, #1a1a2e 100%)',
-    'linear-gradient(165deg, #0c1821 0%, #1b2838 50%, #324a5f 100%)',
-    'linear-gradient(130deg, #1a0a0a 0%, #2d1a1a 50%, #1a0a0a 100%)',
-    'linear-gradient(155deg, #0a1a0a 0%, #1a2d1a 50%, #0a1a0a 100%)',
-    'linear-gradient(145deg, #1c1c1c 0%, #383838 40%, #1c1c1c 100%)',
-    'linear-gradient(160deg, #1a1220 0%, #2a1f3d 50%, #1a1220 100%)',
-    'linear-gradient(135deg, #0d1117 0%, #161b22 50%, #21262d 100%)'
+  // Stock photo backgrounds for posters — dramatic, cinematic Unsplash imagery
+  var POSTER_IMAGES = [
+    'images/posters/mountain.jpg',
+    'images/posters/boardroom.jpg',
+    'images/posters/sunset.jpg',
+    'images/posters/hallway.jpg',
+    'images/posters/storm.jpg',
+    'images/posters/cubicles.jpg',
+    'images/posters/eagle.jpg',
+    'images/posters/lighthouse.jpg',
+    'images/posters/staircase.jpg',
+    'images/posters/forest.jpg',
+    'images/posters/cliff.jpg',
+    'images/posters/office-night.jpg'
   ];
 
   var _posterHistory = [];
@@ -94,8 +96,8 @@
     return poster;
   }
 
-  function getRandomGradient() {
-    return POSTER_GRADIENTS[Math.floor(Math.random() * POSTER_GRADIENTS.length)];
+  function getRandomImage() {
+    return POSTER_IMAGES[Math.floor(Math.random() * POSTER_IMAGES.length)];
   }
 
   // Try AI-generated poster from backend, fallback to local bank
@@ -371,6 +373,7 @@
       { sel: '.ev-unlock-card:nth-child(2)', delay: 150 },
       { sel: '.ev-unlock-card:nth-child(3)', delay: 300 },
       { sel: '.ev-unlock-card:nth-child(4)', delay: 450 },
+      { sel: '.ev-unlock-card:nth-child(5)', delay: 600 },
     ];
 
     reveals.forEach(function (item) {
@@ -733,6 +736,16 @@
         locked: false
       },
       {
+        id: 'card-poster',
+        icon: '\uD83D\uDDBC\uFE0F',
+        title: 'Office Morale Department',
+        tag: 'Just for fun',
+        hook: 'Motivational posters your office actually deserves. Download them. Print them. Tape them to the break room wall.',
+        cta: '\u2192 Generate a poster',
+        action: 'poster',
+        locked: false
+      },
+      {
         id: 'card-fit-narrative',
         icon: '\u2696\uFE0F',
         title: 'What Differentiates Kiran for Your Role',
@@ -775,6 +788,9 @@
 
         // Always swap to the relevant panel (fix: 3a — latest click wins)
         showPanel(card.action);
+
+        // Poster card is self-contained — no chat interaction needed
+        if (card.action === 'poster') return;
 
         var messageArea = document.querySelector('.ev-chat-messages');
         if (messageArea) {
@@ -1294,18 +1310,20 @@
 
     // Show first poster
     var currentPoster = null;
-    var currentGradient = null;
+    var currentImage = null;
 
-    function displayPoster(poster, gradient) {
+    function displayPoster(poster, imageSrc) {
       currentPoster = poster;
-      currentGradient = gradient || getRandomGradient();
+      currentImage = imageSrc || getRandomImage();
 
       // Fade out
       posterInner.classList.add('ev-poster-switching');
       setTimeout(function () {
         posterTitle.textContent = poster.title;
         posterTagline.textContent = poster.tagline;
-        posterBg.style.background = currentGradient;
+        posterBg.style.backgroundImage = 'url(' + currentImage + ')';
+        posterBg.style.backgroundSize = 'cover';
+        posterBg.style.backgroundPosition = 'center';
         // Fade in
         posterInner.classList.remove('ev-poster-switching');
       }, 200);
@@ -1344,7 +1362,7 @@
 
     // Download as PNG
     downloadBtn.addEventListener('click', function () {
-      renderPosterToCanvas(currentPoster, currentGradient).then(function (canvas) {
+      renderPosterToCanvas(currentPoster, currentImage).then(function (canvas) {
         var link = document.createElement('a');
         link.download = 'motivational-poster-' + currentPoster.title.toLowerCase().replace(/\s+/g, '-') + '.png';
         link.href = canvas.toDataURL('image/png');
@@ -1380,7 +1398,7 @@
   }
 
   // Render poster to high-res canvas for PNG download
-  function renderPosterToCanvas(poster, gradient) {
+  function renderPosterToCanvas(poster, imageSrc) {
     return new Promise(function (resolve) {
       var W = 1200, H = 1600; // 3:4 portrait, print-quality
       var canvas = document.createElement('canvas');
@@ -1388,84 +1406,101 @@
       canvas.height = H;
       var ctx = canvas.getContext('2d');
 
-      // Black outer border
-      ctx.fillStyle = '#000000';
-      ctx.fillRect(0, 0, W, H);
-
-      // Inner poster area with gradient
       var border = 40;
       var innerW = W - border * 2;
       var innerH = H - border * 2 - 180; // leave space for text below image
 
-      // Parse gradient and draw it
-      // For simplicity, draw a solid dark gradient approximation
-      var grd = ctx.createLinearGradient(border, border, border + innerW, border + innerH);
-      grd.addColorStop(0, '#0f2027');
-      grd.addColorStop(0.5, '#203a43');
-      grd.addColorStop(1, '#2c5364');
-      ctx.fillStyle = grd;
-      ctx.fillRect(border, border, innerW, innerH);
+      function drawText() {
+        // Subtle vignette on image area
+        var vigGrd = ctx.createRadialGradient(W / 2, border + innerH / 2, innerW * 0.2, W / 2, border + innerH / 2, innerW * 0.7);
+        vigGrd.addColorStop(0, 'rgba(0,0,0,0)');
+        vigGrd.addColorStop(1, 'rgba(0,0,0,0.5)');
+        ctx.fillStyle = vigGrd;
+        ctx.fillRect(border, border, innerW, innerH);
 
-      // Subtle vignette on image area
-      var vigGrd = ctx.createRadialGradient(W / 2, border + innerH / 2, innerW * 0.2, W / 2, border + innerH / 2, innerW * 0.7);
-      vigGrd.addColorStop(0, 'rgba(0,0,0,0)');
-      vigGrd.addColorStop(1, 'rgba(0,0,0,0.5)');
-      ctx.fillStyle = vigGrd;
-      ctx.fillRect(border, border, innerW, innerH);
+        // Thin gold border around image
+        ctx.strokeStyle = 'rgba(200, 168, 124, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(border + 8, border + 8, innerW - 16, innerH - 16);
 
-      // Thin gold border around image
-      ctx.strokeStyle = 'rgba(200, 168, 124, 0.4)';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(border + 8, border + 8, innerW - 16, innerH - 16);
+        // Title text
+        var titleY = border + innerH + 60;
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 64px "Inter", Arial, sans-serif';
+        ctx.letterSpacing = '12px';
+        ctx.fillText(poster.title, W / 2, titleY);
 
-      // Title text
-      var titleY = border + innerH + 60;
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '700 64px "Inter", Arial, sans-serif';
-      ctx.letterSpacing = '12px';
-      ctx.fillText(poster.title, W / 2, titleY);
+        // Decorative line under title
+        var lineY = titleY + 20;
+        ctx.strokeStyle = 'rgba(200, 168, 124, 0.5)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        var lineW = Math.min(ctx.measureText(poster.title).width + 40, innerW - 100);
+        ctx.moveTo((W - lineW) / 2, lineY);
+        ctx.lineTo((W + lineW) / 2, lineY);
+        ctx.stroke();
 
-      // Decorative line under title
-      var lineY = titleY + 20;
-      ctx.strokeStyle = 'rgba(200, 168, 124, 0.5)';
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      var lineW = Math.min(ctx.measureText(poster.title).width + 40, innerW - 100);
-      ctx.moveTo((W - lineW) / 2, lineY);
-      ctx.lineTo((W + lineW) / 2, lineY);
-      ctx.stroke();
+        // Tagline text — wrap lines
+        ctx.fillStyle = '#c8bba8';
+        ctx.font = 'italic 28px "Inter", Arial, sans-serif';
+        var taglineY = lineY + 45;
+        var maxWidth = innerW - 80;
+        var words = poster.tagline.split(' ');
+        var lines = [];
+        var currentLine = '';
+        words.forEach(function (word) {
+          var test = currentLine ? currentLine + ' ' + word : word;
+          if (ctx.measureText(test).width > maxWidth) {
+            lines.push(currentLine);
+            currentLine = word;
+          } else {
+            currentLine = test;
+          }
+        });
+        if (currentLine) lines.push(currentLine);
 
-      // Tagline text — wrap lines
-      ctx.fillStyle = '#c8bba8';
-      ctx.font = 'italic 28px "Inter", Arial, sans-serif';
-      var taglineY = lineY + 45;
-      var maxWidth = innerW - 80;
-      var words = poster.tagline.split(' ');
-      var lines = [];
-      var currentLine = '';
-      words.forEach(function (word) {
-        var test = currentLine ? currentLine + ' ' + word : word;
-        if (ctx.measureText(test).width > maxWidth) {
-          lines.push(currentLine);
-          currentLine = word;
-        } else {
-          currentLine = test;
-        }
-      });
-      if (currentLine) lines.push(currentLine);
+        lines.forEach(function (line, i) {
+          ctx.fillText(line, W / 2, taglineY + i * 38);
+        });
 
-      lines.forEach(function (line, i) {
-        ctx.fillText(line, W / 2, taglineY + i * 38);
-      });
+        // Watermark
+        ctx.fillStyle = 'rgba(200, 168, 124, 0.25)';
+        ctx.font = '400 18px "Inter", Arial, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('kiranrao.ai', W - border - 12, H - 16);
 
-      // Watermark
-      ctx.fillStyle = 'rgba(200, 168, 124, 0.25)';
-      ctx.font = '400 18px "Inter", Arial, sans-serif';
-      ctx.textAlign = 'right';
-      ctx.fillText('kiranrao.ai', W - border - 12, H - 16);
+        resolve(canvas);
+      }
 
-      resolve(canvas);
+      // Black outer border
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, W, H);
+
+      // Load and draw the background image
+      var img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function () {
+        // Draw image to fill the inner poster area (cover-crop)
+        var scale = Math.max(innerW / img.width, innerH / img.height);
+        var sw = innerW / scale;
+        var sh = innerH / scale;
+        var sx = (img.width - sw) / 2;
+        var sy = (img.height - sh) / 2;
+        ctx.drawImage(img, sx, sy, sw, sh, border, border, innerW, innerH);
+        drawText();
+      };
+      img.onerror = function () {
+        // Fallback: dark gradient if image fails
+        var grd = ctx.createLinearGradient(border, border, border + innerW, border + innerH);
+        grd.addColorStop(0, '#0f2027');
+        grd.addColorStop(0.5, '#203a43');
+        grd.addColorStop(1, '#2c5364');
+        ctx.fillStyle = grd;
+        ctx.fillRect(border, border, innerW, innerH);
+        drawText();
+      };
+      img.src = imageSrc;
     });
   }
 

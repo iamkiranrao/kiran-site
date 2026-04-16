@@ -80,20 +80,12 @@
       character: 'Storyteller (orangutan)',
       overlayPos: { hero: 'pos-br', blog: 'pos-br' }
     },
-    funcard: {
-      eyebrow: 'Office Morale Dept.',
-      stat: 'Poster Generator',
-      desc: 'Motivational posters your office actually deserves.',
-      tags: ['Printable', 'Shareable', '\u2728 AI'],
-      character: 'Morale Officer',
-      overlayPos: { now: 'pos-bl', center: 'pos-bl', learning: 'pos-bl' }
-    }
   };
 
   /* ── Persona → Slot → Card Mapping ── */
   var personas = {
     default:      { hero: 'teardowns', topright: 'testimonials', widel: 'studio',    wider: 'madlab',        tall: 'career',     center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' },
-    evaluator:    { hero: 'career',    topright: 'testimonials', widel: 'studio',    wider: 'madlab',        tall: 'teardowns',  center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'funcard' },
+    evaluator:    { hero: 'career',    topright: 'testimonials', widel: 'studio',    wider: 'madlab',        tall: 'teardowns',  center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' },
     seeker:       { hero: 'career',    topright: 'teardowns',    widel: 'studio',    wider: 'underhood',     tall: 'madlab',     center: 'testimonials', learning: 'learning',      blog: 'blog',      now: 'now' },
     practitioner: { hero: 'teardowns', topright: 'career',       widel: 'studio',    wider: 'testimonials',  tall: 'madlab',     center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' },
     learner:      { hero: 'blog',      topright: 'learning',     widel: 'studio',    wider: 'madlab',        tall: 'teardowns',  center: 'career',       learning: 'testimonials',  blog: 'underhood', now: 'now' },
@@ -172,7 +164,6 @@
     now:          'linear-gradient(135deg, #3A3028 0%, #2E2520 50%, #3D3025 100%)',
     learning:     'linear-gradient(125deg, #2E3328 0%, #252A22 50%, #303528 100%)',
     blog:         'linear-gradient(145deg, #35322A 0%, #2A2822 50%, #383228 100%)',
-    funcard:      'linear-gradient(140deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
   };
 
   /* ── Card ID → Destination Page ── */
@@ -316,16 +307,6 @@
     workCards.forEach(function (card) {
       card.addEventListener('click', function () {
         var cardId = card.getAttribute('data-card');
-
-        // Fun card — opens poster panel instead of navigating
-        if (cardId === 'funcard') {
-          if (window.EvaluatorExperience && window.EvaluatorExperience.showPanel) {
-            window.EvaluatorExperience.showPanel('poster');
-            var fenixZone = document.querySelector('.fenix-intro-zone');
-            if (fenixZone) fenixZone.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-          return;
-        }
 
         var page = cardPageMap[cardId];
         if (page) {
