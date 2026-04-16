@@ -717,7 +717,7 @@
     var cards = [
       {
         id: 'card-resume',
-        icon: '\uD83D\uDCC4',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>',
         title: 'Kiran\'s Resume, Focused on Your Role',
         tag: 'Explore freely',
         hook: 'Same experience, different emphasis — pick the lens that fits your search.',
@@ -727,7 +727,7 @@
       },
       {
         id: 'card-questions',
-        icon: '\uD83D\uDCA1',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>',
         title: 'What Recruiters Never Ask',
         tag: 'Explore freely',
         hook: 'The questions that actually reveal fit — and my honest answers.',
@@ -737,7 +737,7 @@
       },
       {
         id: 'card-poster',
-        icon: '\uD83E\uDD21',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5"/><rect x="3" y="7" width="18" height="4" rx="1"/></svg>',
         title: 'A Gift for Your Office Wall',
         tag: 'You deserve this',
         hook: 'I\'ve spent enough time in corporate to know what the break room really needs. These are printable, shareable, and funnier than anything HR has approved. You\'re welcome.',
@@ -747,7 +747,7 @@
       },
       {
         id: 'card-fit-narrative',
-        icon: '\u2696\uFE0F',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m16.5 10.5 1 1"/><path d="m17 6-2.891-2.891"/><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="m20 9 .891.891"/><path d="M3.109 14.109 4 15"/><path d="m6.5 12.5 1 1"/><path d="m7 18 2.891 2.891"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/></svg>',
         title: 'What Differentiates Kiran for Your Role',
         tag: 'Connect to unlock',
         hook: 'Paste a job description and I\'ll show you exactly where Kiran\'s work lines up — specific projects, results, and scale.',
@@ -769,7 +769,7 @@
       }
 
       var top = el('div', 'ev-card-top');
-      top.appendChild(el('div', 'ev-card-icon', { text: card.icon }));
+      top.appendChild(el('div', 'ev-card-icon', { html: card.icon }));
       var meta = el('div', 'ev-card-meta');
       meta.appendChild(el('div', 'ev-card-title', { text: card.title }));
       meta.appendChild(el('div', 'ev-card-tag', { text: card.tag }));
