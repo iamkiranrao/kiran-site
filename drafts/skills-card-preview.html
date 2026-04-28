@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Card — Cartographer Overlay Preview</title>
+
+    <!-- Google Fonts: Inter (body), Space Mono (eyebrow), Josefin Sans (stat for skills card) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Josefin+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Production stylesheet so prototype matches live site exactly -->
+    <link rel="stylesheet" href="../styles.css">
+
+    <style>
+        /* Prototype-only layout — does not affect production */
+        body {
+            background: #0a0a0a;
+            color: #F0E6D8;
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .preview-header {
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+        .preview-header h1 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin: 0 0 0.5rem;
+            color: #F0E6D8;
+        }
+        .preview-header p {
+            color: #9A8E80;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .preview-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .preview-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .preview-cell .label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #9A8E80;
+        }
+        .preview-cell .sublabel {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: #C8BBA8;
+        }
+
+        /* Card sizing wrappers — fix dimensions to match production grid */
+        .card-wrap {
+            position: relative;
+            display: block;
+        }
+        .card-wrap.size-1x {
+            width: 230px;
+            height: 452px;
+        }
+        .card-wrap.size-2x {
+            width: 460px;
+            height: 904px;
+        }
+        .card-wrap.topright-1x {
+            width: 472px;
+            height: 452px;
+        }
+        .card-wrap.topright-2x {
+            width: 708px;
+            height: 678px;
+        }
+        /* In production the .work-card gets size from CSS Grid track sizing.
+           Outside the grid, force it to fill its wrapper. */
+        .card-wrap > .work-card {
+            width: 100% !important;
+            height: 100% !important;
+            display: block !important;
+        }
+
+        /* Force-show tags (production hides them until hover; we want to inspect both states) */
+        .show-tags .work-tags {
+            max-height: 50px !important;
+            opacity: 1 !important;
+            margin-top: 0.5rem !important;
+        }
+
+        .toggle-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .toggle-row button {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #F0E6D8;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .toggle-row button:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.24);
+        }
+        .toggle-row button.active {
+            background: rgba(212,168,83,0.15);
+            border-color: rgba(212,168,83,0.4);
+            color: #d4a853;
+        }
+
+        .placeholder-card {
+            background: linear-gradient(125deg, #2E3328 0%, #252A22 50%, #303528 100%);
+            border-radius: 16px;
+            border: 1px dashed rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.3);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        /* Override the slot-skills .card-overlay max-width so it doesn't get squeezed
+           on the larger preview sizes (production has it at 90% which is fine) */
+    </style>
+</head>
+<body>
+    <div class="preview-header">
+        <h1>Skills Card — Cartographer Overlay Preview</h1>
+        <p>Cards rendered with production styles.css. Toggle to see resting vs hover (tags visible) state.</p>
+    </div>
+
+    <div class="toggle-row">
+        <button id="restBtn" class="active" onclick="setState('rest')">Rest state</button>
+        <button id="hoverBtn" onclick="setState('hover')">Hover state (tags visible)</button>
+    </div>
+
+    <div class="preview-grid" id="previewGrid">
+
+        <!-- ─── PORTRAIT 1:2 — pos-tc (current) ─────────────────────────── -->
+        <div class="preview-cell">
+            <div class="label">Portrait · pos-tc (current)</div>
+            <div class="sublabel">230×452 — overlay top-center</div>
+            <div class="card-wrap size-1x">
+                <button class="work-card slot-skills pos-tc" data-slot="skills" data-card="skills" aria-label="View Skills">
+                    <div class="card-bg" style="background-image: url('../images/octupus_skills1.png'); background-size: cover; background-position: center top;"></div>
+                    <div class="card-overlay"><div class="card-glass">
+                        <span class="work-eyebrow">Skills &amp; Evidence</span>
+                        <span class="work-stat">Skills</span>
+                        <p class="work-desc">What I've mastered. Mapped, connected, and proven.</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Product</span>
+                            <span class="work-tag">AI</span>
+                            <span class="work-tag">Cloud</span>
+                        </div>
+                    </div></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- ─── PORTRAIT 1:2 — pos-bc (proposed) ───────────────────────── -->
+        <div class="preview-cell">
+            <div class="label" style="color:#7CE8A3;">Portrait · pos-bc (proposed)</div>
+            <div class="sublabel">230×452 — overlay bottom-center</div>
+            <div class="card-wrap size-1x">
+                <button class="work-card slot-skills pos-bc" data-slot="skills" data-card="skills" aria-label="View Skills">
+                    <div class="card-bg" style="background-image: url('../images/octupus_skills1.png'); background-size: cover; background-position: center top;"></div>
+                    <div class="card-overlay"><div class="card-glass">
+                        <span class="work-eyebrow">Skills &amp; Evidence</span>
+                        <span class="work-stat">Skills</span>
+                        <p class="work-desc">What I've mastered. Mapped, connected, and proven.</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Product</span>
+                            <span class="work-tag">AI</span>
+                            <span class="work-tag">Cloud</span>
+                        </div>
+                    </div></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- ─── PORTRAIT 1:2 — pos-bc 2x for legibility ───────────────── -->
+        <div class="preview-cell">
+            <div class="label" style="color:#7CE8A3;">Portrait · pos-bc · 2× zoom</div>
+            <div class="sublabel">460×904 — overlay bottom-center</div>
+            <div class="card-wrap size-2x">
+                <button class="work-card slot-skills pos-bc" data-slot="skills" data-card="skills" aria-label="View Skills" style="font-size: 200%;">
+                    <div class="card-bg" style="background-image: url('../images/octupus_skills1.png'); background-size: cover; background-position: center top;"></div>
+                    <div class="card-overlay"><div class="card-glass">
+                        <span class="work-eyebrow">Skills &amp; Evidence</span>
+                        <span class="work-stat">Skills</span>
+                        <p class="work-desc">What I've mastered. Mapped, connected, and proven.</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Product</span>
+                            <span class="work-tag">AI</span>
+                            <span class="work-tag">Cloud</span>
+                        </div>
+                    </div></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- ─── TOPRIGHT 1:1 — desktop production size (placeholder until file saved) ─── -->
+        <div class="preview-cell">
+            <div class="label">Topright · slot-topright · pos-br</div>
+            <div class="sublabel">472×452 (learner persona only)</div>
+            <div class="card-wrap topright-1x">
+                <button class="work-card slot-topright pos-br" data-slot="topright" data-card="learning" aria-label="View Skills" id="toprightCard">
+                    <div class="card-bg" id="toprightBg" style="background-image: url('../images/octopus_skills2.png'); background-size: cover; background-position: center top;"></div>
+                    <div class="card-overlay"><div class="card-glass">
+                        <span class="work-eyebrow">Skills &amp; Evidence</span>
+                        <span class="work-stat">Skills</span>
+                        <p class="work-desc">What I've mastered. Mapped, connected, and proven.</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Product</span>
+                            <span class="work-tag">AI</span>
+                            <span class="work-tag">Cloud</span>
+                        </div>
+                    </div></div>
+                </button>
+            </div>
+            <p class="sublabel" id="toprightStatus" style="margin-top:0.5rem; color:#7CE8A3;">✓ Loaded from <code>images/octopus_skills2.png</code></p>
+        </div>
+
+    </div>
+
+    <script>
+        // Toggle hover state to show/hide tags
+        const grid = document.getElementById('previewGrid');
+        const restBtn = document.getElementById('restBtn');
+        const hoverBtn = document.getElementById('hoverBtn');
+        function setState(state) {
+            if (state === 'hover') {
+                grid.classList.add('show-tags');
+                hoverBtn.classList.add('active');
+                restBtn.classList.remove('active');
+            } else {
+                grid.classList.remove('show-tags');
+                restBtn.classList.add('active');
+                hoverBtn.classList.remove('active');
+            }
+        }
+
+        // Verify topright file loaded
+        const toprightImg = new Image();
+        toprightImg.onerror = function() {
+            document.getElementById('toprightStatus').textContent = '⚠ File not found at images/octopus_skills2.png';
+            document.getElementById('toprightStatus').style.color = '#d4a853';
+            document.getElementById('toprightBg').style.backgroundImage = 'linear-gradient(125deg, #2E3328 0%, #252A22 50%, #303528 100%)';
+        };
+        toprightImg.src = '../images/octopus_skills2.png';
+    </script>
+</body>
+</html>

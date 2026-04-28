@@ -1143,7 +1143,7 @@ section {
 [data-card="madlab"] .work-stat       { font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 0.06em; }
 [data-card="studio"] .work-stat       { font-family: 'Caveat', cursive; font-weight: 700; text-transform: none; }
 [data-card="blog"] .work-stat         { font-family: 'Lora', serif; font-weight: 700; font-style: italic; text-transform: none; }
-[data-card="learning"] .work-stat     { font-family: 'Josefin Sans', sans-serif; font-weight: 600; letter-spacing: 0.08em; }
+[data-card="skills"] .work-stat     { font-family: 'Josefin Sans', sans-serif; font-weight: 600; letter-spacing: 0.08em; }
 [data-card="now"] .work-stat          { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.02em; text-transform: none; }
 [data-card="underhood"] .work-stat    { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: 0.02em; text-transform: none; }
 [data-card="testimonials"] .work-stat { font-family: 'Corben', cursive; font-weight: 700; text-transform: none; }
@@ -1188,14 +1188,14 @@ section {
 .slot-center .work-stat { font-size: 2.2rem; }
 .slot-center .work-desc { font-size: 0.78rem; }
 
-/* LEARNING — 1x2 tall */
-.slot-learning { grid-column: 6 / 7; grid-row: 4 / 6; }
-.slot-learning .work-eyebrow { font-size: 0.6rem; }
-.slot-learning .work-stat { font-size: 1.4rem; }
-.slot-learning .work-desc { font-size: 0.6rem; line-height: 1.4; }
-.slot-learning .work-tag { font-size: 0.5rem; padding: 0.1rem 0.35rem; }
-.slot-learning .card-overlay { padding: 0.6rem 0.7rem; max-width: 90%; }
-.slot-learning .card-glass { gap: 0.1rem; }
+/* SKILLS — 1x2 tall */
+.slot-skills { grid-column: 6 / 7; grid-row: 4 / 6; }
+.slot-skills .work-eyebrow { font-size: 0.6rem; }
+.slot-skills .work-stat { font-size: 1.4rem; }
+.slot-skills .work-desc { font-size: 0.6rem; line-height: 1.4; }
+.slot-skills .work-tag { font-size: 0.5rem; padding: 0.1rem 0.35rem; }
+.slot-skills .card-overlay { padding: 0.6rem 0.7rem; max-width: 90%; }
+.slot-skills .card-glass { gap: 0.1rem; }
 
 /* BLOG — 2x1 */
 .slot-blog { grid-column: 1 / 3; grid-row: 6 / 7; }
@@ -1688,11 +1688,11 @@ footer {
    ============================================ */
 
 /* Learning card desktop legibility fix (BENTO-RESPONSIVE-AUDIT) */
-.slot-learning .work-desc { font-size: 0.7rem; }
-.slot-learning .work-eyebrow { font-size: 0.65rem; }
+.slot-skills .work-desc { font-size: 0.7rem; }
+.slot-skills .work-eyebrow { font-size: 0.65rem; }
 
 /* testimonials-in-learning: only combo that breaks at desktop */
-.slot-learning [data-card="testimonials"] .work-stat { font-size: 1.1rem; }
+.slot-skills [data-card="testimonials"] .work-stat { font-size: 1.1rem; }
 
 @media (max-width: 1200px) {
     .hero h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
@@ -1773,7 +1773,7 @@ footer {
     .work-grid.bento [data-card="underhood"] .card-bg { background-position: center 60% !important; }
     .work-grid.bento [data-card="testimonials"] .card-bg { background-position: center 50% !important; }
     .work-grid.bento [data-card="blog"] .card-bg { background-position: center 60% !important; }
-    .work-grid.bento [data-card="learning"] .card-bg { background-position: center 50% !important; }
+    .work-grid.bento [data-card="skills"] .card-bg { background-position: center 50% !important; }
     .work-grid.bento [data-card="now"] .card-bg { background-position: 35% 75% !important; }
 
     /* ---- BENTO-RESPONSIVE-AUDIT: Tablet fixes ---- */
@@ -1816,7 +1816,7 @@ footer {
     .work-grid.bento .slot-tall [data-card="teardowns"] .work-stat { font-size: 0.85rem !important; }
     .work-grid.bento .slot-center [data-card="career"] .work-stat { font-size: 0.9rem !important; }
     .work-grid.bento .slot-center [data-card="career"] .work-desc { font-size: 0.7rem !important; }
-    .work-grid.bento .slot-learning [data-card="testimonials"] .work-stat { font-size: 1.1rem !important; }
+    .work-grid.bento .slot-skills [data-card="testimonials"] .work-stat { font-size: 1.1rem !important; }
 
     .work-intro { padding: 2rem 2.5rem; margin: 0 2.5rem; }
     .work-intro-left { padding-right: 2.5rem; }
@@ -2006,9 +2006,9 @@ footer {
     .work-grid.bento .slot-topright .work-stat { font-size: 1.8rem !important; }
 
     /* Learning slot rescue (worst offender at mobile) */
-    .work-grid.bento .slot-learning .work-stat { font-size: 1.6rem !important; }
-    .work-grid.bento .slot-learning .work-eyebrow { font-size: 0.72rem !important; }
-    .work-grid.bento .slot-learning .work-desc { font-size: 0.8rem !important; }
+    .work-grid.bento .slot-skills .work-stat { font-size: 1.6rem !important; }
+    .work-grid.bento .slot-skills .work-eyebrow { font-size: 0.72rem !important; }
+    .work-grid.bento .slot-skills .work-desc { font-size: 0.8rem !important; }
 
     /* Now slot fix */
     .work-grid.bento .slot-now .card-overlay { max-width: 70% !important; }
@@ -2019,9 +2019,9 @@ footer {
     .work-grid.bento .card-overlay { max-width: 85% !important; }
 
     /* testimonials-in-learning mobile */
-    .work-grid.bento .slot-learning [data-card="testimonials"] .work-stat { font-size: 0.85rem !important; }
-    .work-grid.bento .slot-learning [data-card="testimonials"] { min-height: 240px; }
-    .work-grid.bento .slot-learning [data-card="testimonials"] .card-overlay { max-width: 70% !important; }
+    .work-grid.bento .slot-skills [data-card="testimonials"] .work-stat { font-size: 0.85rem !important; }
+    .work-grid.bento .slot-skills [data-card="testimonials"] { min-height: 240px; }
+    .work-grid.bento .slot-skills [data-card="testimonials"] .card-overlay { max-width: 70% !important; }
 
     .testimonial-title { font-size: 1.05rem; }
     .contact-cta h2 { font-size: 2rem; }
