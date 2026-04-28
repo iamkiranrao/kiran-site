@@ -22,7 +22,7 @@
       desc: 'From people I\'ve built with and for.',
       tags: ['Colleagues', 'Founders', 'Leaders'],
       character: 'Connector (quokka)',
-      overlayPos: { topright: 'pos-bc', center: 'pos-bc', wider: 'pos-br', learning: 'pos-br' }
+      overlayPos: { topright: 'pos-bc', center: 'pos-bc', wider: 'pos-br', skills: 'pos-br' }
     },
     studio: {
       eyebrow: 'Left-Brain Sandbox',
@@ -64,13 +64,13 @@
       character: 'Explorer (fox)',
       overlayPos: { now: 'pos-tr' }
     },
-    learning: {
-      eyebrow: 'Always Learning',
-      stat: 'Learning',
-      desc: 'Certifications, courses, craft-sharpening.',
-      tags: ['CSPO', 'AWS'],
-      character: 'Student (bush baby)',
-      overlayPos: { learning: 'pos-tc', topright: 'pos-br' }
+    skills: {
+      eyebrow: 'Skills & Evidence',
+      stat: 'Skills',
+      desc: "What I've mastered. Mapped, connected, and proven.",
+      tags: ['Product', 'AI', 'Cloud'],
+      character: 'Cartographer (octopus)',
+      overlayPos: { skills: 'pos-bc', topright: 'pos-br' }
     },
     blog: {
       eyebrow: 'Written Word',
@@ -84,19 +84,19 @@
 
   /* ── Persona → Slot → Card Mapping ── */
   var personas = {
-    default:      { hero: 'teardowns', topright: 'testimonials', widel: 'studio',    wider: 'madlab',        tall: 'career',     center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' },
-    evaluator:    { hero: 'career',    topright: 'testimonials', widel: 'studio',    wider: 'madlab',        tall: 'teardowns',  center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' },
-    seeker:       { hero: 'career',    topright: 'teardowns',    widel: 'studio',    wider: 'underhood',     tall: 'madlab',     center: 'testimonials', learning: 'learning',      blog: 'blog',      now: 'now' },
-    practitioner: { hero: 'teardowns', topright: 'career',       widel: 'studio',    wider: 'testimonials',  tall: 'madlab',     center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' },
-    learner:      { hero: 'blog',      topright: 'learning',     widel: 'studio',    wider: 'madlab',        tall: 'teardowns',  center: 'career',       learning: 'testimonials',  blog: 'underhood', now: 'now' },
-    technologist: { hero: 'madlab',    topright: 'studio',       widel: 'underhood', wider: 'career',        tall: 'teardowns',  center: 'testimonials', learning: 'learning',      blog: 'blog',      now: 'now' },
-    innercircle:  { hero: 'studio',    topright: 'career',       widel: 'teardowns', wider: 'testimonials',  tall: 'madlab',     center: 'underhood',    learning: 'learning',      blog: 'blog',      now: 'now' }
+    default:      { hero: 'teardowns', topright: 'testimonials', widel: 'studio',    wider: 'madlab',        tall: 'career',     center: 'underhood',    skills: 'skills',      blog: 'blog',      now: 'now' },
+    evaluator:    { hero: 'career',    topright: 'testimonials', widel: 'studio',    wider: 'madlab',        tall: 'teardowns',  center: 'underhood',    skills: 'skills',      blog: 'blog',      now: 'now' },
+    seeker:       { hero: 'career',    topright: 'teardowns',    widel: 'studio',    wider: 'underhood',     tall: 'madlab',     center: 'testimonials', skills: 'skills',      blog: 'blog',      now: 'now' },
+    practitioner: { hero: 'teardowns', topright: 'career',       widel: 'studio',    wider: 'testimonials',  tall: 'madlab',     center: 'underhood',    skills: 'skills',      blog: 'blog',      now: 'now' },
+    learner:      { hero: 'blog',      topright: 'skills',     widel: 'studio',    wider: 'madlab',        tall: 'teardowns',  center: 'career',       skills: 'testimonials',  blog: 'underhood', now: 'now' },
+    technologist: { hero: 'madlab',    topright: 'studio',       widel: 'underhood', wider: 'career',        tall: 'teardowns',  center: 'testimonials', skills: 'skills',      blog: 'blog',      now: 'now' },
+    innercircle:  { hero: 'studio',    topright: 'career',       widel: 'teardowns', wider: 'testimonials',  tall: 'madlab',     center: 'underhood',    skills: 'skills',      blog: 'blog',      now: 'now' }
   };
 
   /* ── Slot Ratios (for missing-image labels) ── */
   var slotRatios = {
     hero: '2:1', topright: '1:1', widel: '3:1', wider: '3:1',
-    tall: '3:2', center: '1:1', learning: '1:2', blog: '2:1', now: '4:1'
+    tall: '3:2', center: '1:1', skills: '1:2', blog: '2:1', now: '4:1'
   };
 
   /* ── Image Map: card → slot → filename ── */
@@ -132,7 +132,7 @@
       topright: 'images/connector-square-1_1_2.png',
       center: 'images/connector-square-1_1_2.png',
       wider: null,
-      learning: 'images/learner-library1.png'
+      skills: 'images/connector-square-1_1_2.png'
     },
     underhood: {
       center: 'images/engineer2.png',
@@ -143,9 +143,9 @@
     now: {
       now: 'images/explorer2.png'
     },
-    learning: {
-      learning: 'images/learner-library1.png',
-      topright: null
+    skills: {
+      skills: 'images/octupus_skills1.png',
+      topright: 'images/octopus_skills2.png'
     },
     blog: {
       hero: 'images/blogging-monster2.png',
@@ -162,7 +162,7 @@
     career:       'linear-gradient(125deg, #2C3035 0%, #3A3838 50%, #2C3035 100%)',
     underhood:    'linear-gradient(130deg, #2E3235 0%, #252A2C 50%, #303538 100%)',
     now:          'linear-gradient(135deg, #3A3028 0%, #2E2520 50%, #3D3025 100%)',
-    learning:     'linear-gradient(125deg, #2E3328 0%, #252A22 50%, #303528 100%)',
+    skills:     'linear-gradient(125deg, #2E3328 0%, #252A22 50%, #303528 100%)',
     blog:         'linear-gradient(145deg, #35322A 0%, #2A2822 50%, #383228 100%)',
   };
 
@@ -173,7 +173,7 @@
     madlab:       'madlab.html',
     studio:       'studio.html',
     blog:         'blog-podcast.html',
-    learning:     'skills.html',
+    skills:     'skills.html',
     now:          'now.html',
     underhood:    'under-the-hood.html',
     testimonials: 'testimonials.html'
@@ -238,7 +238,7 @@
 
   /* ══════════════════════════════════════════════════
      MOBILE IMAGE SWAPS — use dedicated mobile images
-     for blog and learning cards on small screens
+     for blog and skills cards on small screens
      ══════════════════════════════════════════════════ */
   /* Mobile image for EVERY card — used on <=1024px so cards
      always show art regardless of which persona slot they land in.
@@ -253,7 +253,7 @@
       testimonials: { img: 'images/connector-square-1_1_2.png',    pos: 'center 30%' },
       underhood:    { img: 'images/engineer2.png',                  pos: 'center 60%' },
       now:          { img: 'images/explorer2.png',                  pos: '35% 75%'   },
-      learning:     { img: 'images/learnermobile.png',              pos: 'center 50%' },
+      skills:       { img: 'images/octopus_skills3.png',          pos: 'center 50%' },
       blog:         { img: 'images/blogmobile.png',                 pos: 'center 60%' }
   };
 
