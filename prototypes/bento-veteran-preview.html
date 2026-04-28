@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bento Veteran Art — Locked Overlay Positions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --glass-text-dark: #F0E6D8;
+    --glass-text-dark-secondary: #C8BBA8;
+    --glass-text-dark-muted: #9A8E80;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #0a0807;
+    color: #F0E6D8;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 48px 32px 96px;
+    min-height: 100vh;
+  }
+
+  .doc-header {
+    max-width: 980px;
+    margin: 0 auto 48px;
+  }
+  .doc-header h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+  }
+  .doc-header p {
+    color: var(--glass-text-dark-secondary);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin: 0 0 6px;
+    max-width: 680px;
+  }
+  .doc-header .meta {
+    color: var(--glass-text-dark-muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+  .badge-locked {
+    display: inline-block;
+    color: rgba(107,158,107,0.95);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border: 1px solid rgba(107,158,107,0.4);
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+
+  .preview-stack {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .preview-row { width: 100%; }
+  .preview-row .label {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+    color: var(--glass-text-dark-muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .preview-row .label strong { color: var(--glass-text-dark); font-weight: 700; }
+  .preview-row .label .ar { color: rgba(212,168,83,0.85); }
+  .preview-row .label .pos { color: rgba(107,158,107,0.95); }
+  .preview-row .label .change-note {
+    color: var(--glass-text-dark-muted);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+  }
+
+  /* ── Card Base ── */
+  .work-card {
+    border-radius: 16px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    color: var(--glass-text-dark);
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+  }
+  .work-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    pointer-events: none;
+    z-index: 5;
+  }
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    z-index: 0;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+  .card-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.1);
+    pointer-events: none;
+  }
+
+  .card-overlay {
+    position: absolute;
+    z-index: 3;
+    width: fit-content;
+    padding: 0.75rem 1rem;
+    background: rgba(16, 14, 12, 0.85);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .card-overlay { background: rgba(16, 14, 12, 0.95); }
+  }
+
+  .pos-bl .card-overlay { bottom: 0.75rem; left: 0.75rem; }
+  .pos-br .card-overlay { bottom: 0.75rem; right: 0.75rem; }
+  .pos-tl .card-overlay { top: 0.75rem; left: 0.75rem; }
+  .pos-tr .card-overlay { top: 0.75rem; right: 0.75rem; }
+  .pos-tr .card-glass,
+  .pos-br .card-glass { align-items: flex-end; text-align: right; }
+  .pos-tr .work-tags,
+  .pos-br .work-tags { justify-content: flex-end; }
+  .pos-bl .card-glass,
+  .pos-tl .card-glass { align-items: flex-start; text-align: left; }
+
+  .card-glass { display: flex; flex-direction: column; gap: 0.15rem; }
+
+  .work-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--glass-text-dark-muted);
+    font-size: 0.55rem;
+  }
+  .work-stat {
+    font-family: 'Archivo Black', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    color: var(--glass-text-dark);
+    font-size: 1.8rem;
+  }
+  .work-desc {
+    color: var(--glass-text-dark-secondary);
+    line-height: 1.4;
+    font-size: 0.72rem;
+    margin: 0;
+    font-weight: 400;
+  }
+  .work-tags {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-top: 0.3rem;
+  }
+  .work-tag {
+    padding: 0.15rem 0.5rem;
+    background: rgba(255,255,255,0.08);
+    color: var(--glass-text-dark-secondary);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 500px;
+    font-size: 0.6rem;
+  }
+
+  .slot-topright { aspect-ratio: 1 / 1; width: 452px; max-width: 100%; }
+  .slot-topright .work-stat { font-size: 2rem; }
+  .slot-topright .work-desc { font-size: 0.78rem; }
+
+  .slot-center { aspect-ratio: 1 / 1; width: 452px; max-width: 100%; }
+  .slot-center .work-stat { font-size: 2.2rem; }
+  .slot-center .work-desc { font-size: 0.78rem; }
+
+  .slot-wider { aspect-ratio: 3 / 1; width: 678px; max-width: 100%; }
+  .slot-wider .work-stat { font-size: 1.5rem; }
+  .slot-wider .card-overlay { max-width: 65%; }
+</style>
+</head>
+<body>
+
+  <div class="doc-header">
+    <h1>Veteran (bear) — Locked Overlay Positions <span class="badge-locked">locked</span></h1>
+    <p>Final positions approved for wiring. <code>cardData.career.overlayPos</code> in <code>bento-cards.js</code> updates: <strong>topright</strong> pos-tr → pos-br. Center and wider unchanged.</p>
+    <div class="meta">applies to career card whenever it lands in topright, center, or wider slots across all personas</div>
+  </div>
+
+  <div class="preview-stack">
+
+    <!-- TOPRIGHT — pos-br -->
+    <div class="preview-row">
+      <div class="label">
+        <strong>veteran-topright-1_1.png</strong>
+        <span>·</span>
+        <span class="ar">topright (1:1)</span>
+        <span>·</span>
+        <span>overlay:</span> <span class="pos">pos-br</span>
+        <span class="change-note">(was pos-tr — moved to bottom-right corner)</span>
+      </div>
+      <button class="work-card slot-topright pos-br" data-card="career">
+        <div class="card-bg" style="background-image: url('../images/veteran-topright-1_1.png');"></div>
+        <div class="card-overlay"><div class="card-glass">
+          <span class="work-eyebrow">15+ Years Building</span>
+          <span class="work-stat">The Work</span>
+          <p class="work-desc">Enterprise to startup. The full arc.</p>
+          <div class="work-tags">
+            <span class="work-tag">ADP</span><span class="work-tag">Yahoo</span><span class="work-tag">Avatour</span><span class="work-tag">+3</span>
+          </div>
+        </div></div>
+      </button>
+    </div>
+
+    <!-- CENTER — pos-bl -->
+    <div class="preview-row">
+      <div class="label">
+        <strong>veteran-center-1_1.png</strong>
+        <span>·</span>
+        <span class="ar">center (1:1)</span>
+        <span>·</span>
+        <span>overlay:</span> <span class="pos">pos-bl</span>
+        <span class="change-note">(unchanged — works as spec'd)</span>
+      </div>
+      <button class="work-card slot-center pos-bl" data-card="career">
+        <div class="card-bg" style="background-image: url('../images/veteran-center-1_1.png');"></div>
+        <div class="card-overlay"><div class="card-glass">
+          <span class="work-eyebrow">15+ Years Building</span>
+          <span class="work-stat">The Work</span>
+          <p class="work-desc">Enterprise to startup. The full arc.</p>
+          <div class="work-tags">
+            <span class="work-tag">ADP</span><span class="work-tag">Yahoo</span><span class="work-tag">Avatour</span><span class="work-tag">+3</span>
+          </div>
+        </div></div>
+      </button>
+    </div>
+
+    <!-- WIDER — pos-br -->
+    <div class="preview-row">
+      <div class="label">
+        <strong>veteran-wider-3_1.png</strong>
+        <span>·</span>
+        <span class="ar">wider (3:1)</span>
+        <span>·</span>
+        <span>overlay:</span> <span class="pos">pos-br</span>
+        <span class="change-note">(unchanged — sits cleanly on cityscape bokeh)</span>
+      </div>
+      <button class="work-card slot-wider pos-br" data-card="career">
+        <div class="card-bg" style="background-image: url('../images/veteran-wider-3_1.png');"></div>
+        <div class="card-overlay"><div class="card-glass">
+          <span class="work-eyebrow">15+ Years Building</span>
+          <span class="work-stat">The Work</span>
+          <p class="work-desc">Enterprise to startup. The full arc.</p>
+          <div class="work-tags">
+            <span class="work-tag">ADP</span><span class="work-tag">Yahoo</span><span class="work-tag">Avatour</span><span class="work-tag">+3</span>
+          </div>
+        </div></div>
+      </button>
+    </div>
+
+  </div>
+
+</body>
+</html>

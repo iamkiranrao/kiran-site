@@ -46,7 +46,7 @@
       desc: 'Enterprise to startup. The full arc.',
       tags: ['ADP', 'Yahoo', 'Avatour', '+3'],
       character: 'Veteran (bear)',
-      overlayPos: { hero: 'pos-tr', topright: 'pos-tr', tall: 'pos-tr', center: 'pos-bl', wider: 'pos-br' }
+      overlayPos: { hero: 'pos-tr', topright: 'pos-br', tall: 'pos-tr', center: 'pos-bl', wider: 'pos-br' }
     },
     underhood: {
       eyebrow: 'Behind the Scene',
@@ -111,10 +111,10 @@
     },
     career: {
       hero: 'images/veteran-hero-2-1.png',
-      topright: null,
+      topright: 'images/veteran-topright-1_1.png',
       tall: 'images/veteran-hero-2-1.png',
-      center: null,
-      wider: null
+      center: 'images/veteran-center-1_1.png',
+      wider: 'images/veteran-wider-3_1.png'
     },
     madlab: {
       hero: null,
