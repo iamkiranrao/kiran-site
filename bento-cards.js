@@ -65,9 +65,9 @@
       overlayPos: { now: 'pos-tr' }
     },
     skills: {
-      eyebrow: 'Skills & Evidence',
+      eyebrow: 'Range & Evidence',
       stat: 'Skills',
-      desc: "What I've mastered. Mapped, connected, and proven.",
+      desc: 'Mastered. Mapped. Proven.',
       tags: ['Product', 'AI', 'Cloud'],
       character: 'Cartographer (octopus)',
       overlayPos: { skills: 'pos-bc', topright: 'pos-br' }
