@@ -14,7 +14,7 @@
       desc: 'Popular app teardowns. Keep, kill, rebuild.',
       tags: ['Instagram', 'GEICO', 'Airbnb', 'Duolingo', '+2'],
       character: 'Analyst (owl)',
-      overlayPos: { hero: 'pos-tr', topright: 'pos-bl', widel: 'pos-bl', wider: 'pos-br', tall: 'pos-tr', center: 'pos-bl' }
+      overlayPos: { hero: 'pos-tr', topright: 'pos-bl', widel: 'pos-tl', wider: 'pos-br', tall: 'pos-bl', center: 'pos-bl' }
     },
     testimonials: {
       eyebrow: 'What People Say',
@@ -103,10 +103,10 @@
   var imageMap = {
     teardowns: {
       hero: 'images/analyst-hero-2-1.png',
-      topright: null,
-      widel: null,
+      topright: 'images/analyst-topright-1_1.png',
+      widel: 'images/analyst-widel-3_1.png',
       wider: null,
-      tall: null,
+      tall: 'images/analyst-tall-3_2.png',
       center: null
     },
     career: {
