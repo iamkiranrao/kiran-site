@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bento Tinkerer Art — Overlay Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --glass-text-dark: #F0E6D8;
+    --glass-text-dark-secondary: #C8BBA8;
+    --glass-text-dark-muted: #9A8E80;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #0a0807;
+    color: #F0E6D8;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 48px 32px 96px;
+    min-height: 100vh;
+  }
+
+  .doc-header {
+    max-width: 980px;
+    margin: 0 auto 48px;
+  }
+  .doc-header h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+  }
+  .doc-header p {
+    color: var(--glass-text-dark-secondary);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin: 0 0 6px;
+    max-width: 680px;
+  }
+  .doc-header .meta {
+    color: var(--glass-text-dark-muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+
+  .preview-stack {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .preview-row { width: 100%; }
+  .preview-row .label {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+    color: var(--glass-text-dark-muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .preview-row .label strong { color: var(--glass-text-dark); font-weight: 700; }
+  .preview-row .label .ar { color: rgba(212,168,83,0.85); }
+  .preview-row .label .pos { color: rgba(123,154,204,0.85); }
+
+  /* ── Card Base ── */
+  .work-card {
+    border-radius: 16px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    color: var(--glass-text-dark);
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+  }
+  .work-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    z-index: 0;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+  .card-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.1);
+    pointer-events: none;
+  }
+
+  /* Glassmorphism overlay */
+  .card-overlay {
+    position: absolute;
+    z-index: 3;
+    width: fit-content;
+    padding: 0.75rem 1rem;
+    background: rgba(16, 14, 12, 0.85);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .card-overlay { background: rgba(16, 14, 12, 0.95); }
+  }
+
+  /* Position classes */
+  .pos-bl .card-overlay { bottom: 0.75rem; left: 0.75rem; }
+  .pos-br .card-overlay { bottom: 0.75rem; right: 0.75rem; }
+  .pos-tl .card-overlay { top: 0.75rem; left: 0.75rem; }
+  .pos-tr .card-overlay { top: 0.75rem; right: 0.75rem; }
+
+  .pos-tr .card-glass,
+  .pos-br .card-glass { align-items: flex-end; text-align: right; }
+  .pos-tr .work-tags,
+  .pos-br .work-tags { justify-content: flex-end; }
+  .pos-bl .card-glass,
+  .pos-tl .card-glass { align-items: flex-start; text-align: left; }
+
+  .card-glass { display: flex; flex-direction: column; gap: 0.15rem; }
+
+  /* Typography — matches production (madlab uses Orbitron) */
+  .work-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--glass-text-dark-muted);
+    font-size: 0.55rem;
+  }
+  .work-stat {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 0.95;
+    color: var(--glass-text-dark);
+    font-size: 1.8rem;
+  }
+  .work-desc {
+    color: var(--glass-text-dark-secondary);
+    line-height: 1.4;
+    font-size: 0.72rem;
+    margin: 0;
+    font-weight: 400;
+  }
+  .work-tags {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-top: 0.3rem;
+  }
+  .work-tag {
+    padding: 0.15rem 0.5rem;
+    background: rgba(255,255,255,0.08);
+    color: var(--glass-text-dark-secondary);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 500px;
+    font-size: 0.6rem;
+  }
+
+  /* Slot-specific sizing */
+  .slot-hero {
+    aspect-ratio: 2 / 1;
+    width: 900px; max-width: 100%;
+  }
+  .slot-hero .work-eyebrow { font-size: 0.8rem; letter-spacing: 0.14em; }
+  .slot-hero .work-stat { font-size: 2.4rem; }
+  .slot-hero .work-desc { font-size: 0.85rem; max-width: 50ch; }
+  .slot-hero .card-glass { gap: 0.25rem; }
+  .slot-hero .card-overlay { max-width: 45%; }
+
+  .slot-tall {
+    aspect-ratio: 3 / 2;
+    width: 678px; max-width: 100%;
+  }
+  .slot-tall .work-eyebrow { font-size: 0.75rem; }
+  .slot-tall .work-stat { font-size: 2.5rem; }
+  .slot-tall .work-desc { font-size: 0.8rem; }
+  .slot-tall .card-overlay { max-width: 55%; }
+  .slot-tall .card-glass { gap: 0.25rem; }
+</style>
+</head>
+<body>
+
+  <div class="doc-header">
+    <h1>Tinkerer (meerkat) — Locked Overlay Positions <span style="display:inline-block;color:rgba(107,158,107,0.95);font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border:1px solid rgba(107,158,107,0.4);border-radius:4px;margin-left:8px;">locked</span></h1>
+    <p>Final positions approved for wiring. Both match the originally-spec'd <code>cardData.madlab.overlayPos</code>: HERO <code>pos-br</code> and TALL <code>pos-tr</code>. No <code>overlayPos</code> changes needed — only imageMap entries get filled.</p>
+    <div class="meta">applies to madlab card whenever it lands in hero or tall slots across all personas</div>
+  </div>
+
+  <div class="preview-stack">
+
+    <!-- HERO 2:1 — pos-br (character left, lower-right kept clean per prompt) -->
+    <div class="preview-row">
+      <div class="label">
+        <strong>tinkerer-hero-2_1.png</strong>
+        <span>·</span>
+        <span class="ar">hero (2:1)</span>
+        <span>·</span>
+        <span>overlay:</span> <span class="pos">pos-br (bottom-right)</span>
+      </div>
+      <button class="work-card slot-hero pos-br" data-card="madlab">
+        <div class="card-bg" style="background-image: url('../images/tinkerer-hero-2_1.png');"></div>
+        <div class="card-overlay"><div class="card-glass">
+          <span class="work-eyebrow">Apps &amp; Prototypes</span>
+          <span class="work-stat">MadLab</span>
+          <p class="work-desc">From concept to App Store.</p>
+          <div class="work-tags">
+            <span class="work-tag">Scannibal</span><span class="work-tag">Persona Picker</span><span class="work-tag">DIA Fund</span>
+          </div>
+        </div></div>
+      </button>
+    </div>
+
+    <!-- TALL 3:2 — pos-tr (character lower-left, upper-right kept clean per prompt) -->
+    <div class="preview-row">
+      <div class="label">
+        <strong>tinkerer-tall-3_2.png</strong>
+        <span>·</span>
+        <span class="ar">tall (3:2)</span>
+        <span>·</span>
+        <span>overlay:</span> <span class="pos">pos-tr (top-right)</span>
+      </div>
+      <button class="work-card slot-tall pos-tr" data-card="madlab">
+        <div class="card-bg" style="background-image: url('../images/tinkerer-tall-3_2.png');"></div>
+        <div class="card-overlay"><div class="card-glass">
+          <span class="work-eyebrow">Apps &amp; Prototypes</span>
+          <span class="work-stat">MadLab</span>
+          <p class="work-desc">From concept to App Store.</p>
+          <div class="work-tags">
+            <span class="work-tag">Scannibal</span><span class="work-tag">Persona Picker</span><span class="work-tag">DIA Fund</span>
+          </div>
+        </div></div>
+      </button>
+    </div>
+
+  </div>
+
+</body>
+</html>
