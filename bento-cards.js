@@ -22,7 +22,7 @@
       desc: 'From people I\'ve built with and for.',
       tags: ['Colleagues', 'Founders', 'Leaders'],
       character: 'Connector (quokka)',
-      overlayPos: { topright: 'pos-bc', center: 'pos-bc', wider: 'pos-br', skills: 'pos-br' }
+      overlayPos: { topright: 'pos-bc', center: 'pos-bc', wider: 'pos-tr', skills: 'pos-br' }
     },
     studio: {
       eyebrow: 'Left-Brain Sandbox',
@@ -54,7 +54,7 @@
       desc: 'How this site was actually built.',
       tags: ['Architecture', 'AI-Assisted'],
       character: 'Engineer (bulldog)',
-      overlayPos: { center: 'pos-bl', widel: 'pos-bl', wider: 'pos-bl', blog: 'pos-bl' }
+      overlayPos: { center: 'pos-bl', widel: 'pos-tl', wider: 'pos-tl', blog: 'pos-tl' }
     },
     now: {
       eyebrow: 'Right Now',
@@ -131,14 +131,14 @@
     testimonials: {
       topright: 'images/connector-square-1_1_2.png',
       center: 'images/connector-square-1_1_2.png',
-      wider: null,
+      wider: 'images/connector-wider-3_1.png',
       skills: 'images/connector-square-1_1_2.png'
     },
     underhood: {
       center: 'images/engineer2.png',
-      widel: null,
-      wider: null,
-      blog: null
+      widel: 'images/engineer-wider-3_1.png',
+      wider: 'images/engineer-wider-3_1.png',
+      blog: 'images/engineer-blog-2_1.png'
     },
     now: {
       now: 'images/explorer2.png'
