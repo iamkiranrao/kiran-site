@@ -14,7 +14,7 @@
       desc: 'Popular app teardowns. Keep, kill, rebuild.',
       tags: ['Instagram', 'GEICO', 'Airbnb', 'Duolingo', '+2'],
       character: 'Analyst (owl)',
-      overlayPos: { hero: 'pos-tr', topright: 'pos-bl', widel: 'pos-tl', wider: 'pos-br', tall: 'pos-bl', center: 'pos-bl' }
+      overlayPos: { hero: 'pos-bl', topright: 'pos-bl', widel: 'pos-tl', wider: 'pos-br', tall: 'pos-bl', center: 'pos-bl' }
     },
     testimonials: {
       eyebrow: 'What People Say',
@@ -38,7 +38,7 @@
       desc: 'From concept to App Store.',
       tags: ['Scannibal', 'Persona Picker', 'DIA Fund'],
       character: 'Tinkerer (meerkat)',
-      overlayPos: { hero: 'pos-br', tall: 'pos-tr', widel: 'pos-br', wider: 'pos-br' }
+      overlayPos: { hero: 'pos-tl', tall: 'pos-tr', widel: 'pos-br', wider: 'pos-br' }
     },
     career: {
       eyebrow: '15+ Years Building',
@@ -46,7 +46,7 @@
       desc: 'Enterprise to startup. The full arc.',
       tags: ['ADP', 'Yahoo', 'Avatour', '+3'],
       character: 'Veteran (bear)',
-      overlayPos: { hero: 'pos-tr', topright: 'pos-br', tall: 'pos-tr', center: 'pos-bl', wider: 'pos-br' }
+      overlayPos: { hero: 'pos-tr', topright: 'pos-tr', tall: 'pos-tr', center: 'pos-br', wider: 'pos-br' }
     },
     underhood: {
       eyebrow: 'Behind the Scene',
@@ -54,7 +54,7 @@
       desc: 'How this site was actually built.',
       tags: ['Architecture', 'AI-Assisted'],
       character: 'Engineer (bulldog)',
-      overlayPos: { center: 'pos-bl', widel: 'pos-tl', wider: 'pos-tl', blog: 'pos-tl' }
+      overlayPos: { center: 'pos-bl', widel: 'pos-tl', wider: 'pos-tl', blog: 'pos-bl' }
     },
     now: {
       eyebrow: 'Right Now',
@@ -78,7 +78,7 @@
       desc: 'Product meets prose.',
       tags: ['Product', 'Design', 'Engineering'],
       character: 'Storyteller (orangutan)',
-      overlayPos: { hero: 'pos-br', blog: 'pos-br' }
+      overlayPos: { hero: 'pos-tr', blog: 'pos-br' }
     },
   };
 

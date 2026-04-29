@@ -1699,8 +1699,11 @@ footer {
 .slot-skills .work-desc { font-size: 0.7rem; }
 .slot-skills .work-eyebrow { font-size: 0.65rem; }
 
-/* testimonials-in-learning: only combo that breaks at desktop */
-.slot-skills [data-card="testimonials"] .work-stat { font-size: 1.1rem; }
+/* testimonials-in-skills-slot: "Testimonials" in Corben at default 1.4rem
+   overflows the narrow 1-column slot. Slot+card scoped (no space between
+   selectors) — earlier version had a space, making it a descendant selector
+   that never matched, leaving the text overflow bug live. */
+.slot-skills[data-card="testimonials"] .work-stat { font-size: 1.1rem; }
 
 @media (max-width: 1200px) {
     .hero h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
