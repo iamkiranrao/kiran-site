@@ -117,8 +117,8 @@
       wider: 'images/veteran-wider-3_1.png'
     },
     madlab: {
-      hero: null,
-      tall: null,
+      hero: 'images/tinkerer-hero-2_1.png',
+      tall: 'images/tinkerer-tall-3_2.png',
       widel: null,
       wider: 'images/tinkerer-hero-2-1-flipped.png'
     },
