@@ -123,8 +123,8 @@
       wider: 'images/tinkerer-hero-2-1-flipped.png'
     },
     studio: {
-      hero: null,
-      topright: null,
+      hero: 'images/artist-hero-2_1.png',
+      topright: 'images/artist-topright-1_1.png',
       widel: 'images/studiocardwide3_1.png',
       wider: null
     },
