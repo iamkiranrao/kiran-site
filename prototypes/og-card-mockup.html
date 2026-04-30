@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OG Card Mockup — Teardowns</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F0E6D8;
+    --cream-dark: #E8DCC8;
+    --charcoal: #2A2520;
+    --charcoal-2: #4A4239;
+    --muted: #8A7E70;
+    --rust: #B05D3C;
+    --slack-bg: #1a1d21;
+    --slack-card: #222529;
+    --slack-text: #d1d2d3;
+    --slack-link: #1d9bd1;
+    --linkedin-bg: #f3f2ef;
+    --linkedin-card: #ffffff;
+    --linkedin-text: #000000e6;
+    --linkedin-meta: #00000099;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    padding: 48px 24px 96px;
+    line-height: 1.5;
+  }
+
+  .doc-header {
+    max-width: 1280px;
+    margin: 0 auto 48px;
+  }
+  .doc-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .doc-header p {
+    color: var(--charcoal-2);
+    font-size: 0.95rem;
+    max-width: 70ch;
+  }
+
+  .section-label {
+    max-width: 1280px;
+    margin: 48px auto 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ════════════════════════════════════════════════
+     1. Standalone OG card — 1200x630 with type overlay
+     ════════════════════════════════════════════════ */
+  .og-card-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: var(--cream-dark);
+    padding: 32px;
+    border-radius: 12px;
+  }
+  .og-card {
+    width: 100%;
+    aspect-ratio: 1200 / 630;
+    background-image: url('../images/ogcardtest.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  /* TYPE OVERLAY — solid content card sitting on top of image */
+  .og-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 5% 6%;
+  }
+  .og-card-content {
+    background: var(--cream);
+    padding: 2.2vw 2.8vw;
+    border-radius: 6px;
+    border-left: 5px solid var(--rust);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.18);
+    max-width: 56%;
+  }
+  .og-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9vw;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.9vw;
+  }
+  .og-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 3.4vw;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--charcoal);
+    margin: 0 0 0.8vw 0;
+  }
+  .og-byline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.95vw;
+    color: var(--charcoal-2);
+    letter-spacing: 0.02em;
+  }
+
+  /* Spec meta below the card */
+  .og-spec {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .og-spec strong { color: var(--charcoal); font-weight: 700; }
+
+  /* ════════════════════════════════════════════════
+     2. Slack-style link preview
+     ════════════════════════════════════════════════ */
+  .preview-row {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .slack-preview {
+    background: var(--slack-bg);
+    padding: 24px;
+    border-radius: 12px;
+    color: var(--slack-text);
+    font-size: 0.95rem;
+  }
+  .slack-preview .platform-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 16px;
+  }
+  .slack-preview .msg {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 4px;
+  }
+  .slack-preview .url {
+    color: var(--slack-link);
+    font-size: 0.92rem;
+    margin-bottom: 12px;
+    word-break: break-all;
+  }
+  .slack-preview .card {
+    background: var(--slack-card);
+    border-left: 4px solid #444;
+    border-radius: 4px;
+    padding: 12px;
+    max-width: 480px;
+  }
+  .slack-preview .card-site {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 4px;
+  }
+  .slack-preview .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .slack-preview .card-desc {
+    font-size: 0.86rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.45;
+    margin-bottom: 8px;
+  }
+  .slack-preview .card-image {
+    width: 100%;
+    aspect-ratio: 1200 / 630;
+    background-image: url('../images/ogcardtest.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .slack-preview .card-image .mini-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 5% 6%;
+  }
+  .slack-preview .card-image .mini-card {
+    background: var(--cream);
+    padding: 14px 18px;
+    border-radius: 4px;
+    border-left: 3px solid var(--rust);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    max-width: 60%;
+  }
+  .slack-preview .card-image .mini-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 4px;
+  }
+  .slack-preview .card-image .mini-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    line-height: 0.95;
+    color: var(--charcoal);
+  }
+
+  /* ════════════════════════════════════════════════
+     3. LinkedIn-style link preview
+     ════════════════════════════════════════════════ */
+  .linkedin-preview {
+    background: var(--linkedin-bg);
+    padding: 24px;
+    border-radius: 12px;
+    color: var(--linkedin-text);
+  }
+  .linkedin-preview .platform-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.5);
+    margin-bottom: 16px;
+  }
+  .linkedin-preview .card {
+    background: var(--linkedin-card);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 520px;
+  }
+  .linkedin-preview .card-image {
+    width: 100%;
+    aspect-ratio: 1200 / 630;
+    background-image: url('../images/ogcardtest.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .linkedin-preview .card-image .mini-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 5% 6%;
+  }
+  .linkedin-preview .card-image .mini-card {
+    background: var(--cream);
+    padding: 14px 18px;
+    border-radius: 4px;
+    border-left: 3px solid var(--rust);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    max-width: 60%;
+  }
+  .linkedin-preview .card-image .mini-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 4px;
+  }
+  .linkedin-preview .card-image .mini-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 0.95;
+    color: var(--charcoal);
+  }
+  .linkedin-preview .card-body {
+    padding: 12px 16px;
+    background: #fafafa;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .linkedin-preview .card-site {
+    font-size: 0.75rem;
+    color: var(--linkedin-meta);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .linkedin-preview .card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--linkedin-text);
+    line-height: 1.35;
+    margin-bottom: 2px;
+  }
+  .linkedin-preview .card-desc {
+    font-size: 0.82rem;
+    color: var(--linkedin-meta);
+    line-height: 1.4;
+  }
+
+  /* note about how the title appears */
+  .note {
+    max-width: 1280px;
+    margin: 32px auto 0;
+    background: var(--cream-dark);
+    border-left: 3px solid var(--rust);
+    padding: 16px 20px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: var(--charcoal-2);
+    line-height: 1.6;
+  }
+  .note strong { color: var(--charcoal); }
+</style>
+</head>
+<body>
+
+  <div class="doc-header">
+    <h1>OG Card Mockup — Teardowns</h1>
+    <p>Three views: the OG image with text typeset on top (what you'd export from Canva), and how that same image appears as a link preview in Slack and LinkedIn. Use this to evaluate whether the image + type combo lands.</p>
+  </div>
+
+  <div class="section-label">1 · Standalone OG card · 1200×630 with type overlay</div>
+
+  <div class="og-card-wrap">
+    <div class="og-card">
+      <div class="og-overlay">
+        <div class="og-card-content">
+          <div class="og-eyebrow">Teardowns</div>
+          <h2 class="og-title">How I'd've Built It</h2>
+          <div class="og-byline">kiranrao.ai</div>
+        </div>
+      </div>
+    </div>
+    <div class="og-spec">
+      <span><strong>Image:</strong> ogcardtest.png</span>
+      <span><strong>Aspect:</strong> 1200×630 (1.91:1)</span>
+      <span><strong>Headline font:</strong> Playfair Display, 700</span>
+      <span><strong>Eyebrow / byline font:</strong> Space Mono / Inter</span>
+    </div>
+  </div>
+
+  <div class="section-label">2 · Link preview · how it shows up in Slack &amp; LinkedIn</div>
+
+  <div class="preview-row">
+
+    <div class="slack-preview">
+      <div class="platform-label">Slack</div>
+      <div class="msg">Hey, you should read this →</div>
+      <div class="url">https://kiranrao.ai/teardowns/instagram</div>
+      <div class="card">
+        <div class="card-site">kiranrao.ai</div>
+        <div class="card-title">How I'd've Built It: Instagram</div>
+        <div class="card-desc">A teardown of Instagram's Reels feature — what it gets right, what it doesn't, and how I'd rebuild it.</div>
+        <div class="card-image">
+          <div class="mini-overlay">
+            <div class="mini-card">
+              <div class="mini-eyebrow">Teardowns</div>
+              <div class="mini-title">How I'd've Built It</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="linkedin-preview">
+      <div class="platform-label">LinkedIn</div>
+      <div class="card">
+        <div class="card-image">
+          <div class="mini-overlay">
+            <div class="mini-card">
+              <div class="mini-eyebrow">Teardowns</div>
+              <div class="mini-title">How I'd've Built It</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-site">KIRANRAO.AI</div>
+          <div class="card-title">How I'd've Built It: Instagram</div>
+          <div class="card-desc">A teardown of Instagram's Reels feature — what it gets right, what it doesn't, and how I'd rebuild it.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <strong>Note on what's static vs dynamic.</strong> The image (with "How I'd've Built It" baked into it via Canva) is the SAME for every teardown — that's your per-content-type OG card. The title and description below the image in the Slack/LinkedIn previews come from each page's <code>og:title</code> and <code>og:description</code> meta tags — so each individual teardown shows its specific title there. You typeset "How I'd've Built It" once into the image; the receiving app handles the rest of the text per page.
+  </div>
+
+</body>
+</html>

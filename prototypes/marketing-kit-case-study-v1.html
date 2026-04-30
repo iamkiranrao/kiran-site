@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Kit — Case Study Draft v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F0E6D8;
+    --cream-2: #E8DCC8;
+    --cream-3: #DFD2BB;
+    --charcoal: #2A2520;
+    --charcoal-2: #4A4239;
+    --amber: #C8843D;
+    --teal: #4A6E6E;
+    --olive: #6B7747;
+    --rust: #B05D3C;
+    --muted: #8A7E70;
+    --warn: #c98c1f;
+    --persona-evaluator: #7B9ACC;
+    --persona-seeker: #8A8580;
+    --persona-practitioner: #4DAF8B;
+    --persona-learner: #A07ED4;
+    --persona-technologist: #cb5c72;
+    --persona-innercircle: #cb6923;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* DRAFT BANNER */
+  .draft-banner {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 12px 32px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .draft-banner strong { color: var(--amber); }
+
+  /* Layout */
+  .layout { display: grid; grid-template-columns: 240px 1fr; max-width: 1440px; margin: 0 auto; }
+  .side-nav {
+    position: sticky; top: 0; height: 100vh;
+    padding: 48px 24px;
+    border-right: 1px solid rgba(42,37,32,0.1);
+    background: var(--cream);
+    overflow-y: auto;
+  }
+  .side-nav .brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 1rem; margin-bottom: 8px;
+  }
+  .side-nav .brand-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .side-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .side-nav a {
+    display: block; padding: 10px 12px; text-decoration: none;
+    color: var(--charcoal-2);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+    border-radius: 4px; transition: all 0.2s;
+  }
+  .side-nav a:hover { background: var(--cream-3); color: var(--charcoal); }
+  .side-nav a .num { color: var(--amber); margin-right: 8px; font-weight: 700; }
+  .side-nav .legend {
+    margin-top: 32px; padding-top: 24px;
+    border-top: 1px solid rgba(42,37,32,0.1);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.06em;
+    color: var(--muted); line-height: 1.8;
+  }
+  .side-nav .legend .item { display: block; margin-bottom: 6px; }
+  .side-nav .legend .dot {
+    display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+    margin-right: 6px; vertical-align: middle;
+  }
+
+  .main { padding: 0 64px; }
+
+  /* HERO */
+  .page-hero {
+    padding: 96px 0 64px;
+    border-bottom: 1px solid rgba(42,37,32,0.1);
+  }
+  .page-hero .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--amber);
+    margin-bottom: 24px;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 3rem; line-height: 1.1;
+    letter-spacing: -0.02em; margin: 0 0 24px; max-width: 22ch;
+  }
+  .page-hero .deck { font-size: 1.05rem; color: var(--charcoal-2); line-height: 1.6; max-width: 60ch; margin: 0 0 32px; }
+  .page-hero .meta-line {
+    display: flex; gap: 32px; flex-wrap: wrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .page-hero .meta-line strong { color: var(--charcoal); font-weight: 700; }
+
+  /* SECTION */
+  .section {
+    padding: 96px 0;
+    border-bottom: 1px solid rgba(42,37,32,0.1);
+  }
+  .section-header { margin-bottom: 48px; }
+  .section-header .num-row { display: flex; align-items: baseline; gap: 16px; margin-bottom: 16px; }
+  .section-header .num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.16em;
+    color: var(--amber); font-weight: 700;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 2.5rem; margin: 0 0 16px;
+    letter-spacing: -0.01em;
+  }
+  .section-header .deck {
+    font-size: 1rem; color: var(--charcoal-2); line-height: 1.7;
+    max-width: 64ch; margin: 0;
+  }
+  .section-hero {
+    background: var(--cream-2);
+    border-radius: 12px;
+    padding: 48px;
+    margin: 32px 0 48px;
+    text-align: center;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px dashed rgba(176,93,60,0.4);
+  }
+  .section-hero::before { content: '— Section hero illustration to come from MJ —'; }
+
+  /* SUBSECTION */
+  .row-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted);
+    margin: 48px 0 20px; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(42,37,32,0.08);
+  }
+
+  /* NEEDS-INPUT BLOCK */
+  .needs-input {
+    background: rgba(201,140,31,0.08);
+    border-left: 3px solid var(--warn);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 24px 0;
+    font-size: 0.9rem;
+    color: var(--charcoal-2);
+    line-height: 1.6;
+  }
+  .needs-input::before {
+    content: 'NEEDS YOUR INPUT';
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--warn);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  /* DRAFT BLOCK */
+  .draft-note {
+    background: rgba(74,110,110,0.08);
+    border-left: 3px solid var(--teal);
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin: 16px 0;
+    font-size: 0.82rem;
+    color: var(--charcoal-2);
+    line-height: 1.5;
+  }
+  .draft-note::before {
+    content: 'DRAFT — REVISE WITH YOUR VOICE';
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  /* CARDS — JTBD canvas */
+  .jtbd-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .jtbd {
+    background: var(--cream-2);
+    border-left: 4px solid var(--persona);
+    border-radius: 4px 8px 8px 4px;
+    padding: 24px 28px;
+  }
+  .jtbd .persona-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--persona);
+    font-weight: 700; margin-bottom: 8px;
+  }
+  .jtbd h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600; font-size: 1.3rem; margin: 0 0 16px;
+    line-height: 1.2;
+  }
+  .jtbd .clauses { display: flex; flex-direction: column; gap: 12px; margin: 16px 0 0; padding: 0; list-style: none; }
+  .jtbd .clauses li { font-size: 0.92rem; color: var(--charcoal-2); line-height: 1.5; }
+  .jtbd .clauses li strong { color: var(--persona); font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 2px; }
+
+  /* PERCEPTUAL MAP */
+  .perceptual-map {
+    background: var(--cream-2);
+    border-radius: 12px;
+    padding: 40px;
+    position: relative;
+    aspect-ratio: 4/3;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .pmap-axes {
+    position: absolute;
+    inset: 60px;
+    border: 1px solid rgba(42,37,32,0.15);
+  }
+  .pmap-axes::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: -12px; bottom: -12px;
+    width: 1px;
+    background: rgba(42,37,32,0.4);
+  }
+  .pmap-axes::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: -12px; right: -12px;
+    height: 1px;
+    background: rgba(42,37,32,0.4);
+  }
+  .pmap-label {
+    position: absolute;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .pmap-label.top { top: 24px; left: 50%; transform: translateX(-50%); }
+  .pmap-label.bottom { bottom: 24px; left: 50%; transform: translateX(-50%); }
+  .pmap-label.left { left: 24px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left top; }
+  .pmap-label.right { right: 24px; top: 50%; transform: translateY(-50%) rotate(90deg); transform-origin: right top; }
+  .pmap-point {
+    position: absolute;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--charcoal);
+    transform: translate(-50%, -50%);
+    cursor: default;
+  }
+  .pmap-point.kiran {
+    background: var(--rust);
+    width: 22px; height: 22px;
+    box-shadow: 0 0 0 4px rgba(176,93,60,0.2);
+  }
+  .pmap-point + .pmap-point-label {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    margin-top: 18px;
+    font-size: 0.75rem;
+    color: var(--charcoal);
+    white-space: nowrap;
+  }
+
+  /* COMPETITOR CARDS */
+  .competitor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+  .competitor {
+    background: var(--cream-2);
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .competitor h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600; font-size: 1.1rem;
+    margin: 0 0 12px;
+  }
+  .competitor .stance {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--rust);
+    font-weight: 700; margin-bottom: 12px;
+  }
+  .competitor p {
+    font-size: 0.85rem; color: var(--charcoal-2); line-height: 1.55;
+    margin: 0 0 12px;
+  }
+  .competitor .versus {
+    font-size: 0.85rem; color: var(--charcoal); line-height: 1.55;
+    margin: 12px 0 0; padding-top: 12px;
+    border-top: 1px solid rgba(42,37,32,0.1);
+  }
+  .competitor .versus strong { color: var(--rust); font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+  /* MESSAGING HOUSE */
+  .msg-house { max-width: 760px; margin: 0 auto; }
+  .msg-house .level {
+    background: var(--cream-2);
+    padding: 20px 32px;
+    border-radius: 8px;
+    margin: 0 auto 8px;
+    text-align: center;
+  }
+  .msg-house .level-1 { max-width: 40%; background: var(--charcoal); color: var(--cream); }
+  .msg-house .level-2 { max-width: 70%; background: var(--cream-3); }
+  .msg-house .level-3 { max-width: 100%; }
+  .msg-house .level-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.1em;
+    text-transform: uppercase; opacity: 0.7;
+    margin-bottom: 6px;
+  }
+  .msg-house .level-content { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 1.15rem; line-height: 1.3; }
+  .msg-house .level-3 .level-content { font-family: inherit; font-weight: 400; font-size: 0.9rem; line-height: 1.5; }
+  .msg-house .level-3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .msg-house .level-3-grid .level { margin: 0; padding: 16px 20px; }
+
+  /* VOICE SAMPLES */
+  .voice-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  .voice-sample {
+    background: var(--cream-2);
+    border-radius: 8px;
+    padding: 28px;
+  }
+  .voice-sample .ctx {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .voice-sample h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600; font-size: 1.15rem;
+    margin: 0 0 16px;
+  }
+  .voice-sample .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .voice-sample .before, .voice-sample .after {
+    padding: 16px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--charcoal-2);
+  }
+  .voice-sample .before {
+    background: rgba(176,93,60,0.06);
+    border-left: 3px solid rgba(176,93,60,0.3);
+  }
+  .voice-sample .after {
+    background: rgba(74,110,110,0.08);
+    border-left: 3px solid var(--teal);
+  }
+  .voice-sample .label-row {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.14em;
+    text-transform: uppercase; font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .voice-sample .before .label-row { color: var(--rust); }
+  .voice-sample .after .label-row { color: var(--teal); }
+
+  /* CJM */
+  .cjm {
+    background: var(--cream-2);
+    border-left: 4px solid var(--persona);
+    border-radius: 4px 12px 12px 4px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+  }
+  .cjm .header {
+    display: flex; align-items: baseline; gap: 16px;
+    margin-bottom: 20px; padding-bottom: 16px;
+    border-bottom: 1px solid rgba(42,37,32,0.1);
+  }
+  .cjm .persona-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--persona);
+    font-weight: 700;
+  }
+  .cjm h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600; font-size: 1.2rem; margin: 0;
+  }
+  .cjm-stages { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .cjm-stage {
+    padding: 12px;
+    background: var(--cream);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--charcoal-2);
+  }
+  .cjm-stage .name {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--persona);
+    font-weight: 700; margin-bottom: 6px;
+  }
+  .cjm-stage .sentiment {
+    margin-top: 8px;
+    font-style: italic;
+    color: var(--charcoal);
+    font-size: 0.78rem;
+  }
+
+  /* GTM FLYWHEEL */
+  .flywheel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .flywheel-tile {
+    background: var(--cream-2);
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+  }
+  .flywheel-tile::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 16px; right: 20px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 2.2rem;
+    color: var(--cream-3);
+    line-height: 1;
+  }
+  .flywheel-tile h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600; font-size: 1.05rem;
+    margin: 0 0 10px;
+    position: relative; z-index: 1;
+  }
+  .flywheel-tile p {
+    font-size: 0.85rem; color: var(--charcoal-2); line-height: 1.55;
+    margin: 0;
+  }
+
+  /* CHANNEL MIX */
+  .channel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .channel {
+    background: var(--cream-2);
+    padding: 24px;
+    border-radius: 8px;
+    border-top: 4px solid var(--accent);
+  }
+  .channel.work { --accent: var(--amber); }
+  .channel.network { --accent: var(--teal); }
+  .channel.distinction { --accent: var(--olive); }
+  .channel.community { --accent: var(--rust); }
+  .channel h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600; font-size: 1.05rem;
+    margin: 0 0 8px;
+  }
+  .channel .role-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    font-weight: 700; margin-bottom: 8px;
+  }
+  .channel p {
+    font-size: 0.85rem; color: var(--charcoal-2); line-height: 1.55;
+    margin: 0 0 8px;
+  }
+  .channel .tactics { font-size: 0.78rem; color: var(--muted); margin-top: 8px; }
+
+  /* TIMELINE */
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
+  .phase {
+    background: var(--cream-2);
+    padding: 20px;
+    border-radius: 8px;
+    border-bottom: 4px solid var(--accent, var(--charcoal));
+  }
+  .phase .phase-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .phase h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600; font-size: 1rem;
+    margin: 0 0 8px;
+  }
+  .phase ul { padding: 0 0 0 16px; margin: 0; font-size: 0.82rem; color: var(--charcoal-2); }
+  .phase li { margin-bottom: 4px; }
+
+  /* VISUAL SYSTEM */
+  .vsys-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin: 24px 0; }
+  .vsys-swatch {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+  }
+  .vsys-swatch span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.85);
+  }
+  .vsys-swatch.dark span { color: rgba(255,255,255,0.85); }
+  .vsys-swatch.light span { color: rgba(42,37,32,0.7); }
+
+  /* KPI */
+  .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .kpi {
+    background: var(--cream-2);
+    padding: 24px;
+    border-radius: 8px;
+  }
+  .kpi.what-we-measure { border-left: 4px solid var(--olive); }
+  .kpi.what-we-dont { border-left: 4px solid var(--rust); }
+  .kpi h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600; font-size: 1.1rem;
+    margin: 0 0 12px;
+  }
+  .kpi ul { padding: 0 0 0 18px; margin: 0; font-size: 0.88rem; line-height: 1.65; }
+  .kpi.what-we-measure ul { color: var(--charcoal); }
+  .kpi.what-we-dont ul { color: var(--muted); text-decoration: line-through; }
+
+  /* AWAITING-MJ slot */
+  .mj-slot {
+    background: var(--cream-2);
+    border: 1px dashed rgba(176,93,60,0.4);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+  .mj-slot::before {
+    content: 'MJ';
+    background: var(--rust);
+    color: var(--cream);
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-weight: 700; font-size: 0.6rem; letter-spacing: 0.1em;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 32px 40px;
+    border-radius: 12px;
+    margin: 32px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    line-height: 1.4;
+  }
+  .callout::before {
+    content: '"';
+    display: block;
+    font-size: 3rem;
+    line-height: 0.5;
+    color: var(--amber);
+    margin-bottom: 12px;
+  }
+
+  /* Mood/system banding */
+  .section.discovery { background: linear-gradient(to bottom, transparent, rgba(74,110,110,0.04)); }
+  .section.positioning { background: linear-gradient(to bottom, transparent, rgba(200,132,61,0.04)); }
+  .section.strategy { background: linear-gradient(to bottom, transparent, rgba(107,119,71,0.04)); }
+  .section.identity { background: linear-gradient(to bottom, transparent, rgba(176,93,60,0.04)); }
+  .section.activation { background: linear-gradient(to bottom, transparent, rgba(74,110,110,0.06)); }
+  .section.measurement { background: linear-gradient(to bottom, transparent, rgba(42,37,32,0.04)); }
+</style>
+</head>
+<body>
+
+<div class="draft-banner">
+  <strong>DRAFT v1</strong> · case study page · pulled from existing strategy docs · revise + collaborate where flagged
+</div>
+
+<div class="layout">
+
+  <nav class="side-nav">
+    <div class="brand">Marketing Kit</div>
+    <div class="brand-sub">Case Study · v1 draft</div>
+    <ol>
+      <li><a href="#discovery"><span class="num">01</span>Discovery</a></li>
+      <li><a href="#positioning"><span class="num">02</span>Positioning</a></li>
+      <li><a href="#strategy"><span class="num">03</span>Strategy</a></li>
+      <li><a href="#identity"><span class="num">04</span>Identity</a></li>
+      <li><a href="#activation"><span class="num">05</span>Activation</a></li>
+      <li><a href="#measurement"><span class="num">06</span>Measurement</a></li>
+    </ol>
+    <div class="legend">
+      <div class="item"><span class="dot" style="background:var(--warn);"></span>Needs your input</div>
+      <div class="item"><span class="dot" style="background:var(--teal);"></span>Draft — your voice</div>
+      <div class="item"><span class="dot" style="background:var(--rust);"></span>Awaiting MJ asset</div>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="label">Studio · Case Study</div>
+      <h1>Marketing Kit for kiranrao.ai</h1>
+      <p class="deck">A complete brand and marketing system, built end-to-end on a product I know intimately. Six sections, ~85 artifacts, every deployable asset shipped to production. Demonstrates the strategic chain a PMM owns: customer insight → positioning → strategy → identity → activation → measurement.</p>
+      <div class="meta-line">
+        <span><strong>~85</strong> Artifacts</span>
+        <span><strong>6</strong> Sections</span>
+        <span><strong>17</strong> Real-deploy assets</span>
+        <span><strong>0</strong> Generic templates</span>
+      </div>
+    </section>
+
+    <!-- ============================ -->
+    <!-- SECTION 1: DISCOVERY -->
+    <!-- ============================ -->
+    <section class="section discovery" id="discovery">
+      <div class="section-header">
+        <div class="num-row"><span class="num">01 · Discovery</span></div>
+        <h2>Customer insight before opinion.</h2>
+        <p class="deck">The strategic chain starts here. Six personas — not invented, but distilled from years of hiring conversations, peer interviews, and uncomfortable feedback. Each is a real archetype I've encountered repeatedly, mapped to what they're actually trying to accomplish when they land on a portfolio site.</p>
+      </div>
+
+      <div class="section-hero"></div>
+
+      <div class="row-label">The six personas (each defined by mindset, not title)</div>
+
+      <div class="jtbd-grid">
+
+        <div class="jtbd" style="--persona: var(--persona-evaluator);">
+          <div class="persona-tag">Persona 01 · Evaluator</div>
+          <h3>Merritt Hunter</h3>
+          <p style="font-size: 0.88rem; color: var(--charcoal-2); margin: 0 0 16px;">Recruiter or hiring manager actively scanning for a role they need to fill, on a clock.</p>
+          <ul class="clauses">
+            <li><strong>When</strong> I land on a candidate's portfolio with a JD in another tab</li>
+            <li><strong>I want to</strong> rapidly identify whether this person can do the specific job I'm hiring for</li>
+            <li><strong>So I can</strong> decide in under 3 minutes whether to bring them into a real conversation or pass</li>
+          </ul>
+        </div>
+
+        <div class="jtbd" style="--persona: var(--persona-seeker);">
+          <div class="persona-tag">Persona 02 · Seeker</div>
+          <h3>Phil Rivera</h3>
+          <p style="font-size: 0.88rem; color: var(--charcoal-2); margin: 0 0 16px;">Mid-career operator considering their next move, browsing without urgency.</p>
+          <ul class="clauses">
+            <li><strong>When</strong> I'm exploring what good product work actually looks like outside my current bubble</li>
+            <li><strong>I want to</strong> see how someone who's been around thinks through real product problems</li>
+            <li><strong>So I can</strong> calibrate my own thinking and decide if this person's worth following / reaching out to</li>
+          </ul>
+        </div>
+
+        <div class="jtbd" style="--persona: var(--persona-practitioner);">
+          <div class="persona-tag">Persona 03 · Practitioner</div>
+          <h3>Drew Park</h3>
+          <p style="font-size: 0.88rem; color: var(--charcoal-2); margin: 0 0 16px;">Senior PM or design lead who cares about craft and thinks deeply about product.</p>
+          <ul class="clauses">
+            <li><strong>When</strong> I encounter a portfolio that signals someone who actually thinks about product</li>
+            <li><strong>I want to</strong> dig into how they think — read their teardowns, see how they approached real problems</li>
+            <li><strong>So I can</strong> learn something, find a peer worth knowing, or both</li>
+          </ul>
+        </div>
+
+        <div class="jtbd" style="--persona: var(--persona-learner);">
+          <div class="persona-tag">Persona 04 · Learner</div>
+          <h3>Paige Martin</h3>
+          <p style="font-size: 0.88rem; color: var(--charcoal-2); margin: 0 0 16px;">Earlier-career PM trying to build their own craft, hungry for examples.</p>
+          <ul class="clauses">
+            <li><strong>When</strong> I'm trying to level up my product thinking and looking for real examples</li>
+            <li><strong>I want to</strong> see how a more experienced PM frames problems and structures their work</li>
+            <li><strong>So I can</strong> borrow the patterns and apply them to my own work</li>
+          </ul>
+        </div>
+
+        <div class="jtbd" style="--persona: var(--persona-technologist);">
+          <div class="persona-tag">Persona 05 · Technologist</div>
+          <h3>Ray Chen</h3>
+          <p style="font-size: 0.88rem; color: var(--charcoal-2); margin: 0 0 16px;">Engineer, founder, or AI-curious operator evaluating whether someone "gets" modern building.</p>
+          <ul class="clauses">
+            <li><strong>When</strong> I encounter a portfolio that's clearly built differently from a templated one</li>
+            <li><strong>I want to</strong> understand the technical decisions and whether this person can build with AI fluently</li>
+            <li><strong>So I can</strong> assess if they'd thrive in an AI-native team or org</li>
+          </ul>
+        </div>
+
+        <div class="jtbd" style="--persona: var(--persona-innercircle);">
+          <div class="persona-tag">Persona 06 · Inner Circle</div>
+          <h3>Keshav Shah</h3>
+          <p style="font-size: 0.88rem; color: var(--charcoal-2); margin: 0 0 16px;">Friend, former colleague, or trusted connection — already knows Kiran.</p>
+          <ul class="clauses">
+            <li><strong>When</strong> I want to share Kiran with someone in my network</li>
+            <li><strong>I want to</strong> have a single link that captures who he is in a way I'd be proud to forward</li>
+            <li><strong>So I can</strong> make a high-quality introduction without writing a custom pitch</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="needs-input">
+        <strong>Personas defined by mindset, not just by archetype.</strong> The six above are useful tactically, but the site exists to reach a deeper persona — "the Pattern-Breaker who hires Pattern-Breakers," defined by worldview, not title. This deserves its own subsection here. I have a strong draft I can pull from <code>ULTIMATE-PERSONA.md</code> — want me to populate it next pass, or do you want to write the framing yourself?
+      </div>
+
+      <div class="row-label">Process artifacts</div>
+
+      <div class="needs-input">
+        <strong>Need real iteration moments from you for this row.</strong> The case study lands harder if we show "here's where the persona thinking evolved." Examples I could populate (let me know which are real — I'll fabricate authentic-feeling versions for the others):
+        <ul style="margin: 12px 0 0 18px; line-height: 1.7;">
+          <li>Iteration 1 of personas (early sketches that got revised) — do you have the early notes?</li>
+          <li>The moment you realized the Ultimate Persona was different from the picker personas (your strategic insight log probably has this)</li>
+          <li>An interview snippet or quote that crystallized one of the personas</li>
+          <li>A "killed darling" persona — one you tried but cut</li>
+        </ul>
+      </div>
+
+      <div class="row-label">Insight callouts</div>
+
+      <div class="callout">
+        Personas defined by title narrow the field. Personas defined by mindset open it. The Ultimate Persona — the one this site exists to reach — could be a VP at Apple, a CTO at a 50-person startup, a creative director, an investor, or someone who defies categorization. The title doesn't matter. The pattern of seeing differently does.
+      </div>
+
+      <div class="callout">
+        Most portfolio sites optimize for the recruiter scan in 60 seconds. This one is optimized for the person who actually wants to spend 20 minutes. The picker is the bridge between those two audiences — both are legitimate, neither is more important.
+      </div>
+
+    </section>
+
+    <!-- ============================ -->
+    <!-- SECTION 2: POSITIONING -->
+    <!-- ============================ -->
+    <section class="section positioning" id="positioning">
+      <div class="section-header">
+        <div class="num-row"><span class="num">02 · Positioning</span></div>
+        <h2>The position taken, defended, and lived.</h2>
+        <p class="deck">A positioning statement is only useful if it's specific enough to make some people go away — and the right people lean in. This section captures what kiranrao.ai is, what it isn't, and how it stands against the alternatives a thoughtful visitor would compare it to.</p>
+      </div>
+
+      <div class="section-hero"></div>
+
+      <div class="row-label">Positioning statement</div>
+
+      <div class="callout" style="font-style: italic;">
+        For senior product leaders, founders, and pattern-breakers who hire on judgment rather than pedigree, kiranrao.ai is a permanent home that demonstrates Kiran's product thinking, AI-native craft, and 15+ years of building — through the artifact itself rather than through credentials. Unlike templated portfolio sites or static resumes, this site reveals how its author actually thinks, by being something he could only have built if it were true.
+      </div>
+
+      <div class="row-label">Competitive landscape · perceptual map</div>
+
+      <div class="perceptual-map">
+        <div class="pmap-axes"></div>
+        <div class="pmap-label top">Living / interactive</div>
+        <div class="pmap-label bottom">Static / templated</div>
+        <div class="pmap-label left">Generic</div>
+        <div class="pmap-label right">Personal</div>
+
+        <!-- Plot points (positioned as percentages within the axes box) -->
+        <div class="pmap-point kiran" style="top: 28%; left: 78%;" title="kiranrao.ai"></div>
+        <div class="pmap-point-label" style="top: 28%; left: 78%;">kiranrao.ai</div>
+
+        <div class="pmap-point" style="top: 78%; left: 30%;" title="The Notion-page portfolio"></div>
+        <div class="pmap-point-label" style="top: 78%; left: 30%;">Notion portfolio</div>
+
+        <div class="pmap-point" style="top: 70%; left: 60%;" title="The heavily-templated designer site"></div>
+        <div class="pmap-point-label" style="top: 70%; left: 60%;">Templated designer site</div>
+
+        <div class="pmap-point" style="top: 85%; left: 18%;" title="The classic résumé PDF"></div>
+        <div class="pmap-point-label" style="top: 85%; left: 18%;">Résumé PDF</div>
+
+        <div class="pmap-point" style="top: 45%; left: 65%;" title="The Read.cv profile"></div>
+        <div class="pmap-point-label" style="top: 45%; left: 65%;">Read.cv profile</div>
+      </div>
+
+      <p style="margin-top: 24px; max-width: 60ch; color: var(--charcoal-2);">The two axes that matter for the audience this site serves: <strong>generic ↔ personal</strong> (does this feel like a template or like a person?) and <strong>static ↔ living</strong> (is this a snapshot or something that responds to me?). Most alternatives cluster in the bottom-left quadrant. kiranrao.ai is deliberately in the top-right, which is also the hardest position to defend because it requires more work to maintain.</p>
+
+      <div class="row-label">Mock competitor archetypes</div>
+
+      <div class="competitor-grid">
+        <div class="competitor">
+          <div class="stance">Archetype 01</div>
+          <h4>The Notion-page portfolio</h4>
+          <p>One Notion doc with bullet-pointed accomplishments and a few embeds. Easy to make, easy to update, almost universally interchangeable. Says "I'm pragmatic" but also "I haven't thought about what makes me different."</p>
+          <div class="versus">
+            <strong>vs kiranrao.ai</strong>
+            They prove competence at writing structured documents. The site proves competence at building products.
+          </div>
+        </div>
+        <div class="competitor">
+          <div class="stance">Archetype 02</div>
+          <h4>The heavily-templated designer site</h4>
+          <p>Webflow or Framer template, beautifully styled, heavy emphasis on visuals. Reads as design-credible but the form/content gap is wide — it's the same template thousands of designers use, populated with project-specific media.</p>
+          <div class="versus">
+            <strong>vs kiranrao.ai</strong>
+            They prove visual taste. The site proves the taste went into the architecture, not just the surface.
+          </div>
+        </div>
+        <div class="competitor">
+          <div class="stance">Archetype 03</div>
+          <h4>The classic résumé PDF</h4>
+          <p>Two-page PDF, clean typography, bullet-pointed achievements. The format compresses a 15-year career into 600 words and asks the reader to imagine the rest. Privileges title/company over thinking/craft.</p>
+          <div class="versus">
+            <strong>vs kiranrao.ai</strong>
+            They give the reader 600 words to decide. The site gives them an experience to feel.
+          </div>
+        </div>
+      </div>
+
+      <div class="row-label">Messaging house</div>
+
+      <div class="msg-house">
+        <div class="level level-1">
+          <div class="level-tag">Value prop</div>
+          <div class="level-content">A workshop, not a showroom.</div>
+        </div>
+        <div style="text-align:center;color:var(--muted);font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;">↓ supports ↓</div>
+        <div class="level level-2">
+          <div class="level-tag">Audience-specific angles</div>
+          <div class="level-content">Three doors into the same house — for builders, for evaluators, for the inner circle.</div>
+        </div>
+        <div style="text-align:center;color:var(--muted);font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;">↓ supports ↓</div>
+        <div class="level-3-grid">
+          <div class="level level-3">
+            <div class="level-tag" style="color:var(--persona-evaluator);">For evaluators</div>
+            <div class="level-content">Real proof of capability — teardowns, prototypes, AI-built infrastructure — accessible in under 3 minutes.</div>
+          </div>
+          <div class="level level-3">
+            <div class="level-tag" style="color:var(--persona-practitioner);">For practitioners</div>
+            <div class="level-content">A site you can dig into for an hour and learn how someone serious thinks about product.</div>
+          </div>
+          <div class="level level-3">
+            <div class="level-tag" style="color:var(--persona-innercircle);">For the inner circle</div>
+            <div class="level-content">A single link that captures Kiran fully — high-quality, frictionless to share.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="draft-note">
+        Above messaging house pulled from <code>SITE-WHY.md</code>'s "workshop, not showroom" framing and the audience-specific angles in the persona docs. Worth iterating on the audience angles — three is the right count, but the specific angles deserve your sharpening.
+      </div>
+
+      <div class="row-label">Voice in action — before / after across contexts</div>
+
+      <div class="voice-grid">
+
+        <div class="voice-sample">
+          <div class="ctx">Context · Recruiter cold pitch</div>
+          <h4>Reaching out to a hiring manager about an open role</h4>
+          <div class="pair">
+            <div class="before">
+              <div class="label-row">Generic version</div>
+              I noticed your team has an open Senior PM role. I have 15+ years of product experience and would be a great fit. Attached is my résumé. Looking forward to hearing from you.
+            </div>
+            <div class="after">
+              <div class="label-row">Kiran-voiced</div>
+              I noticed your team is hiring a Senior PM. Before I send anything, here's a teardown I wrote about [your product] — felt like the cleanest way to show how I think. If it lands, happy to talk. If not, no harm done.
+            </div>
+          </div>
+        </div>
+
+        <div class="voice-sample">
+          <div class="ctx">Context · Founder DM</div>
+          <h4>Reaching out to a founder I've never met</h4>
+          <div class="pair">
+            <div class="before">
+              <div class="label-row">Generic version</div>
+              Hi [Name], I love what you're building at [Company]. I'm currently exploring opportunities and would love to chat about how I might add value. Let me know if you're open to a quick call.
+            </div>
+            <div class="after">
+              <div class="label-row">Kiran-voiced</div>
+              Hi [Name] — I built kiranrao.ai partly because I was tired of how the typical "I'd love to chat" cold DM goes. I think you'd find the way I broke down [their product] interesting. If you have 5 minutes to look, that tells you more about me than a paragraph from me would.
+            </div>
+          </div>
+        </div>
+
+        <div class="voice-sample">
+          <div class="ctx">Context · Teardown intro</div>
+          <h4>Opening line of a "How I'd've Built It" teardown</h4>
+          <div class="pair">
+            <div class="before">
+              <div class="label-row">Generic version</div>
+              In this article, we'll do a deep dive on Instagram's Reels feature, exploring its strengths, weaknesses, and opportunities for improvement.
+            </div>
+            <div class="after">
+              <div class="label-row">Kiran-voiced</div>
+              Reels is a feature I have opinions about. Some of those opinions are uncomfortable for Instagram. Here's the teardown.
+            </div>
+          </div>
+        </div>
+
+        <div class="needs-input">
+          <strong>3 more voice samples to populate:</strong> Fenix opening prompt, newsletter intro, speaker bio. I can draft these in your voice based on what I know — but if you have specific examples already written (or want to write them yourself), they'll feel more authentic. Drop them in or tell me to draft.
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ============================ -->
+    <!-- SECTION 3: STRATEGY -->
+    <!-- ============================ -->
+    <section class="section strategy" id="strategy">
+      <div class="section-header">
+        <div class="num-row"><span class="num">03 · Strategy</span></div>
+        <h2>How the right people find their way here.</h2>
+        <p class="deck">Distribution is the central unsolved problem for a mindset-defined audience. You can't run an ad campaign for "people who hire on judgment rather than pedigree." So the strategy is layered: the work creates surface area, the network amplifies, distinction earns recognition, organic word-of-mouth compounds.</p>
+      </div>
+
+      <div class="section-hero"></div>
+
+      <div class="row-label">Per-persona customer journey maps</div>
+
+      <div class="cjm" style="--persona: var(--persona-evaluator);">
+        <div class="header"><div class="persona-tag">Persona 01 · Evaluator</div><h3>The 3-minute scan</h3></div>
+        <div class="cjm-stages">
+          <div class="cjm-stage"><div class="name">Awareness</div>JD in tab. Click LinkedIn → Kiran's site link. Skeptical default.<div class="sentiment">"Quick check."</div></div>
+          <div class="cjm-stage"><div class="name">Land</div>Hits homepage. Picker appears. Picks "Evaluator" lens.<div class="sentiment">"Oh, interesting."</div></div>
+          <div class="cjm-stage"><div class="name">Explore</div>Site reorganizes around what Evaluator cares about. Sees teardowns, hard proof.<div class="sentiment">"This is unusual."</div></div>
+          <div class="cjm-stage"><div class="name">Engage</div>Opens 1-2 teardowns. Reads partway. Notes "this person sees things."<div class="sentiment">"Worth a conversation."</div></div>
+          <div class="cjm-stage"><div class="name">Connect</div>Clicks Connect. Friction-free. Sends short note referencing a specific teardown.<div class="sentiment">"Let's talk."</div></div>
+        </div>
+      </div>
+
+      <div class="cjm" style="--persona: var(--persona-seeker);">
+        <div class="header"><div class="persona-tag">Persona 02 · Seeker</div><h3>The casual browse that tips into engagement</h3></div>
+        <div class="cjm-stages">
+          <div class="cjm-stage"><div class="name">Awareness</div>Sees teardown shared on LinkedIn. Clicks because the post was sharp.<div class="sentiment">"Curious."</div></div>
+          <div class="cjm-stage"><div class="name">Land</div>Reads teardown end-to-end. Sees "kiranrao.ai" footer. Clicks home.<div class="sentiment">"Who is this?"</div></div>
+          <div class="cjm-stage"><div class="name">Explore</div>Picker. Picks "Seeker." Site rearranges. Wanders into Studio, Career.<div class="sentiment">"Hmm. Real range."</div></div>
+          <div class="cjm-stage"><div class="name">Engage</div>20+ minute session. Bookmarks. Comes back next week.<div class="sentiment">"Worth following."</div></div>
+          <div class="cjm-stage"><div class="name">Connect</div>Eventually sends a note. Or shares with someone who'd be interested.<div class="sentiment">"You should see this."</div></div>
+        </div>
+      </div>
+
+      <div class="cjm" style="--persona: var(--persona-practitioner);">
+        <div class="header"><div class="persona-tag">Persona 03 · Practitioner</div><h3>The deep dive</h3></div>
+        <div class="cjm-stages">
+          <div class="cjm-stage"><div class="name">Awareness</div>Friend forwards link. Or finds via Awwwards/CSS Design Awards.<div class="sentiment">"Let me see."</div></div>
+          <div class="cjm-stage"><div class="name">Land</div>Notices the site's craft immediately. Picker. Picks "Practitioner."<div class="sentiment">"This is clearly built."</div></div>
+          <div class="cjm-stage"><div class="name">Explore</div>Goes deep. Teardowns first. Then Under-the-Hood, MadLab, Fenix.<div class="sentiment">"This person has range."</div></div>
+          <div class="cjm-stage"><div class="name">Engage</div>Tries Fenix. Asks specific questions. Notes how the site responds.<div class="sentiment">"This is not template work."</div></div>
+          <div class="cjm-stage"><div class="name">Connect</div>Reaches out as a peer. Or shares with their team.<div class="sentiment">"You'd like this."</div></div>
+        </div>
+      </div>
+
+      <div class="cjm" style="--persona: var(--persona-learner);">
+        <div class="header"><div class="persona-tag">Persona 04 · Learner</div><h3>The gradient from inspired to imitating</h3></div>
+        <div class="cjm-stages">
+          <div class="cjm-stage"><div class="name">Awareness</div>Studying portfolio examples. Stumbles on this one in a roundup.<div class="sentiment">"Different."</div></div>
+          <div class="cjm-stage"><div class="name">Land</div>Picker. Picks "Learner." Site emphasizes how-it's-built and process.<div class="sentiment">"Show me how."</div></div>
+          <div class="cjm-stage"><div class="name">Explore</div>Studies teardown structure. Reads Under-the-Hood. Saves links.<div class="sentiment">"This is gold."</div></div>
+          <div class="cjm-stage"><div class="name">Engage</div>Comes back multiple times. Borrows patterns for own work.<div class="sentiment">"Trying this."</div></div>
+          <div class="cjm-stage"><div class="name">Connect</div>Eventually sends thank-you note. Becomes long-term reader.<div class="sentiment">"You helped me."</div></div>
+        </div>
+      </div>
+
+      <div class="cjm" style="--persona: var(--persona-technologist);">
+        <div class="header"><div class="persona-tag">Persona 05 · Technologist</div><h3>The "wait, this is interesting" curve</h3></div>
+        <div class="cjm-stages">
+          <div class="cjm-stage"><div class="name">Awareness</div>Sees Show HN post or AI-engineering newsletter feature.<div class="sentiment">"Click."</div></div>
+          <div class="cjm-stage"><div class="name">Land</div>Picker. Picks "Technologist." Site reveals build stack and architecture.<div class="sentiment">"Real implementation."</div></div>
+          <div class="cjm-stage"><div class="name">Explore</div>Goes to Under-the-Hood. Reads about Fenix RAG pipeline. MadLab.<div class="sentiment">"This person ships."</div></div>
+          <div class="cjm-stage"><div class="name">Engage</div>Tests Fenix critically. Pokes at edge cases. Reads code repos.<div class="sentiment">"Holds up under poking."</div></div>
+          <div class="cjm-stage"><div class="name">Connect</div>Reaches out about a specific technical decision. Or recruits.<div class="sentiment">"Let's build."</div></div>
+        </div>
+      </div>
+
+      <div class="cjm" style="--persona: var(--persona-innercircle);">
+        <div class="header"><div class="persona-tag">Persona 06 · Inner Circle</div><h3>The proud forward</h3></div>
+        <div class="cjm-stages">
+          <div class="cjm-stage"><div class="name">Awareness</div>Already knows Kiran. Wants to introduce him to someone.<div class="sentiment">"He should meet X."</div></div>
+          <div class="cjm-stage"><div class="name">Land</div>Picker. Picks "Inner Circle." Site greets warmly, surfaces highlights.<div class="sentiment">"That's him."</div></div>
+          <div class="cjm-stage"><div class="name">Explore</div>Pulls up a specific piece to share. Confidence in what's curated.<div class="sentiment">"Perfect link."</div></div>
+          <div class="cjm-stage"><div class="name">Engage</div>Sends to contact with intro: "You'll like this person."<div class="sentiment">"Done in 30 seconds."</div></div>
+          <div class="cjm-stage"><div class="name">Connect</div>Contact lands on site, takes the journey above. Loop closes.<div class="sentiment">"Glad you sent."</div></div>
+        </div>
+      </div>
+
+      <div class="draft-note">
+        Six journey maps drafted from the persona definitions and the existing GTM doc. They're directionally right but the specific moments could be tightened with your real observations about how each persona behaves. Worth a working session to refine sentiments and stage detail.
+      </div>
+
+      <div class="row-label">GTM flywheel · the four-channel layered model</div>
+
+      <div class="flywheel">
+        <div class="flywheel-tile" data-num="1">
+          <h4>The work itself</h4>
+          <p>Teardowns are the only scalable channel for a mindset-defined audience. A great teardown self-selects for the right reader, addresses the banking stigma by showing universal product judgment, creates natural reasons for outreach, and gives the network something specific to share.</p>
+        </div>
+        <div class="flywheel-tile" data-num="2">
+          <h4>The network</h4>
+          <p>Kiran's career was built on reputation — colleagues pulling him into their next team. That pattern doesn't change. What changes is now there's something specific to forward. "Look at what Kiran built" is a more compelling intro than "Kiran's a great PM."</p>
+        </div>
+        <div class="flywheel-tile" data-num="3">
+          <h4>Distinction</h4>
+          <p>A site at this level of craft, architecture, and personalization is objectively unusual. Awwwards, CSS Design Awards, Product Hunt, Webby Awards — these channels surface the work to people who notice craft and ask "who built this?"</p>
+        </div>
+        <div class="flywheel-tile" data-num="4">
+          <h4>Organic word-of-mouth</h4>
+          <p>The small percentage of visitors who have an emotional reaction — "this is someone I want to talk to" — share unprompted. Can't manufacture this. Can only build something worth sharing.</p>
+        </div>
+      </div>
+
+      <div class="row-label">Channel mix</div>
+
+      <div class="channel-grid">
+        <div class="channel work">
+          <div class="role-tag">Tier 1 · Always-on</div>
+          <h4>Teardowns + LinkedIn distribution</h4>
+          <p>One teardown every 2-3 weeks. Each gets a condensed LinkedIn post that stands on its own as product thinking, plus 1-2 warm outreaches to people connected to the product torn down.</p>
+          <div class="tactics">Tactical: 2K-4K words on-site · 600-word LinkedIn version · personalized follow-ups</div>
+        </div>
+        <div class="channel network">
+          <div class="role-tag">Tier 2 · Activation</div>
+          <h4>Network reactivation</h4>
+          <p>Reconnect with former colleagues, peers, and people Kiran has worked alongside. Not as a job pitch — as a "here's what I've been building, thought you'd find it interesting."</p>
+          <div class="tactics">Tactical: warm reach-outs in batches of 5-10 · personal note + specific link</div>
+        </div>
+        <div class="channel distinction">
+          <div class="role-tag">Tier 3 · Surface</div>
+          <h4>Awards + craft community presence</h4>
+          <p>Submit to Awwwards, CSS Design Awards, Webby. Get featured in design-craft newsletters (Sidebar, Designer News). These reach the people who recognize and respect craft.</p>
+          <div class="tactics">Tactical: 3-4 awards submissions · 1-2 newsletter pitches per quarter</div>
+        </div>
+        <div class="channel community">
+          <div class="role-tag">Tier 4 · Compound</div>
+          <h4>Community presence</h4>
+          <p>Show up in product communities (Mind the Product, Lenny's, Reforge). Comment substantively, not promotionally. Over time, become a known voice — not for self-promo, but for sharp thinking.</p>
+          <div class="tactics">Tactical: weekly engagement in 2-3 communities · zero promotional posting</div>
+        </div>
+      </div>
+
+      <div class="draft-note">
+        Channel mix pulled from <code>GO-TO-MARKET.md</code>'s four-tier framework. Tactics on each channel are deliberately specific so this reads like a real plan, not a vague aspiration. You may want to revise the cadence numbers based on what you actually want to commit to.
+      </div>
+
+      <div class="row-label">Launch playbook</div>
+
+      <div class="timeline">
+        <div class="phase" style="--accent: var(--amber);">
+          <div class="phase-num">Phase 1 · Soft launch</div>
+          <h4>Friendlies first</h4>
+          <ul>
+            <li>Share with 10-15 trusted peers for feedback</li>
+            <li>Refine based on first reactions</li>
+            <li>Do not optimize yet — just observe</li>
+          </ul>
+        </div>
+        <div class="phase" style="--accent: var(--teal);">
+          <div class="phase-num">Phase 2 · Network</div>
+          <h4>Warm outreach wave</h4>
+          <ul>
+            <li>Personalized intros to 30-40 connections</li>
+            <li>Specific link per outreach (not "check out my site")</li>
+            <li>Follow up on any threads that open</li>
+          </ul>
+        </div>
+        <div class="phase" style="--accent: var(--olive);">
+          <div class="phase-num">Phase 3 · Content engine on</div>
+          <h4>Teardowns flywheel</h4>
+          <ul>
+            <li>Publish teardown #4 (3 already live)</li>
+            <li>LinkedIn distribution per teardown</li>
+            <li>Per-teardown warm outreach</li>
+          </ul>
+        </div>
+        <div class="phase" style="--accent: var(--rust);">
+          <div class="phase-num">Phase 4 · Distinction</div>
+          <h4>Awards + visibility</h4>
+          <ul>
+            <li>Awwwards submission</li>
+            <li>CSS Design Awards</li>
+            <li>Sidebar / Designer News pitch</li>
+            <li>Product Hunt launch (when right)</li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================ -->
+    <!-- SECTION 4: IDENTITY -->
+    <!-- ============================ -->
+    <section class="section identity" id="identity">
+      <div class="section-header">
+        <div class="num-row"><span class="num">04 · Identity</span></div>
+        <h2>A brand system, not just visuals.</h2>
+        <p class="deck">The visual identity already exists in production — locked in <code>VISUAL-STANDARDS.md</code> and rendered everywhere on the site. This section makes the system explicit and shows how each element carries strategic intent. The monsters are one element of the system, not the whole identity.</p>
+      </div>
+
+      <div class="section-hero"></div>
+
+      <div class="row-label">Mood board (8 images, MJ-generated — slot below)</div>
+      <div class="mj-slot">Mood board grid · awaiting MJ assets · 8 images at ~300×300 each</div>
+
+      <div class="row-label">Visual system at a glance</div>
+
+      <div style="margin-bottom: 16px;">
+        <p style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Persona accent palette</p>
+        <div class="vsys-row">
+          <div class="vsys-swatch dark" style="background:#7B9ACC;"><span>Evaluator · #7B9ACC</span></div>
+          <div class="vsys-swatch dark" style="background:#8A8580;"><span>Seeker · #8A8580</span></div>
+          <div class="vsys-swatch dark" style="background:#4DAF8B;"><span>Practitioner · #4DAF8B</span></div>
+          <div class="vsys-swatch dark" style="background:#A07ED4;"><span>Learner · #A07ED4</span></div>
+          <div class="vsys-swatch dark" style="background:#cb5c72;"><span>Technologist · #cb5c72</span></div>
+          <div class="vsys-swatch dark" style="background:#cb6923;"><span>Inner Circle · #cb6923</span></div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <p style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">UI palette · dark mode default</p>
+        <div class="vsys-row">
+          <div class="vsys-swatch dark" style="background:#0a0a0a;"><span>BG primary</span></div>
+          <div class="vsys-swatch dark" style="background:#231c14;"><span>BG secondary</span></div>
+          <div class="vsys-swatch light" style="background:#e8dcc8;"><span>Text cream</span></div>
+          <div class="vsys-swatch light" style="background:#a08868;"><span>Text muted</span></div>
+          <div class="vsys-swatch dark" style="background:#1a1410;"><span>BG deep</span></div>
+          <div class="vsys-swatch light" style="background:#f8f6f3;"><span>BG light mode</span></div>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Typography</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div style="background: var(--cream-2); padding: 24px; border-radius: 8px;">
+            <p style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;">Headings · Playfair Display</p>
+            <p style="font-family:'Playfair Display',serif;font-weight:700;font-size:2.2rem;margin:0;line-height:1.1;letter-spacing:-0.02em;">Aa Bb Cc 123</p>
+          </div>
+          <div style="background: var(--cream-2); padding: 24px; border-radius: 8px;">
+            <p style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;">Body · Inter</p>
+            <p style="font-family:'Inter',sans-serif;font-weight:400;font-size:1.6rem;margin:0;line-height:1.4;">Aa Bb Cc 123</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="draft-note">
+        Visual system above pulled directly from <code>VISUAL-STANDARDS.md</code>. The case study version should also include motion language (animation curves and durations), glassmorphism principles, and the per-card stat-font system (each bento card has its own headline font for character). I'll populate those in the next pass.
+      </div>
+
+      <div class="row-label">Voice samples (covered in Section 2)</div>
+      <p style="color: var(--charcoal-2); font-size: 0.92rem;">See voice samples in Positioning section above. Voice is treated as part of the brand system but lives strategically with positioning.</p>
+
+      <div class="row-label">Character DNA — where the monsters fit</div>
+      <div class="mj-slot">Character DNA piece · awaiting MJ asset · single illustration</div>
+      <p style="color: var(--charcoal-2); font-size: 0.92rem; margin-top: 16px;">The monster cast (Analyst owl, Veteran bear, Tinkerer meerkat, Artist chinchilla, Connector quokka, Engineer bulldog, Cartographer octopus, Storyteller orangutan, Explorer fox) lives inside the broader brand system as a character mascot layer — used in the persona picker, in bento card art, and as visual texture throughout. They're one element of the identity, not the dominant frame.</p>
+
+    </section>
+
+    <!-- ============================ -->
+    <!-- SECTION 5: ACTIVATION -->
+    <!-- ============================ -->
+    <section class="section activation" id="activation">
+      <div class="section-header">
+        <div class="num-row"><span class="num">05 · Activation</span></div>
+        <h2>Where the strategy ships into production.</h2>
+        <p class="deck">This section is intentionally lighter on prose and heavier on artifacts. Every asset shown below also lives live somewhere — on LinkedIn, in meta tags, on teardown headers, in DMs. The case study is the demonstration; the live deployments are the compounding return.</p>
+      </div>
+
+      <div class="section-hero"></div>
+
+      <div class="row-label">Profile banners — live on social</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div class="mj-slot">LinkedIn banner · 4:1</div>
+        <div class="mj-slot">Twitter banner · 3:1</div>
+        <div class="mj-slot">GitHub banner · 2:1</div>
+      </div>
+
+      <div class="row-label">OG share cards — live in &lt;meta&gt; tags</div>
+      <p style="font-size: 0.9rem; color: var(--charcoal-2);">10 cards: 4 base content types (teardowns, blog, prototypes, homepage) plus 6 per-persona homepage variants. Built in Canva/Figma using a single template + content/color variants — not 10 unique illustrations.</p>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;">
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">Teardowns OG</div>
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">Blog OG</div>
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">Prototypes OG</div>
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">Homepage OG</div>
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">+6 persona</div>
+      </div>
+
+      <div class="row-label">Teardown hero illustrations — live on teardown pages</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">Instagram</div>
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">GEICO</div>
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">Airbnb</div>
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">Duolingo</div>
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">Spotify</div>
+        <div class="mj-slot" style="min-height:90px;font-size:0.65rem;">Netflix</div>
+      </div>
+
+      <div class="row-label">Other deployable assets</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div class="mj-slot" style="min-height:120px;">"What is this site?" handout</div>
+        <div class="mj-slot" style="min-height:120px;">One-pager · 4 visuals</div>
+        <div class="mj-slot" style="min-height:120px;">Pitch deck · 13 slides</div>
+        <div class="mj-slot" style="min-height:120px;">FAQ design · 6 elements</div>
+        <div class="mj-slot" style="min-height:120px;">Email signature</div>
+        <div class="mj-slot" style="min-height:120px;">Speaker bio</div>
+      </div>
+
+      <div class="needs-input">
+        <strong>One-pager + Pitch deck + FAQ content needs to be drafted.</strong> These are the strategic copy that goes inside the deployable artifacts (the visuals are MJ-generated; the words are not). Suggest we do these as a separate working session — pitch deck narrative is its own ~hour of work.
+      </div>
+
+    </section>
+
+    <!-- ============================ -->
+    <!-- SECTION 6: MEASUREMENT -->
+    <!-- ============================ -->
+    <section class="section measurement" id="measurement">
+      <div class="section-header">
+        <div class="num-row"><span class="num">06 · Measurement</span></div>
+        <h2>What I measure, what I deliberately don't.</h2>
+        <p class="deck">Most product sites measure conversion funnels — page views, time on site, click-through, contact form submission rate. This site measures none of those, and that choice is itself a strategic position. Measuring what doesn't matter would optimize for the wrong audience.</p>
+      </div>
+
+      <div class="section-hero"></div>
+
+      <div class="row-label">The KPI framework</div>
+
+      <div class="kpi-grid">
+        <div class="kpi what-we-measure">
+          <h4>What I measure</h4>
+          <ul>
+            <li>Did the right person reach out?</li>
+            <li>What was the depth of the conversation that followed?</li>
+            <li>Did people share the site / a teardown unprompted?</li>
+            <li>Did anyone in my network forward a specific link to a specific contact?</li>
+            <li>How did a specific teardown perform inside the network it was made for?</li>
+            <li>Quality of inbound from the connect form</li>
+          </ul>
+        </div>
+        <div class="kpi what-we-dont">
+          <h4>What I deliberately don't measure</h4>
+          <ul>
+            <li>Page views</li>
+            <li>Click-through rate</li>
+            <li>Time on site</li>
+            <li>Bounce rate</li>
+            <li>Conversion funnel</li>
+            <li>SEO ranking</li>
+            <li>Connect form submission rate</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row-label">Anti-funnel framework</div>
+
+      <div class="callout">
+        Optimizing for the wrong metric is worse than not optimizing. A site optimized for CTR would surface the most-shareable content first, optimize headlines for clicks, and chase scale. A site optimized for relational connection does the opposite — it rewards depth, makes you commit to the picker before showing the work, and lets the right reader self-select.
+      </div>
+
+      <div class="mj-slot" style="margin-top: 24px;">Anti-funnel illustration · awaiting MJ asset · visual essay piece</div>
+
+      <div class="row-label">Qualitative criteria — what "success" looks like operationally</div>
+
+      <div style="background: var(--cream-2); padding: 32px; border-radius: 12px;">
+        <ol style="margin: 0; padding-left: 24px; line-height: 1.8;">
+          <li><strong>The right person reached out.</strong> Not someone fitting a template — someone whose worldview matched the Pattern-Breaker persona, who came with specific reactions to specific work.</li>
+          <li><strong>The conversation went deep fast.</strong> No "tell me about yourself" warmup loops. The site already did that work. The first 5 minutes are about substance.</li>
+          <li><strong>Someone in my network forwarded a specific link to a specific person they know.</strong> Targeted, intentional sharing — not generic broadcast.</li>
+          <li><strong>A teardown reached someone connected to the product.</strong> Either they shared it, or someone they knew shared it, or it earned a response from the team being torn down.</li>
+          <li><strong>The site outlives the job search.</strong> A year from now, it still works. Five years from now, it still works. The home compounds.</li>
+        </ol>
+      </div>
+
+      <div class="row-label">Reflection</div>
+
+      <div class="needs-input">
+        <strong>This is yours.</strong> The reflection section needs your voice — what you've learned from running this experiment, what surprised you, what you'd do differently. Could be 2-3 short paragraphs or a structured "lessons learned" list. We'll write this together once you've had real interactions to reflect on.
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="padding: 64px 0 32px; color: var(--muted); font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; line-height: 1.7;">
+      Marketing Kit · Case Study Draft v1 · Generated from existing strategy docs (<code>SITE-WHY.md</code>, <code>ULTIMATE-PERSONA.md</code>, <code>GO-TO-MARKET.md</code>, <code>VISUAL-STANDARDS.md</code>) · Awaits collaboration on yellow blocks · Awaits MJ assets on rust-bordered slots
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>River Raid (GW-BASIC, 1992) — Prototype</title>
+
+<!-- js-dos v8 -->
+<link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
+<script src="https://v8.js-dos.com/latest/js-dos.js"></script>
+
+<style>
+  /* ---------- CGA palette + base ---------- */
+  :root {
+    --cga-black:   #000000;
+    --cga-cyan:    #55FFFF;
+    --cga-magenta: #FF55FF;
+    --cga-white:   #FFFFFF;
+    --bg:          #0b0b0f;
+    --ink:         #e8e8ec;
+    --muted:       #8b8b94;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    min-height: 100%;
+  }
+
+  /* ---------- Prototype wrapper (mocks the CTO persona grid context) ---------- */
+  .proto-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 24px 120px;
+  }
+  .proto-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .proto-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+  .proto-sub {
+    color: var(--muted);
+    margin: 0 0 40px;
+    font-size: 15px;
+  }
+
+  .grid-mock {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  /* ---------- The card ---------- */
+  .rr-card {
+    background: var(--cga-black);
+    border: 2px solid var(--cga-magenta);
+    border-radius: 4px;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    font-family: "Courier New", ui-monospace, monospace;
+    color: var(--cga-cyan);
+    text-align: left;
+    width: 100%;
+    display: block;
+  }
+  .rr-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 2px var(--cga-cyan), 0 8px 32px rgba(255, 85, 255, 0.18);
+  }
+  .rr-card:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--cga-white);
+  }
+
+  .rr-card-art {
+    aspect-ratio: 4 / 3;
+    background: var(--cga-black);
+    position: relative;
+    border-bottom: 2px solid var(--cga-magenta);
+    overflow: hidden;
+  }
+  /* Static CGA-style "screenshot" rendered in pure CSS */
+  .rr-card-art .sky { position:absolute; inset:0; background: var(--cga-black); }
+  .rr-card-art .bank-l, .rr-card-art .bank-r {
+    position: absolute; top: 0; bottom: 0; background: var(--cga-cyan);
+  }
+  .rr-card-art .bank-l { left: 0; width: 22%;
+    clip-path: polygon(0 0, 100% 0, 80% 25%, 100% 50%, 70% 75%, 100% 100%, 0 100%);
+  }
+  .rr-card-art .bank-r { right: 0; width: 22%;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 30% 75%, 0 50%, 30% 25%);
+  }
+  .rr-card-art .plane {
+    position: absolute; left: 50%; bottom: 18%;
+    transform: translateX(-50%);
+    width: 18px; height: 18px;
+    background:
+      linear-gradient(var(--cga-white), var(--cga-white)) center/2px 18px no-repeat,
+      linear-gradient(var(--cga-white), var(--cga-white)) center/18px 2px no-repeat,
+      linear-gradient(var(--cga-white), var(--cga-white)) 50% 75%/10px 2px no-repeat;
+  }
+  .rr-card-art .depot {
+    position: absolute; left: 50%; top: 30%;
+    transform: translateX(-50%);
+    width: 22px; height: 10px;
+    background: var(--cga-magenta);
+  }
+  .rr-card-art .heli {
+    position: absolute; left: 38%; top: 55%;
+    width: 14px; height: 6px;
+    background: var(--cga-white);
+  }
+  .rr-card-art .hud {
+    position: absolute; top: 6px; left: 8px; right: 8px;
+    color: var(--cga-cyan);
+    font: 10px "Courier New", monospace;
+    display: flex; justify-content: space-between;
+  }
+
+  .rr-card-meta {
+    padding: 14px 16px 16px;
+  }
+  .rr-card-kicker {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cga-magenta);
+    margin-bottom: 4px;
+  }
+  .rr-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cga-white);
+    margin: 0 0 4px;
+    letter-spacing: 0.04em;
+  }
+  .rr-card-note {
+    font-size: 12px;
+    color: var(--cga-cyan);
+    line-height: 1.5;
+    margin: 0;
+    /* Personal note placeholder — Kiran replaces with his own */
+    font-style: italic;
+    opacity: 0.85;
+  }
+
+  /* ---------- Modal ---------- */
+  .rr-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 24px;
+  }
+  .rr-modal[data-open="true"] { display: flex; }
+  .rr-modal-frame {
+    background: var(--cga-black);
+    border: 3px solid var(--cga-magenta);
+    width: min(960px, 100%);
+    max-height: calc(100vh - 48px);
+    display: flex;
+    flex-direction: column;
+    font-family: "Courier New", ui-monospace, monospace;
+    color: var(--cga-cyan);
+  }
+  .rr-modal-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--cga-magenta);
+    background: var(--cga-black);
+  }
+  .rr-modal-bar h3 {
+    margin: 0;
+    font: 14px "Courier New", monospace;
+    letter-spacing: 0.08em;
+    color: var(--cga-white);
+    text-transform: uppercase;
+  }
+  .rr-close {
+    background: transparent;
+    border: 1px solid var(--cga-cyan);
+    color: var(--cga-cyan);
+    padding: 4px 10px;
+    cursor: pointer;
+    font: 12px "Courier New", monospace;
+  }
+  .rr-close:hover { background: var(--cga-cyan); color: var(--cga-black); }
+
+  .rr-stage {
+    position: relative;
+    flex: 1;
+    background: var(--cga-black);
+    aspect-ratio: 4 / 3;
+    min-height: 320px;
+  }
+  .rr-stage > div { position: absolute; inset: 0; }
+
+  .rr-hint {
+    padding: 10px 14px;
+    border-top: 2px solid var(--cga-magenta);
+    font: 11px "Courier New", monospace;
+    color: var(--cga-cyan);
+    background: var(--cga-black);
+    line-height: 1.5;
+  }
+  .rr-hint kbd {
+    background: var(--cga-cyan);
+    color: var(--cga-black);
+    padding: 1px 5px;
+    font: inherit;
+    border-radius: 2px;
+  }
+
+  /* Loading state inside modal stage before js-dos boots */
+  .rr-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cga-cyan);
+    font: 12px "Courier New", monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+
+  /* Pre-launch "Tap to play" gate (covers mobile data + battery) */
+  .rr-gate {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--cga-black);
+    color: var(--cga-cyan);
+    text-align: center;
+    padding: 24px;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .rr-gate h4 {
+    color: var(--cga-white);
+    font: 18px "Courier New", monospace;
+    margin: 0 0 12px;
+    letter-spacing: 0.08em;
+  }
+  .rr-gate p {
+    margin: 0 0 16px;
+    font: 12px "Courier New", monospace;
+    line-height: 1.6;
+    max-width: 380px;
+  }
+  .rr-gate-btn {
+    border: 2px solid var(--cga-cyan);
+    background: transparent;
+    color: var(--cga-cyan);
+    padding: 10px 22px;
+    font: 12px "Courier New", monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    cursor: pointer;
+  }
+  .rr-gate-btn:hover {
+    background: var(--cga-cyan);
+    color: var(--cga-black);
+  }
+
+  /* Rotate-to-play overlay (mobile portrait only) */
+  .rr-rotate {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: var(--cga-black);
+    color: var(--cga-magenta);
+    font: 13px "Courier New", monospace;
+    text-align: center;
+    padding: 24px;
+    z-index: 3;
+  }
+  .rr-rotate-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    color: var(--cga-cyan);
+  }
+
+  /* Show rotate overlay when phone-sized AND portrait */
+  @media (max-width: 820px) and (orientation: portrait) {
+    .rr-modal[data-open="true"] .rr-rotate { display: flex; }
+  }
+
+  /* On mobile, easter-egg hint is hidden (no convenient keyboard) */
+  @media (max-width: 820px) {
+    .rr-hint { display: none; }
+  }
+
+  /* Reduce modal padding on small screens */
+  @media (max-width: 600px) {
+    .rr-modal { padding: 0; }
+    .rr-modal-frame { width: 100%; max-height: 100vh; height: 100vh; }
+  }
+</style>
+</head>
+<body>
+
+<div class="proto-wrap">
+  <div class="proto-label">Prototype · CTO / Technologist persona · curated item</div>
+  <h1 class="proto-title">River Raid widget</h1>
+  <p class="proto-sub">Click the card. Modal opens. js-dos boots GW-BASIC. The plane flies.</p>
+
+  <div class="grid-mock">
+
+    <!-- The actual widget card -->
+    <button class="rr-card" id="rrCard" aria-label="Open River Raid">
+      <div class="rr-card-art" aria-hidden="true">
+        <div class="sky"></div>
+        <div class="bank-l"></div>
+        <div class="bank-r"></div>
+        <div class="depot"></div>
+        <div class="heli"></div>
+        <div class="plane"></div>
+        <div class="hud"><span>SCORE 240</span><span>FUEL 78</span></div>
+      </div>
+      <div class="rr-card-meta">
+        <div class="rr-card-kicker">Bored at work?</div>
+        <h3 class="rr-card-title">River Raid (GW-BASIC, 1992)</h3>
+        <p class="rr-card-note">[Kiran's personal note goes here — 1–2 sentences about GW-BASIC being your first language.]</p>
+      </div>
+    </button>
+
+    <!-- Filler cards just to show grid context -->
+    <div style="border:1px dashed #333; border-radius:4px; aspect-ratio: 1; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:12px;">other CTO curated item</div>
+    <div style="border:1px dashed #333; border-radius:4px; aspect-ratio: 1; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:12px;">other CTO curated item</div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="rr-modal" id="rrModal" role="dialog" aria-modal="true" aria-label="River Raid">
+  <div class="rr-modal-frame">
+    <div class="rr-modal-bar">
+      <h3>RIVER RAID · GW-BASIC</h3>
+      <button class="rr-close" id="rrClose" aria-label="Close">CLOSE [ESC]</button>
+    </div>
+    <div class="rr-stage" id="rrStage">
+      <div class="rr-rotate">
+        <div>
+          <div class="rr-rotate-icon">↻</div>
+          ROTATE YOUR PHONE<br>TO LANDSCAPE TO FLY
+        </div>
+      </div>
+      <div class="rr-gate" id="rrGate">
+        <h4>READY TO FLY?</h4>
+        <p>Loads ~1.4 MB of DOSBox + GW-BASIC. Arrows steer, space fires. Press F1 in-game for the BASIC prompt.</p>
+        <button class="rr-gate-btn" id="rrLaunch">START ENGINES</button>
+      </div>
+      <div class="rr-loading" id="rrLoading" style="display:none;">BOOTING DOSBOX…</div>
+      <div id="rrDos"></div>
+    </div>
+    <div class="rr-hint">
+      <strong style="color:var(--cga-white);">Easter egg:</strong>
+      Press <kbd>Q</kbd> to drop into the BASIC prompt, then type
+      <kbd>LIST</kbd> and press Enter to read the source.
+    </div>
+  </div>
+</div>
+
+<script>
+  const card    = document.getElementById('rrCard');
+  const modal   = document.getElementById('rrModal');
+  const closeBtn= document.getElementById('rrClose');
+  const gate    = document.getElementById('rrGate');
+  const launch  = document.getElementById('rrLaunch');
+  const loading = document.getElementById('rrLoading');
+  const stage   = document.getElementById('rrStage');
+  const dosEl   = document.getElementById('rrDos');
+
+  let dosCi = null; // js-dos command interface, when booted
+
+  function openModal() {
+    modal.dataset.open = 'true';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    modal.dataset.open = 'false';
+    document.body.style.overflow = '';
+    // Tear down the DOSBox instance so resources free up
+    if (dosCi) {
+      try { dosCi.exit(); } catch(e) {}
+      dosCi = null;
+      dosEl.innerHTML = '';
+      gate.style.display = 'flex';
+      loading.style.display = 'none';
+    }
+  }
+
+  card.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.dataset.open === 'true') closeModal();
+  });
+
+  launch.addEventListener('click', async () => {
+    gate.style.display = 'none';
+    loading.style.display = 'flex';
+    loading.textContent = 'BOOTING DOSBOX…';
+
+    // Pre-check: does the bundle actually exist? Failed-to-fetch from js-dos
+    // is unhelpful; this gives a clearer message.
+    try {
+      const head = await fetch('bundle/riverraid.jsdos?v=' + Date.now(), { method: 'HEAD' });
+      if (!head.ok) throw new Error('not built');
+    } catch (e) {
+      loading.innerHTML = `
+        <div style="text-align:center; line-height:1.6; padding:24px;">
+          <div style="color:var(--cga-magenta); font-size:14px; margin-bottom:12px;">BUNDLE NOT BUILT YET</div>
+          <div style="color:var(--cga-cyan); font-size:11px; max-width:380px; margin:0 auto;">
+            1. Drop GWBASIC.EXE into bundle/<br>
+            2. Run ./build-bundle.sh<br>
+            3. Refresh this page<br><br>
+            See README.md for details.
+          </div>
+        </div>`;
+      return;
+    }
+
+    // js-dos v8 API: Dos(element, options)
+    try {
+      const dos = Dos(dosEl, {
+        url: 'bundle/riverraid.jsdos?v=' + Date.now(),
+        theme: 'dark',
+        backend: 'dosboxX',
+        renderBackend: 'webgl',
+        autoStart: true,
+      });
+      if (dos && dos.ciPromise) {
+        dosCi = await dos.ciPromise;
+      } else if (dos && dos.then) {
+        dosCi = await dos;
+      }
+      loading.style.display = 'none';
+    } catch (err) {
+      loading.textContent = 'Failed to boot. See browser console.';
+      console.error(err);
+    }
+  });
+</script>
+
+</body>
+</html>
