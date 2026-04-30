@@ -1,0 +1,24 @@
+{
+  "name": "Kiran Rao — Builder of Products People Love",
+  "short_name": "Kiran Rao",
+  "description": "Product Manager, Designer, and AI enthusiast. A permanent home demonstrating product thinking, AI-native craft, and 15+ years of building.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#0a0a0a",
+  "background_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/images/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/images/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
