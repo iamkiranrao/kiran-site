@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Page Not Found · Kiran Rao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --cream: #f5ede0;
+    --cream-muted: #d8cdb8;
+    --accent: #E59A4B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--cream);
+    overflow: hidden;
+  }
+
+  .layout {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* HERO IMAGE */
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('../images/404image.png');
+    background-size: cover;
+    background-position: center 60%;
+    background-repeat: no-repeat;
+  }
+
+  /* LEFT SCRIM — strong dark gradient for text legibility */
+  .scrim-left {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right,
+      rgba(10,10,10,0.92) 0%,
+      rgba(10,10,10,0.85) 18%,
+      rgba(10,10,10,0.55) 35%,
+      rgba(10,10,10,0.15) 50%,
+      transparent 65%);
+    pointer-events: none;
+  }
+
+  /* CONTENT — left-anchored, vertically centered, never touches the monster */
+  .content {
+    position: absolute;
+    left: 6vw;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 480px;
+    z-index: 2;
+  }
+  .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(3.5rem, 7.5vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--cream);
+    margin: 0 0 24px;
+  }
+  .deck {
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    color: var(--cream-muted);
+    line-height: 1.55;
+    margin: 0 0 32px;
+    max-width: 38ch;
+  }
+  .home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: var(--cream);
+    color: var(--bg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 100px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .home-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+  }
+  .home-btn .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  .home-btn:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* MOBILE — switch to top-scrim with content at top, monster below */
+  @media (max-width: 768px) {
+    .scrim-left {
+      background: linear-gradient(to bottom,
+        rgba(10,10,10,0.95) 0%,
+        rgba(10,10,10,0.85) 30%,
+        rgba(10,10,10,0.4) 50%,
+        transparent 65%);
+    }
+    .content {
+      top: 6vh;
+      left: 6vw;
+      right: 6vw;
+      transform: none;
+      max-width: 100%;
+      text-align: center;
+    }
+    .deck { margin-left: auto; margin-right: auto; }
+    .hero-image { background-position: center 80%; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .home-btn, .home-btn .arrow { transition: none; }
+    .home-btn:hover, .home-btn:hover .arrow { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="layout">
+    <div class="hero-image" role="img" aria-label="A friendly Pixar-style monster wearing a hard hat, caught mid-construction on a wooden scaffold"></div>
+    <div class="scrim-left"></div>
+
+    <div class="content">
+      <div class="label">Error · 404</div>
+      <h1>Lost a step</h1>
+      <p class="deck">This page doesn't exist. The URL may have a typo, or the page might have moved while we were building.</p>
+      <a href="/" class="home-btn">
+        Take me home <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>

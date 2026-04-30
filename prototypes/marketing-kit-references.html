@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Kit — Visual References Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F0E6D8;
+    --cream-2: #E8DCC8;
+    --cream-3: #DFD2BB;
+    --charcoal: #2A2520;
+    --charcoal-2: #4A4239;
+    --amber: #C8843D;
+    --teal: #4A6E6E;
+    --olive: #6B7747;
+    --rust: #B05D3C;
+    --muted: #8A7E70;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.5;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .side-nav {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 48px 24px;
+    border-right: 1px solid rgba(42,37,32,0.1);
+    background: var(--cream);
+    overflow-y: auto;
+  }
+  .side-nav .brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .side-nav .brand-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .side-nav ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .side-nav a {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: var(--charcoal-2);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .side-nav a:hover { background: var(--cream-3); color: var(--charcoal); }
+  .side-nav .group {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 24px 12px 8px;
+    font-weight: 700;
+  }
+
+  .main { padding: 0 64px; }
+
+  .hero {
+    padding: 96px 0 48px;
+    border-bottom: 1px solid rgba(42,37,32,0.1);
+  }
+  .hero .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px;
+    max-width: 18ch;
+  }
+  .hero .deck {
+    font-size: 1.05rem;
+    color: var(--charcoal-2);
+    line-height: 1.6;
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .section {
+    padding: 80px 0;
+    border-bottom: 1px solid rgba(42,37,32,0.1);
+  }
+  .section-header {
+    margin-bottom: 40px;
+  }
+  .section-header .num-row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .section-header .num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    color: var(--amber);
+    font-weight: 700;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+  .section-header .what {
+    font-size: 0.95rem;
+    color: var(--charcoal-2);
+    line-height: 1.5;
+    max-width: 64ch;
+    margin: 0;
+  }
+
+  .subsection {
+    margin-bottom: 48px;
+  }
+  .subsection-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(42,37,32,0.08);
+  }
+
+  /* Reference card grid */
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .ref {
+    display: flex;
+    flex-direction: column;
+    background: var(--cream-2);
+    border: 1px solid rgba(42,37,32,0.08);
+    border-radius: 10px;
+    padding: 0;
+    text-decoration: none;
+    color: var(--charcoal);
+    transition: all 0.25s ease;
+    overflow: hidden;
+    position: relative;
+  }
+  .ref:hover {
+    transform: translateY(-3px);
+    border-color: rgba(176,93,60,0.4);
+    box-shadow: 0 8px 24px rgba(42,37,32,0.08);
+  }
+
+  .ref .visual {
+    height: 120px;
+    background: var(--cream-3);
+    border-bottom: 1px solid rgba(42,37,32,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .ref .visual svg { display: block; }
+
+  .ref .body {
+    padding: 14px 16px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ref .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 4px;
+  }
+  .ref .title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    color: var(--charcoal);
+  }
+  .ref .note {
+    font-size: 0.78rem;
+    color: var(--charcoal-2);
+    line-height: 1.45;
+    margin-top: 4px;
+  }
+  .ref .url {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--rust);
+    margin-top: auto;
+    padding-top: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Visual swatches per asset type */
+  .vis-banner {
+    background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 60%, var(--cream-2) 60%, var(--cream-2) 100%);
+  }
+  .vis-og {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 16px 20px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: 'Playfair Display', serif;
+  }
+  .vis-og .l1 { font-size: 1.2rem; margin-bottom: 4px; }
+  .vis-og .l2 { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--amber); letter-spacing: 0.14em; text-transform: uppercase; }
+  .vis-poster {
+    background: var(--cream-3);
+    background-image:
+      radial-gradient(circle at 30% 50%, var(--rust) 12%, transparent 12.5%),
+      radial-gradient(circle at 70% 60%, var(--amber) 18%, transparent 18.5%);
+  }
+  .vis-diagram {
+    background-image:
+      linear-gradient(0deg, var(--charcoal) 1px, transparent 1px),
+      linear-gradient(90deg, var(--charcoal) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-color: var(--cream-2);
+    opacity: 0.9;
+  }
+  .vis-diagram::before {
+    content: '';
+    position: absolute;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--amber);
+    top: 50%; left: 30%;
+    transform: translate(-50%, -50%);
+  }
+  .vis-diagram::after {
+    content: '';
+    position: absolute;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--teal);
+    top: 50%; left: 70%;
+    transform: translate(-50%, -50%);
+  }
+  .vis-mood {
+    background:
+      linear-gradient(135deg, var(--amber) 0%, var(--amber) 20%, var(--cream-3) 20%, var(--cream-3) 40%, var(--teal) 40%, var(--teal) 60%, var(--olive) 60%, var(--olive) 80%, var(--rust) 80%, var(--rust) 100%);
+  }
+  .vis-deck {
+    background: var(--cream-3);
+    position: relative;
+  }
+  .vis-deck::before {
+    content: '';
+    position: absolute;
+    width: 70%; height: 70%;
+    background: var(--charcoal);
+    top: 15%; left: 15%;
+    border-radius: 4px;
+  }
+  .vis-deck::after {
+    content: '';
+    position: absolute;
+    width: 30%; height: 4px;
+    background: var(--amber);
+    top: 30%; left: 25%;
+  }
+  .vis-system {
+    background:
+      linear-gradient(90deg,
+        var(--charcoal) 0%, var(--charcoal) 20%,
+        var(--amber) 20%, var(--amber) 35%,
+        var(--teal) 35%, var(--teal) 50%,
+        var(--olive) 50%, var(--olive) 65%,
+        var(--rust) 65%, var(--rust) 80%,
+        var(--cream-3) 80%, var(--cream-3) 100%);
+  }
+  .vis-doc {
+    background: var(--cream-2);
+    padding: 16px 20px;
+  }
+  .vis-doc::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    line-height: 0.7;
+    color: var(--amber);
+    position: absolute;
+    top: 24px; left: 24px;
+  }
+  .vis-doc::after {
+    content: 'Aa';
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    color: var(--charcoal);
+    position: absolute;
+    bottom: 12px; right: 24px;
+  }
+  .vis-cjm {
+    background:
+      linear-gradient(90deg, var(--teal) 0%, var(--olive) 30%, var(--amber) 60%, var(--rust) 100%);
+    opacity: 0.85;
+  }
+  .vis-cjm::before {
+    content: '';
+    position: absolute;
+    bottom: 20%; left: 10%; right: 10%;
+    height: 2px;
+    background: var(--cream);
+  }
+  .vis-jtbd {
+    background: var(--cream-2);
+    background-image:
+      linear-gradient(135deg, transparent 49%, var(--charcoal) 49%, var(--charcoal) 51%, transparent 51%);
+    background-size: 30px 30px;
+    background-color: var(--cream-2);
+  }
+  .vis-jtbd::before {
+    content: 'JTBD';
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--charcoal);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--cream);
+    padding: 8px 16px;
+    border-radius: 4px;
+  }
+  .vis-flywheel {
+    background: var(--cream-2);
+  }
+  .vis-flywheel::before {
+    content: '';
+    position: absolute;
+    width: 80px; height: 80px; border-radius: 50%;
+    border: 8px solid var(--amber);
+    border-top-color: var(--teal);
+    border-right-color: var(--olive);
+    border-bottom-color: var(--rust);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .vis-handout {
+    background: var(--cream-3);
+    padding: 16px;
+    text-align: center;
+  }
+  .vis-handout::before {
+    content: '?';
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 4rem;
+    color: var(--rust);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .vis-pager {
+    background: var(--cream-2);
+  }
+  .vis-pager::before {
+    content: '';
+    position: absolute;
+    top: 15%; bottom: 15%; left: 30%; right: 30%;
+    background: var(--cream-3);
+    border-top: 6px solid var(--rust);
+  }
+  .vis-faq {
+    background: var(--cream-2);
+  }
+  .vis-faq::before {
+    content: 'Q.';
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 3rem;
+    color: var(--teal);
+    position: absolute;
+    top: 30%; left: 30%;
+  }
+  .vis-faq::after {
+    content: 'A.';
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 3rem;
+    color: var(--amber);
+    position: absolute;
+    bottom: 20%; right: 30%;
+  }
+  .vis-mascot {
+    background: var(--cream-3);
+  }
+  .vis-mascot::before {
+    content: '';
+    position: absolute;
+    width: 60px; height: 60px;
+    background: var(--olive);
+    border-radius: 50%;
+    top: 35%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .vis-mascot::after {
+    content: '';
+    position: absolute;
+    width: 40px; height: 40px;
+    background: var(--cream-2);
+    border-radius: 50%;
+    top: 35%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .vis-kpi {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .vis-kpi::before {
+    content: '0%';
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: var(--amber);
+  }
+  .vis-kpi::after {
+    content: 'CTR';
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cream-2);
+    margin-top: 4px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    background: var(--cream-2);
+    border-radius: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    margin: 32px 0 0;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <nav class="side-nav">
+    <div class="brand">References Board</div>
+    <div class="brand-sub">Marketing Kit · Inspiration</div>
+
+    <div class="group">Strategic</div>
+    <ol>
+      <li><a href="#jtbd">JTBD canvases</a></li>
+      <li><a href="#cjm">Customer journey maps</a></li>
+      <li><a href="#positioning">Positioning maps</a></li>
+      <li><a href="#messaging">Messaging frameworks</a></li>
+      <li><a href="#gtm">GTM models</a></li>
+    </ol>
+
+    <div class="group">Identity</div>
+    <ol>
+      <li><a href="#brand">Brand systems</a></li>
+      <li><a href="#voice">Voice / tone guides</a></li>
+      <li><a href="#mood">Mood boards</a></li>
+      <li><a href="#mascot">Character integration</a></li>
+    </ol>
+
+    <div class="group">Deployable</div>
+    <ol>
+      <li><a href="#banners">Profile banners</a></li>
+      <li><a href="#og">OG share cards</a></li>
+      <li><a href="#hero">Article hero illustrations</a></li>
+      <li><a href="#handout">Shareable handouts</a></li>
+      <li><a href="#pager">One-pagers</a></li>
+      <li><a href="#deck">Pitch decks</a></li>
+      <li><a href="#faq">FAQ design</a></li>
+      <li><a href="#sig">Email signatures</a></li>
+      <li><a href="#speaker">Speaker bios</a></li>
+    </ol>
+
+    <div class="group">Measurement</div>
+    <ol>
+      <li><a href="#kpi">KPI frameworks</a></li>
+    </ol>
+  </nav>
+
+  <main class="main">
+
+    <section class="hero">
+      <div class="label">References · Real-world examples</div>
+      <h1>What these things look like in the wild</h1>
+      <p class="deck">Curated examples for every asset type in the marketing kit. Click through to see the real thing. The visuals on each card are abstract placeholders — the actual reference is one click away.</p>
+    </section>
+
+    <!-- ============== STRATEGIC ============== -->
+
+    <section class="section" id="jtbd">
+      <div class="section-header">
+        <div class="num-row"><span class="num">01.A</span></div>
+        <h2>Jobs-to-be-done canvases</h2>
+        <p class="what">Per-persona JTBD canvases articulate what each persona is "hiring" the site to do for them. Section 1 of the marketing kit uses 6 of these (one per persona).</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://strategyn.com/jobs-to-be-done/" target="_blank">
+          <div class="visual vis-jtbd"></div>
+          <div class="body">
+            <div class="tag">Canonical framework</div>
+            <div class="title">Strategyn — Jobs-to-be-done</div>
+            <div class="note">Tony Ulwick's foundational framework. The reference for ODI (Outcome-Driven Innovation) JTBD canvases.</div>
+            <div class="url">strategyn.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.intercom.com/blog/jobs-to-be-done/" target="_blank">
+          <div class="visual vis-jtbd"></div>
+          <div class="body">
+            <div class="tag">Practitioner explainer</div>
+            <div class="title">Intercom — JTBD case study</div>
+            <div class="note">Intercom's classic article showing JTBD applied to their own product. Sample canvas layouts.</div>
+            <div class="url">intercom.com/blog/jobs-to-be-done</div>
+          </div>
+        </a>
+        <a class="ref" href="https://jobs-to-be-done.com/jobs-to-be-done-a-framework-for-customer-needs-c883cbf61c90" target="_blank">
+          <div class="visual vis-jtbd"></div>
+          <div class="body">
+            <div class="tag">Framework essay</div>
+            <div class="title">Bob Moesta — JTBD framework</div>
+            <div class="note">The Christensen / Moesta school. More narrative JTBD ("hire / fire" interview style).</div>
+            <div class="url">jobs-to-be-done.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="cjm">
+      <div class="section-header">
+        <div class="num-row"><span class="num">01.B</span></div>
+        <h2>Customer journey maps</h2>
+        <p class="what">6 per-persona journey maps in Section 3. The visitor's journey from "lands on site cold" through unlock → engagement → reach out.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.hustlebadger.com/what-do-product-teams-do/customer-journey-map-examples/" target="_blank">
+          <div class="visual vis-cjm"></div>
+          <div class="body">
+            <div class="tag">Curated gallery</div>
+            <div class="title">Hustle Badger — 17 real CJMs</div>
+            <div class="note">Best collection on the open web. Every variation of CJM done well, with critique. Start here.</div>
+            <div class="url">hustlebadger.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.nngroup.com/articles/customer-journey-mapping/" target="_blank">
+          <div class="visual vis-cjm"></div>
+          <div class="body">
+            <div class="tag">Methodology</div>
+            <div class="title">Nielsen Norman Group — CJM 101</div>
+            <div class="note">The canonical "what is a CJM and how to build one" reference. Use the structure they teach.</div>
+            <div class="url">nngroup.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.eleken.co/blog-posts/customer-journey-map-examples-to-get-some-fresh-ideas" target="_blank">
+          <div class="visual vis-cjm"></div>
+          <div class="body">
+            <div class="tag">Examples roundup</div>
+            <div class="title">Eleken — 9 CJM examples</div>
+            <div class="note">Pulls from HubSpot, Spotify, Carnegie Mellon, Rail Europe. Variety of styles to riff on.</div>
+            <div class="url">eleken.co</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.aakashg.com/customer-journey-mapping-examples/" target="_blank">
+          <div class="visual vis-cjm"></div>
+          <div class="body">
+            <div class="tag">PMM-specific</div>
+            <div class="title">Aakash Gupta — PM CJM examples</div>
+            <div class="note">Most directly applicable to PMM portfolios. Shows CJMs as PMM artifacts.</div>
+            <div class="url">aakashg.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="positioning">
+      <div class="section-header">
+        <div class="num-row"><span class="num">02.A</span></div>
+        <h2>Positioning maps & competitive matrices</h2>
+        <p class="what">The Section 2 centerpiece — your site plotted against alternatives on two strategic axes. Plus mock competitor archetype cards.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.aprildunford.com/" target="_blank">
+          <div class="visual vis-diagram"></div>
+          <div class="body">
+            <div class="tag">Canonical reference</div>
+            <div class="title">April Dunford — positioning grand dame</div>
+            <div class="note">Author of <em>Obviously Awesome</em>. Her site itself is a study in positioning. Read her blog for framework examples.</div>
+            <div class="url">aprildunford.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.productmarketingalliance.com/positioning-frameworks/" target="_blank">
+          <div class="visual vis-diagram"></div>
+          <div class="body">
+            <div class="tag">PMM templates</div>
+            <div class="title">PMA — positioning frameworks</div>
+            <div class="note">Templates and walkthroughs. Use these as a base, render in mid-century editorial style.</div>
+            <div class="url">productmarketingalliance.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://crossingthechasm.com/" target="_blank">
+          <div class="visual vis-diagram"></div>
+          <div class="body">
+            <div class="tag">Foundational</div>
+            <div class="title">Geoffrey Moore — Crossing the Chasm</div>
+            <div class="note">The technology adoption lifecycle is the original perceptual map. Every PMM has read this book.</div>
+            <div class="url">crossingthechasm.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="messaging">
+      <div class="section-header">
+        <div class="num-row"><span class="num">02.B</span></div>
+        <h2>Messaging house frameworks</h2>
+        <p class="what">Value prop → audience-specific angles → proof points. The standard PMM hierarchy in pyramid form.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.productmarketingalliance.com/messaging-frameworks/" target="_blank">
+          <div class="visual vis-doc"></div>
+          <div class="body">
+            <div class="tag">PMM templates</div>
+            <div class="title">PMA — messaging house templates</div>
+            <div class="note">Direct templates for messaging houses. Industry-standard layout you can adapt.</div>
+            <div class="url">productmarketingalliance.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://stripe.com/" target="_blank">
+          <div class="visual vis-doc"></div>
+          <div class="body">
+            <div class="tag">Live messaging in action</div>
+            <div class="title">Stripe — homepage messaging hierarchy</div>
+            <div class="note">Master class in messaging: clear value prop, distinct audience tracks, proof sprinkled throughout. Pull apart their info architecture.</div>
+            <div class="url">stripe.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://intercom.com/" target="_blank">
+          <div class="visual vis-doc"></div>
+          <div class="body">
+            <div class="tag">Live messaging in action</div>
+            <div class="title">Intercom — homepage messaging</div>
+            <div class="note">Audience-specific hooks for support teams, sales teams, marketers. Different door, same product.</div>
+            <div class="url">intercom.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="gtm">
+      <div class="section-header">
+        <div class="num-row"><span class="num">03.A</span></div>
+        <h2>GTM models & flywheels</h2>
+        <p class="what">Section 3 anchor: how distribution actually compounds. Work → network → community → distinction.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.hubspot.com/flywheel" target="_blank">
+          <div class="visual vis-flywheel"></div>
+          <div class="body">
+            <div class="tag">Canonical flywheel</div>
+            <div class="title">HubSpot — the flywheel</div>
+            <div class="note">The reference for "growth flywheel" articulation. Visual + narrative both worth studying.</div>
+            <div class="url">hubspot.com/flywheel</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.lennysnewsletter.com/p/the-ultimate-guide-to-product-launches" target="_blank">
+          <div class="visual vis-flywheel"></div>
+          <div class="body">
+            <div class="tag">Launch playbook</div>
+            <div class="title">Lenny — ultimate launch guide</div>
+            <div class="note">Lenny's launch playbook is canonical. Shows what a polished launch timeline looks like.</div>
+            <div class="url">lennysnewsletter.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.reforge.com/blog" target="_blank">
+          <div class="visual vis-flywheel"></div>
+          <div class="body">
+            <div class="tag">GTM frameworks</div>
+            <div class="title">Reforge — GTM resources</div>
+            <div class="note">Brian Balfour's company. Modern PLG/GTM thinking. Good visuals + frameworks for GTM model articulation.</div>
+            <div class="url">reforge.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============== IDENTITY ============== -->
+
+    <section class="section" id="brand">
+      <div class="section-header">
+        <div class="num-row"><span class="num">04.A</span></div>
+        <h2>Brand systems / design system pages</h2>
+        <p class="what">Section 4 codification. These are the gold-standard references for "brand book as destination, not PDF dump."</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://linear.app/brand" target="_blank">
+          <div class="visual vis-system"></div>
+          <div class="body">
+            <div class="tag">Closest tonal match</div>
+            <div class="title">Linear — Brand</div>
+            <div class="note">Modern, restrained, design-credible. The single closest reference for what we're building tonally.</div>
+            <div class="url">linear.app/brand</div>
+          </div>
+        </a>
+        <a class="ref" href="https://linear.app/method" target="_blank">
+          <div class="visual vis-system"></div>
+          <div class="body">
+            <div class="tag">Method-as-doc</div>
+            <div class="title">Linear — Method</div>
+            <div class="note">How they think, presented as doc. Long-scroll case study with mood + voice + principles. Direct format reference.</div>
+            <div class="url">linear.app/method</div>
+          </div>
+        </a>
+        <a class="ref" href="https://mailchimp.com/brand-assets/" target="_blank">
+          <div class="visual vis-system"></div>
+          <div class="body">
+            <div class="tag">Voice + visuals</div>
+            <div class="title">Mailchimp — Brand assets</div>
+            <div class="note">Playful but disciplined. Best example of voice-and-visual integration in brand docs.</div>
+            <div class="url">mailchimp.com/brand-assets</div>
+          </div>
+        </a>
+        <a class="ref" href="https://spotify.design/" target="_blank">
+          <div class="visual vis-system"></div>
+          <div class="body">
+            <div class="tag">Design-as-destination</div>
+            <div class="title">Spotify Design</div>
+            <div class="note">Their design system docs read like a publication. Articles + system reference under one roof.</div>
+            <div class="url">spotify.design</div>
+          </div>
+        </a>
+        <a class="ref" href="https://dropbox.design/" target="_blank">
+          <div class="visual vis-system"></div>
+          <div class="body">
+            <div class="tag">Four-pillar structure</div>
+            <div class="title">Dropbox — Design Standards</div>
+            <div class="note">Strategy + foundational + design system + writing — the same four-pillar structure we're using.</div>
+            <div class="url">dropbox.design</div>
+          </div>
+        </a>
+        <a class="ref" href="https://press.stripe.com/" target="_blank">
+          <div class="visual vis-system"></div>
+          <div class="body">
+            <div class="tag">Editorial restraint</div>
+            <div class="title">Stripe Press</div>
+            <div class="note">Sophisticated, type-driven, mid-century-adjacent tonally. Reference for restrained editorial design.</div>
+            <div class="url">press.stripe.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://atlassian.design/" target="_blank">
+          <div class="visual vis-system"></div>
+          <div class="body">
+            <div class="tag">System rigor</div>
+            <div class="title">Atlassian Design System</div>
+            <div class="note">Comprehensive design system documentation done right. Component-level depth.</div>
+            <div class="url">atlassian.design</div>
+          </div>
+        </a>
+        <a class="ref" href="https://airbnb.design/" target="_blank">
+          <div class="visual vis-system"></div>
+          <div class="body">
+            <div class="tag">DLS reference</div>
+            <div class="title">Airbnb Design</div>
+            <div class="note">Their Design Language System (DLS) writing is influential. Process + principles + system together.</div>
+            <div class="url">airbnb.design</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="voice">
+      <div class="section-header">
+        <div class="num-row"><span class="num">04.B</span></div>
+        <h2>Voice & tone guides</h2>
+        <p class="what">Section 4 voice samples. Before/after across contexts. The Mailchimp guide is the canonical reference.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://styleguide.mailchimp.com/voice-and-tone/" target="_blank">
+          <div class="visual vis-doc"></div>
+          <div class="body">
+            <div class="tag">The canonical reference</div>
+            <div class="title">Mailchimp — Voice and Tone</div>
+            <div class="note">The most-cited voice/tone guide on the open web. Context-specific tone modulation done right.</div>
+            <div class="url">styleguide.mailchimp.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://atlassian.design/content/voice-and-tone" target="_blank">
+          <div class="visual vis-doc"></div>
+          <div class="body">
+            <div class="tag">Modern reference</div>
+            <div class="title">Atlassian — Voice and tone</div>
+            <div class="note">Cleaner, more modern voice doc. Good for "quick principles" framing.</div>
+            <div class="url">atlassian.design</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.gov.uk/guidance/style-guide" target="_blank">
+          <div class="visual vis-doc"></div>
+          <div class="body">
+            <div class="tag">Plain language master</div>
+            <div class="title">GOV.UK — Style guide</div>
+            <div class="note">Best example of a voice guide built around accessibility and plain language. Counterweight to "playful" voice guides.</div>
+            <div class="url">gov.uk/guidance/style-guide</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="mood">
+      <div class="section-header">
+        <div class="num-row"><span class="num">04.C</span></div>
+        <h2>Mood boards / visual references</h2>
+        <p class="what">Section 4 mood board (8-12 images). The visual references that anchor your brand.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.are.na/" target="_blank">
+          <div class="visual vis-mood"></div>
+          <div class="body">
+            <div class="tag">Where designers mood-board</div>
+            <div class="title">Are.na</div>
+            <div class="note">The platform brand-savvy designers use. Curate your own board, use the format as inspiration.</div>
+            <div class="url">are.na</div>
+          </div>
+        </a>
+        <a class="ref" href="https://spotify.design/articles" target="_blank">
+          <div class="visual vis-mood"></div>
+          <div class="body">
+            <div class="tag">Mood-as-case-study</div>
+            <div class="title">Spotify Design — Articles</div>
+            <div class="note">Each article includes mood references. See how they integrate visual ref material into case study format.</div>
+            <div class="url">spotify.design/articles</div>
+          </div>
+        </a>
+        <a class="ref" href="https://siteinspire.com/" target="_blank">
+          <div class="visual vis-mood"></div>
+          <div class="body">
+            <div class="tag">Curation site</div>
+            <div class="title">Siteinspire</div>
+            <div class="note">Curated showcase. Filter by aesthetic. Useful for collecting mood references across web design.</div>
+            <div class="url">siteinspire.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.designspiration.com/" target="_blank">
+          <div class="visual vis-mood"></div>
+          <div class="body">
+            <div class="tag">Visual reference</div>
+            <div class="title">Designspiration</div>
+            <div class="note">Pinterest-for-designers. Good for searching specific aesthetics like "mid-century editorial."</div>
+            <div class="url">designspiration.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="mascot">
+      <div class="section-header">
+        <div class="num-row"><span class="num">04.D</span></div>
+        <h2>Character / mascot integration</h2>
+        <p class="what">Section 4 "where the monsters fit." How brands use a character system within a broader visual identity.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://design.duolingo.com/" target="_blank">
+          <div class="visual vis-mascot"></div>
+          <div class="body">
+            <div class="tag">Mascot-led brand</div>
+            <div class="title">Duolingo Design</div>
+            <div class="note">Duo the owl as full character system. Most ambitious mascot integration in tech.</div>
+            <div class="url">design.duolingo.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.mailchimp.com/" target="_blank">
+          <div class="visual vis-mascot"></div>
+          <div class="body">
+            <div class="tag">Mascot + sophisticated</div>
+            <div class="title">Mailchimp — Freddie</div>
+            <div class="note">The chimp mascot integrated with editorial design. Playful but never cartoonish.</div>
+            <div class="url">mailchimp.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://github.com/" target="_blank">
+          <div class="visual vis-mascot"></div>
+          <div class="body">
+            <div class="tag">Mascot as inflection</div>
+            <div class="title">GitHub — Octocat</div>
+            <div class="note">Mascot used sparingly in editorial contexts (their illustrations). Reference for restrained mascot usage.</div>
+            <div class="url">github.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============== DEPLOYABLE ============== -->
+
+    <section class="section" id="banners">
+      <div class="section-header">
+        <div class="num-row"><span class="num">05.A</span></div>
+        <h2>Profile banners (LinkedIn / Twitter / GitHub)</h2>
+        <p class="what">Section 5 deployable: 3 banners that ship live to your social profiles.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.linkedin.com/in/lennyrachitsky/" target="_blank">
+          <div class="visual vis-banner"></div>
+          <div class="body">
+            <div class="tag">LinkedIn banner</div>
+            <div class="title">Lenny Rachitsky</div>
+            <div class="note">Sophisticated personal-brand LinkedIn. Type-led, quietly authoritative. Reference for tone.</div>
+            <div class="url">linkedin.com/in/lennyrachitsky</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.linkedin.com/in/aprildunford/" target="_blank">
+          <div class="visual vis-banner"></div>
+          <div class="body">
+            <div class="tag">LinkedIn banner</div>
+            <div class="title">April Dunford</div>
+            <div class="note">PMM positioning expert. Banner reinforces the positioning expertise visually.</div>
+            <div class="url">linkedin.com/in/aprildunford</div>
+          </div>
+        </a>
+        <a class="ref" href="https://twitter.com/rauchg" target="_blank">
+          <div class="visual vis-banner"></div>
+          <div class="body">
+            <div class="tag">Twitter/X banner</div>
+            <div class="title">Guillermo Rauch (@rauchg)</div>
+            <div class="note">Vercel CEO. Banner that's design-credible for someone in tech without being template-y.</div>
+            <div class="url">twitter.com/rauchg</div>
+          </div>
+        </a>
+        <a class="ref" href="https://twitter.com/karrisaarinen" target="_blank">
+          <div class="visual vis-banner"></div>
+          <div class="body">
+            <div class="tag">Twitter/X banner</div>
+            <div class="title">Karri Saarinen (@karrisaarinen)</div>
+            <div class="note">Linear co-founder. Personal banner perfectly extends Linear's design language.</div>
+            <div class="url">twitter.com/karrisaarinen</div>
+          </div>
+        </a>
+        <a class="ref" href="https://github.com/sindresorhus" target="_blank">
+          <div class="visual vis-banner"></div>
+          <div class="body">
+            <div class="tag">GitHub profile</div>
+            <div class="title">Sindre Sorhus</div>
+            <div class="note">Most-followed individual on GitHub. Profile design reference for the platform.</div>
+            <div class="url">github.com/sindresorhus</div>
+          </div>
+        </a>
+        <a class="ref" href="https://github.com/kentcdodds" target="_blank">
+          <div class="visual vis-banner"></div>
+          <div class="body">
+            <div class="tag">GitHub profile</div>
+            <div class="title">Kent C. Dodds</div>
+            <div class="note">Sophisticated GitHub profile README. Reference for the README format with banner integration.</div>
+            <div class="url">github.com/kentcdodds</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="og">
+      <div class="section-header">
+        <div class="num-row"><span class="num">05.B</span></div>
+        <h2>OG share cards</h2>
+        <p class="what">Section 5 deployable: 4 base + 6 per-persona variants. Use opengraph.xyz to inspect any URL's link preview.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.opengraph.xyz/url/https%3A%2F%2Fvercel.com" target="_blank">
+          <div class="visual"><div class="vis-og"><div class="l1">Vercel</div><div class="l2">Live OG card</div></div></div>
+          <div class="body">
+            <div class="tag">OG inspection</div>
+            <div class="title">Vercel — OG card</div>
+            <div class="note">Type-led, brand-consistent. Use opengraph.xyz to see the card and the metadata behind it.</div>
+            <div class="url">opengraph.xyz/url/vercel.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.opengraph.xyz/url/https%3A%2F%2Flinear.app" target="_blank">
+          <div class="visual"><div class="vis-og"><div class="l1">Linear</div><div class="l2">Live OG card</div></div></div>
+          <div class="body">
+            <div class="tag">OG inspection</div>
+            <div class="title">Linear — OG card</div>
+            <div class="note">Bold, simple, immediately recognizable. Strong alignment to overall brand.</div>
+            <div class="url">opengraph.xyz/url/linear.app</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.opengraph.xyz/url/https%3A%2F%2Fstripe.com" target="_blank">
+          <div class="visual"><div class="vis-og"><div class="l1">Stripe</div><div class="l2">Live OG card</div></div></div>
+          <div class="body">
+            <div class="tag">OG inspection</div>
+            <div class="title">Stripe — OG card</div>
+            <div class="note">Type-led with restrained imagery. Perfect editorial-design reference for OG cards.</div>
+            <div class="url">opengraph.xyz/url/stripe.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.opengraph.xyz/url/https%3A%2F%2Ffigma.com" target="_blank">
+          <div class="visual"><div class="vis-og"><div class="l1">Figma</div><div class="l2">Live OG card</div></div></div>
+          <div class="body">
+            <div class="tag">OG inspection</div>
+            <div class="title">Figma — OG card</div>
+            <div class="note">Graphic-led, playful. Different end of the OG card spectrum from the type-led examples.</div>
+            <div class="url">opengraph.xyz/url/figma.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.opengraph.xyz/" target="_blank">
+          <div class="visual"><div class="vis-og"><div class="l1">opengraph.xyz</div><div class="l2">Inspection tool</div></div></div>
+          <div class="body">
+            <div class="tag">Tool</div>
+            <div class="title">opengraph.xyz</div>
+            <div class="note">Paste any URL to see its OG card preview across platforms. Use this to QA your own OG cards once deployed.</div>
+            <div class="url">opengraph.xyz</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="hero">
+      <div class="section-header">
+        <div class="num-row"><span class="num">05.C</span></div>
+        <h2>Article hero illustrations</h2>
+        <p class="what">Section 5 deployable: 6 teardown headers (Instagram, GEICO, Airbnb, Duolingo, +2). Strong hero illustrations make every share more clickable.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.julian.com/blog" target="_blank">
+          <div class="visual vis-poster"></div>
+          <div class="body">
+            <div class="tag">Closest aesthetic match</div>
+            <div class="title">Julian.com — Blog</div>
+            <div class="note">Hand-drawn editorial illustrations per article. Strong reference for "designed by someone with taste" hero treatment.</div>
+            <div class="url">julian.com/blog</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.lennysnewsletter.com/" target="_blank">
+          <div class="visual vis-poster"></div>
+          <div class="body">
+            <div class="tag">PMM-relevant</div>
+            <div class="title">Lenny's Newsletter</div>
+            <div class="note">Each article gets a distinct hero. Reference for variety-within-consistency in illustration system.</div>
+            <div class="url">lennysnewsletter.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://stripe.com/blog" target="_blank">
+          <div class="visual vis-poster"></div>
+          <div class="body">
+            <div class="tag">Editorial design</div>
+            <div class="title">Stripe Blog</div>
+            <div class="note">Beautiful editorial illustrations per article. Mid-century editorial sensibility you're aiming for.</div>
+            <div class="url">stripe.com/blog</div>
+          </div>
+        </a>
+        <a class="ref" href="https://medium.com/" target="_blank">
+          <div class="visual vis-poster"></div>
+          <div class="body">
+            <div class="tag">Variety reference</div>
+            <div class="title">Medium publications</div>
+            <div class="note">Browse top design publications on Medium for hero illustration variety. UX Collective and similar.</div>
+            <div class="url">medium.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="handout">
+      <div class="section-header">
+        <div class="num-row"><span class="num">05.D</span></div>
+        <h2>Shareable handout images ("What is X?")</h2>
+        <p class="what">Section 5 deployable: 1 image you paste in DMs to explain the site at a glance. Solves Action #229.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://twitter.com/search?q=%22what%20is%22%20infographic&f=image" target="_blank">
+          <div class="visual vis-handout"></div>
+          <div class="body">
+            <div class="tag">Genre reference</div>
+            <div class="title">Twitter — "What is" infographics</div>
+            <div class="note">The viral handout genre. Square format, single image, instantly explainable. Browse the format.</div>
+            <div class="url">twitter.com/search</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.linkedin.com/feed/" target="_blank">
+          <div class="visual vis-handout"></div>
+          <div class="body">
+            <div class="tag">Genre reference</div>
+            <div class="title">LinkedIn carousels & one-pagers</div>
+            <div class="note">PMMs and operators love the LinkedIn one-pager genre. Search "operator handout" or similar.</div>
+            <div class="url">linkedin.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="pager">
+      <div class="section-header">
+        <div class="num-row"><span class="num">05.E</span></div>
+        <h2>One-pagers</h2>
+        <p class="what">Section 5 deployable: 4 visual elements assembled into a shareable one-pager PDF.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.notion.com/templates/one-pager-template" target="_blank">
+          <div class="visual vis-pager"></div>
+          <div class="body">
+            <div class="tag">Templates</div>
+            <div class="title">Notion — One-pager templates</div>
+            <div class="note">Reference structure. Notion's library has dozens of one-pager templates to riff on.</div>
+            <div class="url">notion.com/templates</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.aprildunford.com/resources" target="_blank">
+          <div class="visual vis-pager"></div>
+          <div class="body">
+            <div class="tag">PMM-specific</div>
+            <div class="title">April Dunford — Resources</div>
+            <div class="note">Positioning canvas + one-pager templates straight from the source.</div>
+            <div class="url">aprildunford.com/resources</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.canva.com/business-cards/templates/" target="_blank">
+          <div class="visual vis-pager"></div>
+          <div class="body">
+            <div class="tag">Production tool</div>
+            <div class="title">Canva — One-pager templates</div>
+            <div class="note">Where you'll actually assemble the final one-pager. Use mid-century templates as a base.</div>
+            <div class="url">canva.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="deck">
+      <div class="section-header">
+        <div class="num-row"><span class="num">05.F</span></div>
+        <h2>Pitch decks</h2>
+        <p class="what">Section 5 deployable: cover + 9 slide hero visuals + 3 section dividers = 13 visuals for a full pitch deck.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://slidebean.com/templates/airbnb-pitch-deck-template" target="_blank">
+          <div class="visual vis-deck"></div>
+          <div class="body">
+            <div class="tag">Canonical reference</div>
+            <div class="title">Airbnb — Series A pitch deck</div>
+            <div class="note">The most-referenced pitch deck in startup history. Study the structure and adapt for your "site as product" pitch.</div>
+            <div class="url">slidebean.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://slidebean.com/best-pitch-decks-examples" target="_blank">
+          <div class="visual vis-deck"></div>
+          <div class="body">
+            <div class="tag">Curated gallery</div>
+            <div class="title">Slidebean — Best pitch decks</div>
+            <div class="note">Collection of famous startup pitch decks. Browse for structural variety.</div>
+            <div class="url">slidebean.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.ycombinator.com/library" target="_blank">
+          <div class="visual vis-deck"></div>
+          <div class="body">
+            <div class="tag">Templates</div>
+            <div class="title">Y Combinator — Library</div>
+            <div class="note">Includes Series A deck templates and structure guidance. Minimalist, narrative-driven.</div>
+            <div class="url">ycombinator.com/library</div>
+          </div>
+        </a>
+        <a class="ref" href="https://pitch.com/templates" target="_blank">
+          <div class="visual vis-deck"></div>
+          <div class="body">
+            <div class="tag">Production tool</div>
+            <div class="title">Pitch.com templates</div>
+            <div class="note">Beautiful, design-credible deck templates. Assembly tool for the actual deck once visuals are generated.</div>
+            <div class="url">pitch.com/templates</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="section-header">
+        <div class="num-row"><span class="num">05.G</span></div>
+        <h2>FAQ design systems</h2>
+        <p class="what">Section 5 deployable: 4 section dividers + 2 supporting graphics for a hiring-manager-facing FAQ.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://stripe.com/docs" target="_blank">
+          <div class="visual vis-faq"></div>
+          <div class="body">
+            <div class="tag">Best-in-class</div>
+            <div class="title">Stripe Docs</div>
+            <div class="note">Considered the gold standard for technical docs. Section dividers + question structure to study.</div>
+            <div class="url">stripe.com/docs</div>
+          </div>
+        </a>
+        <a class="ref" href="https://linear.app/docs" target="_blank">
+          <div class="visual vis-faq"></div>
+          <div class="body">
+            <div class="tag">Modern reference</div>
+            <div class="title">Linear Docs</div>
+            <div class="note">Modern docs done right. Minimalist with strong hierarchy. Good FAQ section pattern.</div>
+            <div class="url">linear.app/docs</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.notion.com/help" target="_blank">
+          <div class="visual vis-faq"></div>
+          <div class="body">
+            <div class="tag">FAQ-first</div>
+            <div class="title">Notion Help Center</div>
+            <div class="note">FAQ structure done well at scale. Anticipates the questions users will actually ask.</div>
+            <div class="url">notion.com/help</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="sig">
+      <div class="section-header">
+        <div class="num-row"><span class="num">05.H</span></div>
+        <h2>Email signatures</h2>
+        <p class="what">Section 5 deployable: 1 graphic for the bottom of every email you send.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.wisestamp.com/email-signature-examples/" target="_blank">
+          <div class="visual vis-banner"></div>
+          <div class="body">
+            <div class="tag">Curated gallery</div>
+            <div class="title">WiseStamp — Signature examples</div>
+            <div class="note">Best collection of email signature designs. Filter by industry and aesthetic.</div>
+            <div class="url">wisestamp.com</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.hubspot.com/email-signature-generator" target="_blank">
+          <div class="visual vis-banner"></div>
+          <div class="body">
+            <div class="tag">Generator + examples</div>
+            <div class="title">HubSpot — Signature generator</div>
+            <div class="note">Free generator. Useful both for examples and for the production tool.</div>
+            <div class="url">hubspot.com/email-signature-generator</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="speaker">
+      <div class="section-header">
+        <div class="num-row"><span class="num">05.I</span></div>
+        <h2>Speaker bio images</h2>
+        <p class="what">Section 5 deployable: 1 image for conference programs, podcast notes, speaker pages.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://www.ted.com/speakers" target="_blank">
+          <div class="visual vis-banner"></div>
+          <div class="body">
+            <div class="tag">Canonical reference</div>
+            <div class="title">TED — Speaker pages</div>
+            <div class="note">The reference for "speaker bio image" presentation. Browse for tone variety.</div>
+            <div class="url">ted.com/speakers</div>
+          </div>
+        </a>
+        <a class="ref" href="https://config.figma.com/" target="_blank">
+          <div class="visual vis-banner"></div>
+          <div class="body">
+            <div class="tag">Modern conference</div>
+            <div class="title">Config (Figma) — Speaker page</div>
+            <div class="note">Design-forward conference. Strong speaker bio treatment with consistent visual language across speakers.</div>
+            <div class="url">config.figma.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============== MEASUREMENT ============== -->
+
+    <section class="section" id="kpi">
+      <div class="section-header">
+        <div class="num-row"><span class="num">06.A</span></div>
+        <h2>KPI / metric frameworks</h2>
+        <p class="what">Section 6 anchor. The contrarian framing — what you're NOT measuring is itself a position.</p>
+      </div>
+      <div class="ref-grid">
+        <a class="ref" href="https://amplitude.com/north-star" target="_blank">
+          <div class="visual vis-kpi"></div>
+          <div class="body">
+            <div class="tag">Framework reference</div>
+            <div class="title">Amplitude — North Star Metric</div>
+            <div class="note">The canonical North Star framework. Subvert it: "Here's why we deliberately don't have one."</div>
+            <div class="url">amplitude.com/north-star</div>
+          </div>
+        </a>
+        <a class="ref" href="https://www.reforge.com/blog" target="_blank">
+          <div class="visual vis-kpi"></div>
+          <div class="body">
+            <div class="tag">Modern PMM</div>
+            <div class="title">Reforge — Metrics frameworks</div>
+            <div class="note">Modern thinking on measurement. Useful counterpoint to the relational framing.</div>
+            <div class="url">reforge.com/blog</div>
+          </div>
+        </a>
+        <a class="ref" href="https://review.firstround.com/" target="_blank">
+          <div class="visual vis-kpi"></div>
+          <div class="body">
+            <div class="tag">Operator essays</div>
+            <div class="title">First Round Review</div>
+            <div class="note">Long-form essays on operator topics including unconventional metrics. Useful tone reference for measurement section.</div>
+            <div class="url">review.firstround.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>
