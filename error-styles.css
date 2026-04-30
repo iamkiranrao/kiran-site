@@ -1,0 +1,200 @@
+/* ════════════════════════════════════════════════════
+   ERROR PAGE STYLES — shared by 404 / 500 / 503 / maintenance
+   ════════════════════════════════════════════════════ */
+
+:root {
+  --err-bg: #0a0a0a;
+  --err-cream: #f5ede0;
+  --err-cream-muted: #d8cdb8;
+  --err-accent: #E59A4B;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--err-bg);
+  color: var(--err-cream);
+  overflow: hidden;
+}
+
+.error-layout {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* HERO IMAGE — same monster across all error pages */
+.error-hero {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/404image.png');
+  background-size: cover;
+  background-position: center 60%;
+  background-repeat: no-repeat;
+}
+
+/* LEFT SCRIM — strong dark gradient for text legibility */
+.error-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right,
+    rgba(10,10,10,0.92) 0%,
+    rgba(10,10,10,0.85) 18%,
+    rgba(10,10,10,0.55) 35%,
+    rgba(10,10,10,0.15) 50%,
+    transparent 65%);
+  pointer-events: none;
+}
+
+/* CONTENT — left-anchored, vertically centered */
+.error-content {
+  position: absolute;
+  left: 6vw;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 480px;
+  z-index: 2;
+}
+
+.error-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--err-accent);
+  margin-bottom: 20px;
+}
+
+.error-headline {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(3.5rem, 7.5vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--err-cream);
+  margin: 0 0 24px;
+}
+
+.error-deck {
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  color: var(--err-cream-muted);
+  line-height: 1.55;
+  margin: 0 0 32px;
+  max-width: 38ch;
+}
+
+.error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.error-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--err-cream);
+  color: var(--err-bg);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 100px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+.error-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+}
+.error-btn .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.error-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Secondary button — ghost style */
+.error-btn-secondary {
+  background: transparent;
+  color: var(--err-cream);
+  border: 1.5px solid rgba(245,237,224,0.3);
+  box-shadow: none;
+}
+.error-btn-secondary:hover {
+  border-color: rgba(245,237,224,0.6);
+  background: rgba(245,237,224,0.05);
+  box-shadow: none;
+}
+
+/* SKIP LINK */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 999;
+}
+.skip-link:focus {
+  left: 24px;
+  top: 24px;
+  width: auto;
+  height: auto;
+  padding: 12px 20px;
+  background: var(--err-cream);
+  color: var(--err-bg);
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* MOBILE — switch to top-scrim, content at top, monster fills below */
+@media (max-width: 768px) {
+  .error-scrim {
+    background: linear-gradient(to bottom,
+      rgba(10,10,10,0.95) 0%,
+      rgba(10,10,10,0.85) 30%,
+      rgba(10,10,10,0.4) 50%,
+      transparent 65%);
+  }
+  .error-content {
+    top: 6vh;
+    left: 6vw;
+    right: 6vw;
+    transform: none;
+    max-width: 100%;
+    text-align: center;
+  }
+  .error-deck {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .error-actions {
+    justify-content: center;
+  }
+  .error-hero {
+    background-position: center 80%;
+  }
+}
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  .error-btn, .error-btn .arrow {
+    transition: none;
+  }
+  .error-btn:hover {
+    transform: none;
+  }
+  .error-btn:hover .arrow {
+    transform: none;
+  }
+}
