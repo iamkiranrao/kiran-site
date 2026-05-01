@@ -508,7 +508,7 @@
     var wrapper = el('div', 'ev-fenix-chat');
 
     var chatHeader = el('div', 'ev-chat-header');
-    var headerAvatar = el('img', 'ev-chat-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+    var headerAvatar = el('img', 'ev-chat-avatar', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' });
     var headerInfo = el('div', 'ev-chat-header-info');
     headerInfo.appendChild(el('span', 'ev-chat-header-name', { text: 'Fenix' }));
     var statusDot = el('span', 'ev-status-dot ev-status-dot--ready');
@@ -535,7 +535,7 @@
       openingText = 'Hey \u2014 welcome. I\'m Fenix, Kiran\'s AI. I\'m here to help you get the most out of this site \u2014 whether that\'s exploring his work, figuring out fit, or just asking whatever\'s on your mind. The buttons below are fast paths, or just type away.';
     }
     var openingBubble = el('div', 'ev-msg ev-msg-fenix ev-opening-msg');
-    var openingAvatar = el('img', 'ev-msg-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+    var openingAvatar = el('img', 'ev-msg-avatar', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' });
     var openingContent = el('div', 'ev-msg-content');
     openingBubble.appendChild(openingAvatar);
     openingBubble.appendChild(openingContent);

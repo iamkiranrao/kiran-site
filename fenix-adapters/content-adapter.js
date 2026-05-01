@@ -778,7 +778,7 @@
     persona: fenixState.visitor.persona || 'general',
     accentColor: '#7B9ACC',
     agentUrl: 'https://api.kiranrao.ai/api/v1/fenix/agent',
-    logoPath: BASE_PATH + 'images/logo.png',
+    logoPath: BASE_PATH + 'images/fenix/1fenixavatar1.png',
     messageCap: 30,
 
     availableTools: ['scroll_to_section', 'highlight_section', 'get_visitor_context', 'show_related_content', 'connect_visitor', 'collect_feedback'],
