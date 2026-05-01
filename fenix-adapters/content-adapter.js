@@ -290,7 +290,7 @@
     tab.innerHTML =
       '<div class="fenix-edge-tab-inner">' +
         '<div class="fenix-edge-tab-pulse"></div>' +
-        '<img class="fenix-edge-tab-icon" src="' + BASE_PATH + 'images/logo.png" alt="Fenix">' +
+        '<img class="fenix-edge-tab-icon" src="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" alt="Fenix">' +
         '<span class="fenix-edge-tab-label">Ask Fenix</span>' +
         '<span class="fenix-tab-badge" style="display:none;"></span>' +
       '</div>';
@@ -309,7 +309,7 @@
     var header = el('div', 'fenix-sp-header');
     header.innerHTML =
       '<div class="fenix-sp-identity">' +
-        '<img class="fenix-sp-avatar" src="' + BASE_PATH + 'images/logo.png" alt="Fenix">' +
+        '<img class="fenix-sp-avatar" src="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" alt="Fenix">' +
         '<div>' +
           '<div class="fenix-sp-name">Fenix</div>' +
           '<div class="fenix-sp-context">Reading: ' + PAGE_TITLE + '</div>' +
@@ -446,7 +446,7 @@
   function buildInlinePrompt(referenceEl, text, position) {
     var prompt = el('div', 'fenix-inline-prompt');
     prompt.innerHTML =
-      '<img class="fenix-inline-icon" src="' + BASE_PATH + 'images/logo.png" alt="Fenix">' +
+      '<img class="fenix-inline-icon" src="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" alt="Fenix">' +
       '<span class="fenix-inline-text">' + text + '</span>' +
       '<span class="fenix-inline-arrow">&rarr;</span>';
 
