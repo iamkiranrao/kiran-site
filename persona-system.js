@@ -953,7 +953,7 @@
     module.innerHTML =
       '<div class="fenix-subpage-inner">' +
         '<div class="fenix-subpage-logo-wrap">' +
-          '<img src="images/logo.png" alt="Fenix" class="fenix-subpage-logo">' +
+          '<img src="images/fenix/1fenixavatar1.png" alt="Fenix the phoenix mascot — Kiran\'s AI assistant" class="fenix-subpage-logo">' +
         '</div>' +
         '<div class="fenix-subpage-content">' +
           '<p class="fenix-subpage-greeting">' + (config ? config.fenixTooltip : 'Need help exploring? I\'m here.') + '</p>' +
