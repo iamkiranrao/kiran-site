@@ -450,7 +450,7 @@
         case 'text_start':
           // Create a new Fenix message bubble for streaming
           currentBubble = el('div', 'ev-msg ev-msg-fenix');
-          var avatar = el('img', 'ev-msg-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+          var avatar = el('img', 'ev-msg-avatar', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' });
           currentContent = el('div', 'ev-msg-content ev-streaming');
           currentBubble.appendChild(avatar);
           currentBubble.appendChild(currentContent);
@@ -685,7 +685,7 @@
 
     // ── Chat Header (compact identity anchor) ──
     var chatHeader = el('div', 'ev-chat-header');
-    var headerAvatar = el('img', 'ev-chat-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+    var headerAvatar = el('img', 'ev-chat-avatar', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' });
     var headerInfo = el('div', 'ev-chat-header-info');
     headerInfo.appendChild(el('span', 'ev-chat-header-name', { text: 'Fenix' }));
     headerInfo.appendChild(el('span', 'ev-chat-header-sub', { text: 'I know Kiran\'s work better than his resume does.' }));
@@ -761,7 +761,7 @@
 
   function addFenixMessage(messageArea, text) {
     var bubble = el('div', 'ev-msg ev-msg-fenix');
-    var avatar = el('img', 'ev-msg-avatar', { src: 'images/logo.png', alt: 'Fenix' });
+    var avatar = el('img', 'ev-msg-avatar', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' });
     var content = el('div', 'ev-msg-content');
     content.textContent = text;
     bubble.appendChild(avatar);

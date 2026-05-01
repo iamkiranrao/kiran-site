@@ -17,7 +17,7 @@
   // ── Configuration Defaults ────────────────────────
   var DEFAULT_AGENT_URL = 'https://api.kiranrao.ai/api/v1/fenix/agent';
   var DEFAULT_MSG_CAP = 30;
-  var _logoPath = 'images/logo.png'; // overridden by adapter.logoPath if set
+  var _logoPath = 'images/fenix/1fenixavatar1.png'; // overridden by adapter.logoPath if set
 
   // ── UUID Generator ────────────────────────────────
   function generateSessionId() {
