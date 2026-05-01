@@ -98,6 +98,14 @@ export const SIDEBAR_SECTIONS: SidebarSection[] = [
         href: "/dashboard/madlab",
         color: "var(--accent-cyan, #67e8f9)",
       },
+      {
+        slug: "visual-assets",
+        label: "Visual Asset Inventory",
+        icon: "Layers",
+        description: "Living spec sheet for every brand and site asset — shipped, in-progress, planned.",
+        href: "/dashboard/visual-assets",
+        color: "var(--accent-amber)",
+      },
     ],
   },
   {

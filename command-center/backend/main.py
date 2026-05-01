@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from dotenv import load_dotenv
 
-from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs, evidence, fit_score, career_initiatives, gap_discovery, gap_closure, target_companies, gap_moves
+from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs, evidence, fit_score, career_initiatives, gap_discovery, gap_closure, target_companies, gap_moves, visual_assets
 from utils.exceptions import CommandCenterError, NotFoundError, ValidationError, ConflictError
 
 load_dotenv(override=True)
@@ -178,6 +178,7 @@ app.include_router(gap_discovery.router, prefix="/api/gap-discovery", tags=["Gap
 app.include_router(gap_closure.router, prefix="/api/gap-discovery/closure-plans", tags=["Gap Closure"])
 app.include_router(target_companies.router, prefix="/api/target-companies", tags=["Target Companies"])
 app.include_router(gap_moves.router, prefix="/api/gap-discovery/moves", tags=["Gap Closure Moves"])
+app.include_router(visual_assets.router, prefix="/api/visual-assets", tags=["Visual Assets"])
 
 
 if __name__ == "__main__":

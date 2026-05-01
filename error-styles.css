@@ -25,14 +25,20 @@ body {
   overflow: hidden;
 }
 
-/* HERO IMAGE — same monster across all error pages */
+/* HERO IMAGE — Fenix character across all error pages.
+   Default: sign-holder Fenix (404 / 500 / 503 — apologetic).
+   Override on body.fenix-regenerating (maintenance.html only) — full-fire regeneration. */
 .error-hero {
   position: absolute;
   inset: 0;
-  background-image: url('/images/404image.png');
+  background-image: url('/images/fenix/4fenixerror.png');
   background-size: cover;
   background-position: center 60%;
   background-repeat: no-repeat;
+}
+
+body.fenix-regenerating .error-hero {
+  background-image: url('/images/fenix/5fenixmaintainance.png');
 }
 
 /* LEFT SCRIM — strong dark gradient for text legibility */
