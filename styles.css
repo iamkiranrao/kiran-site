@@ -3110,11 +3110,12 @@ body, nav, section, footer, .mobile-menu,
     align-items: center;
     justify-content: center;
     gap: 1.5rem;
-    background: linear-gradient(
-        180deg,
-        rgba(10, 10, 10, 0.3) 0%,
-        rgba(10, 10, 10, 0.6) 100%
-    );
+    /* Fenix manifesto opening frame as poster, with dark scrim on top for legibility */
+    background:
+        linear-gradient(180deg,
+            rgba(10, 10, 10, 0.35) 0%,
+            rgba(10, 10, 10, 0.65) 100%),
+        url('/images/fenix/6fenixmanifesto.png') center/cover no-repeat;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
 }

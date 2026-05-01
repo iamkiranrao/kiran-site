@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Asset Inventory — kiranrao.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F0E6D8;
+    --cream-2: #E8DCC8;
+    --cream-3: #DFD2BB;
+    --charcoal: #2A2520;
+    --charcoal-2: #4A4239;
+    --muted: #8A7E70;
+    --amber: #C8843D;
+    --teal: #4A6E6E;
+    --olive: #6B7747;
+    --rust: #B05D3C;
+    --status-shipped: #6b9e6b;
+    --status-progress: #d4a74a;
+    --status-todo: #7a9ec4;
+    --status-parked: #8A7E70;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    padding: 0;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+
+  .layout { display: grid; grid-template-columns: 240px 1fr; max-width: 1440px; margin: 0 auto; }
+
+  /* SIDE NAV */
+  .side-nav {
+    position: sticky; top: 0; height: 100vh;
+    padding: 48px 24px;
+    border-right: 1px solid rgba(42,37,32,0.1);
+    background: var(--cream);
+    overflow-y: auto;
+  }
+  .side-nav .brand { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+  .side-nav .brand-sub {
+    font-family: 'Space Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 28px;
+  }
+  .side-nav .group {
+    font-family: 'Space Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--amber); margin: 20px 0 6px; font-weight: 700;
+  }
+  .side-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+  .side-nav a {
+    display: block; padding: 5px 8px; text-decoration: none;
+    color: var(--charcoal-2);
+    font-family: 'Inter', sans-serif; font-size: 0.78rem;
+    border-radius: 3px; transition: all 0.15s;
+  }
+  .side-nav a:hover { background: var(--cream-3); color: var(--charcoal); }
+
+  .main { padding: 48px 56px 96px; max-width: 1100px; }
+
+  /* HERO */
+  .doc-hero { padding-bottom: 32px; border-bottom: 1px solid rgba(42,37,32,0.1); margin-bottom: 48px; }
+  .doc-hero .label {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber);
+    margin-bottom: 12px;
+  }
+  .doc-hero h1 {
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    font-size: 2.4rem; line-height: 1.05;
+    letter-spacing: -0.02em; margin: 0 0 16px;
+  }
+  .doc-hero .deck {
+    color: var(--charcoal-2); line-height: 1.6;
+    max-width: 64ch; margin: 0 0 24px;
+  }
+  .meta-line {
+    display: flex; flex-wrap: wrap; gap: 24px;
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  }
+  .meta-line strong { color: var(--charcoal); font-weight: 700; }
+
+  /* SECTIONS */
+  section { margin-bottom: 64px; scroll-margin-top: 24px; }
+  section h2 {
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    font-size: 1.5rem; margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  section .section-tag {
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 6px; font-weight: 700;
+  }
+  section .section-deck {
+    color: var(--charcoal-2); margin: 0 0 24px;
+    max-width: 64ch; line-height: 1.55;
+  }
+
+  /* BRAND FUNDAMENTALS BLOCK */
+  .fundamentals {
+    background: var(--cream-2);
+    padding: 28px 32px;
+    border-radius: 10px;
+    margin-bottom: 32px;
+  }
+  .fundamentals h3 {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--rust);
+    margin-bottom: 12px; font-weight: 700;
+  }
+  .fundamentals .palette-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 20px; }
+  .swatch { aspect-ratio: 1; border-radius: 6px; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end; font-family: 'Space Mono', monospace; font-size: 0.6rem; }
+  .swatch.light { color: rgba(42,37,32,0.85); }
+  .swatch.dark { color: rgba(255,255,255,0.85); }
+  .swatch .name { font-weight: 700; margin-bottom: 2px; }
+
+  .typography-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+  .type-spec { background: var(--cream); padding: 16px; border-radius: 8px; }
+  .type-spec .role {
+    font-family: 'Space Mono', monospace; font-size: 0.55rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 8px;
+  }
+  .type-spec .sample { font-size: 1.3rem; line-height: 1.1; }
+  .type-spec .name { font-size: 0.7rem; color: var(--charcoal-2); margin-top: 6px; }
+
+  /* SPEC TABLE */
+  .spec-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--cream-2); border-radius: 8px; overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .spec-table th {
+    text-align: left;
+    font-family: 'Space Mono', monospace; font-size: 0.55rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); font-weight: 700;
+    padding: 10px 14px;
+    background: var(--cream-3);
+    border-bottom: 1px solid rgba(42,37,32,0.1);
+    vertical-align: top;
+  }
+  .spec-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(42,37,32,0.08);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  .spec-table tr:last-child td { border-bottom: none; }
+  .spec-table tr:hover td { background: rgba(255,255,255,0.3); }
+
+  .spec-table .name {
+    font-weight: 600; color: var(--charcoal);
+  }
+  .spec-table .file {
+    font-family: 'Space Mono', monospace; font-size: 0.72rem;
+    color: var(--rust);
+  }
+  .spec-table code {
+    font-family: 'Space Mono', monospace; font-size: 0.72rem;
+    background: rgba(176,93,60,0.08); padding: 1px 5px;
+    border-radius: 3px; color: var(--rust);
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 700;
+  }
+  .pill.shipped { background: rgba(107,158,107,0.15); color: var(--status-shipped); }
+  .pill.progress { background: rgba(212,167,74,0.15); color: var(--status-progress); }
+  .pill.todo { background: rgba(122,158,196,0.15); color: var(--status-todo); }
+  .pill.parked { background: rgba(138,126,112,0.15); color: var(--status-parked); }
+
+  /* CALLOUT */
+  .callout {
+    background: rgba(176,93,60,0.06);
+    border-left: 3px solid var(--rust);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+    font-size: 0.88rem;
+    color: var(--charcoal-2);
+    line-height: 1.6;
+  }
+  .callout strong { color: var(--charcoal); }
+
+  /* KEY = VALUE list */
+  .kv {
+    background: var(--cream-2);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .kv dl { display: grid; grid-template-columns: 180px 1fr; gap: 8px 24px; }
+  .kv dt {
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); font-weight: 700;
+    padding-top: 4px;
+  }
+  .kv dd { font-size: 0.88rem; color: var(--charcoal); line-height: 1.55; }
+
+  /* BENTO CHARACTER GRID */
+  .character-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin: 16px 0;
+  }
+  .character {
+    background: var(--cream-2);
+    padding: 14px 16px;
+    border-radius: 8px;
+    border-left: 3px solid var(--persona);
+  }
+  .character .role {
+    font-family: 'Space Mono', monospace; font-size: 0.55rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--persona); font-weight: 700; margin-bottom: 4px;
+  }
+  .character .name { font-weight: 600; font-size: 0.95rem; margin-bottom: 2px; }
+  .character .animal { font-size: 0.78rem; color: var(--charcoal-2); }
+  .character .hex { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-top: 4px; }
+
+  /* Visual preview thumbnails */
+  .previews { display: grid; gap: 10px; margin: 20px 0 12px; }
+  .previews.bento { grid-template-columns: repeat(4, 1fr); }
+  .previews.og { grid-template-columns: repeat(3, 1fr); }
+  .previews.personas { grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .previews.row { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+
+  .preview {
+    background: var(--cream-2);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(42,37,32,0.06);
+    display: flex;
+    flex-direction: column;
+  }
+  .preview img { display: block; width: 100%; height: auto; background: rgba(255,255,255,0.3); }
+  .preview .preview-label {
+    padding: 5px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border-top: 1px solid rgba(42,37,32,0.06);
+  }
+
+  .hero-preview {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(42,37,32,0.08);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    margin: 16px 0;
+  }
+  .hero-preview img { display: block; width: 100%; height: auto; }
+
+  .icon-row { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin: 16px 0; }
+  .icon-tile {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .icon-tile img {
+    width: 56px; height: 56px;
+    border-radius: 8px;
+    background: white;
+    padding: 6px;
+    border: 1px solid rgba(42,37,32,0.08);
+  }
+  .icon-tile.large img { width: 96px; height: 96px; }
+  .icon-tile .icon-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <nav class="side-nav">
+    <div class="brand">Visual Asset Inventory</div>
+    <div class="brand-sub">kiranrao.ai · designer brief</div>
+
+    <div class="group">Brand fundamentals</div>
+    <ol>
+      <li><a href="#palette">Palette</a></li>
+      <li><a href="#typography">Typography</a></li>
+      <li><a href="#characters">Character cast</a></li>
+      <li><a href="#aesthetic">Aesthetic systems</a></li>
+    </ol>
+
+    <div class="group">Site identity</div>
+    <ol>
+      <li><a href="#hero">Hero image</a></li>
+      <li><a href="#favicon">Favicon set</a></li>
+      <li><a href="#logo">Logo</a></li>
+    </ol>
+
+    <div class="group">Content surfaces</div>
+    <ol>
+      <li><a href="#bento">Bento card art (63)</a></li>
+      <li><a href="#personas">Persona portraits (6)</a></li>
+      <li><a href="#og">OG share cards (9)</a></li>
+      <li><a href="#error">Error page imagery</a></li>
+    </ol>
+
+    <div class="group">Brand & marketing</div>
+    <ol>
+      <li><a href="#banners">Profile banners (3)</a></li>
+      <li><a href="#handout">"What is this site?" handout</a></li>
+      <li><a href="#moodboard">Mood board (8)</a></li>
+      <li><a href="#social">Social campaign concepts (8-10)</a></li>
+    </ol>
+
+    <div class="group">Video</div>
+    <ol>
+      <li><a href="#cinemagraph">Hero cinemagraph</a></li>
+      <li><a href="#manifesto">Manifesto video</a></li>
+    </ol>
+
+    <div class="group">Brand kit / collateral</div>
+    <ol>
+      <li><a href="#stationery">Stationery</a></li>
+      <li><a href="#documents">Document templates</a></li>
+      <li><a href="#email">Email assets</a></li>
+      <li><a href="#speaking">Speaking / events</a></li>
+      <li><a href="#platform">Platform &amp; community</a></li>
+      <li><a href="#print-materials">Print materials</a></li>
+      <li><a href="#brand-docs">Brand documentation</a></li>
+    </ol>
+
+    <div class="group">Future state</div>
+    <ol>
+      <li><a href="#headshots">Headshot variants</a></li>
+      <li><a href="#press-kit">Press kit assets</a></li>
+    </ol>
+  </nav>
+
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="doc-hero">
+      <div class="label">Designer brief · v1</div>
+      <h1>Visual Asset Inventory — kiranrao.ai</h1>
+      <p class="deck">A single document covering every visual asset on the site — shipped, in-progress, and planned. Formatted as a hand-offable spec sheet: each asset has its purpose, deploy location, technical specs, naming convention, output folder, and creative direction. A designer (or AI image generator) should be able to produce any asset to spec from this document alone.</p>
+      <div class="meta-line">
+        <span><strong>~14</strong> categories</span>
+        <span><strong>~150+</strong> individual assets</span>
+        <span><strong>2026 Apr</strong> last updated</span>
+      </div>
+    </div>
+
+    <!-- ============ BRAND FUNDAMENTALS ============ -->
+    <section id="palette">
+      <div class="section-tag">01 · Brand fundamentals</div>
+      <h2>Color palette</h2>
+      <p class="section-deck">All assets pull from this palette. UI base + 6 persona accents. oklch defined as primary; hex as fallback (see <code>VISUAL-STANDARDS.md</code> §2).</p>
+
+      <div class="fundamentals">
+        <h3>Core palette</h3>
+        <div class="palette-row">
+          <div class="swatch dark" style="background: #F0E6D8;"><div class="name" style="color: var(--charcoal);">Cream</div><div style="color: var(--charcoal);">#F0E6D8</div></div>
+          <div class="swatch dark" style="background: #2A2520;"><div class="name">Charcoal</div><div>#2A2520</div></div>
+          <div class="swatch dark" style="background: #C8843D;"><div class="name">Amber</div><div>#C8843D</div></div>
+          <div class="swatch dark" style="background: #4A6E6E;"><div class="name">Teal</div><div>#4A6E6E</div></div>
+          <div class="swatch dark" style="background: #6B7747;"><div class="name">Olive</div><div>#6B7747</div></div>
+          <div class="swatch dark" style="background: #B05D3C;"><div class="name">Rust</div><div>#B05D3C</div></div>
+        </div>
+        <h3>Persona accents</h3>
+        <div class="palette-row">
+          <div class="swatch dark" style="background: #7B9ACC;"><div class="name">Evaluator</div><div>#7B9ACC</div></div>
+          <div class="swatch dark" style="background: #8A8580;"><div class="name">Seeker</div><div>#8A8580</div></div>
+          <div class="swatch dark" style="background: #4DAF8B;"><div class="name">Practitioner</div><div>#4DAF8B</div></div>
+          <div class="swatch dark" style="background: #A07ED4;"><div class="name">Learner</div><div>#A07ED4</div></div>
+          <div class="swatch dark" style="background: #cb5c72;"><div class="name">Technologist</div><div>#cb5c72</div></div>
+          <div class="swatch dark" style="background: #cb6923;"><div class="name">Inner Circle</div><div>#cb6923</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="typography">
+      <h2>Typography</h2>
+      <p class="section-deck">Two-family system. Playfair Display (serif) for hero / accent / brand moments. Inter (sans) for body and UI. Per-card stat fonts for bento differentiation.</p>
+
+      <div class="typography-row">
+        <div class="type-spec">
+          <div class="role">Hero / Headings</div>
+          <div class="sample" style="font-family:'Playfair Display',serif;font-weight:700;">Playfair Display</div>
+          <div class="name">700 weight, -0.02em letter-spacing</div>
+        </div>
+        <div class="type-spec">
+          <div class="role">Body / UI</div>
+          <div class="sample" style="font-family:'Inter',sans-serif;font-weight:500;">Inter</div>
+          <div class="name">400-700 weights</div>
+        </div>
+        <div class="type-spec">
+          <div class="role">Mono / Eyebrow</div>
+          <div class="sample" style="font-family:'Space Mono',monospace;font-weight:700;">Space Mono</div>
+          <div class="name">700 weight, 0.14em tracking, uppercase</div>
+        </div>
+      </div>
+      <div class="callout"><strong>Per-card stat fonts (bento system):</strong> teardowns = Inter, career = Archivo Black, madlab = Orbitron, studio = Caveat, blog = Lora italic, skills = Josefin Sans, now = Syne, underhood = Space Grotesk, testimonials = Corben.</div>
+    </section>
+
+    <section id="characters">
+      <h2>Character cast — the monster system</h2>
+      <p class="section-deck">9 anthropomorphic monster characters, one per content type. Pixar / Monsters Inc DNA. Each has a persona accent color, an animal archetype, and a defined role. Used in bento cards, persona picker, and OG cards.</p>
+
+      <div class="character-grid">
+        <div class="character" style="--persona: var(--rust);"><div class="role">Teardowns</div><div class="name">Analyst</div><div class="animal">Owl · lab coat, magnifying glass</div></div>
+        <div class="character" style="--persona: #C8843D;"><div class="role">Career / The Work</div><div class="name">Veteran</div><div class="animal">Bear · weathered blazer, cityscape</div></div>
+        <div class="character" style="--persona: var(--olive);"><div class="role">MadLab</div><div class="name">Tinkerer</div><div class="animal">Meerkat · welding goggles, contraption</div></div>
+        <div class="character" style="--persona: var(--teal);"><div class="role">Studio</div><div class="name">Artist</div><div class="animal">Chinchilla · beret, paint splatters</div></div>
+        <div class="character" style="--persona: #cb6923;"><div class="role">Testimonials</div><div class="name">Connector</div><div class="animal">Quokka · cardigan, big smile</div></div>
+        <div class="character" style="--persona: #4A6E6E;"><div class="role">Under the Hood</div><div class="name">Engineer</div><div class="animal">Bulldog · hard hat, headlamp, tool belt</div></div>
+        <div class="character" style="--persona: var(--charcoal-2);"><div class="role">Skills</div><div class="name">Cartographer</div><div class="animal">Octopus · multi-armed, mapping</div></div>
+        <div class="character" style="--persona: #A07ED4;"><div class="role">Blog</div><div class="name">Storyteller</div><div class="animal">Orangutan · creative writing space</div></div>
+        <div class="character" style="--persona: #4DAF8B;"><div class="role">Now</div><div class="name">Explorer</div><div class="animal">Fox · trail gear, journey</div></div>
+      </div>
+    </section>
+
+    <section id="aesthetic">
+      <h2>Aesthetic systems (parallel, scoped per surface)</h2>
+      <p class="section-deck">The site uses two distinct visual languages, each scoped to specific surfaces. Mixing them creates fragmentation; keeping them scoped creates intentional depth.</p>
+
+      <div class="kv">
+        <dl>
+          <dt>Pixar / Monster system</dt>
+          <dd>Used on: bento cards, persona picker, OG cards, error page imagery, hero scene. Characterized by: warm fuzzy character illustrations, golden-hour lighting, Pixar-quality painterly aesthetic, narrative scenes. <strong>The site's primary identity layer.</strong></dd>
+          <dt>Mid-century editorial</dt>
+          <dd>Used on: marketing kit case study (parked, lives in Under the Hood), profile banners, social media campaign concepts, mood board, handout. Characterized by: Saul Bass / Paul Rand / Charley Harper inspired flat geometric shapes, restrained palette, designer-credible. <strong>The brand-system layer.</strong></dd>
+        </dl>
+      </div>
+
+      <div class="callout"><strong>Decision rule:</strong> Content surfaces that visitors directly engage with (homepage, teardowns, error pages) use the monster system. Brand-marketing surfaces (banners on external profiles, mood board, brand book) use mid-century editorial. The two languages should never appear in the same composition.</div>
+    </section>
+
+    <!-- ============ SITE IDENTITY ============ -->
+    <section id="hero">
+      <div class="section-tag">02 · Site identity</div>
+      <h2>Hero image</h2>
+      <p class="section-deck">The full-bleed image at the top of the homepage. Currently a static painterly studio scene with a sleeping Bernese mountain dog. Will be replaced with a cinemagraph (see Video section).</p>
+
+      <div class="hero-preview">
+        <img src="../images/final-hero-image3.png" alt="Hero scene — painterly studio with Bernese mountain dog">
+      </div>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Purpose</th><th>Where deployed</th><th>Specs</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name">Hero scene</td>
+            <td><span class="pill shipped">shipped</span></td>
+            <td>Full-bleed homepage hero. Painterly Pixar-style studio with Bernese mountain dog, Golden Gate Bridge in window, cork board, sketchbook, monitor glow.</td>
+            <td>Top of <code>index.html</code> (lines 147-152, in a <code>&lt;picture&gt;</code> element)</td>
+            <td>
+              <strong>File:</strong> <span class="file">images/final-hero-image3.png</span> + <span class="file">.webp</span><br>
+              <strong>Aspect:</strong> ~21:9 (responsive)<br>
+              <strong>Format:</strong> PNG + WebP<br>
+              <strong>Style:</strong> Pixar painterly, warm golden hour, tilt-shift quality
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="favicon">
+      <h2>Favicon set</h2>
+      <p class="section-deck">Multi-size icon set + PWA manifest. Generated via realfavicongenerator.net.</p>
+
+      <div class="icon-row">
+        <div class="icon-tile"><img src="../images/favicon/favicon.svg" alt="favicon SVG"><div class="icon-label">favicon.svg</div></div>
+        <div class="icon-tile"><img src="../images/favicon/favicon-96x96.png" alt="favicon 96"><div class="icon-label">favicon-96</div></div>
+        <div class="icon-tile"><img src="../images/favicon/apple-touch-icon.png" alt="apple touch icon"><div class="icon-label">apple-touch</div></div>
+        <div class="icon-tile large"><img src="../images/favicon/web-app-manifest-192x192.png" alt="web manifest 192"><div class="icon-label">manifest 192</div></div>
+        <div class="icon-tile large"><img src="../images/favicon/web-app-manifest-512x512.png" alt="web manifest 512"><div class="icon-label">manifest 512</div></div>
+      </div>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td class="name">favicon.ico</td><td><span class="pill shipped">shipped</span></td><td>Multi-resolution ICO (16, 32, 48px)</td><td class="file">images/favicon/favicon.ico</td></tr>
+          <tr><td class="name">favicon.svg</td><td><span class="pill shipped">shipped</span></td><td>Modern browser pinned tab support</td><td class="file">images/favicon/favicon.svg</td></tr>
+          <tr><td class="name">favicon-96x96.png</td><td><span class="pill shipped">shipped</span></td><td>96×96 PNG</td><td class="file">images/favicon/favicon-96x96.png</td></tr>
+          <tr><td class="name">apple-touch-icon.png</td><td><span class="pill shipped">shipped</span></td><td>180×180 PNG · iOS home screen</td><td class="file">images/favicon/apple-touch-icon.png</td></tr>
+          <tr><td class="name">web-app-manifest-192</td><td><span class="pill shipped">shipped</span></td><td>192×192 PNG · PWA install</td><td class="file">images/favicon/web-app-manifest-192x192.png</td></tr>
+          <tr><td class="name">web-app-manifest-512</td><td><span class="pill shipped">shipped</span></td><td>512×512 PNG · PWA install</td><td class="file">images/favicon/web-app-manifest-512x512.png</td></tr>
+          <tr><td class="name">site.webmanifest</td><td><span class="pill shipped">shipped</span></td><td>JSON manifest · name "Kiran Rao", theme #0a0a0a</td><td class="file">images/favicon/site.webmanifest</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="logo">
+      <h2>Logo / wordmark</h2>
+
+      <div class="icon-row">
+        <div class="icon-tile large"><img src="../images/logo.png" alt="kiranrao.ai logo"><div class="icon-label">logo.png</div></div>
+      </div>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td class="name">Logo</td><td><span class="pill shipped">shipped</span></td><td>PNG · used on site nav · format/dimensions TBD audit</td><td class="file">images/logo.png</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>Future state:</strong> Logo SVG variant, monochrome variant, light/dark variants, social-profile-ready sizes (square + circular).</div>
+    </section>
+
+    <!-- ============ CONTENT SURFACES ============ -->
+    <section id="bento">
+      <div class="section-tag">03 · Content surfaces</div>
+      <h2>Bento card art (63 combos · 23 unique images)</h2>
+      <p class="section-deck">Per-persona-per-slot character illustrations across 9 cards × 7 personas. Each persona renders a different combination of cards in different slots. Some images do double-duty across slots; some are persona-specific.</p>
+
+      <div class="previews bento">
+        <div class="preview"><img src="../images/analyst-hero-2-1.png" alt="Analyst owl hero"><div class="preview-label">analyst (teardowns)</div></div>
+        <div class="preview"><img src="../images/veteran-hero-2-1.png" alt="Veteran bear hero"><div class="preview-label">veteran (career)</div></div>
+        <div class="preview"><img src="../images/tinkerer-hero-2_1.png" alt="Tinkerer meerkat hero"><div class="preview-label">tinkerer (madlab)</div></div>
+        <div class="preview"><img src="../images/artist-hero-2_1.png" alt="Artist chinchilla hero"><div class="preview-label">artist (studio)</div></div>
+        <div class="preview"><img src="../images/blogging-monster2.png" alt="Storyteller orangutan"><div class="preview-label">storyteller (blog)</div></div>
+        <div class="preview"><img src="../images/engineer-blog-2_1.png" alt="Engineer bulldog"><div class="preview-label">engineer (under the hood)</div></div>
+        <div class="preview"><img src="../images/connector-wider-3_1.png" alt="Connector quokka"><div class="preview-label">connector (testimonials)</div></div>
+        <div class="preview"><img src="../images/octupus_skills1.png" alt="Cartographer octopus"><div class="preview-label">cartographer (skills)</div></div>
+      </div>
+
+      <div class="kv">
+        <dl>
+          <dt>Status</dt>
+          <dd><span class="pill shipped">shipped</span> — 23 unique images covering all 63 combos. Documented in <code>docs/Website/Homepage/Bento/BENTO-CARD-GAMEPLAN.md</code>.</dd>
+          <dt>Output folder</dt>
+          <dd><code>images/</code> (flat — no <code>images/bento/</code> subfolder)</dd>
+          <dt>Naming pattern</dt>
+          <dd><code>[character]-[slot]-[ratio].png</code> (e.g. <code>analyst-tall-3_2.png</code>, <code>veteran-hero-2-1.png</code>)</dd>
+          <dt>Aspect ratios per slot</dt>
+          <dd>hero: 2:1 · topright: 1:1 · widel: 3:1 · wider: 3:1 · tall: 3:2 · center: 1:1 · skills: 1:2 · blog: 2:1 · now: 4:1</dd>
+          <dt>Style direction</dt>
+          <dd>Pixar / Monsters Inc quality. Warm golden-hour lighting. Each character in their thematic environment. Composed to leave a clean dead-zone for the glassmorphism overlay text. See <code>docs/Website/Homepage/Bento/BENTO-MONSTER-SCENES-V6.md</code> for full per-character prompts.</dd>
+          <dt>Generation tool</dt>
+          <dd>Midjourney v7 with style ref to <code>sref-pixar-style.jpg</code> + omni ref per character. <code>--sw 350-400</code>, <code>--ow 25-50</code>.</dd>
+          <dt>Overlay system</dt>
+          <dd>Glassmorphism content card placed in the dead zone (positions: pos-tl, pos-tr, pos-bl, pos-br, pos-bc). Per-card position locked in <code>cardData.overlayPos</code> in <code>bento-cards.js</code>. Card contains: eyebrow, stat (per-card font), description, tags.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="personas">
+      <h2>Persona picker portraits (6)</h2>
+      <p class="section-deck">Full-body character portraits for the persona selection screen. 3:4 aspect ratio. Used as the primary persona identification on first load.</p>
+
+      <div class="previews personas">
+        <div class="preview"><img src="../images/evaluator-merritt.png" alt="Evaluator Merritt"><div class="preview-label">Evaluator</div></div>
+        <div class="preview"><img src="../images/seeker-phil.png" alt="Seeker Phil"><div class="preview-label">Seeker</div></div>
+        <div class="preview"><img src="../images/practitioner-drew.png" alt="Practitioner Drew"><div class="preview-label">Practitioner</div></div>
+        <div class="preview"><img src="../images/learner-paige.png" alt="Learner Paige"><div class="preview-label">Learner</div></div>
+        <div class="preview"><img src="../images/technologist-ray.webp" alt="Technologist Ray"><div class="preview-label">Technologist</div></div>
+        <div class="preview"><img src="../images/innercircle-keshav.png" alt="Inner Circle Keshav"><div class="preview-label">Inner Circle</div></div>
+      </div>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Character</th><th>Color</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td class="name">Evaluator</td><td><span class="pill shipped">shipped</span></td><td>Merritt Hunter · recruiter, charcoal blazer, tablet</td><td>#7B9ACC</td><td class="file">images/evaluator-merritt.png/.webp</td></tr>
+          <tr><td class="name">Seeker</td><td><span class="pill shipped">shipped</span></td><td>Phil · operator, mid-career exploration</td><td>#8A8580</td><td class="file">images/seeker-phil.png</td></tr>
+          <tr><td class="name">Practitioner</td><td><span class="pill shipped">shipped</span></td><td>Drew · senior PM / design lead</td><td>#4DAF8B</td><td class="file">images/practitioner-drew.png</td></tr>
+          <tr><td class="name">Learner</td><td><span class="pill shipped">shipped</span></td><td>Paige · earlier-career PM</td><td>#A07ED4</td><td class="file">images/learner-paige.png</td></tr>
+          <tr><td class="name">Technologist</td><td><span class="pill shipped">shipped</span></td><td>Ray · engineer / founder</td><td>#cb5c72</td><td class="file">images/technologist-ray.png</td></tr>
+          <tr><td class="name">Inner Circle</td><td><span class="pill shipped">shipped</span></td><td>Keshav · friend / former colleague</td><td>#cb6923</td><td class="file">images/innercircle-keshav.png</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>Specs:</strong> 3:4 portrait orientation. Three-quarter body, slight angle toward camera, confident pose. Persona-colored accent lighting. Studio blur background. PNG + WebP variants. Optimized to <100KB each.</div>
+    </section>
+
+    <section id="og">
+      <h2>OG share cards (9 per content type)</h2>
+      <p class="section-deck">Per-content-type social link previews. 1200×630 (1.91:1). Generated programmatically by compositing existing bento heroes with a thin cream bottom band carrying eyebrow + title + byline.</p>
+
+      <div class="previews og">
+        <div class="preview"><img src="../images/og/og-teardowns.png" alt="OG Teardowns"><div class="preview-label">og-teardowns.png</div></div>
+        <div class="preview"><img src="../images/og/og-career.png" alt="OG Career"><div class="preview-label">og-career.png</div></div>
+        <div class="preview"><img src="../images/og/og-madlab.png" alt="OG MadLab"><div class="preview-label">og-madlab.png</div></div>
+        <div class="preview"><img src="../images/og/og-studio.png" alt="OG Studio"><div class="preview-label">og-studio.png</div></div>
+        <div class="preview"><img src="../images/og/og-blog.png" alt="OG Blog"><div class="preview-label">og-blog.png</div></div>
+        <div class="preview"><img src="../images/og/og-underhood.png" alt="OG Under the Hood"><div class="preview-label">og-underhood.png</div></div>
+        <div class="preview"><img src="../images/og/og-testimonials.png" alt="OG Testimonials"><div class="preview-label">og-testimonials.png</div></div>
+        <div class="preview"><img src="../images/og/og-skills.png" alt="OG Skills"><div class="preview-label">og-skills.png</div></div>
+        <div class="preview"><img src="../images/og/og-homepage.png" alt="OG Homepage"><div class="preview-label">og-homepage.png</div></div>
+      </div>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Used by</th><th>Base image</th><th>Eyebrow</th><th>Title</th></tr></thead>
+        <tbody>
+          <tr><td class="name file">og-teardowns.png</td><td>All teardown pages + how-id-built-it.html</td><td>analyst-hero-2-1.png</td><td>Teardowns</td><td>How I'd've Built It</td></tr>
+          <tr><td class="name file">og-career.png</td><td>career-highlights.html, the-work.html, track-record.html</td><td>veteran-hero-2-1.png</td><td>15+ Years Building</td><td>The Work</td></tr>
+          <tr><td class="name file">og-madlab.png</td><td>madlab.html + prototype overview pages</td><td>tinkerer-hero-2_1.png</td><td>Apps & Prototypes</td><td>MadLab</td></tr>
+          <tr><td class="name file">og-studio.png</td><td>studio.html</td><td>artist-hero-2_1.png</td><td>Left-Brain Sandbox</td><td>Studio</td></tr>
+          <tr><td class="name file">og-blog.png</td><td>blog-podcast.html + all blog posts</td><td>blogging-monster2.png</td><td>Written Word</td><td>Blog</td></tr>
+          <tr><td class="name file">og-underhood.png</td><td>under-the-hood.html</td><td>engineer-blog-2_1.png</td><td>Behind the Scene</td><td>Under the Hood</td></tr>
+          <tr><td class="name file">og-testimonials.png</td><td>testimonials.html</td><td>connector-wider-3_1.png</td><td>What People Say</td><td>Testimonials</td></tr>
+          <tr><td class="name file">og-skills.png</td><td>skills.html, learning.html</td><td>octupus_skills1.png</td><td>Range & Evidence</td><td>Skills</td></tr>
+          <tr><td class="name file">og-homepage.png</td><td>index.html + fallback for misc pages</td><td>analyst-hero-2-1.png (placeholder)</td><td>Builder of Products People Love</td><td>Kiran Rao</td></tr>
+        </tbody>
+      </table>
+      <div class="kv">
+        <dl>
+          <dt>Status</dt><dd><span class="pill shipped">shipped</span> · 9 cards generated, 37 pages wired with og:image meta tags</dd>
+          <dt>Specs</dt><dd>1200×630 (1.91:1). PNG. ~250-400KB each.</dd>
+          <dt>Layout</dt><dd>Full-bleed bento hero image as background. Bottom band (120px tall) in cream <code>#F0E6D8</code> with thin rust top accent line (4px). Band content: eyebrow (Space Mono Bold 16px, rust, letter-spaced) + title (Playfair Display Bold 44px, charcoal) on the left. Byline "kiranrao.ai" (Inter Medium 18px, muted) right-aligned.</dd>
+          <dt>Output folder</dt><dd><code>images/og/</code></dd>
+          <dt>Generation</dt><dd>Programmatic via <code>scripts/generate-og-cards.py</code>. Re-run to regenerate any/all cards. Add a new card type by appending to <code>OG_CARDS</code> list.</dd>
+          <dt>Wiring</dt><dd><code>scripts/wire-og-cards.py</code> updates meta tags across pages. Per-page <code>og:title</code> and <code>og:description</code> stay page-specific; only the image and width/height/alt metas are managed by the script.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="error">
+      <h2>Error page imagery</h2>
+      <p class="section-deck">Single shared monster illustration used across all error pages (404, 500, 503, maintenance). One image, four pages, different copy per page.</p>
+
+      <div class="hero-preview">
+        <img src="../images/404image.png" alt="404 monster — construction monster">
+      </div>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Used by</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name">404 monster</td>
+            <td><span class="pill shipped">shipped</span></td>
+            <td>404.html, 500.html, 503.html, maintenance.html (shared via <code>error-styles.css</code>)</td>
+            <td>~16:9. Construction-monster Pixar character with hard hat + tool belt + blueprint, on half-built scaffolding. Warm golden lighting.</td>
+            <td class="file">images/404image.png</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============ BRAND & MARKETING ============ -->
+    <section id="banners">
+      <div class="section-tag">04 · Brand & marketing</div>
+      <h2>Profile banners (3)</h2>
+      <p class="section-deck">Header banners for external social profiles. Mid-century editorial aesthetic — extends brand to social surfaces. Designer adds typography in Canva after MJ generation.</p>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Platform</th><th>Aspect</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td class="name">LinkedIn banner</td><td><span class="pill todo">todo</span></td><td>linkedin.com profile header</td><td>4:1 (1584×396)</td><td class="file">images/marketing-kit/banners/banner-01-linkedin.png</td></tr>
+          <tr><td class="name">Twitter/X banner</td><td><span class="pill todo">todo</span></td><td>x.com profile header</td><td>3:1 (1500×500)</td><td class="file">images/marketing-kit/banners/banner-02-twitter.png</td></tr>
+          <tr><td class="name">GitHub profile banner</td><td><span class="pill todo">todo</span></td><td>GitHub profile README</td><td>2:1 (1280×640)</td><td class="file">images/marketing-kit/banners/banner-03-github.png</td></tr>
+        </tbody>
+      </table>
+      <div class="kv">
+        <dl>
+          <dt>Style direction</dt><dd>Mid-century editorial. Saul Bass / Paul Rand inspired. Geometric flat shapes. Cream background dominant + amber/teal/olive/rust/charcoal accents. Leave clean dead-zone for typography overlay.</dd>
+          <dt>Generation</dt><dd>Midjourney v7 with Saul Bass <code>--sref</code>, <code>--sw 350</code>, <code>--s 400</code>.</dd>
+          <dt>Typography</dt><dd>Added in Canva after MJ. Playfair Display for name, Inter for tagline.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="handout">
+      <h2>"What is this site?" handout (1)</h2>
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Purpose</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name">Site explainer image</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Pasted in 1:1 DMs and warm intros. Explains the site at a glance.</td>
+            <td>1:1 square. Mid-century editorial illustration of a creative workshop / studio space. Abstract flat shapes. Bottom-third dead zone for typography.</td>
+            <td class="file">images/marketing-kit/handout/handout-01-what-is-this.png</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="moodboard">
+      <h2>Mood board (8)</h2>
+      <p class="section-deck">Visual reference set for the brand identity section of the marketing kit case study. Each image is a single bold idea — concentric circles, layered horizons, organic curves, etc. Together they communicate the aesthetic vibe.</p>
+
+      <table class="spec-table">
+        <thead><tr><th>#</th><th>Status</th><th>Concept</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td><span class="pill todo">todo</span></td><td>Concentric circles with intersecting rectangles</td><td class="file">images/marketing-kit/mood-board/mood-01-concentric.png</td></tr>
+          <tr><td>02</td><td><span class="pill todo">todo</span></td><td>Layered horizon with single floating geometric form</td><td class="file">images/marketing-kit/mood-board/mood-02-horizon.png</td></tr>
+          <tr><td>03</td><td><span class="pill todo">todo</span></td><td>Organic curved shapes balanced against sharp lines</td><td class="file">images/marketing-kit/mood-board/mood-03-organic.png</td></tr>
+          <tr><td>04</td><td><span class="pill todo">todo</span></td><td>Typographic-feeling forms suggesting a single bold letter</td><td class="file">images/marketing-kit/mood-board/mood-04-typographic.png</td></tr>
+          <tr><td>05</td><td><span class="pill todo">todo</span></td><td>Nature abstracted into mid-century shapes (Charley Harper)</td><td class="file">images/marketing-kit/mood-board/mood-05-nature.png</td></tr>
+          <tr><td>06</td><td><span class="pill todo">todo</span></td><td>Bold diagonal energy with restrained background</td><td class="file">images/marketing-kit/mood-board/mood-06-diagonal.png</td></tr>
+          <tr><td>07</td><td><span class="pill todo">todo</span></td><td>Concentric forms suggesting motion and orbit</td><td class="file">images/marketing-kit/mood-board/mood-07-orbit.png</td></tr>
+          <tr><td>08</td><td><span class="pill todo">todo</span></td><td>Architectural — windows, doorways, frames as pure geometry</td><td class="file">images/marketing-kit/mood-board/mood-08-architecture.png</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>Specs:</strong> All 1:1 square. PNG. ~2-4MB each. Mid-century editorial aesthetic. Each image is a single bold composition idea — no clutter, no character, no text.</div>
+    </section>
+
+    <section id="social">
+      <h2>Social media campaign concepts (8-10)</h2>
+      <p class="section-deck">Hypothetical Instagram / Twitter / LinkedIn posts designed as a coordinated launch campaign. Lives in the marketing kit case study as evidence of marketing thinking, never deployed as actual campaign.</p>
+
+      <table class="spec-table">
+        <thead><tr><th>#</th><th>Status</th><th>Campaign concept</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td><span class="pill todo">todo</span></td><td>"A workshop, not a showroom" — workshop tools rendered abstractly</td><td class="file">images/marketing-kit/social-concepts/social-01-workshop.png</td></tr>
+          <tr><td>02</td><td><span class="pill todo">todo</span></td><td>"The site that hires its own way" — abstract doorway / threshold</td><td class="file">images/marketing-kit/social-concepts/social-02-doorway.png</td></tr>
+          <tr><td>03</td><td><span class="pill todo">todo</span></td><td>"How I'd've Built It" series teaser — deconstructive geometric</td><td class="file">images/marketing-kit/social-concepts/social-03-teardown.png</td></tr>
+          <tr><td>04</td><td><span class="pill todo">todo</span></td><td>"Built with AI, not just about AI" — circuit / network suggested</td><td class="file">images/marketing-kit/social-concepts/social-04-ai.png</td></tr>
+          <tr><td>05</td><td><span class="pill todo">todo</span></td><td>"Six lenses, one site" — six variations of one shape in persona colors</td><td class="file">images/marketing-kit/social-concepts/social-05-personas.png</td></tr>
+          <tr><td>06</td><td><span class="pill todo">todo</span></td><td>"Permanent home, not a campaign" — house / hearth abstraction</td><td class="file">images/marketing-kit/social-concepts/social-06-home.png</td></tr>
+          <tr><td>07</td><td><span class="pill todo">todo</span></td><td>"The medium is the message" — abstract Marshall McLuhan reference</td><td class="file">images/marketing-kit/social-concepts/social-07-medium.png</td></tr>
+          <tr><td>08</td><td><span class="pill todo">todo</span></td><td>"Reach out — let's talk" — two forms drawn together by single line</td><td class="file">images/marketing-kit/social-concepts/social-08-reach.png</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>Specs:</strong> All 1:1 square (Instagram-friendly). PNG. Mid-century editorial aesthetic. Designer adds headline typography in Canva after MJ generation.</div>
+    </section>
+
+    <!-- ============ VIDEO ============ -->
+    <section id="cinemagraph">
+      <div class="section-tag">05 · Video</div>
+      <h2>Hero cinemagraph</h2>
+      <p class="section-deck">Animated version of the homepage hero scene. Subtle motion only — steam from coffee mug, dog breathing, light shift. Replaces the static <code>&lt;picture&gt;</code> with a <code>&lt;video&gt;</code> in <code>index.html</code> lines 147-152.</p>
+
+      <div class="kv">
+        <dl>
+          <dt>Status</dt><dd><span class="pill parked">parked</span> — full spec in <code>docs/Website/Homepage/CONTINUATION-BENTO-HERO-COMPLETION.md</code></dd>
+          <dt>Tool</dt><dd>Runway Gen-4 image-to-video</dd>
+          <dt>Source</dt><dd><code>images/final-hero-image3.png</code></dd>
+          <dt>Specs</dt><dd>10-second seamless loop. MP4 H.264, target &lt;3MB. Optionally also WebM (VP9) for Safari. 1920×1080 or 2560×1440.</dd>
+          <dt>Output</dt><dd><code>videos/hero-cinemagraph.mp4</code> + <code>.webm</code></dd>
+          <dt>Companion</dt><dd><code>images/hero-poster.jpg</code> (&lt;200KB) — poster frame for autoplay fallback</dd>
+          <dt>Animation rules</dt><dd>Only 3 elements move: steam from mug, dog breathing, subtle warm light shift. Everything else stays still.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="manifesto">
+      <h2>Manifesto / "Why this site exists" video</h2>
+      <p class="section-deck">45-60 second click-to-play video below Fenix intro on homepage. Section C10. Shell already shipped with placeholder play button + "Why this site exists." tagline. Awaiting actual video asset.</p>
+
+      <div class="kv">
+        <dl>
+          <dt>Status</dt><dd><span class="pill parked">parked</span> — shell built (21:9 dark canvas, play button, tagline). Awaiting video. Outstanding decision: HeyGen avatar vs Runway abstract vs self-filmed.</dd>
+          <dt>Length</dt><dd>45-60 seconds. Click-to-play, NOT autoplay.</dd>
+          <dt>Script</dt><dd>Locked in <code>docs/PersonaPicker/PERSONA-PICKER.md</code> §9 (the conversational manifesto)</dd>
+          <dt>Tool options</dt><dd>(a) HeyGen Pixar avatar with lip sync + AI voice, (b) Runway abstract motion + voiceover, (c) self-filmed</dd>
+          <dt>Output</dt><dd><code>videos/manifesto.mp4</code> + <code>images/manifesto-poster.webp</code></dd>
+          <dt>Insertion point</dt><dd><code>index.html</code> line ~340 (HTML comment marks the <code>&lt;video&gt;</code> insertion location)</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ BRAND KIT / COLLATERAL ============ -->
+    <section id="stationery">
+      <div class="section-tag">06 · Brand kit / collateral</div>
+      <h2>Stationery</h2>
+      <p class="section-deck">Personal-brand stationery for in-person and formal correspondence. Mid-century editorial aesthetic, restrained palette, designer-credible.</p>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Purpose</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name">Business card — front</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Networking, conferences, in-person introductions</td>
+            <td>3.5×2 in (1050×600px @300 DPI). CMYK for print. Bleed 0.125 in. Front: name + role + URL + handle. Back: minimal mark or pattern.</td>
+            <td class="file">brand-kit/stationery/business-card-front.pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Business card — back</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Reverse side</td>
+            <td>3.5×2 in. Could be solid color, brand mark, geometric pattern, or QR code linking to kiranrao.ai</td>
+            <td class="file">brand-kit/stationery/business-card-back.pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Letterhead — US Letter</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Formal correspondence, cover letters, recommendation requests</td>
+            <td>8.5×11 in (2550×3300px @300 DPI). PDF + Word/Pages template. Header has wordmark + URL; footer has contact line.</td>
+            <td class="file">brand-kit/stationery/letterhead-letter.pdf + .docx</td>
+          </tr>
+          <tr>
+            <td class="name">Letterhead — A4</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>International correspondence</td>
+            <td>210×297mm. PDF + Word.</td>
+            <td class="file">brand-kit/stationery/letterhead-a4.pdf + .docx</td>
+          </tr>
+          <tr>
+            <td class="name">Envelope (#10)</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Outgoing mail</td>
+            <td>9.5×4.125 in. CMYK print-ready. Return address + small brand mark.</td>
+            <td class="file">brand-kit/stationery/envelope-10.pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Thank-you / notecard</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Post-meeting / interview notes, gift cards, networking follow-up</td>
+            <td>Folded 5×7 in or flat 4×6 in. Minimal front design + blank inside or subtle pattern.</td>
+            <td class="file">brand-kit/stationery/notecard.pdf</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="documents">
+      <h2>Document templates</h2>
+      <p class="section-deck">Reusable templates for any document Kiran produces — pitch decks, resume, one-pagers, proposals. The job is to make every document instantly recognizable as his.</p>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Purpose</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name">Pitch deck master template</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Any presentation Kiran gives — talks, internal pitches, work samples</td>
+            <td>16:9 (1920×1080) base. Master slides for: title, section divider, content single-column, content two-column, full-bleed image, big-quote, closing/CTA. Keynote + Google Slides + PowerPoint variants.</td>
+            <td class="file">brand-kit/decks/pitch-deck-master.key + .pptx + .pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Resume / CV — designed</td>
+            <td><span class="pill progress">in progress</span></td>
+            <td>Job applications. The polished version of the existing resume.</td>
+            <td>US Letter + A4 versions. PDF (primary), Word (editable). One-page + two-page variants. Brand-aligned typography (Playfair for name/headers, Inter for body).</td>
+            <td class="file">brand-kit/resume/kiran-rao-resume-2026.pdf + .docx</td>
+          </tr>
+          <tr>
+            <td class="name">One-pager</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>"What is this site / who is Kiran" PDF. Pasted in DMs, attached to outreach. Cross-ref Marketing → Handout (the visual version).</td>
+            <td>US Letter portrait. Hero illustration top, 3 sections (about / proof / connect), brand footer. PDF.</td>
+            <td class="file">brand-kit/one-pager/kiran-rao-one-pager.pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Case study template</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Re-usable structure for write-ups (teardowns, MadLab projects, work samples). Already shipped on-site, but a PDF/doc version for offline sharing.</td>
+            <td>US Letter / A4. Multi-page. Cover + context + work + outcome + reflection sections. PDF + InDesign or Affinity Publisher source.</td>
+            <td class="file">brand-kit/case-study/case-study-template.indd + .pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Document cover page</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Generic cover for any deliverable — proposal, report, sample work</td>
+            <td>US Letter portrait. Hero zone + title + subtitle + author + date. Reusable as page-1 across docs.</td>
+            <td class="file">brand-kit/templates/cover-page.pdf + .indd</td>
+          </tr>
+          <tr>
+            <td class="name">Press release template</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Formal announcements — product launches, awards, talks, press mentions. Industry-standard format readable by journalists.</td>
+            <td>US Letter portrait. Standard PR layout: dateline + headline + subhead + lead paragraph + body + boilerplate (3-line "About Kiran") + contact info. PDF template + Word .docx (editable).</td>
+            <td class="file">brand-kit/templates/press-release.docx + .pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Resume — Google Docs version</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Quick-edit alternative to InDesign master. For tailoring resume per application without design software.</td>
+            <td>Google Docs template URL. Same brand structure as InDesign master: Playfair name + headers, Inter body, restrained palette. Single-page + two-page variants.</td>
+            <td class="file">Google Doc URL stored in <code>brand-kit/resume/</code> README</td>
+          </tr>
+          <tr>
+            <td class="name">Cover letter — Google Docs version</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Editable cover letter template in same brand language as resume. Pre-formatted block + signature line.</td>
+            <td>Google Docs URL. Header reuses letterhead design. Body Inter 11pt. Closing block with sign-off + URL.</td>
+            <td class="file">Google Doc URL stored in <code>brand-kit/letters/</code> README</td>
+          </tr>
+          <tr>
+            <td class="name">Notion templates (resume, one-pager, case study)</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Notion-native versions of the core docs for people who live in Notion. Easy duplicate + edit.</td>
+            <td>3 Notion templates published as duplicate-able pages. Brand-aligned cover images + section structure.</td>
+            <td class="file">Notion URLs stored in <code>brand-kit/notion/</code> README</td>
+          </tr>
+          <tr>
+            <td class="name">Invoice / receipt template</td>
+            <td><span class="pill parked">parked</span></td>
+            <td>Only if Kiran ever bills (consulting fee, speaking fee, freelance). Standard invoice format.</td>
+            <td>US Letter PDF + Excel/Numbers. Header (brand) + bill-to + line items + subtotal/tax/total + payment instructions + footer with W-9 reference.</td>
+            <td class="file">brand-kit/business/invoice-template.xlsx + .pdf</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="email">
+      <h2>Email assets</h2>
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Purpose</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name">Email signature — image</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Bottom of every email Kiran sends</td>
+            <td>~600×150px. PNG with transparent background OR cream background matching site. Includes name + role + URL + small brand mark.</td>
+            <td class="file">brand-kit/email/signature.png</td>
+          </tr>
+          <tr>
+            <td class="name">Email signature — HTML</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Native HTML signature (degrades gracefully on plain-text clients)</td>
+            <td>Inline CSS. Plain HTML — no images required to render. Links: site, LinkedIn, Twitter.</td>
+            <td class="file">brand-kit/email/signature.html</td>
+          </tr>
+          <tr>
+            <td class="name">Newsletter header</td>
+            <td><span class="pill parked">parked</span></td>
+            <td>If/when Kiran starts a newsletter</td>
+            <td>~1200×400px. Brand-aligned hero illustration + newsletter name in Playfair Display.</td>
+            <td class="file">brand-kit/email/newsletter-header.png</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="speaking">
+      <h2>Speaking / events</h2>
+      <p class="section-deck">Assets for when Kiran speaks at conferences, podcasts, or panels.</p>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Purpose</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name">Speaker bio image</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Conference programs, podcast notes, speaker pages</td>
+            <td>Square (1200×1200) + 16:9 (1920×1080) variants. Real photo of Kiran in environmental context (workshop / studio). Brand-aligned background or treatment.</td>
+            <td class="file">brand-kit/speaking/speaker-bio.jpg (multi-size)</td>
+          </tr>
+          <tr>
+            <td class="name">Talk title slide template</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Opening slide template for any talk</td>
+            <td>16:9 (1920×1080). Talk title + speaker name + venue + date layout. Inherits pitch deck master.</td>
+            <td class="file">brand-kit/speaking/title-slide-template.key</td>
+          </tr>
+          <tr>
+            <td class="name">Speaker placeholder Zoom background</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Virtual meeting background for podcasts, recorded interviews</td>
+            <td>1920×1080 (Zoom standard). Brand-aligned subtle background that doesn't fight Kiran's face on camera.</td>
+            <td class="file">brand-kit/speaking/zoom-background.jpg</td>
+          </tr>
+          <tr>
+            <td class="name">Conference badge / lanyard art</td>
+            <td><span class="pill parked">parked</span></td>
+            <td>If Kiran organizes / hosts an event</td>
+            <td>4×6 in. Print-ready CMYK.</td>
+            <td class="file">brand-kit/speaking/conference-badge.pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Podcast cover art</td>
+            <td><span class="pill parked">parked</span></td>
+            <td>If/when Kiran starts a podcast. Apple Podcasts requires this format for show artwork.</td>
+            <td>3000×3000 PNG. Square. Show title in Playfair Display + visual element from brand language. Apple Podcasts compresses, so test legibility at 60×60px (iPhone Listen Now).</td>
+            <td class="file">brand-kit/podcast/podcast-cover.png</td>
+          </tr>
+          <tr>
+            <td class="name">Podcast episode artwork template</td>
+            <td><span class="pill parked">parked</span></td>
+            <td>Per-episode artwork variants once podcast launches</td>
+            <td>3000×3000 PNG template. Episode title placeholder + episode number + show mark.</td>
+            <td class="file">brand-kit/podcast/episode-template.psd + .pdf</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="platform">
+      <h2>Platform &amp; community presence</h2>
+      <p class="section-deck">Brand presence in the communities, workspaces, and platforms Kiran participates in. Avatar + workspace icon variants per platform.</p>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Purpose</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name">Brand avatar — square mark</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Profile picture alternative when not using a headshot. Used on LinkedIn, Twitter, GitHub, Slack, Discord, Notion. Recognizable at 32px (Slack sidebar size).</td>
+            <td>Square. Multiple sizes: 256, 400, 800, 1024, 2048px PNG (transparent + solid-cream variants). Logomark or initials on brand color background.</td>
+            <td class="file">brand-kit/avatars/brand-avatar-{size}.png</td>
+          </tr>
+          <tr>
+            <td class="name">Headshot avatar — round-crop set</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Profile picture using real headshot. Same source photo, multiple platform-optimized crops + sizes.</td>
+            <td>Square crops at: 256, 400, 800, 1024, 2048px. PNG. Optional: round-crop variants for platforms that don't auto-circle.</td>
+            <td class="file">brand-kit/avatars/headshot-{size}.png</td>
+          </tr>
+          <tr>
+            <td class="name">Workspace icon — Slack</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>If Kiran ever runs a Slack workspace (community, project, team)</td>
+            <td>512×512 PNG. Square. Solid background. Slack auto-rounds corners.</td>
+            <td class="file">brand-kit/platform/slack-workspace.png</td>
+          </tr>
+          <tr>
+            <td class="name">Workspace icon — Discord</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Discord server icon if Kiran runs / participates in a Discord</td>
+            <td>512×512 PNG. Square. Discord renders as circle.</td>
+            <td class="file">brand-kit/platform/discord-server.png</td>
+          </tr>
+          <tr>
+            <td class="name">Workspace icon — Notion</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Notion workspace icon — visible on every shared Notion page</td>
+            <td>280×280 PNG. Square.</td>
+            <td class="file">brand-kit/platform/notion-workspace.png</td>
+          </tr>
+          <tr>
+            <td class="name">GitHub social preview</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Custom social preview image for individual GitHub repos. When repo URL shared, this image previews instead of the auto-generated one.</td>
+            <td>1280×640 PNG. Per-repo customizable: shows project name + brand mark.</td>
+            <td class="file">brand-kit/platform/github-social-preview.png</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="print-materials">
+      <h2>Print materials</h2>
+      <p class="section-deck">Tangible items. Some practical (cards, stickers), some optional (merch, manifesto poster). Print specs included for production-readiness.</p>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Purpose</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name">Sticker set (3-5 designs)</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Laptop, notebook, conference giveaway. Soft brand spread.</td>
+            <td>Variants: 2×2 in square + 3 in circle + 4 in die-cut. Vector source (SVG/AI). 300 DPI for production. White or transparent backgrounds.</td>
+            <td class="file">brand-kit/print/stickers/*.svg + .pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Manifesto poster</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Personal manifesto rendered as a print-worthy poster. Office wall, gift, or merch. Could become the "art piece" people associate with you.</td>
+            <td>18×24 in or 24×36 in. CMYK + bleed. Vector. Body text legible at distance.</td>
+            <td class="file">brand-kit/print/manifesto-poster.pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Notebook cover</td>
+            <td><span class="pill parked">parked</span></td>
+            <td>Custom Moleskine / Field Notes branded notebook. Personal use + occasional gift.</td>
+            <td>Field Notes 3.5×5.5 or Moleskine 5×8.25. Print-on-demand via Inkpact or similar.</td>
+            <td class="file">brand-kit/print/notebook-cover.pdf</td>
+          </tr>
+          <tr>
+            <td class="name">T-shirt design (personal)</td>
+            <td><span class="pill parked">parked</span></td>
+            <td>Personal-brand tee. NOT the Studio creative parks tees — this is one Kiran would wear/give to friends.</td>
+            <td>Front print. Single-color screen print preferred (cost). 12×14 in art area.</td>
+            <td class="file">brand-kit/print/tshirt-personal.svg + .pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Tote bag design</td>
+            <td><span class="pill parked">parked</span></td>
+            <td>Conference giveaway / casual merch</td>
+            <td>15×16 in tote. Single-color print. Vector.</td>
+            <td class="file">brand-kit/print/tote-bag.svg</td>
+          </tr>
+          <tr>
+            <td class="name">Postcard set (4-6)</td>
+            <td><span class="pill parked">parked</span></td>
+            <td>Mail to friendly recruiters / network. Tactile alternative to a cold DM.</td>
+            <td>4×6 in or A6. Front: brand image. Back: address area + handwritten message space.</td>
+            <td class="file">brand-kit/print/postcards/*.pdf</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="brand-docs">
+      <h2>Brand documentation</h2>
+      <p class="section-deck">The rules and reference material that keeps everything consistent. The doc you'd hand someone (a designer, a future-you) so they can produce on-brand work without further context.</p>
+
+      <table class="spec-table">
+        <thead><tr><th>Asset</th><th>Status</th><th>Purpose</th><th>Specs</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name">Brand guidelines doc</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Single source of truth for the brand. Logo usage, color palette, typography, voice, photography. The "hand to a designer" doc.</td>
+            <td>PDF (primary, ~12-20 pages) + on-site web version. References <code>VISUAL-STANDARDS.md</code> + <code>CONTENT-STANDARDS.md</code>.</td>
+            <td class="file">brand-kit/docs/brand-guidelines.pdf + /brand on-site</td>
+          </tr>
+          <tr>
+            <td class="name">Voice & tone guide</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>How Kiran writes — formal vs casual, in different contexts. Examples + before/after.</td>
+            <td>PDF or web. Cross-references existing voice samples in marketing kit case study.</td>
+            <td class="file">brand-kit/docs/voice-tone.pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Logo lockup variants</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>All logo variations as standalone files: primary, monochrome black, monochrome white, knockout, square mark only, wordmark only, stacked, horizontal.</td>
+            <td>SVG (master) + PNG (transparent, multiple sizes: 200, 400, 800, 1600px wide).</td>
+            <td class="file">brand-kit/logo/*.svg + .png</td>
+          </tr>
+          <tr>
+            <td class="name">Color palette spec sheet</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Single page reference of every brand color with hex / RGB / HSL / CMYK / Pantone equivalents. For print + digital + designer handoff.</td>
+            <td>PDF, single page.</td>
+            <td class="file">brand-kit/docs/color-palette.pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Typography spec sheet</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Type system reference — fonts, weights, sizes, hierarchy, per-card stat fonts.</td>
+            <td>PDF, single page.</td>
+            <td class="file">brand-kit/docs/typography.pdf</td>
+          </tr>
+          <tr>
+            <td class="name">Custom icon set</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Consistent icon vocabulary across site UI, docs, decks, slides. Replaces ad-hoc emoji and stock icons.</td>
+            <td>SVG set. ~24-32 core icons covering: navigation (home, search, menu, close), content types (teardown, blog, prototype, studio), social (LinkedIn, Twitter, GitHub, email), UI controls (arrow, chevron, plus, check), and brand symbols (workshop tools, abstract marks). Stroke-based, 2px stroke at 24px base. Single-color (charcoal) with brand-color variants where called for.</td>
+            <td class="file">brand-kit/icons/ui/*.svg + sprite.svg</td>
+          </tr>
+          <tr>
+            <td class="name">Pattern library</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Repeating background patterns derived from the brand mark and geometry. Used for letterhead backings, social posts, document covers, swag, sticker variants, packaging.</td>
+            <td>6-8 seamless tiling patterns as SVG. Each available in 3-4 colorways (cream-on-charcoal, charcoal-on-cream, amber-on-cream, teal-on-cream). Tile size guidelines for different scales. Examples: dot grid, geometric weave, abstract motif from logo, mid-century scattered marks.</td>
+            <td class="file">brand-kit/patterns/*.svg + colorways/</td>
+          </tr>
+          <tr>
+            <td class="name">Photo treatment / filter preset</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Consistent grading for any real photos used (headshots, lifestyle, in-the-studio shots, conference photos). Makes any photo feel "from kiranrao.ai" regardless of source.</td>
+            <td>Lightroom preset (.xmp) + Photoshop action (.atn) + LUT (.cube) for video. Defines: warm color shift toward amber/cream, lifted blacks, slight grain, subtle vignette, S-curve contrast. Mobile-Lightroom-friendly variant for on-the-go editing.</td>
+            <td class="file">brand-kit/photo/kiran-rao.xmp + .atn + .cube</td>
+          </tr>
+          <tr>
+            <td class="name">Watermark</td>
+            <td><span class="pill todo">todo</span></td>
+            <td>Sign original creative work, downloadable PDFs, Studio outputs that could be shared widely. Asserts authorship without dominating the work.</td>
+            <td>SVG (master) + PNG with transparency (multiple sizes). Two variants: signature-style mark (initials) for creative work + URL-style mark ("kiranrao.ai") for documents. Sized for corner placement at 1-2% of canvas. Light + dark versions.</td>
+            <td class="file">brand-kit/watermark/signature.svg + url-mark.svg + .png variants</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============ FUTURE STATE ============ -->
+    <section id="headshots">
+      <div class="section-tag">07 · Future state (not in scope yet)</div>
+      <h2>Headshot variants</h2>
+      <p class="section-deck">Real photos of Kiran for different contexts. Currently the site uses one or no profile photos.</p>
+
+      <div class="kv">
+        <dl>
+          <dt>Status</dt><dd><span class="pill todo">todo</span></dd>
+          <dt>Variants needed</dt><dd>Formal (LinkedIn). Casual (podcast appearances). Action (speaker bio). Environmental (in workshop / studio).</dd>
+          <dt>Specs</dt><dd>Multiple sizes per shot: 200×200, 400×400, 800×800. Square crop + freeform crop variants.</dd>
+          <dt>Tool</dt><dd>Real photoshoot (preferred) or AI gen (Photoshop generative fill, Midjourney --p)</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="press-kit">
+      <h2>Press kit assets</h2>
+      <p class="section-deck">Centralized folder of bio + photos + logos for press / podcast / conference inquiries. Set up before needed.</p>
+
+      <div class="kv">
+        <dl>
+          <dt>Status</dt><dd><span class="pill todo">todo</span></dd>
+          <dt>Components</dt><dd>Bio variants (short/medium/long). Headshots in multiple crops + sizes. Logo files (PNG + SVG, color + monochrome). Approved screenshots / hero shots.</dd>
+          <dt>Output folder</dt><dd><code>press-kit/</code> at site root, accessible at kiranrao.ai/press-kit/</dd>
+          <dt>Time to build</dt><dd>~30 min once headshots exist. Bio writing ~1-2 hours.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="print">
+      <h2>Print materials (optional / future)</h2>
+
+      <div class="kv">
+        <dl>
+          <dt>Status</dt><dd><span class="pill parked">parked</span> — only if/when needed</dd>
+          <dt>Possible items</dt><dd>Business cards (when networking). Stickers (for laptops, conferences). Conference badge / lanyard art (when speaking). Branded notebooks / merch (low priority).</dd>
+          <dt>Print-ready specs</dt><dd>CMYK color space. Bleed area. 300 DPI minimum. Vector preferred (SVG / PDF / AI).</dd>
+        </dl>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>

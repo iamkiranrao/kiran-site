@@ -23,7 +23,14 @@
         display:flex;align-items:center;justify-content:center;
         background:#0a0a0a;font-family:Inter,system-ui,sans-serif;
       ">
-        <div style="text-align:center;max-width:380px;padding:2rem;">
+        <div style="text-align:center;max-width:520px;padding:2rem;">
+          <img src="/images/fenix/3fenixbento.png" alt=""
+               style="
+                 display:block;width:100%;max-width:480px;
+                 height:auto;margin:0 auto 1.5rem;
+                 border-radius:8px;
+                 box-shadow:0 8px 32px rgba(0,0,0,0.4);
+               " />
           <h1 style="color:#f5f0eb;font-size:1.4rem;font-weight:500;margin-bottom:.5rem;">
             Under Construction
           </h1>
