@@ -508,34 +508,40 @@
         document.querySelector('.footer-logo')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
         // ============================================
-        // PIECE METADATA — fill in from STUDIO-OVERLAY-INPUTS.md
+        // PIECE METADATA
+        // Date / Tools / Style / Inspired by / Dimensions populated by Claude.
+        // Note (Kiran's voice) still pending — see STUDIO-OVERLAY-INPUTS.md
         // ============================================
         const pieceData = {
             'aquarium': {
                 date: 'May 2026',
                 tools: 'Midjourney v7',
-                inspiredBy: '',  // TBD
+                style: 'Black & white detailed pen-and-ink illustration',
+                inspiredBy: 'Architectural rendering tradition, Ernst Haeckel\'s naturalist line drawings, Katsuhiro Otomo\'s Akira backgrounds',
                 dimensions: '2464 × 1856',
-                note: ''  // TBD
+                note: ''
             },
             'independence-day': {
                 date: 'May 2026',
                 tools: 'Midjourney v7',
-                inspiredBy: '',
+                style: 'Loose alla prima watercolor illustration',
+                inspiredBy: 'Modern editorial watercolor, urban-sketcher reportage, Bengal-school Indian painting',
                 dimensions: '2464 × 1856',
                 note: ''
             },
             'monk-and-whale': {
                 date: 'May 2026',
                 tools: 'Midjourney v7 (still + animated)',
-                inspiredBy: '',
+                style: 'Surreal photo composite, magical realism',
+                inspiredBy: 'Erik Johansson, René Magritte, Ben Goossens',
                 dimensions: '2688 × 1792',
                 note: ''
             },
             'warplanes': {
                 date: 'May 2026',
                 tools: 'Midjourney v7',
-                inspiredBy: '',
+                style: 'Cinematic B&W surreal composite, anachronistic juxtaposition',
+                inspiredBy: 'Christopher Nolan\'s B&W cinematography (Dunkirk, Oppenheimer), Magritte\'s temporal anachronisms, Roger Deakins\' high-contrast lighting',
                 dimensions: '2688 × 1792',
                 note: ''
             }
@@ -569,6 +575,7 @@
             lbFields.innerHTML = [
                 buildField('Date', data.date),
                 buildField('Tools', data.tools),
+                buildField('Style', data.style),
                 buildField('Inspired by', data.inspiredBy),
                 buildField('Dimensions', data.dimensions)
             ].join('');
