@@ -109,13 +109,15 @@
             border-radius: 6px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            /* Bouncy spring easing — overshoots target then settles */
+            transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.22s ease;
             background: var(--bg-primary);
             border: 1px solid var(--border);
         }
         .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.16);
+            transform: translateY(-6px) scale(1.015);
+            box-shadow: 0 14px 32px rgba(0,0,0,0.2);
         }
 
         .card-img {
@@ -129,7 +131,7 @@
         .card.has-motion .card-img-still { display: none; }
         .card.has-motion .card-img-motion { display: block; }
 
-        /* Hover-revealed title pill */
+        /* Hover-revealed title pill with arrow cue */
         .card-pill {
             position: absolute;
             bottom: 0.6rem;
@@ -147,9 +149,18 @@
             backdrop-filter: blur(6px);
             z-index: 2;
         }
+        .card-pill::after {
+            content: ' →';
+            margin-left: 0.25rem;
+            display: inline-block;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
         .card:hover .card-pill {
             opacity: 1;
             transform: translateY(0);
+        }
+        .card:hover .card-pill::after {
+            transform: translateX(3px);
         }
 
         /* ============================================
