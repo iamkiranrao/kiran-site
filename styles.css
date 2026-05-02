@@ -25,7 +25,50 @@
     --font-stat: 'Bebas Neue', sans-serif;
     --row-height: 220px;
     --grid-gap: 0.75rem;
+
+    /* Easing curves */
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);  /* Spring overshoot — for hover lifts on cards */
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);       /* Material-style smooth — for non-bouncy transitions */
 }
+
+/* ============================================
+   .back-link — generic back-button pill utility.
+   Use on any sub-page that needs a way back to its parent.
+   Markup:
+     <a href="parent.html" class="back-link">
+       <span class="back-link-arrow">&larr;</span>
+       <span>Back to Parent</span>
+     </a>
+   ============================================ */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.78rem;
+    padding: 0.55rem 1rem 0.55rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    margin: 1.25rem 0 0 4rem;
+    transition: border-color 0.2s, color 0.2s;
+    background: transparent;
+    width: fit-content;
+}
+.back-link:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+.back-link-arrow {
+    display: inline-block;
+    transition: transform 0.25s var(--ease-bounce);
+}
+.back-link:hover .back-link-arrow {
+    transform: translateX(-3px);
+}
+@media (max-width: 1024px) { .back-link { margin-left: 3rem; } }
+@media (max-width: 768px)  { .back-link { margin-left: 1.5rem; } }
+@media (max-width: 480px)  { .back-link { margin-left: 1rem; } }
 
 [data-theme="light"] {
     --bg-primary: #f5f3f0;
@@ -970,12 +1013,12 @@ section {
     border: none;
     font-family: inherit;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.32s var(--ease-bounce), box-shadow 0.22s ease;
     color: var(--glass-text-dark);
     background: none;
     padding: 0;
 }
-.work-card:hover { transform: translateY(-3px); z-index: 10; }
+.work-card:hover { transform: translateY(-6px) scale(1.012); z-index: 10; }
 .work-card:focus { outline: 2px solid rgba(255,255,255,0.5); outline-offset: 2px; }
 
 /* ── Background layer ── */
@@ -1266,11 +1309,12 @@ section {
     background: var(--bg-card);
     border-radius: 20px;
     border: 1px solid var(--border);
-    transition: transform 0.3s ease;
+    transition: transform 0.32s var(--ease-bounce), box-shadow 0.22s ease;
 }
 
 .testimonial:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px) scale(1.008);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.18);
 }
 
 .testimonial-title {
