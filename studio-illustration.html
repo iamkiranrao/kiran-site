@@ -124,30 +124,10 @@
             height: auto;
         }
 
-        /* Hover-play behavior for cards with motion */
-        .card.has-motion .card-img-still { display: block; }
-        .card.has-motion .card-img-motion { display: none; }
-        .card.has-motion:hover .card-img-still { display: none; }
-        .card.has-motion:hover .card-img-motion { display: block; }
-
-        /* "GIF" indicator on motion-enabled cards */
-        .card.has-motion::after {
-            content: 'GIF';
-            position: absolute;
-            top: 0.6rem;
-            right: 0.6rem;
-            background: rgba(0,0,0,0.6);
-            color: #FAF3E5;
-            padding: 0.2rem 0.5rem;
-            border-radius: 3px;
-            font-size: 0.55rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            backdrop-filter: blur(4px);
-            z-index: 2;
-            pointer-events: none;
-            opacity: 0.85;
-        }
+        /* Auto-play behavior for cards with motion — GIF shows always in masonry,
+           high-res still PNG is what opens in the lightbox via data-img */
+        .card.has-motion .card-img-still { display: none; }
+        .card.has-motion .card-img-motion { display: block; }
 
         /* Hover-revealed title pill */
         .card-pill {
