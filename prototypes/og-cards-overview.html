@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG Cards Overview</title>
+<style>
+  :root {
+    --bg: #1a1714;
+    --card-bg: #25201b;
+    --border: rgba(240, 230, 216, 0.1);
+    --text: #FAF3E5;
+    --text-secondary: #a89b87;
+    --text-muted: #6e6457;
+    --amber: #C8843D;
+    --rust: #B05D3C;
+    --teal: #4A6E6E;
+    --warning: #d97706;
+    --success: #16a34a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 2.5rem 2rem 4rem;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1500px; margin: 0 auto; }
+
+  .header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .header h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+  .header .subtitle {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .legend {
+    margin: 1.5rem 0 0;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .dot-warning { background: var(--warning); }
+  .dot-success { background: var(--success); }
+  .dot-neutral { background: var(--text-muted); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } }
+
+  .og-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .og-card.needs-update {
+    border: 1.5px solid var(--warning);
+  }
+
+  .og-image-wrap {
+    position: relative;
+    aspect-ratio: 1200 / 630;
+    background: #0a0a0a;
+  }
+  .og-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .status-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    backdrop-filter: blur(8px);
+    z-index: 2;
+  }
+  .status-needs-update {
+    background: rgba(217, 119, 6, 0.9);
+    color: #1a1714;
+  }
+  .status-current {
+    background: rgba(255,255,255,0.85);
+    color: #1a1714;
+  }
+
+  .og-meta {
+    padding: 1.1rem 1.25rem 1.25rem;
+  }
+  .og-filename {
+    font-family: 'SF Mono', Menlo, monospace;
+    font-size: 0.78rem;
+    color: var(--amber);
+    margin-bottom: 0.3rem;
+  }
+  .og-page-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+  }
+  .og-page-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .og-page-url {
+    font-family: 'SF Mono', Menlo, monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+  .og-text-info {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    background: rgba(255,255,255,0.03);
+    padding: 0.7rem 0.85rem;
+    border-radius: 6px;
+    border-left: 2px solid var(--text-muted);
+    margin-top: 0.6rem;
+  }
+  .og-text-info.warning {
+    border-left-color: var(--warning);
+    background: rgba(217, 119, 6, 0.08);
+  }
+  .og-text-info .label-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.2rem;
+  }
+  .og-text-info .label-row:last-child { margin-bottom: 0; }
+  .og-text-info .field {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    min-width: 70px;
+  }
+  .og-text-info .value { color: var(--text); }
+  .og-text-info .strike { text-decoration: line-through; color: var(--text-muted); }
+  .og-text-info .new-value { color: var(--warning); font-weight: 600; }
+
+  .summary {
+    margin-top: 3rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(217, 119, 6, 0.08);
+    border-left: 3px solid var(--warning);
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .summary strong { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <h1>OG Share Card Inventory</h1>
+    <div class="subtitle">All 10 OG cards across the site, shown at OG aspect ratio (1200×630). Cards with stale labels after the rename are highlighted.</div>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot dot-warning"></span> Needs text update</div>
+      <div class="legend-item"><span class="legend-dot dot-neutral"></span> Current — no change needed</div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- og-career.png — OLD -->
+    <div class="og-card needs-update">
+      <div class="og-image-wrap">
+        <img src="../images/og/og-career.png" alt="og-career current">
+        <span class="status-badge status-needs-update">Current (stale label)</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">images/og/og-career.png — CURRENT</div>
+        <div class="og-page-info">
+          <div class="og-page-name">"The Work"</div>
+          <div class="og-page-url">page is now Receipts</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-career.png — PROPOSED NEW -->
+    <div class="og-card">
+      <div class="og-image-wrap">
+        <img src="og-work/og-career.png" alt="og-career proposed new">
+        <span class="status-badge status-current">Proposed new</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">prototypes/og-work/og-career.png — NEW</div>
+        <div class="og-page-info">
+          <div class="og-page-name">"Receipts"</div>
+          <div class="og-page-url">subtitle preserved · title repainted in Lora Bold</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-skills.png — OLD -->
+    <div class="og-card needs-update">
+      <div class="og-image-wrap">
+        <img src="../images/og/og-skills.png" alt="og-skills current">
+        <span class="status-badge status-needs-update">Current (stale label)</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">images/og/og-skills.png — CURRENT</div>
+        <div class="og-page-info">
+          <div class="og-page-name">"Skills"</div>
+          <div class="og-page-url">page is now The Stack</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-skills.png — PROPOSED NEW -->
+    <div class="og-card">
+      <div class="og-image-wrap">
+        <img src="og-work/og-skills.png" alt="og-skills proposed new">
+        <span class="status-badge status-current">Proposed new</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">prototypes/og-work/og-skills.png — NEW</div>
+        <div class="og-page-info">
+          <div class="og-page-name">"The Stack"</div>
+          <div class="og-page-url">subtitle preserved · title repainted in Lora Bold</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-homepage.png -->
+    <div class="og-card">
+      <div class="og-image-wrap">
+        <img src="../images/og/og-homepage.png" alt="og-homepage">
+        <span class="status-badge status-current">Current</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">images/og/og-homepage.png</div>
+        <div class="og-page-info">
+          <div class="og-page-name">Home</div>
+          <div class="og-page-url">/index.html</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-teardowns.png -->
+    <div class="og-card">
+      <div class="og-image-wrap">
+        <img src="../images/og/og-teardowns.png" alt="og-teardowns">
+        <span class="status-badge status-current">Current</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">images/og/og-teardowns.png</div>
+        <div class="og-page-info">
+          <div class="og-page-name">How I'd've Built It</div>
+          <div class="og-page-url">/how-id-built-it.html</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-studio.png -->
+    <div class="og-card">
+      <div class="og-image-wrap">
+        <img src="../images/og/og-studio.png" alt="og-studio">
+        <span class="status-badge status-current">Current</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">images/og/og-studio.png</div>
+        <div class="og-page-info">
+          <div class="og-page-name">Studio</div>
+          <div class="og-page-url">/studio.html (and all studio-* pages)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-madlab.png -->
+    <div class="og-card">
+      <div class="og-image-wrap">
+        <img src="../images/og/og-madlab.png" alt="og-madlab">
+        <span class="status-badge status-current">Current</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">images/og/og-madlab.png</div>
+        <div class="og-page-info">
+          <div class="og-page-name">MadLab</div>
+          <div class="og-page-url">/madlab.html</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-underhood.png -->
+    <div class="og-card">
+      <div class="og-image-wrap">
+        <img src="../images/og/og-underhood.png" alt="og-underhood">
+        <span class="status-badge status-current">Current</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">images/og/og-underhood.png</div>
+        <div class="og-page-info">
+          <div class="og-page-name">Under the Hood</div>
+          <div class="og-page-url">/under-the-hood.html</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-blog.png -->
+    <div class="og-card">
+      <div class="og-image-wrap">
+        <img src="../images/og/og-blog.png" alt="og-blog">
+        <span class="status-badge status-current">Current</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">images/og/og-blog.png</div>
+        <div class="og-page-info">
+          <div class="og-page-name">Blog</div>
+          <div class="og-page-url">/blog-podcast.html</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-testimonials.png -->
+    <div class="og-card">
+      <div class="og-image-wrap">
+        <img src="../images/og/og-testimonials.png" alt="og-testimonials">
+        <span class="status-badge status-current">Current</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">images/og/og-testimonials.png</div>
+        <div class="og-page-info">
+          <div class="og-page-name">Testimonials</div>
+          <div class="og-page-url">/testimonials.html</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- og-fenix.png -->
+    <div class="og-card">
+      <div class="og-image-wrap">
+        <img src="../images/og/og-fenix.png" alt="og-fenix">
+        <span class="status-badge status-current">Current</span>
+      </div>
+      <div class="og-meta">
+        <div class="og-filename">images/og/og-fenix.png</div>
+        <div class="og-page-info">
+          <div class="og-page-name">Fenix (the agent)</div>
+          <div class="og-page-url">share previews for Fenix-related links</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="summary">
+    <strong>Pattern across all 10 cards:</strong> a Pixar-style monster character image fills the upper ~85% of the card, with a dark gradient at the bottom carrying a small uppercase orange-red subtitle, a large dark-serif title, and the kiranrao.ai URL on the right. Two cards (top row) carry stale labels after the rename: <strong>og-career.png</strong> still says "The Work" but the page is now Receipts; <strong>og-skills.png</strong> still says "Skills" but the page is now The Stack. The other 8 are unaffected by the rename.
+  </div>
+
+</div>
+</body>
+</html>
