@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Studio · Illustration & AI Art — Category Mockup</title>
+<style>
+  :root {
+    --cream: #F0E6D8;
+    --cream-light: #FAF3E5;
+    --charcoal: #2A2520;
+    --amber: #C8843D;
+    --teal: #4A6E6E;
+    --olive: #6B7747;
+    --rust: #B05D3C;
+    --muted: #8a7e6e;
+    --shadow: 0 2px 8px rgba(42,37,32,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+  }
+
+  /* ───── TOP BAR ───── */
+  .top-bar {
+    padding: 1.1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(42,37,32,0.08);
+  }
+  .wireframe-flag {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 0.32rem 0.7rem;
+    border-radius: 3px;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .top-bar .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .top-bar .breadcrumb a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .top-bar .breadcrumb a:hover { color: var(--charcoal); }
+  .top-bar .breadcrumb .sep { margin: 0 0.4rem; color: rgba(42,37,32,0.3); }
+
+  /* ───── CATEGORY HEADER ───── */
+  .cat-header {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .cat-header h1 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .cat-header .meta {
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .filters {
+    max-width: 1300px;
+    margin: 0 auto 1.5rem;
+    padding: 0 2rem;
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .filter {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(42,37,32,0.1);
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    color: var(--charcoal);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    font-weight: 500;
+  }
+  .filter:hover { border-color: var(--amber); }
+  .filter.active {
+    background: var(--charcoal);
+    color: var(--cream);
+    border-color: var(--charcoal);
+  }
+
+  /* ───── MASONRY ───── */
+  .masonry {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+    column-count: 4;
+    column-gap: 1rem;
+  }
+  @media (max-width: 1100px) { .masonry { column-count: 3; } }
+  @media (max-width: 800px)  { .masonry { column-count: 2; } }
+  @media (max-width: 480px)  { .masonry { column-count: 1; } }
+
+  .card {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    break-inside: avoid;
+    cursor: pointer;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    background: var(--cream-light);
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(42,37,32,0.14);
+  }
+
+  /* Aspect ratio variants */
+  .thumb {
+    width: 100%;
+    position: relative;
+  }
+  .thumb.square    { aspect-ratio: 1 / 1; }
+  .thumb.tall      { aspect-ratio: 3 / 4; }
+  .thumb.portrait  { aspect-ratio: 2 / 3; }
+  .thumb.landscape { aspect-ratio: 4 / 3; }
+  .thumb.wide      { aspect-ratio: 16 / 9; }
+
+  /* Color variants per product */
+  .thumb.fenix       { background: linear-gradient(135deg, #C8843D, #B05D3C); }
+  .thumb.fenix-light { background: linear-gradient(135deg, #E8B570, #C8843D); }
+  .thumb.scannibal   { background: linear-gradient(135deg, #2A2520, #4A3F30); }
+  .thumb.scannibal-2 { background: linear-gradient(135deg, #1f1a16, #4A6E6E); }
+  .thumb.midcentury  { background: linear-gradient(135deg, #FAF3E5, #C8843D); }
+  .thumb.midcentury-2{ background: linear-gradient(135deg, #4A6E6E, #6B7747); }
+  .thumb.midcentury-3{ background: linear-gradient(135deg, #6B7747, #C8843D); }
+  .thumb.archetype-1 { background: linear-gradient(135deg, #4A6E6E, #2A2520); }
+  .thumb.archetype-2 { background: linear-gradient(135deg, #B05D3C, #2A2520); }
+  .thumb.archetype-3 { background: linear-gradient(135deg, #6B7747, #2A2520); }
+  .thumb.dia-hunger     { background: linear-gradient(135deg, #1d4ed8, #2A2520); }
+  .thumb.dia-animal     { background: linear-gradient(135deg, #16a34a, #2A2520); }
+  .thumb.dia-environment{ background: linear-gradient(135deg, #d97706, #2A2520); }
+  .thumb.dia-children   { background: linear-gradient(135deg, #2563eb, #2A2520); }
+
+  .thumb-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.55);
+    font-size: 0.7rem;
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+    letter-spacing: 0.02em;
+  }
+  .thumb.midcentury .thumb-content,
+  .thumb.fenix-light .thumb-content { color: rgba(42,37,32,0.45); }
+
+  /* Hover-revealed product pill */
+  .card-pill {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    background: rgba(255,255,255,0.92);
+    color: var(--charcoal);
+    padding: 0.22rem 0.55rem;
+    border-radius: 100px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0;
+    transform: translateY(-3px);
+    transition: opacity 0.2s, transform 0.2s;
+    backdrop-filter: blur(4px);
+    z-index: 3;
+  }
+  .card:hover .card-pill {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ───── SERIES CARD ───── */
+  .card.series-card {
+    /* slight visual hint that this is a collection */
+    box-shadow: var(--shadow), 4px 4px 0 -2px rgba(42,37,32,0.12), 8px 8px 0 -4px rgba(42,37,32,0.08);
+  }
+  .card.series-card:hover {
+    box-shadow: 0 6px 18px rgba(42,37,32,0.14), 4px 4px 0 -2px rgba(42,37,32,0.16), 8px 8px 0 -4px rgba(42,37,32,0.1);
+  }
+  .series-mini-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    background: var(--charcoal);
+  }
+  .series-mini { width: 100%; height: 100%; position: relative; }
+  .series-pill {
+    /* always visible on series cards */
+    opacity: 1 !important;
+    transform: none !important;
+    top: 0.6rem;
+    right: 0.6rem;
+    left: auto !important;
+    background: var(--charcoal);
+    color: var(--cream);
+  }
+  /* Park gradient palette */
+  .park-yosemite     { background: linear-gradient(135deg, #2d4a2d 0%, #4a6e3d 100%); }
+  .park-yellowstone  { background: linear-gradient(135deg, #c89b3d 0%, #6b5232 100%); }
+  .park-grandcanyon  { background: linear-gradient(135deg, #b05d3c 0%, #e89968 100%); }
+  .park-zion         { background: linear-gradient(135deg, #d97706 0%, #b05d3c 100%); }
+  .park-glacier      { background: linear-gradient(135deg, #6b8ba4 0%, #2c4054 100%); }
+  .park-acadia       { background: linear-gradient(135deg, #2c5570 0%, #1a3040 100%); }
+  .park-olympic      { background: linear-gradient(135deg, #4a6e3d 0%, #6b8478 100%); }
+  .park-rocky        { background: linear-gradient(135deg, #8a9bb0 0%, #5a4a3a 100%); }
+  .park-joshuatree   { background: linear-gradient(135deg, #c89b3d 0%, #8a7338 100%); }
+  .park-smoky        { background: linear-gradient(135deg, #4a6e6e 0%, #6b7747 100%); }
+  .park-rainier      { background: linear-gradient(135deg, #b8c9d8 0%, #4a6e6e 100%); }
+  .park-deathvalley  { background: linear-gradient(135deg, #c89b3d 0%, #2A2520 100%); }
+
+  /* ───── LIGHTBOX ───── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 17, 14, 0.97);
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    padding: 1.5rem 2rem;
+    overflow-y: auto;
+  }
+  .lightbox.active { display: flex; }
+
+  .lightbox-view { display: none; flex: 1; flex-direction: column; }
+  .lightbox-view.active { display: flex; }
+
+  /* ----- single-piece view ----- */
+  .single-view {
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .single-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .lightbox-image {
+    flex: 1;
+    min-height: 400px;
+    border-radius: 8px;
+    background: var(--charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(240,230,216,0.5);
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 2rem;
+    text-align: center;
+  }
+  .lightbox-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--cream);
+  }
+  .lightbox-meta .title-block .title {
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .lightbox-meta .title-block .product {
+    font-size: 0.7rem;
+    color: rgba(240,230,216,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.2rem;
+  }
+  .lightbox-actions { display: flex; gap: 0.5rem; align-items: center; }
+
+  .icon-btn {
+    background: transparent;
+    border: 1px solid rgba(240,230,216,0.3);
+    color: var(--cream);
+    height: 36px;
+    border-radius: 100px;
+    padding: 0 0.9rem;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .icon-btn:hover { background: rgba(240,230,216,0.1); }
+  .icon-btn.round { width: 36px; padding: 0; justify-content: center; font-size: 1.1rem; }
+
+  /* ----- series view (uniform grid) ----- */
+  .series-view {
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .series-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    color: var(--cream);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(240,230,216,0.15);
+  }
+  .series-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .series-header .series-meta {
+    color: rgba(240,230,216,0.6);
+    font-size: 0.82rem;
+  }
+  .series-header .series-actions { display: flex; gap: 0.5rem; align-items: center; }
+
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 1000px) { .series-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px)  { .series-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px)  { .series-grid { grid-template-columns: 1fr; } }
+
+  .series-poster {
+    aspect-ratio: 2 / 3;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.18s;
+  }
+  .series-poster:hover { transform: translateY(-3px); }
+  .poster-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 1.5rem 0.75rem 0.6rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ───── DESIGN NOTES ───── */
+  .notes {
+    max-width: 1300px;
+    margin: 0 auto 4rem;
+    padding: 1.5rem 2rem;
+  }
+  .notes-inner {
+    background: rgba(255,255,255,0.5);
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--amber);
+    font-size: 0.83rem;
+    line-height: 1.55;
+  }
+  .notes h3 {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--rust);
+    margin-bottom: 0.6rem;
+  }
+  .notes p { margin-bottom: 0.5rem; }
+  .notes p:last-child { margin-bottom: 0; }
+  .notes strong { color: var(--charcoal); }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <span class="wireframe-flag">Wireframe — Category View · Series Pattern Added</span>
+  <div class="breadcrumb">
+    <a href="#">Studio</a><span class="sep">/</span><span>Illustration &amp; AI Art</span>
+  </div>
+</div>
+
+<header class="cat-header">
+  <h1>Illustration &amp; AI Art</h1>
+  <div class="meta">19 individual pieces + 1 series · across Fenix, Scannibal, kiranrao.ai, DIA Fund</div>
+</header>
+
+<div class="filters">
+  <button class="filter active">All</button>
+  <button class="filter">Fenix</button>
+  <button class="filter">Scannibal</button>
+  <button class="filter">kiranrao.ai</button>
+  <button class="filter">DIA Fund</button>
+  <button class="filter">cross-cutting</button>
+</div>
+
+<div class="masonry">
+
+  <div class="card" data-type="single" data-title="Fenix Avatar — Canonical" data-product="Fenix">
+    <span class="card-pill">Fenix</span>
+    <div class="thumb square fenix"><div class="thumb-content">canonical Fenix avatar</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Site Study — Layered Horizon" data-product="kiranrao.ai">
+    <span class="card-pill">kiranrao.ai</span>
+    <div class="thumb tall midcentury"><div class="thumb-content">mid-century editorial — layered horizon</div></div>
+  </div>
+
+  <!-- ===== NATIONAL PARKS SERIES CARD ===== -->
+  <div class="card series-card" data-type="series" data-series="national-parks" data-title="National Parks Poster Series" data-product="cross-cutting">
+    <span class="card-pill series-pill">Series · 12</span>
+    <div class="thumb portrait">
+      <div class="series-mini-grid">
+        <div class="series-mini park-yosemite"></div>
+        <div class="series-mini park-grandcanyon"></div>
+        <div class="series-mini park-glacier"></div>
+        <div class="series-mini park-zion"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Forensic Aesthetic — Specimen 01" data-product="Scannibal">
+    <span class="card-pill">Scannibal</span>
+    <div class="thumb portrait scannibal"><div class="thumb-content">forensic specimen — backlit case file</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="DIA Pillar — Hunger Relief" data-product="DIA Fund">
+    <span class="card-pill">DIA Fund</span>
+    <div class="thumb square dia-hunger"><div class="thumb-content">hunger relief pillar illustration</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Fenix Sticker — Greeting" data-product="Fenix">
+    <span class="card-pill">Fenix</span>
+    <div class="thumb square fenix-light"><div class="thumb-content">sticker pose — greeting wave</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Tech Archetype — The Lurker" data-product="cross-cutting">
+    <span class="card-pill">cross-cutting</span>
+    <div class="thumb tall archetype-1"><div class="thumb-content">tech archetype — the lurker</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Site Study — Concentric Forms" data-product="kiranrao.ai">
+    <span class="card-pill">kiranrao.ai</span>
+    <div class="thumb landscape midcentury-2"><div class="thumb-content">mid-century editorial — concentric forms</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Fenix Expression Sheet" data-product="Fenix">
+    <span class="card-pill">Fenix</span>
+    <div class="thumb wide fenix-light"><div class="thumb-content">5-expression model sheet</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="DIA Pillar — Animal Welfare" data-product="DIA Fund">
+    <span class="card-pill">DIA Fund</span>
+    <div class="thumb square dia-animal"><div class="thumb-content">animal welfare pillar illustration</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Forensic Aesthetic — Specimen 02" data-product="Scannibal">
+    <span class="card-pill">Scannibal</span>
+    <div class="thumb square scannibal-2"><div class="thumb-content">forensic specimen — chalk grid</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Fenix Sticker — Thinking" data-product="Fenix">
+    <span class="card-pill">Fenix</span>
+    <div class="thumb square fenix"><div class="thumb-content">sticker pose — thinking</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Tech Archetype — The Showrunner" data-product="cross-cutting">
+    <span class="card-pill">cross-cutting</span>
+    <div class="thumb portrait archetype-2"><div class="thumb-content">tech archetype — the showrunner</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Site Study — Architectural Geometry" data-product="kiranrao.ai">
+    <span class="card-pill">kiranrao.ai</span>
+    <div class="thumb square midcentury-3"><div class="thumb-content">mid-century editorial — architectural</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Fenix Sticker — Celebrating" data-product="Fenix">
+    <span class="card-pill">Fenix</span>
+    <div class="thumb square fenix-light"><div class="thumb-content">sticker pose — celebrating</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="DIA Pillar — Environmental" data-product="DIA Fund">
+    <span class="card-pill">DIA Fund</span>
+    <div class="thumb square dia-environment"><div class="thumb-content">environmental pillar illustration</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Forensic Aesthetic — Specimen 03" data-product="Scannibal">
+    <span class="card-pill">Scannibal</span>
+    <div class="thumb landscape scannibal"><div class="thumb-content">forensic specimen — twilight evidence room</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Fenix Sticker — Sleeping" data-product="Fenix">
+    <span class="card-pill">Fenix</span>
+    <div class="thumb square fenix"><div class="thumb-content">sticker pose — sleeping</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="Tech Archetype — The Engineer-Philosopher" data-product="cross-cutting">
+    <span class="card-pill">cross-cutting</span>
+    <div class="thumb tall archetype-3"><div class="thumb-content">tech archetype — the engineer-philosopher</div></div>
+  </div>
+
+  <div class="card" data-type="single" data-title="DIA Pillar — Children's Opportunity" data-product="DIA Fund">
+    <span class="card-pill">DIA Fund</span>
+    <div class="thumb square dia-children"><div class="thumb-content">children's opportunity pillar illustration</div></div>
+  </div>
+
+</div>
+
+<!-- ===== LIGHTBOX with two views ===== -->
+<div class="lightbox" id="lightbox">
+
+  <!-- Single-piece view -->
+  <div class="lightbox-view single-view" id="single-view">
+    <div class="single-content">
+      <div class="lightbox-image" id="lightbox-image">[ full-size asset would render here ]</div>
+      <div class="lightbox-meta">
+        <div class="title-block">
+          <div class="title" id="lightbox-title">Title</div>
+          <div class="product" id="lightbox-product">Product</div>
+        </div>
+        <div class="lightbox-actions">
+          <button class="icon-btn" id="back-to-series-btn" style="display: none;">← Back to series</button>
+          <button class="icon-btn round" id="single-close-btn" aria-label="Close">×</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Series view (uniform grid) -->
+  <div class="lightbox-view series-view" id="series-view">
+    <div class="series-header">
+      <div>
+        <h2 id="series-title">National Parks Poster Series</h2>
+        <div class="series-meta" id="series-subtitle">12 posters · same dimensions, mid-century travel-poster aesthetic</div>
+      </div>
+      <div class="series-actions">
+        <button class="icon-btn round" id="series-close-btn" aria-label="Close">×</button>
+      </div>
+    </div>
+    <div class="series-grid" id="series-grid">
+      <!-- 12 uniform poster cards injected by JS -->
+    </div>
+  </div>
+
+</div>
+
+<div class="notes">
+  <div class="notes-inner">
+    <h3>What this iteration adds</h3>
+    <p><strong>Series-as-card pattern.</strong> The National Parks card sits in the masonry as a single tile with a 2×2 mini-preview of 4 posters and a "Series · 12" pill. Subtle stacked-card shadow signals "more inside." Click → lightbox opens in <em>series view</em> showing the full 12-poster uniform grid (since all posters are the same 2:3 portrait dimension).</p>
+    <p><strong>Uniform grid inside the series.</strong> When you open the series, masonry collapses to a fixed 4-column grid because all pieces share dimensions — exactly as you described. Click any individual poster → lightbox swaps to <em>single-piece view</em> with a "← Back to series" button so you can return to the grid. Close button (×) or ESC exits everything.</p>
+    <p><strong>Two click depths.</strong> Category → Series → Individual piece. Each level has a clean way back. Series view feels like opening a folder; single view feels like the lightbox we already had.</p>
+  </div>
+</div>
+
+<script>
+  // National Parks data — 12 posters
+  const nationalParks = [
+    { name: 'Yosemite',                gradient: 'park-yosemite' },
+    { name: 'Yellowstone',             gradient: 'park-yellowstone' },
+    { name: 'Grand Canyon',            gradient: 'park-grandcanyon' },
+    { name: 'Zion',                    gradient: 'park-zion' },
+    { name: 'Glacier',                 gradient: 'park-glacier' },
+    { name: 'Acadia',                  gradient: 'park-acadia' },
+    { name: 'Olympic',                 gradient: 'park-olympic' },
+    { name: 'Rocky Mountain',          gradient: 'park-rocky' },
+    { name: 'Joshua Tree',             gradient: 'park-joshuatree' },
+    { name: 'Great Smoky Mountains',   gradient: 'park-smoky' },
+    { name: 'Mount Rainier',           gradient: 'park-rainier' },
+    { name: 'Death Valley',            gradient: 'park-deathvalley' }
+  ];
+
+  // Inject series grid items
+  const seriesGrid = document.getElementById('series-grid');
+  nationalParks.forEach(park => {
+    const div = document.createElement('div');
+    div.className = `series-poster ${park.gradient}`;
+    div.dataset.title = `${park.name} — National Parks Series`;
+    div.dataset.product = 'cross-cutting';
+    div.innerHTML = `<div class="poster-label">${park.name}</div>`;
+    seriesGrid.appendChild(div);
+  });
+
+  // ===== state =====
+  const lightbox = document.getElementById('lightbox');
+  const singleView = document.getElementById('single-view');
+  const seriesView = document.getElementById('series-view');
+  const lbImage = document.getElementById('lightbox-image');
+  const lbTitle = document.getElementById('lightbox-title');
+  const lbProduct = document.getElementById('lightbox-product');
+  const backToSeriesBtn = document.getElementById('back-to-series-btn');
+
+  let cameFromSeries = false;
+
+  function openLightbox() {
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    cameFromSeries = false;
+    showView('single');
+    backToSeriesBtn.style.display = 'none';
+  }
+  function showView(which) {
+    singleView.classList.toggle('active', which === 'single');
+    seriesView.classList.toggle('active', which === 'series');
+  }
+  function openSingle(title, product, fromSeries = false) {
+    lbTitle.textContent = title;
+    lbProduct.textContent = product;
+    lbImage.textContent = `[ full-size: ${title} ]`;
+    backToSeriesBtn.style.display = fromSeries ? 'flex' : 'none';
+    showView('single');
+  }
+  function openSeries() {
+    showView('series');
+  }
+
+  // Card click handlers
+  document.querySelectorAll('.masonry .card').forEach(card => {
+    card.addEventListener('click', () => {
+      const type = card.dataset.type;
+      if (type === 'series') {
+        openSeries();
+      } else {
+        openSingle(card.dataset.title, card.dataset.product, false);
+      }
+      openLightbox();
+    });
+  });
+
+  // Series-poster click handlers
+  document.querySelectorAll('.series-poster').forEach(p => {
+    p.addEventListener('click', () => {
+      cameFromSeries = true;
+      openSingle(p.dataset.title, p.dataset.product, true);
+    });
+  });
+
+  // Back to series
+  backToSeriesBtn.addEventListener('click', () => {
+    showView('series');
+  });
+
+  // Close handlers
+  document.getElementById('single-close-btn').addEventListener('click', closeLightbox);
+  document.getElementById('series-close-btn').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+  });
+
+  // Filter pills (visual only)
+  document.querySelectorAll('.filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

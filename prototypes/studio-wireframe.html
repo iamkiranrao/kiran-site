@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Studio Wireframe — Asset Plan</title>
+<style>
+  :root {
+    --cream: #F0E6D8;
+    --charcoal: #2A2520;
+    --amber: #C8843D;
+    --teal: #4A6E6E;
+    --olive: #6B7747;
+    --rust: #B05D3C;
+    --muted: #8a7e6e;
+    --card-bg: #fffcf6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    padding: 2.5rem 2rem 4rem;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1400px; margin: 0 auto; }
+
+  .wireframe-flag {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 0.45rem 0.9rem;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  .header h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  .header .subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+
+  .legend {
+    margin: 2rem 0 1.5rem;
+    display: flex;
+    gap: 0.75rem 1.25rem;
+    flex-wrap: wrap;
+    padding: 1rem 1.25rem;
+    background: rgba(255,255,255,0.5);
+    border-radius: 8px;
+    border: 1px solid rgba(42,37,32,0.08);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.78rem;
+    color: var(--charcoal);
+  }
+  .pill {
+    display: inline-block;
+    padding: 0.22rem 0.6rem;
+    border-radius: 100px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+  }
+  .pill.ready    { background: #2d6a4f; color: white; }
+  .pill.capture  { background: var(--teal); color: white; }
+  .pill.mj       { background: var(--amber); color: white; }
+  .pill.motion   { background: var(--rust); color: white; }
+  .pill.voice    { background: var(--olive); color: white; }
+  .pill.photo    { background: #6b4423; color: white; }
+  .pill.cat {
+    background: rgba(42,37,32,0.05);
+    color: var(--charcoal);
+    border: 1px solid rgba(42,37,32,0.15);
+  }
+  .pill.product {
+    background: rgba(74,110,110,0.12);
+    color: var(--teal);
+    border: 1px solid rgba(74,110,110,0.3);
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 220px;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border: 1px solid rgba(42,37,32,0.06);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s ease;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
+
+  .card.large { grid-column: span 2; grid-row: span 2; }
+  .card.wide  { grid-column: span 2; }
+  .card.tall  { grid-row: span 2; }
+
+  .card-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.6rem;
+  }
+  .card-title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--charcoal);
+  }
+  .card.large .card-title { font-size: 1.4rem; }
+  .card-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    line-height: 1.45;
+  }
+  .card-source {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: auto;
+    padding-top: 0.6rem;
+    font-style: italic;
+    border-top: 1px dashed rgba(42,37,32,0.12);
+  }
+
+  .card-thumb {
+    flex: 1;
+    margin: 0.7rem 0;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 0.72rem;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  /* placeholder thumb states */
+  .thumb-todo {
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(200,132,61,0.06),
+      rgba(200,132,61,0.06) 10px,
+      rgba(200,132,61,0.12) 10px,
+      rgba(200,132,61,0.12) 20px
+    );
+    border: 1px dashed rgba(200,132,61,0.4);
+    color: var(--rust);
+    font-weight: 600;
+  }
+  .thumb-asset {
+    background: linear-gradient(135deg, var(--teal), var(--olive));
+    color: white;
+    font-weight: 600;
+  }
+  .thumb-asset.amber  { background: linear-gradient(135deg, var(--amber), var(--rust)); }
+  .thumb-asset.dark   { background: linear-gradient(135deg, var(--charcoal), #5a4a3a); }
+
+  .summary {
+    margin-top: 3rem;
+    padding: 1.5rem 1.75rem;
+    background: var(--card-bg);
+    border-radius: 10px;
+    border: 1px solid rgba(42,37,32,0.08);
+  }
+  .summary h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  .summary-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .summary-stat .num {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--amber);
+    line-height: 1;
+  }
+  .summary-stat .label {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .notes {
+    margin-top: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(42,37,32,0.04);
+    border-radius: 8px;
+    border-left: 3px solid var(--amber);
+    font-size: 0.85rem;
+    color: var(--charcoal);
+  }
+  .notes h4 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+    color: var(--rust);
+  }
+  .notes p { margin-bottom: 0.5rem; line-height: 1.55; }
+  .notes p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 900px) {
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .card.large { grid-column: span 2; grid-row: span 2; }
+    .card.wide { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="wireframe-flag">Wireframe — Not Final Design</div>
+
+  <div class="header">
+    <h1>Studio</h1>
+    <div class="subtitle">A workshop, not a showroom — creative work across products and mediums.</div>
+  </div>
+
+  <div class="legend">
+    <strong style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--charcoal);">Status:</strong>
+    <div class="legend-item"><span class="pill ready">Ready</span> live on site</div>
+    <div class="legend-item"><span class="pill capture">Capture</span> exists in product — needs export</div>
+    <div class="legend-item"><span class="pill mj">MJ</span> needs Midjourney work</div>
+    <div class="legend-item"><span class="pill motion">Motion</span> needs After Effects</div>
+    <div class="legend-item"><span class="pill voice">Voice</span> needs ElevenLabs</div>
+    <div class="legend-item"><span class="pill photo">Photo</span> needs photography</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- HERO #1 — biggest, signature MJ work -->
+    <div class="card large">
+      <div class="card-pills">
+        <span class="pill mj">MJ — partial</span>
+        <span class="pill cat">AI Art</span>
+        <span class="pill product">Fenix</span>
+      </div>
+      <div class="card-title">Fenix — Character Studies</div>
+      <div class="card-desc">Pixar mascot exploration: avatar, expressions, pose variations. Anchored to the canonical Fenix the site already uses.</div>
+      <div class="card-thumb thumb-asset amber">[ canonical avatar exists · 4–6 more MJ variants needed ]</div>
+      <div class="card-source">Source: Midjourney, anchored to <code>1fenixavatar1.png</code></div>
+    </div>
+
+    <!-- HERO #2 — biggest, real artifact UI work -->
+    <div class="card large">
+      <div class="card-pills">
+        <span class="pill capture">Capture</span>
+        <span class="pill cat">UI/UX</span>
+        <span class="pill product">kiranrao.ai</span>
+      </div>
+      <div class="card-title">Persona Picker System</div>
+      <div class="card-desc">Six-archetype visitor personalization. The whole on-site flow: picker UI, transition state, persona-themed homepage variants.</div>
+      <div class="card-thumb thumb-asset dark">[ live on site · screenshot capture + annotation needed ]</div>
+      <div class="card-source">Source: Annotated screenshots from kiranrao.ai</div>
+    </div>
+
+    <!-- WIDE — UI/UX -->
+    <div class="card wide">
+      <div class="card-pills">
+        <span class="pill capture">Capture</span>
+        <span class="pill cat">UI/UX</span>
+        <span class="pill product">Scannibal</span>
+      </div>
+      <div class="card-title">Scannibal — 12-Section Result Cards</div>
+      <div class="card-desc">The forensic case-file UI pattern: butler verdict, finding cards, cross-mode navigation. Captured across the 9 scan modes.</div>
+      <div class="card-thumb thumb-asset">[ TestFlight beta live · iOS screenshots needed ]</div>
+      <div class="card-source">Source: Screenshots from Scannibal iOS app</div>
+    </div>
+
+    <!-- WIDE — Motion -->
+    <div class="card wide">
+      <div class="card-pills">
+        <span class="pill motion">Motion</span>
+        <span class="pill capture">+ capture</span>
+        <span class="pill cat">Motion</span>
+        <span class="pill product">Scannibal</span>
+      </div>
+      <div class="card-title">Scannibal — Scan Sequence</div>
+      <div class="card-desc">Camera-up to butler-verdict, the full motion of a scan. Screen-recorded from the app, lightly edited.</div>
+      <div class="card-thumb thumb-todo">SCREEN RECORDING + EDIT</div>
+      <div class="card-source">Source: iOS screen recording + ~1hr edit pass</div>
+    </div>
+
+    <!-- STANDARD — Motion -->
+    <div class="card">
+      <div class="card-pills">
+        <span class="pill motion">Motion</span>
+        <span class="pill cat">Motion</span>
+        <span class="pill product">Fenix</span>
+      </div>
+      <div class="card-title">Fenix — Idle States</div>
+      <div class="card-desc">Breathing, blinking, thinking — the small motion that makes a character feel alive on the site.</div>
+      <div class="card-thumb thumb-todo">AFTER EFFECTS / LOTTIE</div>
+      <div class="card-source">Source: After Effects → Lottie</div>
+    </div>
+
+    <!-- STANDARD — AI Art -->
+    <div class="card">
+      <div class="card-pills">
+        <span class="pill mj">MJ</span>
+        <span class="pill cat">AI Art</span>
+        <span class="pill product">Scannibal</span>
+      </div>
+      <div class="card-title">Scannibal — Forensic Aesthetic Studies</div>
+      <div class="card-desc">Visual exploration for the dark butler / case-file world. Different aesthetic from kiranrao.ai entirely.</div>
+      <div class="card-thumb thumb-todo">MIDJOURNEY · 4–8 GENERATIONS</div>
+      <div class="card-source">Source: Midjourney, new aesthetic stack</div>
+    </div>
+
+    <!-- STANDARD — Music -->
+    <div class="card">
+      <div class="card-pills">
+        <span class="pill capture">Capture</span>
+        <span class="pill cat">Music / Voice</span>
+        <span class="pill product">Scannibal</span>
+      </div>
+      <div class="card-title">Scannibal — Butler Voice</div>
+      <div class="card-desc">ElevenLabs Adam voice in English + Spanish. Sample clips, side-by-side with the case-file UI.</div>
+      <div class="card-thumb thumb-asset dark">[ live in app · audio export needed ]</div>
+      <div class="card-source">Source: Existing ElevenLabs assets, exported</div>
+    </div>
+
+    <!-- STANDARD — Music -->
+    <div class="card">
+      <div class="card-pills">
+        <span class="pill voice">Voice</span>
+        <span class="pill cat">Music / Voice</span>
+        <span class="pill product">Fenix</span>
+      </div>
+      <div class="card-title">Fenix — Voice Exploration</div>
+      <div class="card-desc">Voice prototypes for the Fenix mascot. Warm, curious, distinct from the Scannibal butler.</div>
+      <div class="card-thumb thumb-todo">ELEVENLABS · ~30 MIN</div>
+      <div class="card-source">Source: ElevenLabs voice generation</div>
+    </div>
+
+    <!-- WIDE — Photography -->
+    <div class="card wide">
+      <div class="card-pills">
+        <span class="pill photo">Photo</span>
+        <span class="pill cat">Photography</span>
+        <span class="pill product">cross-cutting</span>
+      </div>
+      <div class="card-title">The Workshop Series</div>
+      <div class="card-desc">Photographs of the actual workspace where this stuff gets built. The desk, the tools, the books on the shelf — proof there's a workshop, not just a showroom.</div>
+      <div class="card-thumb thumb-todo">PHOTOGRAPHY · YOU SHOOT</div>
+      <div class="card-source">Source: iPhone + natural light, ~1 afternoon</div>
+    </div>
+
+    <!-- STANDARD — Photography -->
+    <div class="card">
+      <div class="card-pills">
+        <span class="pill photo">Photo</span>
+        <span class="pill cat">Photography</span>
+        <span class="pill product">DIA Fund</span>
+      </div>
+      <div class="card-title">DIA Fund — Pillar Photography</div>
+      <div class="card-desc">One image per pillar (hunger, animals, environment, children) — selected or commissioned to match the fund's tone.</div>
+      <div class="card-thumb thumb-todo">STOCK CURATION OR COMMISSION</div>
+      <div class="card-source">Source: Curated stock or photographer brief</div>
+    </div>
+
+    <!-- WIDE — Illustration -->
+    <div class="card wide">
+      <div class="card-pills">
+        <span class="pill mj">MJ</span>
+        <span class="pill cat">Illustration</span>
+        <span class="pill product">kiranrao.ai</span>
+      </div>
+      <div class="card-title">Mid-Century Site Studies</div>
+      <div class="card-desc">Saul Bass / Paul Rand-inspired exploration: how the site's visual world could feel if rendered in the mid-century editorial language. Series with stated POV.</div>
+      <div class="card-thumb thumb-todo">MIDJOURNEY · 4–6 GENERATIONS</div>
+      <div class="card-source">Source: Midjourney, mid-century aesthetic stack</div>
+    </div>
+
+    <!-- STANDARD — Illustration -->
+    <div class="card">
+      <div class="card-pills">
+        <span class="pill mj">MJ</span>
+        <span class="pill cat">Illustration</span>
+        <span class="pill product">cross-cutting</span>
+      </div>
+      <div class="card-title">Tech Archetype Characters</div>
+      <div class="card-desc">Carried over from the studio's existing placeholder. Character-driven illustrations of tech-world archetypes.</div>
+      <div class="card-thumb thumb-todo">MIDJOURNEY · SCOPE TBD</div>
+      <div class="card-source">Source: Midjourney, scope to be defined</div>
+    </div>
+
+  </div>
+
+  <div class="summary">
+    <h3>Asset Plan Summary</h3>
+    <div class="summary-grid">
+      <div class="summary-stat">
+        <div class="num">12</div>
+        <div class="label">Total projects in studio</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">4</div>
+        <div class="label">Capture-only (real artifacts exist)</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">4</div>
+        <div class="label">MJ work (sessions)</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">4</div>
+        <div class="label">Other production (motion, voice, photo)</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">4</div>
+        <div class="label">Products represented</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">7→6</div>
+        <div class="label">Studio mediums covered (3D parked)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <h4>Notes &amp; open questions</h4>
+    <p><strong>Layout:</strong> Bento grid shown here. Current studio.html uses Netflix-style horizontal scroll. Decide which to commit to before any code work.</p>
+    <p><strong>3D category:</strong> Parked entirely. No real 3D work to surface yet. Better to honestly omit than fill with weak placeholders.</p>
+    <p><strong>Captions:</strong> Each card here has 1–2 lines of description. The studio probably needs a longer "thinking" view per project — click into a card → process notes, prompt iterations, dead ends. That's a separate design decision.</p>
+    <p><strong>Hero pieces:</strong> Two large cards anchor the grid (Fenix Character Studies + Persona Picker System). One MJ-generated, one real artifact — sets the tone that this isn't just a generated-image gallery.</p>
+    <p><strong>Cross-product breadth:</strong> Pills show 4 products (kiranrao.ai, Fenix, Scannibal, DIA Fund) plus 2 cross-cutting. That's the range that wasn't on the original MJ list.</p>
+  </div>
+
+</div>
+</body>
+</html>

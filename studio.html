@@ -79,219 +79,103 @@
         }
 
         /* ============================================
-           NETFLIX-STYLE CATEGORY ROWS
+           STUDIO TILE GRID (front door)
            ============================================ */
-        .studio-content {
-            padding: 1.5rem 0 4rem;
-            max-width: 100%;
-            overflow: hidden;
+        .studio-tiles {
+            max-width: 1100px;
+            margin: 2.5rem auto 5rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
         }
 
-        .category-row {
-            margin-bottom: 2.5rem;
-        }
-
-        .category-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .category-title {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-
-        .category-count {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        /* Horizontal scroll container */
-        .category-scroll {
-            display: flex;
-            gap: 1.5rem;
-            overflow-x: auto;
-            overflow-y: hidden;
-            padding: 0 4rem 1rem;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-        .category-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* ============================================
-           CREATIVE CARD
-           ============================================ */
-        .creative-card {
-            flex: 0 0 280px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: var(--bg-primary);
-            overflow: hidden;
-            transition: border-color 0.2s ease, transform 0.15s ease;
-            cursor: default;
-            display: flex;
-            flex-direction: column;
-        }
-        .creative-card:hover {
-            border-color: var(--text-muted);
-            transform: translateY(-2px);
-        }
-
-        /* Featured card - first in each row (latest project) */
-        .creative-card:first-child {
-            flex: 0 0 380px;
-        }
-        .creative-card:first-child .creative-thumb {
-            height: 220px;
-        }
-        .creative-card:first-child .wf-creative-thumb-icon {
-            font-size: 3.5rem;
-        }
-        .creative-card:first-child .creative-name {
-            font-size: 1.05rem;
-        }
-
-        /* Card thumbnail */
-        .creative-thumb {
-            width: 100%;
-            height: 160px;
-            background: var(--bg-dark, #111);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .tile {
+            aspect-ratio: 1 / 1;
+            border-radius: 16px;
             overflow: hidden;
             position: relative;
-        }
-        [data-theme="light"] .creative-thumb {
-            background: #f5f5f5;
-        }
-        .wf-creative-thumb-icon {
-            font-size: 2.5rem;
-            opacity: 0.15;
-        }
-        .creative-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Status badge */
-        .creative-status {
-            position: absolute;
-            top: 0.6rem;
-            right: 0.6rem;
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            background: rgba(255,255,255,0.1);
-            color: var(--text-muted);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        [data-theme="light"] .creative-status {
-            background: rgba(0,0,0,0.06);
-        }
-        .creative-status.live {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-        }
-        [data-theme="light"] .creative-status.live {
-            background: rgba(16, 185, 129, 0.15);
-            color: #059669;
-        }
-        .creative-status.in-active-dev {
-            background: rgba(74, 158, 255, 0.2);
-            color: #4a9eff;
-        }
-        [data-theme="light"] .creative-status.in-active-dev {
-            background: rgba(37, 99, 235, 0.12);
-            color: #2563eb;
-        }
-        .creative-status.in-analysis {
-            background: rgba(251, 191, 36, 0.2);
-            color: #fbbf24;
-        }
-        [data-theme="light"] .creative-status.in-analysis {
-            background: rgba(217, 119, 6, 0.12);
-            color: #d97706;
-        }
-        .creative-status.on-hold {
-            background: rgba(249, 115, 22, 0.15);
-            color: #f97316;
-        }
-        [data-theme="light"] .creative-status.on-hold {
-            background: rgba(234, 88, 12, 0.12);
-            color: #ea580c;
-        }
-        .creative-status.backlog {
-            background: rgba(255,255,255,0.06);
-            color: var(--text-muted);
-        }
-        [data-theme="light"] .creative-status.backlog {
-            background: rgba(0,0,0,0.04);
-        }
-
-        /* Card body */
-        .creative-body {
-            padding: 1rem 1.25rem 1.25rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .creative-name {
-            font-size: 0.95rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            line-height: 1.3;
-            color: var(--text-primary);
-            margin-bottom: 0.4rem;
-        }
-
-        .creative-desc {
-            font-size: 0.8rem;
-            line-height: 1.55;
-            color: var(--text-secondary);
-            margin-bottom: 0.75rem;
-            flex: 1;
-        }
-
-        .creative-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-        }
-        .creative-tag {
-            font-size: 0.65rem;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            color: var(--text-secondary);
-            background: var(--bg-dark, #111);
+            text-decoration: none;
+            display: block;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 1px solid var(--border);
-            padding: 0.2rem 0.5rem;
-            border-radius: 500px;
         }
-        [data-theme="light"] .creative-tag {
-            background: #f0f0f0;
+        .tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+        }
+
+        .tile-art {
+            position: absolute;
+            inset: 0;
+        }
+
+        .tile-label {
+            position: absolute;
+            bottom: 1.4rem;
+            left: 1.4rem;
+            color: #FAF3E5;
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            z-index: 2;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* Placeholder gradients per tile (will be replaced by monster artwork) */
+        .tile-illustration .tile-art { background: linear-gradient(135deg, #C8843D, #B05D3C); }
+        .tile-motion       .tile-art { background: linear-gradient(135deg, #B05D3C, #2A2520); }
+        .tile-sound        .tile-art { background: linear-gradient(135deg, #4A6E6E, #2A2520); }
+        .tile-type         .tile-art { background: linear-gradient(135deg, #2A2520, #4A3F30); }
+        .tile-print        .tile-art { background: linear-gradient(135deg, #6B7747, #4A3F30); }
+        .tile-identity     .tile-art { background: linear-gradient(135deg, #FAF3E5, #C8843D); }
+
+        .tile-identity .tile-label {
+            color: #2A2520;
+            text-shadow: 0 2px 8px rgba(255,255,255,0.5);
+        }
+
+        /* "Coming soon" indicator on empty tiles */
+        .tile.tile-empty::after {
+            content: 'Coming soon';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            background: rgba(0,0,0,0.5);
+            color: #FAF3E5;
+            padding: 0.25rem 0.6rem;
+            border-radius: 100px;
+            font-weight: 600;
+            backdrop-filter: blur(6px);
+            z-index: 3;
+        }
+        .tile-identity.tile-empty::after {
+            background: rgba(255,255,255,0.6);
+            color: #2A2520;
+        }
+
+        /* "New" indicator on tiles with fresh content */
+        .tile.tile-has-content::after {
+            content: 'New';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            background: rgba(255, 255, 255, 0.95);
+            color: #2A2520;
+            padding: 0.25rem 0.6rem;
+            border-radius: 100px;
+            font-weight: 700;
+            z-index: 3;
         }
 
         /* ============================================
-           FOOTER
+           FOOTER (preserved)
            ============================================ */
         footer {
             border-top: 1px solid var(--border);
@@ -342,28 +226,6 @@
             transition: opacity 0.2s ease, transform 0.2s ease;
         }
         .footer-logo:hover { opacity: 1; transform: scale(1.05); }
-        .footer-meta {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-        .footer-meta-sep { opacity: 0.4; }
-        .version-number { letter-spacing: 0.02em; }
-        .last-updated { letter-spacing: -0.01em; }
-        .rss-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            transition: color 0.2s ease;
-        }
-        .rss-badge:hover { color: var(--text-primary); }
-        .rss-badge svg { opacity: 0.6; }
         .footer-copyright {
             font-size: 0.7rem;
             color: var(--text-muted);
@@ -372,82 +234,36 @@
         }
 
         /* ============================================
-           TOAST
-           ============================================ */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            padding: 0.75rem 1.5rem;
-            border-radius: 500px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            z-index: 9999;
-        }
-        .toast.visible {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        /* ============================================
            RESPONSIVE
            ============================================ */
+        @media (max-width: 1100px) {
+            .studio-tiles { max-width: 900px; padding: 0 1.5rem; gap: 1rem; }
+        }
         @media (max-width: 1024px) {
             .hero-title-area { padding: 5rem 3rem 1.5rem; }
-            .category-header { padding: 0 3rem; }
-            .category-scroll { padding: 0 3rem 1rem; }
             footer { padding: 3rem 3rem 2rem; }
         }
-
         @media (max-width: 768px) {
             .hero-title-area { padding: 4.5rem 1.5rem 1.5rem; }
-            .category-header { padding: 0 1.5rem; }
-            .category-scroll { padding: 0 1.5rem 1rem; }
-            .creative-card { flex: 0 0 240px; }
             footer { padding: 2.5rem 1.5rem 1.5rem; }
         }
-
+        @media (max-width: 700px) {
+            .studio-tiles {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 1rem;
+                gap: 0.75rem;
+                margin-top: 2rem;
+            }
+            .tile-label { font-size: 1.2rem; bottom: 1rem; left: 1rem; }
+            .tile.tile-empty::after,
+            .tile.tile-has-content::after {
+                top: 0.7rem; right: 0.7rem;
+                font-size: 0.55rem; padding: 0.2rem 0.5rem;
+            }
+        }
         @media (max-width: 480px) {
             .hero-title-area { padding: 4rem 1rem 1rem; }
-            .category-header { padding: 0 1rem; }
-            .category-scroll { padding: 0 1rem 1rem; gap: 0.75rem; }
-            .creative-card { flex: 0 0 220px; }
-            .creative-thumb { height: 130px; }
             footer { padding: 2rem 1rem 1.5rem; }
-        }
-
-        /* ============================================
-           LIGHT MODE OVERRIDES
-           ============================================ */
-        [data-theme="light"] .creative-card {
-            border-color: var(--border);
-            background: var(--bg-primary);
-        }
-        [data-theme="light"] .creative-card:hover {
-            border-color: var(--text-muted);
-        }
-        [data-theme="light"] .creative-thumb {
-            background: #f5f5f5;
-            border-color: var(--border);
-        }
-        [data-theme="light"] .creative-status {
-            background: rgba(0,0,0,0.06);
-            color: var(--text-muted);
-        }
-        [data-theme="light"] .creative-tag {
-            background: #f0f0f0;
-            color: var(--text-secondary);
-            border-color: var(--border);
-        }
-        [data-theme="light"] .social-icon.github:hover {
-            border-color: #333;
         }
     </style>
     <script src="gate.js"></script>
@@ -505,292 +321,42 @@
     <div class="subpage-hero">
         <div class="hero-title-area">
             <h1 class="subpage-hero-title">Studio</h1>
-            <p class="subpage-hero-tagline">My creative playground - art, video, and experiments born from curiosity</p>
+            <p class="subpage-hero-tagline">A workshop, not a showroom.</p>
         </div>
     </div>
 
-    <!-- Studio Content -->
-    <div class="studio-content" id="studio-content">
+    <!-- Tile grid -->
+    <div class="studio-tiles" id="studio-content">
 
-        <!-- 1. UI/UX Concepts -->
-        <div class="category-row">
-            <div class="category-header">
-                <h2 class="category-title">UI/UX Concepts</h2>
-                <span class="category-count">2 projects</span>
-            </div>
-            <div class="category-scroll" tabindex="0" role="region" aria-label="UI/UX Concepts projects">
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f3a8;</span>
-                        <span class="creative-status in-active-dev">In Active Dev</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Design System Companion</div>
-                        <div class="creative-desc">Interactive design system explorer showing components, color palettes, spacing scales, and live code previews - all in one place.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">Figma</span>
-                            <span class="creative-tag">React</span>
-                            <span class="creative-tag">Storybook</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f4bb;</span>
-                        <span class="creative-status in-analysis">In Analysis</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">AI Product Mockup Series</div>
-                        <div class="creative-desc">UI designs for AI tools: voice chat, code reviewer, design assistant. Fully interactive prototypes.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">Figma</span>
-                            <span class="creative-tag">Prototyping</span>
-                            <span class="creative-tag">AI Tools</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a href="studio-illustration.html" class="tile tile-illustration tile-has-content" aria-label="Illustration category">
+            <div class="tile-art"></div>
+            <div class="tile-label">Illustration</div>
+        </a>
 
-        <!-- 2. Motion Graphics -->
-        <div class="category-row">
-            <div class="category-header">
-                <h2 class="category-title">Motion Graphics</h2>
-                <span class="category-count">2 projects</span>
-            </div>
-            <div class="category-scroll" tabindex="0" role="region" aria-label="Motion Graphics projects">
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f3ac;</span>
-                        <span class="creative-status in-analysis">In Analysis</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">AI Explainer Series</div>
-                        <div class="creative-desc">Short animated videos breaking down how LLMs, RAG, and agents actually work. Kinetic typography and motion design.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">Runway ML</span>
-                            <span class="creative-tag">After Effects</span>
-                            <span class="creative-tag">Motion</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x2728;</span>
-                        <span class="creative-status backlog">Backlog</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Brand Animation Suite</div>
-                        <div class="creative-desc">Animated logo intro, icon set, and motion design system for a fictional SaaS product. The full brand-in-motion package.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">After Effects</span>
-                            <span class="creative-tag">Keyframes</span>
-                            <span class="creative-tag">Branding</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a href="studio-motion.html" class="tile tile-motion tile-empty" aria-label="Motion category">
+            <div class="tile-art"></div>
+            <div class="tile-label">Motion</div>
+        </a>
 
-        <!-- 3. AI Art & Designs -->
-        <div class="category-row">
-            <div class="category-header">
-                <h2 class="category-title">AI Art & Designs</h2>
-                <span class="category-count">2 projects</span>
-            </div>
-            <div class="category-scroll" tabindex="0" role="region" aria-label="AI Art and Designs projects">
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f30c;</span>
-                        <span class="creative-status in-active-dev">In Active Dev</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Future of Work Series</div>
-                        <div class="creative-desc">AI-generated images exploring how we work with AI. Consistent style, thoughtful themes, actual artistic purpose.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">Midjourney</span>
-                            <span class="creative-tag">Prompt Engineering</span>
-                            <span class="creative-tag">Curation</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f5bc;</span>
-                        <span class="creative-status backlog">Backlog</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Design Token Illustrations</div>
-                        <div class="creative-desc">Illustrations for UI states: error, loading, empty, success. One cohesive style. Ready for real products.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">AI Art</span>
-                            <span class="creative-tag">Figma</span>
-                            <span class="creative-tag">Design Systems</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a href="studio-sound.html" class="tile tile-sound tile-empty" aria-label="Sound category">
+            <div class="tile-art"></div>
+            <div class="tile-label">Sound</div>
+        </a>
 
-        <!-- 4. Music & Soundscapes -->
-        <div class="category-row">
-            <div class="category-header">
-                <h2 class="category-title">Music & Soundscapes</h2>
-                <span class="category-count">2 projects</span>
-            </div>
-            <div class="category-scroll" tabindex="0" role="region" aria-label="Music and Soundscapes projects">
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f3b5;</span>
-                        <span class="creative-status in-analysis">In Analysis</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Podcast Theme Suite</div>
-                        <div class="creative-desc">Podcast intros and transitions. Professional, indie, energetic, ambient moods. AI-generated and polished.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">Suno AI</span>
-                            <span class="creative-tag">Audio Production</span>
-                            <span class="creative-tag">Music</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f30a;</span>
-                        <span class="creative-status backlog">Backlog</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Ambient Soundscape Collection</div>
-                        <div class="creative-desc">Atmospheric background tracks for different moods - deep focus, creative brainstorm, wind-down. Generated and refined with AI tools.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">AI Music</span>
-                            <span class="creative-tag">Audio Engineering</span>
-                            <span class="creative-tag">Curation</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a href="studio-type.html" class="tile tile-type tile-empty" aria-label="Type category">
+            <div class="tile-art"></div>
+            <div class="tile-label">Type</div>
+        </a>
 
-        <!-- 5. 3D & Renders -->
-        <div class="category-row">
-            <div class="category-header">
-                <h2 class="category-title">3D & Renders</h2>
-                <span class="category-count">2 projects</span>
-            </div>
-            <div class="category-scroll" tabindex="0" role="region" aria-label="3D and Renders projects">
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f4e6;</span>
-                        <span class="creative-status backlog">Backlog</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Product Visualisation Series</div>
-                        <div class="creative-desc">3D renders of imagined tech products - sleek hardware, future interfaces - with professional lighting and multiple angles.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">Spline</span>
-                            <span class="creative-tag">3D Modeling</span>
-                            <span class="creative-tag">Rendering</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f30d;</span>
-                        <span class="creative-status backlog">Backlog</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Low-Poly Worlds</div>
-                        <div class="creative-desc">Stylized low-polygon scenes - mountains, cities, oceans - rendered as collectible digital art pieces.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">Blender</span>
-                            <span class="creative-tag">Low-Poly</span>
-                            <span class="creative-tag">Digital Art</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a href="studio-print.html" class="tile tile-print tile-empty" aria-label="Print category">
+            <div class="tile-art"></div>
+            <div class="tile-label">Print</div>
+        </a>
 
-        <!-- 6. Photography & Styling -->
-        <div class="category-row">
-            <div class="category-header">
-                <h2 class="category-title">Photography & Styling</h2>
-                <span class="category-count">2 projects</span>
-            </div>
-            <div class="category-scroll" tabindex="0" role="region" aria-label="Photography and Styling projects">
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f4f7;</span>
-                        <span class="creative-status in-analysis">In Analysis</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Color Psychology Study</div>
-                        <div class="creative-desc">Curated photo series exploring how color influences mood and perception. Before/after AI color grading with written analysis.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">Photography</span>
-                            <span class="creative-tag">Color Theory</span>
-                            <span class="creative-tag">AI Grading</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f307;</span>
-                        <span class="creative-status backlog">Backlog</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Street Stories</div>
-                        <div class="creative-desc">Documentary-style street photography capturing everyday moments. Raw, unposed, honest. Each image paired with a short narrative.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">Street Photography</span>
-                            <span class="creative-tag">Storytelling</span>
-                            <span class="creative-tag">Editorial</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 7. Digital Illustrations -->
-        <div class="category-row">
-            <div class="category-header">
-                <h2 class="category-title">Digital Illustrations</h2>
-                <span class="category-count">2 projects</span>
-            </div>
-            <div class="category-scroll" tabindex="0" role="region" aria-label="Digital Illustrations projects">
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f468;&#x200d;&#x1f4bc;</span>
-                        <span class="creative-status backlog">Backlog</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Tech Archetype Characters</div>
-                        <div class="creative-desc">Illustrated character portraits personifying tech roles - the DevOps engineer, the PM, the Designer - in a consistent, playful style.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">Midjourney</span>
-                            <span class="creative-tag">Character Design</span>
-                            <span class="creative-tag">Illustration</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="creative-card">
-                    <div class="creative-thumb">
-                        <span class="wf-creative-thumb-icon">&#x1f5fa;</span>
-                        <span class="creative-status backlog">Backlog</span>
-                    </div>
-                    <div class="creative-body">
-                        <div class="creative-name">Concept Environments</div>
-                        <div class="creative-desc">Illustrated environments for imaginary places - a floating library, an underwater data center, a cloud city. World-building through art.</div>
-                        <div class="creative-tags">
-                            <span class="creative-tag">AI Art</span>
-                            <span class="creative-tag">World Building</span>
-                            <span class="creative-tag">Concept Art</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a href="studio-identity.html" class="tile tile-identity tile-empty" aria-label="Identity category">
+            <div class="tile-art"></div>
+            <div class="tile-label">Identity</div>
+        </a>
 
     </div>
 
@@ -824,12 +390,8 @@
         <p class="footer-copyright">&copy; 2026 Kiran Rao. All rights reserved.</p>
     </footer>
 
-    <div class="toast" id="toast"></div>
-
     <script>
-        // ============================================
-        // MOBILE MENU
-        // ============================================
+        // Mobile menu
         const menuButton = document.getElementById('menuButton');
         const closeMenu = document.getElementById('closeMenu');
         const mobileMenu = document.getElementById('mobileMenu');
@@ -856,27 +418,22 @@
             }
         });
 
-        // ============================================
-        // THEME TOGGLE
-        // ============================================
+        // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
-            document.querySelector('.moon-icon').style.display = 'none';
-            document.querySelector('.sun-icon').style.display = 'block';
+            document.querySelector('.wf-moon-icon').style.display = 'none';
+            document.querySelector('.wf-sun-icon').style.display = 'block';
         }
         themeToggle.addEventListener('click', () => {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             document.documentElement.setAttribute('data-theme', isLight ? '' : 'light');
             localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
-            document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+            document.querySelector('.wf-moon-icon').style.display = isLight ? 'block' : 'none';
+            document.querySelector('.wf-sun-icon').style.display = isLight ? 'none' : 'block';
         });
 
-        // ============================================
-        // MISC
-        // ============================================
         window.addEventListener('load', () => {
             document.body.classList.remove('preload');
         });
