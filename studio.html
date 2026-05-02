@@ -108,6 +108,20 @@
         .tile-art {
             position: absolute;
             inset: 0;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        /* Bottom-up gradient overlay for label readability over the monster art */
+        .tile-art::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                rgba(0,0,0,0.55) 0%,
+                rgba(0,0,0,0.15) 35%,
+                rgba(0,0,0,0) 55%);
+            pointer-events: none;
         }
 
         .tile-label {
@@ -119,21 +133,16 @@
             font-weight: 700;
             letter-spacing: -0.02em;
             z-index: 2;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
         }
 
-        /* Placeholder gradients per tile (will be replaced by monster artwork) */
-        .tile-illustration .tile-art { background: linear-gradient(135deg, #C8843D, #B05D3C); }
-        .tile-motion       .tile-art { background: linear-gradient(135deg, #B05D3C, #2A2520); }
-        .tile-sound        .tile-art { background: linear-gradient(135deg, #4A6E6E, #2A2520); }
-        .tile-type         .tile-art { background: linear-gradient(135deg, #2A2520, #4A3F30); }
-        .tile-print        .tile-art { background: linear-gradient(135deg, #6B7747, #4A3F30); }
-        .tile-identity     .tile-art { background: linear-gradient(135deg, #FAF3E5, #C8843D); }
-
-        .tile-identity .tile-label {
-            color: #2A2520;
-            text-shadow: 0 2px 8px rgba(255,255,255,0.5);
-        }
+        /* Monster artwork per tile */
+        .tile-illustration .tile-art { background-image: url('images/studio/tiles/illustration-monster.webp'); }
+        .tile-motion       .tile-art { background-image: url('images/studio/tiles/motion-monster.webp'); }
+        .tile-sound        .tile-art { background-image: url('images/studio/tiles/sound-monster.webp'); }
+        .tile-type         .tile-art { background-image: url('images/studio/tiles/type-monster.webp'); }
+        .tile-print        .tile-art { background-image: url('images/studio/tiles/print-monster.webp'); }
+        .tile-identity     .tile-art { background-image: url('images/studio/tiles/identity-monster.webp'); }
 
         /* "Coming soon" indicator on empty tiles */
         .tile.tile-empty::after {
@@ -144,17 +153,13 @@
             font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 0.07em;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             color: #FAF3E5;
             padding: 0.25rem 0.6rem;
             border-radius: 100px;
             font-weight: 600;
             backdrop-filter: blur(6px);
             z-index: 3;
-        }
-        .tile-identity.tile-empty::after {
-            background: rgba(255,255,255,0.6);
-            color: #2A2520;
         }
 
         /* "New" indicator on tiles with fresh content */
