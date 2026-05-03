@@ -412,6 +412,13 @@
       _arrivalContext = null;
     }
 
+    // Inline context — adapter set this when the visitor clicked an inline
+    // section prompt. Tells the agent which section the question is grounded in.
+    if (_inlineContext) {
+      payload.inline_context = _inlineContext;
+      _inlineContext = null;
+    }
+
     var fullResponse = '';
 
     fetch(agentUrl, {
@@ -757,12 +764,18 @@
   // Included in the next agent request, then cleared.
   var _arrivalContext = null;
 
+  // Inline context — set by content-adapter when visitor clicks an inline
+  // section prompt. Tells the agent which page section the question is
+  // grounded in. Included in the next agent request, then cleared.
+  var _inlineContext = null;
+
   window.FenixCore = {
     init: initCore,
     fenixState: fenixState,
     isContinuation: _isContinuation,
     autoOpenPanel: _autoOpenPanel,
     setArrivalContext: function (ctx) { _arrivalContext = ctx; },
+    setInlineContext: function (ctx) { _inlineContext = ctx; },
     sendToAgent: function (text, messageArea) {
       sendToAgent(text, messageArea, _activeAdapter);
     },

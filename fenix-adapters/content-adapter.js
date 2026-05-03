@@ -408,7 +408,8 @@
       for (var i = 0; i < customPrompts.length; i++) {
         var promptEl = customPrompts[i];
         var promptText = promptEl.getAttribute('data-fenix-prompt');
-        buildInlinePrompt(promptEl, promptText, 'after');
+        var customSectionEl = findEnclosingSection(promptEl);
+        buildInlinePrompt(promptEl, promptText, 'after', buildSectionContext(customSectionEl));
       }
       return;
     }
@@ -425,9 +426,44 @@
           divider = divider.nextElementSibling;
         }
         var insertAfter = (divider && divider.classList.contains('section-divider')) ? divider : current.element;
-        buildInlinePrompt(insertAfter, promptText, 'after');
+        buildInlinePrompt(insertAfter, promptText, 'after', buildSectionContext(current.element));
       }
     }
+  }
+
+  // Walk up from an element to find the nearest [data-section-id] ancestor.
+  function findEnclosingSection(node) {
+    while (node && node !== document.body) {
+      if (node.hasAttribute && node.hasAttribute('data-section-id')) return node;
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  // Build a context payload describing the section the visitor was reading
+  // when they clicked the inline prompt. Sent to the agent so it can answer
+  // grounded in the right context instead of asking "which section?".
+  function buildSectionContext(sectionEl) {
+    if (!sectionEl) {
+      return { page_title: PAGE_TITLE, page_type: PAGE_TYPE };
+    }
+    var titleEl = sectionEl.querySelector('.section-title, h2, h3');
+    var snippet = '';
+    var paragraphs = sectionEl.querySelectorAll('p');
+    for (var i = 0; i < paragraphs.length && snippet.length < 500; i++) {
+      var pText = paragraphs[i].textContent.trim();
+      if (pText) snippet += pText + ' ';
+    }
+    snippet = snippet.trim();
+    if (snippet.length > 500) snippet = snippet.substring(0, 500) + '…';
+    return {
+      section_id: sectionEl.getAttribute('data-section-id'),
+      section_title: titleEl ? titleEl.textContent.trim() : null,
+      section_type: sectionEl.getAttribute('data-section-type') || null,
+      page_title: PAGE_TITLE,
+      page_type: PAGE_TYPE,
+      snippet: snippet || null
+    };
   }
 
   function generatePromptBetween(current, next) {
@@ -443,7 +479,7 @@
     return 'Have a question about ' + current.title + '?';
   }
 
-  function buildInlinePrompt(referenceEl, text, position) {
+  function buildInlinePrompt(referenceEl, text, position, sectionContext) {
     var prompt = el('div', 'fenix-inline-prompt');
     prompt.innerHTML =
       '<img class="fenix-inline-icon" src="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" alt="Fenix">' +
@@ -455,6 +491,11 @@
       // Wait for panel to open, then send as a message
       setTimeout(function () {
         FC.addVisitorMessage(messageArea, text);
+        // Hand the agent the section context this question is grounded in,
+        // so it can answer specifically instead of asking which section.
+        if (sectionContext && FC.setInlineContext) {
+          FC.setInlineContext(sectionContext);
+        }
         FC.sendToAgent(text, messageArea);
       }, panelOpen ? 50 : 450);
     });
