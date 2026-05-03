@@ -480,13 +480,6 @@
         .pg-meta-body a { color: var(--scn-amber); text-decoration: none; }
         .pg-meta-body a:hover { text-decoration: underline; }
 
-        /* Back link override (slightly tighter than global) */
-        .pg-back {
-            max-width: 980px;
-            margin: 1.5rem auto 0;
-            padding: 0 2rem;
-        }
-
         /* Error state */
         .pg-error {
             border: 1px solid var(--scn-danger);
@@ -531,13 +524,12 @@
     </ul>
 </div>
 
-<!-- Back link -->
-<div class="pg-back">
-    <a href="../../../madlab.html" class="back-link">
-        <span class="back-link-arrow">&larr;</span>
-        <span>Back to MadLab</span>
-    </a>
-</div>
+<!-- Back link (uses global .back-link utility — placed directly in body so its
+     viewport-relative left margin matches every other detail page on the site) -->
+<a href="../../../madlab.html" class="back-link">
+    <span class="back-link-arrow">&larr;</span>
+    <span>Back to MadLab</span>
+</a>
 
 <!-- Hero -->
 <header class="pg-hero">
