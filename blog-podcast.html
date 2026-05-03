@@ -62,365 +62,224 @@
 
     <style>
         /* ============================================
-           BLOG & PODCAST - PAGE STYLES
+           BLOG & PODCAST — Pinterest masonry, text-led wallpaper cards
+           Family pattern strip (~25%) + body (~75%, the main act)
+           Mid-century / Bauhaus palette, muted, supporting only
            ============================================ */
-
-        /* Hero Banner */
         .subpage-hero {
             width: 100%;
-            position: relative;
-            overflow: hidden;
             background: var(--bg-primary);
             border-bottom: 1px solid var(--border);
         }
-
-        .hero-title-area {
-            text-align: center;
-            padding: 6rem 4rem 2rem;
-        }
+        .hero-title-area { text-align: center; padding: 5rem 4rem 1.5rem; }
         .subpage-hero-title {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: -0.04em;
-            line-height: 1.1;
-            margin-bottom: 0.5rem;
+            font-weight: 700; color: var(--text-primary);
+            letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 0.5rem;
         }
         .subpage-hero-tagline {
             font-size: clamp(1rem, 2vw, 1.2rem);
-            font-weight: 400;
-            color: var(--text-secondary);
-            letter-spacing: -0.01em;
-            margin-bottom: 0;
+            font-weight: 400; color: var(--text-secondary);
+            letter-spacing: -0.01em; margin-bottom: 0;
         }
 
-        /* ============================================
-           TAB BAR
-           ============================================ */
-        .tab-bar {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 2rem 4rem 0;
-            background: var(--bg-primary);
+        /* Filter pills */
+        .filters {
+            max-width: 1300px; margin: 1.5rem auto 0;
+            padding: 0 2rem;
+            display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center;
         }
-
-        .tab-button {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            padding: 0.6rem 1.8rem;
-            border-radius: 500px;
-            border: 1.5px solid var(--border);
+        .filter {
             background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem; border-radius: 100px;
+            font-size: 0.78rem; color: var(--text-secondary);
+            cursor: pointer; font-weight: 500;
+            transition: border-color 0.15s, color 0.15s, background 0.15s;
         }
-        .tab-button:hover {
-            border-color: var(--text-secondary);
-            color: var(--text-primary);
-        }
-        .tab-button.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
+        .filter:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+        .filter.active {
+            background: var(--text-primary); color: var(--bg-primary);
             border-color: var(--text-primary);
         }
 
-        /* ============================================
-           TAB CONTENT
-           ============================================ */
-        .tab-content {
-            padding: 2.5rem 4rem 4rem;
-            max-width: 1120px;
-            margin: 0 auto;
+        /* Masonry */
+        .masonry {
+            max-width: 1300px;
+            margin: 2rem auto 5rem;
+            padding: 0 2rem;
+            column-count: 3; column-gap: 1.25rem;
         }
+        @media (max-width: 1100px) { .masonry { column-count: 2; max-width: 900px; } }
+        @media (max-width: 700px)  { .masonry { column-count: 1; padding: 0 1rem; } }
 
-        .tab-panel {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .tab-panel.active {
-            display: block;
-            opacity: 1;
-        }
-
-        /* ============================================
-           CONTENT CARDS
-           ============================================ */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .content-card {
+        /* Card — text dominant, pattern supporting */
+        .post-card {
+            display: block; width: 100%;
+            margin-bottom: 1.25rem;
+            break-inside: avoid;
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.75rem;
-            background: transparent;
-            transition: border-color 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
+            border-radius: 14px;
+            overflow: hidden;
+            text-decoration: none; color: inherit;
+            transition: border-color 0.2s ease,
+                        transform 0.32s var(--ease-bounce),
+                        box-shadow 0.22s ease;
+            cursor: pointer;
+            position: relative;
+            background: var(--bg-primary);
         }
-        .content-card:hover {
+        .post-card:hover {
             border-color: var(--text-muted);
+            transform: translateY(-5px) scale(1.012);
+            box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+        }
+        .post-card.hidden { display: none; }
+
+        /* Pattern strip — 16:5 (~25% of card height) */
+        .pattern-strip {
+            aspect-ratio: 16 / 5;
+            position: relative;
+            overflow: hidden;
+            display: flex; align-items: flex-end;
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .pattern-img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            pointer-events: none;
+        }
+        /* V4 vignette — left dark gradient so the category pill reads cleanly
+           on cream-dominant patterns. Used for: Demystified, Explainer, Strategy,
+           Innovation, Story, Case Study. Skipped for Tactics, Trend. */
+        .strip-vignette::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to right, rgba(20,18,15,0.22) 0%, rgba(20,18,15,0) 35%);
+            pointer-events: none; z-index: 1;
+        }
+        .pattern-cat {
+            font-size: 0.62rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.12em;
+            padding: 0.35rem 0.75rem;
+            border-radius: 100px;
+            background: rgba(20,18,15,0.45);
+            backdrop-filter: blur(6px);
+            color: rgba(248,243,230,0.95);
+            position: relative; z-index: 2;
         }
 
-        .card-meta {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            flex-wrap: wrap;
+        /* Text body — the main act */
+        .post-body {
+            padding: 1.4rem 1.4rem 1.5rem;
         }
-        .card-date {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            letter-spacing: -0.01em;
-        }
-        .card-badge {
-            font-size: 0.7rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            background: rgba(240, 230, 211, 0.06);
-            color: var(--text-secondary);
-        }
-        [data-theme="light"] .card-badge {
-            background: rgba(10, 10, 10, 0.05);
-        }
-
-        .card-title {
-            font-size: 1.15rem;
-            font-weight: 600;
+        .post-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            line-height: 1.22;
+            letter-spacing: -0.025em;
             color: var(--text-primary);
-            letter-spacing: -0.02em;
-            line-height: 1.3;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
         }
-
-        .card-excerpt {
+        .post-excerpt {
             font-size: 0.9rem;
+            line-height: 1.6;
             color: var(--text-secondary);
-            line-height: 1.6;
-            letter-spacing: -0.01em;
             margin-bottom: 1rem;
-            flex-grow: 1;
+            letter-spacing: -0.005em;
         }
-
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-bottom: 1rem;
-        }
-        .card-tag {
-            font-size: 0.65rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            padding: 0.2rem 0.55rem;
-            border-radius: 4px;
-            background: rgba(240, 230, 211, 0.06);
+        .post-date {
+            font-size: 0.72rem;
             color: var(--text-muted);
-        }
-        [data-theme="light"] .card-tag {
-            background: rgba(10, 10, 10, 0.05);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-weight: 500;
         }
 
-        .card-link {
+        /* ============================================
+           8 FAMILY PATTERN BACKGROUNDS
+           Mid-century / Bauhaus palette, muted
+           Each ties to a WordWeaver angle cluster
+           ============================================ */
+        .bg-demystified { background: linear-gradient(135deg, #2c3e6e 0%, #1f2a4a 100%); }   /* Bauhaus blue */
+        .bg-explainer   { background: linear-gradient(135deg, #4a6e6c 0%, #2e4a48 100%); }   /* Muted teal */
+        .bg-tactics     { background: linear-gradient(135deg, #8a3e30 0%, #5a2620 100%); }   /* Brick red */
+        .bg-strategy    { background: linear-gradient(135deg, #a87a30 0%, #6b4d1d 100%); }   /* Mustard */
+        .bg-innovation  { background: linear-gradient(135deg, #b56630 0%, #7a3e1a 100%); }   /* Burnt orange */
+        .bg-trend       { background: linear-gradient(135deg, #6b7a4a 0%, #45502d 100%); }   /* Olive */
+        .bg-story       { background: linear-gradient(135deg, #9c4d33 0%, #6e321f 100%); }   /* Terracotta */
+        .bg-case-study  { background: linear-gradient(135deg, #a07467 0%, #6e4a3f 100%); }   /* Dusty rose */
+
+        /* Backlog footnote */
+        .backlog-note {
+            max-width: 1300px;
+            margin: 0 auto 4rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid var(--text-muted);
+            border-radius: 6px;
             font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            letter-spacing: -0.01em;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            text-decoration: none;
-            transition: opacity 0.2s ease;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-left: 2rem; margin-right: 2rem;
         }
-        .card-link:hover {
-            opacity: 0.7;
-        }
-        .card-link svg {
-            width: 14px;
-            height: 14px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+        .backlog-note strong { color: var(--text-primary); }
+        [data-theme="light"] .backlog-note { background: rgba(10,10,10,0.03); }
+        @media (max-width: 1100px) { .backlog-note { margin-left: 1.5rem; margin-right: 1.5rem; } }
+        @media (max-width: 700px)  { .backlog-note { margin-left: 1rem; margin-right: 1rem; padding: 1rem 1.1rem; } }
 
-        /* Podcast-specific: duration badge */
-        .card-duration {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        .card-duration svg {
-            width: 12px;
-            height: 12px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        /* Episode number */
-        .episode-number {
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 0.3rem;
-        }
-
-        /* ============================================
-           EMPTY STATE (for future use)
-           ============================================ */
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-muted);
-        }
-        .empty-state p {
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        /* ============================================
-           FOOTER (matches career-highlights)
-           ============================================ */
+        /* Footer */
         footer {
             border-top: 1px solid var(--border);
-            padding: 3rem 4rem 2rem;
-            text-align: center;
+            padding: 3rem 4rem 2rem; text-align: center;
         }
-
-        .footer-social {
-            margin-bottom: 2rem;
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+        .footer-social { margin-bottom: 2rem; }
+        .social-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
         .social-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            border: 2.5px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            text-decoration: none;
+            width: 42px; height: 42px;
+            border-radius: 50%; border: 2.5px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-secondary); text-decoration: none;
             transition: border-color 0.2s ease, opacity 0.2s ease;
         }
-        .social-icon svg {
-            width: 18px;
-            height: 18px;
-        }
-        .social-icon:hover {
-            opacity: 0.8;
-        }
+        .social-icon svg { width: 18px; height: 18px; }
+        .social-icon:hover { opacity: 0.8; }
         .social-icon.linkedin:hover { border-color: #0A66C2; }
-        .social-icon.github:hover { border-color: #f0e6d3; }
-        .social-icon.youtube:hover { border-color: #FF0000; }
-        .social-icon.flickr:hover { border-color: #FF0084; }
-        .social-icon.spotify:hover { border-color: #1DB954; }
+        .social-icon.github:hover   { border-color: #f0e6d3; }
+        .social-icon.youtube:hover  { border-color: #FF0000; }
+        .social-icon.flickr:hover   { border-color: #FF0084; }
+        .social-icon.spotify:hover  { border-color: #1DB954; }
         .social-icon.substack:hover { border-color: #FF6719; }
-
         [data-theme="light"] .social-icon.github:hover { border-color: #333; }
-
         .footer-site-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
+            display: flex; flex-direction: column; align-items: center;
+            gap: 0.75rem; margin-bottom: 1.5rem;
         }
         .footer-logo {
-            width: 36px;
-            height: auto;
-            opacity: 0.6;
-            cursor: pointer;
+            width: 36px; height: auto; opacity: 0.6; cursor: pointer;
             transition: opacity 0.2s ease, transform 0.2s ease;
         }
-        .footer-logo:hover {
-            opacity: 1;
-            transform: scale(1.05);
-        }
-        .footer-meta {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-        .footer-meta-sep {
-            opacity: 0.4;
-        }
-        .version-number {
-            letter-spacing: 0.02em;
-        }
-        .last-updated {
-            letter-spacing: -0.01em;
-        }
-        .rss-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            transition: color 0.2s ease;
-        }
-        .rss-badge:hover {
-            color: var(--text-primary);
-        }
-        .rss-badge svg {
-            opacity: 0.6;
-        }
-
+        .footer-logo:hover { opacity: 1; transform: scale(1.05); }
         .footer-copyright {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            opacity: 0.5;
-            letter-spacing: 0.02em;
+            font-size: 0.7rem; color: var(--text-muted);
+            opacity: 0.5; letter-spacing: 0.02em;
         }
 
-        /* ============================================
-           TOAST
-           ============================================ */
+        /* Toast */
         .toast {
             position: fixed;
-            bottom: 2rem;
-            left: 50%;
+            bottom: 2rem; left: 50%;
             transform: translateX(-50%) translateY(20px);
             background: var(--text-primary);
             color: var(--bg-primary);
             padding: 0.75rem 1.5rem;
             border-radius: 500px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.85rem; font-weight: 500;
             letter-spacing: -0.01em;
-            opacity: 0;
-            pointer-events: none;
+            opacity: 0; pointer-events: none;
             transition: all 0.3s ease;
             z-index: 9999;
         }
@@ -429,115 +288,31 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* ============================================
-           RESPONSIVE
-           ============================================ */
         @media (max-width: 1024px) {
-            .hero-title-area {
-                padding: 5rem 3rem 1.5rem;
-            }
-            .tab-bar {
-                padding: 1.5rem 3rem 0;
-            }
-            .tab-content {
-                padding: 2rem 3rem 3rem;
-            }
-            .content-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            footer {
-                padding: 3rem 3rem 2rem;
-            }
+            .hero-title-area { padding: 4.5rem 3rem 1.5rem; }
+            footer { padding: 3rem 3rem 2rem; }
         }
-
         @media (max-width: 768px) {
-            .hero-title-area {
-                padding: 4.5rem 1.5rem 1.5rem;
-            }
-            .tab-bar {
-                padding: 1.5rem 1.5rem 0;
-            }
-            .tab-content {
-                padding: 1.5rem 1.5rem 3rem;
-            }
-            .content-grid {
-                grid-template-columns: 1fr;
-                gap: 1.25rem;
-            }
-            footer {
-                padding: 2.5rem 1.5rem 1.5rem;
-            }
+            .hero-title-area { padding: 4rem 1.5rem 1.5rem; }
+            footer { padding: 2.5rem 1.5rem 1.5rem; }
         }
-
         @media (max-width: 480px) {
-            .hero-title-area {
-                padding: 4rem 1rem 1rem;
-            }
-            .tab-bar {
-                padding: 1.25rem 1rem 0;
-            }
-            .tab-content {
-                padding: 1.25rem 1rem 2rem;
-            }
-            .content-card {
-                padding: 1.25rem;
-            }
-            footer {
-                padding: 2rem 1rem 1.5rem;
-            }
-        }
-
-        /* ============================================
-           LIGHT MODE OVERRIDES
-           ============================================ */
-        [data-theme="light"] .tab-button {
-            background: transparent;
-            border-color: var(--border);
-            color: var(--text-secondary);
-        }
-        [data-theme="light"] .tab-button:hover {
-            border-color: var(--text-secondary);
-            color: var(--text-primary);
-        }
-        [data-theme="light"] .tab-button.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
-        }
-        [data-theme="light"] .content-card {
-            border-color: var(--border);
-        }
-        [data-theme="light"] .content-card:hover {
-            border-color: var(--text-muted);
-        }
-        [data-theme="light"] .social-icon.github:hover {
-            border-color: #333;
+            .hero-title-area { padding: 3.5rem 1rem 1rem; }
+            footer { padding: 2rem 1rem 1.5rem; }
         }
     </style>
     <script src="gate.js"></script>
 </head>
 <body class="preload">
-    <a href="#content" class="skip-link">Skip to main content</a>
+    <a href="#blog-content" class="skip-link">Skip to main content</a>
 
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <div class="nav-right">
                 <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
-                    <svg aria-hidden="true" class="wf-moon-icon" viewBox="0 0 24 24">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display: none;">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
+                    <svg aria-hidden="true" class="wf-moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                 </button>
                 <button id="menuButton" class="menu-button" aria-label="Open menu">Menu</button>
             </div>
@@ -547,10 +322,7 @@
     <main>
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="mobile-menu">
-        <div class="mobile-menu-header">
-            <div></div>
-            <button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button>
-        </div>
+        <div class="mobile-menu-header"><div></div><button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button></div>
         <ul class="mobile-nav-links">
             <li><a href="index.html">↘ Home</a></li>
             <li><a href="how-id-built-it.html">↘ How I'd've Built It</a></li>
@@ -568,148 +340,110 @@
     <!-- Hero -->
     <div class="subpage-hero">
         <div class="hero-title-area">
-            <h1 class="subpage-hero-title">Blog & Podcast</h1>
+            <h1 class="subpage-hero-title">Blog &amp; Podcast</h1>
             <p class="subpage-hero-tagline">Long-form thinking on product, AI, and leadership</p>
         </div>
     </div>
 
-    <!-- Tab Bar -->
-    <div class="tab-bar" role="tablist">
-        <button class="tab-button active" role="tab" aria-selected="true" aria-controls="blogPanel" id="blogTab" data-tab="blog">Blog</button>
-        <button class="tab-button" role="tab" aria-selected="false" aria-controls="podcastPanel" id="podcastTab" data-tab="podcast">Podcast</button>
+    <!-- Filter pills (only families with active posts) -->
+    <div class="filters" id="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="demystified">Demystified</button>
+        <button class="filter" data-filter="explainer">Explainer</button>
+        <button class="filter" data-filter="case-study">Case Study</button>
     </div>
 
-    <!-- Content -->
-    <div class="tab-content" id="content">
+    <!-- Post masonry -->
+    <div class="masonry" id="blog-content">
 
-        <!-- Blog Panel -->
-        <div class="tab-panel active" role="tabpanel" id="blogPanel" aria-labelledby="blogTab">
-            <div class="content-grid">
-                <!-- NEW-POST-CARD -->
-
-                <article class="content-card">
-                    <div class="card-meta">
-                        <span class="card-date">5 Mar 2026</span>
-                        <span class="card-badge">Demystified</span>
-                    </div>
-                    <h2 class="card-title">Demystifying ACH Payments</h2>
-                    <p class="card-excerpt">A payments PM's guide to ACH: the unglamorous network moving $80 trillion a year. What every PM should know about the rail everyone overlooks.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">Demystified</span>
-                        <span class="card-tag">ACH</span>
-                        <span class="card-tag">Payments</span>
-                        <span class="card-tag">Fintech</span>
-                    </div>
-                    <a href="blog/demystifying-ach.html" class="card-link">Read <svg aria-hidden="true" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                </article>
-
-                <article class="content-card">
-                    <div class="card-meta">
-                        <span class="card-date">28 Feb 2026</span>
-                        <span class="card-badge">Deep Dive</span>
-                    </div>
-                    <h2 class="card-title">Demystifying Apple Pay</h2>
-                    <p class="card-excerpt">A Payment PM's guide to building Apple Pay. What it takes to deploy 'just tap and go'. Why users stick with Apple Pay even when alternatives exist.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">Demystified</span>
-                        <span class="card-tag">Payments</span>
-                        <span class="card-tag">Digital Wallets</span>
-                        <span class="card-tag">Architecture</span>
-                    </div>
-                    <a href="blog/demystifying-apple-pay.html" class="card-link">Read <svg aria-hidden="true" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                </article>
-
-                <article class="content-card">
-                    <div class="card-meta">
-                        <span class="card-date">17 Feb 2026</span>
-                        <span class="card-badge">Case Study</span>
-                    </div>
-                    <h2 class="card-title">The Bank That Got 213,000 Employees to Actually Use AI — By Not Calling It AI</h2>
-                    <p class="card-excerpt">95% of AI pilots fail. Bank of America succeeded by starting simple. Password resets first. Let people see value before pushing the full tool.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">AI</span>
-                        <span class="card-tag">Change Management</span>
-                        <span class="card-tag">Fintech</span>
-                    </div>
-                    <a href="blog/jpmorgan-llm-suite-ai-adoption.html" class="card-link">Read <svg aria-hidden="true" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                </article>
-
-                <article class="content-card">
-                    <div class="card-meta">
-                        <span class="card-date">19 Dec 2024</span>
-                        <span class="card-badge">Deep Dive</span>
-                    </div>
-                    <h2 class="card-title">The Invisible Rail: How 75% of Your 'Digital' Payments Still Run on a 50-Year-Old System</h2>
-                    <p class="card-excerpt">A payments PM's guide to the ACH network — the 50-year-old system quietly moving $80 trillion a year while everyone chases the latest payment trends.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">Deep Dive</span>
-                        <span class="card-tag">ACH</span>
-                        <span class="card-tag">Payments</span>
-                        <span class="card-tag">Infrastructure</span>
-                    </div>
-                    <a href="blog/invisible-rail-ach-payments.html" class="card-link">Read <svg aria-hidden="true" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                </article>
-
-
+        <!-- Demystifying ACH — Demystified Series family -->
+        <a href="blog/demystifying-ach.html" class="post-card" data-cat="demystified">
+            <div class="pattern-strip bg-demystified strip-vignette">
+                <img class="pattern-img" src="images/blog-patterns/demystified-blog.png" alt="">
+                <span class="pattern-cat">Demystified</span>
             </div>
-        </div>
-
-        <!-- Podcast Panel -->
-        <div class="tab-panel" role="tabpanel" id="podcastPanel" aria-labelledby="podcastTab">
-            <div class="content-grid">
-
-
+            <div class="post-body">
+                <h2 class="post-title">Demystifying ACH Payments</h2>
+                <p class="post-excerpt">A payments PM's guide to ACH: the unglamorous network moving $80 trillion a year. What every PM should know about the rail everyone overlooks.</p>
+                <div class="post-date">5 Mar 2026</div>
             </div>
-        </div>
+        </a>
 
+        <!-- Demystifying Apple Pay — Demystified Series family -->
+        <a href="blog/demystifying-apple-pay.html" class="post-card" data-cat="demystified">
+            <div class="pattern-strip bg-demystified strip-vignette">
+                <img class="pattern-img" src="images/blog-patterns/demystified-blog.png" alt="">
+                <span class="pattern-cat">Demystified</span>
+            </div>
+            <div class="post-body">
+                <h2 class="post-title">Demystifying Apple Pay</h2>
+                <p class="post-excerpt">A payment PM's guide to building Apple Pay. What it takes to deploy 'just tap and go'. Why users stick with Apple Pay even when alternatives exist.</p>
+                <div class="post-date">28 Feb 2026</div>
+            </div>
+        </a>
+
+        <!-- Bank of America AI — Case Study family -->
+        <a href="blog/jpmorgan-llm-suite-ai-adoption.html" class="post-card" data-cat="case-study">
+            <div class="pattern-strip bg-case-study strip-vignette">
+                <img class="pattern-img" src="images/blog-patterns/casestudy-blog.png" alt="">
+                <span class="pattern-cat">Case Study</span>
+            </div>
+            <div class="post-body">
+                <h2 class="post-title">The Bank That Got 213,000 Employees to Actually Use AI — By Not Calling It AI</h2>
+                <p class="post-excerpt">95% of AI pilots fail. Bank of America succeeded by starting simple. Password resets first. Let people see value before pushing the full tool.</p>
+                <div class="post-date">17 Feb 2026</div>
+            </div>
+        </a>
+
+        <!-- Invisible Rail — Explainer family -->
+        <a href="blog/invisible-rail-ach-payments.html" class="post-card" data-cat="explainer">
+            <div class="pattern-strip bg-explainer strip-vignette">
+                <img class="pattern-img" src="images/blog-patterns/explainer-blog.png" alt="">
+                <span class="pattern-cat">Explainer</span>
+            </div>
+            <div class="post-body">
+                <h2 class="post-title">The Invisible Rail: How 75% of Your 'Digital' Payments Still Run on a 50-Year-Old System</h2>
+                <p class="post-excerpt">A payments PM's guide to the ACH network — the 50-year-old system quietly moving $80 trillion a year while everyone chases the latest payment trends.</p>
+                <div class="post-date">19 Dec 2024</div>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- Backlog footnote -->
+    <div class="backlog-note">
+        <strong>What's not here yet:</strong> podcast episodes are in the works — long-form conversations with founders and product leaders about the problems they're actually solving. New essay families (Tactics, Strategy, Innovation, Trend, Story) will show up as posts ship.
     </div>
 
     </main>
 
     <!-- Footer -->
     <footer>
-        <!-- Social Icons -->
         <div class="footer-social">
             <div class="social-links">
                 <a href="https://linkedin.com/in/kirangorapalli" class="wf-social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
-                    </svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
                 </a>
                 <a href="https://github.com/iamkiranrao" class="wf-social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
-                    </svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
                 </a>
                 <a href="https://youtube.com/@kirangorapalli" class="wf-social-icon youtube" title="YouTube" target="_blank" rel="noopener noreferrer">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
-                    </svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
                 </a>
                 <a href="https://flickr.com/photos/kirangorapalli" class="wf-social-icon flickr" title="Flickr" target="_blank" rel="noopener noreferrer">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                        <circle cx="7" cy="12" r="5"></circle>
-                        <circle cx="17" cy="12" r="5" opacity="0.45"></circle>
-                    </svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5" opacity="0.45"></circle></svg>
                 </a>
                 <a href="https://open.spotify.com/user/kirangorapalli" class="wf-social-icon spotify" title="Spotify" target="_blank" rel="noopener noreferrer">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path>
-                    </svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></svg>
                 </a>
                 <a href="https://substack.com/@kirangorapalli" class="wf-social-icon substack" title="Substack" target="_blank" rel="noopener noreferrer">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                        <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path>
-                    </svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path></svg>
                 </a>
             </div>
         </div>
-
-        <!-- Site Info -->
         <div class="footer-site-info">
-            <img src="images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">        </div>
-
-        <!-- Copyright -->
+            <img src="images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
+        </div>
         <p class="footer-copyright">&copy; 2026 Kiran Rao. All rights reserved.</p>
     </footer>
 
@@ -717,125 +451,53 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // ============================================
-        // TAB SWITCHING
-        // ============================================
-        const tabs = document.querySelectorAll('.tab-button');
-        const panels = document.querySelectorAll('.tab-panel');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.dataset.tab;
-
-                // Update tab states
-                tabs.forEach(t => {
-                    t.classList.remove('active');
-                    t.setAttribute('aria-selected', 'false');
-                });
-                tab.classList.add('active');
-                tab.setAttribute('aria-selected', 'true');
-
-                // Update panel states with fade
-                panels.forEach(p => {
-                    p.classList.remove('active');
-                });
-
-                const targetPanel = document.getElementById(target + 'Panel');
-                // Small delay for fade effect
-                requestAnimationFrame(() => {
-                    targetPanel.classList.add('active');
-                });
-            });
-        });
-
-        // Keyboard navigation for tabs
-        document.querySelector('.tab-bar').addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-                const currentTab = document.querySelector('.tab-button.active');
-                const tabList = Array.from(tabs);
-                const currentIndex = tabList.indexOf(currentTab);
-                let nextIndex;
-
-                if (e.key === 'ArrowRight') {
-                    nextIndex = (currentIndex + 1) % tabList.length;
-                } else {
-                    nextIndex = (currentIndex - 1 + tabList.length) % tabList.length;
-                }
-
-                tabList[nextIndex].focus();
-                tabList[nextIndex].click();
-            }
-        });
-
-        // ============================================
-        // MOBILE MENU
-        // ============================================
+        // Mobile menu
         const menuButton = document.getElementById('menuButton');
         const closeMenu = document.getElementById('closeMenu');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
-
-        menuButton.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-
+        menuButton.addEventListener('click', () => { mobileMenu.classList.add('active'); document.body.style.overflow = 'hidden'; });
+        closeMenu.addEventListener('click', () => { mobileMenu.classList.remove('active'); document.body.style.overflow = ''; });
+        mobileLinks.forEach(link => link.addEventListener('click', () => { mobileMenu.classList.remove('active'); document.body.style.overflow = ''; }));
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
+                mobileMenu.classList.remove('active'); document.body.style.overflow = '';
             }
         });
 
-        // ============================================
-        // THEME TOGGLE
-        // ============================================
+        // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
-            document.querySelector('.moon-icon').style.display = 'none';
-            document.querySelector('.sun-icon').style.display = 'block';
+            document.querySelector('.wf-moon-icon').style.display = 'none';
+            document.querySelector('.wf-sun-icon').style.display = 'block';
         }
         themeToggle.addEventListener('click', () => {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             document.documentElement.setAttribute('data-theme', isLight ? '' : 'light');
             localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
-            document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+            document.querySelector('.wf-moon-icon').style.display = isLight ? 'block' : 'none';
+            document.querySelector('.wf-sun-icon').style.display = isLight ? 'none' : 'block';
         });
 
-        // ============================================
-        // TOAST
-        // ============================================
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('visible');
-            setTimeout(() => toast.classList.remove('visible'), 3000);
-        }
+        window.addEventListener('load', () => document.body.classList.remove('preload'));
+        document.querySelector('.footer-logo')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-        // ============================================
-        // MISC
-        // ============================================
-        window.addEventListener('load', () => {
-            document.body.classList.remove('preload');
-        });
-
-        document.querySelector('.footer-logo')?.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Filter pills
+        document.querySelectorAll('.filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const want = btn.dataset.filter;
+                document.querySelectorAll('.post-card').forEach(card => {
+                    if (want === 'all' || card.dataset.cat === want) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
         });
     </script>
     <script src="persona-system.js"></script>
