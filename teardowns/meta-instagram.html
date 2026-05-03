@@ -98,39 +98,94 @@
             width: 100%; height: 100%;
             fill: currentColor;
         }
+
+        /* Mini 6-step process bookmark — tells reader this teardown follows
+           the documented method. Static visual, not interactive. */
+        .process-mini {
+            max-width: 700px; margin: 1.5rem auto 0;
+            display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+        .process-mini-step {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+        .process-mini-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            font-size: 0.55rem; font-weight: 700;
+            color: var(--text-secondary);
+        }
+        .process-mini-arrow { color: var(--text-muted); font-size: 0.6rem; opacity: 0.6; }
+
+        /* Next-teardown CTA — kills the dead-end at page bottom */
+        .next-teardown-section {
+            max-width: 1100px;
+            margin: 2rem auto 4rem;
+            padding: 0 2rem;
+        }
+        .next-teardown-card {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 2rem;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem 2rem;
+            background: var(--bg-primary);
+            text-decoration: none; color: inherit;
+            transition: border-color 0.2s ease,
+                        transform 0.32s var(--ease-bounce);
+        }
+        .next-teardown-card:hover {
+            border-color: var(--text-muted);
+            transform: translateY(-3px);
+        }
+        .next-teardown-text { flex: 1; }
+        .next-teardown-eyebrow {
+            font-size: 0.65rem; font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+        .next-teardown-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.2rem;
+        }
+        .next-teardown-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .next-teardown-logo {
+            width: 80px; height: 60px;
+            color: var(--text-muted);
+            transition: color 0.25s ease, transform 0.25s var(--ease-bounce);
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .next-teardown-logo svg { width: 100%; height: 100%; fill: currentColor; }
+        .next-teardown-card:hover .next-teardown-logo {
+            color: var(--brand, var(--text-primary));
+            transform: scale(1.08);
+        }
+        @media (max-width: 600px) {
+            .next-teardown-card { flex-direction: column; align-items: flex-start; }
+            .next-teardown-logo { width: 60px; height: 40px; }
+        }
+
         .subpage-hero-tagline {
             font-size: clamp(1rem, 2vw, 1.2rem);
             font-weight: 400;
             color: var(--text-secondary);
             letter-spacing: -0.01em;
             margin-bottom: 0;
-        }
-
-        /* Breadcrumb */
-        .breadcrumb {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 1.5rem 4rem 0;
-        }
-        .breadcrumb a {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            text-decoration: none;
-            letter-spacing: 0.01em;
-            transition: color 0.2s ease;
-        }
-        .breadcrumb a:hover { color: var(--text-primary); }
-        .breadcrumb span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin: 0 0.4rem;
-            opacity: 0.5;
-        }
-        .breadcrumb .current {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text-secondary);
         }
 
         /* ============================================
@@ -734,7 +789,6 @@
 
         @media (max-width: 1024px) {
             .hero-title-area { padding: 5rem 3rem 1.5rem; }
-            .breadcrumb { padding: 1.25rem 3rem 0; }
             .teardown { padding: 1.5rem 3rem 3rem; }
             .kkb-grid { grid-template-columns: 1fr; }
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
@@ -743,7 +797,6 @@
 
         @media (max-width: 768px) {
             .hero-title-area { padding: 4.5rem 1.5rem 1.5rem; }
-            .breadcrumb { padding: 1rem 1.5rem 0; }
             .teardown { padding: 1.25rem 1.5rem 3rem; }
             .persona-card { flex-direction: column; gap: 0.75rem; }
             .journey-stages {
@@ -762,7 +815,6 @@
 
         @media (max-width: 480px) {
             .hero-title-area { padding: 4rem 1rem 1rem; }
-            .breadcrumb { padding: 0.75rem 1rem 0; }
             .teardown { padding: 1rem 1rem 2rem; }
             footer { padding: 2rem 1rem 1.5rem; }
         }
@@ -906,18 +958,22 @@
             </div>
             <h1 class="subpage-hero-title">Instagram</h1>
             <p class="subpage-hero-tagline">How the shift from chronological to algorithmic changed what the feed feels like - and what a user-choice model could unlock</p>
-        </div>
-    </div>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a href="../how-id-built-it.html">How I'd've Built It</a>
-        <span>/</span>
-        <a href="meta.html">Meta</a>
-        <span>/</span>
-        <span class="current">Instagram</span>
-        <br>
-        <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem; font-weight: 400;">Last updated: March 2026</p>
+            <!-- Mini 6-step process bookmark — what this teardown covers -->
+            <div class="process-mini" aria-label="This teardown follows the 6-step product method">
+                <span class="process-mini-step"><span class="process-mini-num">1</span>Pain</span>
+                <span class="process-mini-arrow">→</span>
+                <span class="process-mini-step"><span class="process-mini-num">2</span>Persona</span>
+                <span class="process-mini-arrow">→</span>
+                <span class="process-mini-step"><span class="process-mini-num">3</span>JTBD</span>
+                <span class="process-mini-arrow">→</span>
+                <span class="process-mini-step"><span class="process-mini-num">4</span>KKB</span>
+                <span class="process-mini-arrow">→</span>
+                <span class="process-mini-step"><span class="process-mini-num">5</span>Wireframe</span>
+                <span class="process-mini-arrow">→</span>
+                <span class="process-mini-step"><span class="process-mini-num">6</span>KPIs</span>
+            </div>
+        </div>
     </div>
 
     <!-- Glossary -->
@@ -1529,6 +1585,20 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- Next teardown CTA — kills the dead-end -->
+    <div class="next-teardown-section">
+        <a href="geico-mobile-app.html" class="next-teardown-card" style="--brand: #003366;">
+            <div class="next-teardown-text">
+                <div class="next-teardown-eyebrow">Next teardown →</div>
+                <div class="next-teardown-title">GEICO Mobile App</div>
+                <div class="next-teardown-desc">A lookup tool in a resolution world — and the 9-year gap that needs closing.</div>
+            </div>
+            <div class="next-teardown-logo">
+                <svg role="img" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-label="GEICO"><text x="0" y="20" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.02em">GEICO</text></svg>
+            </div>
+        </a>
     </div>
 
     <!-- Footer -->

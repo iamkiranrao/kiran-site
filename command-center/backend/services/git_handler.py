@@ -157,23 +157,28 @@ class GitHandler:
             f'</svg>'
         )
 
-    def _generate_company_card(self, company: str, company_slug: str, product: str) -> str:
+    def _generate_company_card(
+        self, company: str, company_slug: str, product: str, l3_filename: Optional[str] = None
+    ) -> str:
         """Auto-generate a company card for how-id-built-it.html grid.
 
         New card structure (May 2026): logo-dominant with --brand CSS variable
         for the hover color reveal. Pinterest masonry layout in the parent.
 
-        Routing: defaults to L2 hub (teardowns/{company_slug}.html). For
-        single-subject companies (the common case for new teardowns), Direction
-        B says we should link directly to L3 — but that requires knowing if
-        more teardowns will be added later. Safer default: L2. If the company
-        only ever ships one teardown, the L1 card href can be manually
-        adjusted to point straight to L3, and the orphaned L2 page can stay
-        in place for SEO/bookmarks.
+        Smart routing (Direction B):
+        - First teardown for a company: href points DIRECTLY to L3
+          (teardowns/{l3_filename}). This is the single-subject case.
+        - When a 2nd teardown for the same company gets published,
+          _update_existing_company_card() rewrites the href to point to the
+          L2 hub instead (teardowns/{company_slug}.html), and the L2 hub
+          page accumulates the products.
+
+        If l3_filename is not provided (legacy callers), defaults to L2 hub.
         """
         brand_color = self.COMPANY_BRAND.get(company_slug, "#888888")
         logo_svg = self._load_company_logo_svg(company_slug, company)
-        return f"""            <a href="teardowns/{company_slug}.html" class="company-card" style="--brand: {brand_color};">
+        href = f"teardowns/{l3_filename}" if l3_filename else f"teardowns/{company_slug}.html"
+        return f"""            <a href="{href}" class="company-card" style="--brand: {brand_color};">
                 <div class="company-logo">
                     {logo_svg}
                 </div>
@@ -727,11 +732,13 @@ class GitHandler:
 </body>
 </html>"""
 
-    def _update_existing_company_card(self, grid_html: str, company: str, product: str) -> str:
-        """Add a new product tag to an existing company card and bump the count."""
+    def _update_existing_company_card(
+        self, grid_html: str, company: str, company_slug: str, product: str
+    ) -> str:
+        """Add a new product tag to an existing company card, bump the count,
+        and (Direction B) rewrite the href to L2 hub when the company
+        transitions from single-subject to multi-subject."""
         # Find the company card section
-        company_lower = company.lower()
-        # Look for the card that links to this company's tier 2 page
         card_pattern = rf'(<!-- {re.escape(company)}[^>]*-->.*?</a>)'
         match = re.search(card_pattern, grid_html, re.DOTALL | re.IGNORECASE)
         if not match:
@@ -739,26 +746,39 @@ class GitHandler:
 
         card_html = match.group(0)
 
-        # Add product tag if not already present
-        if product not in card_html:
-            new_tag = f'<span class="company-product-tag">{product}</span>'
-            card_html = card_html.replace(
-                '</div>\n                </div>\n            </a>',
-                f'{new_tag}\n                    </div>\n                </div>\n            </a>',
+        # Skip if product already on the card
+        if product in card_html:
+            return grid_html
+
+        # 1. Insert new product tag inside .company-products
+        new_tag = f'<span class="company-product-tag">{product}</span>'
+        card_html = card_html.replace(
+            '</div>\n                </div>\n            </a>',
+            f'{new_tag}\n                    </div>\n                </div>\n            </a>',
+        )
+
+        # 2. Bump the teardown count (case-insensitive — supports both old
+        #    "X teardown" and new "X Teardown · Live" structures)
+        count_match = re.search(r'(\d+)(\s+[Tt]eardowns?)', card_html)
+        new_count = None
+        if count_match:
+            old_count = int(count_match.group(1))
+            new_count = old_count + 1
+            # Preserve original capitalization of "Teardown" and pluralize
+            t_word = count_match.group(2).rstrip('s').rstrip()  # base word
+            new_word = t_word + ('s' if new_count > 1 else '')
+            card_html = card_html[:count_match.start()] + f'{new_count} {new_word.lstrip()}' + card_html[count_match.end():]
+
+        # 3. Direction B routing: if now multi-subject (>= 2), rewrite href to L2 hub
+        if new_count is not None and new_count >= 2:
+            card_html = re.sub(
+                r'href="teardowns/[^"]+"',
+                f'href="teardowns/{company_slug}.html"',
+                card_html,
+                count=1,
             )
 
-            # Update teardown count
-            count_match = re.search(r'(\d+) teardown', card_html)
-            if count_match:
-                old_count = int(count_match.group(1))
-                new_count = old_count + 1
-                card_html = card_html.replace(
-                    f'{old_count} teardown',
-                    f'{new_count} teardown{"s" if new_count > 1 else ""}',
-                )
-
-            grid_html = grid_html[:match.start()] + card_html + grid_html[match.end():]
-
+        grid_html = grid_html[:match.start()] + card_html + grid_html[match.end():]
         return grid_html
 
     async def publish_teardown(
@@ -801,11 +821,12 @@ class GitHandler:
 
             if company_has_card:
                 # Company exists — add new product tag to existing card
-                grid_html = self._update_existing_company_card(grid_html, company, product)
+                # (also rewrites href to L2 hub if transitioning to multi-subject)
+                grid_html = self._update_existing_company_card(grid_html, company, company_slug, product)
             else:
-                # New company — generate and insert card
+                # New company — generate card with L3-direct routing (Direction B)
                 if not company_card_html:
-                    company_card_html = self._generate_company_card(company, company_slug, product)
+                    company_card_html = self._generate_company_card(company, company_slug, product, l3_filename=filename)
 
                 insert_marker = '<!-- NEW-COMPANY-CARD -->'
                 if insert_marker in grid_html:
