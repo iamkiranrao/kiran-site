@@ -29,6 +29,22 @@
     /* Easing curves */
     --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);  /* Spring overshoot — for hover lifts on cards */
     --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);       /* Material-style smooth — for non-bouncy transitions */
+
+    /* Evaluator + Fenix sidepanel vars (dark-mode values).
+       Originally lived in evaluator-styles.css but the Fenix sidepanel
+       runs on every page (blog, teardowns, etc.) — and those pages don't
+       load evaluator-styles.css. Hoisted here so the panel theme works
+       site-wide. Light-mode overrides in [data-theme="light"] below. */
+    --ev-bg-card: #141414;
+    --ev-bg-primary: #0a0a0a;
+    --ev-text-primary: #f0e6d3;
+    --ev-text-secondary: #c8bba8;
+    --ev-text-muted: #5a5347;
+    --ev-border: #222222;
+    --ev-border-light: #2a2a2a;
+    --ev-accent: #7B9ACC;
+    --ev-accent-glow: rgba(123, 154, 204, 0.15);
+    --ev-accent-border: rgba(123, 154, 204, 0.3);
 }
 
 /* ============================================
@@ -52,8 +68,13 @@
     border-radius: 100px;
     margin: 1.25rem 0 0 4rem;
     transition: border-color 0.2s, color 0.2s;
-    background: transparent;
+    background: var(--bg-primary);
     width: fit-content;
+    /* Lift above the position:fixed nav (z-index 1000) so clicks register.
+       Without this the back-link sits visually below the nav and clicks hit
+       the nav, not the link. Affects all pages using the .back-link utility. */
+    position: relative;
+    z-index: 1001;
 }
 .back-link:hover {
     border-color: var(--text-primary);
@@ -82,6 +103,18 @@
     --border: #c5c0b8;
     --border-light: #d5d0c9;
     --shadow: rgba(0, 0, 0, 0.08);
+
+    /* Evaluator + Fenix sidepanel light-mode overrides */
+    --ev-bg-card: #ffffff;
+    --ev-bg-primary: #f5f3f0;
+    --ev-text-primary: #1a1a1a;
+    --ev-text-secondary: #4a4a4a;
+    --ev-text-muted: #888888;
+    --ev-border: #e0e0e0;
+    --ev-border-light: #ebebeb;
+    --ev-accent: #5a7ba8;
+    --ev-accent-glow: rgba(90, 123, 168, 0.12);
+    --ev-accent-border: rgba(90, 123, 168, 0.3);
 }
 
 /* scroll-behavior handled in JS for nav offset support */
