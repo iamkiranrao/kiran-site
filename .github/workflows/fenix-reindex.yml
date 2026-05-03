@@ -21,10 +21,10 @@ jobs:
 
     steps:
       - name: Checkout site content
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Checkout fenix-backend scripts
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: iamkiranrao/fenix-backend
           token: ${{ secrets.FENIX_BACKEND_PAT }}
