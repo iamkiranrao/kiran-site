@@ -700,7 +700,7 @@ async def deploy_post(session_id: str):
     # ── Auto-generate card HTML for blog-podcast.html ──
     card_html = state.get("card_html")
     if not card_html:
-        card_html = _generate_blog_card(html_content, slug)
+        card_html = _generate_blog_card(html_content, slug, state)
 
     # ── Auto-update fenix-index.json ──
     _update_fenix_index_for_blog(html_content, slug)
@@ -728,7 +728,92 @@ async def deploy_post(session_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Deploy failed: {str(e)}")
 
-def _generate_blog_card(html_content: str, slug: str) -> str:
+# ── Family pattern wiring (May 2026) ──
+# Maps WordWeaver angle → family pattern that ships in blog-podcast.html cards.
+# See docs/Website/Blog/BLOG-PATTERN-PROMPT-KIT.md for the full rationale.
+ANGLE_TO_FAMILY = {
+    # Explainer family — clarifying, structural posts
+    "Explainers": "explainer",
+    "Breakdowns": "explainer",
+    "Implications": "explainer",
+    # Tactics family — practical how-to
+    "Tactics": "tactics",
+    # Strategy family — long-term thinking
+    "Strategies": "strategy",
+    "Surprising Strategies": "strategy",
+    # Innovation family — what's possible
+    "Innovation": "innovation",
+    "Opportunities": "innovation",
+    # Trend family — directional / market scanning
+    "Latest Trends": "trend",
+    "Threats": "trend",
+    # Story family — narrative arcs
+    "Success Stories": "story",
+    "Failure Stories": "story",
+    "Underdog Stories": "story",
+    "Cultural Implications": "story",
+    # Case Study family — concrete examples
+    "Case Studies": "case-study",
+    "Use Cases": "case-study",
+}
+
+# Families that get V1 (pure image, no vignette) — pill lands on a dark area.
+# All other families get V4 (small left vignette for pill contrast).
+V1_FAMILIES = {"tactics", "trend"}
+
+# Display labels for the .pattern-cat pill
+FAMILY_LABELS = {
+    "demystified": "Demystified",
+    "explainer": "Explainer",
+    "tactics": "Tactics",
+    "strategy": "Strategy",
+    "innovation": "Innovation",
+    "trend": "Trend",
+    "story": "Story",
+    "case-study": "Case Study",
+}
+
+
+def _detect_family(state: Optional[dict], tags: list, title: str) -> str:
+    """Pick the family pattern for a post.
+
+    Priority:
+    1. WordWeaver session series — if it starts with "Demystifying", use Demystified family.
+    2. WordWeaver session angle — look up in ANGLE_TO_FAMILY.
+    3. Legacy fallback — parse from post tags/title (for posts without WordWeaver state).
+    Default: explainer.
+    """
+    # 1. Series check — Demystified franchise
+    if state:
+        series = (state.get("series") or "").strip()
+        if series.lower().startswith("demystifying"):
+            return "demystified"
+        # 2. Angle lookup
+        angle = (state.get("angle") or "").strip()
+        if angle and angle in ANGLE_TO_FAMILY:
+            return ANGLE_TO_FAMILY[angle]
+
+    # 3. Legacy fallback — detect from tags/title
+    tag_lower = [t.lower() for t in tags]
+    title_lower = title.lower()
+    if "demystified" in tag_lower or title_lower.startswith("demystifying"):
+        return "demystified"
+    if "case study" in tag_lower or "case-study" in tag_lower:
+        return "case-study"
+    if "story" in tag_lower or "stories" in tag_lower:
+        return "story"
+    if "tactics" in tag_lower:
+        return "tactics"
+    if "strategy" in tag_lower:
+        return "strategy"
+    if "innovation" in tag_lower:
+        return "innovation"
+    if "trend" in tag_lower or "trends" in tag_lower:
+        return "trend"
+    return "explainer"
+
+
+def _generate_blog_card(html_content: str, slug: str, state: Optional[dict] = None) -> str:
     import re as _re
     from datetime import datetime as _dt
 
@@ -754,31 +839,23 @@ def _generate_blog_card(html_content: str, slug: str) -> str:
     else:
         display_date = _dt.now().strftime("%-d %b %Y")
 
-    # Determine badge from tags
-    badge = "Deep Dive"
-    tag_lower = [t.lower() for t in tags]
-    if "demystified" in tag_lower:
-        badge = "Demystified"
-    elif "case study" in tag_lower or "case-study" in tag_lower:
-        badge = "Case Study"
-    elif "essay" in tag_lower:
-        badge = "Essay"
-
-    tags_html = "\n".join(f'                        <span class="card-tag">{t}</span>' for t in tags[:4])
+    # Resolve family pattern, treatment class, and label
+    family = _detect_family(state, tags, title)
+    family_label = FAMILY_LABELS.get(family, family.title())
+    vignette_class = "" if family in V1_FAMILIES else " strip-vignette"
 
     return f"""
-                <article class="content-card">
-                    <div class="card-meta">
-                        <span class="card-date">{display_date}</span>
-                        <span class="card-badge">{badge}</span>
-                    </div>
-                    <h2 class="card-title">{title}</h2>
-                    <p class="card-excerpt">{description}</p>
-                    <div class="card-tags">
-{tags_html}
-                    </div>
-                    <a href="blog/{slug}.html" class="card-link">Read <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                </article>
+        <a href="blog/{slug}.html" class="post-card" data-cat="{family}">
+            <div class="pattern-strip bg-{family}{vignette_class}">
+                <img class="pattern-img" src="images/blog-patterns/{family}-blog.png" alt="">
+                <span class="pattern-cat">{family_label}</span>
+            </div>
+            <div class="post-body">
+                <h2 class="post-title">{title}</h2>
+                <p class="post-excerpt">{description}</p>
+                <div class="post-date">{display_date}</div>
+            </div>
+        </a>
 """
 
 def _update_fenix_index_for_blog(html_content: str, slug: str):
