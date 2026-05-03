@@ -728,25 +728,9 @@
         /* ============================================
            RESPONSIVE
            ============================================ */
-        /* Bouncy hover propagation (May 2026) — matches the rest of the site */
-        .persona-card,
-        .journey-stage-card,
-        .kkb-column,
-        .wireframe-box,
-        .kpi-card {
-            transition: border-color 0.2s ease,
-                        transform 0.32s var(--ease-bounce),
-                        box-shadow 0.22s ease;
-        }
-        .persona-card:hover,
-        .journey-stage-card:hover,
-        .kkb-column:hover,
-        .wireframe-box:hover,
-        .kpi-card:hover {
-            border-color: var(--text-muted);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        }
+        /* L3 internal cards (persona/journey-stage/KKB/wireframe/KPI) are
+           informational, not clickable — no bouncy hover. The bouncy
+           treatment lives on truly interactive cards (L1, L2, blog, MadLab). */
 
         @media (max-width: 1024px) {
             .hero-title-area { padding: 5rem 3rem 1.5rem; }
