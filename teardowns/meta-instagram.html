@@ -111,7 +111,25 @@
             font-size: 0.65rem;
             color: var(--text-muted);
             letter-spacing: 0.02em;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0.2rem 0.4rem;
+            border-radius: 100px;
+            transition: color 0.2s ease, background 0.2s ease;
         }
+        a.process-mini-step:hover {
+            color: var(--text-primary);
+            background: rgba(240, 230, 211, 0.08);
+        }
+        a.process-mini-step:hover .process-mini-num {
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+        [data-theme="light"] a.process-mini-step:hover {
+            background: rgba(10, 10, 10, 0.05);
+        }
+        /* Offset anchor jumps from the sticky nav */
+        .teardown-section { scroll-margin-top: 5rem; }
         .process-mini-num {
             display: inline-flex; align-items: center; justify-content: center;
             width: 16px; height: 16px;
@@ -959,19 +977,19 @@
             <h1 class="subpage-hero-title">Instagram</h1>
             <p class="subpage-hero-tagline">How the shift from chronological to algorithmic changed what the feed feels like - and what a user-choice model could unlock</p>
 
-            <!-- Mini 6-step process bookmark — what this teardown covers -->
-            <div class="process-mini" aria-label="This teardown follows the 6-step product method">
-                <span class="process-mini-step"><span class="process-mini-num">1</span>Pain</span>
+            <!-- Mini 6-step process bookmark — clickable jumps to matching section -->
+            <div class="process-mini" aria-label="Jump to section. This teardown follows the 6-step product method.">
+                <a class="process-mini-step" href="#section-01" title="Discovery"><span class="process-mini-num">1</span>Pain</a>
                 <span class="process-mini-arrow">→</span>
-                <span class="process-mini-step"><span class="process-mini-num">2</span>Persona</span>
+                <a class="process-mini-step" href="#section-01" title="Discovery"><span class="process-mini-num">2</span>Persona</a>
                 <span class="process-mini-arrow">→</span>
-                <span class="process-mini-step"><span class="process-mini-num">3</span>JTBD</span>
+                <a class="process-mini-step" href="#section-01" title="Discovery"><span class="process-mini-num">3</span>JTBD</a>
                 <span class="process-mini-arrow">→</span>
-                <span class="process-mini-step"><span class="process-mini-num">4</span>KKB</span>
+                <a class="process-mini-step" href="#section-02" title="Keep / Kill / Build"><span class="process-mini-num">4</span>KKB</a>
                 <span class="process-mini-arrow">→</span>
-                <span class="process-mini-step"><span class="process-mini-num">5</span>Wireframe</span>
+                <a class="process-mini-step" href="#section-03" title="Redesign"><span class="process-mini-num">5</span>Wireframe</a>
                 <span class="process-mini-arrow">→</span>
-                <span class="process-mini-step"><span class="process-mini-num">6</span>KPIs</span>
+                <a class="process-mini-step" href="#section-04" title="Business Case"><span class="process-mini-num">6</span>KPIs</a>
             </div>
         </div>
     </div>
@@ -1042,7 +1060,7 @@
         <!-- ============================================
              SECTION 1: DISCOVERY
              ============================================ -->
-        <div class="teardown-section" data-section-id="discovery" data-section-type="teardown-discovery" data-skills='["customer-research","journey-mapping","persona-development"]'>
+        <div id="section-01" class="teardown-section" data-section-id="discovery" data-section-type="teardown-discovery" data-skills='["customer-research","journey-mapping","persona-development"]'>
             <div class="section-number">Section 01</div>
             <div class="section-title">Discovery</div>
 
@@ -1143,7 +1161,7 @@
         <!-- ============================================
              SECTION 2: KEEP / KILL / BUILD
              ============================================ -->
-        <div class="teardown-section" data-section-id="keep-kill-build" data-section-type="teardown-kkb" data-skills='["keep-kill-build-analysis","competitive-analysis"]'>
+        <div id="section-02" class="teardown-section" data-section-id="keep-kill-build" data-section-type="teardown-kkb" data-skills='["keep-kill-build-analysis","competitive-analysis"]'>
             <div class="section-number">Section 02</div>
             <div class="section-title">Keep / Kill / Build</div>
 
@@ -1207,7 +1225,7 @@
         <!-- ============================================
              SECTION 3: THE REDESIGN
              ============================================ -->
-        <div class="teardown-section" data-section-id="redesign" data-section-type="teardown-redesign" data-skills='["wireframing","content-strategy"]'>
+        <div id="section-03" class="teardown-section" data-section-id="redesign" data-section-type="teardown-redesign" data-skills='["wireframing","content-strategy"]'>
             <div class="section-number">Section 03</div>
             <div class="section-title">The Redesign</div>
 
@@ -1538,7 +1556,7 @@
         <!-- ============================================
              SECTION 4: THE BUSINESS CASE
              ============================================ -->
-        <div class="teardown-section" data-section-id="business-case" data-section-type="teardown-business-case" data-skills='["business-case-development"]'>
+        <div id="section-04" class="teardown-section" data-section-id="business-case" data-section-type="teardown-business-case" data-skills='["business-case-development"]'>
             <div class="section-number">Section 04</div>
             <div class="section-title">The Business Case</div>
 
