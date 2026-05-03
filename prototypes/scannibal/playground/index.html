@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8Q795C1RJ5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8Q795C1RJ5');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Scannibal Vision Engine — drop in a photo of a label, menu, or product and watch a multi-modal Gemini 2.5 Flash pipeline analyze it through one of nine specialized prompt chains, live.">
+    <title>Scannibal · Live Vision Engine — Kiran Rao</title>
+    <link rel="icon" href="../../../images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../styles.css">
+    <link rel="canonical" href="https://kiranrao.ai/prototypes/scannibal/playground/">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Scannibal · Live Vision Engine — Kiran Rao">
+    <meta property="og:description" content="Drop in an image. Watch a multi-modal Gemini 2.5 Flash pipeline analyze it through one of nine specialized prompt chains, live.">
+    <meta property="og:url" content="https://kiranrao.ai/prototypes/scannibal/playground/">
+    <meta property="og:image" content="https://kiranrao.ai/images/og/og-madlab.png">
+
+    <style>
+        /* ── Scannibal palette ───────────────────────────── */
+        :root {
+            --scn-amber: #c8a864;
+            --scn-amber-soft: rgba(200, 168, 100, 0.12);
+            --scn-amber-strong: rgba(200, 168, 100, 0.35);
+            --scn-safe: #6b9a52;
+            --scn-caution: #c9a847;
+            --scn-warning: #c98947;
+            --scn-danger: #b65a3e;
+        }
+        [data-theme="light"] {
+            --scn-amber: #a68a3e;
+            --scn-amber-soft: rgba(166, 138, 62, 0.10);
+            --scn-amber-strong: rgba(166, 138, 62, 0.30);
+        }
+
+        /* ── Hero ────────────────────────────────────────── */
+        .pg-hero {
+            max-width: 760px;
+            margin: 5rem auto 1rem;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        .pg-hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+        .pg-hero h1 .accent { color: var(--scn-amber); }
+        .pg-hero p {
+            font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin: 0;
+        }
+        .pg-hero .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--scn-amber);
+            background: var(--scn-amber-soft);
+            border: 1px solid var(--scn-amber-strong);
+            padding: 0.3rem 0.7rem;
+            border-radius: 100px;
+            margin-bottom: 1.25rem;
+        }
+        .pg-hero .live-badge::before {
+            content: '';
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--scn-amber);
+            box-shadow: 0 0 0 0 var(--scn-amber);
+            animation: pulse 1.8s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(200,168,100,0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(200,168,100,0); }
+            100% { box-shadow: 0 0 0 0 rgba(200,168,100,0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .pg-hero .live-badge::before { animation: none; }
+        }
+
+        /* ── Playground container ────────────────────────── */
+        .pg-board {
+            max-width: 980px;
+            margin: 2rem auto 1rem;
+            padding: 0 2rem;
+        }
+
+        /* Mode picker */
+        .pg-modes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1.75rem;
+        }
+        .pg-mode {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 0.55rem 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease, transform 0.32s var(--ease-bounce);
+        }
+        .pg-mode:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+        .pg-mode.active {
+            background: var(--scn-amber-soft);
+            border-color: var(--scn-amber);
+            color: var(--scn-amber);
+        }
+        .pg-mode-icon {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        /* Workspace grid */
+        .pg-workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (max-width: 760px) {
+            .pg-workspace { grid-template-columns: 1fr; }
+        }
+
+        /* Drop zone / preview */
+        .pg-dropzone {
+            position: relative;
+            border: 2px dashed var(--border);
+            border-radius: 14px;
+            background: var(--bg-secondary);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            transition: border-color 0.25s ease, background 0.25s ease;
+            cursor: pointer;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .pg-dropzone:hover,
+        .pg-dropzone.drag-over {
+            border-color: var(--scn-amber);
+            background: var(--scn-amber-soft);
+        }
+        .pg-dropzone-icon {
+            width: 48px; height: 48px;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .pg-dropzone-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+        .pg-dropzone-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            max-width: 360px;
+        }
+        .pg-dropzone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .pg-preview {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            min-height: 280px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            display: none;
+        }
+        .pg-preview.visible { display: block; }
+        .pg-preview img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .pg-preview-clear {
+            position: absolute;
+            top: 0.6rem; right: 0.6rem;
+            width: 30px; height: 30px;
+            background: rgba(10, 10, 10, 0.65);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.18);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 1rem; line-height: 1;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s var(--ease-bounce);
+        }
+        .pg-preview-clear:hover { transform: rotate(90deg); }
+
+        /* Results panel */
+        .pg-results {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            min-height: 280px;
+        }
+        .pg-results-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 240px;
+            gap: 0.5rem;
+        }
+        .pg-results-empty img {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--scn-amber-strong);
+            opacity: 0.5;
+            margin-bottom: 0.5rem;
+        }
+        .pg-results-empty .title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .pg-results-empty .hint {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            max-width: 280px;
+            line-height: 1.5;
+        }
+
+        /* Loading state */
+        .pg-results.loading .pg-results-empty img {
+            opacity: 1;
+            animation: butler-pulse 1.6s ease-in-out infinite;
+        }
+        @keyframes butler-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 var(--scn-amber-strong); }
+            50% { transform: scale(1.04); box-shadow: 0 0 0 12px transparent; }
+        }
+        .pg-results.loading .pg-results-empty .title {
+            color: var(--scn-amber);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .pg-results.loading .pg-results-empty img { animation: none; }
+        }
+
+        /* Verdict header */
+        .pg-verdict {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .pg-butler {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            border: 2px solid var(--scn-amber);
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+        .pg-verdict-body {
+            flex: 1;
+        }
+        .pg-verdict-eyebrow {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+        .pg-verdict-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        .pg-risk-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.55rem;
+            border-radius: 100px;
+            margin-left: 0.5rem;
+        }
+        .pg-risk-pill.safe   { background: rgba(107,154,82,0.15); color: var(--scn-safe); }
+        .pg-risk-pill.caution{ background: rgba(201,168,71,0.18); color: var(--scn-caution); }
+        .pg-risk-pill.warning{ background: rgba(201,137,71,0.18); color: var(--scn-warning); }
+        .pg-risk-pill.danger { background: rgba(182,90,62,0.20);  color: var(--scn-danger); }
+
+        /* Section cards */
+        .pg-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 0.6rem;
+        }
+        .pg-section:last-child { margin-bottom: 0; }
+        .pg-section-title {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .pg-section-title .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            flex-shrink: 0;
+        }
+        .pg-section-title .dot.safe { background: var(--scn-safe); }
+        .pg-section-title .dot.caution { background: var(--scn-caution); }
+        .pg-section-title .dot.warning { background: var(--scn-warning); }
+        .pg-section-title .dot.danger { background: var(--scn-danger); }
+        .pg-section-body {
+            font-size: 0.85rem;
+            line-height: 1.55;
+            color: var(--text-secondary);
+        }
+        .pg-item-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.4rem 0 0;
+        }
+        .pg-item {
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            padding: 0.35rem 0;
+            display: flex;
+            gap: 0.55rem;
+            align-items: flex-start;
+        }
+        .pg-item:not(:last-child) { border-bottom: 1px solid var(--border); }
+        .pg-item .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            margin-top: 0.55rem;
+            flex-shrink: 0;
+            background: var(--text-muted);
+        }
+
+        /* Scan CTA */
+        .pg-cta-row {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .pg-scan-btn {
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            color: var(--bg-primary);
+            background: var(--scn-amber);
+            border: none;
+            border-radius: 100px;
+            padding: 0.85rem 2rem;
+            cursor: pointer;
+            transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+        .pg-scan-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(200,168,100,0.3);
+        }
+        .pg-scan-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .pg-scan-status {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Behind the build */
+        .pg-meta {
+            max-width: 760px;
+            margin: 1.5rem auto 4rem;
+            padding: 0 2rem;
+        }
+        .pg-meta details {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--bg-secondary);
+            padding: 1.25rem 1.5rem;
+        }
+        .pg-meta summary {
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            list-style: none;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+        .pg-meta summary::-webkit-details-marker { display: none; }
+        .pg-meta summary::after {
+            content: '+';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            transition: transform 0.2s ease;
+        }
+        .pg-meta details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+        .pg-meta-body {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        .pg-meta-body p { margin: 0 0 0.85rem; }
+        .pg-meta-body p:last-child { margin-bottom: 0; }
+        .pg-meta-body strong { color: var(--text-primary); font-weight: 600; }
+        .pg-meta-body .arch-line {
+            font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+            font-size: 0.8rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.6rem 0.8rem;
+            margin: 0.5rem 0 1rem;
+            color: var(--text-primary);
+            overflow-x: auto;
+        }
+        .pg-meta-body a { color: var(--scn-amber); text-decoration: none; }
+        .pg-meta-body a:hover { text-decoration: underline; }
+
+        /* Back link override (slightly tighter than global) */
+        .pg-back {
+            max-width: 980px;
+            margin: 1.5rem auto 0;
+            padding: 0 2rem;
+        }
+
+        /* Error state */
+        .pg-error {
+            border: 1px solid var(--scn-danger);
+            background: rgba(182,90,62,0.08);
+            color: var(--text-primary);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .pg-error strong { color: var(--scn-danger); }
+    </style>
+</head>
+<body>
+
+<!-- Site nav (matches the rest of the site) -->
+<nav>
+    <div class="nav-container">
+        <div class="nav-right">
+            <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                <svg aria-hidden="true" class="wf-moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg aria-hidden="true" class="wf-sun-icon" viewBox="0 0 24 24" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+            <button id="menuButton" class="menu-button" aria-label="Open menu">Menu</button>
+        </div>
+    </div>
+</nav>
+
+<div id="mobileMenu" class="mobile-menu">
+    <div class="mobile-menu-header"><div></div><button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button></div>
+    <ul class="mobile-nav-links">
+        <li><a href="../../../index.html">&#8600; Home</a></li>
+        <li><a href="../../../the-work.html">&#8600; The Work</a></li>
+        <li><a href="../../../how-id-built-it.html">&#8600; How I'd've Built It</a></li>
+        <li><a href="../../../madlab.html">&#8600; MadLab</a></li>
+        <li><a href="../../../studio.html">&#8600; Studio</a></li>
+        <li><a href="../../../blog-podcast.html">&#8600; Blog & Podcast</a></li>
+        <li><a href="../../../skills.html">&#8600; Skills</a></li>
+        <li><a href="../../../causes.html">&#8600; Causes</a></li>
+        <li><a href="../../../store.html">&#8600; Store</a></li>
+        <li><a href="../../../index.html#contact">&#8600; Connect</a></li>
+    </ul>
+</div>
+
+<!-- Back link -->
+<div class="pg-back">
+    <a href="../../../madlab.html" class="back-link">
+        <span class="back-link-arrow">&larr;</span>
+        <span>Back to MadLab</span>
+    </a>
+</div>
+
+<!-- Hero -->
+<header class="pg-hero">
+    <span class="live-badge">Live · Gemini 2.5 Flash</span>
+    <h1>Scannibal · <span class="accent">Live Vision Engine</span></h1>
+    <p>Drop in a photo of a label, menu, or product. Watch a multi-modal pipeline route it through one of nine specialized prompt chains and return a structured safety analysis &mdash; live, in under three seconds.</p>
+</header>
+
+<!-- Playground -->
+<main class="pg-board">
+
+    <!-- Mode picker -->
+    <div class="pg-modes" role="tablist" aria-label="Scan mode">
+        <button class="pg-mode" data-mode="menu"        role="tab"><span class="pg-mode-icon">&#127869;&#65039;</span>Menu</button>
+        <button class="pg-mode" data-mode="grocery"     role="tab"><span class="pg-mode-icon">&#128722;</span>Grocery</button>
+        <button class="pg-mode" data-mode="produce"     role="tab"><span class="pg-mode-icon">&#129361;</span>Produce</button>
+        <button class="pg-mode" data-mode="supplements" role="tab"><span class="pg-mode-icon">&#128138;</span>Supplements</button>
+        <button class="pg-mode" data-mode="skincare"    role="tab"><span class="pg-mode-icon">&#129509;</span>Skincare</button>
+        <button class="pg-mode" data-mode="pet"         role="tab"><span class="pg-mode-icon">&#128062;</span>Pet</button>
+        <button class="pg-mode" data-mode="recipe"      role="tab"><span class="pg-mode-icon">&#128209;</span>Recipe</button>
+        <button class="pg-mode" data-mode="grow"        role="tab"><span class="pg-mode-icon">&#127793;</span>Grow</button>
+        <button class="pg-mode" data-mode="beverage"    role="tab"><span class="pg-mode-icon">&#127863;</span>Beverage</button>
+    </div>
+
+    <!-- Workspace -->
+    <div class="pg-workspace">
+        <!-- Image input column -->
+        <div>
+            <label class="pg-dropzone" id="dropzone">
+                <svg class="pg-dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <div class="pg-dropzone-title">Drop a photo here</div>
+                <div class="pg-dropzone-hint">A label, menu, supplement bottle, or skincare ingredient list works best. JPEG/PNG up to ~5MB.</div>
+                <input type="file" id="fileInput" accept="image/*">
+            </label>
+            <div class="pg-preview" id="preview">
+                <img id="previewImg" alt="Selected scan target">
+                <button class="pg-preview-clear" id="previewClear" aria-label="Clear image">&times;</button>
+            </div>
+        </div>
+
+        <!-- Results column -->
+        <div class="pg-results" id="results">
+            <div class="pg-results-empty" id="resultsEmpty">
+                <img src="../appicon.png" alt="Scannibal butler">
+                <div class="title">Awaiting your selection</div>
+                <div class="hint">Pick a scan mode and drop in a photo. The butler will inspect it.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="pg-cta-row">
+        <button class="pg-scan-btn" id="scanBtn" disabled>Scan with Scannibal</button>
+        <span class="pg-scan-status" id="scanStatus">Pick a mode and an image</span>
+    </div>
+</main>
+
+<!-- Behind the build -->
+<section class="pg-meta">
+    <details>
+        <summary>How this works</summary>
+        <div class="pg-meta-body">
+            <p><strong>Architecture in one line:</strong></p>
+            <div class="arch-line">browser &rarr; POST /api/scan &rarr; Vercel function &rarr; mode-specific prompt &rarr; Gemini 2.5 Flash &rarr; structured JSON &rarr; you</div>
+            <p><strong>Mode-specific prompt chains.</strong> The mode you pick (Menu / Grocery / Produce / Supplements / Skincare / Pet / Recipe / Grow / Beverage) routes the image through a different system prompt &mdash; nine in total. Each one is tuned for the visual domain: the Menu prompt knows about hidden allergens in cuisine families and religious dietary law; the Pet prompt knows what's toxic to dogs vs. cats; the Skincare prompt watches for irritants and comedogenic ingredients. Same image, different mode, different analysis.</p>
+            <p><strong>Structured output.</strong> The model is constrained to return JSON with a fixed schema: a <code>verdict</code> section (the butler's 2-3 sentence summary), domain-specific sections with risk-tagged items, and an <code>overallRiskLevel</code> of <code>safe</code>, <code>caution</code>, <code>warning</code>, or <code>danger</code>. The shape doesn't drift between modes &mdash; the renderer above doesn't have to know which mode it's displaying.</p>
+            <p><strong>Real-time on Vercel.</strong> A single serverless function. Cold-starts in under 500ms, processes a scan end-to-end in 1.5&ndash;3 seconds. Rate-limited at 50 scans/day per device during beta. The Gemini call streams back as JSON, gets parsed and returned.</p>
+            <p><strong>Want the full breakdown?</strong> <a href="../overview-vision.html">Read the deep-dive</a> &mdash; the prompt-engineering decisions, the religious-dietary rule encoding, the failure modes, the cost profile.</p>
+        </div>
+    </details>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-social">
+        <div class="social-links">
+            <a href="https://linkedin.com/in/kirangorapalli" class="wf-social-icon linkedin" title="LinkedIn" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg></a>
+            <a href="https://github.com/iamkiranrao" class="wf-social-icon github" title="GitHub" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg></a>
+        </div>
+    </div>
+    <div class="footer-site-info">
+        <img src="../../../images/logo.png" alt="KG Logo" class="footer-logo" role="button" tabindex="0" aria-label="Scroll to top">
+    </div>
+    <p class="footer-copyright">&copy; 2026 Kiran Rao. All rights reserved.</p>
+</footer>
+
+<script>
+(function () {
+    'use strict';
+
+    // ── Theme + menu (standard site behavior) ─────────────
+    var moonIcon = document.querySelector('.wf-moon-icon');
+    var sunIcon = document.querySelector('.wf-sun-icon');
+    var saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        if (moonIcon) moonIcon.style.display = 'none';
+        if (sunIcon) sunIcon.style.display = 'block';
+    }
+    var themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) themeToggle.addEventListener('click', function () {
+        var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        if (isLight) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
+            if (moonIcon) moonIcon.style.display = 'block';
+            if (sunIcon) sunIcon.style.display = 'none';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            if (moonIcon) moonIcon.style.display = 'none';
+            if (sunIcon) sunIcon.style.display = 'block';
+        }
+    });
+
+    var menuBtn = document.getElementById('menuButton');
+    var closeBtn = document.getElementById('closeMenu');
+    var mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn) menuBtn.addEventListener('click', function () { mobileMenu.classList.add('active'); document.body.style.overflow = 'hidden'; });
+    if (closeBtn) closeBtn.addEventListener('click', function () { mobileMenu.classList.remove('active'); document.body.style.overflow = ''; });
+
+    document.querySelector('.footer-logo')?.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ── Stable device ID (for the API's per-device rate limit) ────
+    function getDeviceId() {
+        var key = 'scannibal-playground-device-id';
+        var id = localStorage.getItem(key);
+        if (!id) {
+            id = 'pg-' + Math.random().toString(36).slice(2, 10) + '-' + Date.now().toString(36);
+            try { localStorage.setItem(key, id); } catch (e) {}
+        }
+        return id;
+    }
+
+    // ── State ─────────────────────────────────────────────
+    var state = {
+        mode: null,
+        imageBase64: null,   // raw base64, no data: prefix
+        imageDataUrl: null,  // for preview
+    };
+
+    var API_URL = 'https://scannibal-api.vercel.app/api/scan';
+
+    // ── DOM refs ──────────────────────────────────────────
+    var modeButtons = document.querySelectorAll('.pg-mode');
+    var dropzone = document.getElementById('dropzone');
+    var fileInput = document.getElementById('fileInput');
+    var preview = document.getElementById('preview');
+    var previewImg = document.getElementById('previewImg');
+    var previewClear = document.getElementById('previewClear');
+    var scanBtn = document.getElementById('scanBtn');
+    var scanStatus = document.getElementById('scanStatus');
+    var results = document.getElementById('results');
+
+    // ── Mode selection ────────────────────────────────────
+    modeButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            modeButtons.forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            state.mode = btn.dataset.mode;
+            updateScanButton();
+        });
+    });
+
+    // ── Image upload ──────────────────────────────────────
+    function handleFile(file) {
+        if (!file || !file.type.startsWith('image/')) {
+            scanStatus.textContent = 'That file isn\'t an image';
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            state.imageDataUrl = e.target.result;
+            // Strip data: prefix → raw base64
+            state.imageBase64 = e.target.result.replace(/^data:image\/[a-z]+;base64,/, '');
+            previewImg.src = state.imageDataUrl;
+            preview.classList.add('visible');
+            dropzone.style.display = 'none';
+            updateScanButton();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    fileInput.addEventListener('change', function (e) {
+        if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
+    });
+
+    ['dragenter', 'dragover'].forEach(function (ev) {
+        dropzone.addEventListener(ev, function (e) {
+            e.preventDefault(); e.stopPropagation();
+            dropzone.classList.add('drag-over');
+        });
+    });
+    ['dragleave', 'drop'].forEach(function (ev) {
+        dropzone.addEventListener(ev, function (e) {
+            e.preventDefault(); e.stopPropagation();
+            dropzone.classList.remove('drag-over');
+        });
+    });
+    dropzone.addEventListener('drop', function (e) {
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+
+    previewClear.addEventListener('click', function () {
+        state.imageBase64 = null;
+        state.imageDataUrl = null;
+        preview.classList.remove('visible');
+        dropzone.style.display = 'flex';
+        fileInput.value = '';
+        updateScanButton();
+    });
+
+    // ── Scan button gating ────────────────────────────────
+    function updateScanButton() {
+        var ready = state.mode && state.imageBase64;
+        scanBtn.disabled = !ready;
+        if (!state.mode && !state.imageBase64) scanStatus.textContent = 'Pick a mode and an image';
+        else if (!state.mode) scanStatus.textContent = 'Pick a mode';
+        else if (!state.imageBase64) scanStatus.textContent = 'Drop in an image';
+        else scanStatus.textContent = 'Ready to scan';
+    }
+
+    // ── Scan ─────────────────────────────────────────────
+    scanBtn.addEventListener('click', runScan);
+
+    function runScan() {
+        if (!state.mode || !state.imageBase64) return;
+        scanBtn.disabled = true;
+        scanStatus.textContent = 'Scanning&hellip;';
+
+        // Loading state
+        results.classList.add('loading');
+        results.innerHTML = '<div class="pg-results-empty"><img src="../appicon.png" alt="Scannibal butler"><div class="title">Allow me a moment to inspect this for you&hellip;</div><div class="hint">Routing through the ' + state.mode + ' prompt chain. Gemini 2.5 Flash typically returns in 1.5&ndash;3 seconds.</div></div>';
+
+        var payload = { mode: state.mode, image: state.imageBase64 };
+
+        var startedAt = Date.now();
+
+        fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Device-ID': getDeviceId(),
+            },
+            body: JSON.stringify(payload),
+        }).then(function (resp) {
+            return resp.json().then(function (data) { return { status: resp.status, data: data }; });
+        }).then(function (r) {
+            results.classList.remove('loading');
+            scanBtn.disabled = false;
+            scanStatus.textContent = 'Scanned in ' + ((Date.now() - startedAt) / 1000).toFixed(1) + 's';
+            if (r.status === 200 && r.data && r.data.sections) {
+                renderSuccess(r.data);
+            } else if (r.status === 429) {
+                renderError(
+                    'Rate-limited',
+                    'You\'ve used your daily scans on this device. The free tier caps at 50 per day per device — comes back tomorrow.'
+                );
+            } else if (r.status === 400) {
+                renderError(
+                    'Couldn\'t process that',
+                    (r.data && r.data.error) || 'The request was rejected. Try a different image.'
+                );
+            } else {
+                renderError(
+                    'Couldn\'t form an analysis',
+                    'The engine couldn\'t extract enough from this image to give you a useful answer. Atmospheric photos confuse it — try a label, a menu, a product close-up, or a clearly readable list of ingredients.'
+                );
+            }
+        }).catch(function () {
+            results.classList.remove('loading');
+            scanBtn.disabled = false;
+            scanStatus.textContent = 'Network error';
+            renderError('Network error', 'Couldn\'t reach the engine. Check your connection and try again.');
+        });
+    }
+
+    // ── Rendering ─────────────────────────────────────────
+    function renderSuccess(data) {
+        var sections = data.sections || [];
+        var verdict = sections.find(function (s) { return s.id === 'verdict'; }) || sections[0] || {};
+        var risk = data.overallRiskLevel || verdict.riskLevel || 'caution';
+
+        var html = '<div class="pg-verdict">';
+        html += '<img class="pg-butler" src="../appicon.png" alt="Scannibal butler">';
+        html += '<div class="pg-verdict-body">';
+        html += '<div class="pg-verdict-eyebrow">' + (verdict.title || 'The Verdict') + '<span class="pg-risk-pill ' + escapeAttr(risk) + '">' + escapeText(risk) + '</span></div>';
+        html += '<div class="pg-verdict-text">' + escapeText(verdict.body || '') + '</div>';
+        html += '</div></div>';
+
+        sections.forEach(function (s) {
+            if (s.id === 'verdict') return;
+            html += renderSection(s);
+        });
+
+        results.innerHTML = html;
+    }
+
+    function renderSection(s) {
+        var sRisk = s.riskLevel || 'caution';
+        var html = '<div class="pg-section">';
+        html += '<div class="pg-section-title"><span class="dot ' + escapeAttr(sRisk) + '"></span>' + escapeText(s.title || s.id) + '</div>';
+        if (s.body) {
+            html += '<div class="pg-section-body">' + escapeText(s.body) + '</div>';
+        }
+        if (s.items && s.items.length) {
+            html += '<ul class="pg-item-list">';
+            s.items.forEach(function (item) {
+                var iRisk = item.risk || sRisk;
+                html += '<li class="pg-item"><span class="dot ' + escapeAttr(iRisk) + '"></span><span>' + escapeText(item.text || '') + '</span></li>';
+            });
+            html += '</ul>';
+        }
+        html += '</div>';
+        return html;
+    }
+
+    function renderError(title, body) {
+        results.innerHTML = '<div class="pg-error"><strong>' + escapeText(title) + '</strong><br>' + escapeText(body) + '</div>';
+    }
+
+    function escapeText(s) {
+        if (s == null) return '';
+        return String(s).replace(/[&<>"']/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+    }
+    function escapeAttr(s) {
+        return escapeText(s).replace(/[^a-z]/gi, '');
+    }
+
+    // Initial state
+    updateScanButton();
+})();
+</script>
+
+</body>
+</html>
