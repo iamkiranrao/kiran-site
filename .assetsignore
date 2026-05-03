@@ -1,6 +1,10 @@
 # Non-site directories — exclude from Cloudflare Workers static assets
 command-center/
-prototypes/
+# NOTE: prototypes/ is NOT excluded here — MadLab links to overview HTMLs
+# inside it (e.g., prototypes/scannibal/overview-mobile.html). Heavy
+# embedded apps under prototypes/scannibal/api/ and prototypes/scannibal/app/
+# are gitignored, so only the ~136 tracked HTML/Python/text files deploy.
+# node_modules/ is also excluded separately below as a safety net.
 fenix-journal/
 fenix-backend/
 archive/
