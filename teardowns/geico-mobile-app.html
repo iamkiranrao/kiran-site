@@ -893,6 +893,122 @@
             color: var(--text-primary);
             font-weight: 600;
         }
+
+        /* ============================================
+           STICKY TOC — vertical sidebar (desktop ≥1200px) +
+           sticky horizontal bar (tablet/phone <1200px).
+           Reuses existing process-mini design language;
+           no new chrome invented for narrow viewports.
+           ============================================ */
+
+        /* Active state for process-mini-step (in-hero + sticky bar) */
+        a.process-mini-step.active {
+            color: var(--text-primary);
+            background: rgba(240, 230, 211, 0.08);
+        }
+        a.process-mini-step.active .process-mini-num {
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+        [data-theme="light"] a.process-mini-step.active {
+            background: rgba(10, 10, 10, 0.05);
+        }
+
+        /* Vertical sidebar TOC — desktop ≥1200px only */
+        .toc-sidebar {
+            position: fixed;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            max-width: 200px;
+        }
+        @media (min-width: 1200px) {
+            .toc-sidebar { display: flex; }
+        }
+        .toc-sidebar.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .toc-sidebar-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+            opacity: 0.7;
+        }
+        .toc-link {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.3rem 0;
+            line-height: 1.3;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+        .toc-link:hover { color: var(--text-secondary); }
+        .toc-link.active { color: var(--text-primary); font-weight: 500; }
+        .toc-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid var(--border);
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+        .toc-link:hover .toc-num,
+        .toc-link.active .toc-num {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+            color: var(--bg-primary);
+        }
+        .toc-text { flex: 1; }
+        body.fenix-panel-open .toc-sidebar { display: none !important; }
+
+        /* Sticky horizontal bar — tablet/phone <1200px only */
+        .process-mini-sticky {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            z-index: 49;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            display: none;
+        }
+        [data-theme="light"] .process-mini-sticky {
+            background: rgba(255, 255, 255, 0.92);
+        }
+        .process-mini-sticky.visible { transform: translateY(0); }
+        .process-mini-sticky .process-mini { margin: 0 auto; }
+        @media (max-width: 1199px) {
+            .process-mini-sticky { display: block; }
+        }
+        @media (max-width: 600px) {
+            .process-mini-sticky .process-mini-step .process-mini-step-label { display: none; }
+            .process-mini-sticky .process-mini { gap: 0.6rem; }
+            .process-mini-sticky .process-mini-arrow { display: none; }
+        }
     </style>
     <!-- Structured Data for Fenix + SEO -->
     <script type="application/ld+json">
@@ -1687,6 +1803,26 @@
         <p class="footer-copyright">&copy; 2026 Kiran Rao. All rights reserved.</p>
     </footer>
 
+    <!-- Sticky TOC: vertical sidebar (desktop ≥1200px) + horizontal bar (tablet/phone) -->
+    <nav class="toc-sidebar" aria-label="Table of contents">
+        <div class="toc-sidebar-label">On this page</div>
+        <a class="toc-link" href="#section-01" data-section-target="section-01"><span class="toc-num">1</span><span class="toc-text">Discovery</span></a>
+        <a class="toc-link" href="#section-02" data-section-target="section-02"><span class="toc-num">2</span><span class="toc-text">Keep / Kill / Build</span></a>
+        <a class="toc-link" href="#section-03" data-section-target="section-03"><span class="toc-num">3</span><span class="toc-text">The Redesign</span></a>
+        <a class="toc-link" href="#section-04" data-section-target="section-04"><span class="toc-num">4</span><span class="toc-text">The Business Case</span></a>
+    </nav>
+    <div class="process-mini-sticky" aria-label="Jump to section">
+        <div class="process-mini">
+            <a class="process-mini-step" href="#section-01" data-section-target="section-01"><span class="process-mini-num">1</span><span class="process-mini-step-label">Discovery</span></a>
+            <span class="process-mini-arrow">&rarr;</span>
+            <a class="process-mini-step" href="#section-02" data-section-target="section-02"><span class="process-mini-num">2</span><span class="process-mini-step-label">KKB</span></a>
+            <span class="process-mini-arrow">&rarr;</span>
+            <a class="process-mini-step" href="#section-03" data-section-target="section-03"><span class="process-mini-num">3</span><span class="process-mini-step-label">Redesign</span></a>
+            <span class="process-mini-arrow">&rarr;</span>
+            <a class="process-mini-step" href="#section-04" data-section-target="section-04"><span class="process-mini-num">4</span><span class="process-mini-step-label">Business Case</span></a>
+        </div>
+    </div>
+
     <script src="../fenix-core.js?v=20260409h"></script>
     <script src="../fenix-adapters/content-adapter.js?v=20260409h"></script>
     <div class="toast" id="toast"></div>
@@ -1739,6 +1875,62 @@
         document.querySelector('.footer-logo')?.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+    
+        // ============================================
+        // STICKY TOC — scroll-spy + show/hide chrome
+        // Activates after scrolling past the hero. Both the desktop sidebar
+        // and the tablet/phone horizontal bar use the same logic; CSS
+        // decides which surface is visible per viewport.
+        // ============================================
+        (function () {
+            var sidebar = document.querySelector('.toc-sidebar');
+            var stickyBar = document.querySelector('.process-mini-sticky');
+            var hero = document.querySelector('.subpage-hero');
+            if (!sidebar || !stickyBar || !hero) return;
+
+            function updateChrome() {
+                var pastHero = hero.getBoundingClientRect().bottom < 60;
+                sidebar.classList.toggle('visible', pastHero);
+                stickyBar.classList.toggle('visible', pastHero);
+            }
+            window.addEventListener('scroll', updateChrome, { passive: true });
+            updateChrome();
+
+            var sections = document.querySelectorAll('.teardown-section[id^="section-"]');
+            var sidebarLinks = document.querySelectorAll('.toc-link');
+            var stickyLinks = document.querySelectorAll('.process-mini-sticky .process-mini-step');
+            var visibleSections = new Set();
+
+            function setActiveLink() {
+                var topmost = null;
+                var topmostY = Infinity;
+                visibleSections.forEach(function (id) {
+                    var sec = document.getElementById(id);
+                    if (!sec) return;
+                    var y = sec.getBoundingClientRect().top;
+                    if (y < topmostY && y > -sec.offsetHeight) {
+                        topmostY = y;
+                        topmost = id;
+                    }
+                });
+                sidebarLinks.forEach(function (link) {
+                    link.classList.toggle('active', link.dataset.sectionTarget === topmost);
+                });
+                stickyLinks.forEach(function (link) {
+                    link.classList.toggle('active', link.dataset.sectionTarget === topmost);
+                });
+            }
+
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) visibleSections.add(entry.target.id);
+                    else visibleSections.delete(entry.target.id);
+                });
+                setActiveLink();
+            }, { rootMargin: '-80px 0px -50% 0px', threshold: 0 });
+
+            sections.forEach(function (sec) { observer.observe(sec); });
+        })();
     </script>
 </body>
 </html>
