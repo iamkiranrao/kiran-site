@@ -408,9 +408,11 @@
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 18px 20px;
-    transition: border-color 0.3s, background 0.3s;
+    transition: border-color 0.3s, background 0.3s, transform 0.32s var(--ease-bounce, cubic-bezier(0.34, 1.56, 0.64, 1));
+    cursor: pointer;
   }
-  .pk-card:hover { border-color: var(--border-amber); background: var(--bg-card-hover); }
+  .pk-card:hover { border-color: var(--border-amber); background: var(--bg-card-hover); transform: translateY(-2px); }
+  .pk-card:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
   .pk-card.featured {
     border-color: var(--border-amber);
     background: linear-gradient(135deg, rgba(200,170,100,0.04) 0%, transparent 50%);
@@ -734,6 +736,237 @@
     .cta { padding: 40px 20px 80px; }
   }
 
+  /* ════════════════════════════════════════════════════════════
+     MUSEUM-CARD LIGHTBOX — click any pk-card to open it as an
+     artifact in a museum display case. The card is pulled out of
+     the timeline, lit, and presented with full era context as a
+     placard. Prev/Next walks through cards in document order.
+     ════════════════════════════════════════════════════════════ */
+
+  .museum-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 6, 4, 0.78);
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 1.5rem;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .museum-overlay.visible {
+    display: flex;
+    opacity: 1;
+  }
+  [data-theme="light"] .museum-overlay {
+    background: rgba(40, 30, 20, 0.55);
+  }
+
+  .museum-card {
+    position: relative;
+    max-width: 640px;
+    width: 100%;
+    background:
+      radial-gradient(1200px 400px at top left, rgba(200,170,100,0.06), transparent 60%),
+      var(--bg-card-hover, rgba(255,255,255,0.06));
+    border: 1px solid var(--border-amber, rgba(200,170,100,0.2));
+    border-radius: 4px;
+    padding: 3rem 2.5rem 2.25rem;
+    color: var(--text-primary);
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.5),
+      0 0 0 1px rgba(200,170,100,0.08) inset;
+    transform: translateY(20px) scale(0.97);
+    opacity: 0;
+    transition: transform 0.4s var(--ease-bounce, cubic-bezier(0.34, 1.56, 0.64, 1)), opacity 0.3s ease;
+    margin: auto;
+  }
+  .museum-overlay.visible .museum-card {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  [data-theme="light"] .museum-card {
+    background:
+      radial-gradient(1200px 400px at top left, rgba(166,138,62,0.08), transparent 60%),
+      #faf6ec;
+    border-color: rgba(166,138,62,0.35);
+    box-shadow:
+      0 30px 80px rgba(60,40,20,0.25),
+      0 0 0 1px rgba(166,138,62,0.1) inset;
+  }
+
+  /* Top-right close button */
+  .museum-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px; height: 32px;
+    background: transparent;
+    border: 1px solid var(--border, rgba(255,255,255,0.15));
+    border-radius: 50%;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s var(--ease-bounce);
+  }
+  .museum-close:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+    transform: rotate(90deg);
+  }
+
+  /* Era context line — small, uppercase, sits above the title like a museum placard label */
+  .museum-era {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-amber);
+  }
+
+  /* Title — larger, serif-feel via Sora 700 */
+  .museum-title {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1.85rem;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  /* Pills row */
+  .museum-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .museum-pills .pk-pill { font-size: 0.65rem; }
+
+  /* Big metric — the headline number */
+  .museum-metric {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 1rem 0 1.25rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.25rem;
+  }
+  .museum-metric-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    color: var(--amber);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .museum-metric-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* World context — what was happening in the world at the time */
+  .museum-world {
+    background: var(--amber-dim, rgba(200,170,100,0.08));
+    border-left: 3px solid var(--amber);
+    padding: 0.85rem 1rem;
+    margin-bottom: 1.25rem;
+    border-radius: 0 4px 4px 0;
+  }
+  .museum-world-year {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.25rem;
+  }
+  .museum-world-text {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  /* Description */
+  .museum-desc {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Bottom navigation */
+  .museum-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .museum-nav-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-family: 'Sora', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.85rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s var(--ease-bounce);
+  }
+  .museum-nav-btn:hover:not(:disabled) {
+    border-color: var(--amber);
+    color: var(--amber);
+    transform: translateY(-1px);
+  }
+  .museum-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  .museum-counter {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* Hint shown above the timeline once, telling user cards are clickable */
+  .museum-hint {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 0 1.5rem 1rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .museum-hint::before { content: '\2192 '; color: var(--amber); font-style: normal; }
+
+  /* Mobile adjustments */
+  @media (max-width: 600px) {
+    .museum-card {
+      padding: 2.25rem 1.5rem 1.5rem;
+    }
+    .museum-title { font-size: 1.4rem; }
+    .museum-metric-num { font-size: 2rem; }
+    .museum-overlay { padding: 2vh 0.75rem; }
+  }
+
     </style>
 </head>
 <body>
@@ -843,6 +1076,8 @@
   <div></div>
   <div class="col-h col-h-right">What I was building</div>
 </div>
+
+<p class="museum-hint">Tap any card to see it as an artifact in the case.</p>
 
 <div class="timeline">
 
@@ -1351,6 +1586,25 @@
     <!-- Toast -->
     <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
+    <!-- Museum-card lightbox: a single hidden modal populated on demand
+         when any pk-card is clicked. Walks through cards with prev/next. -->
+    <div class="museum-overlay" id="museum-overlay" role="dialog" aria-modal="true" aria-labelledby="museum-title" hidden>
+        <div class="museum-card" role="document">
+            <button class="museum-close" type="button" aria-label="Close">&times;</button>
+            <div class="museum-era" id="museum-era"></div>
+            <h2 class="museum-title" id="museum-title"></h2>
+            <div class="museum-pills" id="museum-pills"></div>
+            <div class="museum-metric" id="museum-metric"></div>
+            <div class="museum-world" id="museum-world"></div>
+            <div class="museum-desc" id="museum-desc"></div>
+            <div class="museum-nav">
+                <button class="museum-nav-btn" id="museum-prev" type="button">&larr; Previous</button>
+                <span class="museum-counter" id="museum-counter"></span>
+                <button class="museum-nav-btn" id="museum-next" type="button">Next &rarr;</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
@@ -1422,6 +1676,169 @@
             }, { rootMargin: '-40% 0px -55% 0px' });
             eraHeaders.forEach(h => eraObserver.observe(h));
         }
+
+        // ════════════════════════════════════════════════════
+        // MUSEUM-CARD LIGHTBOX
+        // Click any pk-card → opens the modal populated with
+        // that card's data + its surrounding world context +
+        // the era it belongs to. Prev/Next walk through every
+        // card on the page in document order.
+        // ════════════════════════════════════════════════════
+        (function () {
+            const overlay = document.getElementById('museum-overlay');
+            if (!overlay) return;
+
+            const elTitle = document.getElementById('museum-title');
+            const elEra = document.getElementById('museum-era');
+            const elPills = document.getElementById('museum-pills');
+            const elMetric = document.getElementById('museum-metric');
+            const elWorld = document.getElementById('museum-world');
+            const elDesc = document.getElementById('museum-desc');
+            const elCounter = document.getElementById('museum-counter');
+            const btnPrev = document.getElementById('museum-prev');
+            const btnNext = document.getElementById('museum-next');
+            const btnClose = overlay.querySelector('.museum-close');
+
+            // Cards in document order. For each card, also capture its
+            // sibling .pp-world (in the same .pp-pair) and the most-recent
+            // preceding .era-header for context.
+            const cards = Array.from(document.querySelectorAll('.pk-card'));
+            let currentIdx = -1;
+
+            function findEraFor(card) {
+                // Walk back through pp-pairs to find the most recent era-header
+                let node = card.closest('.pp-pair');
+                while (node) {
+                    node = node.previousElementSibling;
+                    if (node && node.classList && node.classList.contains('era-header')) {
+                        return {
+                            years: node.querySelector('.era-years')?.textContent.trim() || '',
+                            headline: node.querySelector('.era-world-headline')?.textContent.trim() || '',
+                            role: node.querySelector('.era-role')?.innerHTML.trim() || '',
+                        };
+                    }
+                }
+                return { years: '', headline: '', role: '' };
+            }
+
+            function findWorldFor(card) {
+                const pair = card.closest('.pp-pair');
+                if (!pair) return { year: '', text: '' };
+                const world = pair.querySelector('.pp-world');
+                if (!world) return { year: '', text: '' };
+                return {
+                    year: world.querySelector('.pp-world-year')?.textContent.trim() || '',
+                    text: world.querySelector('.pp-world-text')?.innerHTML.trim() || '',
+                };
+            }
+
+            function populate(card) {
+                const era = findEraFor(card);
+                const world = findWorldFor(card);
+
+                // Era line: "2012-2016 · AVP, Digital Product · Wells Fargo"
+                let eraLine = era.years;
+                if (era.role) {
+                    // Strip HTML tags from role for the era line (it has <em>)
+                    const tmp = document.createElement('div');
+                    tmp.innerHTML = era.role;
+                    eraLine += ' · ' + tmp.textContent.trim();
+                }
+                elEra.textContent = eraLine;
+
+                elTitle.textContent = card.querySelector('.pk-card-title')?.textContent.trim() || '';
+
+                // Pills — clone the actual pill elements so styles match
+                elPills.innerHTML = '';
+                const pillsContainer = card.querySelector('.pk-card-pills');
+                if (pillsContainer) {
+                    Array.from(pillsContainer.children).forEach(p => {
+                        elPills.appendChild(p.cloneNode(true));
+                    });
+                }
+                elPills.style.display = elPills.children.length ? 'flex' : 'none';
+
+                // Metric
+                const num = card.querySelector('.pk-card-num')?.textContent.trim() || '';
+                const lbl = card.querySelector('.pk-card-label')?.textContent.trim() || '';
+                if (num || lbl) {
+                    elMetric.innerHTML =
+                        '<span class="museum-metric-num">' + num + '</span>' +
+                        '<span class="museum-metric-label">' + lbl + '</span>';
+                    elMetric.style.display = 'flex';
+                } else {
+                    elMetric.style.display = 'none';
+                }
+
+                // World context
+                if (world.year || world.text) {
+                    elWorld.innerHTML =
+                        (world.year ? '<div class="museum-world-year">' + world.year + '</div>' : '') +
+                        (world.text ? '<div class="museum-world-text">' + world.text + '</div>' : '');
+                    elWorld.style.display = 'block';
+                } else {
+                    elWorld.style.display = 'none';
+                }
+
+                // Description
+                const desc = card.querySelector('.pk-card-desc')?.textContent.trim() || '';
+                elDesc.textContent = desc;
+                elDesc.style.display = desc ? 'block' : 'none';
+
+                // Counter + button states
+                elCounter.textContent = (currentIdx + 1) + ' of ' + cards.length;
+                btnPrev.disabled = currentIdx <= 0;
+                btnNext.disabled = currentIdx >= cards.length - 1;
+            }
+
+            function open(idx) {
+                if (idx < 0 || idx >= cards.length) return;
+                currentIdx = idx;
+                populate(cards[idx]);
+                overlay.removeAttribute('hidden');
+                // double-rAF to allow the display:flex to register before opacity transition
+                requestAnimationFrame(() => requestAnimationFrame(() => {
+                    overlay.classList.add('visible');
+                }));
+                document.body.style.overflow = 'hidden';
+                btnClose.focus();
+            }
+
+            function close() {
+                overlay.classList.remove('visible');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    overlay.setAttribute('hidden', '');
+                    if (currentIdx >= 0 && cards[currentIdx]) cards[currentIdx].focus();
+                }, 300);
+            }
+
+            function next() { if (currentIdx < cards.length - 1) { currentIdx++; populate(cards[currentIdx]); } }
+            function prev() { if (currentIdx > 0) { currentIdx--; populate(cards[currentIdx]); } }
+
+            // Wire up cards
+            cards.forEach((card, idx) => {
+                card.setAttribute('role', 'button');
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('aria-label', 'Open ' + (card.querySelector('.pk-card-title')?.textContent.trim() || 'card') + ' as a museum artifact');
+                card.addEventListener('click', () => open(idx));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(idx); }
+                });
+            });
+
+            btnPrev.addEventListener('click', prev);
+            btnNext.addEventListener('click', next);
+            btnClose.addEventListener('click', close);
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+
+            document.addEventListener('keydown', (e) => {
+                if (overlay.hasAttribute('hidden')) return;
+                if (e.key === 'Escape') close();
+                else if (e.key === 'ArrowRight') next();
+                else if (e.key === 'ArrowLeft') prev();
+            });
+        })();
     </script>
 
     <!-- Scroll reveal (CSS transitions + IntersectionObserver, no GSAP) -->
