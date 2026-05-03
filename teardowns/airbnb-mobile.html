@@ -106,33 +106,6 @@
             margin-bottom: 0;
         }
 
-        /* Breadcrumb */
-        .breadcrumb {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 1.5rem 4rem 0;
-        }
-        .breadcrumb a {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            text-decoration: none;
-            letter-spacing: 0.01em;
-            transition: color 0.2s ease;
-        }
-        .breadcrumb a:hover { color: var(--text-primary); }
-        .breadcrumb span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin: 0 0.4rem;
-            opacity: 0.5;
-        }
-        .breadcrumb .current {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
         /* ============================================
            TEARDOWN CONTENT
            ============================================ */
@@ -793,7 +766,6 @@
            ============================================ */
         @media (max-width: 1024px) {
             .hero-title-area { padding: 5rem 3rem 1.5rem; }
-            .breadcrumb { padding: 1.25rem 3rem 0; }
             .teardown { padding: 1.5rem 3rem 3rem; }
             .kkb-grid { grid-template-columns: 1fr; }
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
@@ -802,7 +774,6 @@
 
         @media (max-width: 768px) {
             .hero-title-area { padding: 4.5rem 1.5rem 1.5rem; }
-            .breadcrumb { padding: 1rem 1.5rem 0; }
             .teardown { padding: 1.5rem 1.5rem 3rem; }
             .page-glossary { padding: 1.5rem 1.5rem 0; }
             .glance-stats { grid-template-columns: repeat(2, 1fr); }
@@ -824,7 +795,6 @@
 
         @media (max-width: 480px) {
             .hero-title-area { padding: 4rem 1rem 1rem; }
-            .breadcrumb { padding: 0.75rem 1rem 0; }
             .teardown { padding: 1rem 1rem 2rem; }
             .page-glossary { padding: 1rem 1rem 0; }
             footer { padding: 2rem 1rem 1.5rem; }
