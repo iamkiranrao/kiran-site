@@ -54,42 +54,100 @@
             line-height: 1.6;
         }
 
-        /* ── Testimonial Display Wall ── */
+        /* ── Testimonial Display Wall (Pinterest masonry) ── */
+        /* Same pattern as MadLab / Blog / Teardowns. Varied-size cards
+           (testimonials of different lengths) fill the columns naturally. */
         .testimonials-wall {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 1.5rem 1.5rem 2rem;
+            padding: 1.5rem 2rem 3rem;
         }
         .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.25rem;
+            column-count: 3;
+            column-gap: 1.25rem;
+        }
+        @media (max-width: 900px) {
+            .testimonials-grid { column-count: 2; }
+            .testimonials-wall { padding: 1rem 1.5rem 2rem; }
+        }
+        @media (max-width: 600px) {
+            .testimonials-grid { column-count: 1; }
+            .testimonials-wall { padding: 0.75rem 1rem 2rem; max-width: 480px; }
         }
         .testimonial-card {
+            display: block;
+            break-inside: avoid;
+            -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
             background: var(--card-bg, rgba(255,255,255,0.03));
             border: 1px solid var(--border-color, rgba(255,255,255,0.08));
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: border-color 0.2s;
+            border-radius: 14px;
+            padding: 1.5rem 1.5rem 1.25rem;
+            margin: 0 0 1.25rem;
+            position: relative;
+            transition: border-color 0.2s ease, transform 0.32s var(--ease-bounce, cubic-bezier(0.34, 1.56, 0.64, 1));
         }
         .testimonial-card:hover {
-            border-color: rgba(255,255,255,0.15);
+            border-color: var(--text-muted, rgba(255,255,255,0.2));
+            transform: translateY(-3px);
+        }
+        /* Decorative oversized quote mark in the card corner */
+        .testimonial-card::before {
+            content: '\201C';
+            position: absolute;
+            top: 0.5rem; left: 1rem;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 3.5rem;
+            line-height: 1;
+            color: var(--text-muted, rgba(255,255,255,0.12));
+            pointer-events: none;
+            user-select: none;
+        }
+        /* Subtle visual variation across cards — three accent variants
+           cycled by :nth-child so the wall doesn't read as one flat grid. */
+        .testimonial-card:nth-child(3n+2) {
+            background: var(--card-bg-alt, rgba(255,255,255,0.05));
+        }
+        .testimonial-card:nth-child(3n+3) {
+            background: transparent;
         }
         .testimonial-text {
+            position: relative;
             font-size: 0.95rem;
             line-height: 1.7;
             color: var(--text-primary, #e0e0e0);
-            margin-bottom: 1rem;
+            margin: 0.5rem 0 1rem;
         }
-        .testimonial-text::before { content: '\201C'; font-weight: 600; }
-        .testimonial-text::after { content: '\201D'; font-weight: 600; }
+        /* Cards with longer testimonials get a slightly larger quote treatment.
+           This is achieved via a data attribute set by the JS based on length. */
+        .testimonial-card[data-length="long"] .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.65;
+        }
+        .testimonial-card[data-length="short"] .testimonial-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.55;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+        }
         .testimonial-author {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-secondary, #999);
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color, rgba(255,255,255,0.06));
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.5rem;
         }
         .testimonial-author strong {
             color: var(--text-primary, #e0e0e0);
             font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+        .testimonial-author .role-sep {
+            color: var(--text-muted, rgba(255,255,255,0.3));
         }
         .testimonials-empty {
             max-width: 600px;
@@ -337,8 +395,23 @@
             background: var(--card-bg, rgba(0,0,0,0.02));
             border-color: var(--border-color, rgba(0,0,0,0.08));
         }
+        [data-theme="light"] .testimonial-card:nth-child(3n+2) {
+            background: rgba(0,0,0,0.04);
+        }
+        [data-theme="light"] .testimonial-card:nth-child(3n+3) {
+            background: transparent;
+        }
         [data-theme="light"] .testimonial-card:hover {
-            border-color: rgba(0,0,0,0.15);
+            border-color: rgba(0,0,0,0.18);
+        }
+        [data-theme="light"] .testimonial-card::before {
+            color: rgba(0,0,0,0.1);
+        }
+        [data-theme="light"] .testimonial-author {
+            border-top-color: rgba(0,0,0,0.06);
+        }
+        [data-theme="light"] .testimonial-author .role-sep {
+            color: rgba(0,0,0,0.3);
         }
         [data-theme="light"] .testimonial-text {
             color: var(--text-primary, #1a1a1a);
@@ -561,6 +634,18 @@
                         var card = document.createElement('div');
                         card.className = 'testimonial-card';
 
+                        // Bucket by length so the masonry has visual rhythm
+                        // (short/punchy quotes get italic-serif treatment;
+                        // long ones get slightly larger body for readability).
+                        var len = (t.testimonial || '').length;
+                        if (len < 120) {
+                            card.setAttribute('data-length', 'short');
+                        } else if (len > 320) {
+                            card.setAttribute('data-length', 'long');
+                        } else {
+                            card.setAttribute('data-length', 'medium');
+                        }
+
                         var text = document.createElement('div');
                         text.className = 'testimonial-text';
                         text.textContent = t.testimonial;
@@ -570,7 +655,7 @@
                         author.className = 'testimonial-author';
                         var html = '<strong>' + escapeHtml(t.name) + '</strong>';
                         if (t.role) {
-                            html += ' &mdash; ' + escapeHtml(t.role);
+                            html += '<span class="role-sep">&middot;</span>' + escapeHtml(t.role);
                         }
                         author.innerHTML = html;
                         card.appendChild(author);
