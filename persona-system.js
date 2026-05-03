@@ -301,6 +301,12 @@
     localStorage.setItem('persona', persona);
     localStorage.setItem('persona-accent', accent);
 
+    // Notify same-tab listeners (e.g. nav-menu.js) — the storage event
+    // only fires across tabs, so we dispatch a custom event here for
+    // anyone in this page that cares about persona changes.
+    try { window.dispatchEvent(new CustomEvent('persona:changed', { detail: { persona: persona, accent: accent } })); }
+    catch (e) {}
+
     // Set CSS variable immediately
     document.documentElement.style.setProperty('--persona-accent', accent);
 
@@ -384,6 +390,10 @@
     localStorage.removeItem('persona');
     localStorage.removeItem('persona-accent');
     document.documentElement.style.removeProperty('--persona-accent');
+
+    // Notify same-tab listeners (nav-menu.js etc.) that persona was cleared
+    try { window.dispatchEvent(new CustomEvent('persona:changed', { detail: { persona: null, accent: null } })); }
+    catch (e) {}
 
     // On subpages: redirect to homepage picker
     var pickerSection = document.getElementById('persona-picker-section');
