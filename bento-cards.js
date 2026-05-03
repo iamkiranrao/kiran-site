@@ -42,7 +42,7 @@
     },
     career: {
       eyebrow: '15+ Years Building',
-      stat: 'The Work',
+      stat: 'Receipts',
       desc: 'Enterprise to startup. The full arc.',
       tags: ['ADP', 'Yahoo', 'Avatour', '+3'],
       character: 'Veteran (bear)',
@@ -66,7 +66,7 @@
     },
     skills: {
       eyebrow: 'Range & Evidence',
-      stat: 'Skills',
+      stat: 'The Stack',
       desc: 'Mastered. Mapped. Proven.',
       tags: ['Product', 'AI', 'Cloud'],
       character: 'Cartographer (octopus)',
