@@ -17,7 +17,10 @@ jobs:
   reindex:
     name: Re-index content for Fenix
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # 30 min safety margin — chunk_and_embed batches at 128 (Voyage API max)
+    # and sleeps 20s between batches for the free tier's 3 RPM. Real run
+    # should finish in ~2-3 minutes; the headroom catches catastrophic regressions.
+    timeout-minutes: 30
 
     steps:
       - name: Checkout site content
