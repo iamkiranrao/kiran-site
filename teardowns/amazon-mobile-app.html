@@ -73,6 +73,16 @@
             line-height: 1.1;
             margin-bottom: 0.5rem;
         }
+        .hero-logo {
+            width: 100px; height: 32px;
+            margin: 0 auto 1rem;
+            color: var(--text-primary);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero-logo svg {
+            width: 100%; height: 100%;
+            fill: currentColor;
+        }
         .subpage-hero-tagline {
             font-size: clamp(1rem, 2vw, 1.2rem);
             font-weight: 400;
@@ -866,19 +876,25 @@
         </ul>
     </div>
 
+    <!-- Back-link to L1 (skipping L2 — single-subject company) -->
+    <a href="../how-id-built-it.html" class="back-link">
+        <span class="back-link-arrow">&larr;</span>
+        <span>Back to How I'd've Built It</span>
+    </a>
+
     <!-- Hero -->
     <div class="subpage-hero">
         <div class="hero-title-area">
+            <div class="hero-logo">
+                <svg role="img" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-label="Amazon"><text x="0" y="20" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.04em">amazon</text></svg>
+            </div>
             <h1 class="subpage-hero-title">Amazon Mobile App Product Teardown</h1>
             <p class="subpage-hero-tagline">How search chaos kills mobile commerce for time-pressed users</p>
         </div>
     </div>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a href="../how-id-built-it.html">How I'd've Built It</a>
-        <span>/</span>
-        <a href="amazon.html">amazon</a>
+    <!-- (legacy breadcrumb removed in favor of back-link) -->
+    <div style="display:none;" data-legacy-breadcrumb>
         <span>/</span>
         <span class="current">Amazon Mobile App Product Teardown</span>
         <br>

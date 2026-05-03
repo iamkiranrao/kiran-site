@@ -123,17 +123,66 @@ class GitHandler:
             "changes": status.split("\n") if status else [],
         }
 
+    # Company brand colors for the L1 card hover treatment (May 2026)
+    # Used as the --brand CSS variable; falls back to text-primary if missing.
+    COMPANY_BRAND = {
+        "meta": "#0866FF",
+        "geico": "#003366",
+        "spotify": "#1ED760",
+        "airbnb": "#FF5A5F",
+        "intuit": "#366FF0",
+        "amazon": "#FF9900",
+        "google": "#4285F4",
+        "apple": "#555555",
+    }
+
+    def _load_company_logo_svg(self, company_slug: str, company: str) -> str:
+        """Load the inline SVG content for a company logo.
+
+        Looks in images/teardowns/logos/{slug}.svg. If absent, returns a
+        stylized wordmark fallback so the card still renders.
+        """
+        logo_path = os.path.join(self.local_path, "images", "teardowns", "logos", f"{company_slug}.svg")
+        if os.path.exists(logo_path):
+            try:
+                with open(logo_path, "r", encoding="utf-8") as f:
+                    return f.read().strip()
+            except OSError:
+                pass
+        # Fallback wordmark
+        return (
+            f'<svg role="img" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-label="{company}">'
+            f'<text x="0" y="20" font-family="Inter, -apple-system, sans-serif" '
+            f'font-size="22" font-weight="700" letter-spacing="-0.03em">{company}</text>'
+            f'</svg>'
+        )
+
     def _generate_company_card(self, company: str, company_slug: str, product: str) -> str:
-        """Auto-generate a company card for how-id-built-it.html grid."""
-        return f"""            <a href="teardowns/{company_slug}.html" class="company-card">
+        """Auto-generate a company card for how-id-built-it.html grid.
+
+        New card structure (May 2026): logo-dominant with --brand CSS variable
+        for the hover color reveal. Pinterest masonry layout in the parent.
+
+        Routing: defaults to L2 hub (teardowns/{company_slug}.html). For
+        single-subject companies (the common case for new teardowns), Direction
+        B says we should link directly to L3 — but that requires knowing if
+        more teardowns will be added later. Safer default: L2. If the company
+        only ever ships one teardown, the L1 card href can be manually
+        adjusted to point straight to L3, and the orphaned L2 page can stay
+        in place for SEO/bookmarks.
+        """
+        brand_color = self.COMPANY_BRAND.get(company_slug, "#888888")
+        logo_svg = self._load_company_logo_svg(company_slug, company)
+        return f"""            <a href="teardowns/{company_slug}.html" class="company-card" style="--brand: {brand_color};">
                 <div class="company-logo">
-                    <svg width="160" height="32" viewBox="0 0 160 32" fill="none">
-                        <text x="0" y="24" font-family="Inter, -apple-system, sans-serif" font-size="24" font-weight="700" fill="var(--text-primary)" letter-spacing="-0.04em">{company}</text>
-                    </svg>
+                    {logo_svg}
                 </div>
                 <div class="company-body">
                     <div class="company-name">{company}</div>
-                    <div class="company-product-count">1 teardown</div>
+                    <div class="company-meta">
+                        <span class="status-dot draft"></span>
+                        <span class="status-text">1 Teardown · In Draft</span>
+                    </div>
                     <div class="company-products">
                         <span class="company-product-tag">{product}</span>
                     </div>

@@ -78,146 +78,146 @@
             margin-bottom: 0;
         }
 
-        /* Breadcrumb */
-        .breadcrumb {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.5rem 4rem 0;
+        /* Hero logo (above the H1) */
+        .hero-logo {
+            width: 64px;
+            height: 32px;
+            margin: 0 auto 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .breadcrumb a {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            text-decoration: none;
-            letter-spacing: 0.01em;
-            transition: color 0.2s ease;
-        }
-        .breadcrumb a:hover { color: var(--text-primary); }
-        .breadcrumb span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin: 0 0.4rem;
-            opacity: 0.5;
-        }
-        .breadcrumb .current {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text-secondary);
+        .hero-logo svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
         }
 
         /* ============================================
-           PRODUCT GRID
+           PRODUCT MASONRY — Pinterest-style, logo-dominant
            ============================================ */
         .products-section {
-            padding: 2rem 4rem 4rem;
-            max-width: 1400px;
+            padding: 1rem 2rem 4rem;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
         .products-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.25rem;
+            column-count: 3;
+            column-gap: 1.25rem;
         }
 
-        /* ============================================
-           PRODUCT CARD
-           ============================================ */
         .product-card {
+            display: block;
+            width: 100%;
+            margin-bottom: 1.25rem;
+            break-inside: avoid;
             border: 1px solid var(--border);
-            border-radius: 12px;
-            background: var(--bg-primary);
+            border-radius: 14px;
             overflow: hidden;
-            transition: border-color 0.2s ease, transform 0.15s ease;
-            cursor: pointer;
             text-decoration: none;
-            display: flex;
-            flex-direction: column;
+            color: inherit;
+            transition: border-color 0.2s ease,
+                        transform 0.32s var(--ease-bounce),
+                        box-shadow 0.22s ease;
+            cursor: pointer;
+            position: relative;
+            background: var(--bg-primary);
         }
         .product-card:hover {
             border-color: var(--text-muted);
-            transform: translateY(-2px);
+            transform: translateY(-5px) scale(1.012);
+            box-shadow: 0 10px 28px rgba(0,0,0,0.18);
         }
 
-        /* Product icon area */
         .wf-product-icon {
             width: 100%;
-            height: 100px;
+            aspect-ratio: 16 / 9;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
             border-bottom: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            color: var(--text-primary);
+            transition: color 0.25s ease;
         }
         .wf-product-icon svg {
-            width: 48px;
-            height: 48px;
+            width: 100%;
+            height: 100%;
+            max-width: 180px;
+            max-height: 80px;
+            fill: currentColor;
+            transition: transform 0.25s var(--ease-bounce);
+        }
+        .product-card:hover .wf-product-icon {
+            color: var(--brand, var(--text-primary));
+        }
+        .product-card:hover .wf-product-icon svg {
+            transform: scale(1.05);
         }
 
-        /* Card body */
         .product-body {
-            padding: 1.25rem 1.5rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
+            padding: 1.1rem 1.25rem 1.25rem;
         }
         .product-name {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            letter-spacing: -0.01em;
-            line-height: 1.3;
             color: var(--text-primary);
+            letter-spacing: -0.01em;
             margin-bottom: 0.4rem;
+        }
+        .product-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .status-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+        .status-dot.live   { background: #4ade80; }
+        .status-dot.draft  { background: #fbbf24; }
+        .status-dot.coming { background: var(--text-muted); }
+        .status-text {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
         .product-tagline {
             font-size: 0.85rem;
             line-height: 1.5;
             color: var(--text-secondary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
         .product-sections {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-bottom: 1rem;
+            gap: 0.35rem;
         }
         .product-section-tag {
-            font-size: 0.65rem;
+            font-size: 0.68rem;
             font-weight: 500;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            background: var(--bg-dark);
+            color: var(--text-secondary);
+            background: rgba(240, 230, 211, 0.06);
             border: 1px solid var(--border);
-            padding: 0.2rem 0.5rem;
-            border-radius: 500px;
+            padding: 0.2rem 0.55rem;
+            border-radius: 100px;
+            letter-spacing: 0.01em;
         }
-        .product-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            transition: color 0.2s ease;
-            margin-top: auto;
-        }
-        .product-card:hover .product-cta { color: var(--text-primary); }
-        .product-cta svg {
-            width: 12px;
-            height: 12px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        [data-theme="light"] .product-section-tag {
+            background: rgba(10, 10, 10, 0.04);
         }
 
-        /* Coming soon */
         .product-card.coming-soon {
-            opacity: 0.4;
+            opacity: 0.45;
             cursor: default;
             pointer-events: none;
         }
@@ -331,25 +331,26 @@
         /* ============================================
            RESPONSIVE
            ============================================ */
+        @media (max-width: 1100px) {
+            .products-grid { column-count: 2; }
+        }
         @media (max-width: 1024px) {
             .hero-title-area { padding: 5rem 3rem 1.5rem; }
-            .breadcrumb { padding: 1.25rem 3rem 0; }
             .products-section { padding: 1.5rem 3rem 3rem; }
-            .products-grid { grid-template-columns: repeat(2, 1fr); }
             footer { padding: 3rem 3rem 2rem; }
         }
 
         @media (max-width: 768px) {
             .hero-title-area { padding: 4.5rem 1.5rem 1.5rem; }
-            .breadcrumb { padding: 1rem 1.5rem 0; }
             .products-section { padding: 1.25rem 1.5rem 3rem; }
-            .products-grid { grid-template-columns: 1fr; }
             footer { padding: 2.5rem 1.5rem 1.5rem; }
         }
 
+        @media (max-width: 700px) {
+            .products-grid { column-count: 1; }
+        }
         @media (max-width: 480px) {
             .hero-title-area { padding: 4rem 1rem 1rem; }
-            .breadcrumb { padding: 0.75rem 1rem 0; }
             .products-section { padding: 1rem 1rem 2rem; }
             footer { padding: 2rem 1rem 1.5rem; }
         }
@@ -403,89 +404,87 @@
         </ul>
     </div>
 
+    <!-- Back-link to L1 -->
+    <a href="../how-id-built-it.html" class="back-link">
+        <span class="back-link-arrow">&larr;</span>
+        <span>Back to How I'd've Built It</span>
+    </a>
+
     <!-- Hero -->
     <div class="subpage-hero">
         <div class="hero-title-area">
+            <div class="hero-logo">
+                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Meta"><path d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"/></svg>
+            </div>
             <h1 class="subpage-hero-title">Meta</h1>
             <p class="subpage-hero-tagline">Product teardowns across the Meta family</p>
         </div>
     </div>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a href="../how-id-built-it.html">How I'd've Built It</a>
-        <span>/</span>
-        <span class="current">Meta</span>
-    </div>
-
-    <!-- Products Grid -->
+    <!-- Products masonry -->
     <div class="products-section" id="products">
         <div class="products-grid">
 
-            <!-- Instagram -->
-            <a href="meta-instagram.html" class="product-card">
+            <!-- Instagram — LIVE -->
+            <a href="meta-instagram.html" class="product-card" style="--brand: #E4405F;">
                 <div class="wf-product-icon">
-                    <svg aria-hidden="true" viewBox="0 0 48 48" fill="none">
-                        <rect x="4" y="4" width="40" height="40" rx="12" stroke="var(--text-primary)" stroke-width="2.5" fill="none"/>
-                        <circle cx="24" cy="24" r="10" stroke="var(--text-primary)" stroke-width="2.5" fill="none"/>
-                        <circle cx="36" cy="12" r="2.5" fill="var(--text-primary)"/>
-                    </svg>
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Instagram"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg>
                 </div>
                 <div class="product-body">
                     <div class="product-name">Instagram</div>
-                    <div class="product-tagline">How the shift from chronological to algorithmic changed what the feed feels like - and what a user-choice model could unlock.</div>
+                    <div class="product-meta">
+                        <span class="status-dot live"></span>
+                        <span class="status-text">Live · ~12 min</span>
+                    </div>
+                    <div class="product-tagline">How the shift from chronological to algorithmic changed what the feed feels like — and what a user-choice model could unlock.</div>
                     <div class="product-sections">
                         <span class="product-section-tag">Discovery</span>
-                        <span class="product-section-tag">Keep / Kill / Build</span>
+                        <span class="product-section-tag">KKB</span>
                         <span class="product-section-tag">Redesign</span>
                         <span class="product-section-tag">Business Case</span>
-                    </div>
-                    <div class="product-cta">
-                        Read teardown
-                        <svg aria-hidden="true" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </div>
                 </div>
             </a>
 
-            <!-- WhatsApp - coming soon -->
-            <div class="product-card coming-soon">
+            <!-- WhatsApp — coming soon -->
+            <div class="product-card coming-soon" style="--brand: #25D366;">
                 <div class="wf-product-icon">
-                    <svg aria-hidden="true" viewBox="0 0 48 48" fill="none">
-                        <path d="M24 4C13 4 4 13 4 24c0 3.5.9 6.8 2.5 9.7L4 44l10.5-2.7c2.8 1.5 6 2.4 9.5 2.4 11 0 20-9 20-20S35 4 24 4z" stroke="var(--text-muted)" stroke-width="2.5" fill="none"/>
-                        <path d="M17 19c.5-1 1-2 2-2s2 1 2 1l1 2-2 2s1 3 4 5l2-1 2 1-1 3c-1 0-4 0-7-3s-4-6-4-7z" stroke="var(--text-muted)" stroke-width="1.5" fill="none"/>
-                    </svg>
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="WhatsApp"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
                 </div>
                 <div class="product-body">
                     <div class="product-name">WhatsApp</div>
-                    <div class="product-tagline">Coming soon</div>
+                    <div class="product-meta">
+                        <span class="status-dot coming"></span>
+                        <span class="status-text">Coming Soon</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Facebook - coming soon -->
-            <div class="product-card coming-soon">
+            <!-- Facebook — coming soon -->
+            <div class="product-card coming-soon" style="--brand: #1877F2;">
                 <div class="wf-product-icon">
-                    <svg aria-hidden="true" viewBox="0 0 48 48" fill="none">
-                        <circle cx="24" cy="24" r="20" stroke="var(--text-muted)" stroke-width="2.5" fill="none"/>
-                        <path d="M26 44V27h5l1-6h-6v-3c0-2 0-3 3-3h3V9h-5c-5 0-7 3-7 7v5h-4v6h4v17" stroke="var(--text-muted)" stroke-width="2" fill="none"/>
-                    </svg>
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Facebook"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
                 </div>
                 <div class="product-body">
                     <div class="product-name">Facebook</div>
-                    <div class="product-tagline">Coming soon</div>
+                    <div class="product-meta">
+                        <span class="status-dot coming"></span>
+                        <span class="status-text">Coming Soon</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Threads - coming soon -->
-            <div class="product-card coming-soon">
+            <!-- Threads — coming soon -->
+            <div class="product-card coming-soon" style="--brand: #000000;">
                 <div class="wf-product-icon">
-                    <svg aria-hidden="true" viewBox="0 0 48 48" fill="none">
-                        <path d="M32 18c-1-4-4-6-8-6-5 0-8 3-8 8v8c0 5 3 8 8 8 4 0 7-2 8-6" stroke="var(--text-muted)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                        <path d="M32 18c2 1 4 4 4 8 0 5-3 8-8 8" stroke="var(--text-muted)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                    </svg>
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Threads"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"/></svg>
                 </div>
                 <div class="product-body">
                     <div class="product-name">Threads</div>
-                    <div class="product-tagline">Coming soon</div>
+                    <div class="product-meta">
+                        <span class="status-dot coming"></span>
+                        <span class="status-text">Coming Soon</span>
+                    </div>
                 </div>
             </div>
 
