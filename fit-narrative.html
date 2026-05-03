@@ -850,14 +850,36 @@
         <span class="fn-nav__current">Fit Narrative</span>
       </div>
       <div class="fn-nav__right">
-        <button class="fn-theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+        <button id="themeToggle" class="fn-theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
           <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </button>
-        <button class="fn-menu-btn">Menu</button>
+        <button id="menuButton" class="fn-menu-btn">Menu</button>
       </div>
     </div>
   </nav>
   <div class="fn-nav-spacer"></div>
+
+  <!-- Mobile menu (standard site pattern; nav-menu.js renders persona-driven order) -->
+  <div id="mobileMenu" class="mobile-menu">
+    <div class="mobile-menu-header">
+      <div></div>
+      <button id="closeMenu" class="close-menu" aria-label="Close menu">&times;</button>
+    </div>
+    <ul class="mobile-nav-links" data-canonical-menu>
+      <!-- nav-menu.js renders persona-driven order. Below is no-JS fallback (default persona). -->
+      <li><a href="/index.html">&#8600; Home</a></li>
+      <li><a href="/how-id-built-it.html">&#8600; How I'd've Built It</a></li>
+      <li><a href="/testimonials.html">&#8600; Testimonials</a></li>
+      <li><a href="/studio.html">&#8600; Studio</a></li>
+      <li><a href="/madlab.html">&#8600; MadLab</a></li>
+      <li><a href="/the-work.html">&#8600; Receipts</a></li>
+      <li><a href="/under-the-hood.html">&#8600; Under the Hood</a></li>
+      <li><a href="/skills.html">&#8600; The Stack</a></li>
+      <li><a href="/blog-podcast.html">&#8600; Blog</a></li>
+      <li><a href="/now.html">&#8600; /Now</a></li>
+      <li><a href="/index.html#contact">&#8600; Connect</a></li>
+    </ul>
+  </div>
 
   <!-- ════════════════════════════════════
        PAGE
@@ -888,27 +910,41 @@
        ════════════════════════════════════ -->
   <script>
     (function() {
+      // Theme toggle — uses the site-wide 'theme' localStorage key so the
+      // user's preference persists across every page on the site (was
+      // 'fenix_theme' before this fix, which siloed the preference to this page).
       var toggle = document.querySelector('.fn-theme-toggle');
-      if (!toggle) return;
-
-      // Restore saved theme
-      var saved = localStorage.getItem('fenix_theme');
-      if (saved === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
+      if (toggle) {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+        toggle.addEventListener('click', function () {
+          var current = document.documentElement.getAttribute('data-theme');
+          var next = current === 'light' ? 'dark' : 'light';
+          if (next === 'dark') document.documentElement.removeAttribute('data-theme');
+          else document.documentElement.setAttribute('data-theme', 'light');
+          try { localStorage.setItem('theme', next); } catch (e) {}
+        });
       }
 
-      toggle.addEventListener('click', function() {
-        var current = document.documentElement.getAttribute('data-theme');
-        var next = current === 'light' ? 'dark' : 'light';
-        if (next === 'dark') {
-          document.documentElement.removeAttribute('data-theme');
-        } else {
-          document.documentElement.setAttribute('data-theme', 'light');
-        }
-        try { localStorage.setItem('fenix_theme', next); } catch (e) {}
-      });
+      // Mobile menu — open/close (was a dead button before this fix).
+      var menuBtn = document.getElementById('menuButton');
+      var closeBtn = document.getElementById('closeMenu');
+      var mobileMenu = document.getElementById('mobileMenu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', function () {
+          mobileMenu.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      }
+      if (closeBtn && mobileMenu) {
+        closeBtn.addEventListener('click', function () {
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      }
     })();
   </script>
+  <script src="/nav-menu.js?v=20260503"></script>
 
   <!-- ════════════════════════════════════
        FIT NARRATIVE LOGIC
