@@ -30,8 +30,51 @@
         .preview-hero p {
             font-size: clamp(1rem, 2vw, 1.2rem);
             color: var(--text-secondary);
-            margin: 0;
+            margin: 0 0 1.5rem;
         }
+
+        /* In-hero process-mini bar — same exact treatment as live L3 pages.
+           Educational bookmark in the hero. */
+        .process-mini {
+            max-width: 700px; margin: 1.5rem auto 0;
+            display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+        .process-mini-step {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0.2rem 0.4rem;
+            border-radius: 100px;
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+        a.process-mini-step:hover, a.process-mini-step.active {
+            color: var(--text-primary);
+            background: rgba(240, 230, 211, 0.08);
+        }
+        a.process-mini-step:hover .process-mini-num,
+        a.process-mini-step.active .process-mini-num {
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+        [data-theme="light"] a.process-mini-step:hover,
+        [data-theme="light"] a.process-mini-step.active {
+            background: rgba(10, 10, 10, 0.05);
+        }
+        .process-mini-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            font-size: 0.55rem; font-weight: 700;
+            color: var(--text-secondary);
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .process-mini-arrow { color: var(--text-muted); font-size: 0.6rem; opacity: 0.6; }
 
         /* Mock content */
         .preview-content {
@@ -67,14 +110,14 @@
         }
 
         /* ===========================================
-           STICKY SIDEBAR TOC — proposed pattern
+           DESKTOP (≥1200px): vertical sidebar TOC
            =========================================== */
         .toc-sidebar {
             position: fixed;
             left: 1.5rem;
             top: 50%;
             transform: translateY(-50%);
-            display: flex;
+            display: none;
             flex-direction: column;
             gap: 0.75rem;
             z-index: 50;
@@ -82,6 +125,9 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
             max-width: 200px;
+        }
+        @media (min-width: 1200px) {
+            .toc-sidebar { display: flex; }
         }
         .toc-sidebar.visible {
             opacity: 1;
@@ -132,12 +178,49 @@
         }
         .toc-text { flex: 1; }
 
-        /* Hide sidebar below 1200px (no room next to 900px content column),
-           and hide when Fenix side panel is open. */
-        @media (max-width: 1199px) {
-            .toc-sidebar { display: none !important; }
-        }
+        /* Hide sidebar when Fenix side panel is open */
         body.fenix-panel-open .toc-sidebar { display: none !important; }
+
+        /* ===========================================
+           TABLET / PHONE (<1200px): horizontal sticky bar
+           Reuses the existing process-mini design — no new chrome.
+           Only sticks to top once user scrolls past the in-hero copy.
+           =========================================== */
+        .process-mini-sticky {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            z-index: 49;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            display: none;
+        }
+        [data-theme="light"] .process-mini-sticky {
+            background: rgba(255, 255, 255, 0.92);
+        }
+        .process-mini-sticky.visible {
+            transform: translateY(0);
+        }
+        .process-mini-sticky .process-mini {
+            margin: 0 auto;
+        }
+        @media (max-width: 1199px) {
+            .process-mini-sticky { display: block; }
+        }
+        @media (min-width: 1200px) {
+            .process-mini-sticky { display: none !important; }
+        }
+        /* On very narrow screens, hide the labels and just show numbered dots
+           so the bar stays compact. */
+        @media (max-width: 600px) {
+            .process-mini-sticky .process-mini-step .process-mini-step-label { display: none; }
+            .process-mini-sticky .process-mini { gap: 0.6rem; }
+            .process-mini-sticky .process-mini-arrow { display: none; }
+        }
 
         /* Preview banner */
         .preview-banner {
@@ -154,9 +237,9 @@
 </head>
 <body>
 
-<div class="preview-banner">PROTOTYPE — sidebar TOC preview. Scroll to see active-section highlighting. Resize to ≤1199px to see fallback.</div>
+<div class="preview-banner">PROTOTYPE — Resize the window: ≥1200px shows vertical sidebar; &lt;1200px shows sticky horizontal bar; &lt;600px collapses to numbered dots only.</div>
 
-<!-- Sticky sidebar TOC -->
+<!-- DESKTOP ≥1200px: vertical sidebar TOC -->
 <nav class="toc-sidebar" aria-label="Table of contents">
     <div class="toc-sidebar-label">On this page</div>
     <a class="toc-link" href="#section-01" data-section-target="section-01">
@@ -177,9 +260,37 @@
     </a>
 </nav>
 
+<!-- TABLET/PHONE <1200px: sticky horizontal mini-bar (reuses existing process-mini design) -->
+<div class="process-mini-sticky" aria-label="Jump to section">
+    <div class="process-mini">
+        <a class="process-mini-step" href="#section-01" data-section-target="section-01"><span class="process-mini-num">1</span><span class="process-mini-step-label">Discovery</span></a>
+        <span class="process-mini-arrow">→</span>
+        <a class="process-mini-step" href="#section-02" data-section-target="section-02"><span class="process-mini-num">2</span><span class="process-mini-step-label">KKB</span></a>
+        <span class="process-mini-arrow">→</span>
+        <a class="process-mini-step" href="#section-03" data-section-target="section-03"><span class="process-mini-num">3</span><span class="process-mini-step-label">Redesign</span></a>
+        <span class="process-mini-arrow">→</span>
+        <a class="process-mini-step" href="#section-04" data-section-target="section-04"><span class="process-mini-num">4</span><span class="process-mini-step-label">Business Case</span></a>
+    </div>
+</div>
+
 <div class="preview-hero" style="margin-top: 4rem;">
     <h1>Instagram Teardown</h1>
-    <p>Sample content showing the sticky sidebar TOC pattern in context.</p>
+    <p>Sample content showing the sticky TOC pattern in context — vertical on desktop, horizontal on narrower viewports.</p>
+
+    <!-- In-hero process-mini bookmark (existing pattern, always visible at top) -->
+    <div class="process-mini" aria-label="Process overview">
+        <a class="process-mini-step" href="#section-01"><span class="process-mini-num">1</span>Pain</a>
+        <span class="process-mini-arrow">→</span>
+        <a class="process-mini-step" href="#section-01"><span class="process-mini-num">2</span>Persona</a>
+        <span class="process-mini-arrow">→</span>
+        <a class="process-mini-step" href="#section-01"><span class="process-mini-num">3</span>JTBD</a>
+        <span class="process-mini-arrow">→</span>
+        <a class="process-mini-step" href="#section-02"><span class="process-mini-num">4</span>KKB</a>
+        <span class="process-mini-arrow">→</span>
+        <a class="process-mini-step" href="#section-03"><span class="process-mini-num">5</span>Wireframe</a>
+        <span class="process-mini-arrow">→</span>
+        <a class="process-mini-step" href="#section-04"><span class="process-mini-num">6</span>KPIs</a>
+    </div>
 </div>
 
 <div class="preview-content">
@@ -210,35 +321,34 @@
     <section id="section-04" class="preview-section" data-section-id="business-case">
         <div class="section-number">Section 04</div>
         <h2 class="section-title">Business Case</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos minima inventore quisquam alias hic, perferendis, consectetur veniam quod sapiente earum tempora, illo distinctio. Section 4 should highlight in the sidebar as you reach this part of the page. KPIs, projected impact, rollout plan.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos minima inventore quisquam alias hic, perferendis, consectetur veniam quod sapiente earum tempora, illo distinctio. Section 4 should highlight in the sidebar/sticky bar as you reach this part of the page. KPIs, projected impact, rollout plan.</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe modi tenetur, animi temporibus aliquam neque maiores, doloremque ducimus consequuntur sunt incidunt voluptates labore voluptatibus quia hic dolore quasi! Quasi rerum quam dolore necessitatibus assumenda, quis molestias incidunt esse soluta accusantium itaque dignissimos ipsa eligendi! Sequi temporibus modi consequatur enim ab quod, esse quos!</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, soluta. Voluptates eum tempora ad veritatis, laboriosam quasi facilis ipsam ipsum quaerat numquam suscipit nemo dolore eaque libero earum minus laudantium repellat illum quia animi corrupti.</p>
     </section>
 </div>
 
 <script>
-    // Show sidebar after scrolling past the hero
+    // Show sidebar/sticky-bar after scrolling past the hero
     var sidebar = document.querySelector('.toc-sidebar');
+    var stickyBar = document.querySelector('.process-mini-sticky');
     var hero = document.querySelector('.preview-hero');
 
-    function updateSidebarVisibility() {
+    function updateChrome() {
         var heroBottom = hero.getBoundingClientRect().bottom;
-        if (heroBottom < 80) {
-            sidebar.classList.add('visible');
-        } else {
-            sidebar.classList.remove('visible');
-        }
+        var pastHero = heroBottom < 60;
+        sidebar.classList.toggle('visible', pastHero);
+        stickyBar.classList.toggle('visible', pastHero);
     }
-    window.addEventListener('scroll', updateSidebarVisibility, { passive: true });
-    updateSidebarVisibility();
+    window.addEventListener('scroll', updateChrome, { passive: true });
+    updateChrome();
 
-    // Scroll-spy via IntersectionObserver
+    // Scroll-spy via IntersectionObserver — applies to BOTH sidebar links and sticky-bar links
     var sections = document.querySelectorAll('.preview-section');
-    var links = document.querySelectorAll('.toc-link');
+    var sidebarLinks = document.querySelectorAll('.toc-link');
+    var stickyLinks = document.querySelectorAll('.process-mini-sticky .process-mini-step');
     var visibleSections = new Set();
 
     function setActiveLink() {
-        // Pick the topmost visible section
         var topmost = null;
         var topmostY = Infinity;
         visibleSections.forEach(function (id) {
@@ -250,7 +360,10 @@
                 topmost = id;
             }
         });
-        links.forEach(function (link) {
+        sidebarLinks.forEach(function (link) {
+            link.classList.toggle('active', link.dataset.sectionTarget === topmost);
+        });
+        stickyLinks.forEach(function (link) {
             link.classList.toggle('active', link.dataset.sectionTarget === topmost);
         });
     }
