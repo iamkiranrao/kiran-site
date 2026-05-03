@@ -116,27 +116,30 @@
             margin: 0 auto;
         }
 
+        /* ============================================
+           COMPANY MASONRY — Pinterest-style, logo-dominant
+           ============================================ */
         .companies-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            column-count: 3;
+            column-gap: 1.25rem;
         }
 
-        /* ============================================
-           COMPANY CARD
-           ============================================ */
         .company-card {
+            display: block;
+            width: 100%;
+            margin-bottom: 1.25rem;
+            break-inside: avoid;
             border: 1px solid var(--border);
-            border-radius: 12px;
-            background: var(--bg-primary);
+            border-radius: 14px;
             overflow: hidden;
+            text-decoration: none;
+            color: inherit;
             transition: border-color 0.2s ease,
                         transform 0.32s var(--ease-bounce),
                         box-shadow 0.22s ease;
             cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
+            position: relative;
+            background: var(--bg-primary);
         }
         .company-card:hover {
             border-color: var(--text-muted);
@@ -144,70 +147,90 @@
             box-shadow: 0 10px 28px rgba(0,0,0,0.18);
         }
 
-        /* Logo Banner */
+        /* Logo area — the visual hero */
         .company-logo {
             width: 100%;
-            height: 120px;
+            aspect-ratio: 16 / 9;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
-            padding: 1.5rem 2rem;
             border-bottom: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            color: var(--text-primary);
+            transition: color 0.25s ease;
         }
         .company-logo svg {
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%;
+            height: 100%;
+            max-width: 180px;
+            max-height: 80px;
+            fill: currentColor;
+            transition: transform 0.25s var(--ease-bounce);
+        }
+        .company-card:hover .company-logo {
+            color: var(--brand, var(--text-primary));
+        }
+        .company-card:hover .company-logo svg {
+            transform: scale(1.05);
         }
 
-        /* Card body */
         .company-body {
-            padding: 1.25rem 1.5rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
+            padding: 1.1rem 1.25rem 1.25rem;
         }
         .company-name {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            letter-spacing: -0.01em;
-            line-height: 1.3;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.4rem;
         }
-        .company-product-count {
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-            color: var(--text-muted);
+        .company-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .status-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+        .status-dot.live   { background: #4ade80; }
+        .status-dot.draft  { background: #fbbf24; }
+        .status-dot.coming { background: var(--text-muted); }
+        .status-text {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
         .company-products {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
+            gap: 0.35rem;
         }
         .company-product-tag {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 500;
-            letter-spacing: 0.01em;
             color: var(--text-secondary);
-            background: var(--bg-dark);
+            background: rgba(240, 230, 211, 0.06);
             border: 1px solid var(--border);
-            padding: 0.25rem 0.6rem;
-            border-radius: 500px;
+            padding: 0.2rem 0.55rem;
+            border-radius: 100px;
+            letter-spacing: 0.01em;
+        }
+        [data-theme="light"] .company-product-tag {
+            background: rgba(10, 10, 10, 0.04);
         }
 
-        /* Coming soon overlay */
         .company-card.coming-soon {
-            opacity: 0.4;
+            opacity: 0.45;
             cursor: default;
             pointer-events: none;
-        }
-        .company-card.coming-soon:hover {
-            border-color: var(--border);
-            transform: none;
         }
 
         /* ============================================
@@ -447,7 +470,7 @@
             .section-intro { padding: 1.5rem 3rem 0; }
             .teardown-process { padding: 2rem 2rem 1rem; }
             .companies-section { padding: 2rem 3rem 3rem; }
-            .companies-grid { grid-template-columns: repeat(2, 1fr); }
+            .companies-grid { column-count: 2; }
             footer { padding: 3rem 3rem 2rem; }
         }
 
@@ -461,7 +484,7 @@
             .process-stop:nth-child(6) { order: 6; }
             .process-stop-arrow { display: none; }
             .companies-section { padding: 1.5rem 1.5rem 3rem; }
-            .companies-grid { grid-template-columns: 1fr; }
+            .companies-grid { column-count: 1; }
             footer { padding: 2.5rem 1.5rem 1.5rem; }
         }
 
@@ -632,98 +655,121 @@
     <!-- Company Grid -->
     <div class="companies-section" id="companies">
         <div class="companies-grid">
+            <!-- NEW-COMPANY-CARD -->
 
-            <!-- Meta -->
-            <a href="teardowns/meta.html" class="company-card">
+            <!-- Meta — multi-subject, links to L2 -->
+            <a href="teardowns/meta.html" class="company-card" style="--brand: #0866FF;">
                 <div class="company-logo">
-                    <svg aria-hidden="true" width="160" height="32" viewBox="0 0 160 32" fill="none">
-                        <text x="0" y="24" font-family="Inter, -apple-system, sans-serif" font-size="24" font-weight="700" fill="var(--text-primary)" letter-spacing="-0.04em">Meta</text>
-                    </svg>
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Meta"><path d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"/></svg>
                 </div>
                 <div class="company-body">
                     <div class="company-name">Meta</div>
-                    <div class="company-product-count">1 teardown</div>
+                    <div class="company-meta">
+                        <span class="status-dot live"></span>
+                        <span class="status-text">1 Teardown · Live</span>
+                    </div>
                     <div class="company-products">
                         <span class="company-product-tag">Instagram</span>
                     </div>
                 </div>
             </a>
 
-            <!-- GEICO -->
-            <a href="teardowns/geico.html" class="company-card">
+            <!-- GEICO — single-subject, links direct to L3 -->
+            <a href="teardowns/geico-mobile-app.html" class="company-card" style="--brand: #003366;">
                 <div class="company-logo">
-                    <svg aria-hidden="true" width="160" height="32" viewBox="0 0 160 32" fill="none">
-                        <text x="0" y="24" font-family="Inter, -apple-system, sans-serif" font-size="24" font-weight="700" fill="var(--text-primary)" letter-spacing="-0.04em">GEICO</text>
-                    </svg>
+                    <svg role="img" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-label="GEICO"><text x="0" y="20" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.02em">GEICO</text></svg>
                 </div>
                 <div class="company-body">
                     <div class="company-name">GEICO</div>
-                    <div class="company-product-count">1 teardown</div>
+                    <div class="company-meta">
+                        <span class="status-dot live"></span>
+                        <span class="status-text">1 Teardown · Live</span>
+                    </div>
                     <div class="company-products">
                         <span class="company-product-tag">Mobile App</span>
                     </div>
                 </div>
             </a>
 
-            <!-- Airbnb -->
-            <a href="teardowns/airbnb.html" class="company-card">
+            <!-- Spotify — single-subject, links direct to L3 -->
+            <a href="teardowns/spotify-playlist-discovery.html" class="company-card" style="--brand: #1ED760;">
                 <div class="company-logo">
-                    <svg aria-hidden="true" width="160" height="32" viewBox="0 0 160 32" fill="none">
-                        <text x="0" y="24" font-family="Inter, -apple-system, sans-serif" font-size="24" font-weight="700" fill="var(--text-primary)" letter-spacing="-0.04em">Airbnb</text>
-                    </svg>
-                </div>
-                <div class="company-body">
-                    <div class="company-name">Airbnb</div>
-                    <div class="company-product-count">1 teardown</div>
-                    <div class="company-products">
-                        <span class="company-product-tag">Mobile</span>
-                    </div>
-                </div>
-            </a>
-
-                        <a href="teardowns/intuit.html" class="company-card">
-                <div class="company-logo">
-                    <svg aria-hidden="true" width="160" height="32" viewBox="0 0 160 32" fill="none">
-                        <text x="0" y="24" font-family="Inter, -apple-system, sans-serif" font-size="24" font-weight="700" fill="var(--text-primary)" letter-spacing="-0.04em">Intuit</text>
-                    </svg>
-                </div>
-                <div class="company-body">
-                    <div class="company-name">Intuit</div>
-                    <div class="company-product-count">1 teardown</div>
-                    <div class="company-products">
-                        <span class="company-product-tag">Turbo Tax</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Spotify -->
-            <a href="teardowns/spotify.html" class="company-card">
-                <div class="company-logo">
-                    <svg aria-hidden="true" width="160" height="32" viewBox="0 0 160 32" fill="none">
-                        <text x="0" y="24" font-family="Inter, -apple-system, sans-serif" font-size="24" font-weight="700" fill="var(--text-primary)" letter-spacing="-0.04em">Spotify</text>
-                    </svg>
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Spotify"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
                 </div>
                 <div class="company-body">
                     <div class="company-name">Spotify</div>
-                    <div class="company-product-count">1 teardown</div>
+                    <div class="company-meta">
+                        <span class="status-dot draft"></span>
+                        <span class="status-text">1 Teardown · In Draft</span>
+                    </div>
                     <div class="company-products">
                         <span class="company-product-tag">Playlist Discovery</span>
                     </div>
                 </div>
             </a>
 
-            <!-- NEW-COMPANY-CARD -->
-
-            <!-- Google - coming soon -->
-            <div class="company-card coming-soon">
+            <!-- Airbnb — single-subject, links direct to L3 -->
+            <a href="teardowns/airbnb-mobile.html" class="company-card" style="--brand: #FF5A5F;">
                 <div class="company-logo">
-                    <svg aria-hidden="true" width="160" height="32" viewBox="0 0 160 32" fill="none">
-                        <text x="0" y="24" font-family="Inter, -apple-system, sans-serif" font-size="24" font-weight="700" fill="var(--text-muted)" letter-spacing="-0.04em">Google</text>
-                    </svg>
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Airbnb"><path d="M12.001 18.275c-1.353-1.697-2.148-3.184-2.413-4.457-.263-1.027-.16-1.848.291-2.465.477-.71 1.188-1.056 2.121-1.056s1.643.345 2.12 1.063c.446.61.558 1.432.286 2.465-.291 1.298-1.085 2.785-2.412 4.458zm9.601 1.14c-.185 1.246-1.034 2.28-2.2 2.783-2.253.98-4.483-.583-6.392-2.704 3.157-3.951 3.74-7.028 2.385-9.018-.795-1.14-1.933-1.695-3.394-1.695-2.944 0-4.563 2.49-3.927 5.382.37 1.565 1.352 3.343 2.917 5.332-.98 1.085-1.91 1.856-2.732 2.333-.636.344-1.245.558-1.828.609-2.679.399-4.778-2.2-3.825-4.88.132-.345.395-.98.845-1.961l.025-.053c1.464-3.178 3.242-6.79 5.285-10.795l.053-.132.58-1.116c.45-.822.635-1.19 1.351-1.643.346-.21.77-.315 1.246-.315.954 0 1.698.558 2.016 1.007.158.239.345.557.582.953l.558 1.089.08.159c2.041 4.004 3.821 7.608 5.279 10.794l.026.025.533 1.22.318.764c.243.613.294 1.222.213 1.858zm1.22-2.39c-.186-.583-.505-1.271-.9-2.094v-.03c-1.889-4.006-3.642-7.608-5.307-10.844l-.111-.163C15.317 1.461 14.468 0 12.001 0c-2.44 0-3.476 1.695-4.535 3.898l-.081.16c-1.669 3.236-3.421 6.843-5.303 10.847v.053l-.559 1.22c-.21.504-.317.768-.345.847C-.172 20.74 2.611 24 5.98 24c.027 0 .132 0 .265-.027h.372c1.75-.213 3.554-1.325 5.384-3.317 1.829 1.989 3.635 3.104 5.382 3.317h.372c.133.027.239.027.265.027 3.37.003 6.152-3.261 4.802-6.975z"/></svg>
+                </div>
+                <div class="company-body">
+                    <div class="company-name">Airbnb</div>
+                    <div class="company-meta">
+                        <span class="status-dot draft"></span>
+                        <span class="status-text">1 Teardown · In Draft</span>
+                    </div>
+                    <div class="company-products">
+                        <span class="company-product-tag">Mobile</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Intuit — single-subject, links direct to L3 -->
+            <a href="teardowns/intuit-turbo-tax.html" class="company-card" style="--brand: #366FF0;">
+                <div class="company-logo">
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Intuit"><path d="M12.32 12.38c0 1.174.974 2.033 2.211 2.033 1.237 0 2.212-.859 2.212-2.033v-2.7h-1.198v2.56c0 .633-.44 1.06-1.017 1.06s-1.017-.424-1.017-1.06V9.68h-1.198l.008 2.699zm7.624-1.619h1.429v3.563h1.198V10.76H24V9.68h-4.056v1.082zM19.17 9.68h-1.198v4.645h1.198V9.679zM7.482 10.761h1.43v3.563h1.197V10.76h1.428V9.68H7.482v1.082zM1.198 9.68H0v4.645h1.198V9.679zm5.653 1.94c0-1.174-.974-2.032-2.212-2.032-1.238 0-2.212.858-2.212 2.032v2.705h1.198v-2.56c0-.633.44-1.06 1.017-1.06s1.018.425 1.018 1.06v2.56h1.197L6.85 11.62h.001z"/></svg>
+                </div>
+                <div class="company-body">
+                    <div class="company-name">Intuit</div>
+                    <div class="company-meta">
+                        <span class="status-dot draft"></span>
+                        <span class="status-text">1 Teardown · In Draft</span>
+                    </div>
+                    <div class="company-products">
+                        <span class="company-product-tag">TurboTax</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Amazon — single-subject, links direct to L3 -->
+            <a href="teardowns/amazon-mobile-app.html" class="company-card" style="--brand: #FF9900;">
+                <div class="company-logo">
+                    <svg role="img" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-label="Amazon"><text x="0" y="20" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.04em">amazon</text></svg>
+                </div>
+                <div class="company-body">
+                    <div class="company-name">Amazon</div>
+                    <div class="company-meta">
+                        <span class="status-dot draft"></span>
+                        <span class="status-text">1 Teardown · In Draft</span>
+                    </div>
+                    <div class="company-products">
+                        <span class="company-product-tag">Mobile App</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Google — coming soon -->
+            <div class="company-card coming-soon" style="--brand: #4285F4;">
+                <div class="company-logo">
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Google"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
                 </div>
                 <div class="company-body">
                     <div class="company-name">Google</div>
-                    <div class="company-product-count">Coming soon</div>
+                    <div class="company-meta">
+                        <span class="status-dot coming"></span>
+                        <span class="status-text">Coming Soon</span>
+                    </div>
                     <div class="company-products">
                         <span class="company-product-tag">YouTube</span>
                         <span class="company-product-tag">Gmail</span>
@@ -732,38 +778,23 @@
                 </div>
             </div>
 
-            <!-- Apple - coming soon -->
-            <div class="company-card coming-soon">
+            <!-- Apple — coming soon -->
+            <div class="company-card coming-soon" style="--brand: #555555;">
                 <div class="company-logo">
-                    <svg aria-hidden="true" width="160" height="32" viewBox="0 0 160 32" fill="none">
-                        <text x="0" y="24" font-family="Inter, -apple-system, sans-serif" font-size="24" font-weight="700" fill="var(--text-muted)" letter-spacing="-0.04em">Apple</text>
-                    </svg>
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Apple"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
                 </div>
                 <div class="company-body">
                     <div class="company-name">Apple</div>
-                    <div class="company-product-count">Coming soon</div>
+                    <div class="company-meta">
+                        <span class="status-dot coming"></span>
+                        <span class="status-text">Coming Soon</span>
+                    </div>
                     <div class="company-products">
                         <span class="company-product-tag">Apple Music</span>
                         <span class="company-product-tag">iMessage</span>
                     </div>
                 </div>
             </div>
-
-            <!-- Amazon -->
-            <a href="teardowns/amazon.html" class="company-card">
-                <div class="company-logo">
-                    <svg aria-hidden="true" width="160" height="32" viewBox="0 0 160 32" fill="none">
-                        <text x="0" y="24" font-family="Inter, -apple-system, sans-serif" font-size="24" font-weight="700" fill="var(--text-primary)" letter-spacing="-0.04em">Amazon</text>
-                    </svg>
-                </div>
-                <div class="company-body">
-                    <div class="company-name">Amazon</div>
-                    <div class="company-product-count">1 teardown</div>
-                    <div class="company-products">
-                        <span class="company-product-tag">Mobile App</span>
-                    </div>
-                </div>
-            </a>
 
         </div>
     </div>

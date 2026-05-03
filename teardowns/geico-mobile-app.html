@@ -87,6 +87,16 @@
             line-height: 1.1;
             margin-bottom: 0.5rem;
         }
+        .hero-logo {
+            width: 100px; height: 32px;
+            margin: 0 auto 1rem;
+            color: var(--text-primary);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero-logo svg {
+            width: 100%; height: 100%;
+            fill: currentColor;
+        }
         .subpage-hero-tagline {
             font-size: clamp(1rem, 2vw, 1.2rem);
             font-weight: 400;
@@ -719,6 +729,26 @@
         }
 
         /* Responsive */
+        /* Bouncy hover propagation (May 2026) — matches the rest of the site */
+        .persona-card,
+        .journey-stage-card,
+        .kkb-column,
+        .wireframe-box,
+        .kpi-card {
+            transition: border-color 0.2s ease,
+                        transform 0.32s var(--ease-bounce),
+                        box-shadow 0.22s ease;
+        }
+        .persona-card:hover,
+        .journey-stage-card:hover,
+        .kkb-column:hover,
+        .wireframe-box:hover,
+        .kpi-card:hover {
+            border-color: var(--text-muted);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
         @media (max-width: 1024px) {
             .hero-title-area { padding: 5rem 3rem 1.5rem; }
             .breadcrumb { padding: 1.25rem 3rem 0; }
@@ -878,23 +908,21 @@
         </ul>
     </div>
 
+    <!-- Back-link to L1 (skipping L2 — single-subject company) -->
+    <a href="../how-id-built-it.html" class="back-link">
+        <span class="back-link-arrow">&larr;</span>
+        <span>Back to How I'd've Built It</span>
+    </a>
+
     <!-- Hero -->
     <div class="subpage-hero">
         <div class="hero-title-area">
+            <div class="hero-logo">
+                <svg role="img" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-label="GEICO"><text x="0" y="20" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.02em">GEICO</text></svg>
+            </div>
             <h1 class="subpage-hero-title">GEICO Mobile App</h1>
             <p class="subpage-hero-tagline">A lookup tool in a resolution world - and the 9-year gap that needs closing</p>
         </div>
-    </div>
-
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a href="../how-id-built-it.html">How I'd've Built It</a>
-        <span>/</span>
-        <a href="geico.html">GEICO</a>
-        <span>/</span>
-        <span class="current">Mobile App</span>
-        <br>
-        <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem; font-weight: 400;">Last updated: March 2026</p>
     </div>
 
     <!-- Glossary -->
