@@ -628,7 +628,7 @@
       '  flex-shrink: 0;\n' +
       '}\n' +
       '.fenix-sp-identity { display: flex; align-items: center; gap: 10px; }\n' +
-      '.fenix-sp-avatar { width: 28px; height: 28px; border-radius: 50%; }\n' +
+      '.fenix-sp-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: contain; flex-shrink: 0; }\n' +
       '.fenix-sp-name { font-size: 14px; font-weight: 600; color: var(--ev-text-primary, #f0e6d3); }\n' +
       '.fenix-sp-context { font-size: 11px; color: var(--ev-text-muted, #8a8070); margin-top: 1px; }\n' +
       '.fenix-sp-close {\n' +
