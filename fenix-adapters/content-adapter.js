@@ -287,10 +287,17 @@
 
   function injectEdgeTab() {
     var tab = el('div', 'fenix-edge-tab');
+    // Animated avatar — static poster (PNG) on idle, plays on hover.
+    // Falls back to <img> if the video sources can't load.
     tab.innerHTML =
       '<div class="fenix-edge-tab-inner">' +
         '<div class="fenix-edge-tab-pulse"></div>' +
-        '<img class="fenix-edge-tab-icon" src="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" alt="Fenix">' +
+        '<video class="fenix-edge-tab-icon" muted loop playsinline preload="none" ' +
+               'poster="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" aria-label="Fenix">' +
+          '<source src="' + BASE_PATH + 'images/fenix/animated/fenix.mp4" type="video/mp4">' +
+          '<source src="' + BASE_PATH + 'images/fenix/animated/fenix.webm" type="video/webm">' +
+          '<img src="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" alt="Fenix">' +
+        '</video>' +
         '<span class="fenix-edge-tab-label">Ask Fenix</span>' +
         '<span class="fenix-tab-badge" style="display:none;"></span>' +
       '</div>';
@@ -298,6 +305,21 @@
     tab.addEventListener('click', function () {
       togglePanel();
     });
+
+    // Hover-play the avatar. prefers-reduced-motion users keep the static poster.
+    var avatarVideo = tab.querySelector('.fenix-edge-tab-icon');
+    if (avatarVideo && avatarVideo.tagName === 'VIDEO' &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      tab.addEventListener('mouseenter', function () {
+        if (avatarVideo.readyState < 2) avatarVideo.load();
+        var p = avatarVideo.play();
+        if (p && typeof p.catch === 'function') p.catch(function () {});
+      });
+      tab.addEventListener('mouseleave', function () {
+        avatarVideo.pause();
+        try { avatarVideo.currentTime = 0; } catch (e) {}
+      });
+    }
 
     document.body.appendChild(tab);
   }
@@ -545,6 +567,7 @@
       '}\n' +
       '.fenix-edge-tab-icon {\n' +
       '  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;\n' +
+      '  object-fit: cover; display: block;\n' +
       '}\n' +
       '.fenix-edge-tab-label {\n' +
       '  font-size: 13px; font-weight: 500; color: var(--fenix-accent);\n' +
