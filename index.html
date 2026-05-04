@@ -371,13 +371,17 @@
             <div class="fenix-intro-divider"></div>
             <div class="fenix-intro-right">
                 <div class="fenix-intro-logo-wrap">
-                    <!-- Animated Fenix: autoplay loop on the intro since this is his moment of introduction.
-                         Static poster (the original PNG) shows for prefers-reduced-motion users + during load. -->
-                    <video class="fenix-intro-logo" autoplay loop muted playsinline preload="auto"
+                    <!-- Animated Fenix: plays when scrolled into view (autoplay attribute is unreliable for
+                         off-screen videos under Chrome's media engagement policy; the JS shim at the bottom
+                         of this page uses IntersectionObserver to trigger play on visibility).
+                         MP4 is listed first since some browsers (including Chrome with VP9 hardware decode
+                         disabled) handle H.264 more reliably; WebM is the smaller fallback for Firefox.
+                         Static poster (the original PNG) shows during load + for prefers-reduced-motion. -->
+                    <video class="fenix-intro-logo" data-play-on-scroll loop muted playsinline preload="auto"
                            poster="images/fenix/1fenixavatar1.png"
                            aria-label="Fenix the phoenix mascot — Kiran's AI assistant">
-                        <source src="images/fenix/animated/fenix.webm" type="video/webm">
                         <source src="images/fenix/animated/fenix.mp4" type="video/mp4">
+                        <source src="images/fenix/animated/fenix.webm" type="video/webm">
                         <img src="images/fenix/1fenixavatar1.png" alt="Fenix the phoenix mascot — Kiran's AI assistant">
                     </video>
                 </div>
@@ -647,16 +651,36 @@
     <script src="bento-cards.js"></script>
     <script src="app.js"></script>
     <script src="/nav-menu.js?v=20260503"></script>
-    <!-- Honor prefers-reduced-motion: pause autoplay videos (e.g. animated Fenix intro)
-         and fall back to the static poster. The browser doesn't do this automatically. -->
+    <!-- Video lifecycle: pause autoplay videos under prefers-reduced-motion, and
+         play data-play-on-scroll videos (animated Fenix intro) when they enter
+         the viewport. Plain `autoplay` is unreliable for off-screen <video> under
+         Chrome's media engagement policy — IntersectionObserver is the workaround. -->
     <script>
       (function () {
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        document.querySelectorAll('video[autoplay]').forEach(function (v) {
-          v.removeAttribute('autoplay');
-          v.pause();
-          try { v.currentTime = 0; } catch (e) {}
-        });
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) {
+          document.querySelectorAll('video[autoplay], video[data-play-on-scroll]').forEach(function (v) {
+            v.removeAttribute('autoplay');
+            v.pause();
+            try { v.currentTime = 0; } catch (e) {}
+          });
+          return;
+        }
+        var targets = document.querySelectorAll('video[data-play-on-scroll]');
+        if (!targets.length || !('IntersectionObserver' in window)) return;
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            var v = entry.target;
+            if (entry.isIntersecting) {
+              if (v.readyState < 2) v.load();
+              var p = v.play();
+              if (p && typeof p.catch === 'function') p.catch(function () { /* swallow autoplay reject */ });
+            } else {
+              v.pause();
+            }
+          });
+        }, { threshold: 0.25 });
+        targets.forEach(function (v) { io.observe(v); });
       })();
     </script>
 </body>
