@@ -144,6 +144,26 @@
         .tile-print        .tile-art { background-image: url('images/studio/tiles/print-monster.webp'); }
         .tile-identity     .tile-art { background-image: url('images/studio/tiles/identity-monster.webp'); }
 
+        /* Animated layer that fades in on hover and plays the medium-specific
+           preview. Static .tile-art stays visible underneath as the always-on
+           poster — and as a graceful fallback if the video fails to load. */
+        .tile-video {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+        .tile:hover .tile-video {
+            opacity: 1;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .tile-video { display: none; }
+        }
+
         /* "Coming soon" indicator on empty tiles */
         .tile.tile-empty::after {
             content: 'Coming soon';
@@ -337,31 +357,55 @@
 
         <a href="studio-illustration.html" class="tile tile-illustration tile-has-content" aria-label="Illustration category">
             <div class="tile-art"></div>
+            <video class="tile-video" muted loop playsinline preload="none">
+                <source src="images/studio/tiles/animated/illustration.webm" type="video/webm">
+                <source src="images/studio/tiles/animated/illustration.mp4" type="video/mp4">
+            </video>
             <div class="tile-label">Illustration</div>
         </a>
 
         <a href="studio-motion.html" class="tile tile-motion tile-empty" aria-label="Motion category">
             <div class="tile-art"></div>
+            <video class="tile-video" muted loop playsinline preload="none">
+                <source src="images/studio/tiles/animated/motion.webm" type="video/webm">
+                <source src="images/studio/tiles/animated/motion.mp4" type="video/mp4">
+            </video>
             <div class="tile-label">Motion</div>
         </a>
 
         <a href="studio-sound.html" class="tile tile-sound tile-empty" aria-label="Sound category">
             <div class="tile-art"></div>
+            <video class="tile-video" muted loop playsinline preload="none">
+                <source src="images/studio/tiles/animated/sound.webm" type="video/webm">
+                <source src="images/studio/tiles/animated/sound.mp4" type="video/mp4">
+            </video>
             <div class="tile-label">Sound</div>
         </a>
 
         <a href="studio-type.html" class="tile tile-type tile-empty" aria-label="Type category">
             <div class="tile-art"></div>
+            <video class="tile-video" muted loop playsinline preload="none">
+                <source src="images/studio/tiles/animated/type.webm" type="video/webm">
+                <source src="images/studio/tiles/animated/type.mp4" type="video/mp4">
+            </video>
             <div class="tile-label">Type</div>
         </a>
 
         <a href="studio-print.html" class="tile tile-print tile-empty" aria-label="Print category">
             <div class="tile-art"></div>
+            <video class="tile-video" muted loop playsinline preload="none">
+                <source src="images/studio/tiles/animated/print.webm" type="video/webm">
+                <source src="images/studio/tiles/animated/print.mp4" type="video/mp4">
+            </video>
             <div class="tile-label">Print</div>
         </a>
 
         <a href="studio-identity.html" class="tile tile-identity tile-empty" aria-label="Identity category">
             <div class="tile-art"></div>
+            <video class="tile-video" muted loop playsinline preload="none">
+                <source src="images/studio/tiles/animated/identity.webm" type="video/webm">
+                <source src="images/studio/tiles/animated/identity.mp4" type="video/mp4">
+            </video>
             <div class="tile-label">Identity</div>
         </a>
 
@@ -447,6 +491,32 @@
         document.querySelector('.footer-logo')?.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // ────────────────────────────────────────────────────────────
+        // Tile hover-play. Each .tile contains a <video class="tile-video">
+        // that lazy-loads (preload="none"), starts on mouseenter, pauses +
+        // resets on mouseleave. Static .tile-art (background-image) stays
+        // visible underneath so non-hover state still reads as the tile,
+        // and so the page is graceful if a video fails to load. CSS handles
+        // the opacity fade. Honors prefers-reduced-motion (CSS hides the
+        // video entirely so it never even loads).
+        // ────────────────────────────────────────────────────────────
+        (function () {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            document.querySelectorAll('.tile').forEach(function (tile) {
+                var video = tile.querySelector('.tile-video');
+                if (!video) return;
+                tile.addEventListener('mouseenter', function () {
+                    if (video.readyState < 2) video.load();
+                    var p = video.play();
+                    if (p && typeof p.catch === 'function') p.catch(function () { /* autoplay blocked, no-op */ });
+                });
+                tile.addEventListener('mouseleave', function () {
+                    video.pause();
+                    try { video.currentTime = 0; } catch (e) {}
+                });
+            });
+        })();
     </script>
     <script src="persona-system.js"></script>
     <script src="fenix-core.js?v=20260410"></script>
