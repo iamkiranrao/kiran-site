@@ -66,7 +66,9 @@
     padding: 0.55rem 1rem 0.55rem 0.85rem;
     border: 1px solid var(--border);
     border-radius: 100px;
-    margin: 1.25rem 0 0 4rem;
+    /* Left margin matches nav left padding (2.5rem) so the back-link
+       sits in the same vertical column as the persona pill in the nav. */
+    margin: 1.25rem 0 0 2.5rem;
     transition: border-color 0.2s, color 0.2s;
     background: var(--bg-primary);
     width: fit-content;
@@ -87,9 +89,11 @@
 .back-link:hover .back-link-arrow {
     transform: translateX(-3px);
 }
-@media (max-width: 1024px) { .back-link { margin-left: 3rem; } }
+/* Match nav's responsive horizontal padding so back-link stays
+   left-aligned with the persona pill at every breakpoint:
+   nav default 2.5rem → 1024px:2rem → 768px:1.5rem */
+@media (max-width: 1024px) { .back-link { margin-left: 2rem; } }
 @media (max-width: 768px)  { .back-link { margin-left: 1.5rem; } }
-@media (max-width: 480px)  { .back-link { margin-left: 1rem; } }
 
 [data-theme="light"] {
     --bg-primary: #f5f3f0;
