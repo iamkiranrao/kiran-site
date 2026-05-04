@@ -197,8 +197,11 @@
     var nav = document.querySelector('.nav-container');
     if (!nav) return;
 
-    // Skip pill on pages without persona-specific treatment
-    if (!document.getElementById('persona-picker-section')) return;
+    // The pill appears on every page now (was homepage-only). On subpages,
+    // clicking it triggers a redirect back to the homepage picker via
+    // showPickerMode() / triggerMorphReverse() — both already handle the
+    // subpage case correctly. This gives visitors a "reset my journey"
+    // affordance from anywhere on the site.
 
     // Switch nav to space-between layout for pill + nav-right
     nav.classList.add('has-persona-pill');
@@ -730,8 +733,13 @@
     return _commitFetchPromise;
   }
 
-  // Fire the fetch immediately on script load
-  fetchLiveCommitCount();
+  // Fire the fetch immediately on script load — but only on homepage
+  // (the numbers grid that consumes this lives on the homepage). Avoids
+  // hitting GitHub's API from every page now that persona-system.js
+  // loads site-wide for the persona pill.
+  if (document.getElementById('numbers-grid') || document.getElementById('persona-picker-section')) {
+    fetchLiveCommitCount();
+  }
 
   function buildNumbersGrid(persona) {
     var grid = document.getElementById('numbers-grid');
