@@ -218,6 +218,57 @@
   var arrivalSent = false;
   var messageArea = null;
 
+  // Avatar animation players. The aliveness signal lives on the edge tab when
+  // the panel is closed and on the panel header avatar when the panel is open.
+  // Only one animates at a time so they don't compete for attention.
+  var edgeTabPlayer = null;
+  var panelHeaderPlayer = null;
+
+  // Generic "alive but not fidgety" player. Plays the video once, waits a
+  // random 4-7s rest, plays again. Honors document.hidden to save battery.
+  // start() / stop() are cheap and idempotent — call them as state changes.
+  function makeRestingPlayer(video) {
+    if (!video || video.tagName !== 'VIDEO') return null;
+    var timeoutId = null;
+    var isStopped = true;
+
+    function clearPending() {
+      if (timeoutId !== null) { clearTimeout(timeoutId); timeoutId = null; }
+    }
+
+    function scheduleNext() {
+      if (isStopped) return;
+      var rest = 4000 + Math.random() * 3000; // 4-7 seconds
+      timeoutId = setTimeout(function () {
+        timeoutId = null;
+        if (isStopped) return;
+        if (document.hidden) { scheduleNext(); return; }
+        try { video.currentTime = 0; } catch (e) {}
+        var p = video.play();
+        if (p && typeof p.catch === 'function') p.catch(function () {});
+      }, rest);
+    }
+
+    video.addEventListener('ended', function () {
+      if (!isStopped) scheduleNext();
+    });
+
+    return {
+      start: function () {
+        isStopped = false;
+        clearPending();
+        try { video.currentTime = 0; } catch (e) {}
+        var p = video.play();
+        if (p && typeof p.catch === 'function') p.catch(function () {});
+      },
+      stop: function () {
+        isStopped = true;
+        clearPending();
+        try { video.pause(); video.currentTime = 0; } catch (e) {}
+      }
+    };
+  }
+
   function buildUI() {
     // Ensure clean state on load (bfcache can carry stale class)
     document.body.classList.remove('fenix-panel-open');
@@ -291,12 +342,12 @@
     // Plays once, rests 4-7 seconds (random jitter so it doesn't feel
     // mechanical), repeats. Pulse dot stays visible only when the video
     // can't play (reduced-motion, video failed to load).
-    // No `loop` attribute — we drive the cadence ourselves via the
-    // 'ended' event so there are deliberate pauses between cycles.
+    // The edge tab animates while the panel is CLOSED. When the panel
+    // opens, this player stops and the panel-header avatar takes over.
     tab.innerHTML =
       '<div class="fenix-edge-tab-inner">' +
         '<div class="fenix-edge-tab-pulse"></div>' +
-        '<video class="fenix-edge-tab-icon" autoplay muted playsinline preload="auto" ' +
+        '<video class="fenix-edge-tab-icon" muted playsinline preload="auto" ' +
                'poster="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" aria-label="Fenix">' +
           '<source src="' + BASE_PATH + 'images/fenix/animated/fenix.mp4" type="video/mp4">' +
           '<source src="' + BASE_PATH + 'images/fenix/animated/fenix.webm" type="video/webm">' +
@@ -317,24 +368,8 @@
       // Mark the tab so CSS can hide the pulse dot when the avatar is the
       // aliveness signal. Pulse dot stays in reduced-motion fallback.
       tab.classList.add('has-animated-avatar');
-
-      // "Alive but not fidgety": play once, rest, repeat. Random rest in
-      // the 4-7s range so different page loads (and different visitors
-      // looking at the site over time) don't fall into a mechanical cadence.
-      function scheduleNextPlay() {
-        var rest = 4000 + Math.random() * 3000; // 4-7 seconds
-        setTimeout(function () {
-          if (document.hidden) {
-            // If tab not visible, defer until it is — saves CPU/battery
-            scheduleNextPlay();
-            return;
-          }
-          try { avatarVideo.currentTime = 0; } catch (e) {}
-          var p = avatarVideo.play();
-          if (p && typeof p.catch === 'function') p.catch(function () {});
-        }, rest);
-      }
-      avatarVideo.addEventListener('ended', scheduleNextPlay);
+      edgeTabPlayer = makeRestingPlayer(avatarVideo);
+      if (edgeTabPlayer) edgeTabPlayer.start();
     }
 
     document.body.appendChild(tab);
@@ -343,11 +378,18 @@
   function injectSidePanel() {
     var panel = el('div', 'fenix-side-panel');
 
-    // Header
+    // Header. Avatar is a <video> so it can animate with the same
+    // rest-cadence as the edge tab. Animation handoff is coordinated in
+    // togglePanel() so only one of the two avatars is alive at any time.
     var header = el('div', 'fenix-sp-header');
     header.innerHTML =
       '<div class="fenix-sp-identity">' +
-        '<img class="fenix-sp-avatar" src="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" alt="Fenix">' +
+        '<video class="fenix-sp-avatar" muted playsinline preload="auto" ' +
+               'poster="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" aria-label="Fenix">' +
+          '<source src="' + BASE_PATH + 'images/fenix/animated/fenix.mp4" type="video/mp4">' +
+          '<source src="' + BASE_PATH + 'images/fenix/animated/fenix.webm" type="video/webm">' +
+          '<img src="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" alt="Fenix">' +
+        '</video>' +
         '<div>' +
           '<div class="fenix-sp-name">Fenix</div>' +
           '<div class="fenix-sp-context">Reading: ' + PAGE_TITLE + '</div>' +
@@ -358,6 +400,14 @@
     header.querySelector('.fenix-sp-close').addEventListener('click', function () {
       togglePanel();
     });
+
+    // Wire the panel header player. Don't start it yet — togglePanel()
+    // will kick it off when the panel opens.
+    var panelAvatarVideo = header.querySelector('.fenix-sp-avatar');
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (panelAvatarVideo && panelAvatarVideo.tagName === 'VIDEO' && !prefersReducedMotion) {
+      panelHeaderPlayer = makeRestingPlayer(panelAvatarVideo);
+    }
 
     // Messages
     messageArea = el('div', 'fenix-sp-messages ev-chat-messages');
@@ -422,6 +472,16 @@
   function togglePanel() {
     panelOpen = !panelOpen;
     document.body.classList.toggle('fenix-panel-open', panelOpen);
+
+    // Hand the aliveness signal off between the edge tab and the panel
+    // header. Only one animates at a time so they don't compete.
+    if (panelOpen) {
+      if (edgeTabPlayer) edgeTabPlayer.stop();
+      if (panelHeaderPlayer) panelHeaderPlayer.start();
+    } else {
+      if (panelHeaderPlayer) panelHeaderPlayer.stop();
+      if (edgeTabPlayer) edgeTabPlayer.start();
+    }
 
     if (panelOpen) {
       initializePanelContent();
@@ -627,10 +687,10 @@
       '  padding: 16px 20px; border-bottom: 1px solid var(--ev-border, #222);\n' +
       '  flex-shrink: 0;\n' +
       '}\n' +
-      '.fenix-sp-identity { display: flex; align-items: center; gap: 10px; }\n' +
+      '.fenix-sp-identity { display: flex; align-items: center; gap: 14px; min-width: 0; }\n' +
       '.fenix-sp-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: contain; flex-shrink: 0; }\n' +
-      '.fenix-sp-name { font-size: 14px; font-weight: 600; color: var(--ev-text-primary, #f0e6d3); }\n' +
-      '.fenix-sp-context { font-size: 11px; color: var(--ev-text-muted, #8a8070); margin-top: 1px; }\n' +
+      '.fenix-sp-name { font-size: 18px; font-weight: 600; color: var(--ev-text-primary, #f0e6d3); letter-spacing: -0.01em; }\n' +
+      '.fenix-sp-context { font-size: 13px; color: var(--ev-text-muted, #8a8070); margin-top: 3px; line-height: 1.3; }\n' +
       '.fenix-sp-close {\n' +
       '  width: 28px; height: 28px; border-radius: 6px; border: none;\n' +
       '  background: transparent; color: var(--ev-text-muted, #5a5347);\n' +
