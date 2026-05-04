@@ -287,12 +287,16 @@
 
   function injectEdgeTab() {
     var tab = el('div', 'fenix-edge-tab');
-    // Animated avatar — static poster (PNG) on idle, plays on hover.
-    // Falls back to <img> if the video sources can't load.
+    // Animated avatar replaces the pulse dot as the aliveness signal.
+    // Plays once, rests 4-7 seconds (random jitter so it doesn't feel
+    // mechanical), repeats. Pulse dot stays visible only when the video
+    // can't play (reduced-motion, video failed to load).
+    // No `loop` attribute — we drive the cadence ourselves via the
+    // 'ended' event so there are deliberate pauses between cycles.
     tab.innerHTML =
       '<div class="fenix-edge-tab-inner">' +
         '<div class="fenix-edge-tab-pulse"></div>' +
-        '<video class="fenix-edge-tab-icon" muted loop playsinline preload="none" ' +
+        '<video class="fenix-edge-tab-icon" autoplay muted playsinline preload="auto" ' +
                'poster="' + BASE_PATH + 'images/fenix/1fenixavatar1.png" aria-label="Fenix">' +
           '<source src="' + BASE_PATH + 'images/fenix/animated/fenix.mp4" type="video/mp4">' +
           '<source src="' + BASE_PATH + 'images/fenix/animated/fenix.webm" type="video/webm">' +
@@ -306,19 +310,31 @@
       togglePanel();
     });
 
-    // Hover-play the avatar. prefers-reduced-motion users keep the static poster.
     var avatarVideo = tab.querySelector('.fenix-edge-tab-icon');
-    if (avatarVideo && avatarVideo.tagName === 'VIDEO' &&
-        !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      tab.addEventListener('mouseenter', function () {
-        if (avatarVideo.readyState < 2) avatarVideo.load();
-        var p = avatarVideo.play();
-        if (p && typeof p.catch === 'function') p.catch(function () {});
-      });
-      tab.addEventListener('mouseleave', function () {
-        avatarVideo.pause();
-        try { avatarVideo.currentTime = 0; } catch (e) {}
-      });
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (avatarVideo && avatarVideo.tagName === 'VIDEO' && !prefersReduced) {
+      // Mark the tab so CSS can hide the pulse dot when the avatar is the
+      // aliveness signal. Pulse dot stays in reduced-motion fallback.
+      tab.classList.add('has-animated-avatar');
+
+      // "Alive but not fidgety": play once, rest, repeat. Random rest in
+      // the 4-7s range so different page loads (and different visitors
+      // looking at the site over time) don't fall into a mechanical cadence.
+      function scheduleNextPlay() {
+        var rest = 4000 + Math.random() * 3000; // 4-7 seconds
+        setTimeout(function () {
+          if (document.hidden) {
+            // If tab not visible, defer until it is — saves CPU/battery
+            scheduleNextPlay();
+            return;
+          }
+          try { avatarVideo.currentTime = 0; } catch (e) {}
+          var p = avatarVideo.play();
+          if (p && typeof p.catch === 'function') p.catch(function () {});
+        }, rest);
+      }
+      avatarVideo.addEventListener('ended', scheduleNextPlay);
     }
 
     document.body.appendChild(tab);
@@ -580,6 +596,7 @@
       '  animation: fenixPulse 2.5s ease-in-out infinite;\n' +
       '}\n' +
       'body.fenix-panel-open .fenix-edge-tab-pulse { display: none; }\n' +
+      '.fenix-edge-tab.has-animated-avatar .fenix-edge-tab-pulse { display: none; }\n' +
       '@keyframes fenixPulse {\n' +
       '  0%, 100% { opacity: 0.4; transform: scale(1); }\n' +
       '  50% { opacity: 1; transform: scale(1.3); }\n' +
