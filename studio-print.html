@@ -21,13 +21,15 @@
     <meta property="og:url" content="https://kiranrao.ai/studio-print.html">
     <meta property="og:image" content="https://kiranrao.ai/images/og/og-studio.png">
     <style>
-        .back-to-studio { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); text-decoration: none; font-size: 0.78rem; padding: 0.55rem 1rem 0.55rem 0.85rem; border: 1px solid var(--border); border-radius: 100px; margin: 1.25rem 0 0 4rem; transition: border-color 0.2s, color 0.2s; background: transparent; width: fit-content; }
-        .back-to-studio:hover { border-color: var(--text-primary); color: var(--text-primary); }
-        .back-to-studio .arrow { display: inline-block; transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .back-to-studio:hover .arrow { transform: translateX(-3px); }
-        @media (max-width: 1024px) { .back-to-studio { margin-left: 3rem; } }
-        @media (max-width: 768px)  { .back-to-studio { margin-left: 1.5rem; } }
-        @media (max-width: 480px)  { .back-to-studio { margin-left: 1rem; } }
+
+
+
+@media (max-width: 1024px) {
+}
+        @media (max-width: 768px)  {
+}
+        @media (max-width: 480px)  {
+}
         .subpage-hero { width: 100%; background: var(--bg-primary); border-bottom: 1px solid var(--border); }
         .hero-title-area { text-align: center; padding: 5rem 4rem 1.5rem; }
         .breadcrumb { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.6rem; letter-spacing: 0.02em; }
@@ -113,10 +115,12 @@
             <li><a href="/index.html#contact">&#8600; Connect</a></li>
         </ul>
     </div>
-    <a href="studio.html" class="back-to-studio">
-        <span class="arrow">←</span>
-        <span>Back to Studio</span>
-    </a>
+
+    <a href="studio.html" class="back-link">
+    <span class="back-link-arrow">&larr;</span>
+    <span>Back to Studio</span>
+</a>
+
     <div class="subpage-hero">
         <div class="hero-title-area">
             <div class="breadcrumb"><a href="studio.html">Studio</a><span class="sep">/</span><span>Print</span></div>
