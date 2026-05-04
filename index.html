@@ -371,7 +371,15 @@
             <div class="fenix-intro-divider"></div>
             <div class="fenix-intro-right">
                 <div class="fenix-intro-logo-wrap">
-                    <img src="images/fenix/1fenixavatar1.png" alt="Fenix the phoenix mascot — Kiran's AI assistant" class="fenix-intro-logo">
+                    <!-- Animated Fenix: autoplay loop on the intro since this is his moment of introduction.
+                         Static poster (the original PNG) shows for prefers-reduced-motion users + during load. -->
+                    <video class="fenix-intro-logo" autoplay loop muted playsinline preload="metadata"
+                           poster="images/fenix/1fenixavatar1.png"
+                           aria-label="Fenix the phoenix mascot — Kiran's AI assistant">
+                        <source src="images/fenix/animated/fenix.webm" type="video/webm">
+                        <source src="images/fenix/animated/fenix.mp4" type="video/mp4">
+                        <img src="images/fenix/1fenixavatar1.png" alt="Fenix the phoenix mascot — Kiran's AI assistant">
+                    </video>
                 </div>
                 <h2 class="fenix-intro-title">Meet Fenix</h2>
                 <p class="fenix-intro-greeting">I'm Kiran's AI assistant. I can help you explore this site, learn about his work, or just have a conversation.</p>
@@ -639,5 +647,17 @@
     <script src="bento-cards.js"></script>
     <script src="app.js"></script>
     <script src="/nav-menu.js?v=20260503"></script>
+    <!-- Honor prefers-reduced-motion: pause autoplay videos (e.g. animated Fenix intro)
+         and fall back to the static poster. The browser doesn't do this automatically. -->
+    <script>
+      (function () {
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        document.querySelectorAll('video[autoplay]').forEach(function (v) {
+          v.removeAttribute('autoplay');
+          v.pause();
+          try { v.currentTime = 0; } catch (e) {}
+        });
+      })();
+    </script>
 </body>
 </html>
