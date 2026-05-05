@@ -287,6 +287,43 @@
         }
         .close-btn:hover { background: rgba(240,230,216,0.1); }
 
+        /* ============================================
+           LIGHT-MODE LIGHTBOX — coffee-table art-book treatment.
+           Dark gallery becomes cream paper, cream text becomes warm
+           dark ink. Image still gets museum-card framing — only the
+           surrounding chrome flips. Mirrors the same aesthetic as the
+           Receipts museum-card lightbox in light mode for consistency.
+           ============================================ */
+        [data-theme="light"] .lightbox {
+            background: rgba(245, 240, 232, 0.97);
+        }
+        [data-theme="light"] .lightbox-meta-panel {
+            color: #3a3632;
+        }
+        [data-theme="light"] .lightbox-field-label {
+            color: rgba(58, 54, 50, 0.5);
+        }
+        [data-theme="light"] .lightbox-field-value {
+            color: rgba(58, 54, 50, 0.85);
+        }
+        [data-theme="light"] .lightbox-note {
+            border-top-color: rgba(58, 54, 50, 0.18);
+            color: rgba(58, 54, 50, 0.85);
+        }
+        [data-theme="light"] .lightbox-note-attribution {
+            color: rgba(58, 54, 50, 0.5);
+        }
+        [data-theme="light"] .lightbox-note.empty {
+            color: rgba(58, 54, 50, 0.5);
+        }
+        [data-theme="light"] .close-btn {
+            border-color: rgba(58, 54, 50, 0.3);
+            color: #3a3632;
+        }
+        [data-theme="light"] .close-btn:hover {
+            background: rgba(58, 54, 50, 0.08);
+        }
+
         @media (max-width: 900px) {
             .lightbox { padding: 1rem; padding-top: 4rem; }
             .lightbox-content {
