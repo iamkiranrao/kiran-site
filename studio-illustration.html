@@ -470,6 +470,19 @@
     <!-- Masonry grid -->
     <div class="masonry" id="illustration-grid">
 
+        <!-- Visitation — meditator + bioluminescent jellyfish (animated, has-motion) -->
+        <div class="card has-motion" data-key="jellyfish" data-title="Visitation" data-img="images/studio/jellyfish.png">
+            <img class="card-img card-img-still" src="images/studio/jellyfish.png" alt="Surreal photo-composite of a silhouetted meditator sitting cross-legged on a desert rock outcrop at dusk, with massive bioluminescent jellyfish floating in the sky above and a tall saguaro cactus to one side" loading="lazy">
+            <img class="card-img card-img-motion" src="images/studio/jellyfish.webp" alt="Animated version of the desert meditator with bioluminescent jellyfish drifting through the night sky above" loading="lazy">
+            <span class="card-pill">Visitation</span>
+        </div>
+
+        <!-- Mad Men — falling man + clocks in red/black/cream -->
+        <div class="card" data-key="madmen" data-title="Mad Men" data-img="images/studio/madmen.png">
+            <img class="card-img" src="images/studio/madmen.png" alt="Mid-century graphic illustration of a businessman in a suit falling through space surrounded by clocks of various sizes, in a bold red, black, and cream palette with halftone texture" loading="lazy">
+            <span class="card-pill">Mad Men</span>
+        </div>
+
         <!-- The Visit — tortoise visiting sea turtles in a submarine -->
         <div class="card" data-key="tortoise-and-turtles" data-title="The Visit" data-img="images/studio/tortoise-and-turtles.png">
             <img class="card-img" src="images/studio/tortoise-and-turtles.png" alt="Charming underwater illustration of a small whimsical submarine carrying a land tortoise visible inside the dome; sea turtles swim around the sub above a colorful coral reef with sunlight shimmering through the water surface above" loading="lazy">
@@ -631,6 +644,22 @@
         // Note (Kiran's voice) still pending — see STUDIO-OVERLAY-INPUTS.md
         // ============================================
         const pieceData = {
+            'jellyfish': {
+                date: 'May 2026',
+                tools: 'Midjourney v7 (still + animated)',
+                style: 'Surreal photo-composite in the magical-realism tradition — small contemplative figure dwarfed by monumental bioluminescent sky creatures, dusk-to-night palette',
+                inspiredBy: 'Erik Johansson\'s surrealist photo-composites, the whale-and-monk dream lineage, bioluminescent ocean photography',
+                dimensions: '320 × 213'
+                // note: pending — Kiran's voice
+            },
+            'madmen': {
+                date: 'May 2026',
+                tools: 'Midjourney v7',
+                style: 'Mid-century graphic illustration with halftone texture, limited red-black-cream palette, dynamic falling composition',
+                inspiredBy: 'Saul Bass title-sequence design, the Mad Men opening titles, vintage Italian crime poster art, screenprint poster tradition',
+                dimensions: '2688 × 1792'
+                // note: pending — Kiran's voice
+            },
             'tortoise-and-turtles': {
                 date: 'May 2026',
                 tools: 'Midjourney v7',
