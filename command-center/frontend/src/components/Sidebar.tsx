@@ -8,7 +8,7 @@ import {
   Wrench, PenTool, FileText, Target, Shield, ShieldCheck, ExternalLink,
   LogOut, Command, Beaker, Bot, BookOpen, BookMarked, MessageSquare,
   Radar, Lightbulb, Inbox, Library, CheckSquare, BookHeart, DollarSign,
-  Layers, Briefcase, Crosshair, Building2, Compass, GraduationCap,
+  Layers, Briefcase, Crosshair, Building2, Compass, GraduationCap, Brush,
 } from "lucide-react";
 import { SIDEBAR_SECTIONS, APP_NAME } from "@/lib/constants";
 import { ThemeToggle } from "./ThemeToggle";
@@ -39,6 +39,7 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   Building2,
   Compass,
   GraduationCap,
+  Brush,
 };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
