@@ -1,15 +1,15 @@
 """Studio Pieces API.
 
-Editable notes for the Studio Illustration page. The catalog of pieces lives
-in studio-illustration.html (data-key attributes). This service stores only
-the per-piece note text — everything else (title, image path, dimensions,
-style, inspired-by, date, tools) stays in HTML where it's SEO-relevant and
-rarely changes.
+Editable text attributes (title, date, tools, style, inspiredBy, dimensions,
+note) for the Studio Illustration page. The catalog of pieces lives in
+studio-illustration.html (data-key attributes); this service stores per-piece
+overrides for the lightbox text fields. The page merges CC values over inline
+HTML at render time — CC wins when a field is non-empty.
 
 Auth model:
 - GET  /api/studio-pieces/         — list all (auth required, admin UI)
 - GET  /api/studio-pieces/{key}    — read one (PUBLIC — the site fetches this)
-- PUT  /api/studio-pieces/{key}    — upsert one (auth required)
+- PUT  /api/studio-pieces/{key}    — upsert subset of fields (auth required)
 
 Public read is enforced by the auth allowlist in main.py — see that file
 for the exact path-matching rule. Storage is a flat JSON file keyed by
@@ -29,11 +29,15 @@ router = APIRouter()
 
 PIECES_FILE = os.path.join(data_dir("studio_pieces"), "studio_pieces.json")
 
+# Fields that are part of the editable text record. Order is the natural
+# reading order in the lightbox metadata panel.
+EDITABLE_FIELDS = ("title", "date", "tools", "style", "inspiredBy", "dimensions", "note")
+
 
 # ── Helpers ──────────────────────────────────────────────────────
 
 def _load() -> dict:
-    """Return {key: {note, updated_at}} dict. Empty if file doesn't exist."""
+    """Return {key: {<fields>, updated_at}} dict. Empty if file doesn't exist."""
     if os.path.exists(PIECES_FILE):
         with open(PIECES_FILE) as f:
             return json.load(f)
@@ -50,43 +54,51 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def _format(key: str, entry: dict) -> dict:
+    """Normalize a stored entry into the API response shape. Missing fields
+    default to empty strings so the page can do simple truthy checks."""
+    out = {"key": key}
+    for f in EDITABLE_FIELDS:
+        out[f] = entry.get(f, "") or ""
+    out["updated_at"] = entry.get("updated_at")
+    return out
+
+
 # ── Endpoints ────────────────────────────────────────────────────
 
 @router.get("/", response_model=dict)
 def list_pieces():
-    """List every stored note. Auth required (admin UI calls this)."""
+    """List every stored record. Auth required (admin UI calls this)."""
     pieces = _load()
-    items = [
-        {"key": k, "note": v.get("note", ""), "updated_at": v.get("updated_at")}
-        for k, v in pieces.items()
-    ]
+    items = [_format(k, v) for k, v in pieces.items()]
     items.sort(key=lambda p: p["key"])
     return {"pieces": items, "total": len(items)}
 
 
 @router.get("/{key}", response_model=dict)
 def get_piece(key: str):
-    """Read one piece's note. PUBLIC endpoint — the studio page calls this.
-    Returns an empty note (not 404) for unknown keys so the page can render
-    its 'More on this piece soon' fallback uniformly."""
+    """Read one piece's overrides. PUBLIC endpoint — the studio page calls
+    this on lightbox open. Returns all-empty fields (not 404) for unknown
+    keys so the page can render its inline-HTML fallback uniformly."""
     pieces = _load()
-    entry = pieces.get(key, {})
-    return {
-        "key": key,
-        "note": entry.get("note", ""),
-        "updated_at": entry.get("updated_at"),
-    }
+    return _format(key, pieces.get(key, {}))
 
 
 @router.put("/{key}", response_model=dict)
 def upsert_piece(key: str, body: StudioPieceUpdate):
-    """Create-or-update the note for a piece. Auth required."""
-    if body.note is None:
-        raise HTTPException(status_code=400, detail="note is required")
+    """Create-or-update text overrides for a piece. Auth required.
+
+    Only fields explicitly sent in the body are touched. Fields you don't
+    send are preserved. Send an empty string to explicitly clear a field
+    (which restores the inline HTML value as the source of truth)."""
+    update_dict = body.model_dump(exclude_unset=True)
+    if not update_dict:
+        raise HTTPException(status_code=400, detail="No fields provided")
+
     pieces = _load()
-    pieces[key] = {
-        "note": body.note,
-        "updated_at": _now(),
-    }
+    existing = pieces.get(key, {})
+    existing.update(update_dict)
+    existing["updated_at"] = _now()
+    pieces[key] = existing
     _save(pieces)
-    return {"key": key, "note": pieces[key]["note"], "updated_at": pieces[key]["updated_at"]}
+    return _format(key, pieces[key])

@@ -703,31 +703,45 @@
         const lbNote = document.getElementById('lightbox-note');
         const closeLightboxBtn = document.getElementById('closeLightbox');
 
-        // Notes are managed in Command Center (cc.kiranrao.ai/dashboard/studio-pieces)
-        // and fetched on demand. Inline `note` values in pieceData above act as
-        // the immediate render + the offline fallback — if CC has a non-empty
-        // note for a key, it overrides. If CC is unreachable, we keep showing
-        // the inline note (or the "More on this piece soon" placeholder).
+        // All text attributes (title, date, tools, style, inspiredBy, dimensions,
+        // note) are managed in Command Center (cc.kiranrao.ai/dashboard/studio-pieces)
+        // and fetched on demand. The inline pieceData values above act as the
+        // immediate render + the offline fallback — for any field where CC has a
+        // non-empty value, CC wins. If CC is unreachable, the inline values
+        // continue to show. Cache per key so reopening doesn't re-fetch.
         const CC_API = 'https://cc.kiranrao.ai';
-        const ccNoteCache = new Map(); // key -> note string | null (null = no override)
+        const CC_FIELDS = ['title', 'date', 'tools', 'style', 'inspiredBy', 'dimensions', 'note'];
+        const ccCache = new Map(); // key -> piece object | null (null = fetch failed)
 
-        async function fetchCCNote(key) {
-            if (ccNoteCache.has(key)) return ccNoteCache.get(key);
+        async function fetchCCPiece(key) {
+            if (ccCache.has(key)) return ccCache.get(key);
             try {
                 const r = await fetch(`${CC_API}/api/studio-pieces/${encodeURIComponent(key)}`, {
                     method: 'GET',
                     headers: { 'Accept': 'application/json' }
                 });
-                if (!r.ok) { ccNoteCache.set(key, null); return null; }
+                if (!r.ok) { ccCache.set(key, null); return null; }
                 const j = await r.json();
-                const note = j && typeof j.note === 'string' ? j.note.trim() : '';
-                const out = note ? note : null;
-                ccNoteCache.set(key, out);
-                return out;
+                ccCache.set(key, j || null);
+                return j || null;
             } catch (_) {
-                ccNoteCache.set(key, null);
+                ccCache.set(key, null);
                 return null;
             }
+        }
+
+        // Merge a CC payload over inline data. Only fields that CC has as a
+        // non-empty trimmed string are overridden; everything else stays inline.
+        function mergeCC(inline, cc) {
+            if (!cc) return { ...inline };
+            const merged = { ...inline };
+            for (const f of CC_FIELDS) {
+                const v = cc[f];
+                if (v && typeof v === 'string' && v.trim()) {
+                    merged[f] = v.trim();
+                }
+            }
+            return merged;
         }
 
         function renderNote(noteText) {
@@ -745,6 +759,18 @@
             return `<div class="lightbox-field-label">${label}</div><div class="lightbox-field-value">${value}</div>`;
         }
 
+        function renderLightboxContent(title, data) {
+            lbTitle.textContent = data.title || title;
+            lbFields.innerHTML = [
+                buildField('Date', data.date),
+                buildField('Tools', data.tools),
+                buildField('Style', data.style),
+                buildField('Inspired by', data.inspiredBy),
+                buildField('Dimensions', data.dimensions)
+            ].join('');
+            renderNote(data.note || '');
+        }
+
         function openLightbox(card) {
             const src = card.dataset.img;
             const title = card.dataset.title;
@@ -754,29 +780,26 @@
 
             lbImg.src = src;
             lbImg.alt = stillImg?.alt || title;
-            lbTitle.textContent = title;
 
-            // Build the fields panel — only show fields with values
-            lbFields.innerHTML = [
-                buildField('Date', data.date),
-                buildField('Tools', data.tools),
-                buildField('Style', data.style),
-                buildField('Inspired by', data.inspiredBy),
-                buildField('Dimensions', data.dimensions)
-            ].join('');
+            // First paint from inline data — fast, works offline
+            renderLightboxContent(title, data);
 
-            // First paint: render whatever inline note we have (or placeholder).
-            // Async: try CC for an override and swap in if non-empty.
-            const inlineNote = data.note || '';
-            renderNote(inlineNote);
-
-            fetchCCNote(key).then((ccNote) => {
+            // Async: try CC for any field overrides, then re-render
+            fetchCCPiece(key).then((cc) => {
                 // Race-guard: if the user switched pieces or closed the lightbox
                 // while the fetch was in flight, don't clobber the new state.
                 if (!lightbox.classList.contains('active')) return;
                 if (lbImg.src !== new URL(src, location.href).href) return;
-                if (ccNote) renderNote(ccNote);
-                // If CC returned nothing, leave inline note in place — no swap.
+                if (!cc) return;
+                const merged = mergeCC(data, cc);
+                renderLightboxContent(title, merged);
+                // If title was overridden, also update the masonry card pill +
+                // data-title so subsequent opens use the new value cleanly.
+                if (merged.title && merged.title !== card.dataset.title) {
+                    card.dataset.title = merged.title;
+                    const pill = card.querySelector('.card-pill');
+                    if (pill) pill.textContent = merged.title;
+                }
             });
 
             lightbox.classList.add('active');
