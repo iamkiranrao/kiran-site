@@ -43,6 +43,9 @@ interface PieceRecord {
 // Mirrors the cards in studio-illustration.html. Order matches the masonry.
 // When a new illustration ships, add its row here.
 const CATALOG: Piece[] = [
+  { key: "tortoise-and-turtles", title: "The Visit" },
+  { key: "jane-goodall", title: "Jane Goodall" },
+  { key: "sloth-and-god", title: "The Creation of Sloth" },
   { key: "elephant-never-forgets", title: "An Elephant Never Forgets" },
   { key: "you-will-never-walk-alone", title: "You'll Never Walk Alone" },
   { key: "garuda", title: "Garuda" },
