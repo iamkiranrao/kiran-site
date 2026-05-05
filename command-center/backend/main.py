@@ -1,5 +1,6 @@
 import asyncio
 import os
+import re
 import sys
 import logging
 from contextlib import asynccontextmanager
@@ -9,7 +10,11 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from dotenv import load_dotenv
 
-from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs, evidence, fit_score, career_initiatives, gap_discovery, gap_closure, target_companies, gap_moves, visual_assets
+from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs, evidence, fit_score, career_initiatives, gap_discovery, gap_closure, target_companies, gap_moves, visual_assets, studio_pieces
+
+# Public-read pattern: GET /api/studio-pieces/{slug} only. Bare list endpoint
+# (/api/studio-pieces/) and write endpoints stay behind X-API-Key.
+STUDIO_PIECE_PUBLIC_READ = re.compile(r"^/api/studio-pieces/[^/]+/?$")
 from utils.exceptions import CommandCenterError, NotFoundError, ValidationError, ConflictError
 
 load_dotenv(override=True)
@@ -118,6 +123,16 @@ class APIKeyMiddleware(BaseHTTPMiddleware):
         if request.url.path in public_paths:
             return await call_next(request)
 
+        # Public read of a single studio piece note. The studio page calls
+        # this to populate the lightbox. List + write endpoints stay auth-
+        # gated. Pattern: GET /api/studio-pieces/{slug} (one slug segment,
+        # optional trailing slash). Bare /api/studio-pieces/ stays auth.
+        if (
+            request.method == "GET"
+            and STUDIO_PIECE_PUBLIC_READ.match(request.url.path)
+        ):
+            return await call_next(request)
+
         # Allow CORS preflight without auth
         if request.method == "OPTIONS":
             return await call_next(request)
@@ -179,6 +194,7 @@ app.include_router(gap_closure.router, prefix="/api/gap-discovery/closure-plans"
 app.include_router(target_companies.router, prefix="/api/target-companies", tags=["Target Companies"])
 app.include_router(gap_moves.router, prefix="/api/gap-discovery/moves", tags=["Gap Closure Moves"])
 app.include_router(visual_assets.router, prefix="/api/visual-assets", tags=["Visual Assets"])
+app.include_router(studio_pieces.router, prefix="/api/studio-pieces", tags=["Studio Pieces"])
 
 
 if __name__ == "__main__":

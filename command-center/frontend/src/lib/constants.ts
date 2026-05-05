@@ -106,6 +106,14 @@ export const SIDEBAR_SECTIONS: SidebarSection[] = [
         href: "/dashboard/visual-assets",
         color: "var(--accent-amber)",
       },
+      {
+        slug: "studio-pieces",
+        label: "Studio Pieces",
+        icon: "Brush",
+        description: "Edit the personal notes shown in the lightbox for each Studio illustration.",
+        href: "/dashboard/studio-pieces",
+        color: "var(--accent-amber)",
+      },
     ],
   },
   {

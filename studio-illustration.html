@@ -703,6 +703,43 @@
         const lbNote = document.getElementById('lightbox-note');
         const closeLightboxBtn = document.getElementById('closeLightbox');
 
+        // Notes are managed in Command Center (cc.kiranrao.ai/dashboard/studio-pieces)
+        // and fetched on demand. Inline `note` values in pieceData above act as
+        // the immediate render + the offline fallback — if CC has a non-empty
+        // note for a key, it overrides. If CC is unreachable, we keep showing
+        // the inline note (or the "More on this piece soon" placeholder).
+        const CC_API = 'https://cc.kiranrao.ai';
+        const ccNoteCache = new Map(); // key -> note string | null (null = no override)
+
+        async function fetchCCNote(key) {
+            if (ccNoteCache.has(key)) return ccNoteCache.get(key);
+            try {
+                const r = await fetch(`${CC_API}/api/studio-pieces/${encodeURIComponent(key)}`, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (!r.ok) { ccNoteCache.set(key, null); return null; }
+                const j = await r.json();
+                const note = j && typeof j.note === 'string' ? j.note.trim() : '';
+                const out = note ? note : null;
+                ccNoteCache.set(key, out);
+                return out;
+            } catch (_) {
+                ccNoteCache.set(key, null);
+                return null;
+            }
+        }
+
+        function renderNote(noteText) {
+            if (noteText) {
+                lbNote.classList.remove('empty');
+                lbNote.innerHTML = `${noteText}<div class="lightbox-note-attribution">— Kiran</div>`;
+            } else {
+                lbNote.classList.add('empty');
+                lbNote.innerHTML = `More on this piece soon.`;
+            }
+        }
+
         function buildField(label, value) {
             if (!value) return '';
             return `<div class="lightbox-field-label">${label}</div><div class="lightbox-field-value">${value}</div>`;
@@ -728,14 +765,19 @@
                 buildField('Dimensions', data.dimensions)
             ].join('');
 
-            // Note panel — falls back to a quiet placeholder if empty
-            if (data.note) {
-                lbNote.classList.remove('empty');
-                lbNote.innerHTML = `${data.note}<div class="lightbox-note-attribution">— Kiran</div>`;
-            } else {
-                lbNote.classList.add('empty');
-                lbNote.innerHTML = `More on this piece soon.`;
-            }
+            // First paint: render whatever inline note we have (or placeholder).
+            // Async: try CC for an override and swap in if non-empty.
+            const inlineNote = data.note || '';
+            renderNote(inlineNote);
+
+            fetchCCNote(key).then((ccNote) => {
+                // Race-guard: if the user switched pieces or closed the lightbox
+                // while the fetch was in flight, don't clobber the new state.
+                if (!lightbox.classList.contains('active')) return;
+                if (lbImg.src !== new URL(src, location.href).href) return;
+                if (ccNote) renderNote(ccNote);
+                // If CC returned nothing, leave inline note in place — no swap.
+            });
 
             lightbox.classList.add('active');
             lightbox.setAttribute('aria-hidden', 'false');
