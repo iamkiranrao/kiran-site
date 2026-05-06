@@ -66,9 +66,13 @@
     padding: 0.55rem 1rem 0.55rem 0.85rem;
     border: 1px solid var(--border);
     border-radius: 100px;
-    /* Left margin matches nav left padding (2.5rem) so the back-link
-       sits in the same vertical column as the persona pill in the nav. */
-    margin: 1.25rem 0 0 2.5rem;
+    /* Top margin clears the ~80px fixed nav so the back-link sits cleanly
+       below it instead of overlapping the persona pill / nav menu (the nav
+       is transparent, so without this offset the two render on top of each
+       other at the top of the page).
+       Left margin matches the nav's left padding (2.5rem) so the back-link
+       sits in the same vertical column as the persona pill. */
+    margin: 5rem 0 0 2.5rem;
     transition: border-color 0.2s, color 0.2s;
     background: var(--bg-primary);
     width: fit-content;
