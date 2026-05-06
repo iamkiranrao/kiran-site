@@ -513,9 +513,10 @@
             <span class="card-pill">Visitation</span>
         </div>
 
-        <!-- Mad Men — falling man + clocks in red/black/cream -->
-        <div class="card" data-key="madmen" data-title="Mad Men" data-img="images/studio/madmen.png">
-            <img class="card-img" src="images/studio/madmen.png" alt="Mid-century graphic illustration of a businessman in a suit falling through space surrounded by clocks of various sizes, in a bold red, black, and cream palette with halftone texture" loading="lazy">
+        <!-- Mad Men — falling man + clocks (animated, has-motion) -->
+        <div class="card has-motion" data-key="madmen" data-title="Mad Men" data-img="images/studio/madmen.png">
+            <img class="card-img card-img-still" src="images/studio/madmen.png" alt="Mid-century graphic illustration of a businessman in a suit falling through space surrounded by clocks of various sizes, in a bold red, black, and cream palette with halftone texture" loading="lazy">
+            <img class="card-img card-img-motion" src="images/studio/madmen.webp" alt="Animated version of the falling-businessman scene with the clocks slowly rotating" loading="lazy">
             <span class="card-pill">Mad Men</span>
         </div>
 
@@ -738,7 +739,7 @@
             },
             'madmen': {
                 date: 'May 2026',
-                tools: 'Midjourney v7',
+                tools: 'Midjourney v7 (still + animated)',
                 style: 'Mid-century graphic illustration with halftone texture, limited red-black-cream palette, dynamic falling composition',
                 inspiredBy: 'Saul Bass title-sequence design, the Mad Men opening titles, vintage Italian crime poster art, screenprint poster tradition',
                 dimensions: '2688 × 1792'
