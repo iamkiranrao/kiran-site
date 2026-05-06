@@ -43,6 +43,7 @@ interface PieceRecord {
 // Mirrors the cards in studio-illustration.html. Order matches the masonry.
 // When a new illustration ships, add its row here.
 const CATALOG: Piece[] = [
+  { key: "jimmy-carter", title: "Jimmy Carter" },
   { key: "mustang", title: "Mustang" },
   { key: "budgies", title: "Budgies" },
   { key: "porsche-1979", title: "1979 Porsche" },

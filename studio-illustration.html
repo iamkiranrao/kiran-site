@@ -470,6 +470,12 @@
     <!-- Masonry grid -->
     <div class="masonry" id="illustration-grid">
 
+        <!-- Jimmy Carter — Habitat for Humanity tribute, painted Americana -->
+        <div class="card" data-key="jimmy-carter" data-title="Jimmy Carter" data-img="images/studio/jimmy-carter.png">
+            <img class="card-img" src="images/studio/jimmy-carter.png" alt="Painted Americana portrait of Jimmy Carter in his Habitat for Humanity hat and work clothes, holding a hammer at a wood-frame build, with a saddled horse and Southwestern desert plants in the background" loading="lazy">
+            <span class="card-pill">Jimmy Carter</span>
+        </div>
+
         <!-- Mustang — P-51 in 1980s Japanese anime cel style -->
         <div class="card" data-key="mustang" data-title="Mustang" data-img="images/studio/mustang.png">
             <img class="card-img" src="images/studio/mustang.png" alt="A WWII P-51 Mustang fighter plane rendered in late-1980s Japanese anime cel style, banking through orange-and-purple sunset clouds with two more planes engaged in a dogfight in the distance" loading="lazy">
@@ -513,9 +519,9 @@
             <span class="card-pill">The Visit</span>
         </div>
 
-        <!-- Jane Goodall — portrait with young chimpanzee -->
+        <!-- Jane Goodall — woodcut portrait with young chimpanzee -->
         <div class="card" data-key="jane-goodall" data-title="Jane Goodall" data-img="images/studio/jane-goodall.png">
-            <img class="card-img" src="images/studio/jane-goodall.png" alt="Stylized portrait illustration of an elderly Jane Goodall with white hair pulled back, holding a young chimpanzee close with their foreheads almost touching, surrounded by jungle foliage, in a limited teal-and-peach palette" loading="lazy">
+            <img class="card-img" src="images/studio/jane-goodall.png" alt="Dramatic woodcut-style portrait illustration of Jane Goodall holding a young chimpanzee close, with bold linocut linework, teal-and-gold tonal lighting, and a richly patterned ethno-textile background" loading="lazy">
             <span class="card-pill">Jane Goodall</span>
         </div>
 
@@ -668,6 +674,14 @@
         // Note (Kiran's voice) still pending — see STUDIO-OVERLAY-INPUTS.md
         // ============================================
         const pieceData = {
+            'jimmy-carter': {
+                date: 'May 2026',
+                tools: 'Midjourney v7',
+                style: 'Painted Americana portrait illustration with folk-art warmth — Western/Southwestern setting, decorated craftsmanship details, the heroic working-figure tradition',
+                inspiredBy: 'Norman Rockwell\'s American working-portrait tradition, Western and Southwestern folk art, painted-illustration tributes to a life of service',
+                dimensions: '1024 × 1536'
+                // note: pending — Kiran's voice
+            },
             'mustang': {
                 date: 'May 2026',
                 tools: 'Midjourney v7',
@@ -705,7 +719,7 @@
                 tools: 'Midjourney v7 (still + animated)',
                 style: 'Surreal photo-composite in the magical-realism tradition — small contemplative figure dwarfed by monumental bioluminescent sky creatures, dusk-to-night palette',
                 inspiredBy: 'Erik Johansson\'s surrealist photo-composites, the whale-and-monk dream lineage, bioluminescent ocean photography',
-                dimensions: '320 × 213'
+                dimensions: '2688 × 1792'
                 // note: pending — Kiran's voice
             },
             'madmen': {
@@ -727,8 +741,8 @@
             'jane-goodall': {
                 date: 'May 2026',
                 tools: 'Midjourney v7',
-                style: 'Stylized graphic portrait illustration with a limited teal-and-peach palette, flat color planes with subtle texture, editorial illustration finish',
-                inspiredBy: 'New Yorker editorial portraiture (Tom Bachtell, Mark Summers), contemporary stylized portrait illustration',
+                style: 'Dramatic woodcut/linocut-style portrait with bold print linework, teal-and-gold tonal lighting, and a richly patterned ethno-textile background',
+                inspiredBy: 'The linocut and woodcut print traditions, the dramatic tonal contrast and bold patterning of mid-century editorial print portraiture',
                 dimensions: '1792 × 2688'
                 // note: pending — Kiran's voice
             },
