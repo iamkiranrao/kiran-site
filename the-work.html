@@ -1741,6 +1741,21 @@
             const cards = Array.from(document.querySelectorAll('.pk-card'));
             let currentIdx = -1;
 
+            // Build a slug-per-card so the URL hash is a readable identifier
+            // (#operating-system-redesign rather than #card-3). Stored on the
+            // card itself so we don't recompute. idx suffix only kicks in if
+            // titles collide, which they shouldn't on this page.
+            const slugify = (s) =>
+                String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'card';
+            const slugMap = new Map();
+            cards.forEach((card, idx) => {
+                const title = card.querySelector('.pk-card-title')?.textContent.trim() || '';
+                let slug = slugify(title);
+                if (slugMap.has(slug)) slug = slug + '-' + idx; // collision dedupe
+                slugMap.set(slug, idx);
+                card._museumSlug = slug;
+            });
+
             function findEraFor(card) {
                 // Walk back through pp-pairs to find the most recent era-header
                 let node = card.closest('.pp-pair');
@@ -1838,9 +1853,35 @@
                 }));
                 document.body.style.overflow = 'hidden';
                 btnClose.focus();
+
+                // Push history state so browser-back closes the museum card
+                // instead of navigating away to whatever page came before.
+                // Hash makes the URL shareable too —
+                //   /the-work.html#operating-system-redesign
+                // opens directly to that card. Replace (don't push) when
+                // a card is already open so prev/next doesn't bloat history.
+                const slug = cards[idx]._museumSlug;
+                if (!history.state || history.state.museumCard === undefined) {
+                    history.pushState({ museumCard: idx }, '', '#' + slug);
+                } else {
+                    history.replaceState({ museumCard: idx }, '', '#' + slug);
+                }
             }
 
+            // The visible "close" path. Routes through history.back() so the
+            // URL hash clears and the popstate handler does the actual DOM
+            // teardown — keeps URL state and visible state in lockstep
+            // whether the user closed via X, ESC, backdrop click, or
+            // browser-back.
             function close() {
+                if (history.state && history.state.museumCard !== undefined) {
+                    history.back();
+                } else {
+                    actuallyClose();
+                }
+            }
+
+            function actuallyClose() {
                 overlay.classList.remove('visible');
                 document.body.style.overflow = '';
                 setTimeout(() => {
@@ -1849,8 +1890,37 @@
                 }, 300);
             }
 
-            function next() { if (currentIdx < cards.length - 1) { currentIdx++; populate(cards[currentIdx]); } }
-            function prev() { if (currentIdx > 0) { currentIdx--; populate(cards[currentIdx]); } }
+            // popstate fires on browser-back, swipe-back, history.back(),
+            // etc. Close the museum card cleanly when any of those fire
+            // while the overlay is open.
+            window.addEventListener('popstate', () => {
+                if (!overlay.hasAttribute('hidden')) {
+                    actuallyClose();
+                }
+            });
+
+            // Deep link: if the URL loads with a slug hash, open that card
+            // automatically. Lets you share or bookmark a single artifact.
+            function openFromHash() {
+                const hash = decodeURIComponent((location.hash || '').slice(1));
+                if (!hash) return;
+                if (slugMap.has(hash)) open(slugMap.get(hash));
+            }
+
+            function next() {
+                if (currentIdx < cards.length - 1) {
+                    currentIdx++;
+                    populate(cards[currentIdx]);
+                    history.replaceState({ museumCard: currentIdx }, '', '#' + cards[currentIdx]._museumSlug);
+                }
+            }
+            function prev() {
+                if (currentIdx > 0) {
+                    currentIdx--;
+                    populate(cards[currentIdx]);
+                    history.replaceState({ museumCard: currentIdx }, '', '#' + cards[currentIdx]._museumSlug);
+                }
+            }
 
             // Wire up cards
             cards.forEach((card, idx) => {
@@ -1874,6 +1944,9 @@
                 else if (e.key === 'ArrowRight') next();
                 else if (e.key === 'ArrowLeft') prev();
             });
+
+            // Open from hash if the page loaded with one in the URL.
+            if (location.hash) openFromHash();
         })();
     </script>
 
