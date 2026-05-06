@@ -855,6 +855,38 @@
     transform: rotate(90deg);
   }
 
+  /* Top-left back button — same vertical level as the close X. Reads
+     as "back to receipts" while the X reads as "dismiss." Both call
+     close(); the duplication is intentional UX, not a bug. */
+  .museum-back {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    height: 32px;
+    padding: 0 0.85rem 0 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: transparent;
+    border: 1px solid var(--border, rgba(255,255,255,0.15));
+    border-radius: 100px;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .museum-back:hover { border-color: var(--amber); color: var(--amber); }
+  .museum-back .museum-back-arrow {
+    display: inline-block;
+    transition: transform 0.25s var(--ease-bounce);
+  }
+  .museum-back:hover .museum-back-arrow { transform: translateX(-3px); }
+
+  /* Hide the page-level .back-link when the museum overlay is open
+     so it doesn't bleed through and overlap the artifact card. */
+  body.museum-open .back-link { display: none; }
+
   /* Era context line — small, uppercase, sits above the title like a museum placard label */
   .museum-era {
     font-family: 'Sora', sans-serif;
@@ -1626,6 +1658,10 @@
          when any pk-card is clicked. Walks through cards with prev/next. -->
     <div class="museum-overlay" id="museum-overlay" role="dialog" aria-modal="true" aria-labelledby="museum-title" hidden>
         <div class="museum-card" role="document">
+            <button class="museum-back" type="button" aria-label="Back to receipts">
+                <span class="museum-back-arrow">←</span>
+                <span>Back to Receipts</span>
+            </button>
             <button class="museum-close" type="button" aria-label="Close">&times;</button>
             <div class="museum-era" id="museum-era"></div>
             <h2 class="museum-title" id="museum-title"></h2>
@@ -1734,6 +1770,7 @@
             const btnPrev = document.getElementById('museum-prev');
             const btnNext = document.getElementById('museum-next');
             const btnClose = overlay.querySelector('.museum-close');
+            const btnBack = overlay.querySelector('.museum-back');
 
             // Cards in document order. For each card, also capture its
             // sibling .pp-world (in the same .pp-pair) and the most-recent
@@ -1852,6 +1889,7 @@
                     overlay.classList.add('visible');
                 }));
                 document.body.style.overflow = 'hidden';
+                document.body.classList.add('museum-open');
                 btnClose.focus();
 
                 // Push history state so browser-back closes the museum card
@@ -1884,6 +1922,7 @@
             function actuallyClose() {
                 overlay.classList.remove('visible');
                 document.body.style.overflow = '';
+                document.body.classList.remove('museum-open');
                 setTimeout(() => {
                     overlay.setAttribute('hidden', '');
                     if (currentIdx >= 0 && cards[currentIdx]) cards[currentIdx].focus();
@@ -1936,6 +1975,7 @@
             btnPrev.addEventListener('click', prev);
             btnNext.addEventListener('click', next);
             btnClose.addEventListener('click', close);
+            btnBack.addEventListener('click', close);
             overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
 
             document.addEventListener('keydown', (e) => {
