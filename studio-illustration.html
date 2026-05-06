@@ -946,12 +946,58 @@
             lightbox.classList.add('active');
             lightbox.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
+
+            // Push a history state with the piece key as a hash so:
+            //   1. Browser-back closes the lightbox instead of navigating
+            //      away to /studio.html (was: tap back, jump out of the
+            //      illustrations page entirely).
+            //   2. The URL becomes shareable — /studio-illustration.html#garuda
+            //      opens directly to the Garuda piece.
+            // If a different piece is already open, replaceState (don't push)
+            // so quickly clicking through pieces doesn't bloat history.
+            if (!history.state || !history.state.studioPiece) {
+                history.pushState({ studioPiece: key }, '', '#' + encodeURIComponent(key));
+            } else if (history.state.studioPiece !== key) {
+                history.replaceState({ studioPiece: key }, '', '#' + encodeURIComponent(key));
+            }
         }
+
+        // The visible "close lightbox" path. Routes through history.back()
+        // so the URL hash is cleared and the popstate handler does the
+        // actual DOM cleanup — keeps the URL state and the visible state
+        // in lockstep. Browser-back, X button, ESC, and clicking the
+        // backdrop all converge here.
         function closeLightbox() {
+            if (history.state && history.state.studioPiece) {
+                history.back();
+            } else {
+                actuallyCloseLightbox();
+            }
+        }
+
+        function actuallyCloseLightbox() {
             lightbox.classList.remove('active');
             lightbox.setAttribute('aria-hidden', 'true');
             lbImg.src = '';
             document.body.style.overflow = '';
+        }
+
+        // popstate fires for browser-back (hardware/software back button,
+        // browser back arrow, swipe-back, history.back()). Close the
+        // lightbox cleanly on any of those paths.
+        window.addEventListener('popstate', () => {
+            if (lightbox.classList.contains('active')) {
+                actuallyCloseLightbox();
+            }
+        });
+
+        // Deep link: if the URL loads with #piece-key, open that lightbox
+        // automatically. Lets you share or bookmark a specific piece.
+        function openFromHash() {
+            const hash = decodeURIComponent((location.hash || '').slice(1));
+            if (!hash) return;
+            const card = document.querySelector('.card[data-key="' + CSS.escape(hash) + '"]');
+            if (card) openLightbox(card);
         }
 
         document.querySelectorAll('.card').forEach(card => {
@@ -965,6 +1011,9 @@
                 else if (mobileMenu.classList.contains('active')) { mobileMenu.classList.remove('active'); document.body.style.overflow = ''; }
             }
         });
+
+        // Open the lightbox if the page loaded with a #piece-key hash.
+        if (location.hash) openFromHash();
     </script>
     <script src="persona-system.js"></script>
     <script src="fenix-core.js?v=20260410"></script>
