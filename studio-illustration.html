@@ -254,6 +254,10 @@
             line-height: 1.55;
             color: rgba(240,230,216,0.85);
             font-size: 0.95rem;
+            /* Preserve paragraph breaks from CC-authored notes. Without this
+               the CMS stores \n correctly but innerHTML rendering collapses
+               them into single spaces — the wall-of-text problem. */
+            white-space: pre-wrap;
         }
         .lightbox-note-attribution {
             margin-top: 0.6rem;
@@ -948,12 +952,21 @@
         }
 
         function renderNote(noteText) {
+            // Clear previous content
+            lbNote.replaceChildren();
             if (noteText) {
                 lbNote.classList.remove('empty');
-                lbNote.innerHTML = `${noteText}<div class="lightbox-note-attribution">— Kiran</div>`;
+                // textContent (not innerHTML) so any < > & in the note
+                // render as literal characters rather than HTML — paired
+                // with white-space: pre-wrap CSS to preserve line breaks.
+                lbNote.appendChild(document.createTextNode(noteText));
+                const attribution = document.createElement('div');
+                attribution.className = 'lightbox-note-attribution';
+                attribution.textContent = '— Kiran';
+                lbNote.appendChild(attribution);
             } else {
                 lbNote.classList.add('empty');
-                lbNote.innerHTML = `More on this piece soon.`;
+                lbNote.textContent = 'More on this piece soon.';
             }
         }
 
