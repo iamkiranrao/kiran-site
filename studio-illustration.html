@@ -142,37 +142,64 @@
         .card.has-motion .card-img-still { display: none; }
         .card.has-motion .card-img-motion { display: block; }
 
-        /* Hover-revealed title pill with arrow cue */
+        /* Persistent title pill — always visible, not hover-only.
+           First-paint visitors and mobile users see what each piece is
+           called without having to interact, which turns the gallery
+           into a browsable portfolio rather than a wall of images.
+           Hover still does something: pill brightens to full opacity +
+           arrow slides in, so engaged viewers get feedback. */
         .card-pill {
             position: absolute;
             bottom: 0.6rem;
             left: 0.6rem;
             background: rgba(255,255,255,0.92);
             color: #2A2520;
-            padding: 0.28rem 0.65rem;
+            padding: 0.26rem 0.6rem;
             border-radius: 100px;
-            font-size: 0.68rem;
+            font-size: 0.62rem;
             font-weight: 600;
             letter-spacing: 0.02em;
-            opacity: 0;
-            transform: translateY(3px);
-            transition: opacity 0.2s, transform 0.2s;
+            opacity: 0.88;
+            transition: opacity 0.2s ease;
             backdrop-filter: blur(6px);
             z-index: 2;
+            /* Pointer-events off so clicks always pass through to the
+               card click handler (no edge case where clicking the pill
+               does nothing while clicking the image opens the lightbox). */
+            pointer-events: none;
         }
         .card-pill::after {
             content: ' →';
             margin-left: 0.25rem;
             display: inline-block;
-            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .card:hover .card-pill {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .card:hover .card-pill { opacity: 1; }
         .card:hover .card-pill::after {
+            opacity: 1;
             transform: translateX(3px);
         }
+
+        /* Soft dark gradient at the bottom of each card so the white pill
+           reads cleanly on both dark images (Mad Men, Visitation, Garuda)
+           and light ones (Aquarium, Mustang, 1979 Porsche). Pointer-events
+           off so it doesn't intercept clicks. Slightly stronger on hover
+           to add presence to the interaction. */
+        .card::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 90px;
+            background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+        .card:hover::after { opacity: 1; }
 
         /* ============================================
            LIGHTBOX (with museum-card overlay)
