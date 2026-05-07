@@ -1122,6 +1122,26 @@
 
         // Open the lightbox if the page loaded with a #piece-key hash.
         if (location.hash) openFromHash();
+
+        // On page load, pull each card's CC overrides in parallel and apply
+        // any title override to the masonry pill (and card.dataset.title)
+        // so first-paint visitors see the CC-authored title — e.g., the
+        // Robin Williams card shows "Be Kind. Always." instead of just
+        // "Robin Williams" before any click. Each fetch goes through the
+        // shared ccCache so subsequent lightbox opens are free.
+        function applyCCTitleToCard(card) {
+            const key = card.dataset.key;
+            if (!key) return;
+            fetchCCPiece(key).then(cc => {
+                if (!cc) return;
+                const ccTitle = cc.title && typeof cc.title === 'string' ? cc.title.trim() : '';
+                if (!ccTitle || ccTitle === card.dataset.title) return;
+                card.dataset.title = ccTitle;
+                const pill = card.querySelector('.card-pill');
+                if (pill) pill.textContent = ccTitle;
+            }).catch(() => { /* CC offline — silent fall back to HTML */ });
+        }
+        document.querySelectorAll('.card').forEach(applyCCTitleToCard);
     </script>
     <script src="persona-system.js"></script>
     <script src="fenix-core.js?v=20260410"></script>
