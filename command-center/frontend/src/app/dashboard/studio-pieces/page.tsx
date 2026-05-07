@@ -51,7 +51,6 @@ const CATALOG: Piece[] = [
   { key: "steve-irwin", title: "The Crocodile Hunter" },
   { key: "jellyfish", title: "Visitation" },
   { key: "madmen", title: "Mad Men" },
-  { key: "tortoise-and-turtles", title: "The Visit" },
   { key: "jane-goodall", title: "Jane Goodall" },
   { key: "sloth-and-god", title: "The Creation of Sloth" },
   { key: "elephant-never-forgets", title: "An Elephant Never Forgets" },
