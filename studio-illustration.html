@@ -343,27 +343,34 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(20, 17, 14, 0.55);
-            border: 1px solid rgba(240,230,216,0.3);
-            color: #FAF3E5;
+            /* Default: solid beige, dark arrow. Hover: invert to dark
+               bg with beige arrow. Works on both dark and cream backdrops. */
+            background: #FAF3E5;
+            border: 1px solid rgba(42, 37, 32, 0.15);
+            color: #2A2520;
             font-size: 1.3rem;
             line-height: 1;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(4px);
-            transition: background 0.15s, border-color 0.2s, transform 0.2s var(--ease-bounce, cubic-bezier(0.34, 1.56, 0.64, 1));
+            transition: background 0.18s ease, color 0.18s ease, border-color 0.2s ease, transform 0.2s var(--ease-bounce, cubic-bezier(0.34, 1.56, 0.64, 1));
         }
-        .lightbox-nav:hover { background: rgba(240,230,216,0.18); }
+        .lightbox-nav:hover {
+            background: #2A2520;
+            color: #FAF3E5;
+            border-color: rgba(240, 230, 216, 0.25);
+        }
         .lightbox-nav-prev:hover { transform: translateX(-3px); }
         .lightbox-nav-next:hover { transform: translateX(3px); }
         .lightbox-nav[disabled] {
-            opacity: 0.25;
+            opacity: 0.4;
             cursor: not-allowed;
         }
         .lightbox-nav[disabled]:hover {
-            background: rgba(20, 17, 14, 0.55);
+            background: #FAF3E5;
+            color: #2A2520;
+            border-color: rgba(42, 37, 32, 0.15);
             transform: none;
         }
         @media (max-width: 900px) {
