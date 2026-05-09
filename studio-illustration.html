@@ -224,6 +224,10 @@
             grid-template-columns: 1fr 340px;
             gap: 2.5rem;
             align-items: stretch;
+            /* Anchor for the prev/next nav buttons so they sit at the image
+               edges rather than the viewport edges (avoids overlap with
+               the Fenix edge-tab on the right side of the page). */
+            position: relative;
         }
         .lightbox-image-wrap {
             display: flex;
@@ -318,9 +322,11 @@
         }
         .close-btn:hover { background: rgba(240,230,216,0.1); }
 
-        /* Prev/Next side arrows. Float vertically centered along the
-           outer edges of the lightbox so they don't overlap the image
-           or the meta panel. Keyboard arrows + swipe also navigate. */
+        /* Prev/Next side arrows. Positioned within .lightbox-content so they
+           sit at the image edges (not the viewport edges) — keeps them out
+           of the Fenix edge-tab's column on the right, and visually they
+           feel like they belong to the artwork rather than the chrome.
+           Keyboard arrows + swipe also navigate. */
         .lightbox-nav {
             position: absolute;
             top: 50%;
@@ -341,8 +347,11 @@
             z-index: 1010;
         }
         .lightbox-nav:hover { background: rgba(240,230,216,0.1); }
-        .lightbox-nav-prev { left: 1.5rem; }
-        .lightbox-nav-next { right: 1.5rem; }
+        /* Prev sits just inside the left edge of the image area. Next sits
+           between the image and the meta panel — offset = meta-panel-width
+           (340px) + grid-gap (2.5rem) + a touch of breathing room. */
+        .lightbox-nav-prev { left: 0.5rem; }
+        .lightbox-nav-next { right: calc(340px + 2.5rem + 0.5rem); }
         .lightbox-nav-prev:hover { transform: translateY(-50%) translateX(-3px); }
         .lightbox-nav-next:hover { transform: translateY(-50%) translateX(3px); }
         .lightbox-nav[disabled] {
@@ -354,6 +363,8 @@
             transform: translateY(-50%);
         }
         @media (max-width: 900px) {
+            /* Single-column layout below 900px — meta panel goes below the
+               image so the next button can hug the image's right edge. */
             .lightbox-nav { width: 38px; height: 38px; font-size: 1.2rem; }
             .lightbox-nav-prev { left: 0.5rem; }
             .lightbox-nav-next { right: 0.5rem; }
@@ -766,10 +777,10 @@
             <span class="lightbox-back-arrow">←</span>
             <span>Back to Illustrations</span>
         </button>
-        <button class="lightbox-nav lightbox-nav-prev" id="lightboxPrev" type="button" aria-label="Previous piece">‹</button>
-        <button class="lightbox-nav lightbox-nav-next" id="lightboxNext" type="button" aria-label="Next piece">›</button>
         <button class="close-btn" id="closeLightbox" aria-label="Close">×</button>
         <div class="lightbox-content">
+            <button class="lightbox-nav lightbox-nav-prev" id="lightboxPrev" type="button" aria-label="Previous piece">‹</button>
+            <button class="lightbox-nav lightbox-nav-next" id="lightboxNext" type="button" aria-label="Next piece">›</button>
             <div class="lightbox-image-wrap">
                 <img class="lightbox-image" id="lightbox-img" alt="">
             </div>
