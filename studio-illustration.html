@@ -331,27 +331,31 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 44px;
-            height: 44px;
+            /* Width is 40px so the next-button fits exactly inside the
+               2.5rem (40px) gap between the image area and the meta panel —
+               no overlap with the image, no overlap with the meta panel. */
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: transparent;
+            background: rgba(20, 17, 14, 0.55);
             border: 1px solid rgba(240,230,216,0.3);
             color: #FAF3E5;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             line-height: 1;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(4px);
             transition: background 0.15s, border-color 0.2s, transform 0.2s var(--ease-bounce, cubic-bezier(0.34, 1.56, 0.64, 1));
             z-index: 1010;
         }
-        .lightbox-nav:hover { background: rgba(240,230,216,0.1); }
-        /* Prev sits just inside the left edge of the image area. Next sits
-           between the image and the meta panel — offset = meta-panel-width
-           (340px) + grid-gap (2.5rem) + a touch of breathing room. */
+        .lightbox-nav:hover { background: rgba(240,230,216,0.18); }
+        /* Prev hugs the image's left edge. Next sits inside the gap between
+           image and meta panel — right offset = meta-panel-width (340px), so
+           the 40px button fills the 40px gap edge-to-edge. */
         .lightbox-nav-prev { left: 0.5rem; }
-        .lightbox-nav-next { right: calc(340px + 2.5rem + 0.5rem); }
+        .lightbox-nav-next { right: 340px; }
         .lightbox-nav-prev:hover { transform: translateY(-50%) translateX(-3px); }
         .lightbox-nav-next:hover { transform: translateY(-50%) translateX(3px); }
         .lightbox-nav[disabled] {
