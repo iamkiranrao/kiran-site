@@ -544,6 +544,43 @@
     <!-- Masonry grid -->
     <div class="masonry" id="illustration-grid">
 
+        <!-- Daddy and Dia — Bluey-style cardboard plane scene (animated, has-motion) -->
+        <div class="card has-motion" data-key="daddy-and-dia" data-title="Daddy and Dia" data-img="images/studio/daddy-and-dia.png">
+            <img class="card-img card-img-still" src="images/studio/daddy-and-dia.png" alt="Bluey-style 2D cartoon scene of Kiran and his four-year-old daughter Dia playing in a cardboard box pretending it's an airplane, with a bookshelf, leafy plants, and a French door opening to a sunny garden behind them" loading="lazy">
+            <img class="card-img card-img-motion" src="images/studio/daddy-and-dia.webp" alt="Animated version of Daddy and Dia in the cardboard plane" loading="lazy">
+            <span class="card-pill">Daddy and Dia</span>
+        </div>
+
+        <!-- The Beatles — graphic ink + halftone -->
+        <div class="card" data-key="beatles" data-title="The Beatles" data-img="images/studio/beatles.png">
+            <img class="card-img" src="images/studio/beatles.png" alt="Bold graphic illustration of the Beatles in red, yellow, and teal palette with halftone-ink linework, four iconic silhouettes against blocked color fields" loading="lazy">
+            <span class="card-pill">The Beatles</span>
+        </div>
+
+        <!-- Anatomy of a Speedmaster — mechanical exploded view -->
+        <div class="card" data-key="omega-anatomy" data-title="Anatomy of a Speedmaster" data-img="images/studio/omega-anatomy.png">
+            <img class="card-img" src="images/studio/omega-anatomy.png" alt="Detailed black-and-white mechanical illustration of an Omega Speedmaster wristwatch in a dramatic exploded view, components disintegrating outward from the watch face" loading="lazy">
+            <span class="card-pill">Anatomy of a Speedmaster</span>
+        </div>
+
+        <!-- King of Hearts — Elvis playing card, ink + watercolor -->
+        <div class="card" data-key="king-of-hearts" data-title="King of Hearts" data-img="images/studio/king-of-hearts.png">
+            <img class="card-img" src="images/studio/king-of-hearts.png" alt="Elvis Presley as the King of Hearts playing card, rendered in expressive scribbled ink line work with red ink-splatter accents on his collar, scratchy energy of contemporary editorial illustration" loading="lazy">
+            <span class="card-pill">King of Hearts</span>
+        </div>
+
+        <!-- Moby Dick — woodblock-print style whaling scene -->
+        <div class="card" data-key="moby-dick" data-title="Moby Dick" data-img="images/studio/mobydick.png">
+            <img class="card-img" src="images/studio/mobydick.png" alt="Bold woodblock-print style illustration of a whaling ship with yellow sails encountering a dark grey whale rising from green waves, with mountains and clouds against a coral-red sky" loading="lazy">
+            <span class="card-pill">Moby Dick</span>
+        </div>
+
+        <!-- The Watchmaker — paper-cutout diorama -->
+        <div class="card" data-key="watchmaker" data-title="The Watchmaker" data-img="images/studio/watchmaker.png">
+            <img class="card-img" src="images/studio/watchmaker.png" alt="Paper-cutout diorama scene of an elderly watchmaker working at a cluttered wooden workbench in a small workshop, surrounded by tools, books, and a wall clock, warm sepia tones throughout" loading="lazy">
+            <span class="card-pill">The Watchmaker</span>
+        </div>
+
         <!-- David Attenborough — naturalist field-journal portrait with mountain gorilla -->
         <div class="card" data-key="david-attenborough" data-title="David Attenborough" data-img="images/studio/david-attenborough.png">
             <img class="card-img" src="images/studio/david-attenborough.png" alt="Naturalist field-journal illustration of Sir David Attenborough sitting calmly on the forest floor of a Rwandan rainforest, a silverback mountain gorilla resting peacefully behind him, a small baby gorilla at his feet — soft pencil and watercolor wash on warm paper, lush forest greens and ochres" loading="lazy">
@@ -759,6 +796,54 @@
         // Note (Kiran's voice) still pending — see STUDIO-OVERLAY-INPUTS.md
         // ============================================
         const pieceData = {
+            'daddy-and-dia': {
+                date: 'May 2026',
+                tools: 'ChatGPT (DALL-E) + Niji animation',
+                style: 'Flat 2D children\'s animation in the lineage of Bluey, Sarah & Duck, and Hilda — simple geometric character shapes, flat color planes, painterly hand-textured backgrounds, the warm aesthetic of contemporary Australian preschool TV animation',
+                inspiredBy: 'Bluey (Ludo Studio), Sarah & Duck (BBC), Hilda (Netflix / Luke Pearson)',
+                dimensions: '1672 × 941'
+                // note: pending — Kiran's voice
+            },
+            'beatles': {
+                date: 'May 2026',
+                tools: 'Midjourney v7',
+                style: 'Bold graphic editorial illustration with halftone ink linework and limited red, yellow, and teal palette — silkscreen-poster sensibility',
+                inspiredBy: 'Saul Bass\'s graphic posters, the Beatles\' own Hard Day\'s Night and White Album visual language, contemporary screenprint-poster traditions',
+                dimensions: '2912 × 1632'
+                // note: pending — Kiran's voice
+            },
+            'omega-anatomy': {
+                date: 'May 2026',
+                tools: 'Midjourney v7',
+                style: 'Highly-detailed black-and-white mechanical illustration with dramatic exploded-view composition — components disintegrating outward in cinematic motion',
+                inspiredBy: 'Patek Philippe and Omega technical drawings, the dramatic exploded-view compositions of horological brand catalogs, mechanical illustration in the lineage of Stephen Biesty',
+                dimensions: '1656 × 2336'
+                // note: pending — Kiran's voice
+            },
+            'king-of-hearts': {
+                date: 'May 2026',
+                tools: 'Midjourney v7',
+                style: 'Expressive scribbled ink portrait with red ink-splatter accents — the scratchy contemporary editorial-illustration tradition',
+                inspiredBy: 'Vince Low\'s scribble portraiture, Ralph Steadman\'s splatter work, Matisse\'s expressive line and color studies',
+                dimensions: '1792 × 2688'
+                // note: pending — Kiran's voice
+            },
+            'moby-dick': {
+                date: 'May 2026',
+                tools: 'Midjourney v7',
+                style: 'Bold woodblock-print illustration with confident black ink linework and limited red, yellow, green, and grey palette — Ukiyo-e print sensibility translated to a Melville scene',
+                inspiredBy: 'Hokusai\'s Great Wave and the Japanese Ukiyo-e woodblock tradition, contemporary block-print artists, Rockwell Kent\'s Moby Dick illustrations',
+                dimensions: '2912 × 1632'
+                // note: pending — Kiran's voice
+            },
+            'watchmaker': {
+                date: 'May 2026',
+                tools: 'Midjourney v7',
+                style: 'Paper-cutout diorama scene — layered cut-paper construction with warm sepia tones, the handcrafted feel of a stop-motion set',
+                inspiredBy: 'Aardman and Laika stop-motion sets, traditional paper-craft dioramas, miniature-set photography',
+                dimensions: '2912 × 1632'
+                // note: pending — Kiran's voice
+            },
             'david-attenborough': {
                 date: 'May 2026',
                 tools: 'Midjourney v7',
