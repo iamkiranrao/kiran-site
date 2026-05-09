@@ -231,16 +231,27 @@
         }
         .lightbox-image-wrap {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 1rem;
             min-width: 0;
         }
         .lightbox-image {
             max-width: 100%;
-            max-height: 86vh;
+            max-height: 80vh;
             border-radius: 6px;
             display: block;
             object-fit: contain;
+        }
+        /* Controls row sits directly below the image. Width is synced to
+           the image's actual rendered width via JS so the arrows anchor to
+           the image's left and right edges regardless of aspect ratio. */
+        .lightbox-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* width is set inline by syncControlsToImage() */
         }
 
         .lightbox-meta-panel {
@@ -322,18 +333,13 @@
         }
         .close-btn:hover { background: rgba(240,230,216,0.1); }
 
-        /* Prev/Next side arrows. Positioned within .lightbox-content so they
-           sit at the image edges (not the viewport edges) — keeps them out
-           of the Fenix edge-tab's column on the right, and visually they
-           feel like they belong to the artwork rather than the chrome.
-           Keyboard arrows + swipe also navigate. */
+        /* Prev/Next arrows sit in the controls row directly below the
+           image. The controls row's width is synced to the image's
+           actual rendered width via JS, so the arrows always anchor to
+           the image's left and right edges — regardless of whether the
+           piece is portrait, landscape, or square.
+           Keyboard arrows + mobile swipe also navigate. */
         .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            /* Width is 40px so the next-button fits exactly inside the
-               2.5rem (40px) gap between the image area and the meta panel —
-               no overlap with the image, no overlap with the meta panel. */
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -348,30 +354,20 @@
             justify-content: center;
             backdrop-filter: blur(4px);
             transition: background 0.15s, border-color 0.2s, transform 0.2s var(--ease-bounce, cubic-bezier(0.34, 1.56, 0.64, 1));
-            z-index: 1010;
         }
         .lightbox-nav:hover { background: rgba(240,230,216,0.18); }
-        /* Prev hugs the image's left edge. Next sits inside the gap between
-           image and meta panel — right offset = meta-panel-width (340px), so
-           the 40px button fills the 40px gap edge-to-edge. */
-        .lightbox-nav-prev { left: 0.5rem; }
-        .lightbox-nav-next { right: 340px; }
-        .lightbox-nav-prev:hover { transform: translateY(-50%) translateX(-3px); }
-        .lightbox-nav-next:hover { transform: translateY(-50%) translateX(3px); }
+        .lightbox-nav-prev:hover { transform: translateX(-3px); }
+        .lightbox-nav-next:hover { transform: translateX(3px); }
         .lightbox-nav[disabled] {
             opacity: 0.25;
             cursor: not-allowed;
         }
         .lightbox-nav[disabled]:hover {
-            background: transparent;
-            transform: translateY(-50%);
+            background: rgba(20, 17, 14, 0.55);
+            transform: none;
         }
         @media (max-width: 900px) {
-            /* Single-column layout below 900px — meta panel goes below the
-               image so the next button can hug the image's right edge. */
-            .lightbox-nav { width: 38px; height: 38px; font-size: 1.2rem; }
-            .lightbox-nav-prev { left: 0.5rem; }
-            .lightbox-nav-next { right: 0.5rem; }
+            .lightbox-nav { width: 36px; height: 36px; font-size: 1.15rem; }
         }
 
         /* Back button — sits at top-LEFT of the lightbox at the same
@@ -783,10 +779,12 @@
         </button>
         <button class="close-btn" id="closeLightbox" aria-label="Close">×</button>
         <div class="lightbox-content">
-            <button class="lightbox-nav lightbox-nav-prev" id="lightboxPrev" type="button" aria-label="Previous piece">‹</button>
-            <button class="lightbox-nav lightbox-nav-next" id="lightboxNext" type="button" aria-label="Next piece">›</button>
             <div class="lightbox-image-wrap">
                 <img class="lightbox-image" id="lightbox-img" alt="">
+                <div class="lightbox-controls" id="lightboxControls">
+                    <button class="lightbox-nav lightbox-nav-prev" id="lightboxPrev" type="button" aria-label="Previous piece">‹</button>
+                    <button class="lightbox-nav lightbox-nav-next" id="lightboxNext" type="button" aria-label="Next piece">›</button>
+                </div>
             </div>
             <div class="lightbox-meta-panel">
                 <div class="lightbox-title" id="lightbox-title"></div>
@@ -1299,6 +1297,24 @@
 
         lbPrevBtn.addEventListener('click', () => navigateLightbox(-1));
         lbNextBtn.addEventListener('click', () => navigateLightbox(+1));
+
+        // Sync the controls row width to the image's actual rendered width
+        // so prev/next anchor to the image's left and right edges, regardless
+        // of aspect ratio (portrait pieces don't fill the column horizontally;
+        // landscape pieces fill width but not height — controls track either).
+        const lbControls = document.getElementById('lightboxControls');
+        function syncControlsToImage() {
+            if (!lbImg.complete) return; // wait for load handler
+            const w = lbImg.clientWidth;
+            if (w > 0) lbControls.style.width = w + 'px';
+        }
+        lbImg.addEventListener('load', syncControlsToImage);
+        // ResizeObserver covers viewport resize + theme/font reflow
+        if (window.ResizeObserver) {
+            new ResizeObserver(syncControlsToImage).observe(lbImg);
+        } else {
+            window.addEventListener('resize', syncControlsToImage);
+        }
 
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
