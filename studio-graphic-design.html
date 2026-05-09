@@ -87,9 +87,13 @@
             box-shadow: 0 14px 32px rgba(0,0,0,0.18);
             border-color: var(--text-secondary);
         }
-        .logo-card svg {
+        .logo-card svg,
+        .logo-card img {
             max-width: 100%;
             max-height: 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             display: block;
         }
         [data-theme="light"] .logo-card { background: #fff; }
@@ -231,16 +235,16 @@
         </div>
         <div class="logo-grid">
             <div class="logo-card" title="KG Monogram">
-                <object type="image/svg+xml" data="images/studio/graphic-design/logos/kg-monogram.svg" aria-label="KG monogram logo"></object>
+                <img src="images/studio/graphic-design/logos/kg-monogram.svg" alt="KG monogram logo">
             </div>
             <div class="logo-card" title="Phoenix — Geometric Bird">
-                <object type="image/svg+xml" data="images/studio/graphic-design/logos/phoenix-bird.svg" aria-label="Phoenix logo, geometric bird"></object>
+                <img src="images/studio/graphic-design/logos/phoenix-bird.svg" alt="Phoenix logo, geometric bird">
             </div>
             <div class="logo-card" title="Phoenix — Fire Variant 1">
-                <object type="image/svg+xml" data="images/studio/graphic-design/logos/phoenix-fire-1.svg" aria-label="Phoenix logo with fire elements, variant 1"></object>
+                <img src="images/studio/graphic-design/logos/phoenix-fire-1.svg" alt="Phoenix logo with fire elements, variant 1">
             </div>
             <div class="logo-card" title="Phoenix — Fire Variant 2">
-                <object type="image/svg+xml" data="images/studio/graphic-design/logos/phoenix-fire-2.svg" aria-label="Phoenix logo with fire elements, variant 2"></object>
+                <img src="images/studio/graphic-design/logos/phoenix-fire-2.svg" alt="Phoenix logo with fire elements, variant 2">
             </div>
         </div>
     </section>
