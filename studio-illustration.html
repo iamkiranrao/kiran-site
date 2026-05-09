@@ -318,6 +318,47 @@
         }
         .close-btn:hover { background: rgba(240,230,216,0.1); }
 
+        /* Prev/Next side arrows. Float vertically centered along the
+           outer edges of the lightbox so they don't overlap the image
+           or the meta panel. Keyboard arrows + swipe also navigate. */
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid rgba(240,230,216,0.3);
+            color: #FAF3E5;
+            font-size: 1.4rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s, border-color 0.2s, transform 0.2s var(--ease-bounce, cubic-bezier(0.34, 1.56, 0.64, 1));
+            z-index: 1010;
+        }
+        .lightbox-nav:hover { background: rgba(240,230,216,0.1); }
+        .lightbox-nav-prev { left: 1.5rem; }
+        .lightbox-nav-next { right: 1.5rem; }
+        .lightbox-nav-prev:hover { transform: translateY(-50%) translateX(-3px); }
+        .lightbox-nav-next:hover { transform: translateY(-50%) translateX(3px); }
+        .lightbox-nav[disabled] {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+        .lightbox-nav[disabled]:hover {
+            background: transparent;
+            transform: translateY(-50%);
+        }
+        @media (max-width: 900px) {
+            .lightbox-nav { width: 38px; height: 38px; font-size: 1.2rem; }
+            .lightbox-nav-prev { left: 0.5rem; }
+            .lightbox-nav-next { right: 0.5rem; }
+        }
+
         /* Back button — sits at top-LEFT of the lightbox at the same
            vertical level as the close X. Mirrors the close button in
            position and style. Both close the lightbox; the back button
@@ -394,6 +435,13 @@
             color: #3a3632;
         }
         [data-theme="light"] .lightbox-back-btn:hover {
+            background: rgba(58, 54, 50, 0.08);
+        }
+        [data-theme="light"] .lightbox-nav {
+            border-color: rgba(58, 54, 50, 0.3);
+            color: #3a3632;
+        }
+        [data-theme="light"] .lightbox-nav:hover {
             background: rgba(58, 54, 50, 0.08);
         }
 
@@ -718,6 +766,8 @@
             <span class="lightbox-back-arrow">←</span>
             <span>Back to Illustrations</span>
         </button>
+        <button class="lightbox-nav lightbox-nav-prev" id="lightboxPrev" type="button" aria-label="Previous piece">‹</button>
+        <button class="lightbox-nav lightbox-nav-next" id="lightboxNext" type="button" aria-label="Next piece">›</button>
         <button class="close-btn" id="closeLightbox" aria-label="Close">×</button>
         <div class="lightbox-content">
             <div class="lightbox-image-wrap">
@@ -1151,6 +1201,8 @@
             } else if (history.state.studioPiece !== key) {
                 history.replaceState({ studioPiece: key }, '', '#' + encodeURIComponent(key));
             }
+            // Update prev/next button enabled state for the new position
+            if (typeof updateNavButtonState === 'function') updateNavButtonState();
         }
 
         // The visible "close lightbox" path. Routes through history.back()
@@ -1198,12 +1250,77 @@
         closeLightboxBtn.addEventListener('click', closeLightbox);
         document.getElementById('lightboxBackBtn').addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+        // ── Prev / Next navigation ────────────────────────────
+        // Stops at edges (no wrap-around) — feels more "exhibit" than
+        // "carousel." The buttons disable themselves when there's no
+        // adjacent piece. Keyboard arrows + mobile swipe also bound here.
+        const lbPrevBtn = document.getElementById('lightboxPrev');
+        const lbNextBtn = document.getElementById('lightboxNext');
+        const allCards = Array.from(document.querySelectorAll('.card'));
+
+        function currentCardIndex() {
+            const key = (history.state && history.state.studioPiece) || '';
+            if (!key) return -1;
+            return allCards.findIndex(c => c.dataset.key === key);
+        }
+
+        function updateNavButtonState() {
+            const idx = currentCardIndex();
+            lbPrevBtn.disabled = idx <= 0;
+            lbNextBtn.disabled = idx < 0 || idx >= allCards.length - 1;
+        }
+
+        function navigateLightbox(direction) {
+            const idx = currentCardIndex();
+            if (idx < 0) return;
+            const newIdx = idx + direction;
+            if (newIdx < 0 || newIdx >= allCards.length) return;
+            const targetCard = allCards[newIdx];
+            // openLightbox handles the URL/state update + re-render
+            openLightbox(targetCard);
+            updateNavButtonState();
+        }
+
+        lbPrevBtn.addEventListener('click', () => navigateLightbox(-1));
+        lbNextBtn.addEventListener('click', () => navigateLightbox(+1));
+
         document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
             if (e.key === 'Escape') {
-                if (lightbox.classList.contains('active')) closeLightbox();
-                else if (mobileMenu.classList.contains('active')) { mobileMenu.classList.remove('active'); document.body.style.overflow = ''; }
+                closeLightbox();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                navigateLightbox(+1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                navigateLightbox(-1);
             }
         });
+
+        // Also catch the original ESC handler for the mobile menu (the
+        // lightbox-active branch above handles ESC when open).
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !lightbox.classList.contains('active')
+                && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Mobile swipe support — touch-drag the lightbox content to navigate
+        let touchStartX = null;
+        lightbox.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        lightbox.addEventListener('touchend', (e) => {
+            if (touchStartX === null) return;
+            const dx = (e.changedTouches[0].clientX) - touchStartX;
+            touchStartX = null;
+            const SWIPE_THRESHOLD = 60;
+            if (dx > SWIPE_THRESHOLD) navigateLightbox(-1);
+            else if (dx < -SWIPE_THRESHOLD) navigateLightbox(+1);
+        }, { passive: true });
 
         // Open the lightbox if the page loaded with a #piece-key hash.
         if (location.hash) openFromHash();
