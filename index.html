@@ -161,103 +161,121 @@
         </div>
     </section>
 
+    <!-- C10: Manifesto Video - Full-Width Cinematic -->
+    <section class="manifesto-section" id="manifesto">
+        <div class="manifesto-container">
+            <div class="manifesto-video-wrap">
+                <div class="manifesto-placeholder">
+                    <div class="manifesto-play-btn">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                            <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-width="2"/>
+                            <polygon points="26,20 26,44 46,32" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <p class="manifesto-tagline">Why this site exists.</p>
+                </div>
+                <!-- When video is ready: <video class="manifesto-video" src="videos/manifesto.mp4" poster="images/manifesto-poster.webp" playsinline muted loop></video> -->
+            </div>
+        </div>
+    </section>
+
     <!-- Persona Picker Section (first state for new visitors) -->
     <section id="persona-picker-section" class="persona-picker-inline">
         <div class="persona-section">
             <div class="lead-block">
                 <div class="lead-glass">
-                    <div class="lead-hook">This site <em>reshapes itself</em> around you.</div>
-                    <div class="lead-cta">Choose a perspective below. The content, the tone, the whole experience shifts to match.</div>
+                    <div class="lead-hook">What <em>brought you</em> here?</div>
+                    <div class="lead-cta">Pick what fits — I'll meet you there.</div>
                     <div class="lead-divider"></div>
                     <div class="scroll-hint">
-                        <span>Pick your persona</span>
+                        <span>Pick your way in</span>
                         <div class="scroll-hint-arrow-wrap"><div class="scroll-hint-arrow"></div></div>
                     </div>
                 </div>
             </div>
 
             <div class="card-grid">
-                <div class="card evaluator" data-persona="evaluator" data-accent="#7B9ACC" tabindex="0" role="button" aria-label="Select The Evaluator: Merritt Hunter, Recruiter and Hiring Manager" onclick="selectPersonaAndMorph(this)">
+                <div class="card evaluator" data-persona="evaluator" data-accent="#7B9ACC" tabindex="0" role="button" aria-label="I'd like to talk to Kiran about a role" onclick="selectPersonaAndMorph(this)">
                     <div class="card-image">
                         <picture>
                             <source srcset="images/evaluator-merritt.webp" type="image/webp">
-                            <img src="images/evaluator-merritt.png" onerror="this.onerror=null;this.src='images/evaluator-hunter.png';" alt="Merritt Hunter, The Evaluator" loading="lazy">
+                            <img src="images/evaluator-merritt.png" onerror="this.onerror=null;this.src='images/evaluator-hunter.png';" alt="" loading="lazy">
                         </picture>
                     </div>
                     <div class="card-glass">
-                        <div class="card-title">Recruiter / Hiring Manager</div>
-                        <div class="card-name">Merritt Hunter</div>
-                        <div class="card-hook">"I've got a role to fill; is Kiran the right fit?"</div>
+                        <div class="card-title">Recruiters &amp; hiring teams</div>
+                        <div class="card-name">“I'd like to talk to Kiran about a role.”</div>
+                        <div class="card-hook">Let's grab time. The work's here if you want a look first.</div>
                     </div>
                 </div>
 
-                <div class="card seeker" data-persona="seeker" data-accent="#777744" tabindex="0" role="button" aria-label="Select The Seeker: Phil Thevoid, Founder" onclick="selectPersonaAndMorph(this)">
+                <div class="card seeker" data-persona="seeker" data-accent="#777744" tabindex="0" role="button" aria-label="I need a fractional product partner" onclick="selectPersonaAndMorph(this)">
                     <div class="card-image">
                         <picture>
                             <source srcset="images/seeker-phil.webp" type="image/webp">
-                            <img src="images/seeker-phil.png" onerror="this.onerror=null;this.src='images/seeker-quest2.png';" alt="Phil Thevoid, The Seeker" loading="lazy">
+                            <img src="images/seeker-phil.png" onerror="this.onerror=null;this.src='images/seeker-quest2.png';" alt="" loading="lazy">
                         </picture>
                     </div>
                     <div class="card-glass">
-                        <div class="card-title">Founder / Needs a Product Leader</div>
-                        <div class="card-name">Phil Thevoid</div>
-                        <div class="card-hook">"I know how to build a company. I need someone who knows how to build a product."</div>
+                        <div class="card-title">Founders &amp; operators</div>
+                        <div class="card-name">“I need a fractional product partner.”</div>
+                        <div class="card-hook">Tell me about it. There's founder-shaped work to look at while we find a time.</div>
                     </div>
                 </div>
 
-                <div class="card practitioner" data-persona="practitioner" data-accent="#4DAF8B" tabindex="0" role="button" aria-label="Select The Practitioner: Drew Skematics, Product Design and Data" onclick="selectPersonaAndMorph(this)">
+                <div class="card practitioner" data-persona="practitioner" data-accent="#4DAF8B" tabindex="0" role="button" aria-label="I'd love to hear how Kiran thinks about product" onclick="selectPersonaAndMorph(this)">
                     <div class="card-image">
                         <picture>
                             <source srcset="images/practitioner-drew.webp" type="image/webp">
-                            <img src="images/practitioner-drew.png" onerror="this.onerror=null;this.src='images/practitioner-mei.png';" alt="Drew Skematics, The Practitioner" loading="lazy">
+                            <img src="images/practitioner-drew.png" onerror="this.onerror=null;this.src='images/practitioner-mei.png';" alt="" loading="lazy">
                         </picture>
                     </div>
                     <div class="card-glass">
-                        <div class="card-title">Product · Design · Data</div>
-                        <div class="card-name">Drew Skematics</div>
-                        <div class="card-hook">"Show me how you think through hard problems: the decisions, the tradeoffs, the reasoning."</div>
+                        <div class="card-title">Product folks</div>
+                        <div class="card-name">“I'd love to hear how Kiran thinks about product.”</div>
+                        <div class="card-hook">Start with the teardowns — and the messy notes behind them.</div>
                     </div>
                 </div>
 
-                <div class="card learner" data-persona="learner" data-accent="#A07ED4" tabindex="0" role="button" aria-label="Select The Learner: Paige Turner, Aspiring PM and Career Grower" onclick="selectPersonaAndMorph(this)">
+                <div class="card learner" data-persona="learner" data-accent="#A07ED4" tabindex="0" role="button" aria-label="I want Kiran's advice on getting into PM" onclick="selectPersonaAndMorph(this)">
                     <div class="card-image">
                         <picture>
                             <source srcset="images/learner-paige.webp" type="image/webp">
-                            <img src="images/learner-paige.png" onerror="this.onerror=null;this.src='images/learner-sage.png';" alt="Paige Turner, The Learner" loading="lazy">
+                            <img src="images/learner-paige.png" onerror="this.onerror=null;this.src='images/learner-sage.png';" alt="" loading="lazy">
                         </picture>
                     </div>
                     <div class="card-glass">
-                        <div class="card-title">Aspiring PM / Career Grower</div>
-                        <div class="card-name">Paige Turner</div>
-                        <div class="card-hook">"I want to see how a real PM thinks, not how a textbook says to."</div>
+                        <div class="card-title">Aspiring PMs</div>
+                        <div class="card-name">“I want Kiran's advice on getting into PM.”</div>
+                        <div class="card-hook">Happy to. I do free mentorship sessions; there's a reading list and frameworks while you're here.</div>
                     </div>
                 </div>
 
-                <div class="card technologist" data-persona="technologist" data-accent="#cb5c72" tabindex="0" role="button" aria-label="Select The Technologist: Ray Turing, CTO AI Lead and Tech Lead" onclick="selectPersonaAndMorph(this)">
+                <div class="card technologist" data-persona="technologist" data-accent="#cb5c72" tabindex="0" role="button" aria-label="I want to geek out with Kiran about AI" onclick="selectPersonaAndMorph(this)">
                     <div class="card-image">
                         <picture>
                             <source srcset="images/technologist-ray.webp" type="image/webp">
-                            <img src="images/CTO-Ray.png" alt="Ray Turing, The Technologist" loading="lazy">
+                            <img src="images/CTO-Ray.png" alt="" loading="lazy">
                         </picture>
                     </div>
                     <div class="card-glass">
-                        <div class="card-title">CTO / AI Lead / Tech Lead</div>
-                        <div class="card-name">Ray Turing</div>
-                        <div class="card-hook">"Lots of people talk about AI. Show me you can actually build with it."</div>
+                        <div class="card-title">Engineers &amp; AI builders</div>
+                        <div class="card-name">“I want to geek out with Kiran about AI.”</div>
+                        <div class="card-hook">Same. GitHub tour, architecture decisions, AI prototypes — pull up a chair.</div>
                     </div>
                 </div>
 
-                <div class="card innercircle" data-persona="innercircle" data-accent="#cb6923" tabindex="0" role="button" aria-label="Select The Inner Circle: Keshav Shivdasani, Old Friend" onclick="selectPersonaAndMorph(this)">
+                <div class="card innercircle" data-persona="innercircle" data-accent="#cb6923" tabindex="0" role="button" aria-label="I know Kiran and want to see what he's been up to" onclick="selectPersonaAndMorph(this)">
                     <div class="card-image">
                         <picture>
                             <source srcset="images/innercircle-keshav.webp" type="image/webp">
-                            <img src="images/innercircle-keshav.png" onerror="this.onerror=null;this.src='images/innercircle-kai.png';" alt="Keshav Shivdasani, The Inner Circle" loading="lazy">
+                            <img src="images/innercircle-keshav.png" onerror="this.onerror=null;this.src='images/innercircle-kai.png';" alt="" loading="lazy">
                         </picture>
                     </div>
                     <div class="card-glass">
-                        <div class="card-title">Old Friend</div>
-                        <div class="card-name">Keshav Shivdasani</div>
-                        <div class="card-hook">"Skip the pitch; we go wayyyyyy back."</div>
+                        <div class="card-title">Friends</div>
+                        <div class="card-name">“I know Kiran and want to see what he's been up to.”</div>
+                        <div class="card-hook">Direct line's open. The journal's here if you want the long version.</div>
                     </div>
                 </div>
             </div>
@@ -329,24 +347,6 @@
                         <button class="carousel-arrow carousel-arrow-right" id="carouselArrowRight" aria-label="Next competency">›</button>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- C10: Manifesto Video - Full-Width Cinematic -->
-    <section class="manifesto-section" id="manifesto">
-        <div class="manifesto-container">
-            <div class="manifesto-video-wrap">
-                <div class="manifesto-placeholder">
-                    <div class="manifesto-play-btn">
-                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                            <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-width="2"/>
-                            <polygon points="26,20 26,44 46,32" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <p class="manifesto-tagline">Why this site exists.</p>
-                </div>
-                <!-- When video is ready: <video class="manifesto-video" src="videos/manifesto.mp4" poster="images/manifesto-poster.webp" playsinline muted loop></video> -->
             </div>
         </div>
     </section>
