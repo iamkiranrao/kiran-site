@@ -2910,7 +2910,6 @@ body, nav, section, footer, .mobile-menu,
 .picker-mode nav,
 .picker-mode .hero-text,
 .picker-mode .about-section,
-.picker-mode .manifesto-section,
 .picker-mode .numbers-section,
 .picker-mode #work,
 .picker-mode .contact-cta,
@@ -2932,7 +2931,6 @@ body, nav, section, footer, .mobile-menu,
 .persona-active nav,
 .persona-active .hero-text,
 .persona-active .about-section,
-.persona-active .manifesto-section,
 .persona-active .numbers-section,
 .persona-active #work,
 .persona-active .contact-cta,
@@ -3068,9 +3066,6 @@ body, nav, section, footer, .mobile-menu,
 .morph-content-in .about-section {
     animation: contentRise 0.7s var(--ease-decel) 0s forwards;
 }
-.morph-content-in .manifesto-section {
-    animation: contentRise 0.7s var(--ease-decel) 0.12s forwards;
-}
 .morph-content-in #work {
     animation: contentRise 0.7s var(--ease-decel) 0.24s forwards;
 }
@@ -3085,7 +3080,6 @@ body, nav, section, footer, .mobile-menu,
 }
 
 .morph-content-in .about-section,
-.morph-content-in .manifesto-section,
 .morph-content-in .numbers-section,
 .morph-content-in #work,
 .morph-content-in .contact-cta,
@@ -3112,7 +3106,6 @@ body, nav, section, footer, .mobile-menu,
 .morph-complete nav,
 .morph-complete .hero-text,
 .morph-complete .about-section,
-.morph-complete .manifesto-section,
 .morph-complete .numbers-section,
 .morph-complete #work,
 .morph-complete .contact-cta,
@@ -3134,7 +3127,6 @@ body, nav, section, footer, .mobile-menu,
 .morph-reverse nav,
 .morph-reverse .hero-text,
 .morph-reverse .about-section,
-.morph-reverse .manifesto-section,
 .morph-reverse .numbers-section,
 .morph-reverse #work,
 .morph-reverse .contact-cta,
