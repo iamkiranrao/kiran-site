@@ -13,7 +13,7 @@
   const PERSONA_CONFIG = {
     evaluator: {
       accent: '#7B9ACC',
-      name: 'The Evaluator',
+      name: 'hiring teams',
       image: 'images/evaluator-merritt.webp',
       character: 'Merritt Hunter',
       title: 'Recruiter / Hiring Manager',
@@ -39,7 +39,7 @@
     },
     seeker: {
       accent: '#777744',
-      name: 'The Seeker',
+      name: 'founders',
       image: 'images/seeker-phil.webp',
       character: 'Phil Thevoid',
       title: 'Founder / Needs a Product Leader',
@@ -65,7 +65,7 @@
     },
     practitioner: {
       accent: '#4DAF8B',
-      name: 'The Practitioner',
+      name: 'product folks',
       image: 'images/practitioner-drew.webp',
       character: 'Drew Skematics',
       title: 'Product · Design · Data',
@@ -91,7 +91,7 @@
     },
     learner: {
       accent: '#A07ED4',
-      name: 'The Learner',
+      name: 'aspiring PMs',
       image: 'images/learner-paige.webp',
       character: 'Paige Turner',
       title: 'Aspiring PM / Career Grower',
@@ -117,7 +117,7 @@
     },
     technologist: {
       accent: '#cb5c72',
-      name: 'The Technologist',
+      name: 'AI builders',
       image: 'images/technologist-ray.webp',
       character: 'Ray Turing',
       title: 'CTO / AI Lead / Tech Lead',
@@ -143,7 +143,7 @@
     },
     innercircle: {
       accent: '#cb6923',
-      name: 'The Inner Circle',
+      name: 'friends',
       image: 'images/innercircle-keshav.webp',
       character: 'Keshav Shivdasani',
       title: 'Old Friend',
@@ -219,7 +219,7 @@
 
     if (config) {
       var avatarHtml = config.image ? '<span class="pill-avatar-wrap"><img class="pill-avatar" src="' + config.image + '" alt="' + config.character + '"></span>' : '';
-      pill.innerHTML = avatarHtml + '<span class="pill-label">Viewing as</span> <span class="pill-persona-name">' + config.name + '</span>';
+      pill.innerHTML = avatarHtml + '<span class="pill-label">Tailored for</span> <span class="pill-persona-name">' + config.name + '</span>';
       pill.style.borderColor = config.accent;
       pill.querySelector('.pill-persona-name').style.color = config.accent;
       pill.addEventListener('click', function () {
@@ -439,7 +439,7 @@
     var pill = document.querySelector('.viewing-as-pill');
     if (!pill) return;
     var avatarHtml = config.image ? '<span class="pill-avatar-wrap"><img class="pill-avatar" src="' + config.image + '" alt="' + config.character + '"></span>' : '';
-    pill.innerHTML = avatarHtml + '<span class="pill-label">Viewing as</span> <span class="pill-persona-name">' + config.name + '</span>';
+    pill.innerHTML = avatarHtml + '<span class="pill-label">Tailored for</span> <span class="pill-persona-name">' + config.name + '</span>';
     pill.classList.remove('unpicked');
     pill.style.borderColor = config.accent;
     var nameEl = pill.querySelector('.pill-persona-name');
@@ -453,7 +453,7 @@
     var toast = document.getElementById('toast');
     if (!toast) return;
     toast.textContent = '';
-    toast.innerHTML = 'Viewing as <span style="color:' + config.accent + '; font-weight: 600;">' + config.name + '</span>';
+    toast.innerHTML = 'Tailored for <span style="color:' + config.accent + '; font-weight: 600;">' + config.name + '</span>';
     if (fromMorph) {
       toast.classList.add('toast-morph');
     }
