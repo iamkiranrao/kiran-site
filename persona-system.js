@@ -675,19 +675,22 @@
   function applyContextHeader(persona) {
     var config = getPersonaConfig(persona);
     if (!config) return;
-    var nameEl = document.querySelector('.fenix-context-name');
-    if (nameEl) {
-      // Check for connected name (persona → person): new core keys first, legacy fallback
-      var connectedName = localStorage.getItem('fenix_name') || localStorage.getItem('evaluator_name') || localStorage.getItem('connect_name');
-      // Validate: require at least first + last name (two distinct words)
-      // Prevents partial/test names like "Test" from replacing the persona label
-      if (connectedName) {
-        var parts = connectedName.trim().split(/\s+/);
-        if (parts.length < 2 || parts[0].toLowerCase() === parts[1].toLowerCase()) {
-          connectedName = null; // fail validation → use persona name
-        }
+    var greetingEl = document.querySelector('.fenix-context-greeting');
+    if (!greetingEl) return;
+    // Check for connected name (persona → person): new core keys first, legacy fallback
+    var connectedName = localStorage.getItem('fenix_name') || localStorage.getItem('evaluator_name') || localStorage.getItem('connect_name');
+    // Validate: require at least first + last name (two distinct words)
+    if (connectedName) {
+      var parts = connectedName.trim().split(/\s+/);
+      if (parts.length < 2 || parts[0].toLowerCase() === parts[1].toLowerCase()) {
+        connectedName = null;
       }
-      nameEl.textContent = connectedName || config.name;
+    }
+    // Connected visitor → personal welcome. Picked-only → tailored-for framing.
+    if (connectedName) {
+      greetingEl.innerHTML = 'Welcome, <span class="fenix-context-name">' + connectedName + '</span>';
+    } else {
+      greetingEl.innerHTML = 'Welcome — tailored for <span class="fenix-context-name">' + config.name + '</span>';
     }
   }
 
