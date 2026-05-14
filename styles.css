@@ -2908,7 +2908,7 @@ body, nav, section, footer, .mobile-menu,
 }
 
 .picker-mode nav,
-.picker-mode .hero-text,
+.picker-mode .hero,
 .picker-mode .about-section,
 .picker-mode .numbers-section,
 .picker-mode #work,
@@ -2929,7 +2929,7 @@ body, nav, section, footer, .mobile-menu,
 }
 
 .persona-active nav,
-.persona-active .hero-text,
+.persona-active .hero,
 .persona-active .about-section,
 .persona-active .numbers-section,
 .persona-active #work,
