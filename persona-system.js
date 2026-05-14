@@ -671,6 +671,17 @@
     // This is acceptable since the user is switching personas which involves a morph
   }
 
+  // ── Apply Persona Manifesto ────────────────────────
+  // Updates the post-pick persona-specific manifesto tagline.
+  // Real videos slot in later via .persona-manifesto .manifesto-video element.
+  function applyPersonaManifesto(persona) {
+    var config = getPersonaConfig(persona);
+    if (!config) return;
+    var taglineEl = document.querySelector('.persona-manifesto-tagline');
+    if (!taglineEl) return;
+    taglineEl.textContent = 'Hey ' + config.name + '.';
+  }
+
   // ── Apply Context Header ───────────────────────────
   function applyContextHeader(persona) {
     var config = getPersonaConfig(persona);
@@ -701,6 +712,7 @@
     applyAccentVariable();
     applyAccentFrame();
     applyContextHeader(persona);
+    applyPersonaManifesto(persona);
     buildFenixIntroContent(persona);
     buildNumbersGrid(persona);
 

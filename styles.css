@@ -2910,6 +2910,7 @@ body, nav, section, footer, .mobile-menu,
 .picker-mode nav,
 .picker-mode .hero,
 .picker-mode .about-section,
+.picker-mode .persona-manifesto,
 .picker-mode .numbers-section,
 .picker-mode #work,
 .picker-mode .contact-cta,
@@ -2931,6 +2932,7 @@ body, nav, section, footer, .mobile-menu,
 .persona-active nav,
 .persona-active .hero,
 .persona-active .about-section,
+.persona-active .persona-manifesto,
 .persona-active .numbers-section,
 .persona-active #work,
 .persona-active .contact-cta,
@@ -3080,6 +3082,7 @@ body, nav, section, footer, .mobile-menu,
 }
 
 .morph-content-in .about-section,
+.morph-content-in .persona-manifesto,
 .morph-content-in .numbers-section,
 .morph-content-in #work,
 .morph-content-in .contact-cta,
@@ -3106,6 +3109,7 @@ body, nav, section, footer, .mobile-menu,
 .morph-complete nav,
 .morph-complete .hero-text,
 .morph-complete .about-section,
+.morph-complete .persona-manifesto,
 .morph-complete .numbers-section,
 .morph-complete #work,
 .morph-complete .contact-cta,
@@ -3127,6 +3131,7 @@ body, nav, section, footer, .mobile-menu,
 .morph-reverse nav,
 .morph-reverse .hero-text,
 .morph-reverse .about-section,
+.morph-reverse .persona-manifesto,
 .morph-reverse .numbers-section,
 .morph-reverse #work,
 .morph-reverse .contact-cta,
@@ -3164,6 +3169,12 @@ body, nav, section, footer, .mobile-menu,
     padding: 3rem 0 0;
     position: relative;
     overflow: hidden;
+}
+
+/* Generic manifesto (#manifesto): shows on picker page only.
+   Persona-specific manifesto (.persona-manifesto): shows post-pick only. */
+.persona-active #manifesto {
+    display: none;
 }
 
 .manifesto-container {
