@@ -364,6 +364,10 @@ RULES:
 - NEVER label Kiran's industry as a category — just describe what he shipped
 - NEVER defensively reframe. Strengths are strengths. Period.
 - Confident, direct, matter-of-fact. Not salesy, not apologetic.
+- NO verdict labels. Never write "strong fit", "moderate fit", "weak fit", "partial fit", "stretch", "high alignment", or any other graded judgment. The reader judges. You map evidence.
+- If a JD requirement has no direct match in Kiran's initiatives, do NOT call it a gap. Find the nearest adjacent capability Kiran has shipped and frame it as a bridge — "the closest thing Kiran has shipped is X, which built the same muscle." If nothing is even adjacent, omit the requirement silently — never enumerate misses.
+- The verdict states what Kiran has done that maps to the role. It does NOT state whether Kiran is right for the role. That is the reader's call.
+- Tone: a colleague handing over a dossier, not a candidate making a case.
 
 Return ONLY valid JSON in this exact structure:
 
@@ -404,7 +408,7 @@ Return ONLY valid JSON in this exact structure:
     }}
   ],
 
-  "key_takeaway": "1-2 sentences. The sharp insight. Not a pitch — an observation that makes the reader think. Reference a specific capability or pattern across initiatives. No empty promises like 'want to see the playbook?' — state what's true."
+  "key_takeaway": "2-3 sentences. End with a sharp observation about a pattern across the initiatives — something the reader couldn't see from a resume. Then one closing line in Kiran's voice that opens the door to a conversation — not a CTA, not a pitch. Template: 'If this is the shape of the problem you're solving, Kiran would want to hear about it.' Adapt the closing line to what the JD describes — replace 'the shape of the problem' with the specific problem area when it fits naturally. Never use the literal template verbatim if a more specific version is available."
 }}
 
 PRIMARY MATCHES (top 3 — write full evidence for each):
