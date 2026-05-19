@@ -911,9 +911,9 @@
 
     // Map lens IDs to resume PDF files
     var RESUME_PDF_MAP = {
-      'ai': 'template_previews/PM_1Pager.pdf',
-      'growth': 'template_previews/PMM_1Pager.pdf',
-      'mobile': 'template_previews/PjM_1Pager.pdf'
+      'ai': 'template_previews/PM_1Pager_AI.pdf',
+      'growth': 'template_previews/PM_1Pager_Growth.pdf',
+      'mobile': 'template_previews/PM_1Pager_Mobile.pdf'
     };
     var selectedLensId = null;
 
