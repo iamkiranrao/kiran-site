@@ -693,7 +693,7 @@
   border: 1px solid var(--ev-border);
   border-top: none;
   border-radius: 0 0 8px 8px;
-  margin: -1px 4rem 0;
+  margin: -1px 0 0;
   opacity: 0;
   transform: translateY(-8px);
   transition: opacity 0.3s ease, transform 0.3s ease;
