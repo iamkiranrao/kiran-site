@@ -160,7 +160,7 @@
     },
     {
       q: '"What haven\'t I asked you that I should have?"',
-      a: 'Kiran\'s answer will appear here.'
+      a: "You asked what I've done. You didn't ask how, or what I'm doing now. The how: some of my closest friends today are people who worked for me, or who I worked for, decades ago. I meet monthly with a cohort I first met 20 years ago. I've been a groomsman at a coworker's wedding. I make relationships that last and I build cultures where people thrive. The what-now: I built this site on weekends over the last year. Fenix, the agent you've been talking to. Every panel, every conversation flow. A resume couldn't have introduced me the way this artifact can. That's why it exists."
     }
   ];
 
