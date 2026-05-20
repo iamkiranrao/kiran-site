@@ -314,7 +314,7 @@
         } else {
           var stat = cardData[cardId] && cardData[cardId].stat;
           if (typeof showToast === 'function') {
-            showToast((stat || 'Section') + ' — coming soon.');
+            showToast((stat || 'Section') + ', coming soon.');
           }
         }
       });

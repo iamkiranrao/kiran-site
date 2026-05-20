@@ -24,7 +24,7 @@
   var RECRUITER_QUESTIONS = [
     {
       q: '"Tell me the story of you, but you can\'t say anything on your resume."',
-      a: 'Kiran\'s answer will appear here — authentic, specific, not a template.'
+      a: 'Kiran\'s answer will appear here, authentic, specific, not a template.'
     },
     {
       q: '"When was the last time you changed your mind about something important?"',
@@ -313,7 +313,7 @@
       if (!fenixState.visitor.connected) {
         showPanel('connect');
         fenixState.ui.currentPanel = 'connect';
-        return 'Visitor not connected yet — opened the connect panel';
+        return 'Visitor not connected yet, opened the connect panel';
       }
       showPanel('connect'); // Shows JD input when connected
       fenixState.explored.fitNarrativeStarted = true;
@@ -426,7 +426,7 @@
       return readStream();
     }).catch(function (err) {
       console.error('Fenix agent error:', err);
-      addFenixMessage(messageArea, 'I\'m having a moment — couldn\'t connect to my brain. Try again in a sec, or use the cards on the left to explore directly.');
+      addFenixMessage(messageArea, 'I\'m having a moment, couldn\'t connect to my brain. Try again in a sec, or use the cards on the left to explore directly.');
       fenixState.ui.inputEnabled = true;
       fenixState.ui.fenixTyping = false;
       setInputEnabled(true);
@@ -697,7 +697,7 @@
     var messageArea = el('div', 'ev-chat-messages');
 
     // First Fenix message — the short pitch (not the full opening frame)
-    addFenixMessage(messageArea, 'I can walk you through Kiran\'s experience, pull up the resume that fits your search, or — if you\'re up for it — help you both figure out whether this is actually a match. The buttons below are the fast paths. Or just ask me whatever\'s on your mind.');
+    addFenixMessage(messageArea, 'I can walk you through Kiran\'s experience, pull up the resume that fits your search, or, if you\'re up for it, help you both figure out whether this is actually a match. The buttons below are the fast paths. Or just ask me whatever\'s on your mind.');
 
     wrapper.appendChild(messageArea);
 
@@ -935,7 +935,7 @@
         icon: '📄',
         title: 'My Resume, Focused for Your Role',
         tag: 'Explore freely',
-        hook: 'Same experience, different emphasis — pick the lens that fits your search.',
+        hook: 'Same experience, different emphasis, pick the lens that fits your search.',
         cta: '→ Choose your lens',
         action: 'resume',
         locked: false
@@ -945,7 +945,7 @@
         icon: '💡',
         title: 'What Recruiters Never Ask',
         tag: 'Explore freely',
-        hook: 'The questions that actually reveal fit — and my honest answers.',
+        hook: 'The questions that actually reveal fit, and my honest answers.',
         cta: '→ See the questions',
         action: 'questions',
         locked: false
@@ -955,7 +955,7 @@
         icon: '⚖️',
         title: 'How Kiran\'s Experience Maps to Your Role',
         tag: 'Connect to unlock',
-        hook: 'Paste a job description and I\'ll show you exactly where Kiran\'s work lines up — specific projects, results, and scale.',
+        hook: 'Paste a job description and I\'ll show you exactly where Kiran\'s work lines up, specific projects, results, and scale.',
         cta: '→ Connect to get started',
         gateReason: 'This works better when I know who I\'m talking to.',
         action: 'connect',
@@ -1099,7 +1099,7 @@
 
   function renderResumeLensPanel(panel) {
     var heading = el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> Kiran\'s resume comes in three flavors — same experience, different emphasis. Which one fits your search?'
+      html: '<em>Fenix:</em> Kiran\'s resume comes in three flavors, same experience, different emphasis. Which one fits your search?'
     });
     panel.appendChild(heading);
 
@@ -1164,7 +1164,7 @@
 
   function renderRecruiterQuestionsPanel(panel) {
     var heading = el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> These are the questions that actually tell you whether someone\'s the right fit — and Kiran\'s honest answers.'
+      html: '<em>Fenix:</em> These are the questions that actually tell you whether someone\'s the right fit, and Kiran\'s honest answers.'
     });
     panel.appendChild(heading);
 
@@ -1187,7 +1187,7 @@
 
   function renderConnectGate(panel) {
     var heading = el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> Give me a job description and I\'ll show you how Kiran\'s experience maps to it — specific projects, results, scale. Since this is personalized, I\'ll need to know who I\'m putting it together for.<br><br>Two ways to do that:'
+      html: '<em>Fenix:</em> Give me a job description and I\'ll show you how Kiran\'s experience maps to it, specific projects, results, scale. Since this is personalized, I\'ll need to know who I\'m putting it together for.<br><br>Two ways to do that:'
     });
     panel.appendChild(heading);
 
@@ -1207,7 +1207,7 @@
     var manualCard = el('div', 'ev-connect-path-card');
     manualCard.appendChild(el('div', 'ev-path-icon', { html: '<span style="color:var(--ev-accent);">✎</span>' }));
     manualCard.appendChild(el('div', 'ev-path-title', { text: 'Introduce yourself' }));
-    manualCard.appendChild(el('div', 'ev-path-subtitle', { text: 'Name + company — that\'s it' }));
+    manualCard.appendChild(el('div', 'ev-path-subtitle', { text: 'Name + company, that\'s it' }));
 
     var form = el('form', 'ev-connect-form');
     form.addEventListener('submit', function (e) {
@@ -1288,7 +1288,7 @@
     applyConnectedState();
 
     // Show Fenix's transition message
-    showFenixMessage('Much better. This site was built for exactly this — real people, not personas. Nice to actually meet you, ' + name + '.');
+    showFenixMessage('Much better. This site was built for exactly this, real people, not personas. Nice to actually meet you, ' + name + '.');
 
     // Transition to JD input
     setTimeout(function () {

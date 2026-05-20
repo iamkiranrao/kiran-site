@@ -19,7 +19,7 @@
       title: 'Recruiter / Hiring Manager',
       tagline: 'Builder of Products People Love',
       introLine: 'Equal parts strategist, storyteller, and builder.',
-      description: '15 years shipping products across mobile, AI, and fintech. I\'ve led teams at companies you\'ve heard of and startups you haven\'t — always focused on the gap between what users say they want and what actually moves the needle. This site is built the way I build products: ship fast, iterate in public, sweat the details.',
+      description: '15 years shipping products across mobile, AI, and fintech. I\'ve led teams at companies you\'ve heard of and startups you haven\'t, always focused on the gap between what users say they want and what actually moves the needle. This site is built the way I build products: ship fast, iterate in public, sweat the details.',
       socialLinks: ['linkedin', 'github', 'substack'],
       competencyOrder: ['Product Strategy', 'Go-to-Market Strategy', 'Delivery & Execution', 'Growth & Adoption', 'AI Integration', 'Digital Transformation'],
       heroCard: 'how-id-built-it',
@@ -45,13 +45,13 @@
       title: 'Founder / Needs a Product Leader',
       tagline: 'Builder Who Turns Vision into Product',
       introLine: 'Equal parts strategist, operator, and builder.',
-      description: 'I\'ve been the first PM at startups and the PM who rebuilt products at scale. I know what it\'s like to have more conviction than clarity — and I know how to turn that into a roadmap that actually ships. If you\'re building something and need someone who gets it, you\'re in the right place.',
+      description: 'I\'ve been the first PM at startups and the PM who rebuilt products at scale. I know what it\'s like to have more conviction than clarity, and I know how to turn that into a roadmap that actually ships. If you\'re building something and need someone who gets it, you\'re in the right place.',
       socialLinks: ['linkedin', 'github'],
       competencyOrder: ['Go-to-Market Strategy', 'Product Strategy', 'Growth & Adoption', 'Delivery & Execution', 'AI Integration', 'Digital Transformation'],
       heroCard: 'my-work',
       cardOrder: ['my-work', 'how-id-built-it', 'my-sandbox', 'creative-lab', 'testimonials', 'blog-podcast', 'learning', 'under-the-hood', 'now'],
       contactSubtext: 'Tell me what you\'re building.',
-      fenixTooltip: 'Tell me what you\'re building — I\'ll show you how I\'d think about it.',
+      fenixTooltip: 'Tell me what you\'re building. I\'ll show you how I\'d think about it.',
       unlocks: [
         { label: 'Bring your problem', desc: 'Describe what you\'re building. Fenix walks through the framing.', icon: 'lightbulb', link: '#' },
         { label: 'Fractional engagement brief', desc: 'What 10 hrs/week of product leadership looks like.', icon: 'file-text', link: '#' },
@@ -71,7 +71,7 @@
       title: 'Product · Design · Data',
       tagline: 'Builder Who Sweats the Details',
       introLine: 'Equal parts analyst, craftsperson, and builder.',
-      description: 'I think about product the way you do — tradeoffs, second-order effects, the politics of saying no. I\'ve shipped across enterprise and consumer, led rebuilds nobody wanted to touch, and documented the reasoning behind every call. This site is where I think out loud. If you\'ve ever wished your peers published their decision logs, this is that.',
+      description: 'I think about product the way you do, tradeoffs, second-order effects, the politics of saying no. I\'ve shipped across enterprise and consumer, led rebuilds nobody wanted to touch, and documented the reasoning behind every call. This site is where I think out loud. If you\'ve ever wished your peers published their decision logs, this is that.',
       socialLinks: ['linkedin', 'substack', 'github'],
       competencyOrder: ['Product Strategy', 'AI Integration', 'Go-to-Market Strategy', 'Digital Transformation', 'Growth & Adoption', 'Delivery & Execution'],
       heroCard: 'how-id-built-it',
@@ -79,7 +79,7 @@
       contactSubtext: "I'm always up for a product debate.",
       fenixTooltip: 'Want the reasoning behind a specific teardown? Let\'s dig in.',
       unlocks: [
-        { label: 'The teardown vault', desc: 'Director\'s commentary on teardowns — the dead ends and raw thinking.', icon: 'archive', link: '#' },
+        { label: 'The teardown vault', desc: 'Director\'s commentary on teardowns, the dead ends and raw thinking.', icon: 'archive', link: '#' },
         { label: 'Roast my product', desc: 'Submit a URL. Get a Kiran-style quick teardown.', icon: 'zap', link: '#' },
         { label: 'Frameworks & mental models', desc: 'The actual tools I use for prioritization and analysis.', icon: 'layout', link: '#' }
       ],
@@ -97,7 +97,7 @@
       title: 'Aspiring PM / Career Grower',
       tagline: 'Builder Who Learned by Doing',
       introLine: 'Equal parts storyteller, teacher, and builder.',
-      description: 'I went from \'what even is a PM?\' to leading product teams across AI, fintech, and consumer — by being curious and building things before anyone asked me to. This site is that philosophy made real. Every component, teardown, and prototype here is something I built to learn or to teach. If you\'re on that same path, you\'re in the right place.',
+      description: 'I went from \'what even is a PM?\' to leading product teams across AI, fintech, and consumer, by being curious and building things before anyone asked me to. This site is that philosophy made real. Every component, teardown, and prototype here is something I built to learn or to teach. If you\'re on that same path, you\'re in the right place.',
       socialLinks: ['linkedin', 'substack'],
       competencyOrder: ['Growth & Adoption', 'Product Strategy', 'AI Integration', 'Go-to-Market Strategy', 'Digital Transformation', 'Delivery & Execution'],
       heroCard: 'blog-podcast',
@@ -107,7 +107,7 @@
       unlocks: [
         { label: 'Book a mentorship session', desc: 'Free 30-min call via ADPList.', icon: 'message-circle', link: '#' },
         { label: 'PM starter kit', desc: 'Curated reading list, frameworks, and interview prep.', icon: 'book-open', link: '#' },
-        { label: 'Ask me about breaking in', desc: 'Fenix in mentorship mode — career transition help.', icon: 'compass', link: '#' }
+        { label: 'Ask me about breaking in', desc: 'Fenix in mentorship mode, career transition help.', icon: 'compass', link: '#' }
       ],
       metrics: [
         { value: null, label: 'Commits to learn from', live: true },
@@ -123,7 +123,7 @@
       title: 'CTO / AI Lead / Tech Lead',
       tagline: 'Builder Who Understands the Stack',
       introLine: 'Equal parts tinkerer, systems thinker, and builder.',
-      description: 'I\'m a product leader who doesn\'t treat engineering as a black box. I\'ve led platform migrations, scoped AI integrations, and made architecture calls that held up under load. I built this entire site — not by writing every line, but by making every decision: the stack, the tradeoffs, the abstractions. That\'s the skill that matters in 2026: knowing what to build, how to build it, and when to let the tools do the typing.',
+      description: 'I\'m a product leader who doesn\'t treat engineering as a black box. I\'ve led platform migrations, scoped AI integrations, and made architecture calls that held up under load. I built this entire site, not by writing every line, but by making every decision: the stack, the tradeoffs, the abstractions. That\'s the skill that matters in 2026: knowing what to build, how to build it, and when to let the tools do the typing.',
       socialLinks: ['linkedin', 'github'],
       competencyOrder: ['AI Integration', 'Product Strategy', 'Digital Transformation', 'Delivery & Execution', 'Go-to-Market Strategy', 'Growth & Adoption'],
       heroCard: 'my-sandbox',
@@ -131,7 +131,7 @@
       contactSubtext: "Let's geek out.",
       fenixTooltip: 'Want to see how I built this site with AI? Ask me.',
       unlocks: [
-        { label: 'The GitHub tour', desc: 'Real repos behind this site — Fenix RAG, persona picker, and more.', icon: 'github', link: '#' },
+        { label: 'The GitHub tour', desc: 'Real repos behind this site. Fenix RAG, persona picker, and more.', icon: 'github', link: '#' },
         { label: 'Architecture decision records', desc: 'Why vanilla JS, why Supabase + pgvector, why Cloudflare.', icon: 'layers', link: '#' },
         { label: 'Pair with me', desc: '45-min technical pairing session. Pick a problem.', icon: 'code', link: '#' }
       ],
@@ -150,15 +150,15 @@
       tagline: 'Builder of Weird and Wonderful Things',
       introLine: 'Equal parts overthinker, dreamer, and builder.',
       descriptionEyebrow: 'The unfiltered version ↘',
-      description: 'You already know the story — the late nights, the existential spirals, the "just one more thing" that turned into this. I built a site with AI personas, a chatbot named Fenix, and a commit history that proves I haven\'t slept since February. This is the most me thing I\'ve ever made. Poke around. Roast it. You have full access.',
+      description: 'You already know the story, the late nights, the existential spirals, the "just one more thing" that turned into this. I built a site with AI personas, a chatbot named Fenix, and a commit history that proves I haven\'t slept since February. This is the most me thing I\'ve ever made. Poke around. Roast it. You have full access.',
       socialLinks: ['linkedin'],
       competencyOrder: null, // no reorder
       heroCard: 'now',
       cardOrder: ['now', 'creative-lab', 'my-sandbox', 'under-the-hood', 'my-work', 'blog-podcast', 'testimonials', 'learning', 'how-id-built-it'],
       contactSubtext: 'You already have my number.',
-      fenixTooltip: "Hey — Flame On is already turned on for you.",
+      fenixTooltip: "Hey. Flame On is already turned on for you.",
       unlocks: [
-        { label: 'Flame On by default', desc: 'Fenix skips the polish — raw journal entries, half-baked ideas.', icon: 'flame', link: '#' },
+        { label: 'Flame On by default', desc: 'Fenix skips the polish, raw journal entries, half-baked ideas.', icon: 'flame', link: '#' },
         { label: "What I'm actually working on", desc: 'Live-ish view of current projects. The real status.', icon: 'activity', link: '#' },
         { label: 'Direct line', desc: 'WhatsApp. No forms.', icon: 'phone', link: '#' }
       ],
@@ -701,7 +701,7 @@
     if (connectedName) {
       greetingEl.innerHTML = 'Welcome, <span class="fenix-context-name">' + connectedName + '</span>';
     } else {
-      greetingEl.innerHTML = 'Welcome — tailored for <span class="fenix-context-name">' + config.name + '</span>';
+      greetingEl.innerHTML = 'Welcome, tailored for <span class="fenix-context-name">' + config.name + '</span>';
     }
   }
 
@@ -986,7 +986,7 @@
     module.innerHTML =
       '<div class="fenix-subpage-inner">' +
         '<div class="fenix-subpage-logo-wrap">' +
-          '<img src="images/fenix/1fenixavatar1.png" alt="Fenix the phoenix mascot — Kiran\'s AI assistant" class="fenix-subpage-logo">' +
+          '<img src="images/fenix/1fenixavatar1.png" alt="Fenix the phoenix mascot. Kiran\'s AI assistant" class="fenix-subpage-logo">' +
         '</div>' +
         '<div class="fenix-subpage-content">' +
           '<p class="fenix-subpage-greeting">' + (config ? config.fenixTooltip : 'Need help exploring? I\'m here.') + '</p>' +
