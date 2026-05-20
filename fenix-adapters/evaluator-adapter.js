@@ -144,7 +144,7 @@
   var RECRUITER_QUESTIONS = [
     {
       q: '"Tell me the story of you, but you can\'t say anything on your resume."',
-      a: 'Kiran\'s answer will appear here — authentic, specific, not a template.'
+      a: "I was born and raised in Dubai. My father was a mechanical engineer at an oil company, but the engineering didn't stop when he came home. He'd fabricate an aquarium one weekend, build an aviary the next, fix his friends' cars on the side. In our house the line between work and play blurred. I got my first computer at seven and have been in love with technology ever since, assembling my own machines and writing a tiny text-to-speech program before I knew what 'shipping' meant. I think I picked up the love for building just from watching him do it. Always from scratch, never out of a box."
     },
     {
       q: '"When was the last time you changed your mind about something important?"',
