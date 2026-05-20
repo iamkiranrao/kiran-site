@@ -481,7 +481,7 @@
       // Remove typing indicator on error
       var typingOnErr = messageArea.querySelector('.ev-typing-indicator');
       if (typingOnErr) typingOnErr.remove();
-      addFenixMessage(messageArea, 'I\'m having a moment — couldn\'t connect to my brain. Try again in a sec.');
+      addFenixMessage(messageArea, 'I\'m having a moment, couldn\'t connect to my brain. Try again in a sec.');
       fenixState.ui.inputEnabled = true;
       fenixState.ui.fenixTyping = false;
       setInputEnabled(true);

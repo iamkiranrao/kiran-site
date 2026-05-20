@@ -313,7 +313,7 @@
       if (!fenixState.visitor.connected) {
         showPanel('connect');
         fenixState.ui.currentPanel = 'connect';
-        return 'Visitor not connected yet — opened the connect panel';
+        return 'Visitor not connected yet, opened the connect panel';
       }
       showPanel('connect');
       fenixState.explored.fitNarrativeStarted = true;
@@ -737,7 +737,7 @@
         icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>',
         title: 'Kiran\'s Resume, Focused on Your Role',
         tag: 'Explore freely',
-        hook: 'Same experience, different emphasis — pick the lens that fits your search.',
+        hook: 'Same experience, different emphasis. Pick the lens that fits your search.',
         cta: '\u2192 Choose your lens',
         action: 'resume',
         locked: false
@@ -747,7 +747,7 @@
         icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>',
         title: 'What Recruiters Never Ask',
         tag: 'Explore freely',
-        hook: 'The questions that actually reveal fit — and my honest answers.',
+        hook: 'The questions that actually reveal fit, and my honest answers.',
         cta: '\u2192 See the questions',
         action: 'questions',
         locked: false
@@ -767,7 +767,7 @@
         icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m16.5 10.5 1 1"/><path d="m17 6-2.891-2.891"/><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="m20 9 .891.891"/><path d="M3.109 14.109 4 15"/><path d="m6.5 12.5 1 1"/><path d="m7 18 2.891 2.891"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/></svg>',
         title: 'What Differentiates Kiran for Your Role',
         tag: 'Connect to unlock',
-        hook: 'Paste a job description and I\'ll show you exactly where Kiran\'s work lines up — specific projects, results, and scale.',
+        hook: 'Paste a job description and I\'ll show you exactly where Kiran\'s work lines up. Specific projects, results, and scale.',
         cta: '\u2192 Connect to get started',
         gateReason: 'This works better when I know who I\'m talking to.',
         action: 'connect',
@@ -896,7 +896,7 @@
 
   function renderResumeLensPanel(panel) {
     var heading = el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> Kiran\'s resume comes in three flavors — same experience, different emphasis. Which one fits your search?'
+      html: '<em>Fenix:</em> Kiran\'s resume comes in three flavors. Same experience, different emphasis. Which one fits your search?'
     });
     panel.appendChild(heading);
 
@@ -974,7 +974,7 @@
 
   function renderRecruiterQuestionsPanel(panel) {
     var heading = el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> These are the questions that actually tell you whether someone\'s the right fit — and Kiran\'s honest answers.'
+      html: '<em>Fenix:</em> These are the questions that actually tell you whether someone\'s the right fit, and Kiran\'s honest answers.'
     });
     panel.appendChild(heading);
 
@@ -995,7 +995,7 @@
 
   function renderConnectGate(panel) {
     var heading = el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> Give me a job description and I\'ll show you how Kiran\'s experience maps to it — specific projects, results, and scale from his actual work. Since this is personalized, I\'ll need to know who I\'m putting this together for.<br><br>Two ways to do that:'
+      html: '<em>Fenix:</em> Give me a job description and I\'ll show you how Kiran\'s experience maps to it, specific projects, results, and scale from his actual work. Since this is personalized, I\'ll need to know who I\'m putting this together for.<br><br>Two ways to do that:'
     });
     panel.appendChild(heading);
 
@@ -1013,7 +1013,7 @@
     var manualCard = el('div', 'ev-connect-path-card');
     manualCard.appendChild(el('div', 'ev-path-icon', { html: '<span style="color:var(--ev-accent);">\u270E</span>' }));
     manualCard.appendChild(el('div', 'ev-path-title', { text: 'Introduce yourself' }));
-    manualCard.appendChild(el('div', 'ev-path-subtitle', { text: 'First name, last name, company — that\'s it' }));
+    manualCard.appendChild(el('div', 'ev-path-subtitle', { text: 'First name, last name, company, that\'s it' }));
 
     var form = el('form', 'ev-connect-form');
     form.addEventListener('submit', function (e) {
@@ -1086,7 +1086,7 @@
     });
 
     if (!result.success) return;
-    showFenixMessage('Much better. This site was built for exactly this — real people, not personas. Nice to actually meet you, ' + firstName + '.');
+    showFenixMessage('Much better. This site was built for exactly this, real people, not personas. Nice to actually meet you, ' + firstName + '.');
 
     setTimeout(function () {
       showPanel('connect');
@@ -1140,12 +1140,12 @@
     }).then(function (result) {
       if (result.error) {
         console.error('[evaluator] LinkedIn OAuth error:', result.error);
-        if (subtitle) subtitle.textContent = 'Error — try the form instead';
+        if (subtitle) subtitle.textContent = 'Error, try the form instead';
       }
       // Browser will redirect to LinkedIn
     }).catch(function (err) {
       console.error('[evaluator] LinkedIn connect failed:', err);
-      if (subtitle) subtitle.textContent = 'Error — try the form instead';
+      if (subtitle) subtitle.textContent = 'Error, try the form instead';
     });
   }
 
@@ -1182,7 +1182,7 @@
         window.history.replaceState({}, '', window.location.pathname + window.location.search);
 
         // Show welcome message
-        showFenixMessage('Much better. This site was built for exactly this — real people, not personas. Nice to actually meet you, ' + firstName + '.');
+        showFenixMessage('Much better. This site was built for exactly this, real people, not personas. Nice to actually meet you, ' + firstName + '.');
       }
     }).catch(function (err) {
       console.error('[evaluator] LinkedIn callback handling failed:', err);
@@ -1286,7 +1286,7 @@
     panel.classList.add('ev-poster-panel');
 
     var heading = el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> Every office needs better motivational posters. Here — have some.'
+      html: '<em>Fenix:</em> Every office needs better motivational posters. Here, have some.'
     });
     panel.appendChild(heading);
 
@@ -1371,7 +1371,7 @@
         } else {
           // Fallback to local
           displayPoster(getRandomPoster());
-          statusEl.textContent = 'AI unavailable — here\'s one from the vault';
+          statusEl.textContent = 'AI unavailable, here\'s one from the vault';
           setTimeout(function () { statusEl.textContent = ''; }, 3000);
         }
       });

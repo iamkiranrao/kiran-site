@@ -313,11 +313,11 @@
     // the visitor just landed on, so Fenix can orient them.
     var sectionList = SECTIONS.map(function (s) { return s.title; }).join(', ');
     var prompt = '[SYSTEM: The visitor just arrived on "' + PAGE_TITLE + '" (page type: ' + PAGE_TYPE + ') via Fenix-guided navigation from the previous page. ';
-    prompt += 'Orient them to this page — briefly describe what they\'re looking at and suggest something specific to explore. ';
+    prompt += 'Orient them to this page, briefly describe what they\'re looking at and suggest something specific to explore. ';
     if (sectionList) {
       prompt += 'Page sections: ' + sectionList + '. ';
     }
-    prompt += 'Keep it to 2-3 sentences. Don\'t repeat the previous conversation — just welcome them to this new context.]';
+    prompt += 'Keep it to 2-3 sentences. Don\'t repeat the previous conversation, just welcome them to this new context.]';
     return prompt;
   }
 
