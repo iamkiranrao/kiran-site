@@ -148,7 +148,7 @@
     },
     {
       q: '"When was the last time you changed your mind about something important?"',
-      a: 'Kiran\'s answer will appear here.'
+      a: "I was always drawn to Silicon Valley. I saw it as the cradle of innovation: coolest companies, coolest products, impact that left the world in awe. I chased every wave. dot-com, mobile, cloud, AI. Then I spent two years at First Republic Bank leading the most transformative product roadmap in the company's history. The month we were supposed to launch, the banking crisis hit. First Republic collapsed, and with it everything 100 people and I had built. The technology is gone. The roadmap is in someone's archive. But the people from that team are still the closest collaborators I have. That's when I knew I was never in the technology business. I'm in the people business."
     },
     {
       q: '"Tell me about a value you defended, even when it cost you something."',
