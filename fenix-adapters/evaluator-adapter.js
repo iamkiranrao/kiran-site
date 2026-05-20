@@ -156,7 +156,7 @@
     },
     {
       q: '"Have you ever made a decision you knew would be unpopular?"',
-      a: 'Kiran\'s answer will appear here.'
+      a: "After the Wachovia merger, Wells Fargo's digital was a mess. Multiple code bases, separate teams for each platform, no shared foundation. When the company finally turned focus back to digital, the obvious move was to ship a native mobile app and catch up to the competition. I made the call to ship a webview instead. I knew it would be unpopular. Native was what everyone wanted. But if we didn't rebuild the backend into a unified platform first, every front-end we shipped would just compound the mess. I shipped the webview, then built the unified architecture underneath it. We called it Secure Session Enhanced Platform. One set of services powering mobile, web, and public site instead of three separate code bases. When new leadership came in after the sales scandals, they looked at the webview and concluded the team didn't know what we were doing. That stuck. The UI has been rebuilt three times since. The architecture I shipped underneath it still powers everything they ship today."
     },
     {
       q: '"What haven\'t I asked you that I should have?"',
