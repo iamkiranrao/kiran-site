@@ -141,25 +141,32 @@
       });
   }
 
+  var RECRUITER_LEAD_IN = "These questions aren't mine. They're the ones smart hiring leaders use to find the people a resume hides: Satya Nadella, Brian Chesky, the Collisons, Patty McCord. Each of them built a reputation partly on the principle that the standard interview misses what matters. Here are five they'd ask. Here are Kiran's answers.";
+
   var RECRUITER_QUESTIONS = [
     {
       q: '"Tell me the story of you, but you can\'t say anything on your resume."',
+      anecdote: "Patty McCord, who built Netflix's culture, said if you ask stock questions, you'll get stock answers. The interview that finds the right person is the one that bypasses what's already on the resume.",
       a: "I was born and raised in Dubai. My father was a mechanical engineer at an oil company, but the engineering didn't stop when he came home. He'd fabricate an aquarium one weekend, build an aviary the next, fix his friends' cars on the side. In our house the line between work and play blurred. I got my first computer at seven and have been in love with technology ever since, assembling my own machines and writing a tiny text-to-speech program before I knew what 'shipping' meant. I think I picked up the love for building just from watching him do it. Always from scratch, never out of a box."
     },
     {
       q: '"When was the last time you changed your mind about something important?"',
+      anecdote: "Satya Nadella inherited a Microsoft culture he believed was losing. His wife handed him Carol Dweck's Mindset. He shifted the entire company from 'know-it-all' to 'learn-it-all'. Tenured executives resisted. The market cap went from $300B to $2.5T.",
       a: "I was always drawn to Silicon Valley. I saw it as the cradle of innovation: coolest companies, coolest products, impact that left the world in awe. I chased every wave. dot-com, mobile, cloud, AI. Then I spent two years at First Republic Bank leading the most transformative product roadmap in the company's history. The month we were supposed to launch, the banking crisis hit. First Republic collapsed, and with it everything 100 people and I had built. The technology is gone. The roadmap is in someone's archive. But the people from that team are still the closest collaborators I have. That's when I knew I was never in the technology business. I'm in the people business."
     },
     {
       q: '"Tell me about a value you defended, even when it cost you something."',
+      anecdote: "After a guest vandalized a host's property and #RIPAirbnb trended, advisors told Brian Chesky not to take responsibility. He published a public apology and the Airbnb Guarantee anyway. He later said: 'That was the moment I really became a CEO.'",
       a: "I'd just joined a new team when the employee satisfaction scores came out. Three layers of management above us had the worst scores in the entire company. Instead of acting on the feedback, leadership started pressuring managers to coach their directs into answering differently. Some of those managers were trying to decipher who had said what in an anonymous survey. I was new, performing well, had no personal grievance. I'd never gone to HR in my career. I did this time. They told me I'd done the right thing and there'd be no blowback. Three months later my name was on the layoff list. It cost me."
     },
     {
       q: '"Have you ever made a decision you knew would be unpopular?"',
+      anecdote: "In 2022, Stripe's Patrick and John Collison publicly acknowledged they'd over-hired and mispredicted the post-pandemic market. They cut 14% of staff and reset the roadmap. Unpopular with investors and employees. They did it because the data said the old plan was wrong.",
       a: "After the Wachovia merger, Wells Fargo's digital was a mess. Multiple code bases, separate teams for each platform, no shared foundation. When the company finally turned focus back to digital, the obvious move was to ship a native mobile app and catch up to the competition. I made the call to ship a webview instead. I knew it would be unpopular. Native was what everyone wanted. But if we didn't rebuild the backend into a unified platform first, every front-end we shipped would just compound the mess. I shipped the webview, then built the unified architecture underneath it. We called it Secure Session Enhanced Platform. One set of services powering mobile, web, and public site instead of three separate code bases. When new leadership came in after the sales scandals, they looked at the webview and concluded the team didn't know what we were doing. That stuck. The UI has been rebuilt three times since. The architecture I shipped underneath it still powers everything they ship today."
     },
     {
       q: '"What haven\'t I asked you that I should have?"',
+      anecdote: "The smartest candidates use this question to surface what the interview missed. Most people punt. The ones who don't are the ones worth hiring.",
       a: "You asked what I've done. You didn't ask how, or what I'm doing now. The how: some of my closest friends today are people who worked for me, or who I worked for, decades ago. I meet monthly with a cohort I first met 20 years ago. I've been a groomsman at a coworker's wedding. I make relationships that last and I build cultures where people thrive. The what-now: I built this site on weekends over the last year. Fenix, the agent you've been talking to. Every panel, every conversation flow. A resume couldn't have introduced me the way this artifact can. That's why it exists."
     }
   ];
@@ -974,13 +981,16 @@
 
   function renderRecruiterQuestionsPanel(panel) {
     var heading = el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> These are the questions that actually tell you whether someone\'s the right fit, and Kiran\'s honest answers.'
+      html: '<em>Fenix:</em> ' + RECRUITER_LEAD_IN
     });
     panel.appendChild(heading);
 
     var container = el('div', 'ev-questions-container');
     RECRUITER_QUESTIONS.forEach(function (qa) {
       var card = el('div', 'ev-question-card');
+      if (qa.anecdote) {
+        card.appendChild(el('div', 'ev-question-anecdote', { text: qa.anecdote }));
+      }
       card.appendChild(el('div', 'ev-question-text', { text: qa.q }));
       card.appendChild(el('div', 'ev-question-answer', { text: qa.a }));
       container.appendChild(card);
