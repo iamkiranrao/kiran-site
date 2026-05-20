@@ -810,12 +810,15 @@
         cardEl.classList.add('ev-card-visited');
         fenixState.explored.cardsClicked.push(card.id);
 
-        // Always swap to the relevant panel (fix: 3a — latest click wins)
-        showPanel(card.action);
+        // Poster card is self-contained, no Fenix conversation. Open directly.
+        if (card.action === 'poster') {
+          showPanel(card.action);
+          return;
+        }
 
-        // Poster card is self-contained — no chat interaction needed
-        if (card.action === 'poster') return;
-
+        // All other cards: route through Fenix. The agent will call open_panel
+        // via tool use so the panel appears in sync with Fenix's response, not
+        // before it. This anchors the click-to-result relationship narratively.
         var messageArea = document.querySelector('.ev-chat-messages');
         if (messageArea) {
           var matchingPill = document.querySelector('.ev-chat-pill[data-action="' + card.action + '"]');
