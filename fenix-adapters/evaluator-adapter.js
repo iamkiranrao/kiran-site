@@ -152,7 +152,7 @@
     },
     {
       q: '"Tell me about a value you defended, even when it cost you something."',
-      a: 'Kiran\'s answer will appear here.'
+      a: "I'd just joined a new team when the employee satisfaction scores came out. Three layers of management above us had the worst scores in the entire company. Instead of acting on the feedback, leadership started pressuring managers to coach their directs into answering differently. Some of those managers were trying to decipher who had said what in an anonymous survey. I was new, performing well, had no personal grievance. I'd never gone to HR in my career. I did this time. They told me I'd done the right thing and there'd be no blowback. Three months later my name was on the layoff list. It cost me."
     },
     {
       q: '"Have you ever made a decision you knew would be unpopular?"',
