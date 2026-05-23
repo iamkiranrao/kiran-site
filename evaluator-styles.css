@@ -865,6 +865,97 @@
   margin: 0;
 }
 
+/* Accordion (recruiter Q&A) */
+.ev-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ev-accordion-item {
+  border-bottom: 1px solid var(--ev-border);
+}
+
+.ev-accordion-item:last-child {
+  border-bottom: none;
+}
+
+.ev-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.ev-accordion-header:hover {
+  background: var(--ev-bg-card-hover, rgba(255,255,255,0.02));
+}
+
+.ev-accordion-header:focus-visible {
+  outline: 2px solid var(--ev-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.ev-accordion-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.ev-accordion-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  color: var(--ev-text-muted);
+  flex-shrink: 0;
+}
+
+.ev-accordion-item.ev-open .ev-accordion-chevron {
+  transform: rotate(90deg);
+  color: var(--ev-accent);
+}
+
+.ev-accordion-question {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ev-text-primary);
+}
+
+.ev-accordion-leader {
+  font-size: 0.72rem;
+  color: var(--ev-text-muted);
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ev-accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.ev-accordion-item.ev-open .ev-accordion-body {
+  max-height: 1200px;
+}
+
+.ev-accordion-body-inner {
+  padding: 0.25rem 0.25rem 1.25rem 1.85rem;
+}
+
 
 /* ════════════════════════════════════════════
    PANEL C: Connect Gate
