@@ -10,7 +10,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from dotenv import load_dotenv
 
-from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs, evidence, fit_score, career_initiatives, gap_discovery, gap_closure, target_companies, gap_moves, visual_assets, studio_pieces
+from routers import health, teardown, wordweaver, resume, job_central, job_radar, content_audit, visual_audit, madlab, fenix_dashboard, fenix_training, fenix_journal, session_archive, product_guides, tool_guides, feedback, notifications, library, kirans_journal, action_items, standards, tech_costs, evidence, fit_score, career_initiatives, gap_discovery, gap_closure, target_companies, gap_moves, visual_assets, studio_pieces, stuck_diagnostic
 
 # Public-read pattern: GET /api/studio-pieces/{slug} only. Bare list endpoint
 # (/api/studio-pieces/) and write endpoints stay behind X-API-Key.
@@ -188,6 +188,7 @@ app.include_router(standards.router, prefix="/api/standards", tags=["Standards &
 app.include_router(tech_costs.router, prefix="/api/tech-costs", tags=["Tech Cost Calculator"])
 app.include_router(evidence.router, prefix="/api/evidence", tags=["Evidence Management"])
 app.include_router(fit_score.router, prefix="/api/fit-score", tags=["Fit Narrative"])
+app.include_router(stuck_diagnostic.router, prefix="/api/stuck-diagnostic", tags=["Stuck Diagnostic"])
 app.include_router(career_initiatives.router, prefix="/api/career-initiatives", tags=["Career Initiatives"])
 app.include_router(gap_discovery.router, prefix="/api/gap-discovery", tags=["Gap Discovery"])
 app.include_router(gap_closure.router, prefix="/api/gap-discovery/closure-plans", tags=["Gap Closure"])
