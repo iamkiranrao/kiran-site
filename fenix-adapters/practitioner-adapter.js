@@ -70,7 +70,13 @@
       '.ev-unlock-cards-header',
       '.ev-unlock-card',
       '.ev-fenix-col-header',
-      '.ev-fenix-opening-frame'
+      '.ev-fenix-opening-frame',
+      '.ev-fenix-chat',
+      '.ev-chat-header',
+      '.ev-chat-messages',
+      '.ev-chat-pills',
+      '.ev-chat-input-bar',
+      '.ev-msg'
     ];
     selectors.forEach(function (sel) {
       document.querySelectorAll(sel).forEach(function (n) {
