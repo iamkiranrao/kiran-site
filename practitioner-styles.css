@@ -1,0 +1,189 @@
+/**
+ * Practitioner Experience Styles
+ *
+ * v1: Stuck Diagnostic tool. Builds on the shared ev-* visual language
+ * (cards, panel container) and adds pr-* classes for the tool-specific surfaces.
+ *
+ * Accent: practitioner green (#4DAF8B).
+ */
+
+/* Scoped accent override when the practitioner zone is active.
+   The body.persona-practitioner selector lets the same ev-* classes render in green. */
+body.persona-practitioner {
+  --ev-accent: #4DAF8B;
+  --ev-accent-glow: rgba(77, 175, 139, 0.12);
+  --ev-accent-border: rgba(77, 175, 139, 0.28);
+  --ev-accent-border-hover: rgba(77, 175, 139, 0.45);
+}
+
+.pr-zone {
+  /* Hook for any zone-level overrides if needed */
+}
+
+/* ════════════════════════════════════════════
+   STUCK DIAGNOSTIC TOOL
+   ════════════════════════════════════════════ */
+
+.pr-stuck-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.pr-stuck-textarea {
+  width: 100%;
+  min-height: 140px;
+  padding: 0.85rem 1rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ev-text-primary);
+  background: var(--ev-bg-surface, #0e0e0e);
+  border: 1px solid var(--ev-border);
+  border-radius: 8px;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pr-stuck-textarea::placeholder {
+  color: var(--ev-text-muted);
+}
+
+.pr-stuck-textarea:focus {
+  outline: none;
+  border-color: var(--ev-accent);
+  box-shadow: 0 0 0 3px var(--ev-accent-glow);
+}
+
+.pr-stuck-starters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pr-stuck-starters-label {
+  font-size: 0.78rem;
+  color: var(--ev-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.pr-stuck-starters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pr-stuck-chip {
+  display: inline-block;
+  padding: 0.45rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.78rem;
+  color: var(--ev-text-secondary);
+  background: var(--ev-bg-card);
+  border: 1px solid var(--ev-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pr-stuck-chip:hover {
+  border-color: var(--ev-accent-border-hover);
+  color: var(--ev-accent);
+  background: var(--ev-accent-glow);
+}
+
+.pr-stuck-submit {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+/* ════════════════════════════════════════════
+   OUTPUT
+   ════════════════════════════════════════════ */
+
+.pr-stuck-output {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ev-border);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pr-stuck-narration {
+  font-size: 0.85rem;
+  color: var(--ev-text-muted);
+  font-style: italic;
+}
+
+.pr-stuck-diagnosis {
+  padding: 0.85rem 1rem;
+  background: var(--ev-accent-glow);
+  border-left: 3px solid var(--ev-accent);
+  border-radius: 0 6px 6px 0;
+}
+
+.pr-stuck-diagnosis-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ev-text-primary);
+  line-height: 1.45;
+}
+
+.pr-stuck-secondary-text {
+  font-size: 0.85rem;
+  color: var(--ev-text-secondary);
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+
+.pr-stuck-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pr-stuck-section-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ev-text-muted);
+  font-weight: 600;
+}
+
+.pr-stuck-section-text {
+  font-size: 0.92rem;
+  color: var(--ev-text-secondary);
+  line-height: 1.6;
+}
+
+.pr-stuck-watch-list {
+  margin: 0;
+  padding: 0 0 0 1.1rem;
+  font-size: 0.9rem;
+  color: var(--ev-text-secondary);
+  line-height: 1.6;
+}
+
+.pr-stuck-watch-list li {
+  margin-bottom: 0.35rem;
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .pr-stuck-chip {
+    width: 100%;
+    text-align: left;
+  }
+  .pr-stuck-starters-row {
+    flex-direction: column;
+  }
+}

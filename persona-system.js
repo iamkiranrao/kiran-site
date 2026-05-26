@@ -859,6 +859,13 @@
       return;
     }
 
+    // Special handling for Practitioner persona
+    if (persona === 'practitioner' && typeof window.PractitionerExperience !== 'undefined') {
+      document.body.classList.add('persona-practitioner');
+      window.PractitionerExperience.init(persona);
+      return;
+    }
+
     // Left column: unlocks
     var unlocksList = document.querySelector('.fenix-intro-unlocks');
     if (unlocksList && config.unlocks) {
