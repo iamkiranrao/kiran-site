@@ -80,13 +80,133 @@
   }
 
   function buildFenixColumn(container) {
-    var colHeader = el('div', 'ev-fenix-col-header', {
-      html: 'MEET FENIX — <span class="ev-fenix-tagline">your guide to everything on this site ↘</span>'
-    });
+    var hasExplored = fenixState.explored.pillsUsed.length > 0 ||
+                      fenixState.explored.cardsClicked.length > 0 ||
+                      fenixState.explored.panelsOpened.length > 0;
+    var isConnected = fenixState.visitor.connected;
+
+    var colHeaderText = (hasExplored || isConnected)
+      ? 'Fenix — <span class="ev-fenix-tagline">ready when you are</span>'
+      : 'MEET FENIX — <span class="ev-fenix-tagline">your guide to everything on this site ↘</span>';
+    var colHeader = el('div', 'ev-fenix-col-header', { html: colHeaderText });
     container.appendChild(colHeader);
 
-    var openingFrame = el('div', 'ev-fenix-opening-frame', { text: FENIX_OPENING });
-    container.appendChild(openingFrame);
+    var wrapper = el('div', 'ev-fenix-chat');
+
+    var chatHeader = el('div', 'ev-chat-header');
+    var headerAvatar = el('img', 'ev-chat-avatar', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' });
+    var headerInfo = el('div', 'ev-chat-header-info');
+    headerInfo.appendChild(el('span', 'ev-chat-header-name', { text: 'Fenix' }));
+    var statusDot = el('span', 'ev-status-dot ev-status-dot--ready');
+    statusDot.setAttribute('title', 'Ready');
+    headerInfo.appendChild(statusDot);
+    chatHeader.appendChild(headerAvatar);
+    chatHeader.appendChild(headerInfo);
+    wrapper.appendChild(chatHeader);
+
+    var messageArea = el('div', 'ev-chat-messages');
+    var firstName = isConnected && fenixState.visitor.name ? fenixState.visitor.name.split(' ')[0] : '';
+    var openingText;
+    if (isConnected && firstName) {
+      openingText = 'Welcome back, ' + firstName + '. The Stuck Diagnostic on the left is the one to try first. Or just ask me whatever\'s on your mind.';
+    } else if (hasExplored) {
+      openingText = 'Welcome back. The Stuck Diagnostic on the left is a real tool, free to use. Or ask me anything about how Kiran thinks about product.';
+    } else {
+      openingText = FENIX_OPENING;
+    }
+
+    var openingBubble = el('div', 'ev-msg ev-msg-fenix ev-opening-msg');
+    var openingAvatar = el('img', 'ev-msg-avatar', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' });
+    var openingContent = el('div', 'ev-msg-content');
+    openingBubble.appendChild(openingAvatar);
+    openingBubble.appendChild(openingContent);
+    openingBubble.setAttribute('data-opening-text', openingText);
+    messageArea.appendChild(openingBubble);
+    wrapper.appendChild(messageArea);
+
+    // Typing animation when the zone scrolls into view
+    (function typeOpeningMessage() {
+      var introZone = container.closest('.fenix-intro-zone');
+      if (!introZone) {
+        openingContent.textContent = openingText;
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            observer.unobserve(introZone);
+            animateTyping(openingContent, openingText);
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(introZone);
+
+      function animateTyping(contentEl, text) {
+        var index = 0;
+        var charDelay = 30;
+        contentEl.textContent = '';
+        contentEl.classList.add('ev-msg-typing');
+        function typeNextChar() {
+          if (index < text.length) {
+            contentEl.textContent += text[index];
+            index++;
+            setTimeout(typeNextChar, charDelay);
+          } else {
+            contentEl.classList.remove('ev-msg-typing');
+          }
+        }
+        typeNextChar();
+      }
+    })();
+
+    // Pills — practitioner-specific
+    var pillContainer = el('div', 'ev-chat-pills');
+    var pills = [
+      { text: 'Tell me where I\'m stuck', action: 'stuck', locked: false },
+      { text: 'How does Kiran think about product?', action: 'thinking', locked: false },
+      { text: 'Show me Kiran\'s teardowns', action: 'teardowns', locked: false }
+    ];
+    pills.forEach(function (pill) {
+      var btn = el('button', 'ev-chat-pill');
+      btn.textContent = pill.text;
+      btn.setAttribute('data-action', pill.action);
+      btn.addEventListener('click', function () {
+        var msgArea = document.querySelector('.ev-chat-messages');
+        if (!msgArea) return;
+        FC.addVisitorMessage(msgArea, pill.text);
+        fenixState.explored.pillsUsed.push(pill.action);
+        btn.classList.add('ev-pill-used');
+        if (pill.action === 'stuck') {
+          showPanel('stuck');
+          return;
+        }
+        FC.sendToAgent(pill.text, msgArea);
+      });
+      pillContainer.appendChild(btn);
+    });
+    wrapper.appendChild(pillContainer);
+
+    // Input bar
+    var inputBar = el('div', 'ev-chat-input-bar');
+    var inputField = el('input', 'ev-chat-input', { type: 'text', placeholder: 'Ask me anything...' });
+    var sendBtn = el('button', 'ev-chat-send', { text: '➤' });
+    sendBtn.setAttribute('aria-label', 'Send message');
+    function handleSend() {
+      var text = inputField.value.trim();
+      if (!text) return;
+      FC.addVisitorMessage(messageArea, text);
+      inputField.value = '';
+      FC.sendToAgent(text, messageArea);
+    }
+    sendBtn.addEventListener('click', handleSend);
+    inputField.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') handleSend();
+    });
+    inputBar.appendChild(inputField);
+    inputBar.appendChild(sendBtn);
+    wrapper.appendChild(inputBar);
+
+    container.appendChild(wrapper);
   }
 
   function buildUnlockCards(container) {

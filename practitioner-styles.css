@@ -39,11 +39,15 @@ body.persona-practitioner {
   font-size: 0.9rem;
   line-height: 1.55;
   color: var(--ev-text-primary);
-  background: var(--ev-bg-surface, #0e0e0e);
+  background: rgba(0, 0, 0, 0.15);
   border: 1px solid var(--ev-border);
   border-radius: 8px;
   resize: vertical;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme="light"] .pr-stuck-textarea {
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .pr-stuck-textarea::placeholder {
