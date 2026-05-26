@@ -57,6 +57,26 @@
 
     var zone = document.querySelector('.fenix-intro-zone');
     if (zone) zone.classList.add('pr-zone');
+
+    // The ev-* classes default to opacity:0 and only become visible when
+    // .ev-revealed is added (Evaluator does this via scroll-triggered reveal).
+    // For Practitioner v1, reveal everything immediately on a short delay
+    // so the entrance feels intentional but content is never invisible.
+    revealAll();
+  }
+
+  function revealAll() {
+    var selectors = [
+      '.ev-unlock-cards-header',
+      '.ev-unlock-card',
+      '.ev-fenix-col-header',
+      '.ev-fenix-opening-frame'
+    ];
+    selectors.forEach(function (sel) {
+      document.querySelectorAll(sel).forEach(function (n) {
+        n.classList.add('ev-revealed');
+      });
+    });
   }
 
   function buildFenixColumn(container) {
