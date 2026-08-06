@@ -22,6 +22,19 @@ from services.governance_loader import (
 )
 
 
+def _first_text(msg) -> str:
+    """Return the first text block's content, skipping thinking blocks
+    (newer models may return a ThinkingBlock before the text block)."""
+    for block in msg.content:
+        if getattr(block, "type", None) == "text":
+            return block.text
+    # Fallback: first block that has a .text attribute
+    for block in msg.content:
+        if hasattr(block, "text"):
+            return block.text
+    return ""
+
+
 KIRAN_BACKGROUND = """
 Kiran Rao is a product leader with 15+ years of experience across mobile, AI, fintech,
 and digital transformation. He has led teams at Wells Fargo, First Republic Bank, Starbucks,
@@ -277,7 +290,7 @@ JOB DESCRIPTION:
     )
 
     # Parse JSON from response
-    text = message.content[0].text
+    text = _first_text(message)
     # Try to extract JSON from the response
     try:
         # Look for JSON block
@@ -397,7 +410,7 @@ Make bullets specific, quantified, and action-oriented. Start each with a unique
         }],
     )
 
-    text = message.content[0].text
+    text = _first_text(message)
     try:
         if "```json" in text:
             text = text.split("```json")[1].split("```")[0]
@@ -430,7 +443,7 @@ Be honest — this is the raw template match, not a customized version. Most raw
         }],
     )
 
-    text = message.content[0].text
+    text = _first_text(message)
     try:
         if "```json" in text:
             text = text.split("```json")[1].split("```")[0]
@@ -490,7 +503,7 @@ Be honest about gaps. Don't inflate the score. A realistic assessment is more us
         }],
     )
 
-    return message.content[0].text
+    return _first_text(message)
 
 
 async def audit_resume_content(api_key: str, resume_text: str, jd_analysis: dict) -> dict:
@@ -541,7 +554,7 @@ If the resume is clean, return passed=true with an empty violations array. Be st
         }],
     )
 
-    resp_text = message.content[0].text
+    resp_text = _first_text(message)
     try:
         if "```json" in resp_text:
             resp_text = resp_text.split("```json")[1].split("```")[0]
@@ -587,7 +600,7 @@ Order critical_missing by importance (most damaging gap first)."""
         }],
     )
 
-    resp_text = message.content[0].text
+    resp_text = _first_text(message)
     try:
         if "```json" in resp_text:
             resp_text = resp_text.split("```json")[1].split("```")[0]
@@ -633,7 +646,7 @@ Write the full letter text (no markdown headers, just the letter body)."""
         }],
     )
 
-    return message.content[0].text
+    return _first_text(message)
 
 
 async def generate_company_brief(api_key: str, jd_analysis: dict) -> str:
@@ -684,7 +697,7 @@ Keep it 2-3 pages worth of content. Be specific and practical."""
         }],
     )
 
-    return message.content[0].text
+    return _first_text(message)
 
 
 async def generate_interview_questions(api_key: str, jd_text: str, jd_analysis: dict) -> str:
@@ -728,7 +741,7 @@ Make questions specific to the role and company, not generic PM interview questi
         }],
     )
 
-    return message.content[0].text
+    return _first_text(message)
 
 
 async def generate_strategy_proposal(
@@ -873,7 +886,7 @@ Return this JSON:
         }],
     )
 
-    text = message.content[0].text
+    text = _first_text(message)
     try:
         if "```json" in text:
             text = text.split("```json")[1].split("```")[0]
@@ -956,7 +969,7 @@ Return the revised content as JSON:
         }],
     )
 
-    text = message.content[0].text
+    text = _first_text(message)
     try:
         if "```json" in text:
             text = text.split("```json")[1].split("```")[0]
@@ -1037,7 +1050,7 @@ RULES:
         }],
     )
 
-    resp_text = message.content[0].text
+    resp_text = _first_text(message)
     try:
         if "```json" in resp_text:
             resp_text = resp_text.split("```json")[1].split("```")[0]
@@ -1152,7 +1165,7 @@ RESPONSE FORMAT — always return JSON:
         messages=messages,
     )
 
-    resp_text = response.content[0].text
+    resp_text = _first_text(response)
     try:
         if "```json" in resp_text:
             resp_text = resp_text.split("```json")[1].split("```")[0]
@@ -1167,7 +1180,7 @@ RESPONSE FORMAT — always return JSON:
     except json.JSONDecodeError:
         # Fallback: treat the whole response as a message (no changes)
         return {
-            "message": response.content[0].text,
+            "message": _first_text(response),
             "revised_text": None,
             "has_changes": False,
         }

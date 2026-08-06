@@ -22,7 +22,7 @@ def get_logger(name: str) -> logging.Logger:
 
 # ── Claude Model ─────────────────────────────────────────────────────────
 
-CLAUDE_MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-20250514")
+CLAUDE_MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-5")
 
 
 # ── Data Directory ───────────────────────────────────────────────────────
