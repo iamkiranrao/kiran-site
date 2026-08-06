@@ -18,7 +18,8 @@ import sys
 import shutil
 from pathlib import Path
 from datetime import datetime
-from services.claude_client import create_client
+from services.claude_client import create_client, _first_text
+from utils.config import CLAUDE_MODEL
 
 # ── Paths ──────────────────────────────────────────────────────────
 
@@ -242,12 +243,12 @@ def process_daily():
     # Call Claude
     client = get_claude()
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model=CLAUDE_MODEL,
         max_tokens=4000,
         messages=[{"role": "user", "content": prompt}],
     )
 
-    text = response.content[0].text.strip()
+    text = _first_text(response).strip()
 
     # Parse response
     try:
