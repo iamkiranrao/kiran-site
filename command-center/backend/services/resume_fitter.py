@@ -50,6 +50,8 @@ from docx.shared import Inches, Pt, Emu, Twips
 from docx.oxml.ns import qn
 from lxml import etree
 
+logger = logging.getLogger("fenix.resume_fitter")
+
 
 # ── Constants ──────────────────────────────────────────────────────────
 
@@ -78,8 +80,10 @@ PARA_SPACING_MIN = Pt(0)
 PARA_SPACING_MAX = Pt(4)
 PARA_SPACING_STEP = Pt(0.5)  # Adjust by 0.5pt per iteration
 
-# Max adjustment iterations to prevent infinite loops
-MAX_ITERATIONS = 8
+# Max adjustment iterations to prevent infinite loops. Needs enough room to
+# push a lever (e.g. section spacing 2pt→14pt) to its bound and then move to
+# the next lever when filling a sparse page.
+MAX_ITERATIONS = 20
 
 # Section headers that should never be orphaned at page bottom
 SECTION_HEADERS = {
@@ -92,17 +96,60 @@ SECTION_HEADERS = {
 
 # ── Page Measurement ──────────────────────────────────────────────────
 
+import shutil
+
+# Candidate LibreOffice CLI binaries, in priority order. The command is
+# `soffice` on macOS (the app bundle isn't symlinked onto PATH) and often
+# `libreoffice` on Linux/CI. Resolved once and cached.
+_SOFFICE_CANDIDATES = (
+    "soffice",
+    "libreoffice",
+    "/Applications/LibreOffice.app/Contents/MacOS/soffice",
+    "/usr/bin/soffice",
+    "/usr/local/bin/soffice",
+    "/opt/homebrew/bin/soffice",
+)
+_soffice_cache: Optional[str] = None
+
+
+def _soffice_bin() -> Optional[str]:
+    """Locate the LibreOffice CLI across macOS/Linux. Returns path or None."""
+    global _soffice_cache
+    if _soffice_cache:
+        return _soffice_cache
+    for cand in _SOFFICE_CANDIDATES:
+        path = shutil.which(cand) if os.path.basename(cand) == cand else (cand if os.path.exists(cand) else None)
+        if path:
+            _soffice_cache = path
+            return path
+    logger.warning("LibreOffice binary not found; resume page-fitting disabled")
+    return None
+
+
+def _pdf_reader(pdf_path: str):
+    """Return a PdfReader from whichever library is installed (pypdf or PyPDF2)."""
+    try:
+        from pypdf import PdfReader
+    except ImportError:
+        from PyPDF2 import PdfReader
+    return PdfReader(pdf_path)
+
+
 def _convert_to_pdf(docx_path: str) -> Optional[str]:
     """Convert docx to PDF using LibreOffice headless. Returns PDF path or None."""
     outdir = os.path.dirname(docx_path) or tempfile.gettempdir()
+    soffice = _soffice_bin()
+    if not soffice:
+        return None
     try:
-        result = subprocess.run(
-            ["libreoffice", "--headless", "--convert-to", "pdf", "--outdir", outdir, docx_path],
-            capture_output=True, timeout=30,
+        subprocess.run(
+            [soffice, "--headless", "--convert-to", "pdf", "--outdir", outdir, docx_path],
+            capture_output=True, timeout=60,
         )
-        pdf_path = docx_path.rsplit(".", 1)[0] + ".pdf"
+        pdf_path = os.path.join(outdir, os.path.basename(docx_path).rsplit(".", 1)[0] + ".pdf")
         if os.path.exists(pdf_path):
             return pdf_path
+        logger.warning("LibreOffice ran but no PDF produced for %s", docx_path)
     except Exception:
         logger.warning("LibreOffice PDF conversion failed", exc_info=True)
     return None
@@ -111,12 +158,42 @@ def _convert_to_pdf(docx_path: str) -> Optional[str]:
 def _count_pdf_pages(pdf_path: str) -> int:
     """Count pages in a PDF file."""
     try:
-        import PyPDF2
-        reader = PyPDF2.PdfReader(pdf_path)
-        return len(reader.pages)
+        return len(_pdf_reader(pdf_path).pages)
     except Exception:
         logger.warning("PDF page count failed", exc_info=True)
         return 0
+
+
+def _measure_geometry_fill(pdf_path: str, page_index: int) -> Optional[float]:
+    """Measure how far down the content reaches on a given page, from the PDF
+    itself (accurate + content-independent). Returns a fill fraction in ~0..1,
+    or None if it can't be measured. fill = (page_height - lowest_text_y)/page_height,
+    so a page filled to its bottom margin reads ~0.95 and a two-thirds page ~0.65."""
+    try:
+        reader = _pdf_reader(pdf_path)
+        if page_index < 0 or page_index >= len(reader.pages):
+            return None
+        page = reader.pages[page_index]
+        ys: List[float] = []
+
+        def _visitor(text, cm, tm, font_dict, font_size):
+            if text and text.strip():
+                try:
+                    ys.append(float(tm[5]))
+                except Exception:
+                    pass
+
+        page.extract_text(visitor_text=_visitor)
+        if not ys:
+            return None
+        page_h = float(page.mediabox.height)
+        if page_h <= 0:
+            return None
+        fill = (page_h - min(ys)) / page_h
+        return max(0.0, min(1.15, fill))
+    except Exception as e:
+        logger.debug("geometry fill measurement failed: %s", e)
+        return None
 
 
 def _estimate_page_fill(docx_path: str, target_pages: int) -> Tuple[float, int]:
@@ -137,6 +214,10 @@ def _estimate_page_fill(docx_path: str, target_pages: int) -> Tuple[float, int]:
 
     actual_pages = _count_pdf_pages(pdf_path)
 
+    # Measure the REAL fill geometry on the last page before deleting the PDF —
+    # this is accurate and content-independent, unlike the word-count estimate.
+    geometry_fill = _measure_geometry_fill(pdf_path, max(0, actual_pages - 1))
+
     # Clean up PDF
     try:
         os.remove(pdf_path)
@@ -150,7 +231,11 @@ def _estimate_page_fill(docx_path: str, target_pages: int) -> Tuple[float, int]:
         # Significant underfill — content dropped below page count
         return actual_pages / target_pages, actual_pages
     else:
-        # Right page count — estimate fill from content density + visual properties
+        # Right page count. Prefer the REAL PDF geometry; only fall back to the
+        # content-density estimate when geometry is unavailable (it over-reads
+        # fill for normal-length resumes, which used to suppress FILL mode).
+        if geometry_fill is not None:
+            return geometry_fill, actual_pages
         doc = Document(docx_path)
         total_words = sum(len(p.text.split()) for p in doc.paragraphs if p.text.strip())
 
@@ -489,13 +574,15 @@ def fit_resume(
             if pages <= target_pages:
                 break
         else:
-            if fill >= FILL_LOW:
+            # FILL mode: push toward the IDEAL fill (not just past FILL_LOW),
+            # exhausting each lever until it hits its bound (handled by the
+            # `not adjusted` branch above) before moving to the next one.
+            if pages > target_pages:
+                # Overshot onto an extra page — stop; the post-loop safety
+                # below reverts this last step.
                 break
-
-            # If we're getting close, move to next adjustment type
-            # to avoid overshooting with coarse adjustments
-            if fill > FILL_LOW - 0.05:
-                step_idx += 1
+            if fill >= FILL_IDEAL:
+                break
 
     # Final measurement
     final_fill, final_pages = _estimate_page_fill(docx_path, target_pages)
