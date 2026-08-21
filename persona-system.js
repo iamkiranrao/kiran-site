@@ -866,6 +866,13 @@
       return;
     }
 
+    // Special handling for Technologist persona
+    if (persona === 'technologist' && typeof window.TechnologistExperience !== 'undefined') {
+      document.body.classList.add('persona-technologist');
+      window.TechnologistExperience.init(persona);
+      return;
+    }
+
     // Left column: unlocks
     var unlocksList = document.querySelector('.fenix-intro-unlocks');
     if (unlocksList && config.unlocks) {
