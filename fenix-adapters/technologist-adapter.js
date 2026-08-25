@@ -175,6 +175,7 @@
     var cardsWrap = el('div', 'ev-unlock-cards');
     cardsWrap.appendChild(el('div', 'ev-unlock-cards-header', { html: 'The internals, <span class="ev-emphasis">unlocked</span> ↘' }));
 
+    var connected = fenixState.visitor.connected;
     var G = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
     var cards = [
       { id: 'card-buildstory', action: 'buildstory',
@@ -187,8 +188,12 @@
         hook: 'What to build, what to buy, what to kill. Challenge any of them — Fenix will defend the call.', cta: '→ Read the calls' },
       { id: 'card-problem', action: 'problem',
         icon: G + '<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>',
-        title: 'Bring me a product or AI problem.', tag: '45 minutes, a real problem',
-        hook: 'Scoping an AI feature? Stuck on build-vs-buy or adoption? Give me a sentence — get a first-pass now.', cta: '→ Scope it' },
+        title: 'Bring me a product or AI problem.',
+        tag: connected ? '45 minutes, a real problem' : 'Connect to unlock',
+        hook: 'Scoping an AI feature? Stuck on build-vs-buy or adoption? Give me a sentence — get a first-pass now.',
+        gateReason: connected ? null : "A real ask deserves a real name — I like to know who I\'m scoping for.",
+        cta: connected ? '→ Scope it' : '→ Connect to unlock',
+        locked: !connected },
       { id: 'card-roast', action: 'roast',
         icon: G + '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
         title: 'Roast the build.', tag: 'I can take it',
@@ -198,6 +203,7 @@
     cards.forEach(function (card) {
       var cardEl = el('div', 'ev-unlock-card', { 'data-card': card.id });
       cardEl.setAttribute('role', 'button'); cardEl.setAttribute('tabindex', '0');
+      if (card.locked) { cardEl.classList.add('ev-locked'); cardEl.appendChild(el('span', 'ev-lock-indicator', { text: '🔒' })); }
       var top = el('div', 'ev-card-top');
       top.appendChild(el('div', 'ev-card-icon', { html: card.icon }));
       var meta = el('div', 'ev-card-meta');
@@ -205,10 +211,15 @@
       meta.appendChild(el('div', 'ev-card-tag', { text: card.tag }));
       top.appendChild(meta); cardEl.appendChild(top);
       cardEl.appendChild(el('div', 'ev-card-hook', { text: card.hook }));
+      if (card.gateReason) cardEl.appendChild(el('div', 'ev-card-gate-reason', { text: card.gateReason }));
       cardEl.appendChild(el('div', 'ev-card-cta', { text: card.cta }));
       function open() {
         cardEl.classList.add('ev-card-visited');
         fenixState.explored.cardsClicked.push(card.id);
+        if (card.locked) {
+          askFenix("I'd like to bring Kiran a real product or AI problem to work through. First — who should I tell him is asking? Let's connect.", "Bring me a problem — let's connect");
+          return;
+        }
         showPanel(card.action);
       }
       cardEl.addEventListener('click', open);
@@ -216,6 +227,15 @@
       cardsWrap.appendChild(cardEl);
     });
     container.appendChild(cardsWrap);
+  }
+
+  // Re-render the cards (called on connect so the gated card unlocks).
+  function rebuildCards() {
+    var leftCol = document.querySelector('.fenix-intro-left');
+    if (!leftCol) return;
+    leftCol.innerHTML = '';
+    buildUnlockCards(leftCol);
+    leftCol.querySelectorAll('.ev-unlock-card, .ev-unlock-cards-header').forEach(function (n) { n.classList.add('ev-revealed'); });
   }
 
   // ── Panels ────────────────────────────────────────
@@ -364,8 +384,17 @@
     buildUI: buildUI,
     showPanel: showPanel,
     openingMessage: FENIX_OPENING,
+    onConnect: function () { rebuildCards(); },
     onPillAction: function (pill) {
-      if (['buildstory', 'judgment', 'problem', 'roast'].indexOf(pill.action) !== -1) { showPanel(pill.action); return true; }
+      if (['buildstory', 'judgment', 'problem', 'roast'].indexOf(pill.action) !== -1) {
+        // The problem card is identity-gated until connected.
+        if (pill.action === 'problem' && !fenixState.visitor.connected) {
+          askFenix("I'd like to bring Kiran a real product or AI problem to work through. First — who should I tell him is asking? Let's connect.", "Bring me a problem — let's connect");
+          return true;
+        }
+        showPanel(pill.action);
+        return true;
+      }
       return false;
     }
   };
