@@ -369,6 +369,73 @@
     messageArea.scrollTop = messageArea.scrollHeight;
   }
 
+  // Add a visitor message that "lands" with a pulse (pairs with flyCardToChat).
+  function addLandedMessage(messageArea, text) {
+    var bubble = addVisitorMessage(messageArea, text);
+    if (bubble) {
+      bubble.classList.add('ev-msg-landed');
+      setTimeout(function () { bubble.classList.remove('ev-msg-landed'); }, 800);
+    }
+    return bubble;
+  }
+
+  // Throughline: fly a clone of the clicked left-column card across to the
+  // right-column chat, then run onLand(). Accent-aware so each persona's chip
+  // is on-brand. cfg: { cardEl, title, messageArea, accent, onLand }
+  function flyCardToChat(cfg) {
+    var cardEl = cfg.cardEl, messageArea = cfg.messageArea, title = cfg.title, accent = cfg.accent, onLand = cfg.onLand;
+    var titleEl = cardEl ? (cardEl.querySelector('.ev-card-title') || cardEl) : null;
+    if (!titleEl || !messageArea) { if (onLand) onLand(); return; }
+
+    var startRect = titleEl.getBoundingClientRect();
+    var endRect = messageArea.getBoundingClientRect();
+
+    var clone = document.createElement('div');
+    clone.className = 'ev-fly-clone';
+    clone.textContent = title;
+    clone.style.position = 'fixed';
+    clone.style.left = startRect.left + 'px';
+    clone.style.top = startRect.top + 'px';
+    clone.style.width = startRect.width + 'px';
+    clone.style.zIndex = '10000';
+    if (accent) {
+      clone.style.color = '#fff';
+      clone.style.background = 'rgba(18,18,20,.92)';
+      clone.style.border = '1px solid ' + accent;
+      clone.style.boxShadow = '0 6px 26px rgba(0,0,0,.4)';
+    }
+    document.body.appendChild(clone);
+    if (cardEl.classList) cardEl.classList.add('ev-card-departing');
+
+    var endX = endRect.left + 16, endY = endRect.bottom - 40;
+    var midX = (startRect.left + endX) / 2, midY = Math.min(startRect.top, endY) - 100;
+    var sx = startRect.left, sy = startRect.top;
+    clone.offsetHeight; // force reflow before animating
+
+    var keyframes = [
+      { transform: 'translate(0, 0) scale(1)', opacity: 1, offset: 0 },
+      { transform: 'translate(' + ((sx + midX) / 2 - sx) + 'px, ' + ((sy + midY) / 2 - sy) + 'px) scale(0.95)', opacity: 1, offset: 0.15 },
+      { transform: 'translate(' + (midX - sx) + 'px, ' + (midY - sy) + 'px) scale(0.88)', opacity: 1, offset: 0.4 },
+      { transform: 'translate(' + (midX + (endX - midX) * 0.3 - sx) + 'px, ' + (midY - sy) + 'px) scale(0.85)', opacity: 1, offset: 0.55 },
+      { transform: 'translate(' + ((midX + endX) / 2 - sx) + 'px, ' + ((midY + endY) / 2 + 20 - sy) + 'px) scale(0.78)', opacity: 0.8, offset: 0.75 },
+      { transform: 'translate(' + (endX - sx) + 'px, ' + (endY - sy) + 'px) scale(0.65)', opacity: 0, offset: 1 }
+    ];
+
+    var finished = false;
+    function onComplete() {
+      if (finished) return;
+      finished = true;
+      if (clone.parentNode) clone.parentNode.removeChild(clone);
+      if (cardEl.classList) cardEl.classList.remove('ev-card-departing');
+      if (onLand) onLand();
+    }
+    try {
+      var animation = clone.animate(keyframes, { duration: 1100, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', fill: 'forwards' });
+      animation.onfinish = onComplete;
+    } catch (e) { /* Web Animations unsupported — fall through to timeout */ }
+    setTimeout(onComplete, 1400);
+  }
+
   // cfg: { messageArea, persona, accent, tool, kicker, artifactTitle, input,
   //        prompt, thinkingLabel, readyText, nextPrompt, nextActions }
   function runTool(cfg) {
@@ -959,6 +1026,8 @@
     },
     addFenixMessage: addFenixMessage,
     addVisitorMessage: addVisitorMessage,
+    addLandedMessage: addLandedMessage,
+    flyCardToChat: flyCardToChat,
     runTool: runTool,
     addSystemMessage: addSystemMessage,
     addToolThinkingMessage: addToolThinkingMessage,

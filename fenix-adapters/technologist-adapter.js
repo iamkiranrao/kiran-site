@@ -221,6 +221,7 @@
           askFenix("I'd like to bring Kiran a real product or AI problem to work through. First — who should I tell him is asking? Let's connect.", "Bring me a problem — let's connect");
           return;
         }
+        if (card.action === 'roast') { startRoast(cardEl); return; }
         showPanel(card.action);
       }
       cardEl.addEventListener('click', open);
@@ -324,9 +325,18 @@
 
   // ── Fun: "Roast the build" — Fenix roasts Kiran's own architecture ──
   // Runs in the chat: Fenix asks for an angle, the one-pager pops when it's cooked.
-  function startRoast() {
+  function startRoast(cardEl) {
     var msgArea = state.msgArea || document.querySelector('.ev-chat-messages');
     if (!msgArea) return;
+    var proceed = function () {
+      if (cardEl) FC.addLandedMessage(msgArea, 'Roast the build.');
+      showAngles(msgArea);
+    };
+    if (cardEl) FC.flyCardToChat({ cardEl: cardEl, title: 'Roast the build.', messageArea: msgArea, accent: ACCENT, onLand: proceed });
+    else proceed();
+  }
+
+  function showAngles(msgArea) {
     FC.addFenixMessage(msgArea, "You asked for it — Kiran built this whole thing, then told me to be honest about it. Pick your angle:");
     var row = el('div', 'ev-chat-pills tg-roast-pills');
     ROAST_ANGLES.forEach(function (a) {
