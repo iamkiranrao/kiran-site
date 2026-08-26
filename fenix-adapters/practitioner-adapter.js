@@ -109,25 +109,43 @@
     }
   };
 
+  // Left-card titles — flown across to the chat as the throughline.
+  var TOOL_TITLES = {
+    overkill: 'Is AI overkill?', jtbd: 'Jobs-to-Be-Done builder',
+    journey: 'Map the journey', featurecreep: 'Feature Creep', talkshop: 'Talk shop.'
+  };
+
   var pendingTool = null;
 
   function getMsgArea() { return state.msgArea || document.querySelector('.ev-chat-messages'); }
 
-  // Step 1: Fenix asks the tool's question in the chat, and arms the input.
-  function startTool(action) {
+  // Step 1: (optionally) fly the clicked card across, then Fenix asks the
+  // tool's question in the chat and arms the input. cardEl is present only on a
+  // left-column card click — pills already live on the right, so they skip the fly.
+  function startTool(action, cardEl) {
     var t = TOOLS[action];
     if (!t) return;
-    if (action === 'talkshop' && !fenixState.visitor.connected) {
-      askFenix("I'd like to talk shop with Kiran about a real product problem — peer to peer. First, who should I tell him is asking? Let's connect.", "Talk shop — let's connect");
-      return;
-    }
     var msgArea = getMsgArea();
     if (!msgArea) return;
-    FC.addFenixMessage(msgArea, t.ask);
-    pendingTool = { action: action, cfg: t };
-    if (state.input) { state.input.placeholder = t.placeholder || 'Type your answer…'; state.input.focus(); }
-    var chat = document.querySelector('.ev-fenix-chat');
-    if (chat) chat.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    var proceed;
+    if (action === 'talkshop' && !fenixState.visitor.connected) {
+      proceed = function () {
+        askFenix("I'd like to talk shop with Kiran about a real product problem — peer to peer. First, who should I tell him is asking? Let's connect.", "Talk shop — let's connect");
+      };
+    } else {
+      proceed = function () {
+        if (cardEl) FC.addLandedMessage(msgArea, TOOL_TITLES[action] || t.ask);
+        FC.addFenixMessage(msgArea, t.ask);
+        pendingTool = { action: action, cfg: t };
+        if (state.input) { state.input.placeholder = t.placeholder || 'Type your answer…'; state.input.focus(); }
+        var chat = document.querySelector('.ev-fenix-chat');
+        if (chat) chat.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      };
+    }
+
+    if (cardEl) FC.flyCardToChat({ cardEl: cardEl, title: TOOL_TITLES[action] || t.ask, messageArea: msgArea, accent: ACCENT, onLand: proceed });
+    else proceed();
   }
 
   // Step 2: the visitor's inline answer runs the tool.
@@ -336,7 +354,7 @@
       function open() {
         cardEl.classList.add('ev-card-visited');
         fenixState.explored.cardsClicked.push(card.id);
-        startTool(card.action);
+        startTool(card.action, cardEl);
       }
       cardEl.addEventListener('click', open);
       cardEl.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
