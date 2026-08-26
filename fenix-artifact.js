@@ -86,8 +86,91 @@
       + '</div>';
   }
 
+  // ── Journey "emotion curve": parse the steps out of the content, draw the line chart + cards ──
+  function extractJourney(content) {
+    var lines = String(content).split(/\r?\n/), steps = [], intro = [], started = false, seenStep = false;
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (/^\s*STEPS:\s*$/i.test(line)) { started = true; continue; }
+      var m = line.match(/^\s*[-*•]\s*(.+?)\s*::\s*(positive|neutral|negative)\s*::\s*(pain|gain|job)\s*::\s*(.+)$/i);
+      if (m) {
+        seenStep = true;
+        var tag = m[3].toLowerCase();
+        tag = tag.charAt(0).toUpperCase() + tag.slice(1);
+        steps.push({ name: m[1].trim(), sentiment: m[2].toLowerCase(), tag: tag, insight: m[4].trim() });
+        continue;
+      }
+      if (!seenStep && !started && !/^\s*$/.test(line)) intro.push(line.trim());
+    }
+    if (steps.length < 2) return null;
+    return { steps: steps, intro: intro.join(' ').trim() };
+  }
+
+  function journeyPath(p) {
+    var n = p.length;
+    if (n === 0) return '';
+    var d = 'M' + p[0].x + ' ' + p[0].y;
+    for (var i = 0; i <= n - 2; i++) {
+      var p0 = p[i - 1] || p[i];
+      var p1 = p[i];
+      var p2 = p[i + 1];
+      var p3 = p[i + 2] || p2;
+      var c1x = p1.x + (p2.x - p0.x) / 6;
+      var c1y = p1.y + (p2.y - p0.y) / 6;
+      var c2x = p2.x - (p3.x - p1.x) / 6;
+      var c2y = p2.y - (p3.y - p1.y) / 6;
+      d += ' C' + c1x + ' ' + c1y + ' ' + c2x + ' ' + c2y + ' ' + p2.x + ' ' + p2.y;
+    }
+    return d;
+  }
+
+  function journeyDiagram(steps) {
+    var n = steps.length;
+    var yMap = { positive: 26, neutral: 74, negative: 122 };
+    var colorMap = { positive: '#4DAF8B', neutral: '#e0b34a', negative: '#d46b6b' };
+    var pts = [];
+    for (var i = 0; i < n; i++) {
+      var x = 44 + i * ((640 - 88) / Math.max(1, n - 1));
+      var y = yMap[steps[i].sentiment] != null ? yMap[steps[i].sentiment] : 74;
+      pts.push({ x: x, y: y, color: colorMap[steps[i].sentiment] || '#e0b34a' });
+    }
+    var svg = '<svg viewBox="0 0 640 150" class="fa-jsvg" preserveAspectRatio="xMidYMid meet">';
+    svg += '<line x1="44" y1="74" x2="596" y2="74" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4 4"/>';
+    svg += '<path d="' + journeyPath(pts) + '" stroke="rgba(255,255,255,.35)" stroke-width="2.5" fill="none" stroke-linecap="round"/>';
+    for (var j = 0; j < n; j++) {
+      svg += '<circle cx="' + pts[j].x + '" cy="' + pts[j].y + '" r="6.5" fill="' + pts[j].color + '" stroke="#0e0e10" stroke-width="2.5"/>';
+      var label = steps[j].name;
+      if (label.length > 16) label = label.slice(0, 16).replace(/\s+$/, '') + '…';
+      svg += '<text x="' + pts[j].x + '" y="142" text-anchor="middle" class="fa-jlabel">' + escHtml(label) + '</text>';
+    }
+    svg += '</svg>';
+
+    var cards = '<div class="fa-jcards">';
+    for (var k = 0; k < n; k++) {
+      var s = steps[k];
+      cards += '<div class="fa-jcard">'
+        + '<div class="fa-jcard-top">'
+        + '<span class="fa-jdot" style="background:' + (colorMap[s.sentiment] || '#e0b34a') + '"></span>'
+        + '<b>' + escHtml(s.name) + '</b>'
+        + '<span class="fa-jtag fa-jtag--' + escHtml(s.tag.toLowerCase()) + '">' + escHtml(s.tag) + '</span>'
+        + '</div>'
+        + '<div class="fa-jcard-txt">' + escHtml(s.insight) + '</div>'
+        + '</div>';
+    }
+    cards += '</div>';
+
+    return '<div class="fa-journey">'
+      + '<div class="fa-journey-head">The emotional journey</div>'
+      + svg + cards
+      + '</div>';
+  }
+
   // Render an artifact body — JTBD gets the Four Forces diagram; everything else is plain markdown.
   function renderBody(bodyEl, content, cfg) {
+    if (cfg && cfg.tool === 'journey') {
+      var ej = extractJourney(content);
+      if (ej) { bodyEl.innerHTML = (ej.intro ? '<p>' + escHtml(ej.intro) + '</p>' : '') + journeyDiagram(ej.steps); return; }
+    }
     var diagram = '';
     if (cfg && cfg.tool === 'jtbd') {
       var ex = extractForces(content);
@@ -145,8 +228,22 @@
       + '.fa-frow b{display:block;font-size:.8rem;font-weight:700;margin-bottom:1px}'
       + '.fa-frow span{opacity:.72}'
       + '.fa-forces-legend{text-align:center;font-size:.7rem;opacity:.5;margin-top:11px}'
+      + '.fa-journey{margin:4px 0 18px;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 14px 12px;background:rgba(255,255,255,.02)}'
+      + '.fa-journey-head{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;opacity:.65;text-align:center;margin-bottom:12px}'
+      + '.fa-jsvg{width:100%;height:auto;display:block;margin:6px 0 4px}'
+      + '.fa-jlabel{fill:rgba(255,255,255,.55);font-size:10px;font-family:inherit}'
+      + '.fa-jcards{display:flex;flex-direction:column;gap:8px;margin-top:12px}'
+      + '.fa-jcard{border:1px solid rgba(255,255,255,.09);border-radius:9px;padding:9px 11px}'
+      + '.fa-jcard-top{display:flex;align-items:center;gap:8px;margin-bottom:3px}'
+      + '.fa-jcard-top b{font-size:.86rem}'
+      + '.fa-jdot{width:9px;height:9px;border-radius:50%;flex:none}'
+      + '.fa-jtag{margin-left:auto;font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:100px}'
+      + '.fa-jtag--pain{background:rgba(212,107,107,.16);color:#e59b9b}'
+      + '.fa-jtag--gain{background:rgba(77,175,139,.16);color:#7fcbaf}'
+      + '.fa-jtag--job{background:rgba(120,150,210,.16);color:#9fb4e0}'
+      + '.fa-jcard-txt{font-size:.84rem;opacity:.78;line-height:1.4}'
       + '@media(max-width:600px){.fa-overlay{padding:0}.fa-modal{max-width:100%;width:100%;height:100%;max-height:100%;border-radius:0;border:none}.fa-sheet{padding:56px 20px 16px}.fa-title{font-size:1.3rem}.fa-actions{position:sticky;bottom:0}.fa-btn{font-size:.82rem;padding:12px 8px}.fa-forces-cols{grid-template-columns:1fr}}'
-      + '@media print{body>*{display:none!important}.fa-overlay{display:block!important;position:static!important;background:none!important;backdrop-filter:none!important;padding:0!important;overflow:visible!important}.fa-modal{max-width:100%!important;max-height:none!important;box-shadow:none!important;border:none!important;background:#fff!important;color:#111!important}.fa-close,.fa-actions,.fa-status{display:none!important}.fa-sheet{color:#111!important}.fa-body code{background:#eee!important}.fa-mast-name,.fa-mast-chip,.fa-title,.fa-sub,.fa-foot-made,.fa-foot-brand{color:#111!important}.fa-sub{opacity:.7}.fa-foot-cta{display:none!important}.fa-forces{background:#f6f6f6!important;border-color:#ddd!important}.fa-fc--for{background:#eaf6f0!important;border-color:#bcdccd!important}.fa-fc--against{background:#f8ecec!important;border-color:#e0c5c5!important}.fa-fc-cap,.fa-frow b,.fa-frow span,.fa-forces-head,.fa-forces-legend{color:#222!important}}';
+      + '@media print{body>*{display:none!important}.fa-overlay{display:block!important;position:static!important;background:none!important;backdrop-filter:none!important;padding:0!important;overflow:visible!important}.fa-modal{max-width:100%!important;max-height:none!important;box-shadow:none!important;border:none!important;background:#fff!important;color:#111!important}.fa-close,.fa-actions,.fa-status{display:none!important}.fa-sheet{color:#111!important}.fa-body code{background:#eee!important}.fa-mast-name,.fa-mast-chip,.fa-title,.fa-sub,.fa-foot-made,.fa-foot-brand{color:#111!important}.fa-sub{opacity:.7}.fa-foot-cta{display:none!important}.fa-forces{background:#f6f6f6!important;border-color:#ddd!important}.fa-fc--for{background:#eaf6f0!important;border-color:#bcdccd!important}.fa-fc--against{background:#f8ecec!important;border-color:#e0c5c5!important}.fa-fc-cap,.fa-frow b,.fa-frow span,.fa-forces-head,.fa-forces-legend{color:#222!important}.fa-jlabel{fill:#555!important}.fa-journey{background:#f6f6f6!important;border-color:#ddd!important}.fa-jcard{border-color:#ddd!important}.fa-jcard-top b,.fa-jcard-txt,.fa-journey-head{color:#222!important}}';
     var s = el('style'); s.id = 'fa-styles'; s.textContent = css;
     document.head.appendChild(s);
   }
