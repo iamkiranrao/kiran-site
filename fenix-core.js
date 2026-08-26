@@ -307,6 +307,104 @@
     return bubble;
   }
 
+  // ── In-chat tool flow ─────────────────────────────────────────────────
+  // One legible sequence for the generation tools: the visitor's input lands
+  // in the chat, Fenix "thinks" in the chat, the artifact modal pops only when
+  // the result is ready, and closing it drops a next-action back in the chat.
+  function injectToolStyles() {
+    if (document.getElementById('fc-tool-styles')) return;
+    var css = ''
+      + '.ev-tool-thinking-label{margin-left:9px;font-size:.85rem;opacity:.6;font-style:italic;align-self:center}'
+      + '.ev-tool-reopen{display:inline-block;margin-top:9px;background:none;border:1px solid rgba(255,255,255,.22);color:inherit;font-family:inherit;font-size:.8rem;padding:5px 13px;border-radius:100px;cursor:pointer;transition:all .15s}'
+      + '.ev-tool-reopen:hover{background:rgba(255,255,255,.1)}'
+      + '.ev-tool-next-prompt{font-size:.9rem;margin-bottom:9px;opacity:.85}'
+      + '.ev-tool-next-pills{margin-top:0}';
+    var s = document.createElement('style'); s.id = 'fc-tool-styles'; s.textContent = css;
+    document.head.appendChild(s);
+  }
+
+  function toolThinkingBubble(messageArea, label) {
+    var t = el('div', 'ev-msg ev-msg-fenix ev-typing-indicator ev-tool-thinking');
+    t.appendChild(el('img', 'ev-msg-avatar', { src: _logoPath, alt: 'Fenix' }));
+    var dots = el('div', 'ev-typing-dots');
+    dots.innerHTML = '<span></span><span></span><span></span>';
+    t.appendChild(dots);
+    if (label) t.appendChild(el('span', 'ev-tool-thinking-label', { text: label }));
+    messageArea.appendChild(t);
+    messageArea.scrollTop = messageArea.scrollHeight;
+    return t;
+  }
+
+  function toolResultBubble(messageArea, cfg, openCfg) {
+    var bubble = el('div', 'ev-msg ev-msg-fenix');
+    bubble.appendChild(el('img', 'ev-msg-avatar', { src: _logoPath, alt: 'Fenix' }));
+    var content = el('div', 'ev-msg-content');
+    injectMarkdownStyles();
+    content.innerHTML = renderMarkdown(cfg.readyText
+      || ('Done — I opened your **' + (cfg.artifactTitle || 'one-pager') + '**. Close it and we’ll pick up right here.'));
+    var reopen = el('button', 'ev-tool-reopen', { text: '↗ Reopen the one-pager' });
+    reopen.addEventListener('click', function () { if (window.FenixArtifact) window.FenixArtifact.show(openCfg); });
+    content.appendChild(reopen);
+    bubble.appendChild(content);
+    messageArea.appendChild(bubble);
+    messageArea.scrollTop = messageArea.scrollHeight;
+  }
+
+  function offerNextAction(messageArea, cfg) {
+    if (cfg._nextOffered) return; cfg._nextOffered = true;
+    if (!cfg.nextActions || !cfg.nextActions.length) return;
+    var bubble = el('div', 'ev-msg ev-msg-fenix');
+    bubble.appendChild(el('img', 'ev-msg-avatar', { src: _logoPath, alt: 'Fenix' }));
+    var content = el('div', 'ev-msg-content');
+    if (cfg.nextPrompt) content.appendChild(el('div', 'ev-tool-next-prompt', { text: cfg.nextPrompt }));
+    var pills = el('div', 'ev-chat-pills ev-tool-next-pills');
+    cfg.nextActions.forEach(function (na) {
+      var b = el('button', 'ev-chat-pill', { text: na.label });
+      b.addEventListener('click', function () { if (typeof na.run === 'function') na.run(); });
+      pills.appendChild(b);
+    });
+    content.appendChild(pills);
+    bubble.appendChild(content);
+    messageArea.appendChild(bubble);
+    messageArea.scrollTop = messageArea.scrollHeight;
+  }
+
+  // cfg: { messageArea, persona, accent, tool, kicker, artifactTitle, input,
+  //        prompt, thinkingLabel, readyText, nextPrompt, nextActions }
+  function runTool(cfg) {
+    var messageArea = cfg.messageArea || document.querySelector('.ev-chat-messages');
+    if (!messageArea) return;
+    injectToolStyles();
+    if (cfg.input) addVisitorMessage(messageArea, cfg.input);
+
+    // No artifact engine? Degrade gracefully to a normal chat answer.
+    if (!window.FenixArtifact || !window.FenixArtifact.generate) {
+      sendToAgent(cfg.prompt, messageArea, _activeAdapter);
+      return;
+    }
+
+    var thinking = toolThinkingBubble(messageArea, cfg.thinkingLabel || 'Working on it…');
+    var chat = messageArea.closest ? messageArea.closest('.ev-fenix-chat') : null;
+    if (chat) chat.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    function finish(full) {
+      if (thinking && thinking.parentNode) thinking.parentNode.removeChild(thinking);
+      if (!full) { addFenixMessage(messageArea, 'I couldn’t put that together just now — give it another go in a moment.'); return; }
+      var openCfg = {
+        kicker: cfg.kicker, title: cfg.artifactTitle, input: cfg.input,
+        content: full, persona: cfg.persona, accent: cfg.accent, tool: cfg.tool,
+        onClose: function () { offerNextAction(messageArea, cfg); }
+      };
+      toolResultBubble(messageArea, cfg, openCfg);
+      window.FenixArtifact.show(openCfg);
+    }
+
+    window.FenixArtifact.generate(
+      { prompt: cfg.prompt, persona: cfg.persona },
+      { onDone: function (full) { finish(full); }, onError: function () { finish(''); } }
+    );
+  }
+
   function addToolThinkingMessage(messageArea, toolName, args, adapter) {
     // Try adapter's custom labels first, fall back to generic
     var text = 'Working on something...';
@@ -861,6 +959,7 @@
     },
     addFenixMessage: addFenixMessage,
     addVisitorMessage: addVisitorMessage,
+    runTool: runTool,
     addSystemMessage: addSystemMessage,
     addToolThinkingMessage: addToolThinkingMessage,
     addToolResultMessage: addToolResultMessage,
