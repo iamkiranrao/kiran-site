@@ -51,6 +51,12 @@
       "5. **What they're really firing** — the current workaround that is your true competition (often not who they'd guess).\n" +
       "6. **The trap** — the most common way teams get this job wrong.\nBe specific to their product.";
   }
+  function journeyPrompt(v) {
+    return "A visitor is using Kiran's \"Map the journey\" tool. Their product or flow: \"" + v + "\". Answer AS Fenix in Kiran's voice. Map the customer's EMOTIONAL journey through this flow as 4–6 key steps in order. First, ONE short sentence framing the journey. Then output the steps in EXACTLY this machine-readable format — one per line, nothing else on the line, no extra prose after:\n" +
+      "STEPS:\n" +
+      "- <2-4 word step name> :: <positive|neutral|negative> :: <Pain|Gain|Job> :: <one short first-person insight, max 10 words>\n" +
+      "Repeat for each step, in order. Make the arc realistic — most journeys dip at a friction or anxiety point and recover. Use 'positive' for delight, 'neutral' for indifference, 'negative' for friction/anxiety. Keep step names short.";
+  }
   function featurecreepPrompt(v) {
     var thing = v ? "\"" + v + "\"" : "a well-known product of your choice (pick something recognizable)";
     return "A visitor is playing Kiran's \"Feature Creep\" — a joke tool. Take " + thing + " and bolt on THREE gloriously stupid, over-engineered AI features nobody asked for, each with a straight-faced fake-PM justification. Answer AS Fenix, genuinely funny, mocking the 2026 'cram AI into everything' trend. Number them 1–3, each: a ridiculous **Feature name** + a one-line deadpan rationale. End with a wink that the best AI feature is usually the one you didn't build.";
@@ -192,6 +198,10 @@
         icon: G + '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
         title: 'Jobs-to-Be-Done builder', tag: 'A real framework, applied',
         hook: "Tell me your product. I'll build the actual job it's hired to do — the forces, the struggling moment, the competition you didn't see.", cta: '→ Build the job' },
+      { id: 'card-journey', action: 'journey',
+        icon: G + '<path d="M3 3v18h18"/><path d="m7 14 3-4 4 3 5-7"/></svg>',
+        title: 'Map the journey', tag: 'An emotion curve',
+        hook: "Describe a product and a flow. I'll map the customer's emotional journey — where it delights, where it hurts.", cta: '→ Map it' },
       { id: 'card-featurecreep', action: 'featurecreep',
         icon: G + '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0Z"/></svg>',
         title: 'Feature Creep', tag: "For the record, it's a joke",
@@ -266,6 +276,14 @@
         examples: ["A time-tracking app for freelancers", "A budgeting app for couples", "A note-taking app for researchers"],
         button: 'Build the job', promptFn: jtbdPrompt, displayFn: function (v) { return 'JTBD for: ' + v; },
         artifact: true, tool: 'jtbd', kicker: 'Jobs-to-Be-Done', artifactTitle: 'Your Jobs-to-Be-Done'
+      });
+    } else if (panelType === 'journey') {
+      toolPanel(panel, {
+        strong: 'Map the journey.', rest: "Name a product and a flow — I'll chart the customer's emotional highs and lows.",
+        placeholder: "e.g. 'Onboarding for a mobile banking app'",
+        examples: ["Checkout on an e-commerce site", "First run of a to-do app", "Cancelling a subscription"],
+        button: 'Map it', promptFn: journeyPrompt, displayFn: function (v) { return 'Map the journey: ' + v; },
+        artifact: true, tool: 'journey', kicker: 'Customer Journey', artifactTitle: 'The Emotional Journey'
       });
     } else if (panelType === 'featurecreep') {
       toolPanel(panel, {
@@ -352,7 +370,7 @@
     openingMessage: FENIX_OPENING,
     onConnect: function () { rebuildCards(); },
     onPillAction: function (pill) {
-      if (['overkill', 'jtbd', 'featurecreep', 'talkshop'].indexOf(pill.action) !== -1) {
+      if (['overkill', 'jtbd', 'featurecreep', 'journey', 'talkshop'].indexOf(pill.action) !== -1) {
         if (pill.action === 'talkshop' && !fenixState.visitor.connected) {
           askFenix("I'd like to talk shop with Kiran about a real product problem — peer to peer. First, who should I tell him is asking? Let's connect.", "Talk shop — let's connect");
           return true;
