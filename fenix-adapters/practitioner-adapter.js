@@ -168,6 +168,13 @@
     });
   }
 
+  // JTBD and journey are complementary lenses (the why vs. the experience),
+  // so each one's top next-action leads to the other.
+  var PAIR = {
+    jtbd: { action: 'journey', label: 'Now map the journey →' },
+    journey: { action: 'jtbd', label: 'Build the Job-to-be-Done →' }
+  };
+
   function nextActionsFor(justRan) {
     var all = [
       { action: 'overkill', label: 'Gut-check an AI idea' },
@@ -175,7 +182,13 @@
       { action: 'journey', label: 'Map a journey' },
       { action: 'featurecreep', label: 'Feature Creep (for fun)' }
     ];
-    var picks = all.filter(function (a) { return a.action !== justRan; }).slice(0, 2);
+    var picks = [];
+    if (PAIR[justRan]) picks.push(PAIR[justRan]);   // lead with the paired tool
+    all.forEach(function (a) {
+      if (picks.length >= 2 || a.action === justRan) return;
+      if (picks.some(function (p) { return p.action === a.action; })) return;
+      picks.push(a);
+    });
     picks.push({ action: 'talkshop', label: fenixState.visitor.connected ? 'Talk shop with Kiran' : 'Talk shop (connect)' });
     return picks.map(function (a) { return { label: a.label, run: function () { startTool(a.action); } }; });
   }
