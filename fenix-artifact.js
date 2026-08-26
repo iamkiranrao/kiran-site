@@ -58,6 +58,43 @@
     return n;
   }
 
+  function escHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  // ── JTBD "Four Forces" diagram: parse the forces out of the content, draw the tug-of-war ──
+  function extractForces(content) {
+    var lines = String(content).split(/\r?\n/), f = {}, kept = [];
+    lines.forEach(function (line) {
+      var m = line.match(/^\s*[-*•]?\s*\*\*\s*(push|pull|anxiety|habit)\s*:?\s*\*\*\s*(.+)$/i);
+      if (m) { f[m[1].toLowerCase()] = m[2].trim().replace(/[*_.\s]+$/, ''); return; }
+      if (/four\s+forces/i.test(line)) return; // drop the now-redundant heading
+      kept.push(line);
+    });
+    if (f.push && f.pull && f.anxiety && f.habit) return { forces: f, cleaned: kept.join('\n') };
+    return null;
+  }
+
+  function forcesDiagram(f) {
+    function row(name, text) { return '<div class="fa-frow"><b>' + name + '</b><span>' + escHtml(text) + '</span></div>'; }
+    return '<div class="fa-forces">'
+      + '<div class="fa-forces-head">The Four Forces</div>'
+      + '<div class="fa-forces-cols">'
+      + '<div class="fa-fc fa-fc--for"><div class="fa-fc-cap">Driving the switch →</div>' + row('Push', f.push) + row('Pull', f.pull) + '</div>'
+      + '<div class="fa-fc fa-fc--against"><div class="fa-fc-cap">← Holding them back</div>' + row('Anxiety', f.anxiety) + row('Habit', f.habit) + '</div>'
+      + '</div>'
+      + '<div class="fa-forces-legend">Push + Pull drive the switch · Anxiety + Habit resist it</div>'
+      + '</div>';
+  }
+
+  // Render an artifact body — JTBD gets the Four Forces diagram; everything else is plain markdown.
+  function renderBody(bodyEl, content, cfg) {
+    var diagram = '';
+    if (cfg && cfg.tool === 'jtbd') {
+      var ex = extractForces(content);
+      if (ex) { diagram = forcesDiagram(ex.forces); content = ex.cleaned; }
+    }
+    bodyEl.innerHTML = diagram + renderMarkdown(content);
+  }
+
   // ── styles ──
   function injectStyles() {
     if (document.getElementById('fa-styles')) return;
@@ -85,8 +122,20 @@
       + '.fa-btn--primary{border:none}'
       + '.fa-status{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;font-size:.8rem;padding:7px 14px;border-radius:100px;opacity:0;transition:opacity .2s;pointer-events:none}'
       + '.fa-status.fa-status--show{opacity:1}'
-      + '@media(max-width:600px){.fa-overlay{padding:0}.fa-modal{max-width:100%;width:100%;height:100%;max-height:100%;border-radius:0;border:none}.fa-sheet{padding:56px 20px 16px}.fa-title{font-size:1.3rem}.fa-actions{position:sticky;bottom:0}.fa-btn{font-size:.82rem;padding:12px 8px}}'
-      + '@media print{body>*{display:none!important}.fa-overlay{display:block!important;position:static!important;background:none!important;backdrop-filter:none!important;padding:0!important;overflow:visible!important}.fa-modal{max-width:100%!important;max-height:none!important;box-shadow:none!important;border:none!important;background:#fff!important;color:#111!important}.fa-close,.fa-actions,.fa-status{display:none!important}.fa-sheet{color:#111!important}.fa-body code{background:#eee!important}.fa-kicker,.fa-title,.fa-sub,.fa-foot{color:#111!important}.fa-sub{opacity:.7}}';
+      + '.fa-forces{margin:4px 0 18px;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 14px 12px;background:rgba(255,255,255,.02)}'
+      + '.fa-forces-head{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;opacity:.65;text-align:center;margin-bottom:12px}'
+      + '.fa-forces-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}'
+      + '.fa-fc{border-radius:10px;padding:11px 12px}'
+      + '.fa-fc--for{background:rgba(77,175,139,.1);border:1px solid rgba(77,175,139,.3)}'
+      + '.fa-fc--against{background:rgba(200,110,110,.09);border:1px solid rgba(200,110,110,.28)}'
+      + '.fa-fc-cap{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}'
+      + '.fa-fc--for .fa-fc-cap{color:#7fcbaf}.fa-fc--against .fa-fc-cap{color:#dd9a9a}'
+      + '.fa-frow{margin:8px 0;font-size:.85rem;line-height:1.4}'
+      + '.fa-frow b{display:block;font-size:.8rem;font-weight:700;margin-bottom:1px}'
+      + '.fa-frow span{opacity:.72}'
+      + '.fa-forces-legend{text-align:center;font-size:.7rem;opacity:.5;margin-top:11px}'
+      + '@media(max-width:600px){.fa-overlay{padding:0}.fa-modal{max-width:100%;width:100%;height:100%;max-height:100%;border-radius:0;border:none}.fa-sheet{padding:56px 20px 16px}.fa-title{font-size:1.3rem}.fa-actions{position:sticky;bottom:0}.fa-btn{font-size:.82rem;padding:12px 8px}.fa-forces-cols{grid-template-columns:1fr}}'
+      + '@media print{body>*{display:none!important}.fa-overlay{display:block!important;position:static!important;background:none!important;backdrop-filter:none!important;padding:0!important;overflow:visible!important}.fa-modal{max-width:100%!important;max-height:none!important;box-shadow:none!important;border:none!important;background:#fff!important;color:#111!important}.fa-close,.fa-actions,.fa-status{display:none!important}.fa-sheet{color:#111!important}.fa-body code{background:#eee!important}.fa-kicker,.fa-title,.fa-sub,.fa-foot{color:#111!important}.fa-sub{opacity:.7}.fa-forces{background:#f6f6f6!important;border-color:#ddd!important}.fa-fc--for{background:#eaf6f0!important;border-color:#bcdccd!important}.fa-fc--against{background:#f8ecec!important;border-color:#e0c5c5!important}.fa-fc-cap,.fa-frow b,.fa-frow span,.fa-forces-head,.fa-forces-legend{color:#222!important}}';
     var s = el('style'); s.id = 'fa-styles'; s.textContent = css;
     document.head.appendChild(s);
   }
@@ -202,7 +251,7 @@
       function (full) {
         if (!ctx.overlay.parentNode) return; // closed mid-stream
         ctx.body.classList.remove('fa-gen');
-        ctx.body.innerHTML = renderMarkdown(full || 'Something went wrong — try again.');
+        renderBody(ctx.body, full || 'Something went wrong — try again.', cfg);
         addActions(ctx, cfg, full || '');
       },
       function (err) {
@@ -218,7 +267,7 @@
   // ── public: render a finished artifact (share-link loader) ──
   function show(cfg) {
     var ctx = build(cfg);
-    ctx.body.innerHTML = renderMarkdown(cfg.content || '');
+    renderBody(ctx.body, cfg.content || '', cfg);
     addActions(ctx, cfg, cfg.content || '');
   }
 

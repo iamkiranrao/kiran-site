@@ -43,7 +43,11 @@
       "1. **The core job** — write it as: \"When [situation], they want to [motivation], so they can [outcome].\"\n" +
       "2. **Emotional + social jobs** — how they want to feel, and how they want to be seen.\n" +
       "3. **The struggling moment** — the specific moment that makes them look for something new.\n" +
-      "4. **The Four Forces** — Push (the pain now) · Pull (your product's draw) · Anxiety (fear of switching) · Habit (what keeps them stuck). One line each.\n" +
+      "4. **The Four Forces** — each on its OWN bullet, labeled exactly as below, 4–9 words each:\n" +
+      "- **Push:** the pain in their current situation\n" +
+      "- **Pull:** what draws them to this product\n" +
+      "- **Anxiety:** their fear or doubt about switching\n" +
+      "- **Habit:** what keeps them stuck with the old way\n" +
       "5. **What they're really firing** — the current workaround that is your true competition (often not who they'd guess).\n" +
       "6. **The trap** — the most common way teams get this job wrong.\nBe specific to their product.";
   }
