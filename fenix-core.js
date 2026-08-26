@@ -209,17 +209,92 @@
   }
 
 
+  // ── Markdown rendering (so Fenix replies aren't a wall of raw text) ──
+  function injectMarkdownStyles() {
+    if (document.getElementById('fenix-md-styles')) return;
+    var css = ''
+      + '.ev-msg-content ol,.ev-msg-content ul{margin:6px 0;padding-left:20px}'
+      + '.ev-msg-content li{margin:3px 0;line-height:1.5}'
+      + '.ev-msg-content p{margin:7px 0;line-height:1.55}'
+      + '.ev-msg-content p:first-child{margin-top:0}.ev-msg-content p:last-child{margin-bottom:0}'
+      + '.ev-msg-content strong{font-weight:600}'
+      + '.ev-msg-content h3,.ev-msg-content h4{margin:9px 0 4px;font-size:1em;font-weight:700}'
+      + '.ev-msg-content code{font-family:ui-monospace,Menlo,monospace;font-size:.88em;background:rgba(255,255,255,.09);padding:1px 5px;border-radius:4px}'
+      + '.ev-msg-content a{color:inherit;text-decoration:underline}'
+      + '.ev-msg-content.ev-md-clamp{max-height:340px;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,#000 80%,transparent);mask-image:linear-gradient(to bottom,#000 80%,transparent)}'
+      + '.ev-md-more{display:block;background:none;border:none;color:inherit;opacity:.65;font-size:.8rem;font-weight:600;cursor:pointer;padding:6px 0 0}'
+      + '.ev-md-more:hover{opacity:1}';
+    var s = document.createElement('style'); s.id = 'fenix-md-styles'; s.textContent = css;
+    document.head.appendChild(s);
+  }
+
+  function _mdInline(s) {
+    return s
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/__([^_]+)__/g, '<strong>$1</strong>')
+      .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+      .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  }
+
+  function renderMarkdown(raw) {
+    var esc = String(raw).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    var lines = esc.split(/\r?\n/), html = '', i = 0;
+    var isOL = function (l) { return /^\s*\d+[.)]\s+/.test(l); };
+    var isUL = function (l) { return /^\s*[-*•]\s+/.test(l); };
+    while (i < lines.length) {
+      var line = lines[i];
+      if (isOL(line)) {
+        html += '<ol>';
+        while (i < lines.length && isOL(lines[i])) { html += '<li>' + _mdInline(lines[i].replace(/^\s*\d+[.)]\s+/, '')) + '</li>'; i++; }
+        html += '</ol>'; continue;
+      }
+      if (isUL(line)) {
+        html += '<ul>';
+        while (i < lines.length && isUL(lines[i])) { html += '<li>' + _mdInline(lines[i].replace(/^\s*[-*•]\s+/, '')) + '</li>'; i++; }
+        html += '</ul>'; continue;
+      }
+      var h = line.match(/^(#{1,3})\s+(.*)$/);
+      if (h) { var lvl = Math.min(h[1].length + 2, 4); html += '<h' + lvl + '>' + _mdInline(h[2]) + '</h' + lvl + '>'; i++; continue; }
+      if (/^\s*$/.test(line)) { i++; continue; }
+      var para = [];
+      while (i < lines.length && !/^\s*$/.test(lines[i]) && !isOL(lines[i]) && !isUL(lines[i]) && !/^#{1,3}\s+/.test(lines[i])) {
+        para.push(_mdInline(lines[i])); i++;
+      }
+      html += '<p>' + para.join('<br>') + '</p>';
+    }
+    return html;
+  }
+
+  // Clamp long messages with a Show more/less toggle (chat-friendly pagination)
+  function clampIfLong(contentEl) {
+    requestAnimationFrame(function () {
+      if (contentEl.scrollHeight > 380 && !contentEl.nextElementSibling) {
+        contentEl.classList.add('ev-md-clamp');
+        var toggle = el('button', 'ev-md-more', { type: 'button', text: 'Show more ↓' });
+        toggle.addEventListener('click', function () {
+          var clamped = contentEl.classList.toggle('ev-md-clamp');
+          toggle.textContent = clamped ? 'Show more ↓' : 'Show less ↑';
+        });
+        if (contentEl.parentNode) contentEl.parentNode.appendChild(toggle);
+      }
+    });
+  }
+
+
   // ── Message Helpers ───────────────────────────────
 
   function addFenixMessage(messageArea, text) {
     var bubble = el('div', 'ev-msg ev-msg-fenix');
     var avatar = el('img', 'ev-msg-avatar', { src: _logoPath, alt: 'Fenix' });
     var content = el('div', 'ev-msg-content');
-    content.textContent = text;
+    injectMarkdownStyles();
+    content.innerHTML = renderMarkdown(text);
     bubble.appendChild(avatar);
     bubble.appendChild(content);
     messageArea.appendChild(bubble);
     messageArea.scrollTop = messageArea.scrollHeight;
+    clampIfLong(content);
   }
 
   function addVisitorMessage(messageArea, text) {
@@ -508,6 +583,7 @@
           // Remove typing indicator when first response arrives
           var typing = msgArea.querySelector('.ev-typing-indicator');
           if (typing) typing.remove();
+          injectMarkdownStyles();
 
           currentBubble = el('div', 'ev-msg ev-msg-fenix');
           var avatar = el('img', 'ev-msg-avatar', { src: _logoPath, alt: 'Fenix' });
@@ -530,6 +606,10 @@
         case 'text_end':
           if (currentContent) {
             currentContent.classList.remove('ev-streaming');
+            if (streamedText) {
+              currentContent.innerHTML = renderMarkdown(streamedText);
+              clampIfLong(currentContent);
+            }
           }
           if (streamedText) {
             fullResponse += (fullResponse ? '\n' : '') + streamedText;
