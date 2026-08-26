@@ -21,8 +21,7 @@
   var fenixState = FC.fenixState;
 
   // ── Configuration ─────────────────────────────────
-  var API_BASE = 'https://cc.kiranrao.ai';
-  var API_KEY = 'H3Ycu0N5kfv5MERh_5mYwYcMbGu6pYUv2y1KSgsMBLk';
+  // (removed: unused CC admin key — public client must never hold an admin key)
 
   // ── Evaluator-Specific Content ────────────────────
 

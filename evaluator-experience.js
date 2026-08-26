@@ -14,8 +14,7 @@
   'use strict';
 
   // ── Configuration ──────────────────────────────────
-  var API_BASE = 'https://cc.kiranrao.ai';
-  var API_KEY = 'H3Ycu0N5kfv5MERh_5mYwYcMbGu6pYUv2y1KSgsMBLk';
+  // (removed: unused CC admin key — public client must never hold an admin key)
 
   // ── Fenix Opening Frame Text (Locked — April 4, 2026) ──
   var FENIX_OPENING = 'Quick context before we start. This isn\'t a portfolio site. It\'s a product Kiran built.\n\nThe resume comes in three versions, each tuned to a different kind of search. Got a role in mind? Paste the JD and I\'ll show you exactly how Kiran\'s experience maps to it. And I\'m not a template chatbot. I\'ve been trained on Kiran\'s actual work, his decisions, and how he thinks.\n\nThis site isn\'t designed for a 30-second skim. But every minute you spend here will surface insights you\'d otherwise spend weeks piecing together. The more you experience, the more you understand about how Kiran thinks and works.\n\nI\'m here to help you focus on what matters to you.';

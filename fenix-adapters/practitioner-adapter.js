@@ -23,7 +23,7 @@
 
   // ── Configuration ─────────────────────────────────
   var CC_API_BASE = 'https://cc.kiranrao.ai';
-  var CC_API_KEY = 'H3Ycu0N5kfv5MERh_5mYwYcMbGu6pYUv2y1KSgsMBLk';
+  // (removed: CC admin key must not ship in client JS — Stuck Diagnostic is being reworked to route through Fenix)
 
   // ── Practitioner-Specific Content ─────────────────
 
@@ -375,8 +375,7 @@
     fetch(CC_API_BASE + '/api/stuck-diagnostic/analyze', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': CC_API_KEY
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         user_input: userInput,
