@@ -252,21 +252,24 @@
         strong: 'Is AI overkill?', rest: "Describe the AI feature you're weighing. I'll give you a verdict, not a vibe.",
         placeholder: "e.g. 'An AI chatbot to help users find the right pricing plan.'",
         examples: ["An AI that writes users' meeting notes", "AI to auto-tag support tickets", "An AI onboarding assistant"],
-        button: 'Check my idea', promptFn: overkillPrompt, displayFn: function (v) { return 'Is AI overkill? ' + v; }
+        button: 'Check my idea', promptFn: overkillPrompt, displayFn: function (v) { return 'Is AI overkill? ' + v; },
+        artifact: true, tool: 'overkill', kicker: 'AI Gut-Check', artifactTitle: 'Is AI overkill?'
       });
     } else if (panelType === 'jtbd') {
       toolPanel(panel, {
         strong: 'Jobs-to-Be-Done builder.', rest: "Tell me your product and who uses it — I'll build the real job it's hired to do.",
         placeholder: "e.g. 'A meal-kit subscription for busy parents.'",
         examples: ["A time-tracking app for freelancers", "A budgeting app for couples", "A note-taking app for researchers"],
-        button: 'Build the job', promptFn: jtbdPrompt, displayFn: function (v) { return 'JTBD for: ' + v; }
+        button: 'Build the job', promptFn: jtbdPrompt, displayFn: function (v) { return 'JTBD for: ' + v; },
+        artifact: true, tool: 'jtbd', kicker: 'Jobs-to-Be-Done', artifactTitle: 'Your Jobs-to-Be-Done'
       });
     } else if (panelType === 'featurecreep') {
       toolPanel(panel, {
         strong: 'Feature Creep.', rest: "Name a product — or leave it blank and I'll pick one. Then watch me ruin it with AI.",
         placeholder: "e.g. 'a toaster' — or leave blank for a surprise",
         allowEmpty: true, examples: ["a toaster", "Google Calendar", "a parking meter"],
-        button: 'Creep it', promptFn: featurecreepPrompt, displayFn: function (v) { return v ? 'Feature-creep: ' + v : 'Feature-creep something random'; }
+        button: 'Creep it', promptFn: featurecreepPrompt, displayFn: function (v) { return v ? 'Feature-creep: ' + v : 'Feature-creep something random'; },
+        artifact: true, tool: 'featurecreep', kicker: 'Feature Creep', artifactTitle: 'Feature Creep'
       });
     } else if (panelType === 'talkshop') {
       toolPanel(panel, {
@@ -306,8 +309,12 @@
     btn.addEventListener('click', function () {
       var v = ta.value.trim();
       if (!v && !cfg.allowEmpty) { ta.focus(); return; }
-      askFenix(cfg.promptFn(v), cfg.displayFn(v));
       closePanel();
+      if (cfg.artifact && window.FenixArtifact) {
+        window.FenixArtifact.run({ kicker: cfg.kicker, title: cfg.artifactTitle, input: v, persona: 'practitioner', accent: ACCENT, tool: cfg.tool, prompt: cfg.promptFn(v) });
+      } else {
+        askFenix(cfg.promptFn(v), cfg.displayFn(v));
+      }
     });
     body.appendChild(btn);
     panel.appendChild(body);

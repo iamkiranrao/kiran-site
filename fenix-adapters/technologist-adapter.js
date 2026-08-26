@@ -328,8 +328,12 @@
     ROAST_ANGLES.forEach(function (a) {
       var btn = el('button', 'ev-btn-secondary tg-roast-btn', { type: 'button', text: a.label });
       btn.addEventListener('click', function () {
-        askFenix(a.prompt, a.display);
         closePanel();
+        if (window.FenixArtifact) {
+          window.FenixArtifact.run({ kicker: 'The Roast', title: 'Fenix Roasts the Build', input: a.display, persona: 'technologist', accent: ACCENT, tool: 'roast', prompt: a.prompt });
+        } else {
+          askFenix(a.prompt, a.display);
+        }
       });
       row.appendChild(btn);
     });
