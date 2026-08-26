@@ -53,7 +53,7 @@
     { label: 'Roast his over-engineering', display: 'Roast the over-engineering', prompt: "Roast Kiran's over-engineering — building the meta-layers, hundreds of docs, and elaborate infrastructure before shipping. He's very self-aware about this, so actually go there. Affectionate, honest, and funny." }
   ];
 
-  var state = { currentPanel: null };
+  var state = { currentPanel: null, msgArea: null };
 
   // ── UI ────────────────────────────────────────────
 
@@ -116,6 +116,7 @@
     openingBubble.appendChild(openingContent);
     messageArea.appendChild(openingBubble);
     wrapper.appendChild(messageArea);
+    state.msgArea = messageArea;
     typeWhenVisible(container, openingContent, openingText);
 
     var pillContainer = el('div', 'ev-chat-pills');
@@ -241,6 +242,7 @@
   // ── Panels ────────────────────────────────────────
 
   function showPanel(panelType) {
+    if (panelType === 'roast') { startRoast(); return; }   // roast runs in the chat now
     closePanel();
     var zone = document.querySelector('.fenix-intro-zone');
     if (!zone) return;
@@ -248,7 +250,6 @@
     if (panelType === 'buildstory') renderBuildStory(panel);
     else if (panelType === 'judgment') renderJudgment(panel);
     else if (panelType === 'problem') renderProblem(panel);
-    else if (panelType === 'roast') renderRoast(panel);
     else return;
     state.currentPanel = panelType;
     zone.insertAdjacentElement('afterend', panel);
@@ -322,23 +323,34 @@
   }
 
   // ── Fun: "Roast the build" — Fenix roasts Kiran's own architecture ──
-  function renderRoast(panel) {
-    heading(panel, 'You asked for it.', "Kiran built this whole thing, then told me to be honest about it. Pick your angle — I\'ll keep it affectionate.");
-    var row = el('div', 'tg-roast-row');
+  // Runs in the chat: Fenix asks for an angle, the one-pager pops when it's cooked.
+  function startRoast() {
+    var msgArea = state.msgArea || document.querySelector('.ev-chat-messages');
+    if (!msgArea) return;
+    FC.addFenixMessage(msgArea, "You asked for it — Kiran built this whole thing, then told me to be honest about it. Pick your angle:");
+    var row = el('div', 'ev-chat-pills tg-roast-pills');
     ROAST_ANGLES.forEach(function (a) {
-      var btn = el('button', 'ev-btn-secondary tg-roast-btn', { type: 'button', text: a.label });
+      var btn = el('button', 'ev-chat-pill', { text: a.label });
       btn.addEventListener('click', function () {
-        closePanel();
-        if (window.FenixArtifact) {
-          window.FenixArtifact.run({ kicker: 'The Roast', title: 'Fenix Roasts the Build', input: a.display, persona: 'technologist', accent: ACCENT, tool: 'roast', prompt: a.prompt });
-        } else {
-          askFenix(a.prompt, a.display);
-        }
+        if (row.parentNode) row.parentNode.removeChild(row);
+        FC.runTool({
+          messageArea: msgArea, persona: 'technologist', accent: ACCENT, tool: 'roast',
+          kicker: 'The Roast', artifactTitle: 'Fenix Roasts the Build',
+          input: a.display, prompt: a.prompt, thinkingLabel: 'Cooking…',
+          nextPrompt: 'Fair warning: it’s grounded in the real build. Another angle?',
+          nextActions: [
+            { label: 'Roast another angle', run: function () { startRoast(); } },
+            { label: 'How I built this', run: function () { showPanel('buildstory'); } },
+            { label: 'The judgment calls', run: function () { showPanel('judgment'); } }
+          ]
+        });
       });
       row.appendChild(btn);
     });
-    panel.appendChild(row);
-    panel.appendChild(el('div', 'tg-panel-followup', { text: "Fair warning: it\'s grounded in the real build, so the jabs land." }));
+    msgArea.appendChild(row);
+    msgArea.scrollTop = msgArea.scrollHeight;
+    var chat = document.querySelector('.ev-fenix-chat');
+    if (chat) chat.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   function ctaButton(panel, label, agentMsg) {

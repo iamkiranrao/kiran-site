@@ -249,11 +249,21 @@
   }
 
   var _open = null;
+  var _onClose = null;
 
-  function close() {
+  // Remove the modal DOM without firing the onClose callback (used when one
+  // artifact replaces another — not a user-initiated close).
+  function _remove() {
     if (_open && _open.parentNode) _open.parentNode.removeChild(_open);
     _open = null;
     document.body.style.overflow = '';
+  }
+
+  // User-initiated close (× button, overlay click, footer CTA) → fire onClose
+  // so the host (e.g. the chat) can offer a next action.
+  function close() {
+    _remove();
+    if (_onClose) { var cb = _onClose; _onClose = null; try { cb(); } catch (e) {} }
   }
 
   function toast(overlay, msg) {
@@ -266,7 +276,7 @@
   // Build the modal shell; returns { overlay, body, actionsWrap }
   function build(cfg) {
     injectStyles();
-    close();
+    _remove();
     var accent = cfg.accent || DEFAULT_ACCENT;
     var overlay = el('div', 'fa-overlay');
     var modal = el('div', 'fa-modal');
@@ -370,8 +380,21 @@
     }).catch(function (e) { onError(String(e)); });
   }
 
+  // ── public: generate content WITHOUT opening the modal ──
+  // Lets the host render its own "thinking" state (e.g. in the chat) and only
+  // pop the artifact when the full result is ready.
+  function generate(cfg, hooks) {
+    hooks = hooks || {};
+    streamAgent(cfg.prompt, cfg.persona,
+      function (full) { if (hooks.onProgress) hooks.onProgress(full); },
+      function (full) { if (hooks.onDone) hooks.onDone(full || ''); },
+      function (err) { if (hooks.onError) hooks.onError(err); }
+    );
+  }
+
   // ── public: run a tool → stream into the artifact ──
   function run(cfg) {
+    _onClose = null;
     var ctx = build(cfg);
     ctx.body.classList.add('fa-gen');
     ctx.body.textContent = 'Thinking…';
@@ -396,9 +419,11 @@
 
   // ── public: render a finished artifact (share-link loader) ──
   function show(cfg) {
+    _onClose = null;                 // don't let build()'s cleanup fire a stale callback
     var ctx = build(cfg);
     renderBody(ctx.body, cfg.content || '', cfg);
     addActions(ctx, cfg, cfg.content || '');
+    _onClose = cfg.onClose || null;  // fire when the user closes this artifact
   }
 
   // ── share-link loader: ?fa=<base64> ──
@@ -416,7 +441,7 @@
     } catch (e) { /* ignore malformed links */ }
   }
 
-  window.FenixArtifact = { run: run, show: show, close: close };
+  window.FenixArtifact = { run: run, show: show, generate: generate, close: close };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tryLoadFromUrl);
   else tryLoadFromUrl();

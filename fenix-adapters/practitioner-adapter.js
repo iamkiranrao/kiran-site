@@ -65,7 +65,102 @@
     return "A visitor (a fellow product/design/data person, already connected) wants to talk shop with Kiran about: \"" + v + "\". Answer AS Fenix in Kiran's voice — peer to peer, not a pitch. Give a sharp first-pass: how Kiran would frame it, the first question or two he'd ask, and one non-obvious angle. Then offer to set up a real conversation with him.";
   }
 
-  var state = { currentPanel: null };
+  var state = { currentPanel: null, msgArea: null, input: null };
+
+  // ── In-chat tool flow ─────────────────────────────
+  // Each tool: Fenix asks its question in the chat, the visitor answers inline,
+  // Fenix thinks in the chat, and the one-pager pops only when it's ready.
+  // (talkshop is a chat conversation, not an artifact — chat:true.)
+  var TOOLS = {
+    overkill: {
+      ask: "Describe the AI feature you're weighing — a sentence or two. I'll tell you if AI earns its keep, or if a simpler answer wins.",
+      placeholder: "e.g. an AI chatbot to help users pick a pricing plan",
+      thinkingLabel: 'Running the gut-check…',
+      kicker: 'AI Gut-Check', artifactTitle: 'Is AI overkill?', tool: 'overkill',
+      promptFn: overkillPrompt
+    },
+    jtbd: {
+      ask: "Tell me your product and who it's for. I'll build the real job it's hired to do — forces, struggling moment, and the competition you didn't see.",
+      placeholder: "e.g. a meal-kit subscription for busy parents",
+      thinkingLabel: 'Building the job…',
+      kicker: 'Jobs-to-Be-Done', artifactTitle: 'Your Jobs-to-Be-Done', tool: 'jtbd',
+      promptFn: jtbdPrompt
+    },
+    journey: {
+      ask: "Name a product and a flow — where does the customer start, where do they end? I'll map the emotional arc, high to low.",
+      placeholder: "e.g. onboarding for a mobile banking app",
+      thinkingLabel: 'Mapping the journey…',
+      kicker: 'Customer Journey', artifactTitle: 'The Emotional Journey', tool: 'journey',
+      promptFn: journeyPrompt
+    },
+    featurecreep: {
+      ask: "Name a product — anything. Or type “surprise me” and I'll pick one. Then watch me ruin it with AI nobody asked for.",
+      placeholder: "e.g. a toaster — or “surprise me”",
+      allowEmpty: true, thinkingLabel: 'Cramming in AI nobody asked for…',
+      kicker: 'Feature Creep', artifactTitle: 'Feature Creep', tool: 'featurecreep',
+      promptFn: featurecreepPrompt,
+      displayFn: function (v) { return v || 'Surprise me'; }
+    },
+    talkshop: {
+      chat: true,
+      ask: "What are you chewing on? A roadmap call, positioning, a decision you're stuck on — a sentence or two.",
+      placeholder: "the problem you're wrestling with",
+      promptFn: talkshopPrompt
+    }
+  };
+
+  var pendingTool = null;
+
+  function getMsgArea() { return state.msgArea || document.querySelector('.ev-chat-messages'); }
+
+  // Step 1: Fenix asks the tool's question in the chat, and arms the input.
+  function startTool(action) {
+    var t = TOOLS[action];
+    if (!t) return;
+    if (action === 'talkshop' && !fenixState.visitor.connected) {
+      askFenix("I'd like to talk shop with Kiran about a real product problem — peer to peer. First, who should I tell him is asking? Let's connect.", "Talk shop — let's connect");
+      return;
+    }
+    var msgArea = getMsgArea();
+    if (!msgArea) return;
+    FC.addFenixMessage(msgArea, t.ask);
+    pendingTool = { action: action, cfg: t };
+    if (state.input) { state.input.placeholder = t.placeholder || 'Type your answer…'; state.input.focus(); }
+    var chat = document.querySelector('.ev-fenix-chat');
+    if (chat) chat.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Step 2: the visitor's inline answer runs the tool.
+  function submitTool(value) {
+    var pt = pendingTool; pendingTool = null;
+    if (state.input) state.input.placeholder = 'Ask me anything about product...';
+    if (!pt) return;
+    var t = pt.cfg, msgArea = getMsgArea();
+    var display = (t.displayFn ? t.displayFn(value) : value) || '';
+    if (t.chat) {
+      FC.addVisitorMessage(msgArea, display);
+      FC.sendToAgent(t.promptFn(value), msgArea);
+      return;
+    }
+    FC.runTool({
+      messageArea: msgArea, persona: 'practitioner', accent: ACCENT, tool: t.tool,
+      kicker: t.kicker, artifactTitle: t.artifactTitle, input: display,
+      prompt: t.promptFn(value), thinkingLabel: t.thinkingLabel,
+      nextPrompt: 'Want to keep going?', nextActions: nextActionsFor(pt.action)
+    });
+  }
+
+  function nextActionsFor(justRan) {
+    var all = [
+      { action: 'overkill', label: 'Gut-check an AI idea' },
+      { action: 'jtbd', label: 'Build a Job-to-be-Done' },
+      { action: 'journey', label: 'Map a journey' },
+      { action: 'featurecreep', label: 'Feature Creep (for fun)' }
+    ];
+    var picks = all.filter(function (a) { return a.action !== justRan; }).slice(0, 2);
+    picks.push({ action: 'talkshop', label: fenixState.visitor.connected ? 'Talk shop with Kiran' : 'Talk shop (connect)' });
+    return picks.map(function (a) { return { label: a.label, run: function () { startTool(a.action); } }; });
+  }
 
   // ── UI ────────────────────────────────────────────
 
@@ -132,16 +227,16 @@
 
     var pillContainer = el('div', 'ev-chat-pills');
     [
-      { text: 'Is my AI idea overkill?', panel: 'overkill' },
-      { text: 'Build a Job-to-be-Done', panel: 'jtbd' },
+      { text: 'Is my AI idea overkill?', action: 'overkill' },
+      { text: 'Build a Job-to-be-Done', action: 'jtbd' },
       { text: 'How does Kiran think about product?', q: 'How does Kiran think about product? Give me his sharpest, most contrarian principles.' }
     ].forEach(function (pill) {
       var btn = el('button', 'ev-chat-pill');
       btn.textContent = pill.text;
       btn.addEventListener('click', function () {
-        fenixState.explored.pillsUsed.push(pill.panel || 'chat');
+        fenixState.explored.pillsUsed.push(pill.action || 'chat');
         btn.classList.add('ev-pill-used');
-        if (pill.panel) { showPanel(pill.panel); return; }
+        if (pill.action) { startTool(pill.action); return; }
         askFenix(pill.q || pill.text, pill.text);
       });
       pillContainer.appendChild(btn);
@@ -152,8 +247,17 @@
     var inputField = el('input', 'ev-chat-input', { type: 'text', placeholder: 'Ask me anything about product...' });
     var sendBtn = el('button', 'ev-chat-send', { text: '➤' });
     sendBtn.setAttribute('aria-label', 'Send message');
+    state.msgArea = messageArea;
+    state.input = inputField;
     function handleSend() {
-      var t = inputField.value.trim(); if (!t) return;
+      var t = inputField.value.trim();
+      if (pendingTool) {
+        if (!t && !pendingTool.cfg.allowEmpty) { inputField.focus(); return; }
+        inputField.value = '';
+        submitTool(t);
+        return;
+      }
+      if (!t) return;
       FC.addVisitorMessage(messageArea, t); inputField.value = '';
       FC.sendToAgent(t, messageArea);
     }
@@ -232,11 +336,7 @@
       function open() {
         cardEl.classList.add('ev-card-visited');
         fenixState.explored.cardsClicked.push(card.id);
-        if (card.locked) {
-          askFenix("I'd like to talk shop with Kiran about a real product problem — peer to peer. First, who should I tell him is asking? Let's connect.", "Talk shop — let's connect");
-          return;
-        }
-        showPanel(card.action);
+        startTool(card.action);
       }
       cardEl.addEventListener('click', open);
       cardEl.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
@@ -253,94 +353,12 @@
     leftCol.querySelectorAll('.ev-unlock-card, .ev-unlock-cards-header').forEach(function (n) { n.classList.add('ev-revealed'); });
   }
 
-  // ── Panels ────────────────────────────────────────
-
-  function showPanel(panelType) {
-    closePanel();
-    var zone = document.querySelector('.fenix-intro-zone');
-    if (!zone) return;
-    var panel = el('div', 'ev-expanded-panel pr-panel pr-panel-' + panelType);
-
-    if (panelType === 'overkill') {
-      toolPanel(panel, {
-        strong: 'Is AI overkill?', rest: "Describe the AI feature you're weighing. I'll give you a verdict, not a vibe.",
-        placeholder: "e.g. 'An AI chatbot to help users find the right pricing plan.'",
-        examples: ["An AI that writes users' meeting notes", "AI to auto-tag support tickets", "An AI onboarding assistant"],
-        button: 'Check my idea', promptFn: overkillPrompt, displayFn: function (v) { return 'Is AI overkill? ' + v; },
-        artifact: true, tool: 'overkill', kicker: 'AI Gut-Check', artifactTitle: 'Is AI overkill?'
-      });
-    } else if (panelType === 'jtbd') {
-      toolPanel(panel, {
-        strong: 'Jobs-to-Be-Done builder.', rest: "Tell me your product and who uses it — I'll build the real job it's hired to do.",
-        placeholder: "e.g. 'A meal-kit subscription for busy parents.'",
-        examples: ["A time-tracking app for freelancers", "A budgeting app for couples", "A note-taking app for researchers"],
-        button: 'Build the job', promptFn: jtbdPrompt, displayFn: function (v) { return 'JTBD for: ' + v; },
-        artifact: true, tool: 'jtbd', kicker: 'Jobs-to-Be-Done', artifactTitle: 'Your Jobs-to-Be-Done'
-      });
-    } else if (panelType === 'journey') {
-      toolPanel(panel, {
-        strong: 'Map the journey.', rest: "Name a product and a flow — I'll chart the customer's emotional highs and lows.",
-        placeholder: "e.g. 'Onboarding for a mobile banking app'",
-        examples: ["Checkout on an e-commerce site", "First run of a to-do app", "Cancelling a subscription"],
-        button: 'Map it', promptFn: journeyPrompt, displayFn: function (v) { return 'Map the journey: ' + v; },
-        artifact: true, tool: 'journey', kicker: 'Customer Journey', artifactTitle: 'The Emotional Journey'
-      });
-    } else if (panelType === 'featurecreep') {
-      toolPanel(panel, {
-        strong: 'Feature Creep.', rest: "Name a product — or leave it blank and I'll pick one. Then watch me ruin it with AI.",
-        placeholder: "e.g. 'a toaster' — or leave blank for a surprise",
-        allowEmpty: true, examples: ["a toaster", "Google Calendar", "a parking meter"],
-        button: 'Creep it', promptFn: featurecreepPrompt, displayFn: function (v) { return v ? 'Feature-creep: ' + v : 'Feature-creep something random'; },
-        artifact: true, tool: 'featurecreep', kicker: 'Feature Creep', artifactTitle: 'Feature Creep'
-      });
-    } else if (panelType === 'talkshop') {
-      toolPanel(panel, {
-        strong: 'Talk shop.', rest: "What are you chewing on? A roadmap call, positioning, a decision you're stuck on.",
-        placeholder: "The problem you're wrestling with, in a sentence or two.",
-        button: "Think it through", promptFn: talkshopPrompt, displayFn: function (v) { return 'Talk shop: ' + v; }
-      });
-    } else { return; }
-
-    state.currentPanel = panelType;
-    zone.insertAdjacentElement('afterend', panel);
-    requestAnimationFrame(function () { panel.classList.add('ev-open'); });
-  }
-
-  function closePanel() {
-    var existing = document.querySelector('.ev-expanded-panel');
-    if (existing) existing.parentNode.removeChild(existing);
-    state.currentPanel = null;
-  }
-
-  function toolPanel(panel, cfg) {
-    panel.appendChild(el('div', 'ev-panel-heading', { html: '<em>Fenix:</em> <strong>' + cfg.strong + '</strong> ' + cfg.rest }));
-    var body = el('div', 'pr-tool');
-    var ta = el('textarea', 'pr-tool-input', { placeholder: cfg.placeholder, rows: '3' });
-    body.appendChild(ta);
-    if (cfg.examples) {
-      var row = el('div', 'pr-tool-examples');
-      row.appendChild(el('span', 'pr-tool-examples-label', { text: 'Try:' }));
-      cfg.examples.forEach(function (ex) {
-        var chip = el('button', 'pr-tool-chip', { type: 'button', text: ex });
-        chip.addEventListener('click', function () { ta.value = ex; ta.focus(); });
-        row.appendChild(chip);
-      });
-      body.appendChild(row);
-    }
-    var btn = el('button', 'ev-btn-primary pr-tool-btn', { type: 'button', text: cfg.button });
-    btn.addEventListener('click', function () {
-      var v = ta.value.trim();
-      if (!v && !cfg.allowEmpty) { ta.focus(); return; }
-      closePanel();
-      if (cfg.artifact && window.FenixArtifact) {
-        window.FenixArtifact.run({ kicker: cfg.kicker, title: cfg.artifactTitle, input: v, persona: 'practitioner', accent: ACCENT, tool: cfg.tool, prompt: cfg.promptFn(v) });
-      } else {
-        askFenix(cfg.promptFn(v), cfg.displayFn(v));
-      }
-    });
-    body.appendChild(btn);
-    panel.appendChild(body);
-  }
+  // ── Panels → now in-chat ──────────────────────────
+  // The tools no longer open a separate panel below; they run in the chat.
+  // showPanel/closePanel are kept as thin shims for back-compat (the agent's
+  // open_panel path and _autoOpenPanel both call adapter.showPanel).
+  function showPanel(panelType) { startTool(panelType); }
+  function closePanel() { pendingTool = null; }
 
   // ── Styles ────────────────────────────────────────
   function injectStyles() {
@@ -371,11 +389,7 @@
     onConnect: function () { rebuildCards(); },
     onPillAction: function (pill) {
       if (['overkill', 'jtbd', 'featurecreep', 'journey', 'talkshop'].indexOf(pill.action) !== -1) {
-        if (pill.action === 'talkshop' && !fenixState.visitor.connected) {
-          askFenix("I'd like to talk shop with Kiran about a real product problem — peer to peer. First, who should I tell him is asking? Let's connect.", "Talk shop — let's connect");
-          return true;
-        }
-        showPanel(pill.action);
+        startTool(pill.action);
         return true;
       }
       return false;
