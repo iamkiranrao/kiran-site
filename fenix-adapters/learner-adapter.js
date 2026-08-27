@@ -288,6 +288,83 @@
     obs.observe(zone);
   }
 
+  // ── "What I'm reading & listening to" — a curated reading room ──────
+  // Static, Kiran-owned. Opens in the branded artifact modal (shareable + printable).
+  // Seeded with titles + authors; add `url` and `why` per item as you go.
+  // Each item: { t: title, a: author/host, url: '', why: '' }
+  var PICKS_INTRO = "A few things shaping how I think — the books, essays, and voices I keep coming back to. Craft, conscience, and the human skills that don't get automated. Some current, some timeless.";
+  var PICKS = [
+    { section: '📚 Reading', items: [
+      { t: 'Inspired (+ Empowered)', a: 'Marty Cagan', url: '', why: '' },
+      { t: 'Escaping the Build Trap', a: 'Melissa Perri', url: '', why: '' },
+      { t: 'Competing Against Luck', a: 'Clayton Christensen', url: '', why: '' },
+      { t: 'The Lean Startup', a: 'Eric Ries', url: '', why: '' },
+      { t: 'Continuous Discovery Habits', a: 'Teresa Torres', url: '', why: '' },
+      { t: 'Obviously Awesome', a: 'April Dunford', url: '', why: '' },
+      { t: 'AI Engineering', a: 'Chip Huyen', url: '', why: '' },
+      { t: 'Co-Intelligence', a: 'Ethan Mollick', url: '', why: '' },
+      { t: 'Thinking in Systems', a: 'Donella Meadows', url: '', why: '' }
+    ]},
+    { section: '🎧 Listening', items: [
+      { t: "Lenny's Podcast", a: 'Lenny Rachitsky', url: '', why: '' },
+      { t: 'Acquired', a: 'Gilbert & Rosenthal', url: '', why: '' },
+      { t: 'Latent Space', a: 'AI engineering & product', url: '', why: '' },
+      { t: 'How I Built This', a: 'Guy Raz', url: '', why: '' }
+    ]},
+    { section: '📰 Following', items: [
+      { t: "Lenny's Newsletter", a: 'Lenny Rachitsky', url: '', why: '' },
+      { t: 'Product Growth', a: 'Aakash Gupta', url: '', why: '' },
+      { t: 'Shreyas Doshi', a: 'product judgment', url: '', why: '' },
+      { t: 'The Beautiful Mess', a: 'John Cutler', url: '', why: '' },
+      { t: 'One Useful Thing', a: 'Ethan Mollick', url: '', why: '' },
+      { t: 'Stratechery', a: 'Ben Thompson', url: '', why: '' }
+    ]},
+    { section: '⚖️ The responsibility of what we build', items: [
+      { t: 'Your Undivided Attention / The Social Dilemma', a: 'Center for Humane Technology', url: '', why: '' },
+      { t: 'The Age of Surveillance Capitalism', a: 'Shoshana Zuboff', url: '', why: '' },
+      { t: 'Weapons of Math Destruction', a: "Cathy O'Neil", url: '', why: '' },
+      { t: 'The Attention Merchants', a: 'Tim Wu', url: '', why: '' },
+      { t: 'How to Do Nothing', a: 'Jenny Odell', url: '', why: '' },
+      { t: 'Nexus', a: 'Yuval Noah Harari', url: '', why: '' }
+    ]},
+    { section: '🧩 The human skills', items: [
+      { t: 'Taste for Makers', a: 'Paul Graham', url: '', why: '' },
+      { t: 'The Creative Act', a: 'Rick Rubin', url: '', why: '' },
+      { t: 'On Writing Well', a: 'William Zinsser', url: '', why: '' },
+      { t: 'The Pyramid Principle', a: 'Barbara Minto', url: '', why: '' },
+      { t: 'Made to Stick', a: 'Chip & Dan Heath', url: '', why: '' },
+      { t: 'The Greatest Sales Deck', a: 'Andy Raskin', url: '', why: '' },
+      { t: 'Clear Thinking', a: 'Shane Parrish', url: '', why: '' },
+      { t: 'Thinking in Bets', a: 'Annie Duke', url: '', why: '' },
+      { t: 'Never Split the Difference', a: 'Chris Voss', url: '', why: '' },
+      { t: 'Radical Candor', a: 'Kim Scott', url: '', why: '' },
+      { t: 'Range', a: 'David Epstein', url: '', why: '' }
+    ]}
+  ];
+
+  function picksMarkdown() {
+    var out = PICKS_INTRO + '\n';
+    PICKS.forEach(function (sec) {
+      out += '\n## ' + sec.section + '\n';
+      sec.items.forEach(function (it) {
+        var title = it.url ? '[**' + it.t + '**](' + it.url + ')' : '**' + it.t + '**';
+        var line = '- ' + title;
+        if (it.a) line += ' — ' + it.a;
+        if (it.why) line += ' · *' + it.why + '*';
+        out += line + '\n';
+      });
+    });
+    return out;
+  }
+
+  function showPicks() {
+    if (!window.FenixArtifact || !window.FenixArtifact.show) return;
+    window.FenixArtifact.show({
+      kicker: "Kiran's Picks", title: "What I'm reading & listening to",
+      content: picksMarkdown(), persona: 'learner', accent: ACCENT, tool: 'picks'
+    });
+  }
+
   function buildUnlockCards(container) {
     var cardsWrap = el('div', 'ev-unlock-cards');
     cardsWrap.appendChild(el('div', 'ev-unlock-cards-header', { html: 'Real tools, <span class="ev-emphasis">to help you break in</span> ↘' }));
@@ -302,6 +379,10 @@
         icon: G + '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
         title: 'Build your way in', tag: 'Learn by doing',
         hook: "Tell me the role you're aiming for — I'll hand you a real project you can build (no code) that proves you can do the job.", cta: '→ Get my project' },
+      { id: 'card-picks', action: 'picks',
+        icon: G + '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+        title: "What I'm reading & listening to", tag: 'Books, voices & the odd wildcard',
+        hook: "The books, essays, and voices shaping how I think — craft, conscience, and the human skills. Some current, some timeless.", cta: '→ Open the list' },
       { id: 'card-booking', action: 'booking',
         icon: G + '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>',
         title: 'Book a mentoring session', tag: 'Free · 1:1 with Kiran',
@@ -325,6 +406,7 @@
         cardEl.classList.add('ev-card-visited');
         fenixState.explored.cardsClicked.push(card.id);
         if (card.action === 'booking') { startBooking(cardEl); return; }
+        if (card.action === 'picks') { showPicks(); return; }
         startTool(card.action, cardEl);
       }
       cardEl.addEventListener('click', open);
@@ -347,6 +429,7 @@
   // back-compat (the agent's open_panel path and _autoOpenPanel call showPanel).
   function showPanel(panelType) {
     if (panelType === 'booking') { startBooking(); return; }
+    if (panelType === 'picks') { showPicks(); return; }
     startTool(panelType);
   }
   function closePanel() { pendingTool = null; }
@@ -374,6 +457,7 @@
     onConnect: function () { rebuildCards(); },
     onPillAction: function (pill) {
       if (pill.action === 'booking') { startBooking(); return true; }
+      if (pill.action === 'picks') { showPicks(); return true; }
       if (['metrics', 'buildwayin'].indexOf(pill.action) !== -1) {
         startTool(pill.action);
         return true;
