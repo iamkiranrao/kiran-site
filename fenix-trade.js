@@ -191,17 +191,18 @@
     }
     if (errEl) errEl.classList.remove('ft-err--show');
 
-    // Record the trade so Kiran can broker it (lands in the session + backend).
+    // Send the trade to Kiran — emails him the door details so he can broker it.
     try {
-      var msgArea = document.querySelector('.ev-chat-messages');
-      if (msgArea && FC.sendToAgent) {
-        FC.sendToAgent(
-          'I’d like to propose a trade with Kiran. A door I can open: "' + st.offer.trim() + '". A door I’m looking for: "' + st.want.trim() +
-          '". I’ve connected as ' + st.name + ' from ' + st.company + (st.email ? ' (' + st.email + ')' : '') + '. Please pass this to Kiran to broker — double-opt-in.',
-          msgArea
-        );
-      }
-    } catch (e) { /* best-effort */ }
+      fetch('https://api.kiranrao.ai/api/v1/fenix/trade', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: st.name, company: st.company || null, email: st.email || null, role: st.role || null,
+          offer: st.offer.trim(), want: st.want.trim(),
+          page_url: location.href,
+          conversation_id: (FC.fenixState && FC.fenixState.conversationId) || null
+        })
+      }).catch(function () { /* best-effort — the modal confirmation already shows */ });
+    } catch (e) { /* ignore */ }
 
     stageProposed(ctx);
   }
