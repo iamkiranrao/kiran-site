@@ -873,6 +873,13 @@
       return;
     }
 
+    // Special handling for Learner persona
+    if (persona === 'learner' && typeof window.LearnerExperience !== 'undefined') {
+      document.body.classList.add('persona-learner');
+      window.LearnerExperience.init(persona);
+      return;
+    }
+
     // Left column: unlocks
     var unlocksList = document.querySelector('.fenix-intro-unlocks');
     if (unlocksList && config.unlocks) {
