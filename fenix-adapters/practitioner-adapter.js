@@ -37,7 +37,7 @@
       "1. **Verdict** — pick one: ✅ AI earns its keep · ⚠️ Could work — test the cheap version first · 🛑 AI is overkill here.\n" +
       "2. **The four questions** (answer each for their idea, one crisp line): (a) Probabilistic or deterministic? — AI wins on judgment/fuzzy, rules & search win on deterministic. (b) Is there an 80% solution without AI? (c) What's the cost of being wrong? — AI + wrong = eroded trust. (d) Is the value in the outcome, or the 'AI' label?\n" +
       "3. **The cheaper path** — if it's overkill or testable, the simpler thing to try first.\n" +
-      "4. **Kiran's take** — one honest line.\nKeep it tight.";
+      "4. **Kiran's take** — one honest line.\nKeep it tight. Output ONLY the structured answer — no preamble, no sign-off, and no follow-up questions.";
   }
   function jtbdPrompt(v) {
     return "A visitor is using Kiran's Jobs-to-Be-Done builder. Their product: \"" + v + "\".\n" +
@@ -51,7 +51,7 @@
       "- **Anxiety:** their fear or doubt about switching\n" +
       "- **Habit:** what keeps them stuck with the old way\n" +
       "5. **What they're really firing** — the current workaround that is your true competition (often not who they'd guess).\n" +
-      "6. **The trap** — the most common way teams get this job wrong.\nBe specific to their product.";
+      "6. **The trap** — the most common way teams get this job wrong.\nBe specific to their product. Output ONLY the structured artifact — no preamble, no sign-off, and no follow-up questions.";
   }
   function journeyPrompt(v) {
     return "A visitor is using Kiran's \"Map the journey\" tool. Their product or flow: \"" + v + "\". Answer AS Fenix in Kiran's voice. Map the customer's EMOTIONAL journey through this flow as 4–6 key steps in order. First, ONE short sentence framing the journey. Then output the steps in EXACTLY this machine-readable format — one per line, nothing else on the line, no extra prose after:\n" +
