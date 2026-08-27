@@ -13,6 +13,9 @@ on:
       - 'fenix-index.json'
   workflow_dispatch: # Manual trigger from GitHub Actions UI
 
+concurrency:
+  group: fenix-reindex-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   reindex:
     name: Re-index content for Fenix
