@@ -4,14 +4,16 @@
  * Fenix page adapter for the Practitioner persona (product / design / data folks — "Drew Skematics").
  *
  * Audience is a PEER, not an evaluator. So: generosity + craft + real utility.
- * Four unlocks — the free ones are TOOLS they can actually use on their own work:
+ * Five unlocks — the tool cards run in the chat; The Trade opens its own experience:
  *   1. overkill      — "Is AI overkill?" — describe an AI idea -> honest verdict + the cheaper path
  *   2. jtbd          — Jobs-to-Be-Done builder — describe a product -> the real job + Four Forces
- *   3. featurecreep  — fun: name a product -> 3 gloriously stupid AI bolt-ons (mocks the AI-cram trend)
- *   4. talkshop      — gated (connect to unlock): peer conversation about a real problem
+ *   3. journey       — Map the journey — a flow -> the customer's emotion curve + per-step insight
+ *   4. featurecreep  — fun: name a product -> 3 gloriously stupid AI bolt-ons (mocks the AI-cram trend)
+ *   5. trade         — "Trade me a door" — the card-trading experience (fenix-trade.js): peer-to-peer
+ *                      contact swap, double-opt-in. Connecting is the price of a trade.
  *
- * Every tool routes a STRUCTURED prompt through Fenix (grounded) — the framework does the work,
- * not a free-form opinion. No CC key, no CC dependency. Requires fenix-core.js first.
+ * Tool cards route a STRUCTURED prompt through Fenix (grounded) — the framework does the work.
+ * The Trade is handled by window.FenixTrade.open(). Requires fenix-core.js first.
  * Hook: persona-system.js calls PractitionerExperience.init('practitioner')
  * ============================================
  */
@@ -26,7 +28,7 @@
 
   var ACCENT = '#4DAF8B';
 
-  var FENIX_OPENING = "Quick context — Kiran built this site as a working product, not a portfolio. The cards on the left aren't demos; they're real tools for your own work. Run an AI idea past the overkill check, build a Jobs-to-Be-Done map for your product, or just talk shop. Kick the tires.";
+  var FENIX_OPENING = "Quick context — Kiran built this site as a working product, not a portfolio. The cards on the left aren't demos; they're real tools for your own work. Run an AI idea past the overkill check, build a Jobs-to-Be-Done map, map a customer journey — or trade a door from Kiran's network. Kick the tires.";
 
   // ── Structured prompts (the framework + Kiran's POV baked in) ──
   function overkillPrompt(v) {
@@ -61,16 +63,11 @@
     var thing = v ? "\"" + v + "\"" : "a well-known product of your choice (pick something recognizable)";
     return "A visitor is playing Kiran's \"Feature Creep\" — a joke tool. Take " + thing + " and bolt on THREE gloriously stupid, over-engineered AI features nobody asked for, each with a straight-faced fake-PM justification. Answer AS Fenix, genuinely funny, mocking the 2026 'cram AI into everything' trend. Number them 1–3, each: a ridiculous **Feature name** + a one-line deadpan rationale. End with a wink that the best AI feature is usually the one you didn't build.";
   }
-  function talkshopPrompt(v) {
-    return "A visitor (a fellow product/design/data person, already connected) wants to talk shop with Kiran about: \"" + v + "\". Answer AS Fenix in Kiran's voice — peer to peer, not a pitch. Give a sharp first-pass: how Kiran would frame it, the first question or two he'd ask, and one non-obvious angle. Then offer to set up a real conversation with him.";
-  }
-
   var state = { currentPanel: null, msgArea: null, input: null };
 
   // ── In-chat tool flow ─────────────────────────────
   // Each tool: Fenix asks its question in the chat, the visitor answers inline,
   // Fenix thinks in the chat, and the one-pager pops only when it's ready.
-  // (talkshop is a chat conversation, not an artifact — chat:true.)
   var TOOLS = {
     overkill: {
       ask: "Describe the AI feature you're weighing — a sentence or two. I'll tell you if AI earns its keep, or if a simpler answer wins.",
@@ -100,19 +97,13 @@
       kicker: 'Feature Creep', artifactTitle: 'Feature Creep', tool: 'featurecreep',
       promptFn: featurecreepPrompt,
       displayFn: function (v) { return v || 'Surprise me'; }
-    },
-    talkshop: {
-      chat: true,
-      ask: "What are you chewing on? A roadmap call, positioning, a decision you're stuck on — a sentence or two.",
-      placeholder: "the problem you're wrestling with",
-      promptFn: talkshopPrompt
     }
   };
 
   // Left-card titles — flown across to the chat as the throughline.
   var TOOL_TITLES = {
     overkill: 'Is AI overkill?', jtbd: 'Jobs-to-Be-Done builder',
-    journey: 'Map the journey', featurecreep: 'Feature Creep', talkshop: 'Talk shop.'
+    journey: 'Map the journey', featurecreep: 'Feature Creep'
   };
 
   var pendingTool = null;
@@ -128,21 +119,14 @@
     var msgArea = getMsgArea();
     if (!msgArea) return;
 
-    var proceed;
-    if (action === 'talkshop' && !fenixState.visitor.connected) {
-      proceed = function () {
-        askFenix("I'd like to talk shop with Kiran about a real product problem — peer to peer. First, who should I tell him is asking? Let's connect.", "Talk shop — let's connect");
-      };
-    } else {
-      proceed = function () {
-        if (cardEl) FC.addLandedMessage(msgArea, TOOL_TITLES[action] || t.ask);
-        FC.addFenixMessage(msgArea, t.ask);
-        pendingTool = { action: action, cfg: t };
-        if (state.input) { state.input.placeholder = t.placeholder || 'Type your answer…'; state.input.focus(); }
-        var chat = document.querySelector('.ev-fenix-chat');
-        if (chat) chat.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      };
-    }
+    var proceed = function () {
+      if (cardEl) FC.addLandedMessage(msgArea, TOOL_TITLES[action] || t.ask);
+      FC.addFenixMessage(msgArea, t.ask);
+      pendingTool = { action: action, cfg: t };
+      if (state.input) { state.input.placeholder = t.placeholder || 'Type your answer…'; state.input.focus(); }
+      var chat = document.querySelector('.ev-fenix-chat');
+      if (chat) chat.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
 
     if (cardEl) FC.flyCardToChat({ cardEl: cardEl, title: TOOL_TITLES[action] || t.ask, messageArea: msgArea, accent: ACCENT, onLand: proceed });
     else proceed();
@@ -155,11 +139,6 @@
     if (!pt) return;
     var t = pt.cfg, msgArea = getMsgArea();
     var display = (t.displayFn ? t.displayFn(value) : value) || '';
-    if (t.chat) {
-      FC.addVisitorMessage(msgArea, display);
-      FC.sendToAgent(t.promptFn(value), msgArea);
-      return;
-    }
     FC.runTool({
       messageArea: msgArea, persona: 'practitioner', accent: ACCENT, tool: t.tool,
       kicker: t.kicker, artifactTitle: t.artifactTitle, input: display,
@@ -189,8 +168,13 @@
       if (picks.some(function (p) { return p.action === a.action; })) return;
       picks.push(a);
     });
-    picks.push({ action: 'talkshop', label: fenixState.visitor.connected ? 'Talk shop with Kiran' : 'Talk shop (connect)' });
-    return picks.map(function (a) { return { label: a.label, run: function () { startTool(a.action); } }; });
+    picks.push({ action: 'trade', label: 'Trade a door with Kiran' });
+    return picks.map(function (a) {
+      return { label: a.label, run: function () {
+        if (a.action === 'trade') { if (window.FenixTrade) window.FenixTrade.open(); return; }
+        startTool(a.action);
+      } };
+    });
   }
 
   // ── UI ────────────────────────────────────────────
@@ -231,7 +215,7 @@
     var firstName = isConnected && fenixState.visitor.name ? fenixState.visitor.name.split(' ')[0] : '';
 
     container.appendChild(el('div', 'ev-fenix-col-header', {
-      html: 'MEET FENIX — <span class="ev-fenix-tagline">real tools, or just talk shop ↘</span>'
+      html: 'MEET FENIX — <span class="ev-fenix-tagline">real tools, and a door worth trading ↘</span>'
     }));
 
     var wrapper = el('div', 'ev-fenix-chat');
@@ -341,14 +325,12 @@
         icon: G + '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0Z"/></svg>',
         title: 'Feature Creep', tag: "For the record, it's a joke",
         hook: "Name a product. I'll bolt on three gloriously stupid AI features nobody asked for — because 2026.", cta: '→ Creep it' },
-      { id: 'card-talkshop', action: 'talkshop',
-        icon: G + '<path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>',
-        title: 'Talk shop.',
-        tag: connected ? 'Peer to peer' : 'Connect to unlock',
-        hook: "Bring a real problem you're chewing on — a roadmap, positioning, a call you're stuck on — and we think it through as peers.",
-        gateReason: connected ? null : "Peers trade names before they trade problems — who am I talking to?",
-        cta: connected ? "→ Let's get into it" : '→ Connect to unlock',
-        locked: !connected }
+      { id: 'card-trade', action: 'trade',
+        icon: G + '<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>',
+        title: 'Trade me a door.',
+        tag: 'A door for a door',
+        hook: "700+ people in my network, 4 in 10 senior in banking & fintech — not names to hand out, doors to open. Tell me who you're trying to reach; if I can open that door and you've got one for me, we trade.",
+        cta: '→ See my deck' }
     ];
 
     cards.forEach(function (card) {
@@ -367,6 +349,7 @@
       function open() {
         cardEl.classList.add('ev-card-visited');
         fenixState.explored.cardsClicked.push(card.id);
+        if (card.action === 'trade') { if (window.FenixTrade) window.FenixTrade.open(); return; }
         startTool(card.action, cardEl);
       }
       cardEl.addEventListener('click', open);
@@ -419,7 +402,8 @@
     openingMessage: FENIX_OPENING,
     onConnect: function () { rebuildCards(); },
     onPillAction: function (pill) {
-      if (['overkill', 'jtbd', 'featurecreep', 'journey', 'talkshop'].indexOf(pill.action) !== -1) {
+      if (pill.action === 'trade') { if (window.FenixTrade) window.FenixTrade.open(); return true; }
+      if (['overkill', 'jtbd', 'featurecreep', 'journey'].indexOf(pill.action) !== -1) {
         startTool(pill.action);
         return true;
       }
