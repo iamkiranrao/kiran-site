@@ -441,7 +441,7 @@
     } catch (e) { /* ignore malformed links */ }
   }
 
-  window.FenixArtifact = { run: run, show: show, generate: generate, close: close };
+  window.FenixArtifact = { run: run, show: show, generate: generate, close: close, shell: build, escHtml: escHtml };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tryLoadFromUrl);
   else tryLoadFromUrl();
