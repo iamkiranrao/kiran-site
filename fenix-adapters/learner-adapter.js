@@ -438,6 +438,9 @@
   function injectStyles() {
     if (document.getElementById('lr-adapter-styles')) return;
     var css = ''
+      // Recolor the shared ev-* UI to the Learner's purple — mirrors how
+      // body.persona-practitioner overrides these vars for the green persona.
+      + 'body.persona-learner{--ev-accent:#A07ED4;--ev-accent-glow:rgba(160,126,212,.12);--ev-accent-border:rgba(160,126,212,.28);--ev-accent-border-hover:rgba(160,126,212,.45)}'
       + '.lr-book-btn{display:inline-block;margin-top:12px;text-decoration:none;border-color:rgba(160,126,212,.5);color:' + ACCENT + '}'
       + '.lr-book-btn:hover{background:rgba(160,126,212,.16);border-color:' + ACCENT + '}';
     var s = document.createElement('style'); s.id = 'lr-adapter-styles'; s.textContent = css;
