@@ -1,1 +1,0 @@
-{"title":"Light-theme contrast audit for 6 persona accent colors","description":"All 6 persona accent colors were audited against dark backgrounds (WCAG AA passed). Light theme needs the same check. Warm Gunmetal (#8A8580) is the most likely to fail.","workstream":"persona-picker","priority":"medium","source":"session","status":"todo"}
