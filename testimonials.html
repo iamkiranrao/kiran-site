@@ -611,16 +611,19 @@
     (function () {
         'use strict';
 
-        var CC_API = 'https://cc.kiranrao.ai/api/feedback';
+        // Re-homed off Command Center (laptop) to the always-on Fenix backend,
+        // so testimonials render even when CC is offline.
+        var API = 'https://api.kiranrao.ai/api/v1/fenix';
 
         // ── Load Testimonials ───────────────────────────────────
         function loadTestimonials() {
             var container = document.getElementById('testimonials-container');
 
-            fetch(CC_API + '/testimonials/public')
+            fetch(API + '/testimonials')
                 .then(function (res) { return res.json(); })
                 .then(function (data) {
-                    var testimonials = data.testimonials || [];
+                    // Backend returns a plain array; tolerate the old {testimonials:[]} too.
+                    var testimonials = Array.isArray(data) ? data : (data.testimonials || []);
 
                     if (testimonials.length === 0) {
                         container.className = 'testimonials-empty';
@@ -632,13 +635,19 @@
                     container.innerHTML = '';
 
                     testimonials.forEach(function (t) {
+                        // Normalize fields across backend (feedback_text/visitor_name/
+                        // visitor_company) and any legacy shape (testimonial/name/role).
+                        var quote = t.feedback_text || t.testimonial || '';
+                        var pname = t.visitor_name || t.name || '';
+                        var prole = t.visitor_company || t.role || '';
+
                         var card = document.createElement('div');
                         card.className = 'testimonial-card';
 
                         // Bucket by length so the masonry has visual rhythm
                         // (short/punchy quotes get italic-serif treatment;
                         // long ones get slightly larger body for readability).
-                        var len = (t.testimonial || '').length;
+                        var len = quote.length;
                         if (len < 120) {
                             card.setAttribute('data-length', 'short');
                         } else if (len > 320) {
@@ -649,14 +658,14 @@
 
                         var text = document.createElement('div');
                         text.className = 'testimonial-text';
-                        text.textContent = t.testimonial;
+                        text.textContent = quote;
                         card.appendChild(text);
 
                         var author = document.createElement('div');
                         author.className = 'testimonial-author';
-                        var html = '<strong>' + escapeHtml(t.name) + '</strong>';
-                        if (t.role) {
-                            html += '<span class="role-sep">&middot;</span>' + escapeHtml(t.role);
+                        var html = '<strong>' + escapeHtml(pname) + '</strong>';
+                        if (prole) {
+                            html += '<span class="role-sep">&middot;</span>' + escapeHtml(prole);
                         }
                         author.innerHTML = html;
                         card.appendChild(author);
@@ -681,13 +690,15 @@
 
             var formData = new FormData(tForm);
             var payload = {
-                name: formData.get('name'),
-                role: formData.get('role') || null,
-                testimonial: formData.get('testimonial'),
-                is_public: formData.get('is_public') === 'on'
+                visitor_name: formData.get('name'),
+                visitor_company: formData.get('role') || null,
+                feedback_text: formData.get('testimonial'),
+                public_ok: formData.get('is_public') === 'on',
+                source: 'form',
+                page_url: location.href
             };
 
-            fetch(CC_API + '/testimonial/submit', {
+            fetch(API + '/feedback', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -742,12 +753,16 @@
             btn.disabled = true;
             btn.textContent = 'Sending...';
 
+            var ratingInt = parseInt(selectedRating, 10);
             var payload = {
-                rating: selectedRating || null,
-                comment: comment || null
+                feedback_text: comment || ('Reaction: ' + (selectedRating || 'n/a')),
+                rating: (ratingInt >= 1 && ratingInt <= 5) ? ratingInt : null,
+                public_ok: false,
+                source: 'form',
+                page_url: location.href
             };
 
-            fetch(CC_API + '/submit', {
+            fetch(API + '/feedback', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
