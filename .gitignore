@@ -56,3 +56,5 @@ fonts-temp/
 
 # Internal working docs — keep local/Vault, never publish
 /docs/
+
+!CLAUDE.md
