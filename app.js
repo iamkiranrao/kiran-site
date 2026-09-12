@@ -345,7 +345,7 @@ if (feedbackForm) {
         if (!selectedRating && !comment.trim()) return;
 
         const SUPABASE_URL = 'https://gndzmmywtxvlukoavadj.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduZHptbXl3dHh2bHVrb2F2YWRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0ODAzOTEsImV4cCI6MjA4ODA1NjM5MX0.WrfvJ9rOvDnn6bAqWRbjk7Hr_wOqmP5It2ixHQjS8yw';
+        const SUPABASE_ANON_KEY = 'sb_publishable_jEV9ZyHsJWLvLNukHqdAww_dG8pxPNE';
 
         fetch(`${SUPABASE_URL}/rest/v1/site_feedback`, {
             method: 'POST',
@@ -390,7 +390,7 @@ if (testimonialForm) {
         if (!name || !testimonialText) return;
 
         const SB_URL = 'https://gndzmmywtxvlukoavadj.supabase.co';
-        const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduZHptbXl3dHh2bHVrb2F2YWRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0ODAzOTEsImV4cCI6MjA4ODA1NjM5MX0.WrfvJ9rOvDnn6bAqWRbjk7Hr_wOqmP5It2ixHQjS8yw';
+        const SB_KEY = 'sb_publishable_jEV9ZyHsJWLvLNukHqdAww_dG8pxPNE';
 
         fetch(`${SB_URL}/rest/v1/testimonials`, {
             method: 'POST',
