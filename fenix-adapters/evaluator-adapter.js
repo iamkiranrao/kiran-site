@@ -938,7 +938,7 @@
       if (!selectedLensId || !RESUME_PDF_MAP[selectedLensId]) return;
       var link = document.createElement('a');
       link.href = RESUME_PDF_MAP[selectedLensId];
-      link.download = 'Kiran_Rao_Resume_' + selectedLensName.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf';
+      link.download = 'Kiran_Gorapalli_Resume_' + selectedLensName.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf';
       link.target = '_blank';
       document.body.appendChild(link);
       link.click();

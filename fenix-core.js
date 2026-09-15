@@ -868,7 +868,7 @@
       lastName = parts.slice(1).join(' ') || '';
     }
     var name = (firstName + (lastName ? ' ' + lastName : '')).trim();
-    // Capitalize first letter of each name part (e.g. "kiran rao" → "Kiran Rao")
+    // Capitalize first letter of each name part (e.g. "kiran gorapalli" → "Kiran Gorapalli")
     name = name.split(' ').map(function (w) {
       return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
     }).join(' ');

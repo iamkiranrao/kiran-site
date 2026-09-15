@@ -1,4 +1,4 @@
-# kiran-site — Kiran Rao's portfolio (kiranrao.ai)
+# kiran-site — Kiran Gorapalli's portfolio (kiranrao.ai)
 
 > **Working style: keep responses SHORT and to the point. Kiran wants important details fast, not long-winded walls of text.**
 

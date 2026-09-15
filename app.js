@@ -33,7 +33,7 @@ function applyTranslations(lang) {
     });
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc && lang !== 'en') metaDesc.content = `${t.tagline} - ${t.location}`;
-    if (lang !== 'en') document.title = `Kiran Rao - ${t.tagline}`;
+    if (lang !== 'en') document.title = `Kiran Gorapalli - ${t.tagline}`;
 }
 
 let currentLang = detectLanguage();

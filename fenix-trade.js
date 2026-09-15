@@ -25,7 +25,7 @@
 
   // Kiran's deck — grounded in the real LinkedIn export (731 connections).
   var DECK = {
-    name: 'Kiran Rao',
+    name: 'Kiran Gorapalli',
     role: 'Product Leader',
     team: 'ex–Wells Fargo · First Republic',
     tagline: 'I trade doors.',

@@ -1,6 +1,6 @@
 # Fenix & Command Center Roadmap
 
-**Owner:** Kiran Rao
+**Owner:** Kiran Gorapalli
 **Created:** 2026-03-04
 **Status:** Active
 

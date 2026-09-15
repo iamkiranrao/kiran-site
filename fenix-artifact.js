@@ -312,7 +312,7 @@
     fleft.appendChild(flogo);
     var ftxt = el('div', 'fa-foot-txt');
     ftxt.appendChild(el('span', 'fa-foot-made', { text: 'Made with Fenix' }));
-    ftxt.appendChild(el('span', 'fa-foot-brand', { text: 'Kiran Rao · kiranrao.ai' }));
+    ftxt.appendChild(el('span', 'fa-foot-brand', { text: 'Kiran Gorapalli · kiranrao.ai' }));
     fleft.appendChild(ftxt);
     foot.appendChild(fleft);
     var cta = el('button', 'fa-foot-cta', { text: 'Build your own →' });

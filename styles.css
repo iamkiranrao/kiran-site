@@ -3033,7 +3033,7 @@ body, nav, section, footer, .mobile-menu,
     pointer-events: auto !important;
 }
 
-/* "Kiran Rao" — arrives first, anchors the page */
+/* "Kiran Gorapalli" — arrives first, anchors the page */
 .morph-reveal .hero-text > h1 {
     animation: textEmerge 0.7s var(--ease-decel) 0.35s forwards;
     opacity: 0;
