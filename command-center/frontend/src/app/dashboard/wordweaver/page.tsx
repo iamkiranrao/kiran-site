@@ -33,6 +33,29 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 // Mirrors MAX_SOURCE_CHARS in the backend's wordweaver router.
 const MAX_SOURCE_CHARS = 24000;
 
+/** "3 hours ago" for recent work, an absolute date once it stops being useful. */
+function timeAgo(iso?: string): string {
+  if (!iso) return "";
+  const then = new Date(iso);
+  if (Number.isNaN(then.getTime())) return "";
+  const mins = Math.floor((Date.now() - then.getTime()) / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days === 1) return "yesterday";
+  if (days < 7) return `${days}d ago`;
+  return then.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+/** Full timestamp for the hover tooltip. */
+function fullTime(iso?: string): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? "" : d.toLocaleString();
+}
+
 const BLOG_LABELS = [
   "Format, Theme & Angle",
   "Live Web Research",
@@ -64,6 +87,8 @@ interface Session {
   status: string;
   config: Record<string, string>;
   steps: Record<string, { content: string; status: string }>;
+  created_at?: string;
+  updated_at?: string;
 }
 
 type View = "list" | "create" | "workflow";
@@ -774,6 +799,11 @@ export default function WordWeaverPage() {
                       </p>
                       <p className="text-xs text-[var(--text-muted)] mt-0.5">
                         Step {s.current_step}/{s.total_steps} &middot; {s.status}
+                        {s.updated_at && (
+                          <span title={`Last worked on ${fullTime(s.updated_at)}${s.created_at ? ` \u00b7 Started ${fullTime(s.created_at)}` : ""}`}>
+                            {" "}&middot; {timeAgo(s.updated_at)}
+                          </span>
+                        )}
                       </p>
                     </div>
                     <ChevronRight size={16} className="text-[var(--text-muted)]" />
