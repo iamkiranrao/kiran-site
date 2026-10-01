@@ -182,43 +182,6 @@ def _load_voice_profile() -> str:
     return "\n".join(lines)
 
 
-def _load_career_facts() -> str:
-    """Published career facts, used to ground the Experience step's questions.
-
-    Everything here is already on Kiran's resume and live site, so quoting it
-    costs him nothing. An open question ("got an anecdote?") gets a blank; a
-    question anchored to real work he did gets a real answer.
-    """
-    path = os.path.join(CONFIG_DIR, "career-facts.json")
-    if not os.path.exists(path):
-        # No facts file: the step still runs, it just has to ask open questions.
-        return (
-            "No career facts file is configured, so you cannot anchor your questions "
-            "to Kiran's published work. Ask him directly which role or project this "
-            "argument touches before probing, rather than asking a generic "
-            "'do you have an anecdote' question."
-        )
-
-    with open(path) as f:
-        facts = json.load(f)
-
-    lines = ["KIRAN'S PUBLISHED CAREER FACTS (already on his resume and site - quoting these adds no new disclosure):"]
-    for role in facts.get("roles", []):
-        flag = "  [CURRENT EMPLOYER]" if role.get("current") else ""
-        lines.append(f"\n- {role['title']}, {role['company']} ({role['dates']}){flag}")
-        for r in role.get("published_results", []):
-            lines.append(f"    - {r}")
-        if role.get("territory"):
-            lines.append(f"    Territory: {', '.join(role['territory'])}")
-
-    cur = facts.get("current_role", {})
-    if cur.get("disclosure_note"):
-        lines.append(f"\nDISCLOSURE: {cur['disclosure_note']}")
-    for rule in facts.get("framing_rules", []):
-        lines.append(f"- {rule}")
-    return "\n".join(lines)
-
-
 def _load_themes() -> dict:
     """Load themes and angles from config."""
     themes_path = os.path.join(CONFIG_DIR, "wordweaver-themes.json")
@@ -350,8 +313,6 @@ he did not give you. Never offer a sample anecdote "to react to" - he will
 react to your framing instead of reaching for his own memory, and the post ends
 up yours. If you are about to write "something like: the quarter we...", stop.
 
-{career_facts}
-
 Run this as a working session, in four moves.
 
 MOVE 1 - BRIEF. Tell him where lived experience would be load-bearing in THIS
@@ -361,29 +322,40 @@ table. There are four useful kinds, and they are not equal:
   (b) A pattern he has seen repeat across organizations (no incident, no date)
   (c) A decision he made and what it cost
   (d) A thing he got wrong and what changed his mind
-(d) is the most valuable and the least used. (a) is the easiest win and almost
-always available from the facts above. Say which one this argument needs most.
+(d) is the most valuable and the least used, because it is the one thing no
+one can write on his behalf. Say which kind THIS argument needs most, and why
+that kind rather than the others. Do not assume he has any of them.
 
-MOVE 2 - PROBE. Ask three to five questions, each anchored to real work in the
-facts above and to this specific thesis. Generic prompts produce blanks.
-Anchored ones produce answers. Compare:
-  Weak:   "Do you have an anecdote about metrics?"
-  Strong: "You took the app from 18M to 32M. While user growth was the headline
-          number, what were you watching that never made the slide?"
-  Strong: "On the Fiserv to FIS migration, what did you have to argue for that
-          the business case did not capture?"
+MOVE 2 - PROBE. You do not know Kiran's history and must not guess at it. What
+you DO know is the argument on the table, so derive your questions from the
+thesis and let him locate the experience.
+
+Build each question around a specific claim the post is making, and ask where
+he has stood on either side of it. The useful shape is "when did you see X"
+rather than "do you have a story about X". Three to five questions. Aim them at
+different kinds of memory: a moment he argued and lost, a tradeoff he chose
+deliberately, a number he watched that nobody else did, a belief he has since
+abandoned.
+
+Then give him a way to interrogate his own experience rather than a request to
+produce. Useful frames:
+  - Invert the thesis. If the opposite were true, what would he have seen?
+  - Where does the claim stop being true in his world, and why?
+  - Which part of this argument would a peer who knows his work push back on?
+  - What is the most boring version of this that he knows is correct?
 Ask for rough notes. Situation, what he did, what happened. Messy is fine, and
 say so. Stop and wait for his answer.
 
 MOVE 3 - SHAPE. When he answers, do not simply accept it. First, play back what
 you heard in his own facts and confirm you have it right. Then show the SAME
 material at four attribution levels, with what each buys and what it costs:
-  1. NAMED      - "At Wells Fargo in 2019..." Most weight. Most exposure.
-  2. SECTOR     - "At a large US bank..." Keeps the specificity, drops the name.
-  3. PATTERN    - "In every bank I have worked in, the quarterly review has a
-                  slide for accounts opened and none for complaint volume."
-                  No incident, no date, nothing anyone can trace. Still
-                  concrete, still his, still carries.
+  1. NAMED      - the company and the year. Most weight, most exposure.
+  2. SECTOR     - the kind of company, not the name. Keeps the specificity,
+                  drops the attribution.
+  3. PATTERN    - a thing he has seen repeat, stated concretely, with no
+                  incident, no date and nothing anyone can trace to a team.
+                  Build this from what he actually told you, not from a
+                  template. Still concrete, still his, still carries.
   4. OMIT       - and say how the post would change to not need it.
 Name the risk of each honestly, especially level 1 or 2 where the subject is
 his current employer. He decides. Do not decide for him.
@@ -726,7 +698,6 @@ def build_step_messages(
             angles=", ".join(theme_data["angles"]),
             theme=config.get("theme", "not yet selected"),
             angle=config.get("angle", "not yet selected"),
-            career_facts=_load_career_facts() if step == EXPERIENCE_STEP else "",
         )
     else:
         # Social workflow — simpler prompts
