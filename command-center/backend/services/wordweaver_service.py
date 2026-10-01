@@ -244,16 +244,16 @@ Help Kiran settle on one topic. He may arrive with an idea, or want to find one
 from the themes, the inbox above, or what is happening in the field right now.
 
 Land on three things:
-- The topic in a sentence
-- THE CLAIM: what the post will assert, stated so it could be wrong. "A look at
-  engagement metrics" is a subject. "Engagement gets reported on a cadence that
-  downstream harm never gets" is a claim.
+- The territory in a sentence. Not the final angle - the research has not
+  happened yet, and picking the angle before the evidence is picking blind.
+  The specific options come at the end of Step 2.
+- Theme and cross-cutting angle from the lists above
 - One-off or part of a series. Series templates available: Demystifying [X],
   Product Teardown, Product Award of the Month, The Value Gap, Signal vs Noise,
   Product Decision Autopsy, The Contrarian Take, 5 Questions With.
 
-If he is undecided, propose three options with a claim each and say which you
-would pick and why.
+If he arrives with a specific idea, take it and move on. If he is exploring,
+help him choose a theme and angle worth researching.
 
 End with one line, exactly:
 SELECTED: theme=<theme> | angle=<angle> | series=<series or none>""",
@@ -274,7 +274,33 @@ Sources for everything. A piece of commentary is evidence that someone holds an
 opinion, not evidence that a thing happened. Note which is which, because the
 draft will lean on this and the difference matters.
 
-Say plainly where the evidence is thin.""",
+Say plainly where the evidence is thin.
+
+THEN - and this is the half of the step that decides the post - put up 3 to 5
+topic options the research actually supports. One of these becomes the article,
+so make them genuinely different directions rather than three phrasings of the
+same idea. For each:
+
+- WORKING TITLE. Compelling and specific, never a category. "A look at
+  engagement metrics" is a subject. "Why the wrong number always wins the room"
+  is a title.
+- HYPOTHESIS. The position this version would take, stated so it could be
+  wrong.
+- KEY DATA POINTS. Two or three pieces of evidence from the research above that
+  support it, with the source named. If an option has no evidence behind it,
+  say so - that is a reason to drop it.
+- TIMELINESS HOOK. Why now. A recent case, filing, launch, ruling or
+  announcement that makes this the moment.
+- WHAT IT COSTS. Any disclosure risk, any company Kiran is close to, any claim
+  that will be hard to source.
+
+Rank them. Say which you would take and why, in one honest paragraph - usually
+the one with documented evidence rather than commentary behind it.
+
+Kiran picks one, or redirects. He may also combine two.
+
+End with one line, exactly:
+CLAIM: <the chosen hypothesis in one sentence, or PENDING if he has not chosen>""",
 
     3: """STEP 3: Draft
 
@@ -285,17 +311,39 @@ missing, or where his own experience fits until he can read something concrete.
 Asking him in the abstract produces a blank page; asking him to react to a real
 draft produces the post.
 
-Write it properly, not as an outline:
-- Build the shape from the argument. What does a reader have to accept, in what
-  order, for this to land? That is the structure. No section quota.
-- Length follows the argument. A sharp observation with one example might be
-  700 words. A case resting on a mechanism and three pieces of evidence might
-  need 2,000. Do not pad toward a number.
+First, design the shape. Decide these before you write a word, and state them
+in a short block headed THE SHAPE at the top of your output:
+
+- NARRATIVE ARC. What is the journey the reader goes on? Where does the tension
+  sit, and where does it resolve?
+- OPENING HOOK. Which strategy: a surprising fact, a tension, a reframing
+  question, or a human moment? Say which and why it fits this argument.
+- SECTIONS. What does a reader have to accept, in what order, for this to land?
+  That ordered list is the structure. No section quota - the argument decides.
+- DATA PLACEMENT. Which evidence lands in which section. Do not stack the
+  statistics in one block.
+- CLOSING MOVE. A callback close, a provocative question, or a forward-looking
+  statement? Say which.
+- LENGTH. State the word count you expect and why the argument needs it. A
+  sharp observation with one example might be 700 words. A case resting on a
+  mechanism and three pieces of evidence might need 2,000. Never pad toward a
+  number, and never compress a real argument to hit one.
+
+Then write it, properly, not as an outline:
+- Hook inside the first 100 words. If the reader has not been given a reason to
+  continue by then, the opening has failed.
+- Data woven conversationally, not academically. A statistic should arrive in
+  the middle of a sentence that was going somewhere anyway.
+- Vary sentence rhythm. Mix short punchy sentences with longer flowing ones.
+  Uniform length reads as machine-made.
+- Every paragraph earns its place. If it could be cut without the argument
+  losing anything, cut it before Kiran has to.
+- Vary the section lengths and shapes deliberately. Six sections of the same
+  length running setup, example, turn is the clearest sign a machine built it.
 - Voice profile and governance rules in the system prompt are binding.
 - Use the research. Name real companies and real events. Cite as you go.
 - Where you needed something from Kiran and did not have it, write the section
   anyway and mark it inline: [KIRAN: a view on X would strengthen this].
-- Vary the section lengths and shapes deliberately.
 
 Open with the draft itself. Then, underneath, add a short note headed WHAT THIS
 NEEDS: the two or three places you are least confident about, and what would
@@ -325,8 +373,20 @@ Start by giving him something to push against. In order:
 4. WHERE IT IS THIN. The weakest evidence, the paragraphs doing no work, the
    claims that outrun what supports them.
 
-Then ask him. Keep it to three or four questions tied to specific parts of the
-draft, not general ones. Useful territory:
+Then ask him. Two sets of questions.
+
+FIRST, the sharpening questions. These set the post's intent and the draft
+cannot answer them for him. Ask all four, tied to what the draft currently
+does:
+- What is the one thing he wants readers to do differently after reading this?
+- How contrarian should it be: safe-but-insightful, or challenge the
+  orthodoxy? Say where the current draft sits on that scale.
+- Any companies or products he wants referenced, or explicitly avoided?
+- Who is the one person he imagines reading this? Name the draft's implied
+  reader and ask whether that is right.
+
+SECOND, three or four questions about this specific draft, tied to passages
+rather than general:
 - Where is this wrong, in his read
 - What is missing that someone in his field would expect to see
 - Which companies or events in the news he would bring in instead
@@ -408,6 +468,13 @@ PASS 2 - EVIDENCE AND EXPOSURE
   in a critical frame? Does it describe a traceable incident or person at any
   employer? Does it put him on the record against people he still works with?
   Quote the line and say what it risks. This blocks publication.
+- REPUTATION RISK SCAN. For every company the post discusses, read each claim
+  through the eyes of an employee or executive there. Flag anything that:
+  could be perceived as unfair; could burn a professional bridge; could be
+  quoted out of context against him; or attributes motives without evidence.
+  This applies to every company named, not only ones he has worked for - the
+  product leader at the company being analysed is exactly the person most
+  likely to read this.
 - DECORATION. Anything that does not carry information words could not.
 - HEDGING. Does the post take a clear position, or does it go soft? Scan for
   weasel phrases: "might", "could potentially", "it's possible that", "some
