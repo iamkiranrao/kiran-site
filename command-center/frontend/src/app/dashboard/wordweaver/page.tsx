@@ -125,7 +125,11 @@ export default function WordWeaverPage() {
   // a step that searched zero times — its output is not verified.
   const handleStreamEvent = (event: { type: string; [k: string]: unknown }) => {
     if (event.type === "search_start") {
-      setSearchNote(`Searching the web (up to ${event.max_uses} queries)...`);
+      setSearchNote(`Searching the web... up to ${event.max_uses} queries. This takes a few minutes.`);
+      return true;
+    }
+    if (event.type === "search_progress") {
+      setSearchNote(`Searching the web... ${event.searching} of ${event.max_uses}`);
       return true;
     }
     if (event.type === "search_complete") {

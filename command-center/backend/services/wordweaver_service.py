@@ -856,7 +856,9 @@ DEFAULT_MAX_TOKENS = 8000
 STEP_MAX_TOKENS = {2: 16000, 3: 16000, 4: 12000, 5: 16000, 6: 16000, 7: 16000}
 
 # max_uses is per request. Research ranges wider than verification does.
-SEARCH_BUDGET = {2: 10, 4: 8, 6: 12}
+# Each search adds latency before a single word reaches the screen, so these
+# are deliberately modest. Ten searches on step 2 meant minutes of blank UI.
+SEARCH_BUDGET = {2: 5, 4: 4, 6: 6}
 
 
 def _web_search_tool(step: int) -> list:
@@ -1159,6 +1161,7 @@ async def run_step_stream(
         })
 
     full_content = ""
+    run_searches = 0
     totals = {"searches": 0, "errors": []}
 
     # A turn using server tools can come back as pause_turn; resume it until done.
@@ -1173,9 +1176,31 @@ async def run_step_stream(
             kwargs["tools"] = tools
 
         with client.messages.stream(**kwargs) as stream:
-            for text in stream.text_stream:
-                full_content += text
-                yield json.dumps({"type": "text_delta", "delta": text})
+            if searching:
+                # Searches run server-side and emit no text, so without this the
+                # screen stays blank for minutes and the step looks hung.
+                for event in stream:
+                    etype = getattr(event, "type", "")
+                    if etype == "content_block_start":
+                        block = getattr(event, "content_block", None)
+                        if getattr(block, "type", "") == "server_tool_use":
+                            run_searches += 1
+                            yield json.dumps({
+                                "type": "search_progress",
+                                "step": step,
+                                "searching": run_searches,
+                                "max_uses": SEARCH_BUDGET.get(step, 8),
+                            })
+                    elif etype == "content_block_delta":
+                        delta = getattr(event, "delta", None)
+                        text = getattr(delta, "text", None)
+                        if text:
+                            full_content += text
+                            yield json.dumps({"type": "text_delta", "delta": text})
+            else:
+                for text in stream.text_stream:
+                    full_content += text
+                    yield json.dumps({"type": "text_delta", "delta": text})
             final = stream.get_final_message()
 
         activity = _summarize_search_activity(final.content)
