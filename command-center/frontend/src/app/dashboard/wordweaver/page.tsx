@@ -20,12 +20,17 @@ import {
   Hash,
   HelpCircle,
   Trash2,
+  FileText,
+  ChevronDown,
 } from "lucide-react";
 import Link from "next/link";
 import { useApiKey } from "@/context/ApiKeyContext";
 import ModuleHelp from "@/components/ModuleHelp";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+// Mirrors MAX_SOURCE_CHARS in the backend's wordweaver router.
+const MAX_SOURCE_CHARS = 24000;
 
 const BLOG_LABELS = [
   "Format, Theme & Angle",
@@ -73,6 +78,10 @@ export default function WordWeaverPage() {
 
   // Create form
   const [mode, setMode] = useState<"blog" | "social">("blog");
+  const [showSource, setShowSource] = useState(false);
+  const [sourceMaterial, setSourceMaterial] = useState("");
+  const [sourceLabel, setSourceLabel] = useState("");
+  const [createError, setCreateError] = useState<string | null>(null);
 
   // Workflow state
   const [streaming, setStreaming] = useState(false);
@@ -114,20 +123,37 @@ export default function WordWeaverPage() {
 
   const handleCreate = async () => {
     setLoading(true);
+    setCreateError(null);
     try {
+      const payload: Record<string, string> = { mode };
+      // Source material only seeds the blog pipeline.
+      if (mode === "blog" && sourceMaterial.trim()) {
+        payload.source_material = sourceMaterial.trim();
+        if (sourceLabel.trim()) payload.source_label = sourceLabel.trim();
+      }
+
       const res = await fetch(`${API_URL}/api/wordweaver/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
+      if (!res.ok) {
+        setCreateError(data?.detail || `Could not start the session (HTTP ${res.status}).`);
+        setLoading(false);
+        return;
+      }
       const sessRes = await fetch(`${API_URL}/api/wordweaver/sessions/${data.session_id}`);
       const session = await sessRes.json();
       setActiveSession(session);
       setView("workflow");
+      setSourceMaterial("");
+      setSourceLabel("");
+      setShowSource(false);
       fetchSessions();
     } catch (e) {
       console.error("Failed to create session:", e);
+      setCreateError("Could not reach the backend. Is it running?");
     }
     setLoading(false);
   };
@@ -653,6 +679,13 @@ export default function WordWeaverPage() {
                         {s.mode === "blog" ? <BookOpen size={14} /> : <Share2 size={14} />}
                         {s.mode === "blog" ? "Blog Post" : "Social Post"}
                         {s.config?.theme && <span className="text-xs text-[var(--text-muted)]">&middot; {s.config.theme}</span>}
+                        {s.config?.source_material && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded flex items-center gap-1 font-normal"
+                            style={{ backgroundColor: "rgba(122, 158, 196, 0.12)", color: "var(--accent-blue)" }}
+                            title={s.config.source_label || "Seeded from source material"}>
+                            <FileText size={9} /> seeded
+                          </span>
+                        )}
                       </p>
                       <p className="text-xs text-[var(--text-muted)] mt-0.5">
                         Step {s.current_step}/{s.total_steps} &middot; {s.status}
@@ -724,8 +757,74 @@ export default function WordWeaverPage() {
           </button>
         </div>
 
-        <button onClick={handleCreate} disabled={loading}
-          className="w-full py-3 rounded-lg text-sm font-medium flex items-center justify-center gap-2"
+        {mode === "blog" && (
+          <div className="mb-6 rounded-lg overflow-hidden"
+            style={{ border: "1px solid var(--border)", backgroundColor: "var(--bg-card)" }}>
+            <button
+              onClick={() => setShowSource(!showSource)}
+              className="w-full px-4 py-3 flex items-center gap-3 text-left transition-colors"
+            >
+              <FileText size={18} className={sourceMaterial.trim() ? "text-[var(--accent-blue)]" : "text-[var(--text-muted)]"} />
+              <div className="flex-1">
+                <p className="text-sm font-medium text-[var(--text-primary)]">
+                  Start from source material <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span>
+                </p>
+                <p className="text-xs text-[var(--text-secondary)]">
+                  {sourceMaterial.trim()
+                    ? `${sourceMaterial.trim().length.toLocaleString()} characters pasted`
+                    : "Paste a chat thread, notes or a transcript to build the post from"}
+                </p>
+              </div>
+              {showSource
+                ? <ChevronDown size={16} className="text-[var(--text-muted)]" />
+                : <ChevronRight size={16} className="text-[var(--text-muted)]" />}
+            </button>
+
+            {showSource && (
+              <div className="px-4 pb-4 space-y-3 border-t pt-3" style={{ borderColor: "var(--border)" }}>
+                <textarea
+                  value={sourceMaterial}
+                  onChange={(e) => setSourceMaterial(e.target.value)}
+                  placeholder="Paste the raw material here — a ChatGPT thread, meeting notes, a voice memo transcript..."
+                  rows={8}
+                  className="w-full px-3 py-2 rounded-lg text-sm resize-y"
+                  style={{
+                    backgroundColor: "var(--bg-secondary)",
+                    border: "1px solid var(--border)",
+                    color: "var(--text-primary)",
+                  }}
+                />
+                <input
+                  value={sourceLabel}
+                  onChange={(e) => setSourceLabel(e.target.value)}
+                  placeholder="Where it came from (e.g. ChatGPT thread on responsible PM)"
+                  className="w-full px-3 py-2 rounded-lg text-sm"
+                  style={{
+                    backgroundColor: "var(--bg-secondary)",
+                    border: "1px solid var(--border)",
+                    color: "var(--text-primary)",
+                  }}
+                />
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-[var(--text-muted)]">
+                    Used as raw material, not a draft — its claims stay unverified until Step 10.
+                  </p>
+                  <p className="text-xs shrink-0 ml-3"
+                    style={{ color: sourceMaterial.length > MAX_SOURCE_CHARS ? "var(--accent-red, #c0392b)" : "var(--text-muted)" }}>
+                    {sourceMaterial.length.toLocaleString()} / {MAX_SOURCE_CHARS.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {createError && (
+          <p className="text-xs mb-3" style={{ color: "var(--accent-red, #c0392b)" }}>{createError}</p>
+        )}
+
+        <button onClick={handleCreate} disabled={loading || sourceMaterial.length > MAX_SOURCE_CHARS}
+          className="w-full py-3 rounded-lg text-sm font-medium flex items-center justify-center gap-2 disabled:opacity-50"
           style={{ backgroundColor: "var(--accent-blue)", color: "#fff" }}>
           {loading ? <Loader2 size={16} className="animate-spin" /> : <Play size={16} />}
           Start {mode === "blog" ? "Blog" : "Social"} Workflow
