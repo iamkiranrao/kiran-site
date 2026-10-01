@@ -30,8 +30,9 @@ import ModuleHelp from "@/components/ModuleHelp";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
-// Mirrors MAX_SOURCE_CHARS in the backend's wordweaver router.
-const MAX_SOURCE_CHARS = 24000;
+// Mirrors MAX_SOURCE_CHARS in the backend's wordweaver router. A sanity bound
+// rather than a budget: the model's context window is far larger than this.
+const MAX_SOURCE_CHARS = 200000;
 
 /** "3 hours ago" for recent work, an absolute date once it stops being useful. */
 function timeAgo(iso?: string): string {
@@ -915,8 +916,8 @@ export default function WordWeaverPage() {
                 <textarea
                   value={sourceMaterial}
                   onChange={(e) => setSourceMaterial(e.target.value)}
-                  placeholder="Paste the raw material here — a ChatGPT thread, meeting notes, a voice memo transcript..."
-                  rows={8}
+                  placeholder="Paste the whole thing — a full ChatGPT or Claude thread, meeting notes, a transcript. Labelled turns (You said / ChatGPT said, or USER: / ASSISTANT:) are split so your own words are kept intact."
+                  rows={10}
                   className="w-full px-3 py-2 rounded-lg text-sm resize-y"
                   style={{
                     backgroundColor: "var(--bg-secondary)",

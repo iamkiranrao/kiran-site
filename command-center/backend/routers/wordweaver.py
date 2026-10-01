@@ -102,10 +102,10 @@ async def get_step_definitions(mode: str):
     else:
         raise HTTPException(status_code=400, detail=f"Unknown mode: {mode}")
 
-# Seeded sessions carry their source material in every step's context, so cap
-# it well under the model's budget rather than letting a pasted thread crowd
-# out the carried-forward steps.
-MAX_SOURCE_CHARS = 24000
+# A sanity bound, not a budget. The model has a 1M token context window, so a
+# 200k-character paste is roughly 5% of it and costs cents across a whole post.
+# The earlier 24k limit was a guess that blocked ordinary ChatGPT threads.
+MAX_SOURCE_CHARS = 200000
 
 # The write step, and the two checks re-run after a final-review edit.
 # The rewrite, and the single check step re-run after a final-review edit.
@@ -131,9 +131,9 @@ async def create_wordweaver_session(request: CreateRequest):
         if len(source) > MAX_SOURCE_CHARS:
             raise HTTPException(
                 status_code=413,
-                detail=f"Source material is {len(source)} characters; "
-                       f"the limit is {MAX_SOURCE_CHARS}. Trim it to the part "
-                       f"that carries the argument.",
+                detail=f"Source material is {len(source):,} characters, over the "
+                       f"{MAX_SOURCE_CHARS:,} limit. Paste the part that carries the "
+                       f"argument, or split it across two sessions.",
             )
         initial_data["source_material"] = source
         initial_data["source_label"] = (request.source_label or "pasted source").strip()
@@ -193,9 +193,9 @@ async def set_source_material(session_id: str, request: SourceRequest):
     if len(source) > MAX_SOURCE_CHARS:
         raise HTTPException(
             status_code=413,
-            detail=f"Source material is {len(source)} characters; "
-                   f"the limit is {MAX_SOURCE_CHARS}. Trim it to the part "
-                   f"that carries the argument.",
+            detail=f"Source material is {len(source):,} characters, over the "
+                   f"{MAX_SOURCE_CHARS:,} limit. Paste the part that carries the "
+                   f"argument, or split it across two sessions.",
         )
 
     config = dict(state.get("config") or {})
