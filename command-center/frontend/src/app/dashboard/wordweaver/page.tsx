@@ -57,18 +57,13 @@ function fullTime(iso?: string): string {
 }
 
 const BLOG_LABELS = [
-  "Theme & Angle",
+  "Topic",
   "Research",
-  "Topic Options",
-  "Push Back",
-  "Who Else Said This",
-  "Your Take",
-  "Your Experience",
-  "Structure",
-  "Write",
-  "Scrub AI Tells",
-  "Attack",
-  "Fact-Check & Package",
+  "Draft",
+  "React",
+  "Rewrite",
+  "Check",
+  "Package",
 ];
 
 const SOCIAL_LABELS = [
@@ -875,7 +870,7 @@ export default function WordWeaverPage() {
               <BookOpen size={20} className={mode === "blog" ? "text-[var(--accent-blue)]" : "text-[var(--text-muted)]"} />
               <div>
                 <p className="text-sm font-medium text-[var(--text-primary)]">Blog Post</p>
-                <p className="text-xs text-[var(--text-secondary)]">12-step pipeline: research, write, edit, publish</p>
+                <p className="text-xs text-[var(--text-secondary)]">7 steps: research, draft, react, rewrite, check, publish</p>
               </div>
             </div>
           </button>

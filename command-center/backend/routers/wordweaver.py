@@ -108,8 +108,9 @@ async def get_step_definitions(mode: str):
 MAX_SOURCE_CHARS = 24000
 
 # The write step, and the two checks re-run after a final-review edit.
-WRITE_STEP = 9
-REVALIDATION_STEPS = (11, 12)
+# The rewrite, and the single check step re-run after a final-review edit.
+WRITE_STEP = 5
+REVALIDATION_STEPS = (6,)
 
 
 @router.post("/create", response_model=dict)
@@ -389,9 +390,8 @@ async def approve_step(session_id: str, request: ApproveRequest):
     if step in KILL_STEPS and verdict in STOP_VERDICTS:
         response["recommend_stop"] = True
         response["stop_reason"] = (
-            "The claim did not survive the opposing case."
-            if verdict == "DIES"
-            else "This point has been made before and nothing is being added."
+            "The draft did not survive its own review - the claim does not hold, "
+            "or the point has been made better elsewhere with nothing added."
         )
     return response
 
@@ -601,39 +601,22 @@ async def approve_final(
         save_decision(session_id, WRITE_STEP, "Approved (final review)")
 
     async def event_stream():
-        # Rerun Attack
-        yield f'data: {json.dumps({"type": "revalidation_start", "step": 11, "label": "Attack"})}\n\n'
-        update_session(session_id, {"current_step": 11})
+        # Rerun Check over the edited article.
+        yield f'data: {json.dumps({"type": "revalidation_start", "step": 6, "label": "Check"})}\n\n'
+        update_session(session_id, {"current_step": 6})
         async for event_json in run_step_stream(
             session_id=session_id,
-            step=11,
+            step=6,
             api_key=api_key,
-            user_input="REVALIDATION: The post was edited during final review. Re-run fact-check on the updated content.",
+            user_input="REVALIDATION: the article was edited during final review. Re-run all three passes against the updated text.",
         ):
             yield f"data: {event_json}\n\n"
 
-        # Step 10 stays a draft. A fact-check nobody read is not a fact-check.
+        # It stays a draft. A check nobody read is not a check.
         refreshed = get_session(session_id)
+        update_session(session_id, {"current_step": 6, "status": "reviewing"})
 
-        # Rerun Fact-Check & Package
-        yield f'data: {json.dumps({"type": "revalidation_start", "step": 12, "label": "Fact-Check & Package"})}\n\n'
-        update_session(session_id, {"current_step": 12})
-        async for event_json in run_step_stream(
-            session_id=session_id,
-            step=12,
-            api_key=api_key,
-            user_input="REVALIDATION: The post was edited during final review. Re-run originality check on the updated content.",
-        ):
-            yield f"data: {event_json}\n\n"
-
-        # Step 11 likewise stays a draft for Kiran to read.
-        refreshed = get_session(session_id)
-
-        # Land on step 10 so the revalidation output is what he sees first, and
-        # hold the session in review until he approves both checks himself.
-        update_session(session_id, {"current_step": 11, "status": "reviewing"})
-
-        yield f'data: {json.dumps({"type": "revalidation_complete", "needs_review": list(REVALIDATION_STEPS), "message": "Attack and Fact-Check were re-run. Read and approve both to reach ready_to_publish."})}\n\n'
+        yield f'data: {json.dumps({"type": "revalidation_complete", "needs_review": list(REVALIDATION_STEPS), "message": "Check was re-run over the edited article. Read and approve it to reach ready_to_publish."})}\n\n'
 
     return StreamingResponse(
         event_stream(),

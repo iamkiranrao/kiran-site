@@ -31,18 +31,13 @@ CONFIG_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config")
 # ── Blog pipeline steps ────────────────────────────────────────────
 
 BLOG_STEPS = [
-    {"step": 1, "label": "Theme & Angle", "description": "One-off or series, theme, cross-cutting angle"},
-    {"step": 2, "label": "Research", "description": "Live web search for data, examples, counter-arguments"},
-    {"step": 3, "label": "Topic Options", "description": "Candidate topics with a claim each, grounded in the research"},
-    {"step": 4, "label": "Push Back", "description": "Argue the other side hard. The claim survives, narrows, or dies"},
-    {"step": 5, "label": "Who Else Said This", "description": "Whose conversation you are joining, and what you add to it"},
-    {"step": 6, "label": "Your Take", "description": "Your thinking goes into the scaffold, in your words"},
-    {"step": 7, "label": "Your Experience", "description": "Where a real moment lands, what kind, and how much you name"},
-    {"step": 8, "label": "Structure", "description": "Shape and length derived from the argument, not a template"},
-    {"step": 9, "label": "Write", "description": "The draft, in your voice"},
-    {"step": 10, "label": "Scrub AI Tells", "description": "Deterministic rule check plus the pattern library"},
-    {"step": 11, "label": "Attack", "description": "Adversarial review: evidence weight, disclosure, sameness, decoration"},
-    {"step": 12, "label": "Fact-Check & Package", "description": "Verify every claim, then build the five publish outputs"},
+    {"step": 1, "label": "Topic", "description": "Theme, angle, and the claim the post will make"},
+    {"step": 2, "label": "Research", "description": "Live web search for evidence, examples and current events"},
+    {"step": 3, "label": "Draft", "description": "A complete rough article you can actually read"},
+    {"step": 4, "label": "React", "description": "What is wrong, what is missing, and your read on it"},
+    {"step": 5, "label": "Rewrite", "description": "The real version, with your reaction worked in"},
+    {"step": 6, "label": "Check", "description": "AI tells, evidence weight, disclosure, and facts"},
+    {"step": 7, "label": "Package", "description": "Publish outputs for the site, Medium, Substack and LinkedIn"},
 ]
 
 SOCIAL_STEPS = [
@@ -68,12 +63,11 @@ SEEDED_STEP_DIRECTIVES = {
        "says. Drop any option that is just the source restated.",
     4: "Ask specifically for the evidence the source lacks: which of Kiran's own "
        "decisions, numbers or outcomes make this argument his rather than generic.",
-    5: "The source material is the first thing to check the thesis against. "
-       "If the thesis has not moved past it, say so plainly.",
-    6: "Kiran's own words from the source are already extracted below. Build "
-       "from those rather than asking him to repeat himself.",
-    11: "Check whether the post says anything the source did not already say. "
-        "If not, name what is missing.",
+    3: "Kiran's own words from the source are extracted separately. Build the "
+       "draft around the position he already took rather than restating the "
+       "assistant's half of the conversation.",
+    4: "Check the draft against the source. If it has not moved past what the "
+       "source already said, say so plainly.",
 }
 
 
@@ -237,377 +231,218 @@ WORDWEAVER_SYSTEM = _build_wordweaver_system()
 
 
 BLOG_STEP_PROMPTS = {
-    1: """STEP 1: Format, Theme & Angle Selection
-
-Present the available themes and cross-cutting angles for Kiran to choose from.
-
-Available themes: {themes}
-
-Cross-cutting angles: {angles}
-
-Ask Kiran:
-1. Is this a one-off post or part of a series?
-2. Which theme interests him?
-3. Which angle should we take?
-
-If it's a series post, mention the available series templates: Demystifying [X], Product Teardown, Product Award of the Month, The Value Gap, Signal vs. Noise, Product Decision Autopsy, The Contrarian Take, 5 Questions With.
-
-Once Kiran has chosen, end your output with one line, exactly in this form, so
-the rest of the pipeline can read the choice:
-SELECTED: theme=<theme> | angle=<angle> | series=<series or none>
-
-If he has not chosen yet, ask your questions and omit the line.""",
-
-    2: """STEP 2: Live Web Research
-
-Based on the selected theme ({theme}) and angle ({angle}), run comprehensive research:
-- Search for current statistics and recent studies (2024-2026)
-- Find real-world examples and case studies
-- Identify counter-arguments and contrarian viewpoints
-- Look for timeliness hooks (recent launches, announcements, trends)
-
-Compile your findings as a research brief. Include sources for every data point.
-
-Present the research and note any gaps or areas where data is limited.""",
-
-    3: """STEP 3: Topic Options
+    1: """STEP 1: Topic
 
 {past_posts}
 
 {ideas}
 
-From the research, put up 3-5 candidate topics. For each:
-- A working title that is specific, not a category
-- THE CLAIM in one sentence - the thing the post would assert and could be
-  wrong about. "A look at engagement metrics" is not a claim. "Engagement is
-  reported on a cadence that downstream harm never gets" is a claim.
-- The two or three pieces of evidence from the research that support it
-- Why now
+Available themes: {themes}
+Cross-cutting angles: {angles}
 
-Rank them by which claim is most defensible AND most worth making. Say which
-you would pick and why. Kiran chooses.
+Help Kiran settle on one topic. He may arrive with an idea, or want to find one
+from the themes, the inbox above, or what is happening in the field right now.
 
-End with one line, exactly:
-CLAIM: <the chosen claim in one sentence>""",
+Land on three things:
+- The topic in a sentence
+- THE CLAIM: what the post will assert, stated so it could be wrong. "A look at
+  engagement metrics" is a subject. "Engagement gets reported on a cadence that
+  downstream harm never gets" is a claim.
+- One-off or part of a series. Series templates available: Demystifying [X],
+  Product Teardown, Product Award of the Month, The Value Gap, Signal vs Noise,
+  Product Decision Autopsy, The Contrarian Take, 5 Questions With.
 
-    4: """STEP 4: Push Back
-
-Your job here is to attack the chosen claim as hard as you honestly can. Not
-to list polite objections - to make the strongest case that Kiran is wrong.
-
-Write the opposing case as if by someone smart who disagrees, knows this
-domain, and has evidence. Give it the best version of its argument, not a
-strawman you can knock over. Use the research. If the research does not
-contain good counter-evidence, say so, because that is itself a finding.
-
-Cover:
-- The strongest factual objection
-- The strongest "this is true but trivial" objection
-- Who loses if the claim is acted on, and whether they have a point
-- The conditions under which the claim is simply false
-
-Then give your honest verdict in one of three forms:
-  SURVIVES  - the claim holds. Say what the post must now address to be
-              credible, because ignoring this objection would be a tell.
-  NARROWS   - the claim holds in a smaller form. State the smaller claim.
-  DIES      - the claim does not hold. Say so plainly and recommend stopping
-              or returning to Step 3. Do not soften this. A session that ends
-              here has saved Kiran from publishing something wrong.
-
-End with two lines, exactly:
-VERDICT: SURVIVES | NARROWS | DIES
-CLAIM: <the claim as it now stands, or NONE if it died>""",
-
-    5: """STEP 5: Who Else Said This
-
-Search for who has already made this argument, or something close to it. Books,
-papers, posts, talks, from any era.
-
-Being first is not the bar and Kiran does not need to clear it. Almost nothing
-is new. The bar is knowing whose conversation he is joining and what he adds
-to it. A post that re-states a known argument while pretending to discover it
-reads as either uninformed or dishonest. A post that says "Harris made this
-case in 2013 and here is what it missed" reads as someone who has done the
-reading.
-
-Report:
-- Who has made this argument, when, and where. Be specific and cite.
-- The closest existing piece. What does it get right?
-- What is genuinely different here: a different lens (banking, regulated
-  industries, a practitioner rather than an academic), a different mechanism,
-  a different consequence, newer evidence, or a case the original missed.
-- Anything the post should explicitly credit rather than appear to reinvent.
-
-Verdict in one of two forms:
-  POSITIONED - there is a real addition. State it in one sentence. The post
-               should name the prior work and build on it.
-  REDUNDANT  - the point has been made, better, and nothing is being added.
-               Say so and recommend stopping or returning to Step 3.
+If he is undecided, propose three options with a claim each and say which you
+would pick and why.
 
 End with one line, exactly:
-VERDICT: POSITIONED | REDUNDANT""",
+SELECTED: theme=<theme> | angle=<angle> | series=<series or none>""",
 
-    6: """STEP 6: Your Take
+    2: """STEP 2: Research
 
-The scaffold exists now: a claim that survived attack, the prior work it sits
-beside, and the evidence. This step puts Kiran into it.
+Research the claim: {theme} / {angle}.
 
-{kiran_words}
+Search for:
+- Current events and recent news involving this, 2024-2026. Companies Kiran has
+  never worked at are fair game and usually the better example.
+- Data, studies and documented outcomes
+- Concrete cases with a result, not just commentary about the problem
+- The strongest evidence AGAINST the claim
+- Who has already made this argument, when, and where
 
-If his own words are above, lead with them. Play back what he actually
-argues, in his phrasing, and ask what is missing or wrong. Do not paraphrase
-his position into neutral prose - his wording is the voice the post is
-supposed to have.
+Sources for everything. A piece of commentary is evidence that someone holds an
+opinion, not evidence that a thing happened. Note which is which, because the
+draft will lean on this and the difference matters.
 
-If there is nothing above, ask for it. Three or four questions, each tied to
-a specific part of the argument rather than general. Aim at:
-- Where he agrees, and where he does not, with the claim as it stands
-- What the research missed that he knows from working in this domain
-- What a peer who knows his work would push back on
-- The version of this he would say out loud but hesitate to publish, and why
+Say plainly where the evidence is thin.""",
 
-HARD RULE: preserve his phrasing. When he gives you a line that lands, keep
-it word for word and tell him you are keeping it. The failure mode here is
-sanding his voice into something fluent and anonymous. If his sentence is
-rough but alive, rough wins.
+    3: """STEP 3: Draft
 
-Close by stating, in his words not yours, what this post argues and why he is
-the one making the case.
+Write the full article now, before asking Kiran for anything.
 
-End with one line, exactly:
-POSITION: <one sentence, in Kiran's own words where possible>""",
+This is the point of the step. He cannot tell you what is wrong, what is
+missing, or where his own experience fits until he can read something concrete.
+Asking him in the abstract produces a blank page; asking him to react to a real
+draft produces the post.
 
-    7: """STEP 6: Experience & Evidence Workshop
+Write it properly, not as an outline:
+- Build the shape from the argument. What does a reader have to accept, in what
+  order, for this to land? That is the structure. No section quota.
+- Length follows the argument. A sharp observation with one example might be
+  700 words. A case resting on a mechanism and three pieces of evidence might
+  need 2,000. Do not pad toward a number.
+- Voice profile and governance rules in the system prompt are binding.
+- Use the research. Name real companies and real events. Cite as you go.
+- Where you needed something from Kiran and did not have it, write the section
+  anyway and mark it inline: [KIRAN: a view on X would strengthen this].
+- Vary the section lengths and shapes deliberately.
 
-This is the step the whole post depends on. Research is delegable; the lived
-part is not. Posts that fail do so because nothing on the page could only have
-been written by Kiran. Your job is to help him author that part, not to write
-it for him.
+Open with the draft itself. Then, underneath, add a short note headed WHAT THIS
+NEEDS: the two or three places you are least confident about, and what would
+fix each.
 
-HARD RULE: give him an example to spark his own memory. Never write his memory
-for him. Both halves matter - an abstract request ("do you have an anecdote
-about metrics?") gets a blank stare, so you MUST illustrate the kind of moment
-that would work. The rule is about whose story the example is:
+Clean markdown. No frontmatter, no title block.""",
 
-  DO THIS - a clearly hypothetical illustration, someone else, flagged as an
-  example, followed by the handoff:
-      "The kind of moment that works here: someone pushes back on a launch
-       date, gets overruled, then watches the rollback three weeks later. That
-       is an illustration, not a guess about you. What is your version?"
+    4: """STEP 4: React
 
-  NEVER THIS - the same story written as his, in second person, as if it
-  happened:
-      "At [company] in 2019 you sat in a review where the engagement chart went
-       up and you said nothing..."
+Kiran has now read the draft. This step is one working session about it, not an
+interrogation.
 
-The first gives him a shape to recognise and sends him to his own memory. The
-second hands him a draft of his own life, and he will edit your invention
-instead of reaching for what actually happened - which is exactly how a post
+Start by giving him something to push against. In order:
+
+1. WHAT IT ARGUES. Two sentences. If you cannot state the claim crisply, that is
+   the first problem and you should say so.
+
+2. THE CASE AGAINST IT. The strongest honest objection, argued properly rather
+   than as a strawman. Who loses if the claim is right, and do they have a
+   point? Where is it simply false? Use the research.
+
+3. WHO ELSE SAID THIS. Search. Who has made this argument, when and where. Being
+   first is not the bar and almost nothing is new. The bar is knowing whose
+   conversation this joins and what it adds. Say what the draft adds, or say
+   honestly that it adds nothing.
+
+4. WHERE IT IS THIN. The weakest evidence, the paragraphs doing no work, the
+   claims that outrun what supports them.
+
+Then ask him. Keep it to three or four questions tied to specific parts of the
+draft, not general ones. Useful territory:
+- Where is this wrong, in his read
+- What is missing that someone in his field would expect to see
+- Which companies or events in the news he would bring in instead
+- Where his own view differs from the draft's
+
+ON EXPERIENCE. A personal story is one option among several, never a
+requirement. A distinctive read on public events, a connection nobody else has
+drawn, a position taken clearly, or simply knowing how the industry actually
+works are all equally good ways for this to be his. Most topics will not touch
+his own career at all, and that is fine.
+
+If experience IS relevant, brief the slot rather than filling it: which section,
+what the moment would need to do, roughly how long, and one hypothetical
+example in the third person so he has a shape to recognise. Never write a story
+as though it happened to him. Then offer the attribution choice - named,
+sector only, pattern with no incident, or leave it out - and let him pick.
+
+PRESERVE HIS WORDS. When he gives you a line that lands, keep it verbatim and
+say you are keeping it. Smoothing his phrasing into fluent prose is how a post
 ends up sounding like nobody wrote it.
 
-So: illustrate freely, in the third person, flagged as hypothetical. Never
-assert, imply or assume anything about his actual history. Never supply a
-scene, meeting, number, colleague or quote as though it were his.
+If the draft does not survive this - the claim is wrong, or the point has been
+made better elsewhere and nothing is being added - say so and recommend
+stopping. That is a good outcome, not a failure.
 
-Run this as a working session, in four moves.
+End with one line, exactly:
+VERDICT: PROCEED | REWORK | STOP""",
 
-MOVE 1 - BRIEF THE SLOTS. Go through the approved structure and name the
-specific places where lived experience would be load-bearing. For each one,
-write a short brief: which section, what the anecdote would have to do there,
-roughly how long, what KIND of moment would fit, and one hypothetical example
-of such a moment so he has something to recognise against.
+    5: """STEP 5: Rewrite
 
-"A personal anecdote would help here" is useless. This is a brief he can
-answer: "Section 3 needs a moment where you chose the slower option and had to
-justify it - about 120 words, placed right before the turn. For instance: a
-team delays a release to fix something only they can see, and spends the next
-month explaining the delay. Yours will look different. What comes to mind?"
+Rewrite the article using Kiran's reaction. This is the real version.
 
-There are four useful kinds, and they are not equal:
-  (a) A defensible number from work he has already published
-  (b) A pattern he has seen repeat across organizations (no incident, no date)
-  (c) A decision he made and what it cost
-  (d) A thing he got wrong and what changed his mind
-(d) is the most valuable and the least used, because it is the one thing no
-one can write on his behalf. Say which kind THIS argument needs most, and why
-that kind rather than the others. Do not assume he has any of them.
-
-MOVE 2 - PROBE AGAINST THE BRIEFS. For each slot you briefed, ask the question
-that would surface the matching memory. Tie the question to the brief so he can
-see what it is for. Aim the set at different kinds of memory: a moment he
-argued and lost, a tradeoff he chose deliberately, a number he watched that
-nobody else did, a belief he has since abandoned.
-
-You do not know his history and must not guess at it. Ask where he has stood on
-either side of the claim, not whether he "has an anecdote".
-
-Then give him a way to interrogate his own experience rather than a request to
-produce. Useful frames:
-  - Invert the thesis. If the opposite were true, what would he have seen?
-  - Where does the claim stop being true in his world, and why?
-  - Which part of this argument would a peer who knows his work push back on?
-  - What is the most boring version of this that he knows is correct?
-Ask for rough notes. Situation, what he did, what happened. Messy is fine, and
-say so. Stop and wait for his answer.
-
-MOVE 3 - SHAPE. When he answers, do not simply accept it. First, play back what
-you heard in his own facts and confirm you have it right. Then show the SAME
-material at four attribution levels, with what each buys and what it costs:
-  1. NAMED      - the company and the year. Most weight, most exposure.
-  2. SECTOR     - the kind of company, not the name. Keeps the specificity,
-                  drops the attribution.
-  3. PATTERN    - a thing he has seen repeat, stated concretely, with no
-                  incident, no date and nothing anyone can trace to a team.
-                  Build this from what he actually told you, not from a
-                  template. Still concrete, still his, still carries.
-  4. OMIT       - and say how the post would change to not need it.
-Name the risk of each honestly, especially level 1 or 2 where the subject is
-his current employer. He decides. Do not decide for him.
-
-MOVE 4 - CLOSE. State plainly whether what he gave you is enough to carry the
-post, or whether it is thin. "This is enough" and "this is not enough yet" are
-both acceptable answers. Flattery here costs him his credibility later.
-
-End your output with two lines, exactly:
-EXPERIENCE: SUPPLIED | PARTIAL | NONE
-ATTRIBUTION: NAMED | SECTOR | PATTERN | NONE""",
-
-    8: """STEP 8: Structure
-
-Derive the shape from the argument. There is no target section count and no
-target word count.
-
-Ask: what does a reader have to accept, in what order, for this case to land?
-That ordered list IS the structure. Each section exists to move the reader one
-step, and a section that does not move them gets cut before it is written.
-
-Then decide length from the argument's weight. A single sharp observation
-backed by one example might be 700 words and lose nothing. A case built on
-three pieces of evidence and a mechanism might need 2,000. Do not pad toward a
-number, and do not compress a real argument to hit one. State the length you
-expect and why the argument needs it.
-
-Also place:
-- Where Kiran's experience sits, using the attribution level he chose
-- Where the opposing case from Step 4 gets addressed, because ignoring it is
-  a tell
-- Where prior work from Step 5 gets credited
-- The opening move, and what makes it earn the second paragraph
-- The close, which should land the argument rather than summarize it
-
-Deliberately vary the shape. Sections of near-identical length reading
-setup-example-turn, over and over, is the single clearest sign a machine
-built this.
-
-Present the structure for approval.""",
-
-    9: """STEP 9: Write
-
-Write the post from the approved structure.
-
-- Voice profile and governance rules in the system prompt are binding, not
-  aspirational
-- Kiran's preserved phrasing from Step 6 goes in as he wrote it
-- His experience at the attribution level he chose in Step 7, with no detail
+- Everything he corrected is corrected
+- Everything he added is in, in his words where he gave you words
+- Any [KIRAN: ...] markers from the draft are resolved or removed
+- The strongest objection from Step 4 is addressed in the text, not avoided
+- Prior work is credited where the post builds on it
+- His experience appears only at the attribution level he chose, with no detail
   he did not supply
-- Address the strongest objection from Step 4 rather than writing around it
-- Credit prior work from Step 5 where the post builds on it
-- Length as set in Step 8
+- Structure and length still follow the argument
 
-Write it as someone who works in this field and is telling a peer what he has
-noticed. Not as an explainer, not as a brief, not as a magazine feature.
+This is a rewrite, not a new article. Keep what worked in the draft.
 
-Clean markdown. Section headers. No title block, no frontmatter.""",
+Clean markdown. No frontmatter, no title block.""",
 
-    10: """STEP 10: Scrub AI Tells
+    6: """STEP 6: Check
 
-A deterministic rule check has already run and its findings are below. Your job
-is the half a regex cannot do.
+Three passes over the rewrite. Be specific, quote lines, do not soften.
+
+PASS 1 - AI TELLS
+
+A deterministic check has already run:
 
 {rule_findings}
 
-First, fix every rule violation listed above. Rewrite the sentence rather than
-swapping punctuation - replacing an em dash with a comma pair produces the
-same sentence with worse rhythm, which is still a tell.
+Fix every violation listed by rewriting the sentence. Swapping an em dash for a
+comma pair leaves the same sentence with worse rhythm, which is still a tell.
 
-Then hunt the structural tells. These are the patterns that mark machine
-authorship even when every word is allowed:
-
-- "It's not X. It's Y." as a title or a sentence
+Then hunt what a regex cannot see:
+- "It's not X. It's Y." as a title or sentence
 - Negative parallelism: "not malice, not stupidity"
 - Rule of three: "an advocacy movement, a conference circuit, a set of talking points"
 - The pseudo-intimate aside: "sit with that for a second", "worth pausing on"
-- Every section closing on a short punchy standalone line
-- Paragraphs of near-identical length
-- Sections of near-identical length and identical internal shape
-- Commas doing the work of em dashes
-- Restating the thesis at the top of each section
-- Symmetrical openings and closings that feel engineered
-- A closing line that reaches for profundity
+- Every section closing on a short punchy line
+- Paragraphs and sections of near-identical length and identical internal shape
+- Restating the thesis at the top of every section
+- A closing line reaching for profundity
 
-For each one you find: quote the line, name the tell, rewrite it. Some
-repetition is human. A page where every section ends on a punchy line is not.
+Quote each one, name it, rewrite it.
 
-Output the full revised post, then a short list of what you changed and why.""",
+PASS 2 - EVIDENCE AND EXPOSURE
 
-    11: """STEP 11: Attack
+- EVIDENCE WEIGHT. For each load-bearing claim, grade what supports it: a
+  documented action with an outcome, a proposal someone made, an opinion, or an
+  anecdote. Does the sentence's confidence match that grade? Writing "the
+  industry has already tried this" while citing two people who wrote about it
+  is the failure to catch. Flag every mismatch.
+- DISCLOSURE. Does the post name or clearly identify Kiran's current employer
+  in a critical frame? Does it describe a traceable incident or person at any
+  employer? Does it put him on the record against people he still works with?
+  Quote the line and say what it risks. This blocks publication.
+- DECORATION. Anything that does not carry information words could not.
+- THE HONEST QUESTION. Would a senior practitioner learn something, or
+  recognise their own experience here? If not, say so.
 
-Adversarial review of the draft. You are not editing. You are trying to find
-the thing that embarrasses Kiran after publication. Be specific, quote lines,
-and do not soften.
+PASS 3 - FACTS
 
-1. EVIDENCE WEIGHT. For every load-bearing claim, grade what actually supports
-   it: a documented action with an outcome, a proposal someone made, an
-   opinion, or an anecdote. Then ask whether the sentence's confidence matches
-   that grade. Writing "the industry has already tried this" and citing two
-   people who wrote about it is the failure to catch. Flag every mismatch.
-
-2. DISCLOSURE. Does the post name or clearly identify Kiran's current employer
-   in a critical frame? Does it describe an incident, decision or person at any
-   employer in a way that could be traced? Does it put him on the record
-   against people he still works with? Quote the line and say what it risks.
-   This is a blocking finding, not a note.
-
-3. SAMENESS. Are the sections the same length and shape? Does every one run
-   setup, example, turn? Name it.
-
-4. DECORATION. Is there a diagram or visual that does not carry information
-   words could not? A labelled line is decoration, and decoration is a tell.
-   Recommend cutting it.
-
-5. THE HONEST QUESTION. Would a senior practitioner who knows this field learn
-   something, or recognise their own experience in it? If the honest answer is
-   no, say so.
-
-End with one line, exactly:
-VERDICT: CLEAR | FIX FIRST | DO NOT PUBLISH
-followed by a numbered list of what must change, most serious first.""",
-
-    12: """STEP 12: Fact-Check & Package
-
-PART ONE - verify. Search for a primary source for every factual claim in the
-post. Build the table:
+Search for a primary source for every factual claim. Build the table:
 
 | Claim | Source | Status |
 
-Status is one of: Verified (link the primary source), Corrected (give the
-correction), Removed (say why), Unverifiable (say where you looked).
+Status: Verified (link the primary source), Corrected (give it), Removed (say
+why), Unverifiable (say where you looked). A summary of a book is not a source
+for the book. Wikipedia is a starting point, not a citation. Removing an
+unsourceable claim is a better outcome than shipping it.
 
-Rules: a summary of a book is not a source for the book. Wikipedia is a
-starting point, not a citation. If you could not find a primary source, the
-status is Unverifiable, not Verified. Removing a claim is a valid outcome and
-a better one than shipping an unsourced number.
+Output the corrected article in full, then the findings.
 
-PART TWO - package. Produce:
+End with one line, exactly:
+VERDICT: CLEAR | FIX FIRST | DO NOT PUBLISH""",
+
+    7: """STEP 7: Package
+
+Produce the publish set.
+
 1. post.md with YAML frontmatter: title, date, author, theme, angle, series,
    reading_time, word_count
 2. The final markdown
-3. A Sources section listing only what you verified
+3. Sources: only what Step 6 verified
 4. A one-sentence description for the blog card and meta description
-5. A LinkedIn short post: the hook, the single idea, and a line pointing home.
-   Written to be read on a phone, no hashtag spam.
+5. A LinkedIn short post. Open on the single most interesting observation, not
+   a preamble. One idea. 120-200 words, short paragraphs, written for a phone.
+   End with a line pointing to the full piece. No hashtag spam, no engagement
+   bait.
 
-Confirm what is ready and what is not.""",
+Confirm what is ready and flag anything Step 6 left unresolved.""",
 }
 
 
@@ -777,7 +612,8 @@ def parse_verdict(content: str) -> Optional[str]:
 
 
 # Verdicts that mean this session should not produce a post.
-STOP_VERDICTS = {"DIES", "REDUNDANT", "DO NOT PUBLISH"}
+# Verdicts that mean this session should not produce a post.
+STOP_VERDICTS = {"STOP", "DO NOT PUBLISH"}
 
 
 # ── Deterministic style check ──────────────────────────────────────
@@ -924,26 +760,26 @@ These are his, and they are handled the opposite way to source material:
 # passed, so those steps generated statistics, "Verified" statuses and
 # originality findings from memory. These are the steps that get real eyes.
 
-SEARCH_STEPS = {2, 5, 12}
+SEARCH_STEPS = {2, 4, 6}
 
 # The step where Kiran's own experience is authored.
-YOUR_TAKE_STEP = 6
-EXPERIENCE_STEP = 7
-WRITE_STEP = 9
-SCRUB_STEP = 10
+DRAFT_STEP = 3        # the first full article, written before Kiran is asked for anything
+REACT_STEP = 4        # his reaction to it
+WRITE_STEP = 5        # the rewrite that incorporates it
+CHECK_STEP = 6
 
 # Steps where the session can legitimately end without a post.
-KILL_STEPS = {4, 5}
+KILL_STEPS = {4}
 
 # A turn with server tools can pause while searches run.
 MAX_RESUMES = 8
 
 # 1,750 words is ~2,400 tokens, and 4,096 also has to cover a thinking block.
 DEFAULT_MAX_TOKENS = 8000
-STEP_MAX_TOKENS = {2: 16000, 5: 12000, 9: 16000, 11: 12000, 12: 16000}
+STEP_MAX_TOKENS = {2: 16000, 3: 16000, 4: 12000, 5: 16000, 6: 16000, 7: 16000}
 
 # max_uses is per request. Research ranges wider than verification does.
-SEARCH_BUDGET = {2: 10, 5: 8, 12: 12}
+SEARCH_BUDGET = {2: 10, 4: 8, 6: 12}
 
 
 def _web_search_tool(step: int) -> list:
@@ -1104,6 +940,16 @@ def past_posts_summary(exclude_session: Optional[str] = None, limit: int = 15) -
 
 # ── Claude interaction ─────────────────────────────────────────────
 
+def _latest_article(state: dict) -> str:
+    """The most recent full article: the rewrite if it exists, else the draft."""
+    steps = state.get("steps") or {}
+    for step in (WRITE_STEP, DRAFT_STEP):
+        content = (steps.get(str(step)) or {}).get("content", "")
+        if content.strip():
+            return content
+    return ""
+
+
 def build_step_messages(
     state: dict,
     step: int,
@@ -1165,15 +1011,10 @@ def build_step_messages(
             angles=", ".join(theme_data["angles"]),
             theme=config.get("theme", "not yet selected"),
             angle=config.get("angle", "not yet selected"),
-            kiran_words=(
-                KIRAN_WORDS_FRAMING.format(kiran_words=kiran_words)
-                if (step == YOUR_TAKE_STEP and kiran_words) else ""
-            ),
-            past_posts=(past_posts_summary(state.get("session_id")) if step == 3 else ""),
-            ideas=(_format_ideas() if step == 3 else ""),
+            past_posts=(past_posts_summary(state.get("session_id")) if step == 1 else ""),
+            ideas=(_format_ideas() if step == 1 else ""),
             rule_findings=(
-                format_rule_findings((state["steps"].get(str(WRITE_STEP)) or {}).get("content", ""))
-                if step == SCRUB_STEP else ""
+                format_rule_findings(_latest_article(state)) if step == CHECK_STEP else ""
             ),
         )
     else:
