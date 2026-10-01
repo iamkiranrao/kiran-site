@@ -50,6 +50,43 @@ SOCIAL_STEPS = [
 ]
 
 
+
+# Extra instructions applied only when a blog session was seeded with source
+# material. Steps not listed here need no steer — the source is already in
+# context from the leading message.
+SEEDED_STEP_DIRECTIVES = {
+    1: "Infer the most likely theme and angle from the source material and "
+       "propose them, rather than asking Kiran to pick blind. He can override.",
+    2: "Research AGAINST the source, not just around it. Verify its factual "
+       "claims, find who has already made this argument and when, and hunt for "
+       "the strongest counter-argument. Report where the source is unoriginal.",
+    3: "Each option must state what it adds beyond what the source already "
+       "says. Drop any option that is just the source restated.",
+    4: "Ask specifically for the evidence the source lacks: which of Kiran's own "
+       "decisions, numbers or outcomes make this argument his rather than generic.",
+    8: "Add a check: does this post say anything the source material did not "
+       "already say? If not, name what is missing.",
+    11: "The source material is the first thing to check the thesis against. "
+        "If the post has not moved past it, say so plainly.",
+}
+
+
+SOURCE_MATERIAL_FRAMING = """SOURCE MATERIAL — Kiran seeded this session with the raw material below.
+
+Treat it as a starting substrate, not a draft and not an authority:
+- Mine it for the thesis, the tensions and the vocabulary worth keeping.
+- Every factual claim in it is UNVERIFIED. It does not survive into the post
+  until Step 10 verifies it against a primary source.
+- Never reproduce its phrasing. The post is written in Kiran's voice profile,
+  not the source's.
+- Where the source is generic or well-trodden, say so and push for the sharper
+  version rather than restating it.
+
+<source_material>
+{source_material}
+</source_material>"""
+
+
 # ── Voice profile system prompt ────────────────────────────────────
 
 def _load_voice_profile() -> str:
@@ -422,6 +459,14 @@ def build_step_messages(state: dict, step: int, user_input: Optional[str] = None
     # Build the step prompt
     config = state.get("config", {})
     theme_data = _load_themes()
+    source_material = (config.get("source_material") or "").strip()
+
+    # A seeded session leads with its source material so every step can see it.
+    if source_material:
+        messages.insert(0, {
+            "role": "user",
+            "content": SOURCE_MATERIAL_FRAMING.format(source_material=source_material),
+        })
 
     if state["mode"] == "blog":
         prompt_template = BLOG_STEP_PROMPTS.get(step, "Continue with the next step.")
@@ -434,6 +479,11 @@ def build_step_messages(state: dict, step: int, user_input: Optional[str] = None
     else:
         # Social workflow — simpler prompts
         prompt = f"SOCIAL STEP {step}: {SOCIAL_STEPS[step - 1]['label']}\n\n{SOCIAL_STEPS[step - 1]['description']}"
+
+    if source_material and state["mode"] == "blog":
+        directive = SEEDED_STEP_DIRECTIVES.get(step)
+        if directive:
+            prompt = f"{prompt}\n\nSEEDED SESSION: {directive}"
 
     if user_input:
         prompt = f"{prompt}\n\nKiran's input: {user_input}"

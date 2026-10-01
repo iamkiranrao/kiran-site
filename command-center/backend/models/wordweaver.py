@@ -9,6 +9,16 @@ class CreateRequest(BaseModel):
     theme: Optional[str] = None
     angle: Optional[str] = None
     series: Optional[str] = None
+    # Raw material to seed the session with — a pasted chat thread, notes, a
+    # transcript. Mined for the thesis; its claims stay unverified until Step 10.
+    source_material: Optional[str] = None
+    source_label: Optional[str] = None
+
+
+class SourceRequest(BaseModel):
+    """Attach (or clear) source material on a session that already exists."""
+    source_material: str = ""
+    source_label: Optional[str] = None
 
 
 class StepRequest(BaseModel):

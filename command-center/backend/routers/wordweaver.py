@@ -27,7 +27,7 @@ from utils.config import CLAUDE_MODEL, resolve_api_key
 from services.claude_client import create_client
 from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
-from models.wordweaver import CreateRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
+from models.wordweaver import CreateRequest, SourceRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
 from typing import Optional
 
 # ── Resolve paths ─────────────────────────────────────────────────
@@ -93,6 +93,12 @@ async def get_step_definitions(mode: str):
     else:
         raise HTTPException(status_code=400, detail=f"Unknown mode: {mode}")
 
+# Seeded sessions carry their source material in every step's context, so cap
+# it well under the model's budget rather than letting a pasted thread crowd
+# out the carried-forward steps.
+MAX_SOURCE_CHARS = 24000
+
+
 @router.post("/create", response_model=dict)
 async def create_wordweaver_session(request: CreateRequest):
     """Start a new WordWeaver session."""
@@ -106,6 +112,17 @@ async def create_wordweaver_session(request: CreateRequest):
         initial_data["angle"] = request.angle
     if request.series:
         initial_data["series"] = request.series
+    if request.source_material and request.source_material.strip():
+        source = request.source_material.strip()
+        if len(source) > MAX_SOURCE_CHARS:
+            raise HTTPException(
+                status_code=413,
+                detail=f"Source material is {len(source)} characters; "
+                       f"the limit is {MAX_SOURCE_CHARS}. Trim it to the part "
+                       f"that carries the argument.",
+            )
+        initial_data["source_material"] = source
+        initial_data["source_label"] = (request.source_label or "pasted source").strip()
 
     session = create_session(request.mode, initial_data)
     steps = BLOG_STEPS if request.mode == "blog" else SOCIAL_STEPS
@@ -116,6 +133,8 @@ async def create_wordweaver_session(request: CreateRequest):
         "current_step": 1,
         "total_steps": session["total_steps"],
         "steps": steps,
+        "seeded": "source_material" in initial_data,
+        "source_label": initial_data.get("source_label"),
     }
 
 @router.get("/sessions", response_model=dict)
@@ -144,6 +163,44 @@ async def delete_session(session_id: str):
         shutil.rmtree(session_dir)
 
     return {"deleted": session_id}
+
+@router.post("/sessions/{session_id}/source", response_model=dict)
+async def set_source_material(session_id: str, request: SourceRequest):
+    """Attach source material to an existing session, or clear it with an empty string.
+
+    Steps already approved keep their content — the source only changes what
+    later steps see, so seeding mid-pipeline is safe.
+    """
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+
+    source = (request.source_material or "").strip()
+    if len(source) > MAX_SOURCE_CHARS:
+        raise HTTPException(
+            status_code=413,
+            detail=f"Source material is {len(source)} characters; "
+                   f"the limit is {MAX_SOURCE_CHARS}. Trim it to the part "
+                   f"that carries the argument.",
+        )
+
+    config = dict(state.get("config") or {})
+    if source:
+        config["source_material"] = source
+        config["source_label"] = (request.source_label or "pasted source").strip()
+    else:
+        config.pop("source_material", None)
+        config.pop("source_label", None)
+
+    update_session(session_id, {"config": config})
+
+    return {
+        "session_id": session_id,
+        "seeded": bool(source),
+        "source_label": config.get("source_label"),
+        "source_chars": len(source),
+    }
+
 
 @router.post("/sessions/{session_id}/step")
 async def execute_step(
