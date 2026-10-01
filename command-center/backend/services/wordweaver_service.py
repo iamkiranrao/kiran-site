@@ -409,6 +409,16 @@ PASS 2 - EVIDENCE AND EXPOSURE
   employer? Does it put him on the record against people he still works with?
   Quote the line and say what it risks. This blocks publication.
 - DECORATION. Anything that does not carry information words could not.
+- HEDGING. Does the post take a clear position, or does it go soft? Scan for
+  weasel phrases: "might", "could potentially", "it's possible that", "some
+  would argue", "arguably". Quote each one and either commit to the claim or
+  cut the sentence. A post that hedges its own thesis has no thesis.
+- SECTION VALUE. Does every section earn its place? Name any section that
+  could be removed without the argument losing anything, and recommend cutting
+  it. Length is not an achievement.
+- VOICE. Read it against the voice profile. Does this sound like Kiran, or
+  like generic thought leadership that any competent writer could have
+  produced? Quote the passages that sound anonymous and say what is missing.
 - THE HONEST QUESTION. Would a senior practitioner learn something, or
   recognise their own experience here? If not, say so.
 
