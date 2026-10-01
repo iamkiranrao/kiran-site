@@ -21,7 +21,6 @@ import {
   HelpCircle,
   Trash2,
   FileText,
-  ChevronDown,
 } from "lucide-react";
 import Link from "next/link";
 import { useApiKey } from "@/context/ApiKeyContext";
@@ -78,7 +77,7 @@ export default function WordWeaverPage() {
 
   // Create form
   const [mode, setMode] = useState<"blog" | "social">("blog");
-  const [showSource, setShowSource] = useState(false);
+  const [showSource, setShowSource] = useState(true);
   const [sourceMaterial, setSourceMaterial] = useState("");
   const [sourceLabel, setSourceLabel] = useState("");
   const [createError, setCreateError] = useState<string | null>(null);
@@ -87,6 +86,12 @@ export default function WordWeaverPage() {
   const [streaming, setStreaming] = useState(false);
   const [streamText, setStreamText] = useState("");
   const [userInput, setUserInput] = useState("");
+  // Source material on an already-running session.
+  const [editingSource, setEditingSource] = useState(false);
+  const [sessionSource, setSessionSource] = useState("");
+  const [sessionSourceLabel, setSessionSourceLabel] = useState("");
+  const [savingSource, setSavingSource] = useState(false);
+  const [sourceSaved, setSourceSaved] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
 
   const fetchSessions = useCallback(async () => {
@@ -147,6 +152,8 @@ export default function WordWeaverPage() {
       const session = await sessRes.json();
       setActiveSession(session);
       setView("workflow");
+      setSessionSource(session.config?.source_material || "");
+      setSessionSourceLabel(session.config?.source_label || "");
       setSourceMaterial("");
       setSourceLabel("");
       setShowSource(false);
@@ -158,6 +165,44 @@ export default function WordWeaverPage() {
     setLoading(false);
   };
 
+  const saveSource = async () => {
+    if (!activeSession) return;
+    setSavingSource(true);
+    setSourceSaved(false);
+    try {
+      const res = await fetch(`${API_URL}/api/wordweaver/sessions/${activeSession.session_id}/source`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source_material: sessionSource,
+          source_label: sessionSourceLabel || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setCreateError(data?.detail || `Could not save (HTTP ${res.status}).`);
+        setSavingSource(false);
+        return;
+      }
+      setActiveSession({
+        ...activeSession,
+        config: {
+          ...activeSession.config,
+          ...(sessionSource.trim()
+            ? { source_material: sessionSource.trim(), source_label: data.source_label }
+            : {}),
+        },
+      });
+      setCreateError(null);
+      setSourceSaved(true);
+      setEditingSource(false);
+      fetchSessions();
+    } catch {
+      setCreateError("Could not reach the backend.");
+    }
+    setSavingSource(false);
+  };
+
   const openSession = async (id: string) => {
     setLoading(true);
     try {
@@ -167,6 +212,10 @@ export default function WordWeaverPage() {
       setView("workflow");
       const stepData = session.steps?.[String(session.current_step)];
       setStreamText(stepData?.content || "");
+      setSessionSource(session.config?.source_material || "");
+      setSessionSourceLabel(session.config?.source_label || "");
+      setEditingSource(false);
+      setSourceSaved(false);
     } catch (e) {
       console.error("Failed to load session:", e);
     }
@@ -760,10 +809,7 @@ export default function WordWeaverPage() {
         {mode === "blog" && (
           <div className="mb-6 rounded-lg overflow-hidden"
             style={{ border: "1px solid var(--border)", backgroundColor: "var(--bg-card)" }}>
-            <button
-              onClick={() => setShowSource(!showSource)}
-              className="w-full px-4 py-3 flex items-center gap-3 text-left transition-colors"
-            >
+            <div className="w-full px-4 py-3 flex items-center gap-3 text-left">
               <FileText size={18} className={sourceMaterial.trim() ? "text-[var(--accent-blue)]" : "text-[var(--text-muted)]"} />
               <div className="flex-1">
                 <p className="text-sm font-medium text-[var(--text-primary)]">
@@ -775,10 +821,7 @@ export default function WordWeaverPage() {
                     : "Paste a chat thread, notes or a transcript to build the post from"}
                 </p>
               </div>
-              {showSource
-                ? <ChevronDown size={16} className="text-[var(--text-muted)]" />
-                : <ChevronRight size={16} className="text-[var(--text-muted)]" />}
-            </button>
+            </div>
 
             {showSource && (
               <div className="px-4 pb-4 space-y-3 border-t pt-3" style={{ borderColor: "var(--border)" }}>
@@ -1195,9 +1238,70 @@ export default function WordWeaverPage() {
           </div>
         )}
 
+        {/* ── Source material for this session ── */}
+        {!isComplete && activeSession?.mode === "blog" && (
+          <div className="shrink-0 mb-3 rounded-lg"
+            style={{ border: "1px solid var(--border)", backgroundColor: "var(--bg-card)" }}>
+            <div className="px-3 py-2 flex items-center gap-2">
+              <FileText size={14} className={sessionSource.trim() ? "text-[var(--accent-blue)]" : "text-[var(--text-muted)]"} />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-medium text-[var(--text-primary)]">
+                  Source material
+                  {sourceSaved && <span className="ml-2 text-[10px] text-[var(--accent-green)]">saved</span>}
+                </p>
+                <p className="text-[11px] text-[var(--text-muted)] truncate">
+                  {sessionSource.trim()
+                    ? `${sessionSourceLabel || "pasted source"} — ${sessionSource.trim().length.toLocaleString()} chars`
+                    : "None attached. Paste a thread or notes to build this post from."}
+                </p>
+              </div>
+              <button onClick={() => setEditingSource(!editingSource)}
+                className="text-xs px-2 py-1 rounded shrink-0"
+                style={{ border: "1px solid var(--border)", color: "var(--text-secondary)" }}>
+                {editingSource ? "Cancel" : sessionSource.trim() ? "Edit" : "Add"}
+              </button>
+            </div>
+
+            {editingSource && (
+              <div className="px-3 pb-3 space-y-2 border-t pt-2" style={{ borderColor: "var(--border)" }}>
+                <textarea
+                  value={sessionSource}
+                  onChange={(e) => { setSessionSource(e.target.value); setSourceSaved(false); }}
+                  placeholder="Paste the raw material here — a ChatGPT thread, meeting notes, a transcript..."
+                  rows={6}
+                  className="w-full px-2 py-1.5 rounded text-xs resize-y"
+                  style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }}
+                />
+                <input
+                  value={sessionSourceLabel}
+                  onChange={(e) => setSessionSourceLabel(e.target.value)}
+                  placeholder="Where it came from (optional)"
+                  className="w-full px-2 py-1.5 rounded text-xs"
+                  style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }}
+                />
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-[10px]"
+                    style={{ color: sessionSource.length > MAX_SOURCE_CHARS ? "var(--accent-red, #c0392b)" : "var(--text-muted)" }}>
+                    {sessionSource.length.toLocaleString()} / {MAX_SOURCE_CHARS.toLocaleString()} &middot; applies to steps you run from here on
+                  </p>
+                  <button onClick={saveSource}
+                    disabled={savingSource || sessionSource.length > MAX_SOURCE_CHARS}
+                    className="text-xs px-3 py-1.5 rounded font-medium shrink-0 disabled:opacity-50"
+                    style={{ backgroundColor: "var(--accent-blue)", color: "#fff" }}>
+                    {savingSource ? "Saving..." : "Save"}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* ── Input + actions: normal step workflow ── */}
         {!isComplete && !isReviewing && !isRevalidating && (
           <div className="shrink-0">
+            {createError && (
+              <p className="text-xs mb-2" style={{ color: "var(--accent-red, #c0392b)" }}>{createError}</p>
+            )}
             <div className="mb-3">
               <textarea value={userInput} onChange={(e) => setUserInput(e.target.value)}
                 onKeyDown={(e) => {
