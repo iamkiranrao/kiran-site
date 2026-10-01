@@ -36,7 +36,7 @@ BLOG_STEPS = [
     {"step": 3, "label": "Topic Options", "description": "Present 3-5 topic options with titles, hypotheses, data hooks"},
     {"step": 4, "label": "Refinement Questions", "description": "Sharpening questions about audience, anecdotes, contrarian level"},
     {"step": 5, "label": "Structure & Format", "description": "Design post structure with sections, word counts, narrative arc"},
-    {"step": 6, "label": "Anecdote Workshop", "description": "Present 2-3 anecdote options that fit the narrative arc"},
+    {"step": 6, "label": "Experience & Evidence", "description": "Work out what only you can say, and at what attribution level"},
     {"step": 7, "label": "Write the Post", "description": "Full blog post following voice profile, ~1,750 words"},
     {"step": 8, "label": "Editorial Filter", "description": "Quality gate: insight, position, section value, reputation risk scan"},
     {"step": 9, "label": "Visual Assets", "description": "Propose 1-3 SVG visuals (data viz or conceptual diagrams)"},
@@ -182,6 +182,43 @@ def _load_voice_profile() -> str:
     return "\n".join(lines)
 
 
+def _load_career_facts() -> str:
+    """Published career facts, used to ground the Experience step's questions.
+
+    Everything here is already on Kiran's resume and live site, so quoting it
+    costs him nothing. An open question ("got an anecdote?") gets a blank; a
+    question anchored to real work he did gets a real answer.
+    """
+    path = os.path.join(CONFIG_DIR, "career-facts.json")
+    if not os.path.exists(path):
+        # No facts file: the step still runs, it just has to ask open questions.
+        return (
+            "No career facts file is configured, so you cannot anchor your questions "
+            "to Kiran's published work. Ask him directly which role or project this "
+            "argument touches before probing, rather than asking a generic "
+            "'do you have an anecdote' question."
+        )
+
+    with open(path) as f:
+        facts = json.load(f)
+
+    lines = ["KIRAN'S PUBLISHED CAREER FACTS (already on his resume and site - quoting these adds no new disclosure):"]
+    for role in facts.get("roles", []):
+        flag = "  [CURRENT EMPLOYER]" if role.get("current") else ""
+        lines.append(f"\n- {role['title']}, {role['company']} ({role['dates']}){flag}")
+        for r in role.get("published_results", []):
+            lines.append(f"    - {r}")
+        if role.get("territory"):
+            lines.append(f"    Territory: {', '.join(role['territory'])}")
+
+    cur = facts.get("current_role", {})
+    if cur.get("disclosure_note"):
+        lines.append(f"\nDISCLOSURE: {cur['disclosure_note']}")
+    for rule in facts.get("framing_rules", []):
+        lines.append(f"- {rule}")
+    return "\n".join(lines)
+
+
 def _load_themes() -> dict:
     """Load themes and angles from config."""
     themes_path = os.path.join(CONFIG_DIR, "wordweaver-themes.json")
@@ -301,38 +338,63 @@ Design the post structure:
 
 Present the structure with section headers and word counts for Kiran's approval.""",
 
-    6: """STEP 6: Personal Anecdote Workshop
+    6: """STEP 6: Experience & Evidence Workshop
 
-HARD RULE: You do not know Kiran's stories. Never write one for him, never
-invent a scene, a meeting, a number, a colleague or a quote, and never offer a
-"draft" anecdote for him to edit. A fabricated first-person story published
-under his name is the single worst failure this pipeline can produce. If you
-are tempted to write "something like: the quarter we..." — stop. That is the
-failure.
+This is the step the whole post depends on. Research is delegable; the lived
+part is not. Posts that fail do so because nothing on the page could only have
+been written by Kiran. Your job is to help him author that part, not to write
+it for him.
 
-Your job here is to interview him, not to write.
+HARD RULE: invent nothing. No scenes, meetings, numbers, colleagues or quotes
+he did not give you. Never offer a sample anecdote "to react to" - he will
+react to your framing instead of reaching for his own memory, and the post ends
+up yours. If you are about to write "something like: the quarter we...", stop.
 
-1. Name the slot. Say exactly where in the approved structure an anecdote
-   belongs, what work it has to do there (open with tension, make an abstract
-   point concrete, land the turn), and how long it should run.
+{career_facts}
 
-2. Ask for the real thing. Prompt him with the kind of moment that would fit —
-   the shape, not the content. For example: "a time you argued against a metric
-   and lost", "a launch you slowed down", "a decision you'd make differently
-   now". Ask for Situation, Task, Action, Result in rough notes. Messy is fine.
+Run this as a working session, in four moves.
 
-3. If he gives you one, play it back. Summarize what he said in his own facts,
-   confirm you have it right, then say where it will sit and what you will cut.
-   You may shape his words. You may not add events, numbers or dialogue he did
-   not give you.
+MOVE 1 - BRIEF. Tell him where lived experience would be load-bearing in THIS
+argument, and what kind would do the work. Be specific to the thesis on the
+table. There are four useful kinds, and they are not equal:
+  (a) A defensible number from work he has already published
+  (b) A pattern he has seen repeat across organizations (no incident, no date)
+  (c) A decision he made and what it cost
+  (d) A thing he got wrong and what changed his mind
+(d) is the most valuable and the least used. (a) is the easiest win and almost
+always available from the facts above. Say which one this argument needs most.
 
-4. If he has no anecdote, say so plainly and offer two honest options: proceed
-   without one and carry the argument on evidence instead, or pause the session
-   until he has one. Do not fill the gap yourself.
+MOVE 2 - PROBE. Ask three to five questions, each anchored to real work in the
+facts above and to this specific thesis. Generic prompts produce blanks.
+Anchored ones produce answers. Compare:
+  Weak:   "Do you have an anecdote about metrics?"
+  Strong: "You took the app from 18M to 32M. While user growth was the headline
+          number, what were you watching that never made the slide?"
+  Strong: "On the Fiserv to FIS migration, what did you have to argue for that
+          the business case did not capture?"
+Ask for rough notes. Situation, what he did, what happened. Messy is fine, and
+say so. Stop and wait for his answer.
 
-End your output with one line, exactly:
-ANECDOTE: SUPPLIED  — if Kiran has given you real material
-ANECDOTE: NONE  — if he has not""",
+MOVE 3 - SHAPE. When he answers, do not simply accept it. First, play back what
+you heard in his own facts and confirm you have it right. Then show the SAME
+material at four attribution levels, with what each buys and what it costs:
+  1. NAMED      - "At Wells Fargo in 2019..." Most weight. Most exposure.
+  2. SECTOR     - "At a large US bank..." Keeps the specificity, drops the name.
+  3. PATTERN    - "In every bank I have worked in, the quarterly review has a
+                  slide for accounts opened and none for complaint volume."
+                  No incident, no date, nothing anyone can trace. Still
+                  concrete, still his, still carries.
+  4. OMIT       - and say how the post would change to not need it.
+Name the risk of each honestly, especially level 1 or 2 where the subject is
+his current employer. He decides. Do not decide for him.
+
+MOVE 4 - CLOSE. State plainly whether what he gave you is enough to carry the
+post, or whether it is thin. "This is enough" and "this is not enough yet" are
+both acceptable answers. Flattery here costs him his credibility later.
+
+End your output with two lines, exactly:
+EXPERIENCE: SUPPLIED | PARTIAL | NONE
+ATTRIBUTION: NAMED | SECTOR | PATTERN | NONE""",
 
     7: """STEP 7: Write the Post
 
@@ -570,6 +632,9 @@ def parse_step1_selection(content: str) -> dict:
 
 SEARCH_STEPS = {2, 10, 11}
 
+# The step where Kiran's own experience is authored.
+EXPERIENCE_STEP = 6
+
 # A turn with server tools can pause while searches run.
 MAX_RESUMES = 8
 
@@ -661,6 +726,7 @@ def build_step_messages(
             angles=", ".join(theme_data["angles"]),
             theme=config.get("theme", "not yet selected"),
             angle=config.get("angle", "not yet selected"),
+            career_facts=_load_career_facts() if step == EXPERIENCE_STEP else "",
         )
     else:
         # Social workflow — simpler prompts
