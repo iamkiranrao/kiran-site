@@ -167,9 +167,72 @@ body {
 .card-meta { flex: 1; min-width: 0; }
 .card-title { font-size: 15px; font-weight: 600; color: var(--fg); line-height: 1.3; }
 .card-tag {
-  font-size: 11px; font-family: 'DM Mono', monospace;
+  display: inline-block;
+  font-size: 10px; font-family: 'DM Mono', monospace;
   text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--accent); margin-top: 3px;
+  margin-top: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  line-height: 1.3;
+}
+/* Tool / explore freely — accent tint */
+.card-tag--tool {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+/* Fun / gift — warm tint */
+.card-tag--fun {
+  background: rgba(224, 168, 68, 0.10);
+  color: #d4a24a;
+  border: 1px solid rgba(224, 168, 68, 0.2);
+}
+/* Gated / connect to unlock — muted */
+.card-tag--gated {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--fg-muted);
+  border: 1px solid var(--border);
+}
+/* Peer / framework — green tint (practitioner tools) */
+.card-tag--framework {
+  background: rgba(77, 175, 139, 0.10);
+  color: #4daf8b;
+  border: 1px solid rgba(77, 175, 139, 0.2);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    .card-tag--fun {
+      background: rgba(200, 140, 40, 0.08);
+      color: #9a7530;
+      border-color: rgba(200, 140, 40, 0.18);
+    }
+    .card-tag--gated {
+      background: rgba(0, 0, 0, 0.03);
+      border-color: var(--border);
+    }
+    .card-tag--framework {
+      background: rgba(60, 140, 110, 0.08);
+      color: #3a8a6a;
+      border-color: rgba(60, 140, 110, 0.18);
+    }
+  }
+}
+:root[data-theme="light"] {
+  .card-tag--fun {
+    background: rgba(200, 140, 40, 0.08);
+    color: #9a7530;
+    border-color: rgba(200, 140, 40, 0.18);
+  }
+  .card-tag--gated {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: var(--border);
+  }
+  .card-tag--framework {
+    background: rgba(60, 140, 110, 0.08);
+    color: #3a8a6a;
+    border-color: rgba(60, 140, 110, 0.18);
+  }
 }
 .card-hook { font-size: 13.5px; line-height: 1.5; color: var(--fg-muted); margin-top: 8px; }
 .card-cta { font-size: 13px; font-weight: 500; color: var(--accent); margin-top: 10px; }
@@ -453,7 +516,7 @@ body {
       label: "Here's what I've unlocked for you",
       opening: "I'm Fenix — Kiran built me to help you get to what matters faster than scrolling a portfolio. You're here to evaluate, so I've pulled together what fits: a resume you can focus by role, the questions worth asking beyond the standard playbook, and a fit analysis if you want to get specific.</p><p>Pick any card below, or just ask me anything. And if you need a break from hiring mode — I make a mean motivational poster.",
       cards: [
-        { id: 'resume', title: "Kiran's Resume, Focused on Your Role", tag: 'Explore freely', hook: 'Same experience, different emphasis. Pick the lens that fits your search.', cta: '→ Choose your lens', icon: 'target',
+        { id: 'resume', title: "Kiran's Resume, Focused on Your Role", tag: 'Explore freely', tagType: 'tool', hook: 'Same experience, different emphasis. Pick the lens that fits your search.', cta: '→ Choose your lens', icon: 'target',
           modal: { kicker: 'Resume Lens', title: "Kiran's Resume, Focused on Your Role",
             question: "Which lens fits your search? Each version highlights a different strength — pick the one that matches the role you're filling.",
             type: 'choice',
@@ -461,14 +524,14 @@ body {
             output: { label: 'Product Strategy & Leadership', content: '<div class="output-section"><div class="output-label">Selected lens</div><h4>Product Strategy & Leadership</h4><p>This version leads with strategy wins, cross-functional leadership, and roadmap-to-revenue outcomes. It foregrounds the Wells Fargo mobile rebuild (12M→32M users), the First Republic platform migration, and the Avatour AI pivot.</p></div><div class="output-section"><div class="output-label">What stands out</div><p><strong>Scale:</strong> Products serving 30M+ users across banking, insurance, and SaaS.<br><strong>Leadership:</strong> Teams of 8–25 across 3 time zones.<br><strong>Pattern:</strong> Every role started with a rebuild nobody wanted to touch.</p></div>' }
           }
         },
-        { id: 'questions', title: 'What Recruiters Never Ask', tag: 'Explore freely', hook: "Five questions great leaders ask, and my honest answers.", cta: '→ See the questions', icon: 'question',
+        { id: 'questions', title: 'What Recruiters Never Ask', tag: 'Explore freely', tagType: 'tool', hook: "Five questions great leaders ask, and my honest answers.", cta: '→ See the questions', icon: 'question',
           modal: { kicker: 'Recruiter Questions', title: 'What Recruiters Never Ask',
             question: "These questions aren't mine. They're the ones smart hiring leaders use to find the people a resume hides: Satya Nadella, Brian Chesky, the Collisons, Patty McCord. Each built a reputation on the principle that the standard interview misses what matters.",
             type: 'static',
             output: '<div class="output-section"><div class="output-label">Patty McCord</div><h4>"Tell me the story of you, but you can\'t say anything on your resume."</h4><p>"I was born and raised in Dubai. My father was a mechanical engineer at an oil company, but the engineering didn\'t stop when he came home. He\'d fabricate an aquarium one weekend, build an aviary the next, fix his friends\' cars on the side. I got my first computer at seven and have been in love with technology ever since."</p></div><div class="output-section"><div class="output-label">Satya Nadella</div><h4>"When was the last time you changed your mind about something important?"</h4><p>"I spent two years at First Republic Bank leading the most transformative product roadmap in the company\'s history. The month we were supposed to launch, the banking crisis hit. First Republic collapsed. That\'s when I knew I was never in the technology business. I\'m in the people business."</p></div>'
           }
         },
-        { id: 'poster', title: 'A Gift for Your Office Wall', tag: 'From me to you', hook: 'AI-generated, printable, and funnier than anything HR has approved.', cta: '→ Fix office morale', icon: 'gift',
+        { id: 'poster', title: 'A Gift for Your Office Wall', tag: 'From me to you', tagType: 'fun', hook: 'AI-generated, printable, and funnier than anything HR has approved.', cta: '→ Fix office morale', icon: 'gift',
           modal: { kicker: 'Motivational Poster', title: 'A Gift for Your Office Wall',
             question: "I've spent enough time in corporate to know what the break room really needs. Pick a vibe and I'll generate something printable.",
             type: 'choice',
@@ -476,7 +539,7 @@ body {
             output: { label: 'Corporate Existential', content: '<div class="output-section" style="text-align:center; padding: 24px 0;"><h4 style="font-size: 28px; letter-spacing: 0.15em; margin-bottom: 8px;">SYNERGY</h4><p style="font-size: 15px; font-style: italic; color: var(--fg-muted);">"Because none of us wanted to do it alone, and now none of us can."</p></div>' }
           }
         },
-        { id: 'fit', title: 'What Differentiates Kiran for Your Role', tag: 'Connect to unlock', hook: "Paste a job description and I'll show you exactly where Kiran's work lines up.", cta: '→ Connect to get started', icon: 'target', locked: true,
+        { id: 'fit', title: 'What Differentiates Kiran for Your Role', tag: 'Connect to unlock', tagType: 'gated', hook: "Paste a job description and I'll show you exactly where Kiran's work lines up.", cta: '→ Connect to get started', icon: 'target', locked: true,
           modal: { kicker: 'Fit Narrative', title: 'What Differentiates Kiran for Your Role',
             question: "Paste a job description below. I'll map Kiran's experience to the specific requirements — projects, results, and scale.",
             type: 'input',
@@ -492,35 +555,35 @@ body {
       label: "Real tools, for your work",
       opening: "I'm Fenix — the AI Kiran built into this site. You're a peer, so I'm not going to pitch you. Instead, here are real tools for your own work: a JTBD builder, a journey mapper, an honest AI gut-check. Use them on whatever you're building right now.</p><p>And when you need a laugh — ask me to Feature Creep something. I'll ruin any product with AI nobody asked for.",
       cards: [
-        { id: 'overkill', title: 'Is AI overkill?', tag: 'A gut-check tool', hook: "Describe an AI feature you're weighing. I'll tell you if AI earns its keep.", cta: '→ Check my idea', icon: 'scale',
+        { id: 'overkill', title: 'Is AI overkill?', tag: 'A gut-check tool', tagType: 'tool', hook: "Describe an AI feature you're weighing. I'll tell you if AI earns its keep.", cta: '→ Check my idea', icon: 'scale',
           modal: { kicker: 'AI Gut-Check', title: 'Is AI overkill?',
             question: "Describe the AI feature you're weighing — a sentence or two. I'll tell you if AI earns its keep, or if a simpler answer wins.",
             type: 'input', placeholder: "e.g. an AI chatbot to help users pick a pricing plan", thinkingLabel: 'Running the gut-check...',
             output: '<div class="output-section"><div class="output-label">Verdict</div><h4>⚠️ Could work — test the cheap version first</h4></div><div class="output-section"><div class="output-label">The four questions</div><p><strong>Probabilistic or deterministic?</strong> Pricing plan selection is mostly deterministic — a decision tree based on usage, team size, and features covers 80% of cases.</p><p><strong>80% solution without AI?</strong> Yes — a guided quiz with branching logic. Typeform-style, 4 questions, done.</p><p><strong>Cost of being wrong?</strong> Moderate. Wrong plan → churn or upgrade friction. But the user can always change.</p><p><strong>Value in the outcome or the label?</strong> The outcome. Nobody brags about their pricing-plan chatbot.</p></div><div class="output-section"><div class="output-label">The cheaper path</div><p>Build the decision tree first. Three questions: team size, primary use case, budget sensitivity. If 20%+ of users still can\'t decide, then test a conversational layer.</p></div><div class="output-section"><div class="output-label">Kiran\'s take</div><p>The best AI feature is the one you didn\'t build because the simple version worked.</p></div>'
           }
         },
-        { id: 'jtbd', title: 'Jobs-to-Be-Done builder', tag: 'A real framework, applied', hook: "Tell me your product. I'll build the actual job it's hired to do.", cta: '→ Build the job', icon: 'target',
+        { id: 'jtbd', title: 'Jobs-to-Be-Done builder', tag: 'A real framework, applied', tagType: 'framework', hook: "Tell me your product. I'll build the actual job it's hired to do.", cta: '→ Build the job', icon: 'target',
           modal: { kicker: 'Jobs-to-Be-Done', title: 'Your Jobs-to-Be-Done',
             question: "Tell me your product and who it's for. I'll build the real job it's hired to do — forces, struggling moment, and the competition you didn't see.",
             type: 'input', placeholder: "e.g. a meal-kit subscription for busy parents", thinkingLabel: 'Building the job...',
             output: '<div class="output-section"><div class="output-label">The core job</div><p><strong>When</strong> I get home exhausted and the kids are hungry, <strong>I want to</strong> put a real dinner on the table without deciding what to cook, <strong>so I can</strong> feel like a competent parent instead of defaulting to takeout again.</p></div><div class="output-section"><div class="output-label">The Four Forces</div><p><strong>Push:</strong> Guilt from ordering pizza three nights this week<br><strong>Pull:</strong> "I cooked this" pride without the planning overhead<br><strong>Anxiety:</strong> What if the kids won\'t eat it and I\'ve wasted the money?<br><strong>Habit:</strong> DoorDash is two taps and zero thinking</p></div><div class="output-section"><div class="output-label">What they\'re really firing</div><p>Not another meal kit. They\'re firing the <strong>mental load of meal planning</strong> — the grocery list, the "what sounds good," the recipe hunt. DoorDash is the real competitor, not Blue Apron.</p></div>'
           }
         },
-        { id: 'journey', title: 'Map the journey', tag: 'An emotion curve', hook: "Describe a product and a flow. I'll map the emotional journey.", cta: '→ Map it', icon: 'chart',
+        { id: 'journey', title: 'Map the journey', tag: 'An emotion curve', tagType: 'tool', hook: "Describe a product and a flow. I'll map the emotional journey.", cta: '→ Map it', icon: 'chart',
           modal: { kicker: 'Customer Journey', title: 'The Emotional Journey',
             question: "Name a product and a flow — where does the customer start, where do they end? I'll map the emotional arc.",
             type: 'input', placeholder: "e.g. onboarding for a mobile banking app", thinkingLabel: 'Mapping the journey...',
             output: '<div class="output-section"><p>In the real implementation, this renders a visual emotion curve — positive/neutral/negative steps with insight annotations. The structured data drives an inline SVG chart.</p></div>'
           }
         },
-        { id: 'featurecreep', title: 'Feature Creep', tag: "For the record, it's a joke", hook: "Name a product. I'll bolt on three gloriously stupid AI features.", cta: '→ Creep it', icon: 'sparkle',
+        { id: 'featurecreep', title: 'Feature Creep', tag: "For the record, it's a joke", tagType: 'fun', hook: "Name a product. I'll bolt on three gloriously stupid AI features.", cta: '→ Creep it', icon: 'sparkle',
           modal: { kicker: 'Feature Creep', title: 'Feature Creep: The Toaster Edition',
             question: 'Name a product — anything. Or just hit submit and I\'ll pick one. Then watch me ruin it with AI nobody asked for.',
             type: 'input', placeholder: 'e.g. a toaster', thinkingLabel: 'Cramming in AI nobody asked for...',
             output: '<div class="output-section"><h4>1. SmartBurn™ Sentiment Analysis</h4><p>Analyzes your facial expression via countertop camera to determine desired toast darkness. Frowning? Extra crispy. The roadmap includes "Toast Mood Rings" for Q3.</p></div><div class="output-section"><h4>2. Predictive Bread Loading</h4><p>ML model trained on 47M breakfast sessions pre-heats the coils when your alarm goes off. 94% accuracy (6% false positive rate on snooze-button users).</p></div><div class="output-section"><h4>3. AI-Powered Crumb Tray Insights Dashboard</h4><p>Weekly "Crumb Report" delivered to your inbox. Tracks carb consumption trends, correlates with calendar events. "You toast 3x more before board meetings."</p></div><div class="output-section"><p style="font-style: italic; color: var(--fg-muted);">The best AI feature is usually the one you didn\'t build. But here we are.</p></div>'
           }
         },
-        { id: 'trade', title: 'Trade me a door.', tag: 'A door for a door', hook: "700+ people in my network. Tell me who you're trying to reach.", cta: '→ See my deck', icon: 'trade',
+        { id: 'trade', title: 'Trade me a door.', tag: 'A door for a door', tagType: 'tool', hook: "700+ people in my network. Tell me who you're trying to reach.", cta: '→ See my deck', icon: 'trade',
           modal: { kicker: 'Network Trade', title: 'Trade me a door.',
             question: "700+ people in my network, 4 in 10 senior in banking & fintech. Tell me who you're trying to reach; if I can open that door and you've got one for me, we trade. This isn't a contact dump — it's a mutual introduction.",
             type: 'input', placeholder: "I'm looking for an intro to...", thinkingLabel: 'Checking my network...',
@@ -534,28 +597,28 @@ body {
       label: "The internals, unlocked",
       opening: "I'm Fenix — the AI running this site. Kiran built me, the RAG underneath me, and the persona system you just used, by making every decision and writing none of the code. The cards below are the actual internals: how it got built, the calls behind it, and a problem you can bring if you've got one.</p><p>Or — if you want to see me turn on my own creator — let me roast the whole build.",
       cards: [
-        { id: 'buildstory', title: 'How I built this without code.', tag: 'The honest version', hook: 'What I decided vs. what the AI wrote. A production AI system, shipped by a leader who directs.', cta: '→ See the split', icon: 'sun',
+        { id: 'buildstory', title: 'How I built this without code.', tag: 'The honest version', tagType: 'tool', hook: 'What I decided vs. what the AI wrote. A production AI system, shipped by a leader who directs.', cta: '→ See the split', icon: 'sun',
           modal: { kicker: 'Build Story', title: 'How I built this without code.',
             question: "Each card below is a real decision from this build. On the left: what Kiran decided. On the right: what the AI executed. The split is the skill.",
             type: 'static',
             output: '<div class="output-section"><div class="output-label">Decision 1</div><h4>Fenix hallucinated job history — the rules had to be louder than the urge to be helpful</h4><p><strong>Kiran decided:</strong> The rules against making things up have to be LOUDER than the urge to be helpful.</p><p><strong>AI executed:</strong> Rebuilt the safety layer — six hard rules and a locked-down retrieval prompt. Fenix now says "wrote," never "built" — and "I don\'t know" when it should.</p></div><div class="output-section"><div class="output-label">Decision 2</div><h4>One 400KB file was strangling every change</h4><p><strong>Kiran decided:</strong> Asked for the structure that makes the next twenty changes easy.</p><p><strong>AI executed:</strong> Split into a core plus swappable per-persona adapters. 400KB → 85KB, a 93.6% cut.</p></div>'
           }
         },
-        { id: 'judgment', title: 'The judgment calls.', tag: 'What I decided, and why', hook: 'What to build, what to buy, what to kill. Challenge any of them.', cta: '→ Read the calls', icon: 'layers',
+        { id: 'judgment', title: 'The judgment calls.', tag: 'What I decided, and why', tagType: 'framework', hook: 'What to build, what to buy, what to kill. Challenge any of them.', cta: '→ Read the calls', icon: 'layers',
           modal: { kicker: 'Architecture Decisions', title: 'The judgment calls.',
             question: "Five product-technical decisions behind this build. Each one is challengeable — disagree with any of them and Fenix will defend the call.",
             type: 'static',
             output: '<div class="output-section"><h4>Make the site the product, not a case study</h4><p>A product leader doesn\'t need a case study about building great products while standing inside one. The site is the proof — the medium is the message.</p><p style="color: var(--accent); cursor: pointer; font-size: 13px; margin-top: 6px;">→ Challenge this call</p></div><div class="output-section"><h4>Measure by connection, not engagement</h4><p>The only metric that matters is whether you reach out. A relationship metric, not pageviews. Trading virality for a small, high-intent audience.</p><p style="color: var(--accent); cursor: pointer; font-size: 13px; margin-top: 6px;">→ Challenge this call</p></div>'
           }
         },
-        { id: 'problem', title: 'Bring me a product or AI problem.', tag: 'Connect to unlock', hook: "Scoping an AI feature? Stuck on build-vs-buy? Give me a sentence.", cta: '→ Connect to unlock', icon: 'question', locked: true,
+        { id: 'problem', title: 'Bring me a product or AI problem.', tag: 'Connect to unlock', tagType: 'gated', hook: "Scoping an AI feature? Stuck on build-vs-buy? Give me a sentence.", cta: '→ Connect to unlock', icon: 'question', locked: true,
           modal: { kicker: 'Problem Scope', title: 'Bring me a problem.',
             question: "Describe what you're working on — an AI feature, a build-vs-buy call, an adoption problem. I'll give you a first-pass scope.",
             type: 'input', placeholder: "We're trying to...", thinkingLabel: 'Scoping...',
             output: '<div class="output-section"><p>In the real implementation, Fenix generates a first-pass scope and then offers to connect for a deeper session.</p></div>'
           }
         },
-        { id: 'roast', title: 'Roast the build.', tag: 'I can take it', hook: "Turn my own AI loose on my own architecture. Honest and affectionate.", cta: '→ Let Fenix cook', icon: 'flame',
+        { id: 'roast', title: 'Roast the build.', tag: 'I can take it', tagType: 'fun', hook: "Turn my own AI loose on my own architecture. Honest and affectionate.", cta: '→ Let Fenix cook', icon: 'flame',
           modal: { kicker: 'The Roast', title: 'Roast the build.',
             question: "Pick your angle and I'll roast Kiran's own work. He explicitly asked for this, so I'm not going soft.",
             type: 'choice',
@@ -570,28 +633,28 @@ body {
       label: "Real tools, to help you break in",
       opening: "I'm Fenix — Kiran built me to be the mentor he wished he'd had when he was starting out. You're here to grow, so I've set up some things to get you closer: a metrics tool to sharpen your thinking, a project generator tailored to the role you want, and a direct line to book time with Kiran.</p><p>And if you just want to browse what's shaping how he thinks — the reading list is in there too.",
       cards: [
-        { id: 'metrics', title: 'What should you measure?', tag: 'A real PM skill', hook: "Describe a product or goal — I'll show you how to pick the metrics that matter.", cta: '→ Find the metrics', icon: 'chart',
+        { id: 'metrics', title: 'What should you measure?', tag: 'A real PM skill', tagType: 'tool', hook: "Describe a product or goal — I'll show you how to pick the metrics that matter.", cta: '→ Find the metrics', icon: 'chart',
           modal: { kicker: 'Metrics', title: 'What to Measure',
             question: "Describe a product, feature, or goal — even a rough one. I'll walk you through picking the metrics that actually matter.",
             type: 'input', placeholder: "e.g. a food-delivery app's new loyalty program", thinkingLabel: 'Finding the metrics...',
             output: '<div class="output-section"><div class="output-label">North Star</div><h4>Repeat order rate within 30 days</h4><p>Not total orders (vanity). Not revenue (lagging). The single metric that captures whether the loyalty program actually changes behavior.</p></div><div class="output-section"><div class="output-label">Input metrics</div><p><strong>Points redemption rate</strong> — are people actually using the rewards?<br><strong>2nd order within 7 days</strong> — early signal of habit formation<br><strong>Referral invites sent</strong> — loyalty becomes acquisition</p></div><div class="output-section"><div class="output-label">The vanity trap</div><p><strong>"Total loyalty sign-ups"</strong> — feels great in a deck, means nothing. Half of sign-ups are checkout nudges that never convert to a second order.</p></div>'
           }
         },
-        { id: 'buildwayin', title: 'Build your way in', tag: 'Learn by doing', hook: "Tell me the role you're aiming for — I'll hand you a real project.", cta: '→ Get my project', icon: 'tool',
+        { id: 'buildwayin', title: 'Build your way in', tag: 'Learn by doing', tagType: 'framework', hook: "Tell me the role you're aiming for — I'll hand you a real project.", cta: '→ Get my project', icon: 'tool',
           modal: { kicker: 'Build Your Way In', title: 'Your Portfolio Project',
             question: "What role are you aiming for? Or tell me your background and where you want to go. I'll give you a real project to build.",
             type: 'input', placeholder: "e.g. Growth PM at a consumer app — I'm a data analyst now", thinkingLabel: 'Designing your project...',
             output: '<div class="output-section"><div class="output-label">The skill this role screens for</div><h4>Experiment design and growth loop thinking</h4></div><div class="output-section"><div class="output-label">Build this</div><p><strong>A referral flow teardown + redesign for a real app.</strong> Pick an app you use. Map the current referral flow. Identify where it leaks. Design three variants. Write the experiment spec — hypothesis, metric, sample size, duration.</p></div><div class="output-section"><div class="output-label">What it proves</div><p>You think in loops, not features. You can go from observation to experiment spec. That\'s what separates a Growth PM from someone who just wants the title.</p></div>'
           }
         },
-        { id: 'picks', title: "What I'm reading & listening to", tag: 'Books, voices & the odd wildcard', hook: "The books, essays, and voices shaping how I think.", cta: '→ Open the list', icon: 'book',
+        { id: 'picks', title: "What I'm reading & listening to", tag: 'Books, voices & the odd wildcard', tagType: 'fun', hook: "The books, essays, and voices shaping how I think.", cta: '→ Open the list', icon: 'book',
           modal: { kicker: 'Reading List', title: "What I'm reading & listening to",
             question: "The books, essays, and voices shaping how Kiran thinks about product, people, and building things that matter. Some current, some timeless.",
             type: 'static',
             output: '<div class="output-section"><div class="output-label">Currently reading</div><p><strong>Thinking in Systems</strong> — Donella Meadows<br><strong>Build</strong> — Tony Fadell<br><strong>The Mom Test</strong> — Rob Fitzpatrick</p></div><div class="output-section"><div class="output-label">Voices I keep coming back to</div><p><strong>Simon Sinek</strong> — Start with why, always<br><strong>Adam Grant</strong> — Rethinking what you think you know<br><strong>Brené Brown</strong> — Courage in leadership<br><strong>Trevor Noah</strong> — Perspective through humor</p></div>'
           }
         },
-        { id: 'booking', title: 'Book a mentoring session', tag: 'Free · 1:1 with Kiran', hook: "Book a free 30-min session with Kiran on ADPList.", cta: '→ Book on ADPList', icon: 'calendar',
+        { id: 'booking', title: 'Book a mentoring session', tag: 'Free · 1:1 with Kiran', tagType: 'tool', hook: "Book a free 30-min session with Kiran on ADPList.", cta: '→ Book on ADPList', icon: 'calendar',
           modal: { kicker: 'Mentoring', title: 'Book a mentoring session',
             question: "Kiran mentors aspiring PMs on ADPList — free 30-minute sessions. Whether you're prepping for an interview, planning a career switch, or figuring out your first PM role, he's happy to help.",
             type: 'static',
@@ -645,7 +708,7 @@ body {
           '<div class="card-icon">' + iconSvg + '</div>' +
           '<div class="card-meta">' +
             '<div class="card-title">' + card.title + '</div>' +
-            '<div class="card-tag">' + card.tag + '</div>' +
+            '<div class="card-tag card-tag--' + (card.tagType || 'tool') + '">' + card.tag + '</div>' +
           '</div>' +
         '</div>' +
         '<div class="card-hook">' + card.hook + '</div>' +
