@@ -5,49 +5,86 @@
     "last_updated": "2026-03-20",
     "version": "1.0.0"
   },
-
   "banned_phrases": {
     "hard_banned": {
       "description": "Never use. Zero tolerance across all content types.",
       "words": [
-        "orchestrated", "spearheaded", "championed", "pioneered",
-        "seasoned", "comprehensive", "leveraged", "synergized",
-        "utilized", "facilitated", "harnessed", "endeavored"
+        "orchestrated",
+        "spearheaded",
+        "championed",
+        "pioneered",
+        "seasoned",
+        "comprehensive",
+        "leveraged",
+        "synergized",
+        "utilized",
+        "facilitated",
+        "harnessed",
+        "endeavored"
       ]
     },
     "soft_banned": {
       "description": "Avoid. Resume allows max 1 instance; other content types should avoid entirely.",
       "words": [
-        "architected", "streamlined", "revolutionized",
-        "transformed", "empowered", "optimized"
+        "architected",
+        "streamlined",
+        "revolutionized",
+        "transformed",
+        "empowered",
+        "optimized"
       ]
     },
     "ai_language": {
       "description": "AI-detection flags. Rewrite any sentence containing these.",
       "words": [
-        "delve", "landscape", "multifaceted", "game-changer",
-        "compelling", "robust", "holistic", "seamlessly",
-        "innovative", "transformative", "best-in-class",
-        "world-class", "state-of-the-art", "cutting-edge"
+        "delve",
+        "landscape",
+        "multifaceted",
+        "game-changer",
+        "compelling",
+        "robust",
+        "holistic",
+        "seamlessly",
+        "innovative",
+        "transformative",
+        "best-in-class",
+        "world-class",
+        "state-of-the-art",
+        "cutting-edge"
       ]
     },
     "buzzwords": {
       "description": "Corporate jargon. Cut entirely or replace with plain language.",
       "words": [
-        "leverage", "synergy", "paradigm", "ecosystem",
-        "scalable solution", "cutting-edge", "best-in-class", "empower"
+        "leverage",
+        "synergy",
+        "paradigm",
+        "ecosystem",
+        "scalable solution",
+        "cutting-edge",
+        "best-in-class",
+        "empower"
       ]
     },
     "anti_patterns": {
-      "description": "Resume-specific clichés that signal generic writing.",
+      "description": "Resume-specific clich\u00e9s that signal generic writing.",
       "words": [
-        "results-driven", "dynamic", "passionate about",
-        "dedicated to", "seeking"
+        "results-driven",
+        "dynamic",
+        "passionate about",
+        "dedicated to",
+        "seeking"
       ]
     },
     "filler_qualifiers": {
       "description": "Weak intensifiers that add no meaning. Cut them.",
-      "patterns": ["\\bvery\\b", "\\breally\\b", "\\bextremely\\b", "\\bincredibly\\b", "\\bhighly\\b"]
+      "patterns": [
+        "\\bvery\\b",
+        "\\breally\\b",
+        "\\bextremely\\b",
+        "\\bincredibly\\b",
+        "\\bhighly\\b"
+      ]
     },
     "banned_openers": {
       "description": "AI-tell opening phrases. Never start a section or paragraph with these.",
@@ -61,22 +98,20 @@
       ]
     }
   },
-
   "voice_rules": {
     "core_principles": [
-      "Like a real person talking to another real person — not a pitch deck, not AI",
-      "Approachable and clear — a smart friend explaining something interesting",
-      "Warm but rigorous — never preachy, never detached",
-      "Starts with why — why something matters before what it is",
-      "Names what's hard — uncertainty, failure, uncomfortable truths",
-      "Varied rhythm — mix short punchy sentences with longer flowing ones"
+      "Like a real person talking to another real person \u2014 not a pitch deck, not AI",
+      "Approachable and clear \u2014 a smart friend explaining something interesting",
+      "Warm but rigorous \u2014 never preachy, never detached",
+      "Starts with why \u2014 why something matters before what it is",
+      "Names what's hard \u2014 uncertainty, failure, uncomfortable truths",
+      "Varied rhythm \u2014 mix short punchy sentences with longer flowing ones"
     ],
     "english_standard": "American English exclusively",
     "em_dash_rule": "BANNED entirely. Use commas, periods, or rewrite the sentence.",
     "passive_voice": "Avoid where active voice works. Active voice is almost always better.",
     "conversational_test": "Every sentence should sound like explaining to a smart friend. No consultant-speak."
   },
-
   "anti_ai_markers": {
     "required": {
       "first_person_asides": {
@@ -105,50 +140,132 @@
       "no_excessive_parallelism": "If 5 bullets all start with the same grammatical pattern, vary the structure."
     }
   },
-
   "readability_targets": {
-    "blog": {"grade_level": "10-11", "description": "Blog posts and thought leadership"},
-    "teardown": {"grade_level": "11-12", "description": "Product teardown pages"},
-    "madlab": {"grade_level": "9-10", "description": "MadLab prototype overviews"},
-    "scannibal": {"grade_level": "8-9", "description": "Scannibal product content"},
-    "social": {"grade_level": "8-9", "description": "Social media content"},
+    "blog": {
+      "grade_level": "10-11",
+      "description": "Blog posts and thought leadership"
+    },
+    "teardown": {
+      "grade_level": "11-12",
+      "description": "Product teardown pages"
+    },
+    "madlab": {
+      "grade_level": "9-10",
+      "description": "MadLab prototype overviews"
+    },
+    "scannibal": {
+      "grade_level": "8-9",
+      "description": "Scannibal product content"
+    },
+    "social": {
+      "grade_level": "8-9",
+      "description": "Social media content"
+    },
     "resume": {
       "flesch_reading_ease": "30-60",
       "flesch_kincaid_grade": "9-14",
-      "description": "Resume content — higher grade level acceptable for professional context"
+      "description": "Resume content \u2014 higher grade level acceptable for professional context"
     }
   },
-
   "domain_rules": {
     "canonical_domain": "kiranrao.ai",
-    "never_use_in_content": "Never use kiranrao.ai in any user-facing content, OG tags, canonical URLs, or JSON-LD."
+    "usage_rule": "Use kiranrao.ai for all canonical URLs, OG tags, Twitter cards and JSON-LD. Never reference any other domain as Kiran's site."
   },
-
   "resume_overrides": {
     "_note": "Resume Pipeline has legitimate custom rules that extend (not contradict) Foundation governance. See docs/CommandCenter/ResumePipeline/RESUME-RULES.md for full documentation.",
     "soft_banned_limit": 1,
     "preferred_verbs": [
-      "built", "ran", "grew", "cut", "shipped", "owned", "led",
-      "launched", "reduced", "drove", "managed", "created", "designed",
-      "delivered", "deployed", "migrated", "integrated", "implemented",
-      "established", "executed", "defined", "restructured", "repositioned",
-      "consolidated", "negotiated", "reworked"
+      "built",
+      "ran",
+      "grew",
+      "cut",
+      "shipped",
+      "owned",
+      "led",
+      "launched",
+      "reduced",
+      "drove",
+      "managed",
+      "created",
+      "designed",
+      "delivered",
+      "deployed",
+      "migrated",
+      "integrated",
+      "implemented",
+      "established",
+      "executed",
+      "defined",
+      "restructured",
+      "repositioned",
+      "consolidated",
+      "negotiated",
+      "reworked"
     ],
     "verb_categories": {
-      "impact": ["Drove", "Grew", "Increased", "Expanded", "Scaled", "Cut", "Reduced"],
-      "creation": ["Built", "Designed", "Created", "Shipped", "Launched", "Introduced", "Developed"],
-      "leadership": ["Led", "Managed", "Owned", "Ran", "Directed", "Oversaw"],
-      "execution": ["Delivered", "Deployed", "Migrated", "Integrated", "Implemented", "Established", "Executed"],
-      "strategy": ["Defined", "Restructured", "Repositioned", "Consolidated", "Negotiated", "Reworked"]
+      "impact": [
+        "Drove",
+        "Grew",
+        "Increased",
+        "Expanded",
+        "Scaled",
+        "Cut",
+        "Reduced"
+      ],
+      "creation": [
+        "Built",
+        "Designed",
+        "Created",
+        "Shipped",
+        "Launched",
+        "Introduced",
+        "Developed"
+      ],
+      "leadership": [
+        "Led",
+        "Managed",
+        "Owned",
+        "Ran",
+        "Directed",
+        "Oversaw"
+      ],
+      "execution": [
+        "Delivered",
+        "Deployed",
+        "Migrated",
+        "Integrated",
+        "Implemented",
+        "Established",
+        "Executed"
+      ],
+      "strategy": [
+        "Defined",
+        "Restructured",
+        "Repositioned",
+        "Consolidated",
+        "Negotiated",
+        "Reworked"
+      ]
     },
     "pm_keywords": [
-      "roadmap", "cross-functional", "stakeholder", "a/b test",
-      "user research", "data-driven", "gtm", "p&l", "okr",
+      "roadmap",
+      "cross-functional",
+      "stakeholder",
+      "a/b test",
+      "user research",
+      "data-driven",
+      "gtm",
+      "p&l",
+      "okr",
       "experimentation"
     ],
     "ats_headers": [
-      "experience", "education", "skills", "summary",
-      "competencies", "certifications"
+      "experience",
+      "education",
+      "skills",
+      "summary",
+      "competencies",
+      "certifications"
     ]
   }
 }

@@ -18,7 +18,11 @@ from datetime import datetime
 from typing import Optional, List, Dict
 
 from utils.config import CLAUDE_MODEL, data_dir
-from services.governance_loader import DOMAIN_RULES
+from services.governance_loader import (
+    DOMAIN_RULES,
+    READABILITY_TARGETS,
+    get_full_governance_prompt,
+)
 
 SESSIONS_DIR = data_dir("wordweaver")
 CONFIG_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config")
@@ -90,7 +94,13 @@ Treat it as a starting substrate, not a draft and not an authority:
 # ── Voice profile system prompt ────────────────────────────────────
 
 def _load_voice_profile() -> str:
-    """Load the voice profile JSON and build a system prompt section."""
+    """Build the voice-profile prompt section from the full profile JSON.
+
+    Every field Kiran wrote is sent. Earlier this read seven keys and silently
+    dropped the rest — including the punctuation rule that bans em dashes and
+    the influence map that defines the Sinek-Grant-Noah blend step 7 is told
+    to follow.
+    """
     profile_path = os.path.join(CONFIG_DIR, "wordweaver-profile.json")
     if not os.path.exists(profile_path):
         return "Voice profile not loaded. Write in a warm, confident, product-leader voice."
@@ -99,23 +109,75 @@ def _load_voice_profile() -> str:
         profile = json.load(f)
 
     voice = profile.get("voice", {})
+    influences = profile.get("influence_map", {})
     english = profile.get("english_standard", {})
     audience = profile.get("audience", {})
     principles = profile.get("stylistic_principles", [])
     formatting = profile.get("formatting_preferences", {})
 
     lines = [
+        "VOICE PROFILE",
         f"Voice: {voice.get('description', '')}",
         f"Tone: {voice.get('tone', '')}",
-        f"English standard: {english.get('convention', 'American English')} — {english.get('spelling', '')}",
-        f"Audience: {audience.get('description', '')}",
-        f"Expertise level: {audience.get('expertise_level', '')}",
-        f"Target: ~{formatting.get('target_word_count', 1750)} words, {formatting.get('target_reading_time_minutes', 7)} min read",
-        "",
-        "Stylistic principles:",
     ]
-    for p in principles:
-        lines.append(f"- {p}")
+
+    traits = voice.get("personality_traits", [])
+    if traits:
+        lines.append("")
+        lines.append("Personality traits:")
+        lines.extend(f"- {t}" for t in traits)
+
+    if influences:
+        lines.append("")
+        lines.append("Influence map (this is what the Sinek-Grant-Noah blend means):")
+        for name, detail in influences.items():
+            label = name.replace("_", " ").title()
+            if isinstance(detail, dict) and "what_to_borrow" in detail:
+                lines.append(f"- {label}:")
+                lines.extend(f"    - {b}" for b in detail.get("what_to_borrow", []))
+                shows = detail.get("how_it_shows_up")
+                if shows:
+                    lines.append(f"    How it shows up: {shows}")
+            elif isinstance(detail, dict):
+                for sub, text in detail.items():
+                    lines.append(f"- {sub.replace('_', ' ').title()}: {text}")
+            else:
+                lines.append(f"- {label}: {detail}")
+
+    lines.append("")
+    lines.append("English standard:")
+    lines.append(f"- Convention: {english.get('convention', 'American English')}")
+    for key in ("spelling", "british_to_american", "punctuation", "notes"):
+        val = english.get(key)
+        if val:
+            lines.append(f"- {key.replace('_', ' ').capitalize()}: {val}")
+
+    lines.append("")
+    lines.append("Audience:")
+    for key in ("description", "expertise_level", "reading_context"):
+        val = audience.get(key)
+        if val:
+            lines.append(f"- {key.replace('_', ' ').capitalize()}: {val}")
+
+    if principles:
+        lines.append("")
+        lines.append("Stylistic principles:")
+        lines.extend(f"- {p}" for p in principles)
+
+    lines.append("")
+    lines.append("Formatting:")
+    lines.append(
+        f"- Target: ~{formatting.get('target_word_count', 1750)} words, "
+        f"{formatting.get('target_reading_time_minutes', 7)} min read"
+    )
+    for key in ("heading_style", "paragraph_length", "use_of_quotes", "use_of_lists"):
+        val = formatting.get(key)
+        if val:
+            lines.append(f"- {key.replace('_', ' ').capitalize()}: {val}")
+
+    blog_target = (READABILITY_TARGETS or {}).get("blog", {})
+    if blog_target.get("grade_level"):
+        lines.append(f"- Readability target: grade {blog_target['grade_level']}")
 
     return "\n".join(lines)
 
@@ -142,7 +204,11 @@ def _build_wordweaver_system() -> str:
     Returns a template string with {voice_profile} placeholder for runtime formatting.
     """
     domain = DOMAIN_RULES.get("canonical_domain", "kiranrao.ai")
-    domain_note = DOMAIN_RULES.get("never_use_in_content", "Never use the domain in user-facing content, OG tags, canonical URLs, or JSON-LD.")
+    domain_note = DOMAIN_RULES.get(
+        "usage_rule",
+        f"Use {domain} for all canonical URLs, OG tags and JSON-LD.",
+    )
+    governance = get_full_governance_prompt()
 
     # Use concatenation to preserve {voice_profile} as a format placeholder
     return (
@@ -160,7 +226,8 @@ def _build_wordweaver_system() -> str:
         "they should respect it\n\n"
         f"Kiran works in banking, product leadership, and technology. "
         f"His blog is at {domain}/blog-podcast.html.\n\n"
-        f"Domain rule: the canonical domain is {domain}. {domain_note}"
+        f"Domain rule: the canonical domain is {domain}. {domain_note}\n\n"
+        + governance
     )
 
 
