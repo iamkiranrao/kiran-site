@@ -15,6 +15,12 @@ class CreateRequest(BaseModel):
     source_label: Optional[str] = None
 
 
+class IdeaRequest(BaseModel):
+    """A thought jotted between sessions, for the topic step to draw on later."""
+    text: str
+    note: Optional[str] = None
+
+
 class SourceRequest(BaseModel):
     """Attach (or clear) source material on a session that already exists."""
     source_material: str = ""

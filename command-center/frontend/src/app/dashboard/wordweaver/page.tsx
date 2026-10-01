@@ -57,18 +57,18 @@ function fullTime(iso?: string): string {
 }
 
 const BLOG_LABELS = [
-  "Format, Theme & Angle",
-  "Live Web Research",
+  "Theme & Angle",
+  "Research",
   "Topic Options",
-  "Refinement Questions",
-  "Structure & Format",
-  "Anecdote Workshop",
-  "Write the Post",
-  "Editorial Filter",
-  "Visual Assets",
-  "Fact-Check",
-  "Originality Check",
-  "Output & Package",
+  "Push Back",
+  "Who Else Said This",
+  "Your Take",
+  "Your Experience",
+  "Structure",
+  "Write",
+  "Scrub AI Tells",
+  "Attack",
+  "Fact-Check & Package",
 ];
 
 const SOCIAL_LABELS = [
@@ -120,6 +120,8 @@ export default function WordWeaverPage() {
   const [savingSource, setSavingSource] = useState(false);
   const [searchNote, setSearchNote] = useState<string | null>(null);
   const [stepWarnings, setStepWarnings] = useState<string[]>([]);
+  const [stopPrompt, setStopPrompt] = useState<{ reason: string; verdict: string } | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
   const [sourceSaved, setSourceSaved] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -257,6 +259,22 @@ export default function WordWeaverPage() {
     setSavingSource(false);
   };
 
+  const abandonSession = async () => {
+    if (!activeSession) return;
+    try {
+      await fetch(`${API_URL}/api/wordweaver/sessions/${activeSession.session_id}/abandon`, {
+        method: "POST",
+      });
+      setStopPrompt(null);
+      setView("list");
+      setActiveSession(null);
+      setStreamText("");
+      fetchSessions();
+    } catch (e) {
+      console.error("Abandon failed:", e);
+    }
+  };
+
   const openSession = async (id: string) => {
     setLoading(true);
     try {
@@ -342,7 +360,7 @@ export default function WordWeaverPage() {
     if (!activeSession) return;
     setLoading(true);
     try {
-      await fetch(
+      const approveRes = await fetch(
         `${API_URL}/api/wordweaver/sessions/${activeSession.session_id}/approve`,
         {
           method: "POST",
@@ -350,6 +368,14 @@ export default function WordWeaverPage() {
           body: JSON.stringify({ decision: userInput || "Approved" }),
         }
       );
+      const approveData = await approveRes.json().catch(() => ({}));
+      // Push Back and Who Else Said This can end a session honestly.
+      if (approveData?.recommend_stop) {
+        setStopPrompt({
+          reason: String(approveData.stop_reason || "This claim did not survive review."),
+          verdict: String(approveData.verdict || ""),
+        });
+      }
       const res = await fetch(`${API_URL}/api/wordweaver/sessions/${activeSession.session_id}`);
       setActiveSession(await res.json());
       setStreamText("");
@@ -1127,7 +1153,11 @@ export default function WordWeaverPage() {
                   <div className="mb-4 p-3 rounded-lg" style={{ backgroundColor: "rgba(122, 158, 196, 0.08)", border: "1px solid var(--accent-blue)" }}>
                     <p className="text-xs text-[var(--accent-blue)] font-medium mb-1">Preview ready</p>
                     <p className="text-xs text-[var(--text-secondary)]">
-                      Open <span className="font-mono text-[var(--text-primary)]">{previewFile}</span> in your browser to see the styled page.
+                      <button onClick={() => setShowPreview(true)}
+                        className="underline text-[var(--accent-blue)]">
+                        Show the rendered page here
+                      </button>
+                      {" "}or open <span className="font-mono text-[var(--text-primary)]">{previewFile}</span> in your browser.
                     </p>
                   </div>
                 )}
@@ -1301,6 +1331,47 @@ export default function WordWeaverPage() {
               </span>
               {activeSession && <span>Session: {activeSession.session_id}</span>}
             </div>
+          </div>
+        )}
+
+        {stopPrompt && (
+          <div className="shrink-0 mb-3 rounded-lg p-3"
+            style={{ border: "1px solid var(--accent-red, #c0392b)", backgroundColor: "rgba(192, 57, 43, 0.06)" }}>
+            <p className="text-sm font-medium text-[var(--text-primary)] mb-1">
+              This one may not be worth writing
+            </p>
+            <p className="text-xs text-[var(--text-secondary)] mb-3">{stopPrompt.reason}</p>
+            <div className="flex gap-2">
+              <button onClick={abandonSession}
+                className="text-xs px-3 py-1.5 rounded font-medium"
+                style={{ backgroundColor: "var(--accent-red, #c0392b)", color: "#fff" }}>
+                Stop here
+              </button>
+              <button onClick={() => setStopPrompt(null)}
+                className="text-xs px-3 py-1.5 rounded"
+                style={{ border: "1px solid var(--border)", color: "var(--text-secondary)" }}>
+                Carry on anyway
+              </button>
+            </div>
+          </div>
+        )}
+
+        {showPreview && activeSession && (
+          <div className="shrink-0 mb-3 rounded-lg overflow-hidden"
+            style={{ border: "1px solid var(--border)" }}>
+            <div className="flex items-center justify-between px-3 py-2 border-b"
+              style={{ borderColor: "var(--border)", backgroundColor: "var(--bg-secondary)" }}>
+              <p className="text-xs font-medium text-[var(--text-primary)]">Preview</p>
+              <button onClick={() => setShowPreview(false)}
+                className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]">
+                Hide
+              </button>
+            </div>
+            <iframe
+              title="Post preview"
+              src={`${API_URL}/api/wordweaver/sessions/${activeSession.session_id}/preview-html`}
+              style={{ width: "100%", height: "520px", border: "none", backgroundColor: "#fff" }}
+            />
           </div>
         )}
 

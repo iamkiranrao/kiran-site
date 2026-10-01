@@ -22,12 +22,13 @@ import os
 import json
 import shutil
 import tempfile
+from datetime import datetime
 from pathlib import Path
 from utils.config import CLAUDE_MODEL, resolve_api_key
 from services.claude_client import create_client
 from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
-from models.wordweaver import CreateRequest, SourceRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
+from models.wordweaver import CreateRequest, IdeaRequest, SourceRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
 from typing import Optional
 
 # ── Resolve paths ─────────────────────────────────────────────────
@@ -47,7 +48,14 @@ from services.wordweaver_service import (
     save_decision,
     update_session,
     parse_step1_selection,
+    parse_verdict,
+    STOP_VERDICTS,
+    KILL_STEPS,
     run_step_stream,
+    add_idea,
+    list_ideas,
+    delete_idea,
+    mark_idea_used,
     get_themes,
     add_theme,
     remove_theme,
@@ -98,6 +106,10 @@ async def get_step_definitions(mode: str):
 # it well under the model's budget rather than letting a pasted thread crowd
 # out the carried-forward steps.
 MAX_SOURCE_CHARS = 24000
+
+# The write step, and the two checks re-run after a final-review edit.
+WRITE_STEP = 9
+REVALIDATION_STEPS = (11, 12)
 
 
 @router.post("/create", response_model=dict)
@@ -203,6 +215,82 @@ async def set_source_material(session_id: str, request: SourceRequest):
     }
 
 
+# ── Idea inbox ─────────────────────────────────────────────────────
+
+@router.get("/ideas", response_model=dict)
+async def get_ideas(include_used: bool = False):
+    """Thoughts jotted between sessions, offered to the topic step later."""
+    return {"ideas": list_ideas(include_used=include_used)}
+
+
+@router.post("/ideas", response_model=dict)
+async def post_idea(request: IdeaRequest):
+    text = (request.text or "").strip()
+    if not text:
+        raise HTTPException(status_code=400, detail="An idea needs some text")
+    if len(text) > 2000:
+        raise HTTPException(status_code=400, detail="Keep an idea under 2000 characters")
+    return {"idea": add_idea(text, request.note or "")}
+
+
+@router.delete("/ideas/{idea_id}", response_model=dict)
+async def remove_idea(idea_id: str):
+    if not delete_idea(idea_id):
+        raise HTTPException(status_code=404, detail=f"Idea {idea_id} not found")
+    return {"deleted": idea_id}
+
+
+@router.post("/ideas/{idea_id}/used", response_model=dict)
+async def use_idea(idea_id: str, session_id: str):
+    """Mark an idea as spent so it stops being offered."""
+    if not mark_idea_used(idea_id, session_id):
+        raise HTTPException(status_code=404, detail=f"Idea {idea_id} not found")
+    return {"idea_id": idea_id, "used_by": session_id}
+
+
+@router.get("/sessions/{session_id}/preview-html")
+async def get_preview_html(session_id: str):
+    """Return the rendered page so Command Center can show it inline.
+
+    Previously preview only wrote a file and printed its path, so reviewing
+    your own post meant leaving the app, opening it elsewhere, and coming back
+    to describe a change from memory.
+    """
+    from fastapi.responses import HTMLResponse
+
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+
+    local_file = state.get("local_file")
+    if not local_file:
+        raise HTTPException(status_code=404, detail="No preview generated yet for this session")
+
+    path = os.path.join(SITE_ROOT, local_file)
+    if not os.path.exists(path):
+        raise HTTPException(status_code=404, detail=f"Preview file is missing: {local_file}")
+
+    with open(path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
+
+@router.post("/sessions/{session_id}/abandon", response_model=dict)
+async def abandon_session(session_id: str):
+    """Close a session without producing a post.
+
+    Kept rather than deleted: a claim that did not survive is worth being able
+    to look back at, and worth not re-researching six weeks later.
+    """
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+    update_session(session_id, {
+        "status": "abandoned",
+        "abandoned_at": datetime.now().isoformat(),
+    })
+    return {"session_id": session_id, "status": "abandoned"}
+
+
 @router.post("/sessions/{session_id}/step")
 async def execute_step(
     session_id: str,
@@ -273,12 +361,12 @@ async def approve_step(session_id: str, request: ApproveRequest):
         update_session(session_id, {"status": "reviewing"})
         updated = get_session(session_id)
 
-    # After a revalidation, the session sits in review on steps 10 and 11.
+    # After a revalidation the session sits in review on Attack and Fact-Check.
     # Once Kiran has approved both himself, it is ready to publish.
-    if updated["status"] == "reviewing" and step in (10, 11):
+    if updated["status"] == "reviewing" and step in REVALIDATION_STEPS:
         steps = updated["steps"]
         both_approved = all(
-            (steps.get(str(n)) or {}).get("status") == "approved" for n in (10, 11)
+            (steps.get(str(n)) or {}).get("status") == "approved" for n in REVALIDATION_STEPS
         )
         if both_approved:
             update_session(
@@ -287,11 +375,25 @@ async def approve_step(session_id: str, request: ApproveRequest):
             )
             updated = get_session(session_id)
 
-    return {
+    verdict = parse_verdict(step_data["content"])
+    response = {
         "approved_step": step,
         "next_step": updated["current_step"],
         "status": updated["status"],
+        "verdict": verdict,
     }
+
+    # Push Back and Who Else Said This can legitimately end a session. Not
+    # producing a post is a valid outcome, and a better one than publishing
+    # something that did not survive its own review.
+    if step in KILL_STEPS and verdict in STOP_VERDICTS:
+        response["recommend_stop"] = True
+        response["stop_reason"] = (
+            "The claim did not survive the opposing case."
+            if verdict == "DIES"
+            else "This point has been made before and nothing is being added."
+        )
+    return response
 
 @router.post("/sessions/{session_id}/revise")
 async def revise_step(
@@ -440,15 +542,15 @@ async def edit_final(
             detail=f"Edit is only available during review phase (current status: {state['status']})",
         )
 
-    # Temporarily set current_step to 7 so the service targets step 7
+    # Temporarily target the write step so the service revises the draft itself.
     original_step = state["current_step"]
-    update_session(session_id, {"current_step": 7})
+    update_session(session_id, {"current_step": WRITE_STEP})
 
     async def event_stream():
         try:
             async for event_json in run_step_stream(
                 session_id=session_id,
-                step=7,
+                step=WRITE_STEP,
                 api_key=api_key,
                 user_input=f"REVISION REQUESTED (during final review): {request.feedback}",
                 include_draft=True,
@@ -493,18 +595,18 @@ async def approve_final(
     update_session(session_id, {"status": "revalidating"})
 
     # Make sure step 7 is marked approved if it was edited (draft from edit-final)
-    step7 = state["steps"].get("7")
-    if step7 and step7.get("status") == "draft":
-        save_step_result(session_id, 7, step7["content"], status="approved")
-        save_decision(session_id, 7, "Approved (final review)")
+    written = state["steps"].get(str(WRITE_STEP))
+    if written and written.get("status") == "draft":
+        save_step_result(session_id, WRITE_STEP, written["content"], status="approved")
+        save_decision(session_id, WRITE_STEP, "Approved (final review)")
 
     async def event_stream():
-        # Rerun step 10 (Fact-Check)
-        yield f'data: {json.dumps({"type": "revalidation_start", "step": 10, "label": "Fact-Check"})}\n\n'
-        update_session(session_id, {"current_step": 10})
+        # Rerun Attack
+        yield f'data: {json.dumps({"type": "revalidation_start", "step": 11, "label": "Attack"})}\n\n'
+        update_session(session_id, {"current_step": 11})
         async for event_json in run_step_stream(
             session_id=session_id,
-            step=10,
+            step=11,
             api_key=api_key,
             user_input="REVALIDATION: The post was edited during final review. Re-run fact-check on the updated content.",
         ):
@@ -513,12 +615,12 @@ async def approve_final(
         # Step 10 stays a draft. A fact-check nobody read is not a fact-check.
         refreshed = get_session(session_id)
 
-        # Rerun step 11 (Originality Check)
-        yield f'data: {json.dumps({"type": "revalidation_start", "step": 11, "label": "Originality Check"})}\n\n'
-        update_session(session_id, {"current_step": 11})
+        # Rerun Fact-Check & Package
+        yield f'data: {json.dumps({"type": "revalidation_start", "step": 12, "label": "Fact-Check & Package"})}\n\n'
+        update_session(session_id, {"current_step": 12})
         async for event_json in run_step_stream(
             session_id=session_id,
-            step=11,
+            step=12,
             api_key=api_key,
             user_input="REVALIDATION: The post was edited during final review. Re-run originality check on the updated content.",
         ):
@@ -529,9 +631,9 @@ async def approve_final(
 
         # Land on step 10 so the revalidation output is what he sees first, and
         # hold the session in review until he approves both checks himself.
-        update_session(session_id, {"current_step": 10, "status": "reviewing"})
+        update_session(session_id, {"current_step": 11, "status": "reviewing"})
 
-        yield f'data: {json.dumps({"type": "revalidation_complete", "needs_review": [10, 11], "message": "Fact-Check and Originality were re-run. Read and approve both to reach ready_to_publish."})}\n\n'
+        yield f'data: {json.dumps({"type": "revalidation_complete", "needs_review": list(REVALIDATION_STEPS), "message": "Attack and Fact-Check were re-run. Read and approve both to reach ready_to_publish."})}\n\n'
 
     return StreamingResponse(
         event_stream(),
@@ -1036,25 +1138,145 @@ async def generate_crosspost(
     try:
         result = await _generate_crosspost_markdown(html_content, slug, api_key)
 
-        # Save the Markdown file alongside the blog post
-        md_path = os.path.join(SITE_ROOT, f"{slug}-crosspost.md")
-        with open(md_path, "w", encoding="utf-8") as f:
+        canonical = f"https://kiranrao.ai/blog/{slug}.html"
+        out_dir = os.path.join(SITE_ROOT, "crossposts", slug)
+        os.makedirs(out_dir, exist_ok=True)
+
+        # One file per destination. Medium, Substack and LinkedIn want
+        # different things, and a single shared markdown served none of them
+        # well.
+        written = {}
+
+        def _write(name, body):
+            path = os.path.join(out_dir, name)
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(body)
+            written[name] = f"crossposts/{slug}/{name}"
+
+        _write("medium.md", result["markdown"])
+        _write("substack.md", result["markdown"])
+
+        linkedin_short, linkedin_article = await _generate_linkedin(
+            result["markdown"], canonical, api_key
+        )
+        _write("linkedin-post.md", linkedin_short)
+        _write("linkedin-article.md", linkedin_article)
+
+        # Keep the old filename working for anything that referenced it.
+        legacy_path = os.path.join(SITE_ROOT, f"{slug}-crosspost.md")
+        with open(legacy_path, "w", encoding="utf-8") as f:
             f.write(result["markdown"])
 
-        update_session(session_id, {"crosspost_file": f"{slug}-crosspost.md"})
+        update_session(session_id, {
+            "crosspost_file": f"{slug}-crosspost.md",
+            "crosspost_dir": f"crossposts/{slug}",
+        })
+
+        images = result.get("diagram_images", [])
+        missing = result.get("missing_images", [])
+        export_error = result.get("export_error")
+
+        warnings = []
+        if export_error:
+            warnings.append(f"Diagram export failed: {export_error}")
+        if missing:
+            warnings.append(
+                "These images are referenced but were not produced: "
+                + ", ".join(missing)
+            )
 
         return {
             "status": "ready",
-            "markdown_file": f"{slug}-crosspost.md",
-            "markdown_path": md_path,
-            "diagram_images": result.get("diagram_images", []),
-            "instructions": {
-                "medium": "Import the Markdown. Set canonical URL to the original post URL under Story Settings.",
-                "substack": "Paste Markdown into the editor. Upload diagram PNGs where image placeholders appear.",
+            "canonical_url": canonical,
+            "files": written,
+            "diagram_images": images,
+            "missing_images": missing,
+            "warnings": warnings,
+            "targets": {
+                "medium": {
+                    "file": written["medium.md"],
+                    "how": "Use Medium's Import Story with the canonical URL below - it sets "
+                           "the canonical tag for you. Paste medium.md only if import fails.",
+                    "canonical": canonical,
+                },
+                "substack": {
+                    "file": written["substack.md"],
+                    "how": "Paste substack.md into the editor, then upload each image where "
+                           "its placeholder appears. Set the canonical link in post settings.",
+                    "images": images,
+                },
+                "linkedin_post": {
+                    "file": written["linkedin-post.md"],
+                    "how": "Short post with a link home. Highest reach when the link goes in "
+                           "the first comment rather than the body.",
+                },
+                "linkedin_article": {
+                    "file": written["linkedin-article.md"],
+                    "how": "Full article republished natively. Reaches further but keeps "
+                           "readers on LinkedIn. The footer points back to the original.",
+                },
             },
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Cross-post generation failed: {str(e)}")
+
+async def _generate_linkedin(markdown: str, canonical_url: str, api_key: str) -> tuple:
+    """Build both LinkedIn shapes from the finished post.
+
+    The short post drives people home; the native article reaches further but
+    keeps them on LinkedIn. Which one is right depends on the post, so both are
+    generated and Kiran picks.
+    """
+    client = create_client(api_key)
+    collected = []
+
+    with client.messages.stream(
+        model=CLAUDE_MODEL,
+        max_tokens=8000,
+        messages=[{
+            "role": "user",
+            "content": f"""Here is a finished blog post by Kiran Rao, a product leader in banking.
+
+<post>
+{markdown}
+</post>
+
+Produce TWO LinkedIn versions, separated by a line containing only ---SPLIT---.
+
+VERSION 1 - SHORT POST (before the split)
+- Opens on the single most interesting observation, not a preamble. Never
+  start with "I've been thinking about" or "Excited to share".
+- One idea only. Do not summarize the whole post.
+- 120-200 words. Written to be read on a phone, short paragraphs, plenty of
+  line breaks.
+- Ends with a line pointing to the full piece: {canonical_url}
+- No hashtag spam. Two at most, or none.
+- No emoji bullets, no "thread below", no engagement bait.
+
+VERSION 2 - NATIVE ARTICLE (after the split)
+- The full post, lightly adapted for LinkedIn: no section anchors, headings as
+  plain bold lines, images described in brackets where diagrams appeared.
+- Opens with the same hook as the blog post.
+- Ends with: "Originally published at {canonical_url}"
+
+Both must sound like the post, not like marketing copy about the post. Keep
+Kiran's phrasing. No em dashes anywhere.
+
+Output only the two versions and the ---SPLIT--- line."""
+        }],
+    ) as stream:
+        for text in stream.text_stream:
+            collected.append(text)
+
+    out = "".join(collected).strip()
+    if "---SPLIT---" in out:
+        short, article = out.split("---SPLIT---", 1)
+    else:
+        # Model ignored the separator: keep everything as the article rather
+        # than silently shipping a truncated short post.
+        short, article = "", out
+    return short.strip(), article.strip()
+
 
 async def _generate_crosspost_markdown(html_content: str, slug: str, api_key: str) -> dict:
     """Convert a published HTML blog post to clean Markdown for Medium/Substack.
@@ -1166,14 +1388,26 @@ Output ONLY the Markdown. No explanation, no code fences."""
 
     markdown = "".join(collected).strip()
 
-    # Export SVG diagrams as light-mode PNGs
+    # Export SVG diagrams as light-mode PNGs. A silent failure here produces
+    # markdown referencing images that do not exist, so report it instead.
+    export_error = None
     if svg_diagrams:
         try:
             await _export_svg_diagrams(html_content, slug, diagram_images)
-        except Exception:
-            pass  # Non-fatal: user can manually export
+        except Exception as e:
+            export_error = str(e) or e.__class__.__name__
 
-    return {"markdown": markdown, "diagram_images": [d["filename"] for d in diagram_images]}
+    missing = [
+        d["filename"] for d in diagram_images
+        if not os.path.exists(os.path.join(SITE_ROOT, "images", d["filename"]))
+    ]
+
+    return {
+        "markdown": markdown,
+        "diagram_images": [d["filename"] for d in diagram_images],
+        "missing_images": missing,
+        "export_error": export_error,
+    }
 
 async def _export_svg_diagrams(html_content: str, slug: str, diagram_images: list):
     """Export inline SVG diagrams as light-mode PNGs using Playwright."""
@@ -1181,8 +1415,11 @@ async def _export_svg_diagrams(html_content: str, slug: str, diagram_images: lis
 
     try:
         from playwright.async_api import async_playwright
-    except ImportError:
-        return  # Playwright not installed, skip PNG export
+    except ImportError as e:
+        raise RuntimeError(
+            "Playwright is not installed, so diagram PNGs cannot be exported. "
+            "Install it with: pip install playwright && playwright install chromium"
+        ) from e
 
     svg_blocks = re.findall(r'(<svg[^>]*role="img"[^>]*>.*?</svg>)', html_content, re.DOTALL)
     if not svg_blocks:
