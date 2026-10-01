@@ -21,6 +21,8 @@ import {
   HelpCircle,
   Trash2,
   FileText,
+  Search,
+  AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
 import { useApiKey } from "@/context/ApiKeyContext";
@@ -91,8 +93,35 @@ export default function WordWeaverPage() {
   const [sessionSource, setSessionSource] = useState("");
   const [sessionSourceLabel, setSessionSourceLabel] = useState("");
   const [savingSource, setSavingSource] = useState(false);
+  const [searchNote, setSearchNote] = useState<string | null>(null);
+  const [stepWarnings, setStepWarnings] = useState<string[]>([]);
   const [sourceSaved, setSourceSaved] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
+
+  // Steps 2, 10 and 11 run web searches server-side. Surface that, and surface
+  // a step that searched zero times — its output is not verified.
+  const handleStreamEvent = (event: { type: string; [k: string]: unknown }) => {
+    if (event.type === "search_start") {
+      setSearchNote(`Searching the web (up to ${event.max_uses} queries)...`);
+      return true;
+    }
+    if (event.type === "search_complete") {
+      const n = Number(event.searches ?? 0);
+      const errs = (event.errors as string[] | undefined) || [];
+      setSearchNote(
+        n === 0
+          ? "No searches ran."
+          : `${n} web search${n === 1 ? "" : "es"} completed.` +
+            (errs.length ? ` ${errs.length} failed (${errs.join(", ")}).` : "")
+      );
+      return true;
+    }
+    if (event.type === "warning") {
+      setStepWarnings((w) => [...w, String(event.message)]);
+      return true;
+    }
+    return false;
+  };
 
   const fetchSessions = useCallback(async () => {
     try {
@@ -264,6 +293,7 @@ export default function WordWeaverPage() {
           if (!trimmed.startsWith("data: ")) continue;
           try {
             const event = JSON.parse(trimmed.slice(6));
+            if (handleStreamEvent(event)) continue;
             if (event.type === "text_delta") {
               fullText += event.delta;
               setStreamText(fullText);
@@ -282,6 +312,8 @@ export default function WordWeaverPage() {
   };
 
   const approveStep = async () => {
+    setSearchNote(null);
+    setStepWarnings([]);
     if (!activeSession) return;
     setLoading(true);
     try {
@@ -334,6 +366,7 @@ export default function WordWeaverPage() {
           if (!trimmed.startsWith("data: ")) continue;
           try {
             const event = JSON.parse(trimmed.slice(6));
+            if (handleStreamEvent(event)) continue;
             if (event.type === "text_delta") {
               fullText += event.delta;
               setStreamText(fullText);
@@ -497,6 +530,7 @@ export default function WordWeaverPage() {
           if (!trimmed.startsWith("data: ")) continue;
           try {
             const event = JSON.parse(trimmed.slice(6));
+            if (handleStreamEvent(event)) continue;
             if (event.type === "text_delta") {
               fullText += event.delta;
               setStreamText(fullText);
@@ -545,6 +579,7 @@ export default function WordWeaverPage() {
           if (!trimmed.startsWith("data: ")) continue;
           try {
             const event = JSON.parse(trimmed.slice(6));
+            if (handleStreamEvent(event)) continue;
             if (event.type === "revalidation_start") {
               setRevalidationStep(`Running Step ${event.step}: ${event.label}...`);
               fullText += `\n\n── Step ${event.step}: ${event.label} ──\n`;
@@ -554,6 +589,7 @@ export default function WordWeaverPage() {
               setStreamText(fullText);
             } else if (event.type === "revalidation_complete") {
               setRevalidationStep(null);
+              if (event.message) setStepWarnings((w) => [...w, String(event.message)]);
             }
           } catch { /* skip */ }
         }
@@ -1235,6 +1271,22 @@ export default function WordWeaverPage() {
               </span>
               {activeSession && <span>Session: {activeSession.session_id}</span>}
             </div>
+          </div>
+        )}
+
+        {(searchNote || stepWarnings.length > 0) && (
+          <div className="shrink-0 mb-3 space-y-1.5">
+            {searchNote && (
+              <p className="text-xs flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
+                <Search size={12} /> {searchNote}
+              </p>
+            )}
+            {stepWarnings.map((wmsg, i) => (
+              <p key={i} className="text-xs px-2.5 py-1.5 rounded flex items-start gap-1.5"
+                style={{ backgroundColor: "rgba(192, 57, 43, 0.08)", color: "var(--accent-red, #c0392b)" }}>
+                <AlertTriangle size={12} className="mt-0.5 shrink-0" /> <span>{wmsg}</span>
+              </p>
+            ))}
           </div>
         )}
 

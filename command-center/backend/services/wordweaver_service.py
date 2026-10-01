@@ -248,7 +248,13 @@ Ask Kiran:
 2. Which theme interests him?
 3. Which angle should we take?
 
-If it's a series post, mention the available series templates: Demystifying [X], Product Teardown, Product Award of the Month, The Value Gap, Signal vs. Noise, Product Decision Autopsy, The Contrarian Take, 5 Questions With.""",
+If it's a series post, mention the available series templates: Demystifying [X], Product Teardown, Product Award of the Month, The Value Gap, Signal vs. Noise, Product Decision Autopsy, The Contrarian Take, 5 Questions With.
+
+Once Kiran has chosen, end your output with one line, exactly in this form, so
+the rest of the pipeline can read the choice:
+SELECTED: theme=<theme> | angle=<angle> | series=<series or none>
+
+If he has not chosen yet, ask your questions and omit the line.""",
 
     2: """STEP 2: Live Web Research
 
@@ -297,15 +303,36 @@ Present the structure with section headers and word counts for Kiran's approval.
 
     6: """STEP 6: Personal Anecdote Workshop
 
-Present 2-3 anecdote options that fit the narrative arc. For each:
-- The moment (a specific scene, 80-150 words)
-- Where it fits in the structure
-- The emotional beat it hits
-- The bridge back to the argument
+HARD RULE: You do not know Kiran's stories. Never write one for him, never
+invent a scene, a meeting, a number, a colleague or a quote, and never offer a
+"draft" anecdote for him to edit. A fabricated first-person story published
+under his name is the single worst failure this pipeline can produce. If you
+are tempted to write "something like: the quarter we..." — stop. That is the
+failure.
 
-Anecdotes should be first-person, draw from banking/product/technology experience, and feel real. One emotional note per anecdote.
+Your job here is to interview him, not to write.
 
-Ask Kiran to pick one or share a real anecdote to use.""",
+1. Name the slot. Say exactly where in the approved structure an anecdote
+   belongs, what work it has to do there (open with tension, make an abstract
+   point concrete, land the turn), and how long it should run.
+
+2. Ask for the real thing. Prompt him with the kind of moment that would fit —
+   the shape, not the content. For example: "a time you argued against a metric
+   and lost", "a launch you slowed down", "a decision you'd make differently
+   now". Ask for Situation, Task, Action, Result in rough notes. Messy is fine.
+
+3. If he gives you one, play it back. Summarize what he said in his own facts,
+   confirm you have it right, then say where it will sit and what you will cut.
+   You may shape his words. You may not add events, numbers or dialogue he did
+   not give you.
+
+4. If he has no anecdote, say so plainly and offer two honest options: proceed
+   without one and carry the argument on evidence instead, or pause the session
+   until he has one. Do not fill the gap yourself.
+
+End your output with one line, exactly:
+ANECDOTE: SUPPLIED  — if Kiran has given you real material
+ANECDOTE: NONE  — if he has not""",
 
     7: """STEP 7: Write the Post
 
@@ -318,7 +345,10 @@ Write the full blog post following:
 - Data woven conversationally (not academically)
 - Every paragraph earns its place
 - Vary sentence rhythm
-- Include the chosen anecdote from Step 6
+- Include the anecdote ONLY if Step 6 ended with 'ANECDOTE: SUPPLIED'. Use only
+  the facts Kiran gave; invent no events, numbers, names or dialogue. If Step 6
+  ended with 'ANECDOTE: NONE', write the post without a personal story and carry
+  the argument on evidence — do not substitute an invented one
 
 Output as clean markdown with section headers.""",
 
@@ -502,10 +532,99 @@ def list_sessions() -> List[Dict]:
     return sorted(sessions, key=lambda s: s["updated_at"], reverse=True)
 
 
+
+
+def parse_step1_selection(content: str) -> dict:
+    """Pull theme/angle/series out of step 1's trailing SELECTED: line.
+
+    Returns {} when the line is absent or empty, so a session that skipped it
+    behaves exactly as before rather than storing junk.
+    """
+    out = {}
+    for line in reversed((content or "").splitlines()):
+        line = line.strip().lstrip("*# ").strip()
+        if not line.upper().startswith("SELECTED:"):
+            continue
+        for part in line.split(":", 1)[1].split("|"):
+            if "=" not in part:
+                continue
+            key, _, val = part.partition("=")
+            key = key.strip().lower().lstrip("*").strip()
+            # Strip markdown emphasis and the <> of an unfilled placeholder.
+            val = val.strip().strip("*").strip().strip("<>").strip()
+            if key not in ("theme", "angle", "series"):
+                continue
+            # "<theme>" left as-is means the model never filled it in.
+            if not val or val.lower() in ("none", "n/a", "tbd", key):
+                continue
+            out[key] = val
+        break
+    return out
+
+
+# ── Web search ─────────────────────────────────────────────────────
+#
+# Steps 2, 10 and 11 instruct Claude to search the web. Until now no tools were
+# passed, so those steps generated statistics, "Verified" statuses and
+# originality findings from memory. These are the steps that get real eyes.
+
+SEARCH_STEPS = {2, 10, 11}
+
+# A turn with server tools can pause while searches run.
+MAX_RESUMES = 8
+
+# 1,750 words is ~2,400 tokens, and 4,096 also has to cover a thinking block.
+DEFAULT_MAX_TOKENS = 8000
+STEP_MAX_TOKENS = {2: 16000, 7: 16000, 10: 12000, 11: 12000, 12: 16000}
+
+# max_uses is per request. Research ranges wider than verification does.
+SEARCH_BUDGET = {2: 10, 10: 12, 11: 8}
+
+
+def _web_search_tool(step: int) -> list:
+    return [{
+        "type": "web_search_20260209",
+        "name": "web_search",
+        "max_uses": SEARCH_BUDGET.get(step, 8),
+    }]
+
+
+def _summarize_search_activity(content) -> dict:
+    """Count searches and surface any the API returned as errors.
+
+    Server-tool failures come back as HTTP 200 with an error object in the
+    result block rather than raising, so they are easy to miss. A step that
+    searched zero times is a step that did not verify anything.
+    """
+    searches, errors = 0, []
+    for block in content or []:
+        btype = getattr(block, "type", None)
+        if btype == "server_tool_use":
+            searches += 1
+        elif btype == "web_search_tool_result":
+            inner = getattr(block, "content", None)
+            # Success is a list of results; an error is a single object.
+            code = getattr(inner, "error_code", None)
+            if code:
+                errors.append(code)
+    return {"searches": searches, "errors": errors}
+
+
 # ── Claude interaction ─────────────────────────────────────────────
 
-def build_step_messages(state: dict, step: int, user_input: Optional[str] = None) -> List[Dict]:
-    """Build message history for a Claude API call."""
+def build_step_messages(
+    state: dict,
+    step: int,
+    user_input: Optional[str] = None,
+    include_draft: bool = False,
+) -> List[Dict]:
+    """Build message history for a Claude API call.
+
+    include_draft puts this step's existing draft in front of the model. Without
+    it a revision is not a revision: only approved steps are carried forward, so
+    Claude never saw the text it was being asked to change and rewrote from
+    scratch instead.
+    """
     messages = []
 
     # Carry forward approved steps as context
@@ -552,6 +671,19 @@ def build_step_messages(state: dict, step: int, user_input: Optional[str] = None
         if directive:
             prompt = f"{prompt}\n\nSEEDED SESSION: {directive}"
 
+    if include_draft:
+        draft = (state["steps"].get(str(step)) or {}).get("content", "").strip()
+        if draft:
+            messages.append({
+                "role": "assistant",
+                "content": f"[Step {step} - current draft]\n\n{draft}",
+            })
+            prompt = (
+                "Revise the draft above. Keep everything that works and change only "
+                "what the feedback calls for — this is an edit, not a rewrite. "
+                "Return the complete revised version.\n\n" + prompt
+            )
+
     if user_input:
         prompt = f"{prompt}\n\nKiran's input: {user_input}"
 
@@ -564,8 +696,13 @@ async def run_step_stream(
     step: int,
     api_key: str,
     user_input: Optional[str] = None,
+    include_draft: bool = False,
 ):
-    """Stream a step via Claude SSE."""
+    """Stream a step via Claude SSE.
+
+    Steps 2, 10 and 11 get the web search tool. Those turns can pause while
+    searches run, so the request is resumed until the model finishes.
+    """
     from services.claude_client import create_client
 
     state = get_session(session_id)
@@ -576,19 +713,69 @@ async def run_step_stream(
     system_prompt = WORDWEAVER_SYSTEM.format(voice_profile=voice_profile)
 
     client = create_client(api_key)
-    messages = build_step_messages(state, step, user_input)
+    convo = build_step_messages(state, step, user_input, include_draft=include_draft)
+
+    searching = state["mode"] == "blog" and step in SEARCH_STEPS
+    tools = _web_search_tool(step) if searching else None
+    max_tokens = STEP_MAX_TOKENS.get(step, DEFAULT_MAX_TOKENS)
+
+    if searching:
+        yield json.dumps({
+            "type": "search_start",
+            "step": step,
+            "max_uses": SEARCH_BUDGET.get(step, 8),
+        })
 
     full_content = ""
+    totals = {"searches": 0, "errors": []}
 
-    with client.messages.stream(
-        model=CLAUDE_MODEL,
-        max_tokens=4096,
-        system=system_prompt,
-        messages=messages,
-    ) as stream:
-        for text in stream.text_stream:
-            full_content += text
-            yield json.dumps({"type": "text_delta", "delta": text})
+    # A turn using server tools can come back as pause_turn; resume it until done.
+    for _ in range(MAX_RESUMES):
+        kwargs = {
+            "model": CLAUDE_MODEL,
+            "max_tokens": max_tokens,
+            "system": system_prompt,
+            "messages": convo,
+        }
+        if tools:
+            kwargs["tools"] = tools
+
+        with client.messages.stream(**kwargs) as stream:
+            for text in stream.text_stream:
+                full_content += text
+                yield json.dumps({"type": "text_delta", "delta": text})
+            final = stream.get_final_message()
+
+        activity = _summarize_search_activity(final.content)
+        totals["searches"] += activity["searches"]
+        totals["errors"].extend(activity["errors"])
+
+        if final.stop_reason != "pause_turn":
+            break
+
+        convo = convo + [{"role": "assistant", "content": final.content}]
+    else:
+        yield json.dumps({
+            "type": "warning",
+            "message": f"Step {step} paused more than {MAX_RESUMES} times and was cut short.",
+        })
+
+    if searching:
+        yield json.dumps({
+            "type": "search_complete",
+            "step": step,
+            "searches": totals["searches"],
+            "errors": totals["errors"],
+        })
+        if totals["searches"] == 0:
+            # Nothing was looked up, so nothing in this step is verified.
+            yield json.dumps({
+                "type": "warning",
+                "message": (
+                    f"Step {step} ran no web searches. Treat its output as unverified "
+                    f"and re-run before relying on it."
+                ),
+            })
 
     save_step_result(session_id, step, full_content, status="draft")
 
@@ -596,6 +783,7 @@ async def run_step_stream(
         "type": "step_complete",
         "step": step,
         "label": (BLOG_STEPS if state["mode"] == "blog" else SOCIAL_STEPS)[step - 1]["label"],
+        "searches": totals["searches"] if searching else None,
     })
 
 

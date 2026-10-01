@@ -46,6 +46,7 @@ from services.wordweaver_service import (
     save_step_result,
     save_decision,
     update_session,
+    parse_step1_selection,
     run_step_stream,
     get_themes,
     add_theme,
@@ -255,12 +256,36 @@ async def approve_step(session_id: str, request: ApproveRequest):
     save_step_result(session_id, step, step_data["content"], status="approved")
     save_decision(session_id, step, request.decision or "Approved")
 
+    # Step 1 is where the theme and angle are chosen. Persist them, or step 2's
+    # prompt renders "not yet selected" and the research runs blind.
+    if step == 1:
+        selection = parse_step1_selection(step_data["content"])
+        if selection:
+            state = get_session(session_id)
+            config = dict(state.get("config") or {})
+            config.update(selection)
+            update_session(session_id, {"config": config})
+
     updated = get_session(session_id)
 
     # Mark complete if final step — enter review mode (not straight to publish)
     if step == updated["total_steps"]:
         update_session(session_id, {"status": "reviewing"})
         updated = get_session(session_id)
+
+    # After a revalidation, the session sits in review on steps 10 and 11.
+    # Once Kiran has approved both himself, it is ready to publish.
+    if updated["status"] == "reviewing" and step in (10, 11):
+        steps = updated["steps"]
+        both_approved = all(
+            (steps.get(str(n)) or {}).get("status") == "approved" for n in (10, 11)
+        )
+        if both_approved:
+            update_session(
+                session_id,
+                {"current_step": updated["total_steps"], "status": "ready_to_publish"},
+            )
+            updated = get_session(session_id)
 
     return {
         "approved_step": step,
@@ -289,6 +314,7 @@ async def revise_step(
             step=step,
             api_key=api_key,
             user_input=f"REVISION REQUESTED: {request.feedback}",
+            include_draft=True,
         ):
             yield f"data: {event_json}\n\n"
 
@@ -425,6 +451,7 @@ async def edit_final(
                 step=7,
                 api_key=api_key,
                 user_input=f"REVISION REQUESTED (during final review): {request.feedback}",
+                include_draft=True,
             ):
                 yield f"data: {event_json}\n\n"
         finally:
@@ -483,12 +510,8 @@ async def approve_final(
         ):
             yield f"data: {event_json}\n\n"
 
-        # Auto-approve step 10
+        # Step 10 stays a draft. A fact-check nobody read is not a fact-check.
         refreshed = get_session(session_id)
-        step10 = refreshed["steps"].get("10")
-        if step10 and step10.get("content"):
-            save_step_result(session_id, 10, step10["content"], status="approved")
-            save_decision(session_id, 10, "Auto-approved (revalidation)")
 
         # Rerun step 11 (Originality Check)
         yield f'data: {json.dumps({"type": "revalidation_start", "step": 11, "label": "Originality Check"})}\n\n'
@@ -501,18 +524,14 @@ async def approve_final(
         ):
             yield f"data: {event_json}\n\n"
 
-        # Auto-approve step 11
+        # Step 11 likewise stays a draft for Kiran to read.
         refreshed = get_session(session_id)
-        step11 = refreshed["steps"].get("11")
-        if step11 and step11.get("content"):
-            save_step_result(session_id, 11, step11["content"], status="approved")
-            save_decision(session_id, 11, "Auto-approved (revalidation)")
 
-        # Restore current_step to final and set ready_to_publish
-        total = refreshed["total_steps"]
-        update_session(session_id, {"current_step": total, "status": "ready_to_publish"})
+        # Land on step 10 so the revalidation output is what he sees first, and
+        # hold the session in review until he approves both checks himself.
+        update_session(session_id, {"current_step": 10, "status": "reviewing"})
 
-        yield f'data: {json.dumps({"type": "revalidation_complete"})}\n\n'
+        yield f'data: {json.dumps({"type": "revalidation_complete", "needs_review": [10, 11], "message": "Fact-Check and Originality were re-run. Read and approve both to reach ready_to_publish."})}\n\n'
 
     return StreamingResponse(
         event_stream(),
