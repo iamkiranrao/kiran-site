@@ -22,6 +22,7 @@ import {
   Trash2,
   FileText,
   MessageSquare,
+  Pencil,
   Search,
   AlertTriangle,
 } from "lucide-react";
@@ -143,6 +144,8 @@ export default function WordWeaverPage() {
   const [discussing, setDiscussing] = useState(false);
   const [editingTitle, setEditingTitle] = useState(false);
   const [titleDraft, setTitleDraft] = useState("");
+  const [renamingId, setRenamingId] = useState<string | null>(null);
+  const [rowTitleDraft, setRowTitleDraft] = useState("");
   const [sourceSaved, setSourceSaved] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -339,6 +342,22 @@ export default function WordWeaverPage() {
       setCreateError("Could not reach the backend.");
     }
     setDiscussing(false);
+  };
+
+  const renameRow = async (sessionId: string) => {
+    const title = rowTitleDraft.trim();
+    setRenamingId(null);
+    if (!title) return;
+    try {
+      await fetch(`${API_URL}/api/wordweaver/sessions/${sessionId}/title`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title }),
+      });
+      fetchSessions();
+    } catch (e) {
+      console.error("Rename failed:", e);
+    }
   };
 
   const saveTitle = async () => {
@@ -912,6 +931,21 @@ export default function WordWeaverPage() {
             <div className="space-y-2">
               {sessions.map((s) => (
                 <div key={s.session_id} className="flex items-center gap-2">
+                  {renamingId === s.session_id ? (
+                    <input
+                      autoFocus
+                      value={rowTitleDraft}
+                      onChange={(e) => setRowTitleDraft(e.target.value)}
+                      onBlur={() => renameRow(s.session_id)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") { e.preventDefault(); renameRow(s.session_id); }
+                        if (e.key === "Escape") setRenamingId(null);
+                      }}
+                      placeholder="Name this post"
+                      className="flex-1 px-3 py-2.5 rounded-lg text-sm"
+                      style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--accent-blue)", color: "var(--text-primary)" }}
+                    />
+                  ) : (
                   <button onClick={() => openSession(s.session_id)}
                     className="flex-1 flex items-center justify-between px-3 py-2.5 rounded-lg text-left transition-colors hover:opacity-80"
                     style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
@@ -921,7 +955,10 @@ export default function WordWeaverPage() {
                         <span className="truncate" title={s.title || undefined}>
                           {s.title || (s.mode === "blog" ? "Blog Post" : "Social Post")}
                         </span>
-                        {s.config?.theme && <span className="text-xs text-[var(--text-muted)] shrink-0">&middot; {s.config.theme}</span>}
+                        {/* Only show the theme when it is not already the title. */}
+                        {s.config?.theme && s.config.theme !== s.title && (
+                          <span className="text-xs text-[var(--text-muted)] shrink-0">&middot; {s.config.theme}</span>
+                        )}
                         {s.config?.source_material && (
                           <span className="text-[10px] px-1.5 py-0.5 rounded flex items-center gap-1 font-normal"
                             style={{ backgroundColor: "rgba(122, 158, 196, 0.12)", color: "var(--accent-blue)" }}
@@ -940,6 +977,13 @@ export default function WordWeaverPage() {
                       </p>
                     </div>
                     <ChevronRight size={16} className="text-[var(--text-muted)]" />
+                  </button>
+                  )}
+                  <button onClick={() => { setRowTitleDraft(s.title || ""); setRenamingId(s.session_id); }}
+                    className="p-2 rounded-lg transition-colors hover:opacity-80"
+                    style={{ color: "var(--text-muted)", border: "1px solid var(--border)" }}
+                    title="Rename">
+                    <Pencil size={14} />
                   </button>
                   <button onClick={() => deleteSession(s.session_id)}
                     className="p-2 rounded-lg transition-colors hover:opacity-80"

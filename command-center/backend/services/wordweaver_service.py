@@ -646,10 +646,20 @@ def derive_title(state: dict) -> str:
             line = line.strip()
             if not line:
                 continue
+            # Pipeline scaffolding, not a title: "[Step 5 - Approved]",
+            # "THE SHAPE", "SELECTED: ...", a fenced block, a table row.
+            if re.match(r"^\[.*\]$", line) or line.startswith(("```", "|", ">")):
+                continue
+            if re.match(r"^[A-Z][A-Z \-]{3,}:?$", line):
+                continue
+            if re.match(r"^(SELECTED|CLAIM|VERDICT|EXPERIENCE|ATTRIBUTION|POSITION)\s*:", line, re.I):
+                continue
             m = re.match(r"^#{1,3}\s+(.+?)\s*$", line)
             if m:
-                return m.group(1).strip().strip("*").strip()
-            # A bolded first line is often the title too.
+                candidate = m.group(1).strip().strip("*").strip()
+                if candidate and not re.match(r"^\[.*\]$", candidate):
+                    return candidate
+                continue
             m = re.match(r"^\*\*(.+?)\*\*$", line)
             if m:
                 return m.group(1).strip()
