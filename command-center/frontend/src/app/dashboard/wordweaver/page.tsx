@@ -57,6 +57,24 @@ function fullTime(iso?: string): string {
   return Number.isNaN(d.getTime()) ? "" : d.toLocaleString();
 }
 
+const BLOG_ABOUT: Record<number, string> = {
+  1: "Settle what territory this post is in. Theme, angle, and whether it is a one-off or part of a series. Not the final angle - that comes after the research, because picking it now means picking blind.",
+  2: "Searches the web for evidence, recent cases and counter-arguments, then puts up 3 to 5 topic options the research actually supports. Each one has a title, a claim that could be wrong, the data behind it and what it costs you. You pick one, redirect, or combine two.",
+  3: "Writes the whole article. Not an outline - a complete draft you can read and react to. Where it needed something from you and did not have it, it writes the section anyway and marks it [KIRAN: ...], then lists what it is least sure about.",
+  4: "The conversation about the draft. It tells you what the article argues, argues the strongest case against it, searches for who has said this already, and names where the evidence is thin. Then it asks you what is wrong, what is missing, and where your own read differs.",
+  5: "Rewrites the article with everything you said worked in. Your corrections, your words kept verbatim where you gave them, the strongest objection addressed rather than avoided.",
+  6: "Three passes over the rewrite. AI tells (a hard rule check plus the patterns a regex cannot see), then evidence weight, disclosure risk, hedging and voice, then fact-checks every claim against a primary source.",
+  7: "Builds the publish set: the post with frontmatter, verified sources, the blog card description, and a LinkedIn version.",
+};
+
+const SOCIAL_ABOUT: Record<number, string> = {
+  1: "Standalone or derived from a post? Which platform, and what format.",
+  2: "Three visual concepts with the insight and caption for each.",
+  3: "Builds the chosen visual at the right dimensions.",
+  4: "The caption, hashtags and alt text.",
+  5: "Final files.",
+};
+
 const BLOG_LABELS = [
   "Topic",
   "Research",
@@ -461,6 +479,8 @@ export default function WordWeaverPage() {
   };
 
   const stepLabels = activeSession?.mode === "social" ? SOCIAL_LABELS : BLOG_LABELS;
+  const aboutMap = activeSession?.mode === "social" ? SOCIAL_ABOUT : BLOG_ABOUT;
+  const stepAbout = aboutMap[activeSession?.current_step || 1] || "";
   const totalSteps = activeSession?.total_steps || stepLabels.length;
   const currentStepData = activeSession?.steps?.[String(activeSession.current_step)];
   const hasDraft = currentStepData?.status === "draft";
@@ -1113,8 +1133,12 @@ export default function WordWeaverPage() {
                 >
                   <ChevronLeft size={16} />
                 </button>
-                <p className="text-sm font-medium text-[var(--text-primary)]">
+                <p className="text-sm font-medium text-[var(--text-primary)] flex items-center gap-1.5"
+                  title={aboutMap[currentStep] || ""}>
                   Step {currentStep}: {stepLabels[currentStep - 1]}
+                  {aboutMap[currentStep] && (
+                    <HelpCircle size={12} className="text-[var(--text-muted)] shrink-0" />
+                  )}
                 </p>
                 <button
                   onClick={() => canGoForward && goToStep(currentStep + 1)}
@@ -1271,9 +1295,12 @@ export default function WordWeaverPage() {
             </div>
           ) : (
             <div className="text-[var(--text-muted)] text-center py-8">
-              <div>
-                <p className="mb-2">Step {activeSession?.current_step}: {stepLabels[(activeSession?.current_step || 1) - 1]}</p>
-                <p className="text-xs">Click &ldquo;Run Step&rdquo; to begin. Add context below if needed.</p>
+              <div className="max-w-xl mx-auto px-6">
+                <p className="mb-3 text-[var(--text-primary)] font-medium">
+                  Step {activeSession?.current_step}: {stepLabels[(activeSession?.current_step || 1) - 1]}
+                </p>
+                <p className="text-sm text-left leading-relaxed mb-4">{stepAbout}</p>
+                <p className="text-xs">Click &ldquo;Run Step&rdquo; to begin. Add context below if you want to steer it.</p>
               </div>
             </div>
           )}
