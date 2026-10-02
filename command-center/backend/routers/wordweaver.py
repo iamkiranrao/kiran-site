@@ -28,7 +28,7 @@ from utils.config import CLAUDE_MODEL, resolve_api_key
 from services.claude_client import create_client
 from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
-from models.wordweaver import CreateRequest, IdeaRequest, SourceRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
+from models.wordweaver import CreateRequest, DiscussRequest, IdeaRequest, SourceRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
 from typing import Optional
 
 # ── Resolve paths ─────────────────────────────────────────────────
@@ -49,6 +49,8 @@ from services.wordweaver_service import (
     update_session,
     parse_step1_selection,
     parse_verdict,
+    run_discussion_stream,
+    get_discussion,
     STOP_VERDICTS,
     KILL_STEPS,
     run_step_stream,
@@ -325,6 +327,61 @@ async def execute_step(
             "X-Accel-Buffering": "no",
         },
     )
+
+@router.post("/sessions/{session_id}/discuss")
+async def discuss_step(
+    session_id: str,
+    request: DiscussRequest,
+    x_claude_key: str = Header(None, alias="X-Claude-Key"),
+):
+    """Talk about the current step without approving or regenerating it.
+
+    Approve and Revise are both terminal - one advances, the other throws the
+    output away. This is the third move: push on an option, ask what else turned
+    up, question a section. The step's output is untouched and the conversation
+    carries into any later rewrite.
+    """
+    api_key = resolve_api_key(x_claude_key)
+
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+
+    message = (request.message or "").strip()
+    if not message:
+        raise HTTPException(status_code=400, detail="Nothing to discuss")
+
+    step = state["current_step"]
+    if not ((state["steps"].get(str(step)) or {}).get("content") or "").strip():
+        raise HTTPException(
+            status_code=400,
+            detail=f"Step {step} has not produced anything to discuss yet. Run it first.",
+        )
+
+    async def event_stream():
+        try:
+            async for event_json in run_discussion_stream(
+                session_id=session_id, step=step, message=message, api_key=api_key,
+            ):
+                yield f"data: {event_json}\n\n"
+        except Exception as e:
+            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+
+    return StreamingResponse(
+        event_stream(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "Connection": "keep-alive", "X-Accel-Buffering": "no"},
+    )
+
+
+@router.get("/sessions/{session_id}/discussion/{step}", response_model=dict)
+async def get_step_discussion(session_id: str, step: int):
+    """The conversation so far about one step."""
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+    return {"step": step, "discussion": get_discussion(state, step)}
+
 
 @router.post("/sessions/{session_id}/approve", response_model=dict)
 async def approve_step(session_id: str, request: ApproveRequest):

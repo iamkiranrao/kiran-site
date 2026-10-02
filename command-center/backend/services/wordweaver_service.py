@@ -1017,6 +1017,115 @@ def past_posts_summary(exclude_session: Optional[str] = None, limit: int = 15) -
     return "\n".join(lines)
 
 
+
+# ── Discussion ─────────────────────────────────────────────────────
+#
+# Approve and Revise are both terminal: one advances, the other throws the step
+# away and regenerates it. Neither lets Kiran push on something - go deeper on
+# one research option, ask what else turned up, question a section of the draft
+# - without losing what is on screen. Discussion is the third move: it answers
+# in the step's context, changes nothing, and is carried into the eventual
+# rewrite so the conversation is not wasted.
+
+def get_discussion(state: dict, step: int) -> list:
+    return ((state.get("discussions") or {}).get(str(step)) or [])
+
+
+def append_discussion(session_id: str, step: int, role: str, content: str) -> dict:
+    state = get_session(session_id)
+    if not state:
+        raise FileNotFoundError(f"Session {session_id} not found")
+    discussions = dict(state.get("discussions") or {})
+    thread = list(discussions.get(str(step)) or [])
+    thread.append({
+        "role": role,
+        "content": content,
+        "at": datetime.now().isoformat(),
+    })
+    discussions[str(step)] = thread
+    return update_session(session_id, {"discussions": discussions})
+
+
+def _format_discussion(thread: list) -> str:
+    """Prior exchanges about this step, for the rewrite to honour."""
+    if not thread:
+        return ""
+    lines = ["WHAT KIRAN AND YOU ALREADY DISCUSSED ABOUT THIS STEP. He expects "
+             "the conclusions reached here to be reflected without being asked twice:"]
+    for turn in thread:
+        who = "Kiran" if turn["role"] == "user" else "You"
+        lines.append(f"\n{who}: {turn['content']}")
+    return "\n".join(lines)
+
+
+async def run_discussion_stream(
+    session_id: str,
+    step: int,
+    message: str,
+    api_key: str,
+):
+    """Answer a question about a step without changing or advancing it."""
+    from services.claude_client import create_client
+
+    state = get_session(session_id)
+    if not state:
+        raise FileNotFoundError(f"Session {session_id} not found")
+
+    step_content = (state["steps"].get(str(step)) or {}).get("content", "")
+    if not step_content.strip():
+        raise ValueError(f"Step {step} has no output to discuss yet")
+
+    append_discussion(session_id, step, "user", message)
+    state = get_session(session_id)
+
+    voice_profile = _load_voice_profile()
+    system_prompt = WORDWEAVER_SYSTEM.format(voice_profile=voice_profile)
+
+    # Everything approved so far, then this step's output, then the thread.
+    messages = build_step_messages(state, step)
+    messages = messages[:-1]  # drop the step instruction; this is a conversation
+    messages.append({
+        "role": "assistant",
+        "content": f"[Step {step} output]\n\n{step_content}",
+    })
+
+    for turn in get_discussion(state, step):
+        messages.append({"role": turn["role"], "content": turn["content"]})
+
+    messages.append({
+        "role": "user",
+        "content": (
+            "Answer the question above about this step. You are talking it through, "
+            "not redoing it. Do not rewrite the step's output and do not produce a "
+            "new version of it unless he explicitly asks for one. Go deeper where he "
+            "is pushing, say plainly when you do not know, and disagree if you think "
+            "he is wrong. Keep it short."
+        ),
+    })
+
+    searching = state["mode"] == "blog" and step in SEARCH_STEPS
+    tools = _web_search_tool(step) if searching else None
+
+    client = create_client(api_key)
+    full = ""
+    kwargs = {
+        "model": CLAUDE_MODEL,
+        "max_tokens": 8000,
+        "system": system_prompt,
+        "messages": messages,
+    }
+    if tools:
+        kwargs["tools"] = tools
+
+    with client.messages.stream(**kwargs) as stream:
+        for text in stream.text_stream:
+            full += text
+            yield json.dumps({"type": "text_delta", "delta": text})
+
+    append_discussion(session_id, step, "assistant", full)
+    yield json.dumps({"type": "discussion_complete", "step": step})
+
+
 # ── Claude interaction ─────────────────────────────────────────────
 
 def _latest_article(state: dict) -> str:
@@ -1117,6 +1226,10 @@ def build_step_messages(
                 "what the feedback calls for — this is an edit, not a rewrite. "
                 "Return the complete revised version.\n\n" + prompt
             )
+
+    thread = get_discussion(state, step)
+    if thread:
+        prompt = f"{prompt}\n\n{_format_discussion(thread)}"
 
     if user_input:
         prompt = f"{prompt}\n\nKiran's input: {user_input}"

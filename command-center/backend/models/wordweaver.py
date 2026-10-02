@@ -15,6 +15,11 @@ class CreateRequest(BaseModel):
     source_label: Optional[str] = None
 
 
+class DiscussRequest(BaseModel):
+    """A question about a step, answered without changing or advancing it."""
+    message: str
+
+
 class IdeaRequest(BaseModel):
     """A thought jotted between sessions, for the topic step to draw on later."""
     text: str

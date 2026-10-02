@@ -21,6 +21,7 @@ import {
   HelpCircle,
   Trash2,
   FileText,
+  MessageSquare,
   Search,
   AlertTriangle,
 } from "lucide-react";
@@ -101,6 +102,7 @@ interface Session {
   status: string;
   config: Record<string, string>;
   steps: Record<string, { content: string; status: string }>;
+  discussions?: Record<string, { role: string; content: string }[]>;
   created_at?: string;
   updated_at?: string;
 }
@@ -136,6 +138,8 @@ export default function WordWeaverPage() {
   const [stepWarnings, setStepWarnings] = useState<string[]>([]);
   const [stopPrompt, setStopPrompt] = useState<{ reason: string; verdict: string } | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [discussion, setDiscussion] = useState<{ role: string; content: string }[]>([]);
+  const [discussing, setDiscussing] = useState(false);
   const [sourceSaved, setSourceSaved] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -277,6 +281,63 @@ export default function WordWeaverPage() {
     setSavingSource(false);
   };
 
+  // Talk about the step without approving or regenerating it.
+  const discussStep = async () => {
+    if (!activeSession || !userInput.trim()) return;
+    const question = userInput.trim();
+    setUserInput("");
+    setDiscussing(true);
+    setDiscussion((d) => [...d, { role: "user", content: question }, { role: "assistant", content: "" }]);
+    try {
+      const res = await fetch(
+        `${API_URL}/api/wordweaver/sessions/${activeSession.session_id}/discuss`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...(apiKey ? { "X-Claude-Key": apiKey } : {}) },
+          body: JSON.stringify({ message: question }),
+        }
+      );
+      if (!res.ok || !res.body) {
+        const err = await res.json().catch(() => ({}));
+        setCreateError(err?.detail || `Could not start the discussion (HTTP ${res.status}).`);
+        setDiscussion((d) => d.slice(0, -2));
+        setDiscussing(false);
+        return;
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "", answer = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed.startsWith("data: ")) continue;
+          try {
+            const event = JSON.parse(trimmed.slice(6));
+            if (event.type === "text_delta") {
+              answer += event.delta;
+              setDiscussion((d) => {
+                const next = [...d];
+                next[next.length - 1] = { role: "assistant", content: answer };
+                return next;
+              });
+            } else if (event.type === "error") {
+              setCreateError(String(event.message));
+            }
+          } catch { /* skip */ }
+        }
+      }
+    } catch (e) {
+      console.error("Discussion failed:", e);
+      setCreateError("Could not reach the backend.");
+    }
+    setDiscussing(false);
+  };
+
   const abandonSession = async () => {
     if (!activeSession) return;
     try {
@@ -306,6 +367,7 @@ export default function WordWeaverPage() {
       setSessionSourceLabel(session.config?.source_label || "");
       setEditingSource(false);
       setSourceSaved(false);
+      setDiscussion((session.discussions?.[String(session.current_step)] as never) || []);
     } catch (e) {
       console.error("Failed to load session:", e);
     }
@@ -1482,17 +1544,34 @@ export default function WordWeaverPage() {
             {createError && (
               <p className="text-xs mb-2" style={{ color: "var(--accent-red, #c0392b)" }}>{createError}</p>
             )}
+            {discussion.length > 0 && (
+              <div className="mb-3 max-h-64 overflow-y-auto rounded-lg p-3 space-y-3"
+                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}>
+                {discussion.map((turn, i) => (
+                  <div key={i}>
+                    <p className="text-[10px] uppercase tracking-wide mb-1"
+                      style={{ color: turn.role === "user" ? "var(--accent-blue)" : "var(--text-muted)" }}>
+                      {turn.role === "user" ? "You" : "WordWeaver"}
+                    </p>
+                    <p className="text-xs whitespace-pre-wrap text-[var(--text-primary)] leading-relaxed">
+                      {turn.content || (discussing && i === discussion.length - 1 ? "..." : "")}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div className="mb-3">
               <textarea value={userInput} onChange={(e) => setUserInput(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey && !streaming) {
+                  if (e.key === "Enter" && !e.shiftKey && !streaming && !discussing) {
                     e.preventDefault();
-                    if (hasDraft) { userInput.trim() ? reviseStep() : approveStep(); }
+                    if (hasDraft) { userInput.trim() ? discussStep() : approveStep(); }
                     else runStep();
                   }
                 }}
                 rows={3}
-                placeholder={hasDraft ? "Feedback to revise, or press approve..." : "Add context (optional)..."}
+                placeholder={hasDraft ? "Ask about this step, push on something, or press Approve..." : "Add context (optional)..."}
                 disabled={streaming}
                 className="w-full rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)] resize-y mb-2"
                 style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)", color: "var(--text-primary)", minHeight: "60px" }}
@@ -1505,13 +1584,21 @@ export default function WordWeaverPage() {
                       style={{ backgroundColor: "var(--accent-green)", color: "#fff" }}>
                       <ThumbsUp size={14} /> Approve
                     </button>
-                    <button onClick={reviseStep} disabled={streaming || !userInput.trim()}
+                    <button onClick={discussStep} disabled={streaming || discussing || !userInput.trim()}
                       className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium"
                       style={{
                         backgroundColor: userInput.trim() ? "var(--accent-blue)" : "var(--border)",
                         color: userInput.trim() ? "#fff" : "var(--text-muted)",
-                      }}>
-                      <RotateCcw size={14} /> Revise
+                      }}
+                      title="Ask about this step. Nothing is rewritten or advanced.">
+                      {discussing ? <Loader2 size={14} className="animate-spin" /> : <MessageSquare size={14} />}
+                      Discuss
+                    </button>
+                    <button onClick={reviseStep} disabled={streaming || discussing || !userInput.trim()}
+                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium"
+                      style={{ border: "1px solid var(--border)", color: "var(--text-secondary)" }}
+                      title="Throw this version away and regenerate it with your feedback and anything discussed.">
+                      <RotateCcw size={14} /> Redo
                     </button>
                   </>
                 ) : (
@@ -1529,7 +1616,7 @@ export default function WordWeaverPage() {
             </div>
             <div className="flex items-center justify-between text-xs text-[var(--text-muted)]">
               <span>
-                {hasDraft && "Draft ready — approve or revise"}
+                {hasDraft && (discussion.length > 0 ? `Draft ready - ${discussion.filter(t => t.role === "user").length} question(s) discussed` : "Draft ready - discuss it, approve it, or redo it")}
                 {!hasDraft && !streaming && "Run the step to begin"}
                 {streaming && "Streaming..."}
               </span>
