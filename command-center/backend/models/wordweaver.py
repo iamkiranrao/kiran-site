@@ -15,6 +15,11 @@ class CreateRequest(BaseModel):
     source_label: Optional[str] = None
 
 
+class TitleRequest(BaseModel):
+    """Rename a session."""
+    title: str
+
+
 class DiscussRequest(BaseModel):
     """A question about a step, answered without changing or advancing it."""
     message: str

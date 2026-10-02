@@ -622,6 +622,60 @@ def save_decision(session_id: str, step: int, decision: str) -> dict:
     return state
 
 
+def derive_title(state: dict) -> str:
+    """A human title for a session, so the list is not five rows of "Blog Post".
+
+    Prefers an explicitly stored title, then the first heading of the newest
+    article, then the working title or claim chosen during research, then the
+    theme. Derived on read so sessions that predate this still get one.
+    """
+    import re
+
+    stored = (state.get("title") or "").strip()
+    if stored:
+        return stored
+
+    steps = state.get("steps") or {}
+
+    # The article itself: first markdown heading, else first non-empty line.
+    for step in (WRITE_STEP, DRAFT_STEP):
+        content = (steps.get(str(step)) or {}).get("content", "")
+        if not content.strip():
+            continue
+        for line in content.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            m = re.match(r"^#{1,3}\s+(.+?)\s*$", line)
+            if m:
+                return m.group(1).strip().strip("*").strip()
+            # A bolded first line is often the title too.
+            m = re.match(r"^\*\*(.+?)\*\*$", line)
+            if m:
+                return m.group(1).strip()
+            if len(line) < 120 and not line.endswith("."):
+                return line.strip("*").strip()
+            break
+
+    # The choice made during research.
+    for step in sorted(steps, key=lambda k: int(k)):
+        content = (steps.get(step) or {}).get("content", "")
+        for line in content.splitlines():
+            line = line.strip().lstrip("*#-").strip()
+            for key in ("WORKING TITLE:", "CLAIM:"):
+                if line.upper().startswith(key):
+                    val = line.split(":", 1)[1].strip().strip("*").strip()
+                    if val and val.upper() not in ("PENDING", "NONE"):
+                        return val[:120]
+
+    cfg = state.get("config") or {}
+    return cfg.get("theme") or "Untitled"
+
+
+def set_title(session_id: str, title: str) -> dict:
+    return update_session(session_id, {"title": (title or "").strip()[:200]})
+
+
 def list_sessions() -> List[Dict]:
     if not os.path.exists(SESSIONS_DIR):
         return []
@@ -631,6 +685,7 @@ def list_sessions() -> List[Dict]:
         if state:
             sessions.append({
                 "session_id": state["session_id"],
+                "title": derive_title(state),
                 "mode": state["mode"],
                 "current_step": state["current_step"],
                 "total_steps": state["total_steps"],

@@ -28,7 +28,7 @@ from utils.config import CLAUDE_MODEL, resolve_api_key
 from services.claude_client import create_client
 from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
-from models.wordweaver import CreateRequest, DiscussRequest, IdeaRequest, SourceRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
+from models.wordweaver import CreateRequest, DiscussRequest, TitleRequest, IdeaRequest, SourceRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
 from typing import Optional
 
 # ── Resolve paths ─────────────────────────────────────────────────
@@ -51,6 +51,8 @@ from services.wordweaver_service import (
     parse_verdict,
     run_discussion_stream,
     get_discussion,
+    derive_title,
+    set_title,
     STOP_VERDICTS,
     KILL_STEPS,
     run_step_stream,
@@ -164,6 +166,7 @@ async def get_session_detail(session_id: str):
     state = get_session(session_id)
     if not state:
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+    state["title"] = derive_title(state)
     return state
 
 @router.delete("/sessions/{session_id}", response_model=dict)
@@ -327,6 +330,19 @@ async def execute_step(
             "X-Accel-Buffering": "no",
         },
     )
+
+@router.post("/sessions/{session_id}/title", response_model=dict)
+async def rename_session(session_id: str, request: TitleRequest):
+    """Set a session's title by hand, overriding the derived one."""
+    state = get_session(session_id)
+    if not state:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+    title = (request.title or "").strip()
+    if not title:
+        raise HTTPException(status_code=400, detail="A title needs some text")
+    set_title(session_id, title)
+    return {"session_id": session_id, "title": title[:200]}
+
 
 @router.post("/sessions/{session_id}/discuss")
 async def discuss_step(

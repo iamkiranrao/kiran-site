@@ -103,6 +103,7 @@ interface Session {
   config: Record<string, string>;
   steps: Record<string, { content: string; status: string }>;
   discussions?: Record<string, { role: string; content: string }[]>;
+  title?: string;
   created_at?: string;
   updated_at?: string;
 }
@@ -894,9 +895,11 @@ export default function WordWeaverPage() {
                     style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
                     <div>
                       <p className="text-sm text-[var(--text-primary)] font-medium flex items-center gap-2">
-                        {s.mode === "blog" ? <BookOpen size={14} /> : <Share2 size={14} />}
-                        {s.mode === "blog" ? "Blog Post" : "Social Post"}
-                        {s.config?.theme && <span className="text-xs text-[var(--text-muted)]">&middot; {s.config.theme}</span>}
+                        {s.mode === "blog" ? <BookOpen size={14} className="shrink-0" /> : <Share2 size={14} className="shrink-0" />}
+                        <span className="truncate" title={s.title || undefined}>
+                          {s.title || (s.mode === "blog" ? "Blog Post" : "Social Post")}
+                        </span>
+                        {s.config?.theme && <span className="text-xs text-[var(--text-muted)] shrink-0">&middot; {s.config.theme}</span>}
                         {s.config?.source_material && (
                           <span className="text-[10px] px-1.5 py-0.5 rounded flex items-center gap-1 font-normal"
                             style={{ backgroundColor: "rgba(122, 158, 196, 0.12)", color: "var(--accent-blue)" }}
@@ -1064,9 +1067,11 @@ export default function WordWeaverPage() {
               className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors">
               <ArrowLeft size={16} />
             </button>
-            <h2 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-1.5">
-              {activeSession?.mode === "blog" ? <BookOpen size={14} /> : <Share2 size={14} />}
-              {activeSession?.mode === "blog" ? "Blog" : "Social"}
+            <h2 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-1.5 min-w-0">
+              {activeSession?.mode === "blog" ? <BookOpen size={14} className="shrink-0" /> : <Share2 size={14} className="shrink-0" />}
+              <span className="truncate" title={activeSession?.title || undefined}>
+                {activeSession?.title || (activeSession?.mode === "blog" ? "Blog" : "Social")}
+              </span>
             </h2>
           </div>
           {activeSession?.config?.theme && (
