@@ -119,6 +119,12 @@ export default function WordWeaverPage() {
   const [loading, setLoading] = useState(false);
   const [themes, setThemes] = useState<string[]>([]);
   const [angles, setAngles] = useState<string[]>([]);
+  const [seriesCount, setSeriesCount] = useState<number | null>(null);
+  const [coverage, setCoverage] = useState<{
+    covered: number; total: number;
+    themes: { theme: string; published: number; in_progress: number; titles: string[] }[];
+  } | null>(null);
+  const [showCoverage, setShowCoverage] = useState(false);
 
   // Create form
   const [mode, setMode] = useState<"blog" | "social">("blog");
@@ -199,10 +205,22 @@ export default function WordWeaverPage() {
     } catch { /* server may not be running */ }
   }, []);
 
+  const fetchPublicationData = useCallback(async () => {
+    try {
+      const [sr, cv] = await Promise.all([
+        fetch(`${API_URL}/api/wordweaver/series`),
+        fetch(`${API_URL}/api/wordweaver/coverage`),
+      ]);
+      if (sr.ok) setSeriesCount((await sr.json()).count ?? null);
+      if (cv.ok) setCoverage(await cv.json());
+    } catch { /* server may not be running */ }
+  }, []);
+
   useEffect(() => {
     fetchSessions();
     fetchThemes();
-  }, [fetchSessions, fetchThemes]);
+    fetchPublicationData();
+  }, [fetchSessions, fetchThemes, fetchPublicationData]);
 
   useEffect(() => {
     if (outputRef.current) {
@@ -891,15 +909,21 @@ export default function WordWeaverPage() {
         {/* Stats */}
         <div className="grid grid-cols-3 gap-3 mb-5">
           <div className="rounded-lg p-4 text-center" style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}>
-            <div className="text-xl font-semibold text-[var(--text-primary)]">{themes.length || 32}</div>
-            <div className="text-xs text-[var(--text-muted)] mt-0.5">Themes</div>
+            <button onClick={() => setShowCoverage(!showCoverage)} className="w-full">
+              <div className="text-xl font-semibold text-[var(--text-primary)]">
+                {coverage ? `${coverage.covered}/${coverage.total}` : (themes.length || 32)}
+              </div>
+              <div className="text-xs text-[var(--text-muted)] mt-0.5">
+                {coverage ? "Themes covered" : "Themes"}
+              </div>
+            </button>
           </div>
           <div className="rounded-lg p-4 text-center" style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}>
             <div className="text-xl font-semibold text-[var(--text-primary)]">{angles.length || 15}</div>
             <div className="text-xs text-[var(--text-muted)] mt-0.5">Angles</div>
           </div>
           <div className="rounded-lg p-4 text-center" style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}>
-            <div className="text-xl font-semibold text-[var(--text-primary)]">8</div>
+            <div className="text-xl font-semibold text-[var(--text-primary)]">{seriesCount ?? 8}</div>
             <div className="text-xs text-[var(--text-muted)] mt-0.5">Series</div>
           </div>
         </div>
@@ -925,6 +949,53 @@ export default function WordWeaverPage() {
         </div>
 
         {/* In-progress sessions */}
+        {showCoverage && coverage && (
+          <div className="rounded-lg p-5 mb-5" style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-medium text-[var(--text-primary)]">
+                Coverage &middot; {coverage.covered} of {coverage.total} themes published in
+              </h3>
+              <button onClick={() => setShowCoverage(false)}
+                className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]">
+                Hide
+              </button>
+            </div>
+
+            {coverage.themes.some((t) => t.published > 0) && (
+              <div className="mb-4">
+                <p className="text-[10px] uppercase tracking-wide text-[var(--text-muted)] mb-2">Written in</p>
+                <div className="space-y-1.5">
+                  {coverage.themes.filter((t) => t.published > 0).map((t) => (
+                    <div key={t.theme} className="flex items-baseline gap-2 text-xs">
+                      <span className="text-[var(--text-primary)] font-medium">{t.theme}</span>
+                      <span className="text-[var(--text-muted)]">{t.published}</span>
+                      {t.titles.length > 0 && (
+                        <span className="text-[var(--text-muted)] truncate">&middot; {t.titles.join(", ")}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {coverage.themes.some((t) => t.in_progress > 0) && (
+              <div className="mb-4">
+                <p className="text-[10px] uppercase tracking-wide text-[var(--text-muted)] mb-2">In progress</p>
+                <p className="text-xs text-[var(--text-secondary)]">
+                  {coverage.themes.filter((t) => t.in_progress > 0).map((t) => `${t.theme} (${t.in_progress})`).join(", ")}
+                </p>
+              </div>
+            )}
+
+            <div>
+              <p className="text-[10px] uppercase tracking-wide text-[var(--text-muted)] mb-2">Nothing published yet</p>
+              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                {coverage.themes.filter((t) => !t.published && !t.in_progress).map((t) => t.theme).join(" &middot; ")}
+              </p>
+            </div>
+          </div>
+        )}
+
         {sessions.length > 0 && (
           <div className="rounded-lg p-5" style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}>
             <h3 className="text-sm font-medium text-[var(--text-primary)] mb-3">In Progress</h3>

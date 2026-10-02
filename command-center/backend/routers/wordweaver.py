@@ -28,7 +28,7 @@ from utils.config import CLAUDE_MODEL, resolve_api_key
 from services.claude_client import create_client
 from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
-from models.wordweaver import CreateRequest, DiscussRequest, TitleRequest, IdeaRequest, SourceRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
+from models.wordweaver import CreateRequest, DiscussRequest, SeriesRequest, TitleRequest, IdeaRequest, SourceRequest, StepRequest, ApproveRequest, ReviseRequest, GoToStepRequest, EditFinalRequest, ThemeRequest, PreviewRequest, PublishRequest, CrossPostRequest
 from typing import Optional
 
 # ── Resolve paths ─────────────────────────────────────────────────
@@ -53,6 +53,11 @@ from services.wordweaver_service import (
     get_discussion,
     derive_title,
     set_title,
+    theme_coverage,
+    get_series,
+    add_series,
+    remove_series,
+    record_series_post,
     STOP_VERDICTS,
     KILL_STEPS,
     run_step_stream,
@@ -330,6 +335,48 @@ async def execute_step(
             "X-Accel-Buffering": "no",
         },
     )
+
+@router.get("/coverage", response_model=dict)
+async def get_coverage():
+    """Which themes have been published in, which have gone quiet.
+
+    A publication needs memory. Thirty-two themes are only useful if you can
+    see where you have actually written and where you have not.
+    """
+    return theme_coverage()
+
+
+@router.get("/series", response_model=dict)
+async def list_series():
+    series = get_series()
+    return {"series": series, "count": len(series)}
+
+
+@router.post("/series", response_model=dict)
+async def post_series(request: SeriesRequest):
+    name = (request.name or "").strip()
+    description = (request.description or "").strip()
+    if not name:
+        raise HTTPException(status_code=400, detail="A series needs a name")
+    if not description:
+        raise HTTPException(
+            status_code=400,
+            detail="A series needs a description of what the format commits to. "
+                   "Without one it is just a label.",
+        )
+    try:
+        return add_series(name, description)
+    except ValueError as e:
+        raise HTTPException(status_code=409, detail=str(e))
+
+
+@router.delete("/series/{name}", response_model=dict)
+async def delete_series(name: str):
+    result = remove_series(name)
+    if not result["existed"]:
+        raise HTTPException(status_code=404, detail=f"No series called {name!r}")
+    return result
+
 
 @router.post("/sessions/{session_id}/title", response_model=dict)
 async def rename_session(session_id: str, request: TitleRequest):
@@ -949,6 +996,14 @@ async def deploy_post(session_id: str):
         )
 
         update_session(session_id, {"status": "published"})
+
+        # A series only compounds if its posts are recorded against it.
+        series_name = (state.get("config") or {}).get("series")
+        if series_name:
+            try:
+                record_series_post(series_name, session_id, derive_title(state))
+            except Exception:
+                pass  # Never fail a deploy over bookkeeping.
 
         # Fire notification for deployed content
         try:

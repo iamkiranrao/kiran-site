@@ -187,11 +187,54 @@ def _load_themes() -> dict:
     with open(themes_path) as f:
         data = json.load(f)
 
+    themes = data.get("themes", [])
     return {
-        "themes": [t["name"] for t in data.get("themes", [])],
+        "themes": [t["name"] for t in themes],
+        # Kiran wrote a definition for each theme. Sending only the name meant
+        # the model had to guess what "The Value Gap" means to him.
+        "themes_described": [
+            {"name": t.get("name", ""), "description": (t.get("description") or "").strip()}
+            for t in themes
+        ],
         "angles": data.get("cross_cutting_angles", []),
+        "series": data.get("series", []),
         "full": data,
     }
+
+
+def _format_themes(theme_data: dict) -> str:
+    """Themes with Kiran's definitions, so topic options land inside his beats."""
+    described = theme_data.get("themes_described") or []
+    if not described:
+        return ", ".join(theme_data.get("themes", []))
+    lines = []
+    for t in described:
+        if t["description"]:
+            lines.append(f"- {t['name']}: {t['description']}")
+        else:
+            lines.append(f"- {t['name']}")
+    return "\n".join(lines)
+
+
+def _format_series(theme_data: dict) -> str:
+    """Series as a commitment to a format, with what is already in each."""
+    series = theme_data.get("series") or []
+    if not series:
+        return ""
+    lines = ["SERIES. A series is a recurring format Kiran has committed to. "
+             "Three posts in a named series read as a beat; five scattered posts "
+             "read as five opinions. Offer a series when the topic fits one:"]
+    for sr in series:
+        line = f"- {sr.get('name','')}"
+        if sr.get("description"):
+            line += f": {sr['description']}"
+        count = len(sr.get("posts") or [])
+        if count:
+            line += f"  (already published: {count})"
+        lines.append(line)
+    return "\n".join(lines)
+
+
 
 
 def _build_wordweaver_system() -> str:
@@ -237,7 +280,9 @@ BLOG_STEP_PROMPTS = {
 
 {ideas}
 
-Available themes: {themes}
+Available themes, with what Kiran means by each:
+{themes}
+
 Cross-cutting angles: {angles}
 
 Help Kiran settle on one topic. He may arrive with an idea, or want to find one
@@ -248,9 +293,11 @@ Land on three things:
   happened yet, and picking the angle before the evidence is picking blind.
   The specific options come at the end of Step 2.
 - Theme and cross-cutting angle from the lists above
-- One-off or part of a series. Series templates available: Demystifying [X],
-  Product Teardown, Product Award of the Month, The Value Gap, Signal vs Noise,
-  Product Decision Autopsy, The Contrarian Take, 5 Questions With.
+- One-off or part of a series.
+
+{series}
+
+{coverage}
 
 If he arrives with a specific idea, take it and move on. If he is exploring,
 help him choose a theme and angle worth researching.
@@ -686,6 +733,18 @@ def set_title(session_id: str, title: str) -> dict:
     return update_session(session_id, {"title": (title or "").strip()[:200]})
 
 
+def list_sessions_raw() -> List[Dict]:
+    """Full session states, for anything that needs more than the summary."""
+    if not os.path.exists(SESSIONS_DIR):
+        return []
+    out = []
+    for d in os.listdir(SESSIONS_DIR):
+        state = get_session(d)
+        if state:
+            out.append(state)
+    return out
+
+
 def list_sessions() -> List[Dict]:
     if not os.path.exists(SESSIONS_DIR):
         return []
@@ -1083,6 +1142,89 @@ def past_posts_summary(exclude_session: Optional[str] = None, limit: int = 15) -
 
 
 
+
+# ── Coverage ───────────────────────────────────────────────────────
+#
+# A publication needs memory, not just a vocabulary. Thirty-two themes are
+# only useful if you can see which ones you have actually written in, which
+# have gone quiet, and when you last posted in each.
+
+def theme_coverage() -> dict:
+    """Per-theme publishing record across every session."""
+    from collections import defaultdict
+
+    theme_data = _load_themes()
+    described = {t["name"]: t["description"] for t in (theme_data.get("themes_described") or [])}
+
+    counts = defaultdict(lambda: {"published": 0, "in_progress": 0, "last": "", "titles": []})
+    for state in (list_sessions_raw() or []):
+        theme = ((state.get("config") or {}).get("theme") or "").strip()
+        if not theme:
+            continue
+        bucket = counts[theme]
+        status = state.get("status")
+        if status == "published":
+            bucket["published"] += 1
+            bucket["titles"].append(derive_title(state))
+        elif status not in ("abandoned",):
+            bucket["in_progress"] += 1
+        updated = state.get("updated_at", "")
+        if updated > bucket["last"]:
+            bucket["last"] = updated
+
+    rows = []
+    for name, description in described.items():
+        c = counts.get(name, {"published": 0, "in_progress": 0, "last": "", "titles": []})
+        rows.append({
+            "theme": name,
+            "description": description,
+            "published": c["published"],
+            "in_progress": c["in_progress"],
+            "last_touched": c["last"],
+            "titles": c["titles"][:5],
+        })
+
+    # Themes Kiran used that are not in the config any more still count.
+    for name, c in counts.items():
+        if name not in described:
+            rows.append({
+                "theme": name, "description": "", "published": c["published"],
+                "in_progress": c["in_progress"], "last_touched": c["last"],
+                "titles": c["titles"][:5],
+            })
+
+    rows.sort(key=lambda r: (-r["published"], r["last_touched"] or "", r["theme"]))
+    return {
+        "themes": rows,
+        "covered": sum(1 for r in rows if r["published"]),
+        "total": len(rows),
+    }
+
+
+def theme_coverage_summary(exclude_session: Optional[str] = None) -> str:
+    """Coverage for the topic step, so it can steer toward neglected ground."""
+    data = theme_coverage()
+    rows = data["themes"]
+    if not rows:
+        return ""
+
+    written = [r for r in rows if r["published"]]
+    quiet = [r for r in rows if not r["published"] and not r["in_progress"]]
+
+    lines = [f"COVERAGE: {data['covered']} of {data['total']} themes have a published post."]
+    if written:
+        lines.append("\nAlready written in:")
+        for r in written[:12]:
+            titles = ", ".join(r["titles"][:2])
+            lines.append(f"- {r['theme']} ({r['published']})" + (f": {titles}" if titles else ""))
+    if quiet:
+        lines.append("\nNothing published yet in: " + ", ".join(r["theme"] for r in quiet[:20]))
+        lines.append("A neglected theme is not automatically a better choice, but say so "
+                     "if this topic would open one up, and say so if it repeats ground "
+                     "already covered.")
+    return "\n".join(lines)
+
+
 # ── Discussion ─────────────────────────────────────────────────────
 #
 # Approve and Revise are both terminal: one advances, the other throws the step
@@ -1260,8 +1402,10 @@ def build_step_messages(
     if state["mode"] == "blog":
         prompt_template = BLOG_STEP_PROMPTS.get(step, "Continue with the next step.")
         prompt = prompt_template.format(
-            themes=", ".join(theme_data["themes"]),
+            themes=_format_themes(theme_data),
             angles=", ".join(theme_data["angles"]),
+            series=_format_series(theme_data),
+            coverage=(theme_coverage_summary(state.get("session_id")) if step == 1 else ""),
             theme=config.get("theme", "not yet selected"),
             angle=config.get("angle", "not yet selected"),
             past_posts=(past_posts_summary(state.get("session_id")) if step == 1 else ""),
@@ -1427,6 +1571,73 @@ async def run_step_stream(
 def get_themes() -> dict:
     """Return themes and angles."""
     return _load_themes()
+
+
+def get_series() -> list:
+    return _load_themes().get("series", [])
+
+
+def add_series(name: str, description: str) -> dict:
+    """Add a series. A series is a format commitment, so it needs a description."""
+    import json as _json
+    path = os.path.join(CONFIG_DIR, "wordweaver-themes.json")
+    with open(path) as f:
+        data = _json.load(f)
+    series = data.setdefault("series", [])
+    if any(sr.get("name", "").lower() == name.lower() for sr in series):
+        raise ValueError(f"A series called {name!r} already exists")
+    series.append({
+        "name": name,
+        "description": description,
+        "posts": [],
+        "added_on": datetime.now().isoformat(),
+    })
+    data["last_updated"] = datetime.now().isoformat()
+    tmp = path + ".tmp"
+    with open(tmp, "w") as f:
+        _json.dump(data, f, indent=2)
+    os.replace(tmp, path)
+    return {"added": name, "total": len(series)}
+
+
+def remove_series(name: str) -> dict:
+    import json as _json
+    path = os.path.join(CONFIG_DIR, "wordweaver-themes.json")
+    with open(path) as f:
+        data = _json.load(f)
+    before = len(data.get("series", []))
+    data["series"] = [sr for sr in data.get("series", []) if sr.get("name") != name]
+    data["last_updated"] = datetime.now().isoformat()
+    tmp = path + ".tmp"
+    with open(tmp, "w") as f:
+        _json.dump(data, f, indent=2)
+    os.replace(tmp, path)
+    return {"removed": name, "total": len(data["series"]), "existed": before != len(data["series"])}
+
+
+def record_series_post(series_name: str, session_id: str, title: str) -> bool:
+    """Add a published post to its series, so the series accumulates."""
+    import json as _json
+    path = os.path.join(CONFIG_DIR, "wordweaver-themes.json")
+    with open(path) as f:
+        data = _json.load(f)
+    for sr in data.get("series", []):
+        if sr.get("name", "").lower() == (series_name or "").lower():
+            posts = sr.setdefault("posts", [])
+            if any(p.get("session_id") == session_id for p in posts):
+                return True
+            posts.append({
+                "session_id": session_id,
+                "title": title,
+                "published_at": datetime.now().isoformat(),
+            })
+            data["last_updated"] = datetime.now().isoformat()
+            tmp = path + ".tmp"
+            with open(tmp, "w") as f:
+                _json.dump(data, f, indent=2)
+            os.replace(tmp, path)
+            return True
+    return False
 
 
 def add_theme(name: str, description: str) -> dict:

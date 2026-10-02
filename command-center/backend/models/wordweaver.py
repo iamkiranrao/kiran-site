@@ -15,6 +15,12 @@ class CreateRequest(BaseModel):
     source_label: Optional[str] = None
 
 
+class SeriesRequest(BaseModel):
+    """A recurring format Kiran commits to, not just a label."""
+    name: str
+    description: str
+
+
 class TitleRequest(BaseModel):
     """Rename a session."""
     title: str
