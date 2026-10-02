@@ -285,6 +285,11 @@ Available themes, with what Kiran means by each:
 
 Cross-cutting angles: {angles}
 
+Already chosen before this step ran: theme = {theme}, angle = {angle}.
+Where those say "not yet selected" he has not chosen and you should help him.
+Where they name something, that is his decision. Confirm it in one line and
+move on - do not re-ask, and do not re-present the whole list back to him.
+
 Help Kiran settle on one topic. He may arrive with an idea, or want to find one
 from the themes, the inbox above, or what is happening in the field right now.
 

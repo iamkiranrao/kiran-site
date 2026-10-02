@@ -132,6 +132,11 @@ export default function WordWeaverPage() {
   const [sourceMaterial, setSourceMaterial] = useState("");
   const [sourceLabel, setSourceLabel] = useState("");
   const [createError, setCreateError] = useState<string | null>(null);
+  const [pickTheme, setPickTheme] = useState("");
+  const [pickAngle, setPickAngle] = useState("");
+  const [pickSeries, setPickSeries] = useState("");
+  const [themeDetails, setThemeDetails] = useState<{ name: string; description: string }[]>([]);
+  const [seriesList, setSeriesList] = useState<{ name: string; description: string; posts?: unknown[] }[]>([]);
 
   // Workflow state
   const [streaming, setStreaming] = useState(false);
@@ -201,6 +206,7 @@ export default function WordWeaverPage() {
         const data = await res.json();
         setThemes(data.themes || []);
         setAngles(data.angles || []);
+        setThemeDetails(data.themes_described || []);
       }
     } catch { /* server may not be running */ }
   }, []);
@@ -211,7 +217,11 @@ export default function WordWeaverPage() {
         fetch(`${API_URL}/api/wordweaver/series`),
         fetch(`${API_URL}/api/wordweaver/coverage`),
       ]);
-      if (sr.ok) setSeriesCount((await sr.json()).count ?? null);
+      if (sr.ok) {
+        const data = await sr.json();
+        setSeriesCount(data.count ?? null);
+        setSeriesList(data.series || []);
+      }
       if (cv.ok) setCoverage(await cv.json());
     } catch { /* server may not be running */ }
   }, []);
@@ -233,6 +243,11 @@ export default function WordWeaverPage() {
     setCreateError(null);
     try {
       const payload: Record<string, string> = { mode };
+      if (mode === "blog") {
+        if (pickTheme) payload.theme = pickTheme;
+        if (pickAngle) payload.angle = pickAngle;
+        if (pickSeries) payload.series = pickSeries;
+      }
       // Source material only seeds the blog pipeline.
       if (mode === "blog" && sourceMaterial.trim()) {
         payload.source_material = sourceMaterial.trim();
@@ -259,6 +274,7 @@ export default function WordWeaverPage() {
       setSourceMaterial("");
       setSourceLabel("");
       setShowSource(false);
+      setPickTheme(""); setPickAngle(""); setPickSeries("");
       fetchSessions();
     } catch (e) {
       console.error("Failed to create session:", e);
@@ -1119,6 +1135,68 @@ export default function WordWeaverPage() {
             </div>
           </button>
         </div>
+
+        {mode === "blog" && (
+          <div className="mb-6 rounded-lg p-4 space-y-3"
+            style={{ border: "1px solid var(--border)", backgroundColor: "var(--bg-card)" }}>
+            <div>
+              <p className="text-sm font-medium text-[var(--text-primary)]">
+                Pick your ground <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span>
+              </p>
+              <p className="text-xs text-[var(--text-secondary)]">
+                Choose from your own themes, angles and series. Leave blank and step 1 will help you choose.
+              </p>
+            </div>
+
+            <div>
+              <label className="text-xs text-[var(--text-muted)] block mb-1">Theme</label>
+              <select value={pickTheme} onChange={(e) => setPickTheme(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg text-sm"
+                style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }}>
+                <option value="">Not sure yet - help me pick</option>
+                {themes.map((t) => <option key={t} value={t}>{t}</option>)}
+              </select>
+              {pickTheme && themeDetails.find((t) => t.name === pickTheme)?.description && (
+                <p className="text-xs text-[var(--text-muted)] mt-1.5 leading-relaxed">
+                  {themeDetails.find((t) => t.name === pickTheme)?.description}
+                </p>
+              )}
+            </div>
+
+            {pickTheme && (
+              <div>
+                <label className="text-xs text-[var(--text-muted)] block mb-1">Angle</label>
+                <select value={pickAngle} onChange={(e) => setPickAngle(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg text-sm"
+                  style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }}>
+                  <option value="">Not sure yet</option>
+                  {angles.map((a) => <option key={a} value={a}>{a}</option>)}
+                </select>
+              </div>
+            )}
+
+            {pickTheme && pickAngle && (
+              <div>
+                <label className="text-xs text-[var(--text-muted)] block mb-1">Series</label>
+                <select value={pickSeries} onChange={(e) => setPickSeries(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg text-sm"
+                  style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }}>
+                  <option value="">One-off, not part of a series</option>
+                  {seriesList.map((sr) => (
+                    <option key={sr.name} value={sr.name}>
+                      {sr.name}{sr.posts?.length ? ` (${sr.posts.length} so far)` : ""}
+                    </option>
+                  ))}
+                </select>
+                {pickSeries && seriesList.find((sr) => sr.name === pickSeries)?.description && (
+                  <p className="text-xs text-[var(--text-muted)] mt-1.5 leading-relaxed">
+                    {seriesList.find((sr) => sr.name === pickSeries)?.description}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         {mode === "blog" && (
           <div className="mb-6 rounded-lg overflow-hidden"

@@ -83,6 +83,7 @@ async def list_themes_endpoint():
     data = get_themes()
     return {
         "themes": data["themes"],
+        "themes_described": data.get("themes_described", []),
         "angles": data["angles"],
         "count": len(data["themes"]),
     }
