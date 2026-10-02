@@ -141,6 +141,8 @@ export default function WordWeaverPage() {
   const [showPreview, setShowPreview] = useState(false);
   const [discussion, setDiscussion] = useState<{ role: string; content: string }[]>([]);
   const [discussing, setDiscussing] = useState(false);
+  const [editingTitle, setEditingTitle] = useState(false);
+  const [titleDraft, setTitleDraft] = useState("");
   const [sourceSaved, setSourceSaved] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -337,6 +339,26 @@ export default function WordWeaverPage() {
       setCreateError("Could not reach the backend.");
     }
     setDiscussing(false);
+  };
+
+  const saveTitle = async () => {
+    if (!activeSession) return;
+    const title = titleDraft.trim();
+    if (!title) { setEditingTitle(false); return; }
+    setEditingTitle(false);
+    try {
+      const res = await fetch(`${API_URL}/api/wordweaver/sessions/${activeSession.session_id}/title`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title }),
+      });
+      if (res.ok) {
+        setActiveSession({ ...activeSession, title });
+        fetchSessions();
+      }
+    } catch (e) {
+      console.error("Rename failed:", e);
+    }
   };
 
   const abandonSession = async () => {
@@ -1067,11 +1089,33 @@ export default function WordWeaverPage() {
               className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors">
               <ArrowLeft size={16} />
             </button>
-            <h2 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-1.5 min-w-0">
+            <h2 className="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-1.5 min-w-0 flex-1">
               {activeSession?.mode === "blog" ? <BookOpen size={14} className="shrink-0" /> : <Share2 size={14} className="shrink-0" />}
-              <span className="truncate" title={activeSession?.title || undefined}>
-                {activeSession?.title || (activeSession?.mode === "blog" ? "Blog" : "Social")}
-              </span>
+              {editingTitle ? (
+                <input
+                  autoFocus
+                  value={titleDraft}
+                  onChange={(e) => setTitleDraft(e.target.value)}
+                  onBlur={saveTitle}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") { e.preventDefault(); saveTitle(); }
+                    if (e.key === "Escape") setEditingTitle(false);
+                  }}
+                  className="flex-1 min-w-0 px-1.5 py-0.5 rounded text-sm font-semibold"
+                  style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--accent-blue)", color: "var(--text-primary)" }}
+                />
+              ) : (
+                <button
+                  onClick={() => {
+                    setTitleDraft(activeSession?.title || "");
+                    setEditingTitle(true);
+                  }}
+                  className="truncate text-left hover:underline min-w-0"
+                  title="Click to rename"
+                >
+                  {activeSession?.title || (activeSession?.mode === "blog" ? "Blog" : "Social")}
+                </button>
+              )}
             </h2>
           </div>
           {activeSession?.config?.theme && (
