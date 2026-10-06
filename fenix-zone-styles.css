@@ -1,0 +1,339 @@
+/* ============================================
+   FENIX ZONE — Single-column cards + modal
+   Replaces two-column fenix-intro-zone layout
+   ============================================ */
+
+/* ── Zone container ── */
+.fenix-intro-zone.fenix-zone-single {
+  display: block;
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
+  border: none;
+  min-height: auto;
+}
+.fenix-intro-zone.fenix-zone-single .fenix-intro-divider { display: none; }
+.fenix-intro-zone.fenix-zone-single .fenix-intro-left {
+  width: 100%; max-width: none; flex: none;
+  border: none; padding: 0;
+}
+
+/* ── Fenix identity (above cards) ── */
+.fz-id {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.fz-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid rgba(var(--persona-accent-rgb, 123,154,204), 0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(var(--persona-accent-rgb, 123,154,204), 0.15);
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+.fz-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px; font-weight: 500; letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+.fz-dot {
+  display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: rgba(74, 190, 120, 0.85);
+  margin-left: 5px; vertical-align: middle;
+}
+
+/* ── Opening message ── */
+.fz-opening {
+  font-size: 14px; line-height: 1.65; color: var(--text-secondary);
+  margin-bottom: 28px; padding-left: 46px;
+}
+.fz-opening p { margin: 0; }
+.fz-opening p + p { margin-top: 10px; }
+
+/* ── Section label ── */
+.fz-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; font-weight: 400;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 10px; padding-left: 2px;
+}
+
+/* ── Card list ── */
+.fz-cards { display: flex; flex-direction: column; gap: 1px; }
+
+/* ── Individual card row ── */
+.fz-card {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px; background: transparent;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background 0.15s ease, opacity 0.3s ease;
+  position: relative;
+}
+.fz-card:first-child { border-top: 1px solid var(--border); }
+.fz-card:hover { background: var(--ev-bg-card, var(--bg-card)); }
+.fz-card:active { background: var(--border-light); }
+.fz-card.fz-visited { opacity: 0.5; }
+.fz-card.fz-visited:hover { opacity: 0.75; }
+.fz-card.fz-locked { cursor: default; }
+.fz-card.fz-locked:hover { background: transparent; }
+
+.fz-card-icon {
+  width: 18px; height: 18px; flex-shrink: 0;
+  color: var(--text-muted); margin-top: 2px; transition: color 0.15s;
+}
+.fz-card:hover .fz-card-icon { color: var(--persona-accent, var(--accent)); }
+.fz-card-icon svg { width: 100%; height: 100%; }
+
+.fz-card-body { flex: 1; min-width: 0; }
+.fz-card-title-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.fz-card-title {
+  font-size: 14px; font-weight: 600; color: var(--text-primary);
+  line-height: 1.3; letter-spacing: -0.01em;
+}
+
+/* Tag pills */
+.fz-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 0.04em;
+  text-transform: uppercase; line-height: 1;
+  padding: 2px 6px; border-radius: 2px; white-space: nowrap;
+}
+.fz-tag--tool {
+  color: var(--persona-accent, var(--accent));
+  background: rgba(var(--persona-accent-rgb, 123,154,204), 0.08);
+}
+.fz-tag--fun { color: #c89a3a; background: rgba(200, 154, 58, 0.08); }
+.fz-tag--gated { color: var(--text-muted); background: rgba(255, 255, 255, 0.03); }
+.fz-tag--framework { color: #4daf8b; background: rgba(77, 175, 139, 0.08); }
+
+[data-theme="light"] .fz-tag--fun { color: #8a6a28; background: rgba(138, 106, 40, 0.08); }
+[data-theme="light"] .fz-tag--gated { background: rgba(0, 0, 0, 0.03); }
+[data-theme="light"] .fz-tag--framework { color: #3a8a6a; background: rgba(58, 138, 106, 0.08); }
+
+.fz-card-hook { font-size: 13px; line-height: 1.5; color: var(--text-muted); margin-top: 4px; }
+.fz-card-cta {
+  font-size: 12px; font-weight: 500; margin-top: 6px; letter-spacing: -0.01em;
+  color: var(--persona-accent, var(--accent));
+}
+.fz-card-lock { font-size: 12px; color: var(--text-muted); margin-top: 6px; font-style: italic; }
+.fz-card-visited-mark {
+  position: absolute; top: 14px; right: 14px;
+  font-size: 10px; color: var(--text-muted);
+  font-family: 'Space Mono', monospace;
+}
+
+/* ── Chat drawer ── */
+.fenix-chat-drawer {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 1500;
+  max-height: 70vh; background: var(--bg-primary, var(--ev-bg-primary));
+  border-top: 1px solid var(--border);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex; flex-direction: column;
+}
+.fenix-chat-drawer.open { transform: translateY(0); }
+.fenix-chat-drawer .fenix-intro-right {
+  width: 100%; max-width: 580px; margin: 0 auto;
+  flex: 1; overflow: hidden; display: flex; flex-direction: column;
+}
+.fenix-chat-drawer-close {
+  position: absolute; top: 12px; right: 16px; z-index: 10;
+  width: 28px; height: 28px; background: transparent;
+  border: 1px solid var(--border); color: var(--text-muted);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-family: inherit;
+}
+.fenix-chat-drawer-close:hover { border-color: var(--text-muted); color: var(--text-primary); }
+
+/* ── Bottom bar ── */
+.fenix-bottom-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  padding: 10px 16px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  background: var(--bg-primary); border-top: 1px solid var(--border);
+  display: flex; justify-content: center; z-index: 1400;
+}
+.fenix-bottom-inner {
+  max-width: 580px; width: 100%; display: flex; gap: 8px;
+}
+.fenix-bottom-input {
+  flex: 1; padding: 10px 14px; background: transparent;
+  border: 1px solid var(--border); color: var(--text-primary);
+  font-family: inherit; font-size: 13px; outline: none;
+}
+.fenix-bottom-input:focus { border-color: rgba(var(--persona-accent-rgb, 123,154,204), 0.3); }
+.fenix-bottom-input::placeholder { color: var(--text-muted); }
+.fenix-bottom-send {
+  width: 38px; height: 38px; background: var(--text-primary);
+  border: none; color: var(--bg-primary); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.fenix-bottom-send:hover { opacity: 0.8; }
+.fenix-bottom-send svg { width: 16px; height: 16px; }
+
+/* ── Modal overlay ── */
+.fz-modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+}
+.fz-modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+.fz-modal-sheet {
+  width: 100%; max-width: 560px;
+  max-height: 85vh; min-height: 280px;
+  background: var(--bg-primary); border: 1px solid var(--border); border-bottom: none;
+  display: flex; flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fz-modal-overlay.open .fz-modal-sheet { transform: translateY(0); }
+
+.fz-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.fz-modal-title-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fz-modal-kicker {
+  font-family: 'Space Mono', monospace; font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--persona-accent, var(--accent));
+}
+.fz-modal-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 15px;
+  font-weight: 600; letter-spacing: -0.01em; color: var(--text-primary);
+}
+.fz-modal-close {
+  width: 28px; height: 28px; background: transparent;
+  border: 1px solid var(--border); color: var(--text-muted);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 16px; font-family: inherit;
+}
+.fz-modal-close:hover { border-color: var(--text-muted); color: var(--text-primary); }
+
+/* Modal body */
+.fz-modal-body {
+  flex: 1; overflow-y: auto; padding: 20px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+.fz-modal-fenix { display: flex; align-items: center; gap: 8px; }
+.fz-modal-fenix-av {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 1px solid rgba(var(--persona-accent-rgb, 123,154,204), 0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; flex-shrink: 0;
+}
+.fz-modal-fenix-nm {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px; font-weight: 500; color: var(--text-secondary);
+}
+
+.fz-modal-question {
+  padding: 14px 16px;
+  border-left: 2px solid rgba(var(--persona-accent-rgb, 123,154,204), 0.3);
+  font-size: 13px; line-height: 1.65; color: var(--text-secondary);
+}
+
+/* Input inside modal */
+.fz-modal-input-row { display: flex; gap: 8px; }
+.fz-modal-input {
+  flex: 1; padding: 10px 12px; background: transparent;
+  border: 1px solid var(--border); color: var(--text-primary);
+  font-family: inherit; font-size: 13px; outline: none;
+}
+.fz-modal-input:focus { border-color: rgba(var(--persona-accent-rgb, 123,154,204), 0.3); }
+.fz-modal-input::placeholder { color: var(--text-muted); }
+.fz-modal-submit {
+  padding: 10px 16px; background: var(--text-primary); color: var(--bg-primary);
+  border: none; font-family: inherit; font-size: 13px; font-weight: 600;
+  cursor: pointer; flex-shrink: 0; transition: opacity 0.15s;
+}
+.fz-modal-submit:hover { opacity: 0.85; }
+
+/* Thinking state */
+.fz-modal-thinking {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; border-left: 2px solid var(--border);
+}
+.fz-modal-thinking-dots { display: flex; gap: 4px; }
+.fz-modal-thinking-dots span {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--text-muted); animation: fzBlink 1.2s ease infinite;
+}
+.fz-modal-thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+.fz-modal-thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+.fz-modal-thinking-label {
+  font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-muted);
+}
+
+/* Structured output */
+.fz-modal-output {
+  padding: 16px; border-left: 2px solid var(--persona-accent, var(--accent));
+  font-size: 13px; line-height: 1.65;
+}
+.fz-modal-output h4 {
+  font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+  font-weight: 600; margin: 0 0 6px; letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.fz-modal-output p {
+  font-size: 13px; line-height: 1.65; color: var(--text-secondary); margin: 0 0 10px;
+}
+.fz-modal-output p:last-child { margin-bottom: 0; }
+.fz-modal-output strong { color: var(--text-primary); font-weight: 600; }
+.fz-modal-output .output-section { margin-bottom: 14px; }
+.fz-modal-output .output-section:last-child { margin-bottom: 0; }
+.fz-modal-output .output-label {
+  font-family: 'Space Mono', monospace; font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--persona-accent, var(--accent)); margin-bottom: 4px;
+}
+
+/* Choice buttons */
+.fz-modal-choices { display: flex; flex-wrap: wrap; gap: 6px; }
+.fz-modal-choice {
+  padding: 7px 12px; background: transparent; border: 1px solid var(--border);
+  font-size: 12px; font-weight: 500; color: var(--text-secondary);
+  cursor: pointer; font-family: inherit;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.fz-modal-choice:hover {
+  background: var(--bg-card); color: var(--text-primary);
+  border-color: rgba(var(--persona-accent-rgb, 123,154,204), 0.3);
+}
+
+/* Follow-up actions */
+.fz-modal-actions { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 4px; }
+.fz-modal-action {
+  padding: 7px 12px; background: transparent; border: 1px solid var(--border);
+  font-size: 12px; color: var(--text-secondary); cursor: pointer; font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+}
+.fz-modal-action:hover {
+  background: var(--bg-card); color: var(--text-primary);
+  border-color: rgba(var(--persona-accent-rgb, 123,154,204), 0.3);
+}
+
+/* Visitor echo */
+.fz-modal-visitor-echo { display: flex; justify-content: flex-end; }
+.fz-modal-visitor-bubble {
+  padding: 8px 14px; background: var(--text-primary); color: var(--bg-primary);
+  font-size: 13px; font-weight: 500; max-width: 80%;
+}
+
+/* Streaming text in modal */
+.fz-modal-streaming { white-space: pre-wrap; }
+
+/* Animations */
+@keyframes fzFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fzBlink { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+.fz-fade-in { animation: fzFadeIn 0.25s ease forwards; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .fenix-intro-zone.fenix-zone-single { padding: 0 0 2rem; }
+  .fz-opening { padding-left: 0; }
+}
