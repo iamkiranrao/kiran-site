@@ -166,14 +166,54 @@
   // ── UI ────────────────────────────────────────────
 
   function buildUI() {
-    var rightCol = document.querySelector('.fenix-intro-right');
-    var leftCol = document.querySelector('.fenix-intro-left');
-    if (!rightCol || !leftCol) return;
+    var leftCol = document.querySelector('.fenix-intro-zone .fenix-intro-left');
+    if (!leftCol) return;
     injectStyles();
-    rightCol.innerHTML = '';
     leftCol.innerHTML = '';
-    buildFenixColumn(rightCol);
-    buildUnlockCards(leftCol);
+
+    // Chat column → drawer
+    var drawer = document.getElementById('fenix-chat-drawer');
+    if (drawer) {
+      var drawerRight = drawer.querySelector('.fenix-intro-right');
+      if (drawerRight) { drawerRight.innerHTML = ''; buildFenixColumn(drawerRight); }
+      var closeBtn = drawer.querySelector('.fenix-chat-drawer-close');
+      if (closeBtn) closeBtn.addEventListener('click', function () { drawer.classList.remove('open'); });
+    }
+
+    var FZ = window.FenixCards;
+    var identity = FZ.h('div', 'fz-id');
+    identity.appendChild(FZ.h('div', 'fz-avatar', { text: '🔥' }));
+    var nameWrap = FZ.h('span', 'fz-name', { html: 'Fenix' });
+    nameWrap.appendChild(FZ.h('span', 'fz-dot'));
+    identity.appendChild(nameWrap);
+    leftCol.appendChild(identity);
+
+    var opening = FZ.h('div', 'fz-opening', { html: '<p>' + FENIX_OPENING.replace(/\n\n/g, '</p><p>') + '</p>' });
+    leftCol.appendChild(opening);
+    leftCol.appendChild(FZ.h('div', 'fz-label', { text: 'real tools, to help you break in' }));
+
+    var cardContainer = FZ.h('div');
+    leftCol.appendChild(cardContainer);
+
+    FZ.renderCards([
+      { id: 'metrics', title: 'What should you measure?', tag: 'tool', tagType: 'tool', icon: 'chart',
+        hook: "Describe a product — I'll show you the metrics that matter.", cta: '→ Find the metrics',
+        modal: { kicker: 'Metrics', title: 'What to Measure', question: "Describe a product, feature, or goal.", type: 'input',
+          placeholder: "e.g. a food-delivery app's loyalty program", thinkingLabel: 'Finding the metrics…',
+          promptFn: metricsPrompt } },
+      { id: 'buildwayin', title: 'Build your way in', tag: 'framework', tagType: 'framework', icon: 'tool',
+        hook: "Tell me the role you're aiming for — I'll hand you a real project.", cta: '→ Get my project',
+        modal: { kicker: 'Build Your Way In', title: 'Your Portfolio Project', question: "What role are you aiming for?", type: 'input',
+          placeholder: 'e.g. Growth PM at a consumer app', thinkingLabel: 'Designing your project…',
+          promptFn: buildwayinPrompt } },
+      { id: 'picks', title: "What I'm reading", tag: 'just for fun', tagType: 'fun', icon: 'book',
+        hook: "Books, essays, and voices shaping how I think.", cta: '→ Open the list',
+        onClick: function () { showPicks(); } },
+      { id: 'booking', title: 'Book a mentoring session', tag: 'free', tagType: 'tool', icon: 'calendar',
+        hook: "Free 30-min session with Kiran on ADPList.", cta: '→ Book on ADPList',
+        onClick: function () { window.open(BOOKING_URL, '_blank', 'noopener'); } }
+    ], cardContainer, 'learner');
+
     var zone = document.querySelector('.fenix-intro-zone');
     if (zone) zone.classList.add('lr-zone');
     revealAll();

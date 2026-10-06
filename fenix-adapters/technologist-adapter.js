@@ -58,14 +58,55 @@
   // ── UI ────────────────────────────────────────────
 
   function buildUI() {
-    var rightCol = document.querySelector('.fenix-intro-right');
-    var leftCol = document.querySelector('.fenix-intro-left');
-    if (!rightCol || !leftCol) return;
+    var leftCol = document.querySelector('.fenix-intro-zone .fenix-intro-left');
+    if (!leftCol) return;
     injectStyles();
-    rightCol.innerHTML = '';
     leftCol.innerHTML = '';
-    buildFenixColumn(rightCol);
-    buildUnlockCards(leftCol);
+
+    // Chat column → drawer
+    var drawer = document.getElementById('fenix-chat-drawer');
+    if (drawer) {
+      var drawerRight = drawer.querySelector('.fenix-intro-right');
+      if (drawerRight) { drawerRight.innerHTML = ''; buildFenixColumn(drawerRight); }
+      var closeBtn = drawer.querySelector('.fenix-chat-drawer-close');
+      if (closeBtn) closeBtn.addEventListener('click', function () { drawer.classList.remove('open'); });
+    }
+
+    var FZ = window.FenixCards;
+    var identity = FZ.h('div', 'fz-id');
+    identity.appendChild(FZ.h('div', 'fz-avatar', { text: '🔥' }));
+    var nameWrap = FZ.h('span', 'fz-name', { html: 'Fenix' });
+    nameWrap.appendChild(FZ.h('span', 'fz-dot'));
+    identity.appendChild(nameWrap);
+    leftCol.appendChild(identity);
+
+    var opening = FZ.h('div', 'fz-opening', { html: '<p>' + FENIX_OPENING.replace(/\n\n/g, '</p><p>') + '</p>' });
+    leftCol.appendChild(opening);
+    leftCol.appendChild(FZ.h('div', 'fz-label', { text: 'the internals, unlocked' }));
+
+    var cardContainer = FZ.h('div');
+    leftCol.appendChild(cardContainer);
+
+    var connected = fenixState.visitor.connected;
+    FZ.renderCards([
+      { id: 'buildstory', title: 'How I built this without code.', tag: 'the honest version', tagType: 'tool', icon: 'sun',
+        hook: 'What I decided vs. what the AI wrote.', cta: '→ See the split',
+        onClick: function () { showPanel('buildstory'); } },
+      { id: 'judgment', title: 'The judgment calls.', tag: 'framework', tagType: 'framework', icon: 'layers',
+        hook: 'What to build, what to buy, what to kill. Challenge any of them.', cta: '→ Read the calls',
+        onClick: function () { showPanel('judgment'); } },
+      { id: 'problem', title: 'Bring me a problem.', tag: connected ? 'unlocked' : 'connect to unlock', tagType: 'gated', icon: 'question',
+        hook: "Scoping an AI feature? Stuck on build-vs-buy?", cta: connected ? '→ Scope it' : '→ Connect to unlock',
+        locked: !connected,
+        onClick: function () {
+          if (!connected) { askFenix("I'd like to bring Kiran a real product or AI problem. First — who should I tell him is asking?", "Bring me a problem — let's connect"); return; }
+          showPanel('problem');
+        } },
+      { id: 'roast', title: 'Roast the build.', tag: 'just for fun', tagType: 'fun', icon: 'flame',
+        hook: "My own AI on my own architecture.", cta: '→ Let Fenix cook',
+        onClick: function () { startRoast(); } }
+    ], cardContainer, 'technologist');
+
     var zone = document.querySelector('.fenix-intro-zone');
     if (zone) zone.classList.add('tg-zone');
     revealAll();

@@ -180,14 +180,61 @@
   // ── UI ────────────────────────────────────────────
 
   function buildUI() {
-    var rightCol = document.querySelector('.fenix-intro-right');
-    var leftCol = document.querySelector('.fenix-intro-left');
-    if (!rightCol || !leftCol) return;
+    var leftCol = document.querySelector('.fenix-intro-zone .fenix-intro-left');
+    if (!leftCol) return;
     injectStyles();
-    rightCol.innerHTML = '';
     leftCol.innerHTML = '';
-    buildFenixColumn(rightCol);
-    buildUnlockCards(leftCol);
+
+    // Chat column → drawer
+    var drawer = document.getElementById('fenix-chat-drawer');
+    if (drawer) {
+      var drawerRight = drawer.querySelector('.fenix-intro-right');
+      if (drawerRight) { drawerRight.innerHTML = ''; buildFenixColumn(drawerRight); }
+      var closeBtn = drawer.querySelector('.fenix-chat-drawer-close');
+      if (closeBtn) closeBtn.addEventListener('click', function () { drawer.classList.remove('open'); });
+    }
+
+    var FZ = window.FenixCards;
+    var identity = FZ.h('div', 'fz-id');
+    identity.appendChild(FZ.h('div', 'fz-avatar', { text: '🔥' }));
+    var nameWrap = FZ.h('span', 'fz-name', { html: 'Fenix' });
+    nameWrap.appendChild(FZ.h('span', 'fz-dot'));
+    identity.appendChild(nameWrap);
+    leftCol.appendChild(identity);
+
+    var opening = FZ.h('div', 'fz-opening', { html: '<p>' + FENIX_OPENING.replace(/\n\n/g, '</p><p>') + '</p>' });
+    leftCol.appendChild(opening);
+    leftCol.appendChild(FZ.h('div', 'fz-label', { text: 'real tools, for your work' }));
+
+    var cardContainer = FZ.h('div');
+    leftCol.appendChild(cardContainer);
+
+    FZ.renderCards([
+      { id: 'overkill', title: 'Is AI overkill?', tag: 'gut-check', tagType: 'tool', icon: 'scale',
+        hook: "Describe an AI feature. I'll tell you if it earns its keep.", cta: '→ Check my idea',
+        modal: { kicker: 'AI Gut-Check', title: 'Is AI overkill?', question: "Describe the AI feature you're weighing.", type: 'input',
+          placeholder: 'e.g. an AI chatbot to help users pick a pricing plan', thinkingLabel: 'Running the gut-check…',
+          promptFn: overkillPrompt } },
+      { id: 'jtbd', title: 'Jobs-to-Be-Done builder', tag: 'framework', tagType: 'framework', icon: 'target',
+        hook: "Tell me your product. I'll build the actual job.", cta: '→ Build the job',
+        modal: { kicker: 'Jobs-to-Be-Done', title: 'Your Jobs-to-Be-Done', question: "Tell me your product and who it's for.", type: 'input',
+          placeholder: "e.g. a meal-kit subscription for busy parents", thinkingLabel: 'Building the job…',
+          promptFn: jtbdPrompt } },
+      { id: 'journey', title: 'Map the journey', tag: 'tool', tagType: 'tool', icon: 'chart',
+        hook: "Describe a flow. I'll map the emotional journey.", cta: '→ Map it',
+        modal: { kicker: 'Customer Journey', title: 'The Emotional Journey', question: "Name a product and a flow.", type: 'input',
+          placeholder: 'e.g. onboarding for a mobile banking app', thinkingLabel: 'Mapping…',
+          promptFn: journeyPrompt } },
+      { id: 'featurecreep', title: 'Feature Creep', tag: 'just for fun', tagType: 'fun', icon: 'sparkle',
+        hook: "Name a product. I'll bolt on three gloriously stupid AI features.", cta: '→ Creep it',
+        modal: { kicker: 'Feature Creep', title: 'Feature Creep', question: 'Name a product — anything.', type: 'input',
+          placeholder: 'e.g. a toaster', thinkingLabel: 'Cramming in AI nobody asked for…',
+          promptFn: featurecreepPrompt } },
+      { id: 'trade', title: 'Trade me a door.', tag: 'tool', tagType: 'tool', icon: 'trade',
+        hook: "700+ people in my network. Tell me who you're trying to reach.", cta: '→ See my deck',
+        onClick: function () { if (window.FenixTrade) window.FenixTrade.open(); } }
+    ], cardContainer, 'practitioner');
+
     var zone = document.querySelector('.fenix-intro-zone');
     if (zone) zone.classList.add('pr-zone');
     revealAll();

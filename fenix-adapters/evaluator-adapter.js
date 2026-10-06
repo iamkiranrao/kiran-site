@@ -456,51 +456,80 @@
   // ── Build UI (Adapter interface method) ────────────
 
   function buildUI() {
-    var rightCol = document.querySelector('.fenix-intro-right');
-    var leftCol = document.querySelector('.fenix-intro-left');
-    if (!rightCol || !leftCol) return;
-
-    rightCol.innerHTML = '';
+    var leftCol = document.querySelector('.fenix-intro-zone .fenix-intro-left');
+    if (!leftCol) return;
     leftCol.innerHTML = '';
 
-    buildFenixColumn(rightCol);
-    buildUnlockCards(leftCol);
-
-    // Scroll-triggered entrance animations
-    var zone = document.querySelector('.fenix-intro-zone');
-
-    function setupScrollReveal() {
-      if (!zone) return;
-      if ('IntersectionObserver' in window) {
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              revealZoneElements();
-              observer.disconnect();
-            }
-          });
-        }, { threshold: 0.1 });
-        observer.observe(zone);
-      } else {
-        revealZoneElements();
+    // Chat column → chat drawer
+    var drawer = document.getElementById('fenix-chat-drawer');
+    if (drawer) {
+      var drawerRight = drawer.querySelector('.fenix-intro-right');
+      if (drawerRight) {
+        drawerRight.innerHTML = '';
+        buildFenixColumn(drawerRight);
       }
+      var closeBtn = drawer.querySelector('.fenix-chat-drawer-close');
+      if (closeBtn) closeBtn.addEventListener('click', function () { drawer.classList.remove('open'); });
     }
 
-    if (document.body.classList.contains('morph-complete')) {
-      setupScrollReveal();
-    } else {
-      var morphWatcher = new MutationObserver(function () {
-        if (document.body.classList.contains('morph-complete')) {
-          morphWatcher.disconnect();
-          setupScrollReveal();
-        }
-      });
-      morphWatcher.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    }
+    // Fenix identity + opening
+    var FZ = window.FenixCards;
+    var identity = FZ.h('div', 'fz-id');
+    identity.appendChild(FZ.h('div', 'fz-avatar', { text: '🔥' }));
+    var nameWrap = FZ.h('span', 'fz-name', { html: 'Fenix' });
+    nameWrap.appendChild(FZ.h('span', 'fz-dot'));
+    identity.appendChild(nameWrap);
+    leftCol.appendChild(identity);
+
+    var opening = FZ.h('div', 'fz-opening', { html: '<p>' + FENIX_OPENING.replace(/\n\n/g, '</p><p>') + '</p>' });
+    leftCol.appendChild(opening);
+
+    leftCol.appendChild(FZ.h('div', 'fz-label', { text: 'curated for evaluators' }));
+
+    // Card container
+    var cardContainer = FZ.h('div');
+    leftCol.appendChild(cardContainer);
+
+    var cards = getEvaluatorCards();
+    FZ.renderCards(cards, cardContainer, 'evaluator');
 
     if (fenixState.visitor.connected) {
       applyConnectedState();
     }
+  }
+
+  function getEvaluatorCards() {
+    return [
+      {
+        id: 'resume', title: 'Kiran\'s Resume, Focused on Your Role',
+        tag: 'explore', tagType: 'tool', icon: 'crosshair',
+        hook: 'Same experience, different emphasis. Pick the lens that fits your search.',
+        cta: '→ Choose your lens',
+        onClick: function () { showPanel('resume'); }
+      },
+      {
+        id: 'questions', title: 'What Recruiters Never Ask',
+        tag: 'explore', tagType: 'tool', icon: 'question',
+        hook: 'Five questions great leaders ask, and my honest answers.',
+        cta: '→ See the questions',
+        onClick: function () { showPanel('questions'); }
+      },
+      {
+        id: 'poster', title: 'A Gift for Your Office Wall',
+        tag: 'from me to you', tagType: 'fun', icon: 'gift',
+        hook: 'AI-generated motivational posters, funnier than anything HR has approved.',
+        cta: '→ Fix office morale',
+        onClick: function () { showPanel('poster'); }
+      },
+      {
+        id: 'fit-narrative', title: 'What Differentiates Kiran for Your Role',
+        tag: fenixState.visitor.connected ? 'unlocked' : 'connect to unlock', tagType: 'gated', icon: 'target',
+        hook: 'Paste a JD and I\'ll show you where Kiran\'s work lines up.',
+        cta: fenixState.visitor.connected ? '→ Paste your JD' : '→ Connect to get started',
+        locked: !fenixState.visitor.connected,
+        onClick: function () { showPanel('connect'); }
+      }
+    ];
   }
 
 

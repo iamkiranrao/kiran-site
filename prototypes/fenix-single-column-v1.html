@@ -1,0 +1,922 @@
+<title>Fenix Single-Column</title>
+<style>
+/* Layout: single-column, chat-led experience where Fenix presents unlock cards inline */
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #141414;
+  --bg-card-hover: #1a1a1a;
+  --fg: #f0e6d3;
+  --fg-secondary: #c8bba8;
+  --fg-muted: #5a5347;
+  --accent: #7B9ACC;
+  --accent-glow: rgba(123, 154, 204, 0.12);
+  --accent-border: rgba(123, 154, 204, 0.25);
+  --border: #222;
+  --border-light: #2a2a2a;
+  --radius: 12px;
+  --radius-sm: 8px;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #faf8f5;
+    --bg-card: #fff;
+    --bg-card-hover: #f5f2ee;
+    --fg: #1a1714;
+    --fg-secondary: #4a4540;
+    --fg-muted: #8a8580;
+    --accent: #5a7ab8;
+    --accent-glow: rgba(90, 122, 184, 0.08);
+    --accent-border: rgba(90, 122, 184, 0.2);
+    --border: #e5e0da;
+    --border-light: #ede8e2;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #faf8f5;
+  --bg-card: #fff;
+  --bg-card-hover: #f5f2ee;
+  --fg: #1a1714;
+  --fg-secondary: #4a4540;
+  --fg-muted: #8a8580;
+  --accent: #5a7ab8;
+  --accent-glow: rgba(90, 122, 184, 0.08);
+  --accent-border: rgba(90, 122, 184, 0.2);
+  --border: #e5e0da;
+  --border-light: #ede8e2;
+  color-scheme: light;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600&family=DM+Mono:wght@400&display=swap');
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  padding-inline: 16px;
+  padding-block: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.fenix-experience {
+  max-width: 640px;
+  width: 100%;
+  padding-block: 40px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Fenix identity ── */
+.fenix-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.fenix-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  border: 1.5px solid var(--accent-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.fenix-name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.fenix-status {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4daf8b;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ── Chat messages ── */
+.msg {
+  max-width: 100%;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: msgIn 0.4s ease forwards;
+}
+
+.msg-fenix {
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--fg-secondary);
+}
+
+.msg-fenix p { margin: 0; }
+.msg-fenix p + p { margin-top: 10px; }
+
+.msg-visitor {
+  display: flex;
+  justify-content: flex-end;
+}
+.msg-visitor-bubble {
+  padding: 10px 16px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  max-width: 80%;
+}
+
+/* ── Unlock cards cluster ── */
+.cards-intro {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  margin-top: 8px;
+  opacity: 0;
+  animation: msgIn 0.4s ease forwards;
+}
+
+.unlock-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.unlock-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: msgIn 0.4s ease forwards;
+}
+
+.unlock-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-border);
+  transform: translateY(-1px);
+}
+
+.unlock-card:active {
+  transform: scale(0.99);
+}
+
+.unlock-card.visited {
+  opacity: 0.6;
+}
+
+.unlock-card.active {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.card-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--accent);
+  margin-top: 1px;
+}
+.card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.3;
+}
+
+.card-tag {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-top: 3px;
+}
+
+.card-hook {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  margin-top: 8px;
+}
+
+.card-cta {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-top: 10px;
+}
+
+.card-lock {
+  font-size: 13px;
+  margin-top: 10px;
+  color: var(--fg-muted);
+  font-style: italic;
+}
+
+/* ── Conversation response (after card click) ── */
+.response-area {
+  margin-bottom: 16px;
+}
+
+.response-prompt {
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  opacity: 0;
+  animation: msgIn 0.4s ease forwards;
+}
+
+.response-prompt p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--fg-secondary);
+  margin: 0;
+}
+
+.response-input-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.response-input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.response-input:focus {
+  border-color: var(--accent-border);
+}
+.response-input::placeholder {
+  color: var(--fg-muted);
+}
+
+.response-send {
+  padding: 10px 16px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.response-send:hover { opacity: 0.85; }
+
+/* ── Thinking indicator ── */
+.thinking {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: msgIn 0.4s ease forwards;
+}
+
+.thinking-dots {
+  display: flex;
+  gap: 4px;
+}
+.thinking-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1.2s ease infinite;
+}
+.thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+.thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+.thinking-label {
+  font-size: 13px;
+  color: var(--fg-muted);
+  font-style: italic;
+}
+
+/* ── Artifact result card ── */
+.artifact-card {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: msgIn 0.4s ease forwards;
+}
+
+.artifact-kicker {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.artifact-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 12px;
+}
+
+.artifact-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-secondary);
+  margin: 0 0 8px;
+}
+
+.artifact-card strong {
+  color: var(--fg);
+}
+
+/* ── Suggestion pills ── */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: msgIn 0.4s ease forwards;
+}
+
+.pill {
+  padding: 8px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  font-family: inherit;
+}
+.pill:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-border);
+  color: var(--fg);
+}
+
+/* ── Global input bar ── */
+.input-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+}
+
+.input-bar-inner {
+  max-width: 640px;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+.global-input {
+  flex: 1;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.global-input:focus {
+  border-color: var(--accent-border);
+}
+.global-input::placeholder {
+  color: var(--fg-muted);
+}
+
+.global-send {
+  width: 44px;
+  height: 44px;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.global-send:hover { opacity: 0.85; }
+.global-send svg { width: 18px; height: 18px; }
+
+/* ── Persona switcher (top) ── */
+.persona-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: msgIn 0.3s ease forwards;
+}
+
+.persona-chip {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+.persona-chip:hover {
+  color: var(--fg-secondary);
+  border-color: var(--border-light);
+}
+.persona-chip.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* ── Animations ── */
+@keyframes msgIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ── Comparison layout ── */
+.comparison {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-block: 20px;
+}
+
+.comparison-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.comparison-section {
+  display: flex;
+  flex-direction: column;
+}
+</style>
+
+<div class="comparison">
+
+  <!-- ── OPTION A: Current two-column layout (static mockup) ── -->
+  <section class="comparison-section">
+    <div class="comparison-label">Current — two columns, cards + chat side by side</div>
+    <div style="
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      min-height: 420px;
+    ">
+      <!-- Left col: cards -->
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px;">
+          These features were curated <span style="text-decoration: underline;">especially</span> for you
+        </div>
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px;">
+          <div style="font-size: 13px; font-weight: 600; color: var(--fg);">Kiran's Resume, Focused on Your Role</div>
+          <div style="font-size: 10px; font-family: 'DM Mono', monospace; color: var(--accent); text-transform: uppercase; margin-top: 2px;">Explore freely</div>
+          <div style="font-size: 12px; color: var(--fg-muted); margin-top: 6px;">Same experience, different emphasis. Pick the lens.</div>
+        </div>
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px;">
+          <div style="font-size: 13px; font-weight: 600; color: var(--fg);">What Recruiters Never Ask</div>
+          <div style="font-size: 10px; font-family: 'DM Mono', monospace; color: var(--accent); text-transform: uppercase; margin-top: 2px;">Explore freely</div>
+          <div style="font-size: 12px; color: var(--fg-muted); margin-top: 6px;">Five questions great leaders ask, and my honest answers.</div>
+        </div>
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px;">
+          <div style="font-size: 13px; font-weight: 600; color: var(--fg);">A Gift for Your Office Wall</div>
+          <div style="font-size: 10px; font-family: 'DM Mono', monospace; color: var(--accent); text-transform: uppercase; margin-top: 2px;">From me to you</div>
+          <div style="font-size: 12px; color: var(--fg-muted); margin-top: 6px;">AI-generated, printable, funnier than anything HR has approved.</div>
+        </div>
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; opacity: 0.5;">
+          <div style="font-size: 13px; font-weight: 600; color: var(--fg);">What Differentiates Kiran for Your Role</div>
+          <div style="font-size: 10px; font-family: 'DM Mono', monospace; color: var(--accent); text-transform: uppercase; margin-top: 2px;">Connect to unlock</div>
+          <div style="font-size: 12px; color: var(--fg-muted); margin-top: 6px;">Paste a JD and I'll show you where the work lines up.</div>
+        </div>
+      </div>
+      <!-- Right col: chat -->
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px;">
+          Meet Fenix — your guide to everything on this site
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--accent-glow); border: 1px solid var(--accent-border); display: flex; align-items: center; justify-content: center; font-size: 16px;">🔥</div>
+          <div style="font-size: 14px; font-weight: 600;">Fenix <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #4daf8b; vertical-align: middle; margin-left: 4px;"></span></div>
+        </div>
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 13px; line-height: 1.5; color: var(--fg-secondary);">
+          Quick context before we start. This isn't a portfolio site. It's a product Kiran built. The resume comes in three versions...
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto;">
+          <div style="padding: 6px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; font-size: 11px; color: var(--fg-muted);">Show me the resume options</div>
+          <div style="padding: 6px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; font-size: 11px; color: var(--fg-muted);">Questions worth asking</div>
+        </div>
+        <div style="display: flex; gap: 6px; margin-top: 4px;">
+          <div style="flex: 1; padding: 8px 12px; background: var(--bg); border: 1px solid var(--border-light); border-radius: var(--radius-sm); font-size: 12px; color: var(--fg-muted);">Ask me anything...</div>
+          <div style="width: 32px; height: 32px; background: var(--accent); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px;">→</div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 13px; color: var(--fg-muted); margin-top: 10px; line-height: 1.5;">
+      Attention split between two columns. Cards and chat compete. Clicking a card may open a panel, a modal, or run in chat — unpredictable. Doesn't work on mobile.
+    </div>
+  </section>
+
+  <!-- ── OPTION B: Single-column, Fenix-led ── -->
+  <section class="comparison-section">
+    <div class="comparison-label">Proposed — single column, Fenix presents everything</div>
+
+    <div class="fenix-experience" style="padding-block: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;">
+
+      <!-- Persona chips -->
+      <div class="persona-bar" style="animation-delay: 0.1s;">
+        <button class="persona-chip active" data-persona="evaluator">Evaluator</button>
+        <button class="persona-chip" data-persona="practitioner">Practitioner</button>
+        <button class="persona-chip" data-persona="technologist">Technologist</button>
+        <button class="persona-chip" data-persona="learner">Learner</button>
+        <button class="persona-chip" data-persona="seeker" style="opacity:0.4">Seeker</button>
+        <button class="persona-chip" data-persona="innercircle" style="opacity:0.4">Inner Circle</button>
+      </div>
+
+      <!-- Fenix greeting -->
+      <div class="fenix-header">
+        <div class="fenix-avatar">🔥</div>
+        <div class="fenix-name">Fenix <span class="fenix-status"></span></div>
+      </div>
+
+      <div id="chat-stream">
+        <!-- Evaluator: opening -->
+        <div class="msg" style="animation-delay: 0.2s;">
+          <div class="msg-fenix">
+            <p>Quick context before we start. This isn't a portfolio site. It's a product Kiran built.</p>
+            <p>The resume comes in three versions, each tuned to a different kind of search. And I'm not a template chatbot — I've been trained on Kiran's actual work, his decisions, and how he thinks.</p>
+          </div>
+        </div>
+
+        <!-- Cards cluster -->
+        <div class="cards-intro" style="animation-delay: 0.5s;">Here's what I've unlocked for you</div>
+
+        <div class="unlock-cards">
+          <div class="unlock-card" data-action="resume" style="animation-delay: 0.6s;" tabindex="0" role="button">
+            <div class="card-top">
+              <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg></div>
+              <div class="card-meta">
+                <div class="card-title">Kiran's Resume, Focused on Your Role</div>
+                <div class="card-tag">Explore freely</div>
+              </div>
+            </div>
+            <div class="card-hook">Same experience, different emphasis. Pick the lens that fits your search.</div>
+            <div class="card-cta">→ Choose your lens</div>
+          </div>
+
+          <div class="unlock-card" data-action="questions" style="animation-delay: 0.7s;" tabindex="0" role="button">
+            <div class="card-top">
+              <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+              <div class="card-meta">
+                <div class="card-title">What Recruiters Never Ask</div>
+                <div class="card-tag">Explore freely</div>
+              </div>
+            </div>
+            <div class="card-hook">Five questions great leaders ask, and my honest answers.</div>
+            <div class="card-cta">→ See the questions</div>
+          </div>
+
+          <div class="unlock-card" data-action="poster" style="animation-delay: 0.8s;" tabindex="0" role="button">
+            <div class="card-top">
+              <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><rect x="3" y="7" width="18" height="4" rx="1"/></svg></div>
+              <div class="card-meta">
+                <div class="card-title">A Gift for Your Office Wall</div>
+                <div class="card-tag">From me to you</div>
+              </div>
+            </div>
+            <div class="card-hook">AI-generated, printable, and funnier than anything HR has approved.</div>
+            <div class="card-cta">→ Fix office morale</div>
+          </div>
+
+          <div class="unlock-card" data-action="fit" style="animation-delay: 0.9s; opacity: 0;" tabindex="0" role="button">
+            <div class="card-top">
+              <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m16.5 10.5 1 1"/><path d="m17 6-2.891-2.891"/><path d="M2 15c6.667-6 13.333 0 20-6"/></svg></div>
+              <div class="card-meta">
+                <div class="card-title">What Differentiates Kiran for Your Role</div>
+                <div class="card-tag">Connect to unlock</div>
+              </div>
+            </div>
+            <div class="card-hook">Paste a job description and I'll show you exactly where Kiran's work lines up.</div>
+            <div class="card-lock">🔒 This works better when I know who I'm talking to.</div>
+          </div>
+        </div>
+
+        <!-- Demo: simulated card click → conversation flow -->
+        <div class="msg msg-visitor" style="animation-delay: 1.2s;">
+          <div class="msg-visitor-bubble">What Recruiters Never Ask</div>
+        </div>
+
+        <div class="msg" style="animation-delay: 1.5s;">
+          <div class="msg-fenix">
+            <p>These questions aren't mine. They're the ones smart hiring leaders use to find the people a resume hides: Satya Nadella, Brian Chesky, the Collisons, Patty McCord.</p>
+            <p>Each built a reputation partly on the principle that the standard interview misses what matters. Here are five they'd ask. Here are Kiran's answers.</p>
+          </div>
+        </div>
+
+        <!-- Artifact card (inline result) -->
+        <div class="artifact-card" style="animation-delay: 1.8s;">
+          <div class="artifact-kicker">Recruiter Questions</div>
+          <h3>"Tell me the story of you, but you can't say anything on your resume."</h3>
+          <p><strong>Patty McCord</strong> — who built Netflix's culture — said if you ask stock questions, you'll get stock answers.</p>
+          <p>"I was born and raised in Dubai. My father was a mechanical engineer at an oil company, but the engineering didn't stop when he came home. He'd fabricate an aquarium one weekend, build an aviary the next..."</p>
+        </div>
+
+        <!-- Follow-up pills -->
+        <div class="pills" style="animation-delay: 2.1s;">
+          <button class="pill">Next question</button>
+          <button class="pill">Tell me about the Nadella one</button>
+          <button class="pill">Back to the cards</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="font-size: 13px; color: var(--fg-muted); margin-top: 10px; line-height: 1.5;">
+      One stream. Cards, conversation, and results all flow in the same column. Click a card → Fenix responds inline. No panels, no modals, no context switch. Works identically on mobile.
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  // Persona data for switching
+  var PERSONAS = {
+    evaluator: {
+      accent: '#7B9ACC',
+      opening: "Quick context before we start. This isn't a portfolio site. It's a product Kiran built.</p><p>The resume comes in three versions, each tuned to a different kind of search. And I'm not a template chatbot — I've been trained on Kiran's actual work, his decisions, and how he thinks.",
+      cards: [
+        { title: "Kiran's Resume, Focused on Your Role", tag: 'Explore freely', hook: 'Same experience, different emphasis. Pick the lens that fits your search.', cta: '→ Choose your lens', icon: 'target' },
+        { title: 'What Recruiters Never Ask', tag: 'Explore freely', hook: "Five questions great leaders ask, and my honest answers.", cta: '→ See the questions', icon: 'question' },
+        { title: 'A Gift for Your Office Wall', tag: 'From me to you', hook: 'AI-generated, printable, and funnier than anything HR has approved.', cta: '→ Fix office morale', icon: 'gift' },
+        { title: 'What Differentiates Kiran for Your Role', tag: 'Connect to unlock', hook: "Paste a job description and I'll show you exactly where the work lines up.", cta: '→ Connect to get started', locked: true }
+      ]
+    },
+    practitioner: {
+      accent: '#4DAF8B',
+      opening: "Kiran built this site as a working product, not a portfolio. The cards below aren't demos; they're real tools for your own work. Run an AI idea past the overkill check, build a Jobs-to-Be-Done map, map a customer journey — or trade a door from Kiran's network.",
+      cards: [
+        { title: 'Is AI overkill?', tag: 'A gut-check tool', hook: "Describe an AI feature you're weighing. I'll tell you if AI earns its keep.", cta: '→ Check my idea', icon: 'scale' },
+        { title: 'Jobs-to-Be-Done builder', tag: 'A real framework, applied', hook: "Tell me your product. I'll build the actual job it's hired to do.", cta: '→ Build the job', icon: 'target' },
+        { title: 'Map the journey', tag: 'An emotion curve', hook: "Describe a product and a flow. I'll map the customer's emotional journey.", cta: '→ Map it', icon: 'chart' },
+        { title: 'Feature Creep', tag: "For the record, it's a joke", hook: "Name a product. I'll bolt on three gloriously stupid AI features nobody asked for.", cta: '→ Creep it', icon: 'sparkle' },
+        { title: 'Trade me a door.', tag: 'A door for a door', hook: "700+ people in my network. Tell me who you're trying to reach.", cta: '→ See my deck', icon: 'trade' }
+      ]
+    },
+    technologist: {
+      accent: '#cb5c72',
+      opening: "Straight up: Kiran built this whole thing — the persona system, me, the RAG underneath — by making every decision, not writing the code. That's the honest pitch. The cards below are the real internals. Pop the hood.",
+      cards: [
+        { title: 'How I built this without code.', tag: 'The honest version', hook: 'A production AI system, shipped by a leader who directs — not types.', cta: '→ See the split', icon: 'sun' },
+        { title: 'The judgment calls.', tag: 'What I decided, and why', hook: 'What to build, what to buy, what to kill. Challenge any of them.', cta: '→ Read the calls', icon: 'layers' },
+        { title: 'Bring me a product or AI problem.', tag: 'Connect to unlock', hook: "Scoping an AI feature? Stuck on build-vs-buy? Give me a sentence.", cta: '→ Connect to unlock', locked: true, icon: 'question' },
+        { title: 'Roast the build.', tag: 'I can take it', hook: "Turn my own AI loose on my own architecture. Honest and affectionate.", cta: '→ Let Fenix cook', icon: 'flame' }
+      ]
+    },
+    learner: {
+      accent: '#A07ED4',
+      opening: "Kiran went from 'what even is a PM?' to leading product teams by building things before anyone asked him to. The cards below are real tools to help you break in and level up. Let's get you closer.",
+      cards: [
+        { title: 'What should you measure?', tag: 'A real PM skill', hook: "Describe a product or goal — I'll show you how to pick the metrics that matter.", cta: '→ Find the metrics', icon: 'chart' },
+        { title: 'Build your way in', tag: 'Learn by doing', hook: "Tell me the role you're aiming for — I'll hand you a real project you can build.", cta: '→ Get my project', icon: 'tool' },
+        { title: "What I'm reading & listening to", tag: 'Books, voices & the odd wildcard', hook: "The books, essays, and voices shaping how I think.", cta: '→ Open the list', icon: 'book' },
+        { title: 'Book a mentoring session', tag: 'Free · 1:1 with Kiran', hook: "Book a free 30-min mentoring session with Kiran on ADPList.", cta: '→ Book on ADPList', icon: 'calendar' }
+      ]
+    }
+  };
+
+  var ICONS = {
+    target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+    question: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>',
+    gift: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><rect x="3" y="7" width="18" height="4" rx="1"/></svg>',
+    scale: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>',
+    chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-4 4 3 5-7"/></svg>',
+    sparkle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0Z"/></svg>',
+    trade: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>',
+    sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg>',
+    layers: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
+    flame: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
+    tool: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+    book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+    calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>'
+  };
+
+  function setAccent(hex) {
+    var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+    document.documentElement.style.setProperty('--accent', hex);
+    document.documentElement.style.setProperty('--accent-glow', 'rgba('+r+','+g+','+b+',0.12)');
+    document.documentElement.style.setProperty('--accent-border', 'rgba('+r+','+g+','+b+',0.25)');
+  }
+
+  function renderPersona(key) {
+    var p = PERSONAS[key];
+    if (!p) return;
+
+    setAccent(p.accent);
+
+    // Update chips
+    document.querySelectorAll('.persona-chip').forEach(function(c) {
+      c.classList.toggle('active', c.dataset.persona === key);
+    });
+
+    // Build chat stream
+    var stream = document.getElementById('chat-stream');
+    stream.innerHTML = '';
+
+    // Opening message
+    var msg = document.createElement('div');
+    msg.className = 'msg';
+    msg.style.animationDelay = '0.1s';
+    msg.innerHTML = '<div class="msg-fenix"><p>' + p.opening + '</p></div>';
+    stream.appendChild(msg);
+
+    // Cards intro
+    var intro = document.createElement('div');
+    intro.className = 'cards-intro';
+    intro.style.animationDelay = '0.3s';
+    intro.textContent = "Here's what I've unlocked for you";
+    stream.appendChild(intro);
+
+    // Cards
+    var cardsWrap = document.createElement('div');
+    cardsWrap.className = 'unlock-cards';
+
+    p.cards.forEach(function(card, i) {
+      var el = document.createElement('div');
+      el.className = 'unlock-card';
+      el.style.animationDelay = (0.4 + i * 0.1) + 's';
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('role', 'button');
+
+      var iconSvg = ICONS[card.icon] || ICONS.target;
+
+      el.innerHTML =
+        '<div class="card-top">' +
+          '<div class="card-icon">' + iconSvg + '</div>' +
+          '<div class="card-meta">' +
+            '<div class="card-title">' + card.title + '</div>' +
+            '<div class="card-tag">' + card.tag + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="card-hook">' + card.hook + '</div>' +
+        (card.locked
+          ? '<div class="card-lock">🔒 This works better when I know who I\'m talking to.</div>'
+          : '<div class="card-cta">' + card.cta + '</div>');
+
+      el.addEventListener('click', function() {
+        if (el.classList.contains('active')) return;
+        document.querySelectorAll('.unlock-card').forEach(function(c) { c.classList.remove('active'); });
+        el.classList.add('active');
+        el.classList.add('visited');
+        simulateCardClick(card, stream);
+      });
+
+      cardsWrap.appendChild(el);
+    });
+
+    stream.appendChild(cardsWrap);
+  }
+
+  function simulateCardClick(card, stream) {
+    // Remove any previous response
+    stream.querySelectorAll('.response-area, .msg-visitor, .thinking, .artifact-card, .pills').forEach(function(n) {
+      if (n.closest('.unlock-cards')) return;
+      n.remove();
+    });
+
+    // Visitor echo
+    var echo = document.createElement('div');
+    echo.className = 'msg msg-visitor';
+    echo.style.animationDelay = '0.1s';
+    echo.innerHTML = '<div class="msg-visitor-bubble">' + card.title + '</div>';
+    stream.appendChild(echo);
+
+    // Thinking
+    var think = document.createElement('div');
+    think.className = 'thinking';
+    think.style.animationDelay = '0.3s';
+    think.innerHTML = '<div class="thinking-dots"><span></span><span></span><span></span></div><div class="thinking-label">Working on it…</div>';
+    stream.appendChild(think);
+
+    // Simulated response after delay
+    setTimeout(function() {
+      think.remove();
+
+      var response = document.createElement('div');
+      response.className = 'msg';
+      response.style.animationDelay = '0s';
+      response.innerHTML = '<div class="msg-fenix"><p>Here\'s what I\'ve got for <strong>' + card.title + '</strong>. In the real implementation, this is where the AI-generated response, structured output, or interactive content would appear — all inline, right here in the conversation.</p></div>';
+      stream.appendChild(response);
+
+      var pills = document.createElement('div');
+      pills.className = 'pills';
+      pills.style.animationDelay = '0.2s';
+      pills.innerHTML = '<button class="pill">Tell me more</button><button class="pill">Try another card</button><button class="pill">Ask something else</button>';
+      stream.appendChild(pills);
+
+      stream.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 1200);
+
+    stream.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  // Persona chip clicks
+  document.querySelectorAll('.persona-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      var key = chip.dataset.persona;
+      if (PERSONAS[key]) renderPersona(key);
+    });
+  });
+})();
+</script>

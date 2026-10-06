@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="styles.css?v=20260327-bento">
     <link rel="stylesheet" href="evaluator-styles.css?v=20260409h">
     <link rel="stylesheet" href="practitioner-styles.css?v=20260520a">
+    <link rel="stylesheet" href="fenix-zone-styles.css?v=20261006a">
     <link rel="alternate" type="application/rss+xml" title="Kiran Rao - Release Notes & Blog" href="rss.xml">
 
     <link rel="canonical" href="https://kiranrao.ai/">
@@ -379,36 +380,22 @@
             <p class="fenix-context-reframe">Everything below is tailored to what brought you here.</p>
             <p class="fenix-context-invite">There's an AI built into this site. <strong>Fenix</strong> helps you get the most out of it.</p>
         </div>
-        <!-- C4: Fenix Intro — Two-Column Layout -->
-        <div class="fenix-intro-zone">
+        <!-- C4: Fenix Intro — Single-Column Cards + Modal -->
+        <div class="fenix-intro-zone fenix-zone-single">
             <div class="fenix-intro-left">
-                <div class="fenix-intro-unlocks">
-                    <!-- Populated by persona-system.js when persona is active -->
-                    <p class="unlock-heading-default">Pick a persona above to unlock personalized content and features.</p>
-                </div>
+                <!-- Fenix identity, opening, and cards rendered by adapters via FenixCards -->
             </div>
             <div class="fenix-intro-divider"></div>
             <div class="fenix-intro-right">
-                <div class="fenix-intro-logo-wrap">
-                    <!-- Animated Fenix: plays when scrolled into view (autoplay attribute is unreliable for
-                         off-screen videos under Chrome's media engagement policy; the JS shim at the bottom
-                         of this page uses IntersectionObserver to trigger play on visibility).
-                         MP4 is listed first since some browsers (including Chrome with VP9 hardware decode
-                         disabled) handle H.264 more reliably; WebM is the smaller fallback for Firefox.
-                         Static poster (the original PNG) shows during load + for prefers-reduced-motion. -->
-                    <video class="fenix-intro-logo" data-play-on-scroll loop muted playsinline preload="auto"
-                           poster="images/fenix/1fenixavatar1.png"
-                           aria-label="Fenix the phoenix mascot — Kiran's AI assistant">
-                        <source src="images/fenix/animated/fenix.mp4" type="video/mp4">
-                        <source src="images/fenix/animated/fenix.webm" type="video/webm">
-                        <img src="images/fenix/1fenixavatar1.png" alt="Fenix the phoenix mascot — Kiran's AI assistant">
-                    </video>
-                </div>
-                <h2 class="fenix-intro-title">Meet Fenix</h2>
-                <p class="fenix-intro-greeting">I'm Kiran's AI assistant. I can help you explore this site, learn about his work, or just have a conversation.</p>
-                <div class="fenix-intro-chips">
-                    <!-- Populated by persona-system.js -->
-                </div>
+                <!-- Chat drawer target — adapters render chat UI here -->
+            </div>
+        </div>
+
+        <!-- Chat drawer (slides up from bottom when user free-chats) -->
+        <div class="fenix-chat-drawer" id="fenix-chat-drawer">
+            <button class="fenix-chat-drawer-close" aria-label="Close chat">&times;</button>
+            <div class="fenix-intro-right">
+                <!-- Adapter renders chat column here -->
             </div>
         </div>
         <p class="section-label explore-label">(Explore)</p>
@@ -577,6 +564,7 @@
     <!-- Translations disabled for now - re-enable by uncommenting -->
     <!-- <script src="translations.js"></script> -->
     <script src="fenix-core.js?v=20260826b"></script>
+    <script src="fenix-cards.js?v=20261006a"></script>
     <script src="fenix-artifact.js?v=20260826b"></script>
     <script src="fenix-trade.js?v=20260826b"></script>
     <script src="fenix-adapters/evaluator-adapter.js?v=20260821s"></script>
