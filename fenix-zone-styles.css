@@ -66,9 +66,10 @@
 
 /* ── Opening message ── */
 .fz-opening {
-  font-size: 1.1rem; line-height: 1.7; color: var(--text-secondary);
+  font-family: 'Newsreader', serif;
+  font-size: 1.15rem; line-height: 1.75; color: var(--text-secondary);
   margin-bottom: 2rem; padding-left: 52px;
-  min-height: 1.7em;
+  min-height: 1.75em;
 }
 .fz-opening p { margin: 0; }
 .fz-opening p + p { margin-top: 10px; }
@@ -306,8 +307,9 @@
 
 /* Structured output */
 .fz-modal-output {
+  font-family: 'Newsreader', serif;
   padding: 16px; border-left: 2px solid var(--persona-accent, var(--accent));
-  font-size: 0.85rem; line-height: 1.65;
+  font-size: 0.9rem; line-height: 1.7;
 }
 .fz-modal-output h4 {
   font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem;
@@ -415,7 +417,8 @@
 }
 .fz-chat-msg-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .fz-chat-msg-bubble {
-  padding: 10px 14px; font-size: 0.88rem; line-height: 1.6;
+  font-family: 'Newsreader', serif;
+  padding: 10px 14px; font-size: 0.92rem; line-height: 1.65;
   max-width: 75%;
   border-radius: 12px;
   color: var(--text-secondary);
@@ -423,6 +426,7 @@
   border: 1px solid rgba(var(--persona-accent-rgb, 123,154,204), 0.1);
 }
 .fz-chat-msg--visitor .fz-chat-msg-bubble {
+  font-family: 'Inter', sans-serif; font-size: 0.88rem;
   background: var(--persona-accent, var(--accent));
   color: #fff; border-color: transparent;
   border-radius: 12px 12px 2px 12px;
