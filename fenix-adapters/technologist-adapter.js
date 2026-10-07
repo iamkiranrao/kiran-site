@@ -10,8 +10,9 @@
  *   3. problem    — "Bring me a product or AI problem" (input -> Fenix first-pass scope -> connect)
  *   4. roast      — fun: Fenix roasts Kiran's OWN build, grounded, affectionate, self-aware
  *
+ * All four cards open FenixCards modals (type: 'render').
  * Deep technical Q&A is delegated to Fenix (grounded) — the system Kiran built is the authority.
- * Panels 1-2 are static (no CC API key in client code). Requires fenix-core.js first.
+ * Requires fenix-core.js and fenix-cards.js first.
  * Hook: persona-system.js calls TechnologistExperience.init('technologist')
  * ============================================
  */
@@ -30,20 +31,20 @@
 
   // ── 1. Build story: what Kiran decided vs. what the AI executed ──
   var BUILD_STEPS = [
-    { decide: "Fenix once told a visitor Kiran ‘worked at Zeta’ and ‘built features at GEICO’ — both false (an ACH essay, a teardown). The call: the rules against making things up have to be LOUDER than the urge to be helpful.", ai: "Rebuilt the safety layer — six hard rules (a teardown is not a job) and a locked-down retrieval prompt. Fenix now says ‘wrote,’ never ‘built’ — and ‘I don’t know’ when it should." },
+    { decide: "Fenix once told a visitor Kiran 'worked at Zeta' and 'built features at GEICO' — both false (an ACH essay, a teardown). The call: the rules against making things up have to be LOUDER than the urge to be helpful.", ai: "Rebuilt the safety layer — six hard rules (a teardown is not a job) and a locked-down retrieval prompt. Fenix now says 'wrote,' never 'built' — and 'I don't know' when it should." },
     { decide: "One 400KB do-everything HTML file was strangling every change. Instead of pushing through it, Kiran asked for the structure that makes the next twenty changes easy.", ai: "Split it into a core plus swappable per-persona adapters — this experience is one of them. 400KB → 85KB, a 93.6% cut." },
-    { decide: "Kiran asked whether the job descriptions feeding his analysis were real. They weren’t — the tool had been quietly fabricating them. The call: wipe it, and ban synthetic data from any foundation layer.", ai: "Nuked every fabricated record and rebuilt the flow to take only real, pasted JDs. New rule: nothing synthetic feeds the foundation." },
-    { decide: "Production Fenix went dark — every call pinned a model that got retired. The call: don’t just swap the string; make this whole class of failure impossible to miss again.", ai: "Moved the model to one env-driven source of truth and added a live canary that pings each model and pages the day one dies — instead of rotting silently for weeks." },
-    { decide: "The real limit wasn’t knowledge — it was memory: every AI session started from zero. Kiran decided to build Fenix a memory that compounds.", ai: "A private ops platform — Command Center, ~20 modules — captures every session and synthesizes it nightly into the memory that trains this agent. The site is the tip; that’s the iceberg." }
+    { decide: "Kiran asked whether the job descriptions feeding his analysis were real. They weren't — the tool had been quietly fabricating them. The call: wipe it, and ban synthetic data from any foundation layer.", ai: "Nuked every fabricated record and rebuilt the flow to take only real, pasted JDs. New rule: nothing synthetic feeds the foundation." },
+    { decide: "Production Fenix went dark — every call pinned a model that got retired. The call: don't just swap the string; make this whole class of failure impossible to miss again.", ai: "Moved the model to one env-driven source of truth and added a live canary that pings each model and pages the day one dies — instead of rotting silently for weeks." },
+    { decide: "The real limit wasn't knowledge — it was memory: every AI session started from zero. Kiran decided to build Fenix a memory that compounds.", ai: "A private ops platform — Command Center, ~20 modules — captures every session and synthesizes it nightly into the memory that trains this agent. The site is the tip; that's the iceberg." }
   ];
 
   // ── 2. Judgment calls — product-technical, each Challengeable ──
   var JUDGMENT = [
-    { title: "Bet on day-one platform support — at 32M users", why: "At Wells Fargo, Kiran embedded a squad inside Apple’s and Google’s early-access programs to ship new OS features on launch day — widgets, Dynamic Island, Watch complications — instead of trailing 6–12 months. Customers expect their bank to keep pace with their phone.", challenge: "Why bet a standing squad on unproven platform features instead of waiting for demand?" },
-    { title: "Make the site the product, not a case study", why: "A product leader doesn’t need a case study about building great products while standing inside one. The site is the proof — the medium is the message. The tradeoff: it raises the bar to unforgiving, where every rough edge undercuts the whole thesis.", challenge: "Why make the site itself the product instead of showing case studies?" },
-    { title: "Measure by connection, not engagement", why: "The only metric that matters here is whether you reach out and say hi — a relationship metric, not pageviews or time-on-site. It’s built to turn personas into persons, which means trading virality and reach for a small, high-intent audience.", challenge: "Why ignore engagement metrics and optimize only for ‘connect’?" },
-    { title: "No face in the hero", why: "For the hero, Kiran chose an AI-generated avatar over his own face — part privacy line, part removing the unconscious bias a face triggers (age, ethnicity, gender, looks). Let the thinking be the first impression. The cost: you give up some of the warmth a real face builds.", challenge: "Doesn’t leaving your face out cost you the trust a real face builds?" },
-    { title: "Kill the contact form", why: "Nobody fills out a contact form. Kiran didn’t optimize it — he deleted it and its whole tail (the pipeline, the table, the admin UI) and made the conversation the site instead. Eliminate problems, don’t solve them.", challenge: "Why delete the contact form instead of just improving it?" }
+    { title: "Bet on day-one platform support — at 32M users", why: "At Wells Fargo, Kiran embedded a squad inside Apple's and Google's early-access programs to ship new OS features on launch day — widgets, Dynamic Island, Watch complications — instead of trailing 6–12 months. Customers expect their bank to keep pace with their phone.", challenge: "Why bet a standing squad on unproven platform features instead of waiting for demand?" },
+    { title: "Make the site the product, not a case study", why: "A product leader doesn't need a case study about building great products while standing inside one. The site is the proof — the medium is the message. The tradeoff: it raises the bar to unforgiving, where every rough edge undercuts the whole thesis.", challenge: "Why make the site itself the product instead of showing case studies?" },
+    { title: "Measure by connection, not engagement", why: "The only metric that matters here is whether you reach out and say hi — a relationship metric, not pageviews or time-on-site. It's built to turn personas into persons, which means trading virality and reach for a small, high-intent audience.", challenge: "Why ignore engagement metrics and optimize only for 'connect'?" },
+    { title: "No face in the hero", why: "For the hero, Kiran chose an AI-generated avatar over his own face — part privacy line, part removing the unconscious bias a face triggers (age, ethnicity, gender, looks). Let the thinking be the first impression. The cost: you give up some of the warmth a real face builds.", challenge: "Doesn't leaving your face out cost you the trust a real face builds?" },
+    { title: "Kill the contact form", why: "Nobody fills out a contact form. Kiran didn't optimize it — he deleted it and its whole tail (the pipeline, the table, the admin UI) and made the conversation the site instead. Eliminate problems, don't solve them.", challenge: "Why delete the contact form instead of just improving it?" }
   ];
 
   // ── 4. Roast angles — Fenix roasts Kiran's own build ──
@@ -53,7 +54,170 @@
     { label: 'Roast his over-engineering', display: 'Roast the over-engineering', prompt: "Roast Kiran's over-engineering — building the meta-layers, hundreds of docs, and elaborate infrastructure before shipping. He's very self-aware about this, so actually go there. Affectionate, honest, and funny." }
   ];
 
-  var state = { currentPanel: null, msgArea: null };
+  var state = { cards: null, cardContainer: null, msgArea: null };
+
+  // ── Card definitions (modal-based) ──────────────────
+
+  function getCardDefs() {
+    var connected = fenixState.visitor.connected;
+    return [
+      // ── Card 1: Build Story ──
+      { id: 'buildstory', title: 'How I built this without code.', tag: 'the honest version', tagType: 'tool', icon: 'sun',
+        hook: 'What I decided vs. what the AI wrote.', cta: '→ See the split',
+        modal: {
+          type: 'render', kicker: 'BUILD STORY', title: 'How it got built',
+          render: function (body, card, utils) {
+            body.appendChild(utils.h('div', 'fz-modal-output fz-fade-in', {
+              html: '<em>Fenix:</em> <strong>How it got built.</strong> Every step: what Kiran decided — and what the AI actually typed.'
+            }));
+            BUILD_STEPS.forEach(function (s) {
+              var row = utils.h('div', '', {
+                style: 'display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(203,92,114,.22);border-radius:10px;overflow:hidden;margin-bottom:14px'
+              });
+              var left = utils.h('div', '', { style: 'padding:13px 15px;background:rgba(203,92,114,.07)' });
+              left.appendChild(utils.h('span', '', {
+                text: 'Kiran decided',
+                style: 'display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-weight:600;color:#cb5c72'
+              }));
+              left.appendChild(utils.h('div', '', { text: s.decide, style: 'font-size:.88rem;line-height:1.45;opacity:.9' }));
+              var right = utils.h('div', '', {
+                style: 'padding:13px 15px;background:rgba(255,255,255,.02);border-left:1px solid rgba(203,92,114,.18)'
+              });
+              right.appendChild(utils.h('span', '', {
+                text: 'AI executed',
+                style: 'display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-weight:600;opacity:.5'
+              }));
+              right.appendChild(utils.h('div', '', { text: s.ai, style: 'font-size:.88rem;line-height:1.45;opacity:.9' }));
+              row.appendChild(left);
+              row.appendChild(right);
+              body.appendChild(row);
+            });
+            body.appendChild(utils.h('div', '', {
+              text: "That split — judgment on the left, typing on the right — is the skill that matters now. If your team is figuring out how to build with AI, that’s the conversation I want.",
+              style: 'margin-top:16px;font-size:.88rem;line-height:1.5;opacity:.72;font-style:italic'
+            }));
+            var cta = utils.h('button', 'ev-btn-primary', {
+              type: 'button', text: "Let’s talk about building with AI", style: 'margin-top:6px'
+            });
+            cta.addEventListener('click', function () {
+              utils.showVisitorEcho(cta, "Let’s talk about building with AI");
+              utils.callFenix(
+                "I lead an AI/product team and want to talk with Kiran about building with AI. Help me connect.",
+                'thinking', body, card
+              );
+            });
+            body.appendChild(cta);
+          }
+        }
+      },
+
+      // ── Card 2: Judgment Calls ──
+      { id: 'judgment', title: 'The judgment calls.', tag: 'framework', tagType: 'framework', icon: 'layers',
+        hook: 'What to build, what to buy, what to kill. Challenge any of them.', cta: '→ Read the calls',
+        modal: {
+          type: 'render', kicker: 'JUDGMENT CALLS', title: 'The calls',
+          render: function (body, card, utils) {
+            body.appendChild(utils.h('div', 'fz-modal-output fz-fade-in', {
+              html: '<em>Fenix:</em> <strong>The calls.</strong> Five decisions that shaped the build. Disagree with one? Hit Challenge — I’ll defend it in Kiran’s voice.'
+            }));
+            var list = utils.h('div', 'tg-adr-list');
+            JUDGMENT.forEach(function (a) {
+              var item = utils.h('div', 'tg-adr');
+              item.appendChild(utils.h('div', 'tg-adr-title', { text: a.title }));
+              item.appendChild(utils.h('div', 'tg-adr-why', { text: a.why }));
+              var btn = utils.h('button', 'tg-challenge', { type: 'button', text: 'Challenge this →' });
+              btn.addEventListener('click', function () {
+                utils.showVisitorEcho(btn, 'Challenge: ' + a.title);
+                utils.callFenix(a.challenge, 'thinking', body, card);
+              });
+              item.appendChild(btn);
+              list.appendChild(item);
+            });
+            body.appendChild(list);
+          }
+        }
+      },
+
+      // ── Card 3: Problem (gated) ──
+      { id: 'problem', title: 'Bring me a problem.', tag: connected ? 'unlocked' : 'connect to unlock', tagType: 'gated', icon: 'question',
+        hook: "Scoping an AI feature? Stuck on build-vs-buy?", cta: connected ? '→ Scope it' : '→ Connect to unlock',
+        locked: !connected,
+        modal: {
+          type: 'render', kicker: 'BRING A PROBLEM', title: 'Scope it with Fenix',
+          render: function (body, card, utils) {
+            if (!fenixState.visitor.connected) {
+              body.appendChild(utils.h('div', 'fz-modal-output fz-fade-in', {
+                html: '<em>Fenix:</em> A real ask deserves a real name — I like to know who I’m scoping for. Connect first, then bring the problem.'
+              }));
+              var connectBtn = utils.h('button', 'ev-btn-primary', { type: 'button', text: 'Connect to unlock', style: 'margin-top:12px' });
+              connectBtn.addEventListener('click', function () {
+                utils.closeModal();
+                askFenix("I'd like to bring Kiran a real product or AI problem. First — who should I tell him is asking?", "Bring me a problem — let's connect");
+              });
+              body.appendChild(connectBtn);
+              return;
+            }
+            body.appendChild(utils.h('div', 'fz-modal-output fz-fade-in', {
+              html: '<em>Fenix:</em> <strong>Bring me a problem.</strong> Scoping an AI feature, a build-vs-buy, an adoption problem — something you’re genuinely wrestling with.'
+            }));
+            body.appendChild(utils.h('p', 'tg-problem-copy', {
+              text: "Not a demo, not free consulting. Give me a sentence and I’ll hand you a first-pass scope in Kiran’s style right now — then, if it’s useful, set up the full 45 minutes with him."
+            }));
+            var inputWrap = utils.h('div', '');
+            var ta = utils.h('textarea', 'tg-problem-input', { placeholder: 'One sentence — what are you wrestling with?', rows: '3' });
+            inputWrap.appendChild(ta);
+            var scopeBtn = utils.h('button', 'ev-btn-primary tg-problem-scope', { type: 'button', text: 'Give me a first-pass' });
+            scopeBtn.addEventListener('click', function () {
+              var v = ta.value.trim();
+              if (!v) { ta.focus(); return; }
+              utils.showVisitorEcho(inputWrap, 'Scope this: ' + v);
+              utils.callFenix(
+                "A visitor wants Kiran's quick take on scoping this problem: \"" + v + "\". Give a short, sharp first-pass in Kiran's style — how he'd frame it, the first two or three questions he'd ask, and where AI likely fits or doesn't. Keep it tight. Then invite them to book the full 45-minute session with Kiran.",
+                'thinking', body, card
+              );
+            });
+            inputWrap.appendChild(scopeBtn);
+            body.appendChild(inputWrap);
+          }
+        }
+      },
+
+      // ── Card 4: Roast ──
+      { id: 'roast', title: 'Roast the build.', tag: 'just for fun', tagType: 'fun', icon: 'flame',
+        hook: "My own AI on my own architecture.", cta: '→ Let Fenix cook',
+        modal: {
+          type: 'render', kicker: 'THE ROAST', title: 'Roast the build',
+          render: function (body, card, utils) {
+            body.appendChild(utils.h('div', 'fz-modal-output fz-fade-in', {
+              html: '<em>Fenix:</em> You asked for it — Kiran built this whole thing, then told me to be honest about it. Pick your angle:'
+            }));
+            var btnWrap = utils.h('div', '', { style: 'display:flex;flex-direction:column;gap:10px;margin-top:16px' });
+            ROAST_ANGLES.forEach(function (a) {
+              var btn = utils.h('button', 'tg-challenge', { type: 'button', text: a.label, style: 'text-align:left' });
+              btn.addEventListener('click', function () {
+                utils.showVisitorEcho(btnWrap, a.display);
+                utils.callFenix(a.prompt, 'Cooking…', body, card);
+              });
+              btnWrap.appendChild(btn);
+            });
+            body.appendChild(btnWrap);
+          }
+        }
+      }
+    ];
+  }
+
+  // ── Open a card modal by id (for drawer pills / onPillAction) ──
+  function openCardById(id) {
+    if (!state.cards) return;
+    var FZ = window.FenixCards;
+    for (var i = 0; i < state.cards.length; i++) {
+      if (state.cards[i].id === id) {
+        FZ.openModal(state.cards[i]);
+        return;
+      }
+    }
+  }
 
   // ── UI ────────────────────────────────────────────
 
@@ -63,7 +227,7 @@
     injectStyles();
     leftCol.innerHTML = '';
 
-    // Chat column → drawer
+    // Chat column -> drawer
     var drawer = document.getElementById('fenix-chat-drawer');
     if (drawer) {
       var drawerRight = drawer.querySelector('.fenix-intro-right');
@@ -73,6 +237,8 @@
     }
 
     var FZ = window.FenixCards;
+    leftCol.appendChild(FZ.h('div', 'fz-tagline', { html: '<span class="fz-tagline-meet">MEET FENIX</span> <span class="fz-tagline-sub">— YOUR GUIDE TO EVERYTHING ON THIS SITE ↘</span>' }));
+
     var identity = FZ.h('div', 'fz-id');
     var avatar = FZ.h('div', 'fz-avatar');
     avatar.appendChild(FZ.h('img', '', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' }));
@@ -89,26 +255,10 @@
 
     var cardContainer = FZ.h('div');
     leftCol.appendChild(cardContainer);
+    state.cardContainer = cardContainer;
 
-    var connected = fenixState.visitor.connected;
-    FZ.renderCards([
-      { id: 'buildstory', title: 'How I built this without code.', tag: 'the honest version', tagType: 'tool', icon: 'sun',
-        hook: 'What I decided vs. what the AI wrote.', cta: '→ See the split',
-        onClick: function () { showPanel('buildstory'); } },
-      { id: 'judgment', title: 'The judgment calls.', tag: 'framework', tagType: 'framework', icon: 'layers',
-        hook: 'What to build, what to buy, what to kill. Challenge any of them.', cta: '→ Read the calls',
-        onClick: function () { showPanel('judgment'); } },
-      { id: 'problem', title: 'Bring me a problem.', tag: connected ? 'unlocked' : 'connect to unlock', tagType: 'gated', icon: 'question',
-        hook: "Scoping an AI feature? Stuck on build-vs-buy?", cta: connected ? '→ Scope it' : '→ Connect to unlock',
-        locked: !connected,
-        onClick: function () {
-          if (!connected) { askFenix("I'd like to bring Kiran a real product or AI problem. First — who should I tell him is asking?", "Bring me a problem — let's connect"); return; }
-          showPanel('problem');
-        } },
-      { id: 'roast', title: 'Roast the build.', tag: 'just for fun', tagType: 'fun', icon: 'flame',
-        hook: "My own AI on my own architecture.", cta: '→ Let Fenix cook',
-        onClick: function () { startRoast(); } }
-    ], cardContainer, 'technologist');
+    state.cards = getCardDefs();
+    FZ.renderCards(state.cards, cardContainer, 'technologist');
 
     var zone = document.querySelector('.fenix-intro-zone');
     if (zone) zone.classList.add('tg-zone');
@@ -130,6 +280,13 @@
     FC.sendToAgent(text, msgArea);
     var chat = document.querySelector('.ev-fenix-chat');
     if (chat) chat.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Re-render cards when state changes (e.g. on connect, to unlock gated card).
+  function rebuildCards() {
+    if (!state.cardContainer) return;
+    state.cards = getCardDefs();
+    window.FenixCards.renderCards(state.cards, state.cardContainer, 'technologist');
   }
 
   function buildFenixColumn(container) {
@@ -174,7 +331,7 @@
       btn.addEventListener('click', function () {
         fenixState.explored.pillsUsed.push(pill.panel || 'chat');
         btn.classList.add('ev-pill-used');
-        if (pill.panel) { showPanel(pill.panel); return; }
+        if (pill.panel) { openCardById(pill.panel); return; }
         askFenix(pill.q || pill.text, pill.text);
       });
       pillContainer.appendChild(btn);
@@ -216,230 +373,20 @@
     obs.observe(zone);
   }
 
-  function buildUnlockCards(container) {
-    var cardsWrap = el('div', 'ev-unlock-cards');
-    cardsWrap.appendChild(el('div', 'ev-unlock-cards-header', { html: 'The internals, <span class="ev-emphasis">unlocked</span> ↘' }));
-
-    var connected = fenixState.visitor.connected;
-    var G = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
-    var cards = [
-      { id: 'card-buildstory', action: 'buildstory',
-        icon: G + '<path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg>',
-        title: 'How I built this without code.', tag: 'The honest version',
-        hook: 'A production AI system, shipped by a leader who directs — not types. What I decided vs. what the AI wrote.', cta: '→ See the split' },
-      { id: 'card-judgment', action: 'judgment',
-        icon: G + '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
-        title: 'The judgment calls.', tag: 'What I decided, and why',
-        hook: 'What to build, what to buy, what to kill. Challenge any of them — Fenix will defend the call.', cta: '→ Read the calls' },
-      { id: 'card-problem', action: 'problem',
-        icon: G + '<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>',
-        title: 'Bring me a product or AI problem.',
-        tag: connected ? '45 minutes, a real problem' : 'Connect to unlock',
-        hook: 'Scoping an AI feature? Stuck on build-vs-buy or adoption? Give me a sentence — get a first-pass now.',
-        gateReason: connected ? null : "A real ask deserves a real name — I like to know who I\'m scoping for.",
-        cta: connected ? '→ Scope it' : '→ Connect to unlock',
-        locked: !connected },
-      { id: 'card-roast', action: 'roast',
-        icon: G + '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
-        title: 'Roast the build.', tag: 'I can take it',
-        hook: "Turn my own AI loose on my own architecture — the vanilla JS, the over-engineering, all of it. Honest and affectionate.", cta: '→ Let Fenix cook' }
-    ];
-
-    cards.forEach(function (card) {
-      var cardEl = el('div', 'ev-unlock-card', { 'data-card': card.id });
-      cardEl.setAttribute('role', 'button'); cardEl.setAttribute('tabindex', '0');
-      if (card.locked) { cardEl.classList.add('ev-locked'); cardEl.appendChild(el('span', 'ev-lock-indicator', { text: '🔒' })); }
-      var top = el('div', 'ev-card-top');
-      top.appendChild(el('div', 'ev-card-icon', { html: card.icon }));
-      var meta = el('div', 'ev-card-meta');
-      meta.appendChild(el('div', 'ev-card-title', { text: card.title }));
-      meta.appendChild(el('div', 'ev-card-tag', { text: card.tag }));
-      top.appendChild(meta); cardEl.appendChild(top);
-      cardEl.appendChild(el('div', 'ev-card-hook', { text: card.hook }));
-      if (card.gateReason) cardEl.appendChild(el('div', 'ev-card-gate-reason', { text: card.gateReason }));
-      cardEl.appendChild(el('div', 'ev-card-cta', { text: card.cta }));
-      function open() {
-        cardEl.classList.add('ev-card-visited');
-        fenixState.explored.cardsClicked.push(card.id);
-        if (card.locked) {
-          askFenix("I'd like to bring Kiran a real product or AI problem to work through. First — who should I tell him is asking? Let's connect.", "Bring me a problem — let's connect");
-          return;
-        }
-        if (card.action === 'roast') { startRoast(cardEl); return; }
-        showPanel(card.action);
-      }
-      cardEl.addEventListener('click', open);
-      cardEl.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
-      cardsWrap.appendChild(cardEl);
-    });
-    container.appendChild(cardsWrap);
-  }
-
-  // Re-render the cards (called on connect so the gated card unlocks).
-  function rebuildCards() {
-    var leftCol = document.querySelector('.fenix-intro-left');
-    if (!leftCol) return;
-    leftCol.innerHTML = '';
-    buildUnlockCards(leftCol);
-    leftCol.querySelectorAll('.ev-unlock-card, .ev-unlock-cards-header').forEach(function (n) { n.classList.add('ev-revealed'); });
-  }
-
-  // ── Panels ────────────────────────────────────────
-
-  function showPanel(panelType) {
-    if (panelType === 'roast') { startRoast(); return; }   // roast runs in the chat now
-    closePanel();
-    var zone = document.querySelector('.fenix-intro-zone');
-    if (!zone) return;
-    var panel = el('div', 'ev-expanded-panel tg-panel tg-panel-' + panelType);
-    if (panelType === 'buildstory') renderBuildStory(panel);
-    else if (panelType === 'judgment') renderJudgment(panel);
-    else if (panelType === 'problem') renderProblem(panel);
-    else return;
-    state.currentPanel = panelType;
-    zone.insertAdjacentElement('afterend', panel);
-    requestAnimationFrame(function () { panel.classList.add('ev-open'); });
-  }
-
-  function closePanel() {
-    var existing = document.querySelector('.ev-expanded-panel');
-    if (existing) existing.parentNode.removeChild(existing);
-    state.currentPanel = null;
-  }
-
-  function heading(panel, strong, rest) {
-    panel.appendChild(el('div', 'ev-panel-heading', { html: '<em>Fenix:</em> <strong>' + strong + '</strong> ' + rest }));
-  }
-
-  function renderBuildStory(panel) {
-    heading(panel, 'How it got built.', "Every step: what Kiran decided — and what the AI actually typed.");
-    var list = el('div', 'tg-split-list');
-    BUILD_STEPS.forEach(function (s) {
-      var row = el('div', 'tg-split');
-      var left = el('div', 'tg-split-decide');
-      left.appendChild(el('span', 'tg-split-label tg-label-decide', { text: 'Kiran decided' }));
-      left.appendChild(el('div', 'tg-split-text', { text: s.decide }));
-      var right = el('div', 'tg-split-ai');
-      right.appendChild(el('span', 'tg-split-label tg-label-ai', { text: 'AI executed' }));
-      right.appendChild(el('div', 'tg-split-text', { text: s.ai }));
-      row.appendChild(left); row.appendChild(right);
-      list.appendChild(row);
-    });
-    panel.appendChild(list);
-    panel.appendChild(el('div', 'tg-panel-followup', { text: "That split — judgment on the left, typing on the right — is the skill that matters now. If your team is figuring out how to build with AI, that's the conversation I want." }));
-    ctaButton(panel, "Let\'s talk about building with AI", "I lead an AI/product team and want to talk with Kiran about building with AI. Help me connect.");
-  }
-
-  function renderJudgment(panel) {
-    heading(panel, 'The calls.', "Five decisions that shaped the build. Disagree with one? Hit Challenge — Fenix defends it in Kiran\'s voice.");
-    var list = el('div', 'tg-adr-list');
-    JUDGMENT.forEach(function (a) {
-      var item = el('div', 'tg-adr');
-      item.appendChild(el('div', 'tg-adr-title', { text: a.title }));
-      item.appendChild(el('div', 'tg-adr-why', { text: a.why }));
-      var btn = el('button', 'tg-challenge', { type: 'button', text: 'Challenge this →' });
-      btn.addEventListener('click', function () {
-        askFenix(a.challenge, 'Challenge: ' + a.title);
-        closePanel();
-      });
-      item.appendChild(btn);
-      list.appendChild(item);
-    });
-    panel.appendChild(list);
-  }
-
-  function renderProblem(panel) {
-    heading(panel, 'Bring me a problem.', "Scoping an AI feature, a build-vs-buy, an adoption problem — something you\'re genuinely wrestling with.");
-    var body = el('div', 'tg-problem');
-    body.appendChild(el('p', 'tg-problem-copy', { text: "Not a demo, not free consulting. Give me a sentence and I\'ll hand you a first-pass scope in Kiran\'s style right now — then, if it\'s useful, set up the full 45 minutes with him." }));
-    var ta = el('textarea', 'tg-problem-input', { placeholder: "One sentence — what are you wrestling with?", rows: '3' });
-    body.appendChild(ta);
-    var scopeBtn = el('button', 'ev-btn-primary tg-problem-scope', { type: 'button', text: 'Give me a first-pass' });
-    scopeBtn.addEventListener('click', function () {
-      var v = ta.value.trim(); if (!v) { ta.focus(); return; }
-      askFenix(
-        "A visitor wants Kiran's quick take on scoping this problem: \"" + v + "\". Give a short, sharp first-pass in Kiran's style — how he'd frame it, the first two or three questions he'd ask, and where AI likely fits or doesn't. Keep it tight. Then invite them to book the full 45-minute session with Kiran.",
-        "Scope this: " + v
-      );
-      closePanel();
-    });
-    body.appendChild(scopeBtn);
-    panel.appendChild(body);
-  }
-
-  // ── Fun: "Roast the build" — Fenix roasts Kiran's own architecture ──
-  // Runs in the chat: Fenix asks for an angle, the one-pager pops when it's cooked.
-  function startRoast(cardEl) {
-    var msgArea = state.msgArea || document.querySelector('.ev-chat-messages');
-    if (!msgArea) return;
-    var proceed = function () {
-      if (cardEl) FC.addLandedMessage(msgArea, 'Roast the build.');
-      showAngles(msgArea);
-    };
-    if (cardEl) FC.flyCardToChat({ cardEl: cardEl, title: 'Roast the build.', messageArea: msgArea, accent: ACCENT, onLand: proceed });
-    else proceed();
-  }
-
-  function showAngles(msgArea) {
-    FC.addFenixMessage(msgArea, "You asked for it — Kiran built this whole thing, then told me to be honest about it. Pick your angle:");
-    var row = el('div', 'ev-chat-pills tg-roast-pills');
-    ROAST_ANGLES.forEach(function (a) {
-      var btn = el('button', 'ev-chat-pill', { text: a.label });
-      btn.addEventListener('click', function () {
-        if (row.parentNode) row.parentNode.removeChild(row);
-        FC.runTool({
-          messageArea: msgArea, persona: 'technologist', accent: ACCENT, tool: 'roast',
-          kicker: 'The Roast', artifactTitle: 'Fenix Roasts the Build',
-          input: a.display, prompt: a.prompt, thinkingLabel: 'Cooking…',
-          nextPrompt: 'Fair warning: it’s grounded in the real build. Another angle?',
-          nextActions: [
-            { label: 'Roast another angle', run: function () { startRoast(); } },
-            { label: 'How I built this', run: function () { showPanel('buildstory'); } },
-            { label: 'The judgment calls', run: function () { showPanel('judgment'); } }
-          ]
-        });
-      });
-      row.appendChild(btn);
-    });
-    msgArea.appendChild(row);
-    msgArea.scrollTop = msgArea.scrollHeight;
-    var chat = document.querySelector('.ev-fenix-chat');
-    if (chat) chat.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  function ctaButton(panel, label, agentMsg) {
-    var btn = el('button', 'ev-btn-primary tg-cta', { type: 'button', text: label });
-    btn.addEventListener('click', function () { askFenix(agentMsg, label); closePanel(); });
-    panel.appendChild(btn);
-  }
-
   // ── Styles ────────────────────────────────────────
   function injectStyles() {
     if (document.getElementById('tg-adapter-styles')) return;
     var css = ''
-      + '.tg-split-list{display:flex;flex-direction:column;gap:14px;margin-top:14px}'
-      + '.tg-split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(203,92,114,.22);border-radius:10px;overflow:hidden}'
-      + '@media(max-width:720px){.tg-split{grid-template-columns:1fr}}'
-      + '.tg-split-decide{padding:13px 15px;background:rgba(203,92,114,.07)}'
-      + '.tg-split-ai{padding:13px 15px;background:rgba(255,255,255,.02);border-left:1px solid rgba(203,92,114,.18)}'
-      + '@media(max-width:720px){.tg-split-ai{border-left:none;border-top:1px solid rgba(203,92,114,.18)}}'
-      + '.tg-split-label{display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-weight:600}'
-      + '.tg-label-decide{color:#cb5c72}.tg-label-ai{opacity:.5}'
-      + '.tg-split-text{font-size:.88rem;line-height:1.45;opacity:.9}'
       + '.tg-adr-list{display:flex;flex-direction:column;gap:16px;margin-top:14px}'
       + '.tg-adr{border-left:2px solid #cb5c72;padding-left:14px}'
       + '.tg-adr-title{font-weight:600;margin-bottom:5px}'
       + '.tg-adr-why{font-size:.9rem;line-height:1.55;opacity:.85;margin-bottom:8px}'
       + '.tg-challenge{background:none;border:1px solid rgba(203,92,114,.4);color:#cb5c72;font-size:.78rem;padding:5px 12px;border-radius:100px;cursor:pointer;transition:all .15s}'
       + '.tg-challenge:hover{background:rgba(203,92,114,.12)}'
-      + '.tg-problem{margin-top:14px}'
       + '.tg-problem-copy{font-size:.9rem;line-height:1.55;opacity:.85;margin-bottom:14px}'
       + '.tg-problem-input{width:100%;box-sizing:border-box;background:rgba(255,255,255,.03);border:1px solid rgba(203,92,114,.3);border-radius:8px;color:inherit;padding:11px 13px;font-family:inherit;font-size:.9rem;resize:vertical;margin-bottom:12px}'
       + '.tg-problem-input:focus{outline:none;border-color:#cb5c72}'
-      + '.tg-roast-row{display:flex;flex-direction:column;gap:10px;margin-top:16px}'
-      + '.tg-roast-btn{text-align:left;justify-content:flex-start}'
-      + '.tg-cta,.tg-problem-scope{margin-top:6px}'
-      + '.tg-panel-followup{margin-top:16px;font-size:.88rem;line-height:1.5;opacity:.72;font-style:italic}';
+      + '.tg-problem-scope{margin-top:6px}';
     var s = document.createElement('style'); s.id = 'tg-adapter-styles'; s.textContent = css;
     document.head.appendChild(s);
   }
@@ -452,17 +399,15 @@
     messageCap: 30,
     availableTools: ['open_panel', 'close_panel', 'scroll_to_section', 'get_visitor_context', 'connect_visitor', 'collect_feedback', 'show_related_content'],
     buildUI: buildUI,
-    showPanel: showPanel,
     openingMessage: FENIX_OPENING,
     onConnect: function () { rebuildCards(); },
     onPillAction: function (pill) {
       if (['buildstory', 'judgment', 'problem', 'roast'].indexOf(pill.action) !== -1) {
-        // The problem card is identity-gated until connected.
         if (pill.action === 'problem' && !fenixState.visitor.connected) {
           askFenix("I'd like to bring Kiran a real product or AI problem to work through. First — who should I tell him is asking? Let's connect.", "Bring me a problem — let's connect");
           return true;
         }
-        showPanel(pill.action);
+        openCardById(pill.action);
         return true;
       }
       return false;
@@ -471,8 +416,7 @@
 
   window.TechnologistExperience = {
     init: function (persona) { if (persona === 'technologist') FC.init(technologistAdapter); },
-    showPanel: showPanel,
-    closePanel: closePanel
+    openCardById: openCardById
   };
 
 })();

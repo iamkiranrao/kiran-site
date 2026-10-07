@@ -19,6 +19,21 @@
   border: none; padding: 0;
 }
 
+/* ── Module tagline (above identity) ── */
+.fz-tagline {
+  font-size: 1rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+.fz-tagline-meet {
+  color: var(--persona-accent, var(--accent));
+}
+.fz-tagline-sub {
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+}
+
 /* ── Fenix identity (above cards) ── */
 .fz-id {
   display: flex; align-items: center; gap: 12px;

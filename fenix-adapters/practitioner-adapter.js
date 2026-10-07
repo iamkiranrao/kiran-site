@@ -195,6 +195,8 @@
     }
 
     var FZ = window.FenixCards;
+    leftCol.appendChild(FZ.h('div', 'fz-tagline', { html: '<span class="fz-tagline-meet">MEET FENIX</span> <span class="fz-tagline-sub">— YOUR GUIDE TO EVERYTHING ON THIS SITE ↘</span>' }));
+
     var identity = FZ.h('div', 'fz-id');
     var avatar = FZ.h('div', 'fz-avatar');
     avatar.appendChild(FZ.h('img', '', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' }));

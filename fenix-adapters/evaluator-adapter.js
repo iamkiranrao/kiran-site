@@ -472,8 +472,11 @@
       if (closeBtn) closeBtn.addEventListener('click', function () { drawer.classList.remove('open'); });
     }
 
-    // Fenix identity + opening
+    // Tagline
     var FZ = window.FenixCards;
+    leftCol.appendChild(FZ.h('div', 'fz-tagline', { html: '<span class="fz-tagline-meet">MEET FENIX</span> <span class="fz-tagline-sub">— YOUR GUIDE TO EVERYTHING ON THIS SITE ↘</span>' }));
+
+    // Fenix identity + opening
     var identity = FZ.h('div', 'fz-id');
     var avatar = FZ.h('div', 'fz-avatar');
     avatar.appendChild(FZ.h('img', '', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' }));
@@ -508,21 +511,21 @@
         tag: 'explore', tagType: 'tool', icon: 'crosshair',
         hook: 'Same experience, different emphasis. Pick the lens that fits your search.',
         cta: '→ Choose your lens',
-        onClick: function () { showPanel('resume'); }
+        modal: { type: 'render', kicker: 'RESUME', title: 'Choose Your Lens', render: renderResumeLensModal }
       },
       {
         id: 'questions', title: 'What Recruiters Never Ask',
         tag: 'explore', tagType: 'tool', icon: 'question',
         hook: 'Five questions great leaders ask, and my honest answers.',
         cta: '→ See the questions',
-        onClick: function () { showPanel('questions'); }
+        modal: { type: 'render', kicker: 'DEEP CUTS', title: 'What Recruiters Never Ask', render: renderQuestionsModal }
       },
       {
         id: 'poster', title: 'A Gift for Your Office Wall',
         tag: 'from me to you', tagType: 'fun', icon: 'gift',
         hook: 'AI-generated motivational posters, funnier than anything HR has approved.',
         cta: '→ Fix office morale',
-        onClick: function () { showPanel('poster'); }
+        modal: { type: 'render', kicker: 'FOR YOU', title: 'Motivational Poster', render: renderPosterModal }
       },
       {
         id: 'fit-narrative', title: 'What Differentiates Kiran for Your Role',
@@ -530,9 +533,207 @@
         hook: 'Paste a JD and I\'ll show you where Kiran\'s work lines up.',
         cta: fenixState.visitor.connected ? '→ Paste your JD' : '→ Connect to get started',
         locked: !fenixState.visitor.connected,
-        onClick: function () { showPanel('connect'); }
+        modal: { type: 'render', kicker: 'FIT ANALYSIS', title: 'What Differentiates Kiran', render: renderConnectModal }
       }
     ];
+  }
+
+  // ── Modal render callbacks ──
+
+  function renderResumeLensModal(body) {
+    body.appendChild(el('div', 'ev-panel-heading', {
+      html: '<em>Fenix:</em> Kiran\'s resume comes in three flavors. Same experience, different emphasis. Which one fits your search?'
+    }));
+    var lensContainer = el('div', 'ev-lens-cards-container');
+    var lenses = [
+      { id: 'ai', title: 'AI Product Leader', desc: 'Fenix, Fargo AI scaling (4.1M→27.5M), Avatour AI agents, AI strategy' },
+      { id: 'growth', title: 'Growth & Experimentation', desc: 'Mobile 18M→32M, A/B testing, adoption metrics, data-driven product' },
+      { id: 'mobile', title: 'Mobile & Consumer Product', desc: 'Mobile-first at scale, consumer UX, cross-industry product leadership' }
+    ];
+    var RESUME_PDF_MAP = { 'ai': 'template_previews/PM_1Pager_AI.pdf', 'growth': 'template_previews/PM_1Pager_Growth.pdf', 'mobile': 'template_previews/PM_1Pager_Mobile.pdf' };
+    var selectedLensId = null;
+    var selectedLensName = null;
+    var footer = el('div', 'ev-lens-footer');
+    var previewText = el('div', 'ev-preview-text');
+    var downloadBtn = el('button', 'ev-btn-primary', { text: 'Download PDF' });
+    downloadBtn.addEventListener('click', function () {
+      if (!selectedLensId || !RESUME_PDF_MAP[selectedLensId]) return;
+      var link = document.createElement('a');
+      link.href = RESUME_PDF_MAP[selectedLensId];
+      link.download = 'Kiran_Rao_Resume_' + selectedLensName.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf';
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      fenixState.explored.resumeLensSelected = selectedLensId;
+      FC.saveFenixState();
+    });
+    append(footer, [previewText, downloadBtn]);
+    lenses.forEach(function (lens) {
+      var card = el('div', 'ev-lens-card', { 'data-lens': lens.id });
+      card.appendChild(el('div', 'ev-lens-title', { text: lens.title }));
+      card.appendChild(el('div', 'ev-lens-desc', { text: lens.desc }));
+      card.addEventListener('click', function () {
+        lensContainer.querySelectorAll('.ev-lens-card').forEach(function (c) { c.classList.remove('ev-selected'); });
+        card.classList.add('ev-selected');
+        selectedLensId = lens.id;
+        selectedLensName = lens.title;
+        previewText.innerHTML = '<strong>' + lens.title + '</strong> resume ready<br><small>PDF · ATS-compatible · 1 page</small>';
+        footer.classList.add('ev-active');
+      });
+      lensContainer.appendChild(card);
+    });
+    append(body, [lensContainer, footer]);
+  }
+
+  function renderQuestionsModal(body) {
+    body.appendChild(el('div', 'ev-panel-heading', {
+      html: '<em>Fenix:</em> ' + RECRUITER_LEAD_IN
+    }));
+    var container = el('div', 'ev-questions-container ev-accordion');
+    RECRUITER_QUESTIONS.forEach(function (qa, idx) {
+      var item = el('div', 'ev-accordion-item');
+      var header = el('button', 'ev-accordion-header');
+      header.setAttribute('type', 'button');
+      header.setAttribute('aria-expanded', 'false');
+      var headerLeft = el('div', 'ev-accordion-header-left');
+      headerLeft.appendChild(el('span', 'ev-accordion-chevron', {
+        html: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>'
+      }));
+      headerLeft.appendChild(el('span', 'ev-accordion-question', { text: qa.q }));
+      header.appendChild(headerLeft);
+      if (qa.leader) header.appendChild(el('span', 'ev-accordion-leader', { text: qa.leader }));
+      item.appendChild(header);
+      var qBody = el('div', 'ev-accordion-body');
+      var bodyInner = el('div', 'ev-accordion-body-inner');
+      if (qa.anecdote) bodyInner.appendChild(el('div', 'ev-question-anecdote', { text: qa.anecdote }));
+      bodyInner.appendChild(el('div', 'ev-question-answer', { text: qa.a }));
+      qBody.appendChild(bodyInner);
+      item.appendChild(qBody);
+      header.addEventListener('click', function () {
+        var isOpen = item.classList.toggle('ev-open');
+        header.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      container.appendChild(item);
+    });
+    body.appendChild(container);
+  }
+
+  function renderPosterModal(body) {
+    body.appendChild(el('div', 'ev-panel-heading', {
+      html: '<em>Fenix:</em> Every office needs better motivational posters. Here, have some.'
+    }));
+    var posterFrame = el('div', 'ev-poster-frame');
+    var posterInner = el('div', 'ev-poster-inner');
+    var posterBg = el('div', 'ev-poster-bg');
+    var posterContent = el('div', 'ev-poster-content');
+    var posterTitle = el('div', 'ev-poster-title');
+    var posterTagline = el('div', 'ev-poster-tagline');
+    var posterWatermark = el('div', 'ev-poster-watermark', { text: 'kiranrao.ai' });
+    posterContent.appendChild(posterTitle);
+    posterContent.appendChild(posterTagline);
+    posterInner.appendChild(posterBg);
+    posterInner.appendChild(posterContent);
+    posterInner.appendChild(posterWatermark);
+    posterFrame.appendChild(posterInner);
+    body.appendChild(posterFrame);
+    var controls = el('div', 'ev-poster-controls');
+    var generateBtn = el('button', 'ev-btn-primary ev-poster-btn-generate', { text: 'Another one' });
+    var aiBtn = el('button', 'ev-btn-secondary ev-poster-btn-ai', { text: '✨ Generate unique' });
+    var downloadBtn = el('button', 'ev-btn-secondary ev-poster-btn-download', { text: '⬇ Download' });
+    var shareBtn = el('button', 'ev-btn-secondary ev-poster-btn-share', { text: '🔗 Copy link' });
+    controls.appendChild(generateBtn);
+    controls.appendChild(aiBtn);
+    controls.appendChild(downloadBtn);
+    controls.appendChild(shareBtn);
+    body.appendChild(controls);
+    var statusEl = el('div', 'ev-poster-status');
+    body.appendChild(statusEl);
+    var currentPoster = null;
+    var currentImage = null;
+    function displayPoster(poster, imageSrc, mood) {
+      currentPoster = poster;
+      currentImage = imageSrc || getImageForPoster(poster, mood);
+      posterInner.classList.add('ev-poster-switching');
+      setTimeout(function () {
+        posterTitle.textContent = poster.title;
+        posterTagline.textContent = poster.tagline;
+        posterBg.style.backgroundImage = 'url(' + currentImage + ')';
+        posterBg.style.backgroundSize = 'cover';
+        posterBg.style.backgroundPosition = 'center';
+        posterInner.classList.remove('ev-poster-switching');
+      }, 200);
+    }
+    displayPoster(getRandomPoster());
+    generateBtn.addEventListener('click', function () { displayPoster(getRandomPoster()); statusEl.textContent = ''; });
+    aiBtn.addEventListener('click', function () {
+      aiBtn.disabled = true; aiBtn.textContent = '✨ Generating...'; statusEl.textContent = '';
+      fetchAIPoster().then(function (poster) {
+        aiBtn.disabled = false; aiBtn.textContent = '✨ Generate unique';
+        if (poster) { displayPoster(poster, null, poster.mood || null); statusEl.textContent = '✨ AI-generated original'; }
+        else { displayPoster(getRandomPoster()); statusEl.textContent = 'AI unavailable, here\'s one from the vault'; }
+        setTimeout(function () { statusEl.textContent = ''; }, 3000);
+      });
+    });
+    downloadBtn.addEventListener('click', function () {
+      renderPosterToCanvas(currentPoster, currentImage).then(function (canvas) {
+        var link = document.createElement('a');
+        link.download = 'motivational-poster-' + currentPoster.title.toLowerCase().replace(/\s+/g, '-') + '.png';
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        statusEl.textContent = 'Downloaded!';
+        setTimeout(function () { statusEl.textContent = ''; }, 2000);
+      });
+    });
+    shareBtn.addEventListener('click', function () {
+      var encoded = btoa(JSON.stringify(currentPoster));
+      var url = window.location.origin + '/?poster=' + encodeURIComponent(encoded);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { statusEl.textContent = 'Link copied!'; setTimeout(function () { statusEl.textContent = ''; }, 2000); });
+      } else {
+        var temp = document.createElement('textarea'); temp.value = url; document.body.appendChild(temp); temp.select(); document.execCommand('copy'); document.body.removeChild(temp);
+        statusEl.textContent = 'Link copied!'; setTimeout(function () { statusEl.textContent = ''; }, 2000);
+      }
+    });
+  }
+
+  function renderConnectModal(body) {
+    if (!fenixState.visitor.connected) {
+      body.appendChild(el('div', 'ev-panel-heading', {
+        html: '<em>Fenix:</em> Give me a job description and I\'ll show you how Kiran\'s experience maps to it. Since this is personalized, I\'ll need to know who I\'m putting this together for.<br><br>Two ways to do that:'
+      }));
+      var paths = el('div', 'ev-connect-paths');
+      var linkedinCard = el('div', 'ev-connect-path-card ev-linkedin');
+      linkedinCard.appendChild(el('div', 'ev-path-icon', { text: 'in' }));
+      linkedinCard.appendChild(el('div', 'ev-path-title', { text: 'Connect with LinkedIn' }));
+      linkedinCard.appendChild(el('div', 'ev-path-subtitle', { text: 'Instant access, one click' }));
+      linkedinCard.addEventListener('click', function () { startLinkedInConnect(); });
+      paths.appendChild(linkedinCard);
+      var manualCard = el('div', 'ev-connect-path-card');
+      manualCard.appendChild(el('div', 'ev-path-icon', { html: '<span style="color:var(--ev-accent);">✎</span>' }));
+      manualCard.appendChild(el('div', 'ev-path-title', { text: 'Introduce yourself' }));
+      manualCard.appendChild(el('div', 'ev-path-subtitle', { text: 'First name, last name, company, that\'s it' }));
+      var form = el('form', 'ev-connect-form');
+      form.addEventListener('submit', function (e) { e.preventDefault(); handleConnectSubmit(form); });
+      var nameRow = el('div', 'ev-form-row');
+      nameRow.appendChild(el('input', 'ev-form-input ev-form-half', { type: 'text', name: 'first_name', placeholder: 'First name', required: 'true' }));
+      nameRow.appendChild(el('input', 'ev-form-input ev-form-half', { type: 'text', name: 'last_name', placeholder: 'Last name', required: 'true' }));
+      form.appendChild(nameRow);
+      form.appendChild(el('input', 'ev-form-input', { type: 'text', name: 'company', placeholder: 'Company', required: 'true' }));
+      form.appendChild(el('input', 'ev-form-input', { type: 'email', name: 'email', placeholder: 'Email (optional)' }));
+      form.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Let\'s go' }));
+      manualCard.appendChild(form);
+      paths.appendChild(manualCard);
+      body.appendChild(paths);
+    } else {
+      var firstName = (fenixState.visitor.name || 'there').split(' ')[0];
+      body.appendChild(el('p', 'ev-jd-greeting', { text: 'Welcome, ' + firstName + '. Paste the job description and I\'ll map Kiran\'s experience to it.' }));
+      var form2 = el('form', 'ev-jd-form');
+      form2.addEventListener('submit', function (e) { e.preventDefault(); handleJDSubmit(form2); });
+      form2.appendChild(el('textarea', 'ev-jd-input', { placeholder: 'Paste the full job description here...' }));
+      form2.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Show me' }));
+      body.appendChild(form2);
+    }
   }
 
 

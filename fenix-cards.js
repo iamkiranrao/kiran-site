@@ -229,17 +229,21 @@
     _overlay.querySelector('.fz-modal-title').textContent = m.title || card.title;
     _modalBody.innerHTML = '';
 
-    // Fenix identity
-    var fenix = h('div', 'fz-modal-fenix');
-    var modalAv = h('div', 'fz-modal-fenix-av');
-    modalAv.appendChild(h('img', '', { src: _logoPath, alt: 'Fenix' }));
-    fenix.appendChild(modalAv);
-    fenix.appendChild(h('div', 'fz-modal-fenix-nm', { text: 'Fenix' }));
-    _modalBody.appendChild(fenix);
+    if (m.type !== 'render') {
+      // Fenix identity
+      var fenix = h('div', 'fz-modal-fenix');
+      var modalAv = h('div', 'fz-modal-fenix-av');
+      modalAv.appendChild(h('img', '', { src: _logoPath, alt: 'Fenix' }));
+      fenix.appendChild(modalAv);
+      fenix.appendChild(h('div', 'fz-modal-fenix-nm', { text: 'Fenix' }));
+      _modalBody.appendChild(fenix);
 
-    // Question
-    var q = h('div', 'fz-modal-question fz-fade-in', { text: m.question });
-    _modalBody.appendChild(q);
+      // Question
+      if (m.question) {
+        var q = h('div', 'fz-modal-question fz-fade-in', { text: m.question });
+        _modalBody.appendChild(q);
+      }
+    }
 
     // Mark visited
     var visitKey = _activePersona + ':' + card.id;
@@ -250,7 +254,9 @@
     }
 
     // Branch by interaction type
-    if (m.type === 'static') {
+    if (m.type === 'render' && typeof m.render === 'function') {
+      m.render(_modalBody, card, { h: h, callFenix: callFenix, showThinking: showThinking, showVisitorEcho: showVisitorEcho, addFollowUp: addFollowUp, closeModal: closeModal, renderSimpleMarkdown: renderSimpleMarkdown });
+    } else if (m.type === 'static') {
       showStaticOutput(m, card);
     } else if (m.type === 'choice') {
       showChoices(m, card);
