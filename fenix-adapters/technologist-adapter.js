@@ -74,7 +74,9 @@
 
     var FZ = window.FenixCards;
     var identity = FZ.h('div', 'fz-id');
-    identity.appendChild(FZ.h('div', 'fz-avatar', { text: '🔥' }));
+    var avatar = FZ.h('div', 'fz-avatar');
+    avatar.appendChild(FZ.h('img', '', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' }));
+    identity.appendChild(avatar);
     var nameWrap = FZ.h('span', 'fz-name', { html: 'Fenix' });
     nameWrap.appendChild(FZ.h('span', 'fz-dot'));
     identity.appendChild(nameWrap);

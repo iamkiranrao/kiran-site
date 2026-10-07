@@ -157,15 +157,26 @@
       var text = chatInput.value.trim();
       if (!text) return;
       chatInput.value = '';
-      var drawer = document.getElementById('fenix-chat-drawer');
-      if (drawer) {
-        drawer.classList.add('open');
-        var msgArea = drawer.querySelector('.ev-chat-messages');
-        if (msgArea && FC.addVisitorMessage && FC.sendToAgent) {
-          FC.addVisitorMessage(msgArea, text);
-          FC.sendToAgent(text, msgArea);
+      openModal({
+        id: 'free-chat',
+        title: 'Chat with Fenix',
+        modal: {
+          kicker: 'FREE CHAT',
+          title: 'Chat with Fenix',
+          type: 'input',
+          question: null,
+          placeholder: 'Say more…',
+          thinkingLabel: 'thinking',
+          promptFn: function (v) { return v; }
         }
-      }
+      });
+      setTimeout(function () {
+        if (_modalBody) {
+          showVisitorEcho(text);
+          showThinking('thinking');
+          callFenix(text, 'thinking', _modalBody, { id: 'free-chat' });
+        }
+      }, 100);
     }
     chatSend.addEventListener('click', submitFreeChat);
     chatInput.addEventListener('keydown', function (e) {
@@ -220,7 +231,9 @@
 
     // Fenix identity
     var fenix = h('div', 'fz-modal-fenix');
-    fenix.appendChild(h('div', 'fz-modal-fenix-av', { text: '🔥' }));
+    var modalAv = h('div', 'fz-modal-fenix-av');
+    modalAv.appendChild(h('img', '', { src: _logoPath, alt: 'Fenix' }));
+    fenix.appendChild(modalAv);
     fenix.appendChild(h('div', 'fz-modal-fenix-nm', { text: 'Fenix' }));
     _modalBody.appendChild(fenix);
 

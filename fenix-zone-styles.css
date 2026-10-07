@@ -3,14 +3,15 @@
    Replaces two-column fenix-intro-zone layout
    ============================================ */
 
-/* ── Zone container (framed module) ── */
+/* ── Zone container (framed module, pulsating persona border) ── */
 .fenix-intro-zone.fenix-zone-single {
   display: block;
   max-width: 960px;
   margin: 0 auto;
   padding: 2rem 2.5rem 2.5rem;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(var(--persona-accent-rgb, 123,154,204), 0.25);
   min-height: auto;
+  animation: fzBorderPulse 4s ease-in-out infinite;
 }
 .fenix-intro-zone.fenix-zone-single .fenix-intro-divider { display: none; }
 .fenix-intro-zone.fenix-zone-single .fenix-intro-left {
@@ -26,10 +27,13 @@
 .fz-avatar {
   width: 40px; height: 40px; border-radius: 50%;
   border: 1.5px solid rgba(var(--persona-accent-rgb, 123,154,204), 0.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px; flex-shrink: 0;
+  flex-shrink: 0;
   box-shadow: 0 0 12px rgba(var(--persona-accent-rgb, 123,154,204), 0.15);
   transition: border-color 0.4s, box-shadow 0.4s;
+  overflow: hidden;
+}
+.fz-avatar img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
 }
 .fz-name {
   font-family: 'Space Grotesk', sans-serif;
@@ -37,15 +41,18 @@
   color: var(--text-primary);
 }
 .fz-dot {
-  display: inline-block; width: 7px; height: 7px;
-  border-radius: 50%; background: rgba(74, 190, 120, 0.85);
-  margin-left: 5px; vertical-align: middle;
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; background: rgba(74, 190, 120, 0.9);
+  margin-left: 6px; vertical-align: middle;
+  animation: fzDotPulse 2s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(74, 190, 120, 0.4);
 }
 
 /* ── Opening message ── */
 .fz-opening {
   font-size: 1.1rem; line-height: 1.7; color: var(--text-secondary);
   margin-bottom: 2rem; padding-left: 52px;
+  min-height: 1.7em;
 }
 .fz-opening p { margin: 0; }
 .fz-opening p + p { margin-top: 10px; }
@@ -232,6 +239,10 @@
   border: 1px solid rgba(var(--persona-accent-rgb, 123,154,204), 0.3);
   display: flex; align-items: center; justify-content: center;
   font-size: 12px; flex-shrink: 0;
+  overflow: hidden;
+}
+.fz-modal-fenix-av img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
 }
 .fz-modal-fenix-nm {
   font-family: 'Space Grotesk', sans-serif;
@@ -368,6 +379,14 @@
 @keyframes fzFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fzBlink { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
 @keyframes fzCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes fzDotPulse {
+  0%, 100% { opacity: 0.9; box-shadow: 0 0 6px rgba(74, 190, 120, 0.4); transform: scale(1); }
+  50% { opacity: 1; box-shadow: 0 0 12px rgba(74, 190, 120, 0.7); transform: scale(1.15); }
+}
+@keyframes fzBorderPulse {
+  0%, 100% { border-color: rgba(var(--persona-accent-rgb, 123,154,204), 0.15); box-shadow: 0 0 0 rgba(var(--persona-accent-rgb, 123,154,204), 0); }
+  50% { border-color: rgba(var(--persona-accent-rgb, 123,154,204), 0.35); box-shadow: 0 0 20px rgba(var(--persona-accent-rgb, 123,154,204), 0.06); }
+}
 .fz-fade-in { animation: fzFadeIn 0.25s ease forwards; }
 
 /* ── Responsive ── */
