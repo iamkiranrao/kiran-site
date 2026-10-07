@@ -1,14 +1,14 @@
 /* ============================================
-   FENIX ZONE — Single-column cards + modal
+   FENIX ZONE — Card grid + modal
    Replaces two-column fenix-intro-zone layout
    ============================================ */
 
 /* ── Zone container ── */
 .fenix-intro-zone.fenix-zone-single {
   display: block;
-  max-width: 580px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 0 1rem 2rem;
+  padding: 0 4rem 2rem;
   border: none;
   min-height: auto;
 }
@@ -20,32 +20,32 @@
 
 /* ── Fenix identity (above cards) ── */
 .fz-id {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 1rem;
 }
 .fz-avatar {
-  width: 36px; height: 36px; border-radius: 50%;
+  width: 40px; height: 40px; border-radius: 50%;
   border: 1.5px solid rgba(var(--persona-accent-rgb, 123,154,204), 0.3);
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px; flex-shrink: 0;
+  font-size: 20px; flex-shrink: 0;
   box-shadow: 0 0 12px rgba(var(--persona-accent-rgb, 123,154,204), 0.15);
   transition: border-color 0.4s, box-shadow 0.4s;
 }
 .fz-name {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px; font-weight: 500; letter-spacing: 0.02em;
+  font-size: 1.1rem; font-weight: 500; letter-spacing: 0.02em;
   color: var(--text-primary);
 }
 .fz-dot {
-  display: inline-block; width: 6px; height: 6px;
+  display: inline-block; width: 7px; height: 7px;
   border-radius: 50%; background: rgba(74, 190, 120, 0.85);
   margin-left: 5px; vertical-align: middle;
 }
 
 /* ── Opening message ── */
 .fz-opening {
-  font-size: 14px; line-height: 1.65; color: var(--text-secondary);
-  margin-bottom: 28px; padding-left: 46px;
+  font-size: 1.1rem; line-height: 1.7; color: var(--text-secondary);
+  margin-bottom: 2rem; padding-left: 52px;
 }
 .fz-opening p { margin: 0; }
 .fz-opening p + p { margin-top: 10px; }
@@ -53,50 +53,57 @@
 /* ── Section label ── */
 .fz-label {
   font-family: 'Space Mono', monospace;
-  font-size: 10px; font-weight: 400;
+  font-size: 0.7rem; font-weight: 400;
   letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 10px; padding-left: 2px;
+  color: var(--text-muted); margin-bottom: 0.75rem; padding-left: 2px;
 }
 
-/* ── Card list ── */
-.fz-cards { display: flex; flex-direction: column; gap: 1px; }
+/* ── Card grid ── */
+.fz-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
 
-/* ── Individual card row ── */
+/* ── Individual card ── */
 .fz-card {
-  display: flex; align-items: flex-start; gap: 14px;
-  padding: 14px 16px; background: transparent;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer; transition: background 0.15s ease, opacity 0.3s ease;
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1.25rem 1.5rem; background: transparent;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.2s ease, opacity 0.3s ease;
   position: relative;
 }
-.fz-card:first-child { border-top: 1px solid var(--border); }
-.fz-card:hover { background: var(--ev-bg-card, var(--bg-card)); }
+.fz-card:hover {
+  background: var(--ev-bg-card, var(--bg-card));
+  border-color: rgba(var(--persona-accent-rgb, 123,154,204), 0.25);
+}
 .fz-card:active { background: var(--border-light); }
 .fz-card.fz-visited { opacity: 0.5; }
 .fz-card.fz-visited:hover { opacity: 0.75; }
 .fz-card.fz-locked { cursor: default; }
-.fz-card.fz-locked:hover { background: transparent; }
+.fz-card.fz-locked:hover { background: transparent; border-color: var(--border); }
 
 .fz-card-icon {
-  width: 18px; height: 18px; flex-shrink: 0;
+  width: 22px; height: 22px; flex-shrink: 0;
   color: var(--text-muted); margin-top: 2px; transition: color 0.15s;
 }
 .fz-card:hover .fz-card-icon { color: var(--persona-accent, var(--accent)); }
 .fz-card-icon svg { width: 100%; height: 100%; }
 
 .fz-card-body { flex: 1; min-width: 0; }
-.fz-card-title-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.fz-card-title-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .fz-card-title {
-  font-size: 14px; font-weight: 600; color: var(--text-primary);
+  font-size: 1rem; font-weight: 600; color: var(--text-primary);
   line-height: 1.3; letter-spacing: -0.01em;
 }
 
 /* Tag pills */
 .fz-tag {
   font-family: 'Space Mono', monospace;
-  font-size: 9px; letter-spacing: 0.04em;
+  font-size: 0.6rem; letter-spacing: 0.04em;
   text-transform: uppercase; line-height: 1;
-  padding: 2px 6px; border-radius: 2px; white-space: nowrap;
+  padding: 3px 7px; border-radius: 2px; white-space: nowrap;
 }
 .fz-tag--tool {
   color: var(--persona-accent, var(--accent));
@@ -110,15 +117,15 @@
 [data-theme="light"] .fz-tag--gated { background: rgba(0, 0, 0, 0.03); }
 [data-theme="light"] .fz-tag--framework { color: #3a8a6a; background: rgba(58, 138, 106, 0.08); }
 
-.fz-card-hook { font-size: 13px; line-height: 1.5; color: var(--text-muted); margin-top: 4px; }
+.fz-card-hook { font-size: 0.9rem; line-height: 1.55; color: var(--text-muted); margin-top: 6px; }
 .fz-card-cta {
-  font-size: 12px; font-weight: 500; margin-top: 6px; letter-spacing: -0.01em;
+  font-size: 0.85rem; font-weight: 500; margin-top: 8px; letter-spacing: -0.01em;
   color: var(--persona-accent, var(--accent));
 }
-.fz-card-lock { font-size: 12px; color: var(--text-muted); margin-top: 6px; font-style: italic; }
+.fz-card-lock { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; font-style: italic; }
 .fz-card-visited-mark {
-  position: absolute; top: 14px; right: 14px;
-  font-size: 10px; color: var(--text-muted);
+  position: absolute; top: 1.25rem; right: 1.25rem;
+  font-size: 0.7rem; color: var(--text-muted);
   font-family: 'Space Mono', monospace;
 }
 
@@ -159,7 +166,7 @@
 .fenix-bottom-input {
   flex: 1; padding: 10px 14px; background: transparent;
   border: 1px solid var(--border); color: var(--text-primary);
-  font-family: inherit; font-size: 13px; outline: none;
+  font-family: inherit; font-size: 0.85rem; outline: none;
 }
 .fenix-bottom-input:focus { border-color: rgba(var(--persona-accent-rgb, 123,154,204), 0.3); }
 .fenix-bottom-input::placeholder { color: var(--text-muted); }
@@ -197,12 +204,12 @@
 }
 .fz-modal-title-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .fz-modal-kicker {
-  font-family: 'Space Mono', monospace; font-size: 9px;
+  font-family: 'Space Mono', monospace; font-size: 0.6rem;
   letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--persona-accent, var(--accent));
 }
 .fz-modal-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: 15px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 1rem;
   font-weight: 600; letter-spacing: -0.01em; color: var(--text-primary);
 }
 .fz-modal-close {
@@ -228,13 +235,13 @@
 }
 .fz-modal-fenix-nm {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 12px; font-weight: 500; color: var(--text-secondary);
+  font-size: 0.8rem; font-weight: 500; color: var(--text-secondary);
 }
 
 .fz-modal-question {
   padding: 14px 16px;
   border-left: 2px solid rgba(var(--persona-accent-rgb, 123,154,204), 0.3);
-  font-size: 13px; line-height: 1.65; color: var(--text-secondary);
+  font-size: 0.85rem; line-height: 1.65; color: var(--text-secondary);
 }
 
 /* Input inside modal */
@@ -242,13 +249,13 @@
 .fz-modal-input {
   flex: 1; padding: 10px 12px; background: transparent;
   border: 1px solid var(--border); color: var(--text-primary);
-  font-family: inherit; font-size: 13px; outline: none;
+  font-family: inherit; font-size: 0.85rem; outline: none;
 }
 .fz-modal-input:focus { border-color: rgba(var(--persona-accent-rgb, 123,154,204), 0.3); }
 .fz-modal-input::placeholder { color: var(--text-muted); }
 .fz-modal-submit {
   padding: 10px 16px; background: var(--text-primary); color: var(--bg-primary);
-  border: none; font-family: inherit; font-size: 13px; font-weight: 600;
+  border: none; font-family: inherit; font-size: 0.85rem; font-weight: 600;
   cursor: pointer; flex-shrink: 0; transition: opacity 0.15s;
 }
 .fz-modal-submit:hover { opacity: 0.85; }
@@ -266,28 +273,28 @@
 .fz-modal-thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
 .fz-modal-thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
 .fz-modal-thinking-label {
-  font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-muted);
+  font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted);
 }
 
 /* Structured output */
 .fz-modal-output {
   padding: 16px; border-left: 2px solid var(--persona-accent, var(--accent));
-  font-size: 13px; line-height: 1.65;
+  font-size: 0.85rem; line-height: 1.65;
 }
 .fz-modal-output h4 {
-  font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem;
   font-weight: 600; margin: 0 0 6px; letter-spacing: -0.01em;
   color: var(--text-primary);
 }
 .fz-modal-output p {
-  font-size: 13px; line-height: 1.65; color: var(--text-secondary); margin: 0 0 10px;
+  font-size: 0.85rem; line-height: 1.65; color: var(--text-secondary); margin: 0 0 10px;
 }
 .fz-modal-output p:last-child { margin-bottom: 0; }
 .fz-modal-output strong { color: var(--text-primary); font-weight: 600; }
 .fz-modal-output .output-section { margin-bottom: 14px; }
 .fz-modal-output .output-section:last-child { margin-bottom: 0; }
 .fz-modal-output .output-label {
-  font-family: 'Space Mono', monospace; font-size: 9px;
+  font-family: 'Space Mono', monospace; font-size: 0.6rem;
   letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--persona-accent, var(--accent)); margin-bottom: 4px;
 }
@@ -296,7 +303,7 @@
 .fz-modal-choices { display: flex; flex-wrap: wrap; gap: 6px; }
 .fz-modal-choice {
   padding: 7px 12px; background: transparent; border: 1px solid var(--border);
-  font-size: 12px; font-weight: 500; color: var(--text-secondary);
+  font-size: 0.8rem; font-weight: 500; color: var(--text-secondary);
   cursor: pointer; font-family: inherit;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
@@ -309,7 +316,7 @@
 .fz-modal-actions { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 4px; }
 .fz-modal-action {
   padding: 7px 12px; background: transparent; border: 1px solid var(--border);
-  font-size: 12px; color: var(--text-secondary); cursor: pointer; font-family: inherit;
+  font-size: 0.8rem; color: var(--text-secondary); cursor: pointer; font-family: inherit;
   transition: background 0.15s, border-color 0.15s;
 }
 .fz-modal-action:hover {
@@ -321,11 +328,32 @@
 .fz-modal-visitor-echo { display: flex; justify-content: flex-end; }
 .fz-modal-visitor-bubble {
   padding: 8px 14px; background: var(--text-primary); color: var(--bg-primary);
-  font-size: 13px; font-weight: 500; max-width: 80%;
+  font-size: 0.85rem; font-weight: 500; max-width: 80%;
 }
 
 /* Streaming text in modal */
 .fz-modal-streaming { white-space: pre-wrap; }
+
+/* ── Free-chat input below cards ── */
+.fz-free-chat {
+  display: flex; gap: 8px; margin-top: 1.25rem;
+}
+.fz-free-chat-input {
+  flex: 1; padding: 12px 16px; background: transparent;
+  border: 1px solid var(--border); color: var(--text-primary);
+  font-family: inherit; font-size: 0.9rem; outline: none;
+  transition: border-color 0.2s;
+}
+.fz-free-chat-input:focus { border-color: rgba(var(--persona-accent-rgb, 123,154,204), 0.4); }
+.fz-free-chat-input::placeholder { color: var(--text-muted); }
+.fz-free-chat-send {
+  width: 42px; height: 42px; background: var(--text-primary);
+  border: none; color: var(--bg-primary); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.fz-free-chat-send:hover { opacity: 0.8; }
+.fz-free-chat-send svg { width: 16px; height: 16px; }
 
 /* Animations */
 @keyframes fzFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
@@ -333,7 +361,11 @@
 .fz-fade-in { animation: fzFadeIn 0.25s ease forwards; }
 
 /* ── Responsive ── */
+@media (max-width: 1024px) {
+  .fenix-intro-zone.fenix-zone-single { padding: 0 2.5rem 2rem; }
+}
 @media (max-width: 768px) {
   .fenix-intro-zone.fenix-zone-single { padding: 0 0 2rem; }
   .fz-opening { padding-left: 0; }
+  .fz-cards { grid-template-columns: 1fr; }
 }

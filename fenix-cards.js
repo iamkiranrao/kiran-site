@@ -120,6 +120,38 @@
       list.appendChild(row);
     });
     container.appendChild(list);
+
+    // Free-chat input below cards
+    var chatRow = h('div', 'fz-free-chat');
+    var chatInput = h('input', 'fz-free-chat-input', {
+      type: 'text',
+      placeholder: 'Ask Fenix anything…'
+    });
+    var chatSend = h('button', 'fz-free-chat-send', {
+      html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>'
+    });
+    chatSend.setAttribute('aria-label', 'Send');
+    function submitFreeChat() {
+      var text = chatInput.value.trim();
+      if (!text) return;
+      chatInput.value = '';
+      var drawer = document.getElementById('fenix-chat-drawer');
+      if (drawer) {
+        drawer.classList.add('open');
+        var msgArea = drawer.querySelector('.ev-chat-messages');
+        if (msgArea && FC.addVisitorMessage && FC.sendToAgent) {
+          FC.addVisitorMessage(msgArea, text);
+          FC.sendToAgent(text, msgArea);
+        }
+      }
+    }
+    chatSend.addEventListener('click', submitFreeChat);
+    chatInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); submitFreeChat(); }
+    });
+    chatRow.appendChild(chatInput);
+    chatRow.appendChild(chatSend);
+    container.appendChild(chatRow);
   }
 
   // ── Modal Management ─────────────────────────────
