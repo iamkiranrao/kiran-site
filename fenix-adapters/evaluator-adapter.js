@@ -490,7 +490,7 @@
     leftCol.appendChild(opening);
     FZ.typeText(opening, FENIX_OPENING);
 
-    leftCol.appendChild(FZ.h('div', 'fz-label', { text: 'curated for evaluators' }));
+    leftCol.appendChild(FZ.h('div', 'fz-label', { text: 'curated just for you' }));
 
     // Card container
     var cardContainer = FZ.h('div');
