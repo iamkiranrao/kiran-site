@@ -66,6 +66,28 @@
     return d.innerHTML;
   }
 
+  // ── Typewriter Effect ───────────────────────────
+  function typeText(el, text, opts) {
+    opts = opts || {};
+    var speed = opts.speed || 18;
+    var startDelay = opts.delay || 300;
+    var words = text.split(/(\s+)/);
+    var i = 0;
+    el.textContent = '';
+    el.classList.add('fz-typing');
+    setTimeout(function tick() {
+      if (i < words.length) {
+        el.textContent += words[i];
+        i++;
+        var pause = /[.!?—]$/.test(words[i - 1]) ? speed * 6 : speed;
+        setTimeout(tick, pause);
+      } else {
+        el.classList.remove('fz-typing');
+        el.classList.add('fz-typed');
+      }
+    }, startDelay);
+  }
+
   // ── Render Cards ─────────────────────────────────
   function renderCards(cards, container, persona) {
     _activeCards = cards;
@@ -468,7 +490,8 @@
     h: h,
     isModalOpen: function () { return _modalOpen; },
     getVisited: function () { return _visited; },
-    renderSimpleMarkdown: renderSimpleMarkdown
+    renderSimpleMarkdown: renderSimpleMarkdown,
+    typeText: typeText
   };
 
 })();

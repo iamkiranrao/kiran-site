@@ -188,8 +188,9 @@
     identity.appendChild(nameWrap);
     leftCol.appendChild(identity);
 
-    var opening = FZ.h('div', 'fz-opening', { html: '<p>' + FENIX_OPENING.replace(/\n\n/g, '</p><p>') + '</p>' });
+    var opening = FZ.h('div', 'fz-opening');
     leftCol.appendChild(opening);
+    FZ.typeText(opening, FENIX_OPENING);
     leftCol.appendChild(FZ.h('div', 'fz-label', { text: 'real tools, to help you break in' }));
 
     var cardContainer = FZ.h('div');
