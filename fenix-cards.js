@@ -27,6 +27,7 @@
   var _activeCards = null;
   var _activeContainer = null;
   var _modalOpen = false;
+  var _chatMessages = null;
 
   // ── SVG Icon Set ─────────────────────────────────
   var ICONS = {
@@ -143,48 +144,58 @@
     });
     container.appendChild(list);
 
-    // Free-chat input below cards
-    var chatRow = h('div', 'fz-free-chat');
-    var chatInput = h('input', 'fz-free-chat-input', {
-      type: 'text',
-      placeholder: 'Ask Fenix anything…'
+    // Inline chat area below cards (standard chat widget pattern)
+    var chatArea = h('div', 'fz-chat-area');
+
+    // Chat header — agent name + avatar + status dot
+    var chatHeader = h('div', 'fz-chat-header');
+    var chatHeaderAv = h('div', 'fz-chat-header-av');
+    chatHeaderAv.appendChild(h('img', '', { src: _logoPath, alt: 'Fenix' }));
+    chatHeader.appendChild(chatHeaderAv);
+    var chatHeaderName = h('span', 'fz-chat-header-name', { html: 'Fenix' });
+    chatHeaderName.appendChild(h('span', 'fz-chat-header-dot'));
+    chatHeader.appendChild(chatHeaderName);
+    chatArea.appendChild(chatHeader);
+
+    // Scrollable message area
+    var chatMessages = h('div', 'fz-chat-messages');
+    chatArea.appendChild(chatMessages);
+
+    // Input row — textarea + send button
+    var chatInputRow = h('div', 'fz-chat-input-row');
+    var chatInput = h('textarea', 'fz-chat-input', {
+      placeholder: 'Ask Fenix anything…',
+      rows: '1'
     });
-    var chatSend = h('button', 'fz-free-chat-send', {
+    var chatSend = h('button', 'fz-chat-send', {
       html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>'
     });
     chatSend.setAttribute('aria-label', 'Send');
+
+    // Auto-grow textarea
+    chatInput.addEventListener('input', function () {
+      chatInput.style.height = 'auto';
+      chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+    });
+
     function submitFreeChat() {
       var text = chatInput.value.trim();
       if (!text) return;
       chatInput.value = '';
-      openModal({
-        id: 'free-chat',
-        title: 'Chat with Fenix',
-        modal: {
-          kicker: 'FREE CHAT',
-          title: 'Chat with Fenix',
-          type: 'input',
-          question: null,
-          placeholder: 'Say more…',
-          thinkingLabel: 'thinking',
-          promptFn: function (v) { return v; }
-        }
-      });
-      setTimeout(function () {
-        if (_modalBody) {
-          showVisitorEcho(text);
-          showThinking('thinking');
-          callFenix(text, 'thinking', _modalBody, { id: 'free-chat' });
-        }
-      }, 100);
+      chatInput.style.height = 'auto';
+      chatMessages.classList.add('fz-chat-active');
+      addChatBubble(chatMessages, text, 'visitor');
+      streamChatReply(chatMessages, text);
     }
     chatSend.addEventListener('click', submitFreeChat);
     chatInput.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); submitFreeChat(); }
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitFreeChat(); }
     });
-    chatRow.appendChild(chatInput);
-    chatRow.appendChild(chatSend);
-    container.appendChild(chatRow);
+    chatInputRow.appendChild(chatInput);
+    chatInputRow.appendChild(chatSend);
+    chatArea.appendChild(chatInputRow);
+    container.appendChild(chatArea);
+    _chatMessages = chatMessages;
   }
 
   // ── Modal Management ─────────────────────────────
@@ -493,6 +504,121 @@
       var err = h('div', 'fz-modal-output fz-fade-in', { html: '<p>Couldn’t connect right now — try again in a moment.</p>' });
       bodyEl.appendChild(err);
       addFollowUp(card);
+    });
+  }
+
+  // ── Inline Chat Helpers ──────────────────────────
+  function addChatBubble(container, text, role) {
+    var msg = h('div', 'fz-chat-msg' + (role === 'visitor' ? ' fz-chat-msg--visitor' : ''));
+    if (role !== 'visitor') {
+      var av = h('div', 'fz-chat-msg-av');
+      av.appendChild(h('img', '', { src: _logoPath, alt: 'Fenix' }));
+      msg.appendChild(av);
+    }
+    var bubble = h('div', 'fz-chat-msg-bubble');
+    bubble.textContent = text;
+    msg.appendChild(bubble);
+    container.appendChild(msg);
+    container.scrollTop = container.scrollHeight;
+    return bubble;
+  }
+
+  function addChatThinking(container) {
+    var msg = h('div', 'fz-chat-msg');
+    var av = h('div', 'fz-chat-msg-av');
+    av.appendChild(h('img', '', { src: _logoPath, alt: 'Fenix' }));
+    msg.appendChild(av);
+    var thinking = h('div', 'fz-chat-thinking');
+    thinking.innerHTML = '<div class="fz-chat-thinking-dots"><span></span><span></span><span></span></div><div class="fz-chat-thinking-label">thinking</div>';
+    msg.appendChild(thinking);
+    container.appendChild(msg);
+    container.scrollTop = container.scrollHeight;
+    return msg;
+  }
+
+  function streamChatReply(container, text) {
+    var thinkingMsg = addChatThinking(container);
+    var fenixState = FC.fenixState;
+    var payload = {
+      messages: [{ role: 'user', content: text }],
+      visitor: fenixState.visitor,
+      explored: fenixState.explored,
+      session_id: fenixState.sessionId,
+      page_url: window.location.href,
+      user_agent: navigator.userAgent
+    };
+    var accumulated = '';
+
+    fetch(DEFAULT_AGENT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (response) {
+      if (!response.ok) throw new Error('Agent API ' + response.status);
+      var reader = response.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
+      var bubble = null;
+
+      function readStream() {
+        return reader.read().then(function (result) {
+          if (result.done) {
+            if (thinkingMsg && thinkingMsg.parentNode) thinkingMsg.remove();
+            if (bubble) {
+              bubble.classList.remove('fz-chat-streaming');
+              bubble.innerHTML = renderSimpleMarkdown(accumulated);
+            }
+            container.scrollTop = container.scrollHeight;
+            return;
+          }
+          buffer += decoder.decode(result.value, { stream: true });
+          var events = buffer.split('\n\n');
+          buffer = events.pop();
+          events.forEach(function (eventStr) {
+            if (!eventStr.trim()) return;
+            eventStr.split('\n').forEach(function (line) {
+              if (line.indexOf('data: ') !== 0) return;
+              try {
+                var data = JSON.parse(line.substring(6));
+                switch (data.type) {
+                  case 'text_start':
+                    if (thinkingMsg && thinkingMsg.parentNode) thinkingMsg.remove();
+                    var msg = h('div', 'fz-chat-msg');
+                    var av = h('div', 'fz-chat-msg-av');
+                    av.appendChild(h('img', '', { src: _logoPath, alt: 'Fenix' }));
+                    msg.appendChild(av);
+                    bubble = h('div', 'fz-chat-msg-bubble fz-chat-streaming');
+                    msg.appendChild(bubble);
+                    container.appendChild(msg);
+                    accumulated = '';
+                    break;
+                  case 'text_delta':
+                    if (data.content) {
+                      accumulated += data.content;
+                      if (bubble) bubble.textContent = accumulated;
+                      container.scrollTop = container.scrollHeight;
+                    }
+                    break;
+                  case 'text_end':
+                    if (bubble) {
+                      bubble.classList.remove('fz-chat-streaming');
+                      bubble.innerHTML = renderSimpleMarkdown(accumulated);
+                    }
+                    break;
+                  case 'session':
+                    if (data.session_id) fenixState.sessionId = data.session_id;
+                    break;
+                }
+              } catch (e) { /* ignore parse errors */ }
+            });
+          });
+          return readStream();
+        });
+      }
+      return readStream();
+    }).catch(function () {
+      if (thinkingMsg && thinkingMsg.parentNode) thinkingMsg.remove();
+      addChatBubble(container, "Couldn't connect right now — try again in a moment.", 'fenix');
     });
   }
 
