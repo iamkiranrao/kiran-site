@@ -507,11 +507,11 @@
   function getEvaluatorCards() {
     return [
       {
-        id: 'resume', title: 'Kiran\'s Resume, Focused on Your Role',
-        tag: 'explore', tagType: 'tool', icon: 'crosshair',
-        hook: 'Same experience, different emphasis. Pick the lens that fits your search.',
-        cta: '→ Choose your lens',
-        modal: { type: 'render', kicker: 'RESUME', title: 'Choose Your Lens', render: renderResumeLensModal }
+        id: 'fit', title: 'See How Kiran Fits Your Role',
+        tag: 'try it', tagType: 'tool', icon: 'target',
+        hook: 'Paste a job description — or just describe what you\'re looking for. Fenix maps Kiran\'s experience to it in real time.',
+        cta: '→ Paste your role',
+        modal: { type: 'render', kicker: 'FIT ANALYSIS', title: 'See How Kiran Fits Your Role', render: renderFitAnalysisModal }
       },
       {
         id: 'questions', title: 'What Recruiters Never Ask',
@@ -526,64 +526,224 @@
         hook: 'AI-generated motivational posters, funnier than anything HR has approved.',
         cta: '→ Fix office morale',
         modal: { type: 'render', kicker: 'FOR YOU', title: 'Motivational Poster', render: renderPosterModal }
-      },
-      {
-        id: 'fit-narrative', title: 'What Differentiates Kiran for Your Role',
-        tag: fenixState.visitor.connected ? 'unlocked' : 'connect to unlock', tagType: 'gated', icon: 'target',
-        hook: 'Paste a JD and I\'ll show you where Kiran\'s work lines up.',
-        cta: fenixState.visitor.connected ? '→ Paste your JD' : '→ Connect to get started',
-        locked: !fenixState.visitor.connected,
-        modal: { type: 'render', kicker: 'FIT ANALYSIS', title: 'What Differentiates Kiran', render: renderConnectModal }
       }
     ];
   }
 
   // ── Modal render callbacks ──
 
-  function renderResumeLensModal(body) {
+  // ── Fit Analysis prompt — instructs the agent to produce structured output ──
+  var FIT_ANALYSIS_PROMPT = 'The visitor has pasted a job description or role description. Analyze it against Kiran\'s full experience and produce a structured fit analysis.\n\nFormat your response EXACTLY like this, using these headers:\n\n**Role Match**\n2-3 sentences on overall fit.\n\n**Experience Map**\nFor each key requirement in the JD, map it to specific evidence from Kiran\'s career. Use this format:\n- **[Requirement]** → [Specific project/result/metric]\nInclude 4-6 of these.\n\n**What a Resume Won\'t Show You**\n1-2 things from Kiran\'s experience that are deeply relevant but wouldn\'t appear on a standard resume.\n\n**Honest Gaps**\nIf there are areas where Kiran\'s experience is adjacent rather than exact, name them and explain the bridge. If the fit is strong across the board, say so briefly — but never claim 100% on everything.\n\n**Questions Worth Asking Kiran**\n3 interview questions tailored to this specific role that would surface the most relevant evidence from Kiran\'s experience. Make them specific, not generic.\n\nThe JD/role:\n\n';
+
+  function renderFitAnalysisModal(body, card, utils) {
     body.appendChild(el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> Kiran\'s resume comes in three flavors. Same experience, different emphasis. Which one fits your search?'
+      html: '<em>Fenix:</em> Paste a job description, or just tell me what you\'re looking for — even a few words work.'
     }));
-    var lensContainer = el('div', 'ev-lens-cards-container');
-    var lenses = [
-      { id: 'ai', title: 'AI Product Leader', desc: 'Fenix, Fargo AI scaling (4.1M→27.5M), Avatour AI agents, AI strategy' },
-      { id: 'growth', title: 'Growth & Experimentation', desc: 'Mobile 18M→32M, A/B testing, adoption metrics, data-driven product' },
-      { id: 'mobile', title: 'Mobile & Consumer Product', desc: 'Mobile-first at scale, consumer UX, cross-industry product leadership' }
-    ];
-    var RESUME_PDF_MAP = { 'ai': 'template_previews/PM_1Pager_AI.pdf', 'growth': 'template_previews/PM_1Pager_Growth.pdf', 'mobile': 'template_previews/PM_1Pager_Mobile.pdf' };
-    var selectedLensId = null;
-    var selectedLensName = null;
-    var footer = el('div', 'ev-lens-footer');
-    var previewText = el('div', 'ev-preview-text');
-    var downloadBtn = el('button', 'ev-btn-primary', { text: 'Download PDF' });
-    downloadBtn.addEventListener('click', function () {
-      if (!selectedLensId || !RESUME_PDF_MAP[selectedLensId]) return;
-      var link = document.createElement('a');
-      link.href = RESUME_PDF_MAP[selectedLensId];
-      link.download = 'Kiran_Rao_Resume_' + selectedLensName.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf';
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      fenixState.explored.resumeLensSelected = selectedLensId;
-      FC.saveFenixState();
+
+    var inputWrap = el('div', 'ev-fit-input-wrap');
+    var textarea = el('textarea', 'ev-fit-textarea', {
+      placeholder: 'Paste a job description, or try something like "VP Product, AI-first B2B SaaS"…',
+      rows: '6'
     });
-    append(footer, [previewText, downloadBtn]);
-    lenses.forEach(function (lens) {
-      var card = el('div', 'ev-lens-card', { 'data-lens': lens.id });
-      card.appendChild(el('div', 'ev-lens-title', { text: lens.title }));
-      card.appendChild(el('div', 'ev-lens-desc', { text: lens.desc }));
-      card.addEventListener('click', function () {
-        lensContainer.querySelectorAll('.ev-lens-card').forEach(function (c) { c.classList.remove('ev-selected'); });
-        card.classList.add('ev-selected');
-        selectedLensId = lens.id;
-        selectedLensName = lens.title;
-        previewText.innerHTML = '<strong>' + lens.title + '</strong> resume ready<br><small>PDF · ATS-compatible · 1 page</small>';
-        footer.classList.add('ev-active');
+    var submitBtn = el('button', 'ev-btn-primary ev-fit-submit', { text: 'Analyze fit' });
+    inputWrap.appendChild(textarea);
+    inputWrap.appendChild(submitBtn);
+    body.appendChild(inputWrap);
+
+    var resultArea = el('div', 'ev-fit-results');
+    body.appendChild(resultArea);
+
+    var _lastAnalysis = '';
+
+    function runAnalysis() {
+      var jdText = textarea.value.trim();
+      if (!jdText) return;
+
+      inputWrap.classList.add('ev-fit-submitted');
+      textarea.disabled = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Analyzing…';
+      resultArea.innerHTML = '';
+      _lastAnalysis = '';
+
+      var prompt = FIT_ANALYSIS_PROMPT + jdText;
+      var thinkingEl = el('div', 'ev-fit-thinking');
+      thinkingEl.innerHTML = '<div class="fz-modal-thinking-dots"><span></span><span></span><span></span></div><div class="fz-modal-thinking-label">Reading the role and mapping Kiran\'s experience…</div>';
+      resultArea.appendChild(thinkingEl);
+
+      var payload = {
+        messages: [{ role: 'user', content: prompt }],
+        visitor: fenixState.visitor,
+        explored: fenixState.explored,
+        session_id: fenixState.sessionId,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent
+      };
+
+      var accumulated = '';
+      var streamEl = null;
+
+      fetch('https://api.kiranrao.ai/api/v1/fenix/agent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (response) {
+        if (!response.ok) throw new Error('Agent API ' + response.status);
+        var reader = response.body.getReader();
+        var decoder = new TextDecoder();
+        var buffer = '';
+
+        function readStream() {
+          return reader.read().then(function (result) {
+            if (result.done) {
+              if (thinkingEl.parentNode) thinkingEl.remove();
+              if (streamEl) {
+                streamEl.classList.remove('fz-modal-streaming');
+                streamEl.innerHTML = window.FenixCards.renderSimpleMarkdown(accumulated);
+              }
+              _lastAnalysis = accumulated;
+              showFitActions();
+              body.scrollTop = body.scrollHeight;
+              return;
+            }
+            buffer += decoder.decode(result.value, { stream: true });
+            var events = buffer.split('\n\n');
+            buffer = events.pop();
+            events.forEach(function (eventStr) {
+              if (!eventStr.trim()) return;
+              eventStr.split('\n').forEach(function (line) {
+                if (line.indexOf('data: ') !== 0) return;
+                try {
+                  var data = JSON.parse(line.substring(6));
+                  switch (data.type) {
+                    case 'text_start':
+                      if (thinkingEl.parentNode) thinkingEl.remove();
+                      streamEl = el('div', 'fz-modal-output fz-modal-streaming fz-fade-in ev-fit-output');
+                      resultArea.appendChild(streamEl);
+                      accumulated = '';
+                      break;
+                    case 'text_delta':
+                      if (data.content) {
+                        accumulated += data.content;
+                        if (streamEl) streamEl.textContent = accumulated;
+                        body.scrollTop = body.scrollHeight;
+                      }
+                      break;
+                    case 'text_end':
+                      if (streamEl) {
+                        streamEl.classList.remove('fz-modal-streaming');
+                        streamEl.innerHTML = window.FenixCards.renderSimpleMarkdown(accumulated);
+                      }
+                      break;
+                    case 'session':
+                      if (data.session_id) fenixState.sessionId = data.session_id;
+                      break;
+                  }
+                } catch (e) { /* ignore */ }
+              });
+            });
+            return readStream();
+          });
+        }
+        return readStream();
+      }).catch(function () {
+        if (thinkingEl.parentNode) thinkingEl.remove();
+        resultArea.appendChild(el('div', 'fz-modal-output fz-fade-in', {
+          html: '<p>Couldn\'t connect right now — try again in a moment.</p>'
+        }));
+        resetInput();
       });
-      lensContainer.appendChild(card);
+    }
+
+    function resetInput() {
+      textarea.disabled = false;
+      textarea.value = '';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Analyze fit';
+      inputWrap.classList.remove('ev-fit-submitted');
+    }
+
+    function showFitActions() {
+      var actions = el('div', 'ev-fit-actions fz-fade-in');
+
+      var tryAnother = el('button', 'ev-btn-secondary', { text: '↻ Try another role' });
+      tryAnother.addEventListener('click', function () {
+        resultArea.innerHTML = '';
+        resetInput();
+        textarea.focus();
+      });
+      actions.appendChild(tryAnother);
+
+      var copyBtn = el('button', 'ev-btn-secondary', { text: '📋 Copy to clipboard' });
+      copyBtn.addEventListener('click', function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(_lastAnalysis).then(function () {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(function () { copyBtn.textContent = '📋 Copy to clipboard'; }, 2000);
+          });
+        }
+      });
+      actions.appendChild(copyBtn);
+
+      var downloadBtn = el('button', 'ev-btn-secondary', { text: '⬇ Download as text' });
+      downloadBtn.addEventListener('click', function () {
+        var blob = new Blob([_lastAnalysis], { type: 'text/plain' });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Kiran_Rao_Fit_Analysis.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+      actions.appendChild(downloadBtn);
+
+      resultArea.appendChild(actions);
+
+      // Soft connect ask — only if not already connected
+      if (!fenixState.visitor.connected) {
+        var connectNudge = el('div', 'ev-fit-connect-nudge fz-fade-in');
+        connectNudge.appendChild(el('div', 'ev-fit-connect-text', {
+          text: 'Want me to send this to your inbox?'
+        }));
+        var nudgeForm = el('form', 'ev-fit-connect-form');
+        nudgeForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var formData = new FormData(nudgeForm);
+          var name = (formData.get('name') || '').trim();
+          var email = (formData.get('email') || '').trim();
+          if (!name || !email) return;
+          var parts = name.split(/\s+/);
+          FC.connectVisitor({
+            first_name: parts[0],
+            last_name: parts.slice(1).join(' ') || '',
+            email: email,
+            source: 'fit-analysis'
+          });
+          connectNudge.innerHTML = '';
+          connectNudge.appendChild(el('div', 'ev-fit-connect-thanks', {
+            text: 'Sent. Nice to meet you, ' + parts[0] + '.'
+          }));
+          applyConnectedState();
+        });
+        var nameInput = el('input', 'ev-form-input', { type: 'text', name: 'name', placeholder: 'Your name', required: 'true' });
+        var emailInput = el('input', 'ev-form-input', { type: 'email', name: 'email', placeholder: 'Email', required: 'true' });
+        var sendBtn = el('button', 'ev-btn-primary', { type: 'submit', text: 'Send it' });
+        nudgeForm.appendChild(nameInput);
+        nudgeForm.appendChild(emailInput);
+        nudgeForm.appendChild(sendBtn);
+        connectNudge.appendChild(nudgeForm);
+        resultArea.appendChild(connectNudge);
+      }
+
+      body.scrollTop = body.scrollHeight;
+    }
+
+    submitBtn.addEventListener('click', runAnalysis);
+    textarea.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); runAnalysis(); }
     });
-    append(body, [lensContainer, footer]);
+
+    setTimeout(function () { textarea.focus(); }, 350);
   }
 
   function renderQuestionsModal(body) {
@@ -697,44 +857,7 @@
     });
   }
 
-  function renderConnectModal(body) {
-    if (!fenixState.visitor.connected) {
-      body.appendChild(el('div', 'ev-panel-heading', {
-        html: '<em>Fenix:</em> Give me a job description and I\'ll show you how Kiran\'s experience maps to it. Since this is personalized, I\'ll need to know who I\'m putting this together for.<br><br>Two ways to do that:'
-      }));
-      var paths = el('div', 'ev-connect-paths');
-      var linkedinCard = el('div', 'ev-connect-path-card ev-linkedin');
-      linkedinCard.appendChild(el('div', 'ev-path-icon', { text: 'in' }));
-      linkedinCard.appendChild(el('div', 'ev-path-title', { text: 'Connect with LinkedIn' }));
-      linkedinCard.appendChild(el('div', 'ev-path-subtitle', { text: 'Instant access, one click' }));
-      linkedinCard.addEventListener('click', function () { startLinkedInConnect(); });
-      paths.appendChild(linkedinCard);
-      var manualCard = el('div', 'ev-connect-path-card');
-      manualCard.appendChild(el('div', 'ev-path-icon', { html: '<span style="color:var(--ev-accent);">✎</span>' }));
-      manualCard.appendChild(el('div', 'ev-path-title', { text: 'Introduce yourself' }));
-      manualCard.appendChild(el('div', 'ev-path-subtitle', { text: 'First name, last name, company, that\'s it' }));
-      var form = el('form', 'ev-connect-form');
-      form.addEventListener('submit', function (e) { e.preventDefault(); handleConnectSubmit(form); });
-      var nameRow = el('div', 'ev-form-row');
-      nameRow.appendChild(el('input', 'ev-form-input ev-form-half', { type: 'text', name: 'first_name', placeholder: 'First name', required: 'true' }));
-      nameRow.appendChild(el('input', 'ev-form-input ev-form-half', { type: 'text', name: 'last_name', placeholder: 'Last name', required: 'true' }));
-      form.appendChild(nameRow);
-      form.appendChild(el('input', 'ev-form-input', { type: 'text', name: 'company', placeholder: 'Company', required: 'true' }));
-      form.appendChild(el('input', 'ev-form-input', { type: 'email', name: 'email', placeholder: 'Email (optional)' }));
-      form.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Let\'s go' }));
-      manualCard.appendChild(form);
-      paths.appendChild(manualCard);
-      body.appendChild(paths);
-    } else {
-      var firstName = (fenixState.visitor.name || 'there').split(' ')[0];
-      body.appendChild(el('p', 'ev-jd-greeting', { text: 'Welcome, ' + firstName + '. Paste the job description and I\'ll map Kiran\'s experience to it.' }));
-      var form2 = el('form', 'ev-jd-form');
-      form2.addEventListener('submit', function (e) { e.preventDefault(); handleJDSubmit(form2); });
-      form2.appendChild(el('textarea', 'ev-jd-input', { placeholder: 'Paste the full job description here...' }));
-      form2.appendChild(el('button', 'ev-btn-primary', { type: 'submit', text: 'Show me' }));
-      body.appendChild(form2);
-    }
-  }
+  // renderConnectModal removed — replaced by renderFitAnalysisModal
 
 
   // ════════════════════════════════════════════════════

@@ -31,10 +31,9 @@
   var _lastModalCard = null;
 
   var WELCOME_BACK = {
-    'resume': "Hope you found the right lens. Want to dig deeper into any of those, or try something else?",
+    'fit': "Hope that gave you a clear picture. Want to try another role, or explore something else?",
     'questions': "Those are the real answers — no rehearsal. Anything else you want to explore?",
     'poster': "Hope that brightened the office. What's next?",
-    'fit-narrative': "That's a start — the full narrative goes deeper. What else can I help with?",
     'buildstory': "That's how it got built — judgment on one side, AI on the other. What's next?",
     'judgment': "Every call has a tradeoff. Want to challenge another, or explore something else?",
     'problem': "Good problems deserve good thinking. What else?",
