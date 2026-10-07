@@ -28,6 +28,18 @@
   var _activeContainer = null;
   var _modalOpen = false;
   var _chatMessages = null;
+  var _lastModalCard = null;
+
+  var WELCOME_BACK = {
+    'resume': "Hope you found the right lens. Want to dig deeper into any of those, or try something else?",
+    'questions': "Those are the real answers — no rehearsal. Anything else you want to explore?",
+    'poster': "Hope that brightened the office. What's next?",
+    'fit-narrative': "That's a start — the full narrative goes deeper. What else can I help with?",
+    'buildstory': "That's how it got built — judgment on one side, AI on the other. What's next?",
+    'judgment': "Every call has a tradeoff. Want to challenge another, or explore something else?",
+    'problem': "Good problems deserve good thinking. What else?",
+    'roast': "Had to be honest — Kiran asked for it. What's next?"
+  };
 
   // ── SVG Icon Set ─────────────────────────────────
   var ICONS = {
@@ -275,6 +287,7 @@
       showInput(m, card);
     }
 
+    _lastModalCard = card;
     _overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
     _modalOpen = true;
@@ -282,11 +295,18 @@
 
   function closeModal() {
     if (!_overlay) return;
+    var closedCard = _lastModalCard;
     _overlay.classList.remove('open');
     document.body.style.overflow = '';
     _modalOpen = false;
+    _lastModalCard = null;
     if (_activeCards && _activeContainer) {
       renderCards(_activeCards, _activeContainer, _activePersona);
+    }
+    if (closedCard && _chatMessages) {
+      var msg = WELCOME_BACK[closedCard.id] || "Welcome back. What would you like to explore next?";
+      _chatMessages.classList.add('fz-chat-active');
+      addChatBubble(_chatMessages, msg, 'fenix');
     }
   }
 
