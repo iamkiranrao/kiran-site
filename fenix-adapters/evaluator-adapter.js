@@ -140,38 +140,44 @@
       });
   }
 
-  var RECRUITER_LEAD_IN = "These questions aren't mine. They're the ones smart hiring leaders use to find the people a resume hides: Satya Nadella, Brian Chesky, the Collisons, Patty McCord. Each of them built a reputation partly on the principle that the standard interview misses what matters. Here are five they'd ask. Here are Kiran's answers.";
+  var RECRUITER_LEAD_IN = "These questions aren't mine. They come from leaders and thinkers known for finding the people a resume hides: Peter Thiel, Elon Musk, Jeff Bezos, Warren Buffett, Richard Branson, Brian Chesky, and others. The standard interview misses what matters. Here's what they'd ask. Here are Kiran's answers.";
 
   var RECRUITER_QUESTIONS = [
     {
-      q: '"Tell me the story of you, but you can\'t say anything on your resume."',
-      leader: 'Patty McCord',
-      anecdote: "Patty McCord, who built Netflix's culture, said if you ask stock questions, you'll get stock answers. The interview that finds the right person is the one that bypasses what's already on the resume.",
-      a: "I was born and raised in Dubai. My father was a mechanical engineer at an oil company, but the engineering didn't stop when he came home. He'd fabricate an aquarium one weekend, build an aviary the next, fix his friends' cars on the side. In our house the line between work and play blurred. I got my first computer at seven and have been in love with technology ever since, assembling my own machines and writing a tiny text-to-speech program before I knew what 'shipping' meant. I think I picked up the love for building just from watching him do it. Always from scratch, never out of a box."
+      q: '"What important truth do very few people agree with you on?"',
+      leader: 'Peter Thiel',
+      anecdote: "Peter Thiel opens Zero to One with this question. He uses it to filter for independent thinkers. Most people give a safe answer disguised as a brave one. Thiel wants a belief you've actually lived, not just theorized.",
+      a: "The fastest way to kill an idea is to show it to an executive before it can defend itself.\n\nWhen generative AI hit, every company did the same thing. Bring us your use cases. Show and tell for leadership. I watched idea after idea die in those meetings. Not because they were bad but because they were early. A half-formed concept on a slide is just a target. Execs are paid to manage risk, not nurture potential. They'll ask \"what's the ROI\" before the thing has drawn its first breath.\n\nI had an idea to redesign an entire org process end-to-end with AI. I didn't pitch it. I built rough prototypes on Claude, found an offshore team with some capacity, and quietly built a version where the value was obvious. By the time leadership saw it, it wasn't an idea anymore. It was a working demo. Ideas need shelter before they need approval."
     },
     {
-      q: '"When was the last time you changed your mind about something important?"',
-      leader: 'Satya Nadella',
-      anecdote: "Satya Nadella inherited a Microsoft culture he believed was losing. His wife handed him Carol Dweck's Mindset. He shifted the entire company from 'know-it-all' to 'learn-it-all'. Tenured executives resisted. The market cap went from $300B to $2.5T.",
-      a: "I was always drawn to Silicon Valley. I saw it as the cradle of innovation: coolest companies, coolest products, impact that left the world in awe. I chased every wave. dot-com, mobile, cloud, AI. Then I spent two years at First Republic Bank leading the most transformative product roadmap in the company's history. The month we were supposed to launch, the banking crisis hit. First Republic collapsed, and with it everything 100 people and I had built. The technology is gone. The roadmap is in someone's archive. But the people from that team are still the closest collaborators I have. That's when I knew I was never in the technology business. I'm in the people business."
+      q: '"Tell me about the hardest problem you\'ve ever solved."',
+      leader: 'Elon Musk',
+      anecdote: "Musk asks this and then follows up with \"tell me more\" to see if the detail holds up. He's testing whether you actually solved it yourself or managed from a distance.",
+      a: "After the Wachovia merger, Wells Fargo's digital was a mess. Multiple code bases, separate teams for each platform, no shared foundation. The obvious move was to ship a native mobile app and catch up. I made a different call. Ship a webview first, then build a unified architecture underneath.\n\nThe hardest part wasn't picking the direction. It was getting three platform teams to converge on one API layer. Each team had their own services, their own release cycles, their own opinions about how things should work. Nobody wanted to give up their stack. You can't solve that with a memo or an architecture diagram. I spent months in rooms with engineers who disagreed with each other and with me, working through contracts and conventions one decision at a time.\n\nThe UI has been rebuilt three times since. The architecture underneath it still powers everything they build today."
+    },
+    {
+      q: '"Tell me about something you\'ve invented."',
+      leader: 'Jeff Bezos',
+      anecdote: "Bezos looks for builders who create things from scratch when nobody asks them to. He's said inventors are always uncomfortable with the status quo.",
+      a: "Resumes are broken. They flatten you into bullet points. A recruiter scans one for six seconds and decides if you're worth a call.\n\nSo I built this site. Not a portfolio with screenshots and case studies. An AI agent named Fenix that holds conversations and adapts to whoever is visiting. Recruiters see one version, product peers see another, engineers see another. I designed the persona system, built the conversation flows, wrote the backend. Every component, shipped on weekends over the past year.\n\nA resume couldn't have introduced me the way this thing can. So I stopped waiting for the resume to work and built something that could."
+    },
+    {
+      q: '"Who do you admire most and why?"',
+      leader: 'Warren Buffett',
+      anecdote: "Buffett says the qualities you admire in others are the ones you're choosing to develop in yourself. He's listening for values, not name-dropping.",
+      a: "David Attenborough. Not the obvious answer from a product person, but hear me out.\n\nHe's spent 70 years doing the same thing and never got bored. He didn't pivot. He just kept going deeper. He explains ecosystems in a way that a five-year-old and a scientist both walk away feeling like they learned something. And he changed how an entire generation thinks about the natural world without a title, without authority, without legislation. Just by showing up and telling stories clearly.\n\nWhen I look back at my own career, the common thread has always been solving a human problem in a way that makes a tangible difference. Attenborough does that better than anyone I've seen. He just does it with coral reefs instead of software."
+    },
+    {
+      q: '"What didn\'t you get a chance to include on your resume?"',
+      leader: 'Richard Branson',
+      anecdote: "Branson cares less about credentials and more about character. He wants to see the person behind the professional summary.",
+      a: "Resumes tell you what someone did. They never say how they did it. The how, for me, has always been the team.\n\nI've shaped teams that are consistently high achieving, and not because I stacked them with senior people or ran tight sprints. They worked because people genuinely enjoyed being in the room together. They enjoyed unravelling the problem. When you get that right, you don't have to manage performance. People hold each other to a higher standard than you ever could because they don't want to let each other down.\n\nMy best teams weren't the ones with the most experience. They were the ones that called each other on weekends to talk through an idea nobody asked them to work on."
     },
     {
       q: '"Tell me about a value you defended, even when it cost you something."',
       leader: 'Brian Chesky',
       anecdote: "After a guest vandalized a host's property and #RIPAirbnb trended, advisors told Brian Chesky not to take responsibility. He published a public apology and the Airbnb Guarantee anyway. He later said: 'That was the moment I really became a CEO.'",
       a: "I'd just joined a new team when the employee satisfaction scores came out. Three layers of management above us had the worst scores in the entire company. Instead of acting on the feedback, leadership started pressuring managers to coach their directs into answering differently. Some of those managers were trying to decipher who had said what in an anonymous survey. I was new, performing well, had no personal grievance. I'd never gone to HR in my career. I did this time. They told me I'd done the right thing and there'd be no blowback. Three months later my name was on the layoff list. It cost me."
-    },
-    {
-      q: '"Have you ever made a decision you knew would be unpopular?"',
-      leader: 'The Collisons',
-      anecdote: "In 2022, Stripe's Patrick and John Collison publicly acknowledged they'd over-hired and mispredicted the post-pandemic market. They cut 14% of staff and reset the roadmap. Unpopular with investors and employees. They did it because the data said the old plan was wrong.",
-      a: "After the Wachovia merger, Wells Fargo's digital was a mess. Multiple code bases, separate teams for each platform, no shared foundation. When the company finally turned focus back to digital, the obvious move was to ship a native mobile app and catch up to the competition. I made the call to ship a webview instead. I knew it would be unpopular. Native was what everyone wanted. But if we didn't rebuild the backend into a unified platform first, every front-end we shipped would just compound the mess. I shipped the webview, then built the unified architecture underneath it. We called it Secure Session Enhanced Platform. One set of services powering mobile, web, and public site instead of three separate code bases. When new leadership came in after the sales scandals, they looked at the webview and concluded the team didn't know what we were doing. That stuck. The UI has been rebuilt three times since. The architecture I shipped underneath it still powers everything they ship today."
-    },
-    {
-      q: '"What haven\'t I asked you that I should have?"',
-      leader: null,
-      anecdote: "The smartest candidates use this question to surface what the interview missed. Most people punt. The ones who don't are the ones worth hiring.",
-      a: "You asked what I've done. You didn't ask how, or what I'm doing now. The how: some of my closest friends today are people who worked for me, or who I worked for, decades ago. I meet monthly with a cohort I first met 20 years ago. I've been a groomsman at a coworker's wedding. I make relationships that last and I build cultures where people thrive. The what-now: I built this site on weekends over the last year. Fenix, the agent you've been talking to. Every panel, every conversation flow. A resume couldn't have introduced me the way this artifact can. That's why it exists."
     }
   ];
 
@@ -747,10 +753,12 @@
   }
 
   var LEADER_AVATARS = {
-    'Patty McCord': { initials: 'PM', company: 'Netflix', color: '#E50914' },
-    'Satya Nadella': { initials: 'SN', company: 'Microsoft', color: '#00A4EF' },
-    'Brian Chesky': { initials: 'BC', company: 'Airbnb', color: '#FF5A5F' },
-    'The Collisons': { initials: 'P&J', company: 'Stripe', color: '#635BFF' }
+    'Peter Thiel': { initials: 'PT', company: 'PayPal / Founders Fund', color: '#003087' },
+    'Elon Musk': { initials: 'EM', company: 'Tesla / SpaceX', color: '#E82127' },
+    'Jeff Bezos': { initials: 'JB', company: 'Amazon', color: '#FF9900' },
+    'Warren Buffett': { initials: 'WB', company: 'Berkshire Hathaway', color: '#2E1A47' },
+    'Richard Branson': { initials: 'RB', company: 'Virgin', color: '#ED1C24' },
+    'Brian Chesky': { initials: 'BC', company: 'Airbnb', color: '#FF5A5F' }
   };
 
   function renderQuestionsModal(body) {
