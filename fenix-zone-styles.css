@@ -89,6 +89,9 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
 }
+.fz-cards .fz-card:first-child {
+  grid-column: 1 / -1;
+}
 
 /* ── Individual card ── */
 .fz-card {
