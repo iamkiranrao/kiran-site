@@ -211,7 +211,7 @@
 .fz-modal-overlay {
   position: fixed; inset: 0; z-index: 2000;
   background: rgba(0, 0, 0, 0.7);
-  display: flex; align-items: flex-end; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
 }
 .fz-modal-overlay.open { opacity: 1; pointer-events: auto; }
@@ -219,12 +219,12 @@
 .fz-modal-sheet {
   width: 100%; max-width: 960px;
   max-height: 85vh; min-height: 280px;
-  background: var(--bg-primary); border: 1px solid var(--border); border-bottom: none;
-  display: flex; flex-direction: column;
-  transform: translateY(100%);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--bg-primary); border: 1px solid var(--border);
+  border-radius: 12px; display: flex; flex-direction: column;
+  transform: translateY(30px); opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
-.fz-modal-overlay.open .fz-modal-sheet { transform: translateY(0); }
+.fz-modal-overlay.open .fz-modal-sheet { transform: translateY(0); opacity: 1; }
 
 .fz-modal-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -572,4 +572,80 @@
 .ev-fit-connect-thanks {
   font-family: 'Newsreader', serif; font-size: 0.95rem;
   color: var(--persona-accent, #C9A87C);
+}
+
+/* ── Questions: Leader Picker + Chat ── */
+.ev-leader-picker {
+  display: flex; gap: 0.75rem; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 1.5rem;
+}
+.ev-leader-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  padding: 0.85rem 1rem; min-width: 100px;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; cursor: pointer; transition: all 0.2s;
+  color: var(--text-secondary, #a8a29e); font-family: inherit;
+}
+.ev-leader-card:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
+.ev-leader-card.ev-leader-active {
+  border-color: var(--persona-accent, #C9A87C);
+  background: rgba(var(--persona-accent-rgb, 201,168,124), 0.08);
+}
+.ev-leader-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 600; font-size: 0.85rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.ev-leader-name {
+  font-size: 0.8rem; font-weight: 500; color: var(--text-primary, #f5f0eb);
+  text-align: center;
+}
+.ev-leader-company {
+  font-size: 0.7rem; color: var(--text-muted, #6a6560);
+  font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* Chat area */
+.ev-q-chat-area {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+}
+.ev-q-chat-area.ev-q-chat-visible {
+  max-height: 600px; overflow-y: auto;
+}
+.ev-q-context {
+  font-size: 0.8rem; color: var(--text-muted, #6a6560);
+  font-style: italic; line-height: 1.5;
+  padding: 0.75rem 1rem; margin-bottom: 1rem;
+  border-left: 2px solid rgba(255,255,255,0.08);
+}
+.ev-q-msg {
+  display: flex; gap: 0.75rem; margin-bottom: 1rem;
+  animation: fzFadeIn 0.3s ease forwards;
+}
+.ev-q-msg--fenix { animation-delay: 0.4s; }
+.ev-q-msg-av {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 600; font-size: 0.7rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.ev-q-fenix-av {
+  background: transparent; overflow: hidden;
+}
+.ev-q-fenix-av img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.ev-q-msg-bubble {
+  padding: 0.85rem 1rem; border-radius: 12px;
+  line-height: 1.6; max-width: 85%;
+}
+.ev-q-msg--leader .ev-q-msg-bubble {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-primary, #f5f0eb);
+  font-size: 0.95rem; font-weight: 500;
+  font-style: italic;
+}
+.ev-q-fenix-bubble {
+  background: rgba(var(--persona-accent-rgb, 201,168,124), 0.08);
+  color: var(--text-primary, #f5f0eb);
+  font-family: 'Newsreader', serif; font-size: 0.9rem;
 }

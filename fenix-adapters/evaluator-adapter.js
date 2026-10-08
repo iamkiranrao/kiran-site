@@ -746,37 +746,97 @@
     setTimeout(function () { textarea.focus(); }, 350);
   }
 
+  var LEADER_AVATARS = {
+    'Patty McCord': { initials: 'PM', company: 'Netflix', color: '#E50914' },
+    'Satya Nadella': { initials: 'SN', company: 'Microsoft', color: '#00A4EF' },
+    'Brian Chesky': { initials: 'BC', company: 'Airbnb', color: '#FF5A5F' },
+    'The Collisons': { initials: 'P&J', company: 'Stripe', color: '#635BFF' }
+  };
+
   function renderQuestionsModal(body) {
     body.appendChild(el('div', 'ev-panel-heading', {
-      html: '<em>Fenix:</em> ' + RECRUITER_LEAD_IN
+      html: '<em>Fenix:</em> These aren\'t stock interview questions. Pick a leader and see what they\'d ask — and how Kiran answers.'
     }));
-    var container = el('div', 'ev-questions-container ev-accordion');
+
+    // Leader picker grid
+    var picker = el('div', 'ev-leader-picker');
+    var chatArea = el('div', 'ev-q-chat-area');
+    var selectedIdx = -1;
+
     RECRUITER_QUESTIONS.forEach(function (qa, idx) {
-      var item = el('div', 'ev-accordion-item');
-      var header = el('button', 'ev-accordion-header');
-      header.setAttribute('type', 'button');
-      header.setAttribute('aria-expanded', 'false');
-      var headerLeft = el('div', 'ev-accordion-header-left');
-      headerLeft.appendChild(el('span', 'ev-accordion-chevron', {
-        html: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>'
-      }));
-      headerLeft.appendChild(el('span', 'ev-accordion-question', { text: qa.q }));
-      header.appendChild(headerLeft);
-      if (qa.leader) header.appendChild(el('span', 'ev-accordion-leader', { text: qa.leader }));
-      item.appendChild(header);
-      var qBody = el('div', 'ev-accordion-body');
-      var bodyInner = el('div', 'ev-accordion-body-inner');
-      if (qa.anecdote) bodyInner.appendChild(el('div', 'ev-question-anecdote', { text: qa.anecdote }));
-      bodyInner.appendChild(el('div', 'ev-question-answer', { text: qa.a }));
-      qBody.appendChild(bodyInner);
-      item.appendChild(qBody);
-      header.addEventListener('click', function () {
-        var isOpen = item.classList.toggle('ev-open');
-        header.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      var leader = qa.leader || 'You';
+      var info = LEADER_AVATARS[leader] || { initials: '?', company: '', color: '#C9A87C' };
+
+      var card = el('button', 'ev-leader-card');
+      card.setAttribute('type', 'button');
+
+      var avatar = el('div', 'ev-leader-avatar');
+      avatar.style.background = info.color;
+      avatar.textContent = info.initials;
+      card.appendChild(avatar);
+
+      card.appendChild(el('div', 'ev-leader-name', { text: leader }));
+      if (info.company) card.appendChild(el('div', 'ev-leader-company', { text: info.company }));
+
+      card.addEventListener('click', function () {
+        picker.querySelectorAll('.ev-leader-card').forEach(function (c) { c.classList.remove('ev-leader-active'); });
+        card.classList.add('ev-leader-active');
+        showQAChat(chatArea, qa, idx);
       });
-      container.appendChild(item);
+
+      picker.appendChild(card);
     });
-    body.appendChild(container);
+
+    body.appendChild(picker);
+    body.appendChild(chatArea);
+  }
+
+  function showQAChat(container, qa, idx) {
+    container.innerHTML = '';
+    container.classList.add('ev-q-chat-visible');
+
+    var leader = qa.leader || 'You';
+    var info = LEADER_AVATARS[leader] || { initials: '?', company: '', color: '#C9A87C' };
+
+    // Anecdote as context
+    if (qa.anecdote) {
+      var context = el('div', 'ev-q-context', { text: qa.anecdote });
+      container.appendChild(context);
+    }
+
+    // Leader's question — left-aligned with avatar
+    var qMsg = el('div', 'ev-q-msg ev-q-msg--leader');
+    var qAv = el('div', 'ev-q-msg-av');
+    qAv.style.background = info.color;
+    qAv.textContent = info.initials;
+    qMsg.appendChild(qAv);
+    var qBubble = el('div', 'ev-q-msg-bubble', { text: qa.q });
+    qMsg.appendChild(qBubble);
+    container.appendChild(qMsg);
+
+    // Fenix answer — right-aligned with Fenix avatar, typed in
+    var aMsg = el('div', 'ev-q-msg ev-q-msg--fenix');
+    var aAv = el('div', 'ev-q-msg-av ev-q-fenix-av');
+    aAv.appendChild(el('img', '', { src: 'images/fenix/1fenixavatar1.png', alt: 'Fenix' }));
+    aMsg.appendChild(aAv);
+    var aBubble = el('div', 'ev-q-msg-bubble ev-q-fenix-bubble');
+    aMsg.appendChild(aBubble);
+    container.appendChild(aMsg);
+
+    // Type in the answer
+    var words = qa.a.split(/(\s+)/);
+    var i = 0;
+    aBubble.textContent = '';
+    var speed = 16;
+    function typeWord() {
+      if (i < words.length) {
+        aBubble.textContent += words[i];
+        i++;
+        container.scrollTop = container.scrollHeight;
+        setTimeout(typeWord, /[.!?—]$/.test(words[i - 1]) ? speed * 6 : speed);
+      }
+    }
+    setTimeout(typeWord, 600);
   }
 
   function renderPosterModal(body) {
