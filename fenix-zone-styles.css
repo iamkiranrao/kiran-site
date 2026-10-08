@@ -89,7 +89,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
 }
-.fz-cards .fz-card:first-child {
+.fz-cards .fz-card:last-child {
   grid-column: 1 / -1;
 }
 

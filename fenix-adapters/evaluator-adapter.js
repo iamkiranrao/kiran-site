@@ -507,13 +507,6 @@
   function getEvaluatorCards() {
     return [
       {
-        id: 'fit', title: 'See How Kiran Fits Your Role',
-        tag: 'try it', tagType: 'tool', icon: 'target',
-        hook: 'Paste a job description — or just describe what you\'re looking for. Fenix maps Kiran\'s experience to it in real time.',
-        cta: '→ Paste your role',
-        modal: { type: 'render', kicker: 'FIT ANALYSIS', title: 'See How Kiran Fits Your Role', render: renderFitAnalysisModal }
-      },
-      {
         id: 'questions', title: 'What Recruiters Never Ask',
         tag: 'explore', tagType: 'tool', icon: 'question',
         hook: 'Five questions great leaders ask, and my honest answers.',
@@ -526,6 +519,13 @@
         hook: 'AI-generated motivational posters, funnier than anything HR has approved.',
         cta: '→ Fix office morale',
         modal: { type: 'render', kicker: 'FOR YOU', title: 'Motivational Poster', render: renderPosterModal }
+      },
+      {
+        id: 'fit', title: 'See How Kiran Fits Your Role',
+        tag: 'try it', tagType: 'tool', icon: 'target',
+        hook: 'Paste a job description — or just describe what you\'re looking for. Fenix maps Kiran\'s experience to it in real time.',
+        cta: '→ Paste your role',
+        modal: { type: 'render', kicker: 'FIT ANALYSIS', title: 'See How Kiran Fits Your Role', render: renderFitAnalysisModal }
       }
     ];
   }
