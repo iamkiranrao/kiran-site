@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /command-center/
+Disallow: /archive/
+Disallow: /prototypes/
+Disallow: /drafts/
+Disallow: /mockups/
 
 Sitemap: https://kiranrao.ai/sitemap.xml

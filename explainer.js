@@ -93,11 +93,13 @@
         return html;
     }
 
+    function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
     function block(label, text) {
         return `
             <div class="explainer-block">
-                <div class="explainer-block-label">${label}</div>
-                <p>${text}</p>
+                <div class="explainer-block-label">${esc(label)}</div>
+                <p>${esc(text)}</p>
             </div>
         `;
     }
@@ -108,8 +110,8 @@
             let html = '<div class="explainer-block"><div class="explainer-block-label">Key Concepts</div>';
             concepts.forEach(function (c) {
                 html += '<div style="margin-bottom: 0.6rem;">';
-                html += '<span class="explainer-concept">' + c.term + '</span>';
-                html += '<div class="explainer-concept-desc">' + c.desc + '</div>';
+                html += '<span class="explainer-concept">' + esc(c.term) + '</span>';
+                html += '<div class="explainer-concept-desc">' + esc(c.desc) + '</div>';
                 html += '</div>';
             });
             html += '</div>';

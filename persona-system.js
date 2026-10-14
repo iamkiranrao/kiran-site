@@ -699,7 +699,8 @@
     }
     // Connected visitor → personal welcome. Picked-only → tailored-for framing.
     if (connectedName) {
-      greetingEl.innerHTML = 'Welcome, <span class="fenix-context-name">' + connectedName + '</span>';
+      var safeName = connectedName.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      greetingEl.innerHTML = 'Welcome, <span class="fenix-context-name">' + safeName + '</span>';
     } else {
       greetingEl.innerHTML = 'Welcome, tailored for <span class="fenix-context-name">' + config.name + '</span>';
     }
