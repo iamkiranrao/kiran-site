@@ -43,7 +43,9 @@ load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 # ── Constants ────────────────────────────────────────────────────
 
 CC_API_URL = "https://cc.kiranrao.ai"
-CC_API_KEY = os.getenv("CC_API_KEY") or "H3Ycu0N5kfv5MERh_5mYwYcMbGu6pYUv2y1KSgsMBLk"
+CC_API_KEY = os.getenv("CC_API_KEY")
+if not CC_API_KEY:
+    raise RuntimeError("CC_API_KEY environment variable is required")
 
 # Project root path (backend/ -> command-center/ -> Kiran's Website/)
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
