@@ -54,6 +54,9 @@ prototypes/scannibal/api/
 prototypes/scannibal/app/
 fonts-temp/
 
+# Wrangler cache (contains Cloudflare account ID)
+.wrangler/
+
 # Internal working docs — keep local/Vault, never publish
 /docs/
 

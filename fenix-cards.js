@@ -430,7 +430,8 @@
 
   // ── Simple markdown rendering (bold, line breaks) ──
   function renderSimpleMarkdown(text) {
-    return text
+    var esc = String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return esc
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\n/g, '<br>');
   }
