@@ -3862,50 +3862,18 @@
             setTimeout(() => gateSubmit.click(), 500);
         }
 
-        // Validate code against Netlify function
+        // Validate code client-side (site gate handles real auth)
         async function validateCode(code) {
             gateSubmit.disabled = true;
             gateSubmit.textContent = '...';
             gateError.textContent = '';
             gateInput.classList.remove('error');
 
-            try {
-                const response = await fetch('/.netlify/functions/validate-code', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ code: code.trim() })
-                });
-
-                const data = await response.json();
-
-                if (data.valid) {
-                    // Store access token
-                    localStorage.setItem('career_access', JSON.stringify({
-                        token: data.token,
-                        expires: data.expires,
-                        name: data.name
-                    }));
-
-                    // Unlock with a nice transition
-                    showToast('Access granted. Welcome.');
-                    unlockContent();
-
-                    // Clean up URL if code was in params
-                    if (urlCode) {
-                        window.history.replaceState({}, '', window.location.pathname);
-                    }
-                } else {
-                    gateError.textContent = data.error || 'Invalid code. Please try again.';
-                    gateInput.classList.add('error');
-                    setTimeout(() => gateInput.classList.remove('error'), 600);
-                }
-            } catch (e) {
-                gateError.textContent = 'Could not verify code. Please try again.';
-                console.error('Gate validation error:', e);
-            } finally {
-                gateSubmit.disabled = false;
-                gateSubmit.textContent = 'Unlock';
-            }
+            // Gate is handled by site-level auth (gate.js).
+            // This page's unlock is cosmetic — content is already delivered.
+            gateError.textContent = 'This page uses the site password. Refresh and use the main gate.';
+            gateSubmit.disabled = false;
+            gateSubmit.textContent = 'Unlock';
         }
 
         // Submit button click
