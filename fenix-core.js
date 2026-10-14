@@ -234,7 +234,10 @@
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/__([^_]+)__/g, '<strong>$1</strong>')
       .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
-      .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function(m, label, url) {
+        if (/^https?:\/\//i.test(url)) return '<a href="' + url + '" target="_blank" rel="noopener">' + label + '</a>';
+        return label;
+      });
   }
 
   function renderMarkdown(raw) {
