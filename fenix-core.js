@@ -149,14 +149,24 @@
       }
 
       if (localStorage.getItem('fenix_connected') === 'true') {
-        var storedName = localStorage.getItem('fenix_name') || '';
-        if (!isValidConnectedName(storedName)) {
-          // Invalid name — wipe connected state entirely
+        var connectedAt = parseInt(localStorage.getItem('fenix_connected_at') || '0', 10);
+        var thirtyDays = 30 * 24 * 60 * 60 * 1000;
+        if (connectedAt && Date.now() - connectedAt > thirtyDays) {
           localStorage.removeItem('fenix_connected');
+          localStorage.removeItem('fenix_connected_at');
           localStorage.removeItem('fenix_name');
           localStorage.removeItem('fenix_company');
           localStorage.removeItem('fenix_email');
-          // Also reset in-memory state in case sessionStorage restored it
+          fenixState.visitor = { name: null, company: null, email: null, connected: false };
+          return;
+        }
+        var storedName = localStorage.getItem('fenix_name') || '';
+        if (!isValidConnectedName(storedName)) {
+          localStorage.removeItem('fenix_connected');
+          localStorage.removeItem('fenix_connected_at');
+          localStorage.removeItem('fenix_name');
+          localStorage.removeItem('fenix_company');
+          localStorage.removeItem('fenix_email');
           fenixState.visitor = { name: null, company: null, email: null, connected: false };
           return;
         }
@@ -892,6 +902,7 @@
 
     try {
       localStorage.setItem('fenix_connected', 'true');
+      localStorage.setItem('fenix_connected_at', String(Date.now()));
       localStorage.setItem('fenix_name', name);
       if (company) localStorage.setItem('fenix_company', company);
       if (email) localStorage.setItem('fenix_email', email);
@@ -934,6 +945,7 @@
 
     try {
       localStorage.removeItem('fenix_connected');
+      localStorage.removeItem('fenix_connected_at');
       localStorage.removeItem('fenix_name');
       localStorage.removeItem('fenix_company');
       localStorage.removeItem('fenix_email');

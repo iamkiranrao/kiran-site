@@ -4,85 +4,66 @@
    when the site is ready for public reveal.
    ============================================ */
 (function() {
-  const PASS = 'workshop2026';
+  var PASS_HASH = 'c5ac06037da727a075d2aa011844ac0b386776b027e1fc62ae45453c4a0b483d';
 
-  // Already authenticated this session
+  function sha256(str) {
+    var data = new TextEncoder().encode(str);
+    return crypto.subtle.digest('SHA-256', data).then(function(buf) {
+      return Array.from(new Uint8Array(buf)).map(function(b) {
+        return b.toString(16).padStart(2, '0');
+      }).join('');
+    });
+  }
+
   if (sessionStorage.getItem('site_unlocked') === 'true') return;
 
-  // Hide everything immediately
   document.documentElement.style.visibility = 'hidden';
   document.documentElement.style.overflow = 'hidden';
 
   document.addEventListener('DOMContentLoaded', function() {
-    // Build overlay
-    const overlay = document.createElement('div');
+    var overlay = document.createElement('div');
     overlay.id = 'site-gate';
-    overlay.innerHTML = `
-      <div style="
-        position:fixed;inset:0;z-index:999999;
-        display:flex;align-items:center;justify-content:center;
-        background:#0a0a0a;font-family:Inter,system-ui,sans-serif;
-      ">
-        <div style="text-align:center;max-width:520px;padding:2rem;">
-          <img src="/images/fenix/3fenixbento.png" alt=""
-               style="
-                 display:block;width:100%;max-width:480px;
-                 height:auto;margin:0 auto 1.5rem;
-                 border-radius:8px;
-                 box-shadow:0 8px 32px rgba(0,0,0,0.4);
-               " />
-          <h1 style="color:#f5f0eb;font-size:1.4rem;font-weight:500;margin-bottom:.5rem;">
-            Under Construction
-          </h1>
-          <p style="color:#8a8580;font-size:.9rem;line-height:1.5;margin-bottom:1.5rem;">
-            This site is being built. If you have the password, enter it below.
-          </p>
-          <form id="gate-form" style="display:flex;gap:.5rem;">
-            <input
-              id="gate-input"
-              type="password"
-              placeholder="Password"
-              autocomplete="off"
-              style="
-                flex:1;padding:.6rem 1rem;
-                background:#1a1410;border:1px solid #333;border-radius:6px;
-                color:#f5f0eb;font-size:.9rem;outline:none;
-              "
-            />
-            <button type="submit" style="
-              padding:.6rem 1.2rem;
-              background:#9b5f28;border:none;border-radius:6px;
-              color:#f5f0eb;font-size:.9rem;font-weight:500;cursor:pointer;
-            ">Enter</button>
-          </form>
-          <p id="gate-error" style="color:#cb5c72;font-size:.8rem;margin-top:.75rem;display:none;">
-            Wrong password.
-          </p>
-        </div>
-      </div>
-    `;
+    overlay.innerHTML = '<div style="' +
+      'position:fixed;inset:0;z-index:999999;' +
+      'display:flex;align-items:center;justify-content:center;' +
+      'background:#0a0a0a;font-family:Inter,system-ui,sans-serif;' +
+      '">' +
+      '<div style="text-align:center;max-width:520px;padding:2rem;">' +
+        '<img src="/images/fenix/3fenixbento.png" alt=""' +
+        ' style="display:block;width:100%;max-width:480px;height:auto;margin:0 auto 1.5rem;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.4);" />' +
+        '<h1 style="color:#f5f0eb;font-size:1.4rem;font-weight:500;margin-bottom:.5rem;">Under Construction</h1>' +
+        '<p style="color:#8a8580;font-size:.9rem;line-height:1.5;margin-bottom:1.5rem;">This site is being built. If you have the password, enter it below.</p>' +
+        '<form id="gate-form" style="display:flex;gap:.5rem;">' +
+          '<input id="gate-input" type="password" placeholder="Password" autocomplete="off"' +
+          ' style="flex:1;padding:.6rem 1rem;background:#1a1410;border:1px solid #333;border-radius:6px;color:#f5f0eb;font-size:.9rem;outline:none;" />' +
+          '<button type="submit" style="padding:.6rem 1.2rem;background:#9b5f28;border:none;border-radius:6px;color:#f5f0eb;font-size:.9rem;font-weight:500;cursor:pointer;">Enter</button>' +
+        '</form>' +
+        '<p id="gate-error" style="color:#cb5c72;font-size:.8rem;margin-top:.75rem;display:none;">Wrong password.</p>' +
+      '</div>' +
+    '</div>';
 
     document.body.prepend(overlay);
     document.documentElement.style.visibility = 'visible';
 
-    // Only the overlay is visible — body content is behind it
-    const form = document.getElementById('gate-form');
-    const input = document.getElementById('gate-input');
-    const error = document.getElementById('gate-error');
+    var form = document.getElementById('gate-form');
+    var input = document.getElementById('gate-input');
+    var error = document.getElementById('gate-error');
 
     input.focus();
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      if (input.value === PASS) {
-        sessionStorage.setItem('site_unlocked', 'true');
-        overlay.remove();
-        document.documentElement.style.overflow = '';
-      } else {
-        error.style.display = 'block';
-        input.value = '';
-        input.focus();
-      }
+      sha256(input.value).then(function(hash) {
+        if (hash === PASS_HASH) {
+          sessionStorage.setItem('site_unlocked', 'true');
+          overlay.remove();
+          document.documentElement.style.overflow = '';
+        } else {
+          error.style.display = 'block';
+          input.value = '';
+          input.focus();
+        }
+      });
     });
   });
 })();

@@ -572,7 +572,8 @@
       resultArea.innerHTML = '';
       _lastAnalysis = '';
 
-      var prompt = FIT_ANALYSIS_PROMPT + jdText;
+      var sanitized = jdText.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      var prompt = FIT_ANALYSIS_PROMPT + '\n<user_provided_job_description>\n' + sanitized + '\n</user_provided_job_description>';
       var thinkingEl = el('div', 'ev-fit-thinking');
       thinkingEl.innerHTML = '<div class="fz-modal-thinking-dots"><span></span><span></span><span></span></div><div class="fz-modal-thinking-label">Reading the role and mapping Kiran\'s experience…</div>';
       resultArea.appendChild(thinkingEl);
