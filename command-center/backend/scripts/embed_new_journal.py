@@ -15,8 +15,8 @@ import logging
 from pathlib import Path
 
 # Add fenix-backend scripts to path for shared chunking logic
-# The fenix-backend repo lives at ~/fenix-backend (separate from the site repo)
-FENIX_BACKEND = Path.home() / "fenix-backend" / "scripts"
+# The fenix-backend repo lives at ~/Projects/Fenix (separate from the site repo)
+FENIX_BACKEND = Path.home() / "Projects" / "Fenix" / "scripts"
 sys.path.insert(0, str(FENIX_BACKEND))
 
 from embed_flame_on_data import discover_journal_entries, process_entry, store_content_registry

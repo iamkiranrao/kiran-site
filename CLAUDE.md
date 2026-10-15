@@ -8,7 +8,7 @@ Static site (vanilla HTML/JS/CSS, **no build step**), auto-deployed via **Cloudf
 - **Persona-adapter frontend:** `fenix-core.js` + `fenix-adapters/*-adapter.js` + `persona-system.js`. Personas built: evaluator, practitioner, technologist, learner. Planned: **seeker** (Fenix Consulting front door), inner-circle.
 - Talks to the **Fenix backend** at `api.kiranrao.ai` (FastAPI on Vercel) for chat / RAG / feedback / testimonials.
 - Frontend uses only the Supabase **publishable** (anon) key — it's in `app.js` for the auth-gate + adapters. The **service key never appears client-side.**
-- `prototypes/scannibal/` holds the Scannibal app/api + a DIA-fund landing prototype (gitignored embedded repos).
+- `prototypes/scannibal/` holds Scannibal GTM docs + a DIA-fund landing prototype. The Scannibal app/api repos now live at `~/Projects/Scannibal/{app,api}`.
 - `docs/` is **gitignored / local-only** — internal notes, not published.
 
 ## Conventions
