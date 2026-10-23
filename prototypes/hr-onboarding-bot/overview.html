@@ -72,6 +72,7 @@
 
         .bottom-cta { max-width: 960px; margin: 0 auto; padding: 2.5rem 4rem 4rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
         .back-link { font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        .bottom-cta .back-link { margin-left: 0; }
         .back-link:hover { color: var(--text-primary); }
 
         .page-glossary { max-width: 960px; margin: 0 auto; padding: 1.5rem 4rem 0; }
@@ -316,7 +317,6 @@
         const themeToggle=document.getElementById('themeToggle'),savedTheme=localStorage.getItem('theme');
         if(savedTheme==='light'){document.documentElement.setAttribute('data-theme','light');document.querySelector('.moon-icon').style.display='none';document.querySelector('.sun-icon').style.display='block';}
         themeToggle.addEventListener('click',()=>{const isLight=document.documentElement.getAttribute('data-theme')==='light';if(isLight){document.documentElement.removeAttribute('data-theme');localStorage.setItem('theme','dark');document.querySelector('.moon-icon').style.display='block';document.querySelector('.sun-icon').style.display='none';}else{document.documentElement.setAttribute('data-theme','light');localStorage.setItem('theme','light');document.querySelector('.moon-icon').style.display='none';document.querySelector('.sun-icon').style.display='block';}});
-        }catch(e){}}else{await navigator.clipboard.writeText(window.location.href);toast.textContent='Link copied to clipboard';toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2500);}});
         window.addEventListener('load',()=>document.body.classList.remove('preload'));
         const footerLogo=document.querySelector('.footer-logo');if(footerLogo)footerLogo.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
     </script>
