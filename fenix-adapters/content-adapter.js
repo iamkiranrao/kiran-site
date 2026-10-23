@@ -518,13 +518,12 @@
       var next = SECTIONS[j + 1];
       var promptText = generatePromptBetween(current, next);
       if (promptText) {
-        // Find the section divider between them, or insert after the current section
-        var divider = current.element.nextElementSibling;
-        while (divider && !divider.classList.contains('section-divider') && divider !== next.element) {
-          divider = divider.nextElementSibling;
-        }
-        var insertAfter = (divider && divider.classList.contains('section-divider')) ? divider : current.element;
-        buildInlinePrompt(insertAfter, promptText, 'after', buildSectionContext(current.element));
+        // Close out the section it asks about, inside its content column,
+        // so it lines up with the text instead of spanning the page
+        var prompt = buildInlinePrompt(current.element, promptText, 'append', buildSectionContext(current.element));
+        var prose = current.element.querySelector('p');
+        var proseMax = prose ? window.getComputedStyle(prose).maxWidth : 'none';
+        if (proseMax && proseMax !== 'none') prompt.style.maxWidth = proseMax;
       }
     }
   }
@@ -602,9 +601,12 @@
       referenceEl.parentNode.insertBefore(prompt, referenceEl.nextSibling);
     } else if (position === 'before') {
       referenceEl.parentNode.insertBefore(prompt, referenceEl);
+    } else if (position === 'append') {
+      referenceEl.appendChild(prompt);
     } else {
       referenceEl.parentNode.appendChild(prompt);
     }
+    return prompt;
   }
 
 
