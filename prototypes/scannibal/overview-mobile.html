@@ -41,6 +41,8 @@
 
         .coming-soon-row { margin-bottom: 2.5rem; }
         .coming-soon-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: -0.01em; color: var(--text-secondary); background: var(--bg-secondary, #111); border: 1px solid var(--border); padding: 0.75rem 1.75rem; border-radius: 8px; }
+        .coming-soon-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        a.coming-soon-badge { text-decoration: none; cursor: pointer; }
         .coming-soon-badge svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
         .section-divider { max-width: 960px; margin: 0 auto; padding: 0 4rem; }
@@ -49,6 +51,8 @@
         .project-section { max-width: 960px; margin: 0 auto; padding: 2.5rem 4rem; }
         .project-section h2 { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
         .project-section p { font-size: 0.95rem; line-height: 1.75; color: var(--text-secondary); max-width: 640px; }
+        .project-section p + p { margin-top: 1rem; }
+        .related-link + .related-link { margin-top: 0.5rem; }
 
         .sys-diagram { margin-top: 1.5rem; max-width: 600px; }
         .sys-row { display: flex; align-items: stretch; gap: 0.6rem; margin-bottom: 0.6rem; }
@@ -175,24 +179,28 @@
     <div id="project-content">
         <div class="project-hero">
             <div class="project-status-row">
-                <span class="status-badge dev">In Active Dev</span>
+                <span class="status-badge dev">In Beta</span>
                 <span class="project-category">Mobile Apps</span>
             </div>
             <h1>Scannibal</h1>
-            <p class="tagline">An iOS app with a butler concierge who scans what you eat, buy, grow, and put on your skin — then flags what to watch for, personalised to your allergies, pets, medications and diets. It never calls a dish &quot;safe&quot;; it tells you what to confirm with staff.</p>
+            <p class="tagline">Snap a menu, plate or label. Scannibal checks it against your whole family&rsquo;s allergies and diets, and tells you how it fits your goals. In English and Spanish, no account. It never calls a dish &quot;safe&quot;; it flags risks and tells you what to confirm with staff.</p>
             <div class="hero-tags">
                 <span class="hero-tag">iOS</span>
                 <span class="hero-tag">React Native</span>
                 <span class="hero-tag">Expo</span>
-                <span class="hero-tag">8 Scan Modes</span>
+                <span class="hero-tag">10 Scan Modes</span>
                 <span class="hero-tag">Vercel Serverless</span>
-                <span class="hero-tag">Charity</span>
+                <span class="hero-tag">English &amp; Spanish</span>
             </div>
             <div class="coming-soon-row">
                 <span class="coming-soon-badge">
                     <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                     Coming Soon to the App Store
                 </span>
+                <a class="coming-soon-badge site-link" href="https://www.scannibal.app" target="_blank" rel="noopener">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    scannibal.app
+                </a>
             </div>
         </div>
 
@@ -200,48 +208,82 @@
 
         <div class="project-section" data-section-id="the-product" data-section-type="prototype-details">
             <h2>The Product</h2>
-            <p>Scannibal started with a simple question: why do you have to read the entire back of a food package to figure out if it's safe for you? If you've got a tree nut allergy, you shouldn't need to squint at an ingredients list in a grocery aisle. If your dog is with you at a farmer's market, you shouldn't have to google whether grapes are toxic to dogs while the vendor waits.</p>
-            <p>The app puts a camera-first scanner in your pocket that cross-references what it sees against your personal safety profile. You set up your allergies, your pet types, your skin conditions, your medications — once. After that, every scan is personalised. Point the camera at a restaurant menu, a supplement bottle, a skincare label, a piece of produce, or a plant in someone's yard, and the butler tells you exactly what to watch out for and why.</p>
-            <p>There are 8 scan modes, each with its own AI prompt engineered for that specific domain. Menu Analysis checks dishes against your dietary restrictions including religious laws (kosher, halal, Hindu vegetarian, Jain, Buddhist). Pet Toxicity screens foods and plants against your specific pet types. The Grocery Decoder catches hidden sugars, misleading health claims, and does the serving-size math for you. Skincare Scanner flags comedogenic ingredients and conflicts with your current routine. Supplement Checker cross-references against your medications for dangerous interactions. Produce Picker tells you how to select the best fruit or vegetable and how to store it. Grow It Yourself gives you a planting guide personalised to your climate zone and space.</p>
+            <p>Scannibal started with a string of moments: a friend&rsquo;s son with a nut allergy, a trip to Japan with menus nobody could read, a dog&rsquo;s kidney diagnosis that turned every treat into a question. Each one was the same problem: seeing food with new eyes. AI can now see, so the camera becomes the most natural way to ask.</p>
+            <p><strong>Allergy Check</strong> is one scan for the whole table. Add your family once, scan a menu in any language, and get a verdict for each person, plus the dishes with no flagged allergens for anyone. A staff card explains your allergies in the local language and works offline. It covers allergies and intolerances, and diets from halal, kosher and Jain to vegan, celiac and &ldquo;vegetarian on Saturdays&rdquo;.</p>
+            <p><strong>Meal Check</strong> reads a plate or a menu against your goals: high protein, GLP-1, diabetes-friendly, low sodium, menopause, low FODMAP and more. It gives calories and macros, a goal-fit verdict and simple swaps, or the top three dishes to order. Pregnant, breastfeeding or carb loading for a race? Turn on a &ldquo;Right now&rdquo; mode.</p>
+            <p>Every result leads with the short answer: a verdict, one sentence, and the three things that matter. Ask Scannibal handles follow-ups and corrections (&ldquo;the waiter says there&rsquo;s no sesame&rdquo;), but a severe allergen never gets upgraded.</p>
         </div>
 
         <div class="section-divider"><hr></div>
 
-        <div class="project-section" data-section-id="the-eight-modes" data-section-type="prototype-modes">
-            <h2>The Eight Modes</h2>
-            <p>Each mode has its own Gemini prompt, profile type, and domain-specific knowledge base. They share a common scanning UI but produce very different analyses.</p>
+        <div class="project-section" data-section-id="scan-modes" data-section-type="prototype-modes">
+            <h2>Ten Ways to Scan</h2>
+            <p>Two lead modes, Allergy Check and Meal Check, plus eight more. Each has its own Gemini prompt and profile, and they share one scanning flow. Barcodes work too, for anything with a label.</p>
             <div class="mode-grid">
                 <div class="mode-card">
-                    <div class="mode-card-name">Menu Analysis</div>
-                    <div class="mode-card-desc">Restaurant menus &rarr; allergen flags, dietary fit, religious dietary law checks</div>
+                    <div class="mode-card-name">Allergy Check</div>
+                    <div class="mode-card-desc">Menus, dishes &amp; labels &rarr; a verdict per person, any language, staff card</div>
                 </div>
                 <div class="mode-card">
-                    <div class="mode-card-name">Pet Toxicity</div>
-                    <div class="mode-card-desc">Foods &amp; plants &rarr; toxicity screening for 7 pet types</div>
+                    <div class="mode-card-name">Meal Check</div>
+                    <div class="mode-card-desc">Plates &amp; menus &rarr; calories, macros, goal fit and what to order</div>
                 </div>
                 <div class="mode-card">
-                    <div class="mode-card-name">Skincare Scanner</div>
-                    <div class="mode-card-desc">Product labels &rarr; comedogenic flags, irritant detection, routine conflicts</div>
+                    <div class="mode-card-name">Label Decoder</div>
+                    <div class="mode-card-desc">Nutrition labels or barcodes &rarr; a 0&ndash;100 label score and better alternatives</div>
                 </div>
                 <div class="mode-card">
-                    <div class="mode-card-name">Supplement Checker</div>
-                    <div class="mode-card-desc">Supplement labels &rarr; medication interactions, dosage concerns</div>
+                    <div class="mode-card-name">Beverage Scanner</div>
+                    <div class="mode-card-desc">Coffee, boba, shakes, wine &amp; cocktails &rarr; allergens, sugar, caffeine, alcohol</div>
                 </div>
                 <div class="mode-card">
-                    <div class="mode-card-name">Grocery Decoder</div>
-                    <div class="mode-card-desc">Nutrition labels &rarr; hidden sugars, misleading claims, serving-size math</div>
+                    <div class="mode-card-name">Recipe Builder</div>
+                    <div class="mode-card-desc">Any dish or drink &rarr; a home recipe adapted to your diet</div>
                 </div>
                 <div class="mode-card">
-                    <div class="mode-card-name">Produce Picker</div>
-                    <div class="mode-card-desc">Fruits &amp; vegetables &rarr; ripeness, selection tips, storage guidance</div>
+                    <div class="mode-card-name">Supplement Check</div>
+                    <div class="mode-card-desc">Supplement labels &rarr; interactions with the meds you list</div>
                 </div>
                 <div class="mode-card">
-                    <div class="mode-card-name">Grow It Yourself</div>
-                    <div class="mode-card-desc">Plants, herbs, produce &rarr; growing guides personalised to your climate zone</div>
+                    <div class="mode-card-name">Skin Scanner</div>
+                    <div class="mode-card-desc">Skincare ingredients &rarr; fit for your skin type and irritants</div>
                 </div>
                 <div class="mode-card">
-                    <div class="mode-card-name">Make This at Home</div>
-                    <div class="mode-card-desc">Restaurant dishes &rarr; allergy-safe recipes with cost comparison</div>
+                    <div class="mode-card-name">Pet Safety</div>
+                    <div class="mode-card-desc">Plants, foods &amp; household items &rarr; toxicity, with one-tap poison hotlines</div>
+                </div>
+                <div class="mode-card">
+                    <div class="mode-card-name">Freshness Check</div>
+                    <div class="mode-card-desc">Produce &rarr; ripeness, freshness and a &ldquo;use it soon&rdquo; reminder</div>
+                </div>
+                <div class="mode-card">
+                    <div class="mode-card-name">Plant &amp; Garden</div>
+                    <div class="mode-card-desc">Plants &rarr; growing advice for your space and climate</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"><hr></div>
+
+        <div class="project-section" data-section-id="built-into-iphone" data-section-type="prototype-details">
+            <h2>Built Into iPhone</h2>
+            <p>The scan is only part of the product. The rest is getting to it fast and following through afterwards.</p>
+            <div class="mode-grid">
+                <div class="mode-card">
+                    <div class="mode-card-name">Before the meal</div>
+                    <div class="mode-card-desc">Home-screen widget, Control Center button, Siri (&ldquo;Check a menu with Scannibal&rdquo;), quick actions, and &ldquo;Scan with Scannibal&rdquo; from any photo&rsquo;s share sheet</div>
+                </div>
+                <div class="mode-card">
+                    <div class="mode-card-name">At the table</div>
+                    <div class="mode-card-desc">The scan, then a staff card in the local language that works offline. Results can be read aloud in the butler&rsquo;s voice</div>
+                </div>
+                <div class="mode-card">
+                    <div class="mode-card-name">After</div>
+                    <div class="mode-card-desc">&ldquo;Add to today&rdquo; logs the meal to Apple Health; share links for results and the allergy card</div>
+                </div>
+                <div class="mode-card">
+                    <div class="mode-card-name">Later</div>
+                    <div class="mode-card-desc">Opt-in reminders, at most one gentle nudge after a few quiet days. Never daily, no streaks</div>
                 </div>
             </div>
         </div>
@@ -250,14 +292,14 @@
 
         <div class="project-section" data-section-id="system-architecture" data-section-type="prototype-architecture">
             <h2>System Architecture</h2>
-            <p>The app is built with Expo and React Native, targeting iOS first. All scan processing happens server-side — the phone captures a photo, sends it to a Vercel serverless function, which forwards it to Google's Gemini 2.5 Flash model along with the user's safety profile and the mode-specific prompt. The response comes back as structured JSON that the app renders into a forensic-themed results screen.</p>
+            <p>The app is built with Expo and React Native, targeting iOS first. All scan processing happens server-side — the phone captures a photo, sends it to a Vercel serverless function, which forwards it to Google's Gemini 2.5 Flash model along with the user's profile and the mode-specific prompt. The response comes back as structured JSON that the app renders as a short verdict with the full report one tap away. Profiles live only on the phone and are sent with a scan, never stored on the server.</p>
             <p class="key-decision">Why Expo over bare React Native? Scannibal doesn't need native modules that Expo can't handle. The camera, image picker, haptics, and local storage all work through Expo's managed workflow. In exchange, you get EAS Build (cloud builds without Xcode), over-the-air updates for quick fixes, and a single command to submit to the App Store. The tradeoff is less control over native code — worth it for a v1 that needs to ship fast.</p>
 
             <div class="sys-diagram">
                 <div class="sys-row">
                     <div class="sys-block wide">
                         <div class="sys-block-label">Expo / React Native App</div>
-                        <div class="sys-block-sub">Camera &middot; Profiles &middot; Scan History &middot; Local Storage</div>
+                        <div class="sys-block-sub">Camera &middot; Barcode &middot; Profiles on device &middot; Widget &middot; Siri &middot; Apple Health</div>
                     </div>
                 </div>
                 <div class="sys-connector">&#8595;</div>
@@ -281,16 +323,16 @@
                 <div class="sys-connector">&#8595;</div>
                 <div class="sys-row">
                     <div class="sys-block">
-                        <div class="sys-block-label">8 Mode Prompts</div>
+                        <div class="sys-block-label">10 Mode Prompts</div>
                         <div class="sys-block-sub">Domain-specific analysis</div>
                     </div>
                     <div class="sys-block">
                         <div class="sys-block-label">User Profiles</div>
-                        <div class="sys-block-sub">Allergies &middot; Pets &middot; Skin &middot; Meds</div>
+                        <div class="sys-block-sub">Family &middot; Goals &middot; Pets &middot; Skin &middot; Meds</div>
                     </div>
                     <div class="sys-block">
                         <div class="sys-block-label">Safety Knowledge</div>
-                        <div class="sys-block-sub">Religious laws &middot; Interactions</div>
+                        <div class="sys-block-sub">Diets &middot; Interactions &middot; Emergency numbers</div>
                     </div>
                 </div>
             </div>
@@ -311,6 +353,10 @@
             <a href="overview-vision.html" class="related-link">
                 <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8-10-8-10-8z"></path></svg>
                 Scannibal — Vision AI Engine: the computer vision pipeline behind the scanner
+            </a>
+            <a href="https://www.scannibal.app/features" class="related-link" target="_blank" rel="noopener">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                scannibal.app: every feature, in English and Spanish
             </a>
         </div>
 

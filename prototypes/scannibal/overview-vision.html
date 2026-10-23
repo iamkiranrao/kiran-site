@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Scannibal's Vision AI Engine — a multi-modal Gemini 2.5 Flash pipeline that processes food labels, restaurant menus, supplement bottles, skincare products, and produce in real-time through 8 domain-specific prompt chains.">
+    <meta name="description" content="Scannibal's Vision AI Engine — a multi-modal Gemini 2.5 Flash pipeline that processes food labels, restaurant menus, supplement bottles, skincare products, and produce in real-time through 10 domain-specific prompt chains.">
     <title>Scannibal — Vision AI Engine - MadLab | Kiran Rao</title>
     <link rel="icon" href="../../images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Scannibal — Vision AI Engine - MadLab | Kiran Rao">
-    <meta property="og:description" content="A multi-modal Gemini pipeline that processes 8 types of visual input — food labels, menus, supplements, skincare, produce — through domain-specific prompt chains with personalised safety profiles.">
+    <meta property="og:description" content="A multi-modal Gemini pipeline that processes 10 types of visual input — food labels, menus, supplements, skincare, produce — through domain-specific prompt chains with personalised safety profiles.">
     <meta property="og:url" content="https://kiranrao.ai/prototypes/scannibal/overview-vision.html">
     <meta property="og:image" content="https://kiranrao.ai/images/og/og-madlab.png">
 
@@ -49,6 +49,8 @@
         .project-section { max-width: 960px; margin: 0 auto; padding: 2.5rem 4rem; }
         .project-section h2 { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
         .project-section p { font-size: 0.95rem; line-height: 1.75; color: var(--text-secondary); max-width: 640px; }
+        .project-section p + p { margin-top: 1rem; }
+        .related-link + .related-link { margin-top: 0.5rem; }
 
         .sys-diagram { margin-top: 1.5rem; max-width: 600px; }
         .sys-row { display: flex; align-items: stretch; gap: 0.6rem; margin-bottom: 0.6rem; }
@@ -110,7 +112,7 @@
         "author": { "@type": "Person", "name": "Kiran Rao", "url": "https://kiranrao.ai" },
         "applicationCategory": "Computer Vision",
         "operatingSystem": "Web",
-        "description": "A multi-modal Gemini 2.5 Flash pipeline that processes food labels, restaurant menus, supplement bottles, skincare products, and produce through 8 domain-specific prompt chains with personalised safety profiles.",
+        "description": "A multi-modal Gemini 2.5 Flash pipeline that processes food labels, restaurant menus, supplement bottles, skincare products, and produce through 10 domain-specific prompt chains with personalised safety profiles.",
         "url": "https://kiranrao.ai/prototypes/scannibal/overview-vision.html"
     }
     </script>
@@ -176,7 +178,7 @@
                 <span class="project-category">Computer Vision</span>
             </div>
             <h1>Scannibal — Vision AI Engine</h1>
-            <p class="tagline">The multi-modal pipeline behind the scanner. Gemini 2.5 Flash processes photos through 8 domain-specific prompt chains — each one tuned for a different type of visual input, cross-referenced against the user's personalised safety profile, and returned as structured JSON in under 2 seconds.</p>
+            <p class="tagline">The multi-modal pipeline behind the scanner. Gemini 2.5 Flash processes photos through 10 domain-specific prompt chains — each one tuned for a different type of visual input, cross-referenced against the user's personalised safety profile, and returned as structured JSON in under 2 seconds.</p>
             <div class="hero-tags">
                 <span class="hero-tag">Gemini 2.5 Flash</span>
                 <span class="hero-tag">Multimodal AI</span>
@@ -211,7 +213,7 @@
             <h2>The Pipeline</h2>
             <p>Every scan follows the same flow: the app captures a photo, selects the active mode, loads the user's relevant profile (allergies for menu scans, pet types for toxicity scans, medications for supplement scans), and sends all of it as a single multimodal request to a Vercel serverless function. The function assembles the domain-specific prompt, attaches the image as base64, and forwards it to Gemini 2.5 Flash.</p>
             <p>Gemini processes the image and text together — it can read ingredient lists, identify produce by appearance, parse nutrition tables, and recognise plant species all within the same model. The prompt constrains the output to structured JSON with consistent fields: a threat level (clear, caution, danger), an array of specific flags with explanations, and actionable recommendations.</p>
-            <p class="key-decision">Why Gemini over GPT-4V or Claude? Three reasons. First, Gemini Flash is fast — under 2 seconds for a photo + 2000-token prompt, which matters for a scanning app where you're pointing your camera and waiting. Second, the free tier is generous enough for a beta (roughly 500 scans per day). Third, Gemini's image understanding is strong on text-in-images — ingredient lists, nutrition labels, menu text — which is 5 of the 8 scan modes.</p>
+            <p class="key-decision">Why Gemini over GPT-4V or Claude? Three reasons. First, Gemini Flash is fast — under 2 seconds for a photo + 2000-token prompt, which matters for a scanning app where you're pointing your camera and waiting. Second, it's cheap per scan; it runs on the paid tier, which keeps user photos out of model training, with a hard spending cap. Third, Gemini's image understanding is strong on text-in-images — ingredient lists, nutrition labels, menu text — which covers most of the 10 scan modes.</p>
 
             <div class="sys-diagram">
                 <div class="sys-row">
@@ -224,7 +226,7 @@
                 <div class="sys-row">
                     <div class="sys-block wide accent">
                         <div class="sys-block-label">Prompt Router</div>
-                        <div class="sys-block-sub">8 domain prompts &middot; Profile context &middot; Religious dietary laws</div>
+                        <div class="sys-block-sub">10 domain prompts &middot; Profile context &middot; Religious dietary laws</div>
                     </div>
                 </div>
                 <div class="sys-connector">&#8595;</div>
@@ -242,7 +244,7 @@
                     </div>
                     <div class="sys-block">
                         <div class="sys-block-label">Voice Narration</div>
-                        <div class="sys-block-sub">ElevenLabs TTS &middot; Butler voice</div>
+                        <div class="sys-block-sub">On-device voice &middot; Butler reads results aloud</div>
                     </div>
                 </div>
             </div>
@@ -252,7 +254,7 @@
 
         <div class="project-section" data-section-id="prompt-engineering" data-section-type="prototype-prompts">
             <h2>Prompt Engineering</h2>
-            <p>Each of the 8 modes has its own prompt chain with domain-specific knowledge baked in. The Menu Analysis prompt includes a comprehensive knowledge base for 5 religious dietary traditions — not just "no pork for halal" but the nuance: gelatin sourcing, alcohol in sauces, rennet in cheese, lard in pastry, cross-contamination in shared fryers. The Supplement Checker prompt knows 10+ medication interaction classes and can flag that fish oil and blood thinners don't mix.</p>
+            <p>Each of the 10 modes has its own prompt chain with domain-specific knowledge baked in. The Menu Analysis prompt includes a comprehensive knowledge base for 5 religious dietary traditions — not just "no pork for halal" but the nuance: gelatin sourcing, alcohol in sauces, rennet in cheese, lard in pastry, cross-contamination in shared fryers. The Supplement Checker prompt knows 10+ medication interaction classes and can flag that fish oil and blood thinners don't mix.</p>
             <p>The prompts don't just ask Gemini to "analyse this image." They give it a role (the butler concierge persona), a constraint set (only flag what's relevant to this user's profile), a knowledge base (domain-specific facts the model can reference), and an output schema (structured JSON with specific fields). The result is that the same underlying model produces very different — and very specific — analyses depending on the mode.</p>
             <div class="prompt-example">
                 <strong>Example: Prompt Structure (simplified)</strong><br><br>
@@ -279,7 +281,7 @@
             <h2>Related</h2>
             <a href="overview-mobile.html" class="related-link">
                 <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                Scannibal — the iOS app: 8 scan modes, personalised safety, and the charity mission
+                Scannibal — the iPhone app: 10 scan modes, family profiles, and how it fits into iPhone
             </a>
         </div>
 
