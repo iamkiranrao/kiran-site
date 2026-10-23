@@ -779,15 +779,15 @@
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
-            document.querySelector('.moon-icon').style.display = 'none';
-            document.querySelector('.sun-icon').style.display = 'block';
+            document.querySelector('.wf-moon-icon').style.display = 'none';
+            document.querySelector('.wf-sun-icon').style.display = 'block';
         }
         themeToggle.addEventListener('click', () => {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             document.documentElement.setAttribute('data-theme', isLight ? '' : 'light');
             localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
-            document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+            document.querySelector('.wf-moon-icon').style.display = isLight ? 'block' : 'none';
+            document.querySelector('.wf-sun-icon').style.display = isLight ? 'none' : 'block';
         });
 
         // ============================================
@@ -800,7 +800,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
-    <script src="persona-system.js"></script>
+    <script src="persona-system.js?v=20261022a"></script>
     <script src="fenix-core.js?v=20260825a"></script>
     <script src="fenix-adapters/content-adapter.js?v=20261022a"></script>
     <script src="/nav-menu.js?v=20260503"></script>

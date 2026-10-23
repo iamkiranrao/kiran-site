@@ -14,7 +14,7 @@
     evaluator: {
       accent: '#7B9ACC',
       name: 'hiring teams',
-      image: 'images/evaluator-merritt.webp',
+      image: '/images/evaluator-merritt.webp',
       character: 'Merritt Hunter',
       title: 'Recruiter / Hiring Manager',
       tagline: 'Builder of Products People Love',
@@ -40,7 +40,7 @@
     seeker: {
       accent: '#777744',
       name: 'founders',
-      image: 'images/seeker-phil.webp',
+      image: '/images/seeker-phil.webp',
       character: 'Phil Thevoid',
       title: 'Founder / Needs a Product Leader',
       tagline: 'Builder Who Turns Vision into Product',
@@ -66,7 +66,7 @@
     practitioner: {
       accent: '#4DAF8B',
       name: 'product folks',
-      image: 'images/practitioner-drew.webp',
+      image: '/images/practitioner-drew.webp',
       character: 'Drew Skematics',
       title: 'Product · Design · Data',
       tagline: 'Builder Who Sweats the Details',
@@ -92,7 +92,7 @@
     learner: {
       accent: '#A07ED4',
       name: 'aspiring PMs',
-      image: 'images/learner-paige.webp',
+      image: '/images/learner-paige.webp',
       character: 'Paige Turner',
       title: 'Aspiring PM / Career Grower',
       tagline: 'Builder Who Learned by Doing',
@@ -118,7 +118,7 @@
     technologist: {
       accent: '#cb5c72',
       name: 'AI builders',
-      image: 'images/technologist-ray.webp',
+      image: '/images/technologist-ray.webp',
       character: 'Ray Turing',
       title: 'CTO / AI Lead / Tech Lead',
       tagline: 'Builder Who Understands the Stack',
@@ -144,7 +144,7 @@
     innercircle: {
       accent: '#cb6923',
       name: 'friends',
-      image: 'images/innercircle-keshav.webp',
+      image: '/images/innercircle-keshav.webp',
       character: 'Keshav Shivdasani',
       title: 'Old Friend',
       tagline: 'Builder of Weird and Wonderful Things',
@@ -1008,7 +1008,7 @@
     module.innerHTML =
       '<div class="fenix-subpage-inner">' +
         '<div class="fenix-subpage-logo-wrap">' +
-          '<img src="images/fenix/1fenixavatar1.png" alt="Fenix the phoenix mascot. Kiran\'s AI assistant" class="fenix-subpage-logo">' +
+          '<img src="/images/fenix/1fenixavatar1.png" alt="Fenix the phoenix mascot. Kiran\'s AI assistant" class="fenix-subpage-logo">' +
         '</div>' +
         '<div class="fenix-subpage-content">' +
           '<p class="fenix-subpage-greeting">' + (config ? config.fenixTooltip : 'Need help exploring? I\'m here.') + '</p>' +

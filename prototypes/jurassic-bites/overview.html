@@ -294,14 +294,14 @@
         mobileLinks.forEach(l=>l.addEventListener('click',()=>{mobileMenu.classList.remove('active');document.body.style.overflow='';}));
         document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileMenu.classList.contains('active')){mobileMenu.classList.remove('active');document.body.style.overflow='';}});
         const themeToggle=document.getElementById('themeToggle'),savedTheme=localStorage.getItem('theme');
-        if(savedTheme==='light'){document.documentElement.setAttribute('data-theme','light');document.querySelector('.moon-icon').style.display='none';document.querySelector('.sun-icon').style.display='block';}
-        themeToggle.addEventListener('click',()=>{const isLight=document.documentElement.getAttribute('data-theme')==='light';if(isLight){document.documentElement.removeAttribute('data-theme');localStorage.setItem('theme','dark');document.querySelector('.moon-icon').style.display='block';document.querySelector('.sun-icon').style.display='none';}else{document.documentElement.setAttribute('data-theme','light');localStorage.setItem('theme','light');document.querySelector('.moon-icon').style.display='none';document.querySelector('.sun-icon').style.display='block';}});
+        if(savedTheme==='light'){document.documentElement.setAttribute('data-theme','light');document.querySelector('.wf-moon-icon').style.display='none';document.querySelector('.wf-sun-icon').style.display='block';}
+        themeToggle.addEventListener('click',()=>{const isLight=document.documentElement.getAttribute('data-theme')==='light';if(isLight){document.documentElement.removeAttribute('data-theme');localStorage.setItem('theme','dark');document.querySelector('.wf-moon-icon').style.display='block';document.querySelector('.wf-sun-icon').style.display='none';}else{document.documentElement.setAttribute('data-theme','light');localStorage.setItem('theme','light');document.querySelector('.wf-moon-icon').style.display='none';document.querySelector('.wf-sun-icon').style.display='block';}});
         window.addEventListener('load',()=>document.body.classList.remove('preload'));
         const footerLogo=document.querySelector('.footer-logo');if(footerLogo)footerLogo.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
     </script>
     <script src="../../fenix-core.js?v=20260825a"></script>
     <script src="../../fenix-adapters/content-adapter.js?v=20261022a"></script>
-    <script src="../../persona-system.js?v=20260504"></script>
+    <script src="../../persona-system.js?v=20261022a"></script>
     <script src="/nav-menu.js?v=20260503"></script>
 </body>
 </html>

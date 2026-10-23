@@ -65,13 +65,9 @@ const currentTheme = localStorage.getItem('theme') || 'dark';
 html.setAttribute('data-theme', currentTheme);
 
 if (moonIcon && sunIcon) {
-    if (currentTheme === 'dark') {
-        moonIcon.style.display = 'none';
-        sunIcon.style.display = 'block';
-    } else {
-        moonIcon.style.display = 'block';
-        sunIcon.style.display = 'none';
-    }
+    // Show the current mode, like every other page: moon in dark, sun in light
+    moonIcon.style.display = currentTheme === 'dark' ? 'block' : 'none';
+    sunIcon.style.display = currentTheme === 'dark' ? 'none' : 'block';
 }
 
 if (themeToggle) themeToggle.addEventListener('click', () => {
@@ -79,12 +75,9 @@ if (themeToggle) themeToggle.addEventListener('click', () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     html.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-    if (newTheme === 'dark') {
-        moonIcon.style.display = 'none';
-        sunIcon.style.display = 'block';
-    } else {
-        moonIcon.style.display = 'block';
-        sunIcon.style.display = 'none';
+    if (moonIcon && sunIcon) {
+        moonIcon.style.display = newTheme === 'dark' ? 'block' : 'none';
+        sunIcon.style.display = newTheme === 'dark' ? 'none' : 'block';
     }
 });
 
