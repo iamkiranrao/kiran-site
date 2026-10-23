@@ -27,7 +27,7 @@
     testimonials: 'Testimonials',
     studio:       'Studio',
     madlab:       'MadLab',
-    career:       'Receipts',
+    career:       'Career',
     underhood:    'Under the Hood',
     skills:       'Skills',
     blog:         'Blog',

@@ -42,7 +42,7 @@
     },
     career: {
       eyebrow: '15+ Years Building',
-      stat: 'Receipts',
+      stat: 'Career',
       desc: 'Enterprise to startup. The full arc.',
       tags: ['ADP', 'Yahoo', 'Avatour', '+3'],
       character: 'Veteran (bear)',

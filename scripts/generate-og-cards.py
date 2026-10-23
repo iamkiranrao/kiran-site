@@ -206,7 +206,7 @@ OG_CARDS = [
     {
         "base": "veteran-hero-2-1.png",
         "eyebrow": "15+ Years Building",
-        "title": "The Work",
+        "title": "Career",
         "byline": "kiranrao.ai",
         "output": "og-career.png",
     },
