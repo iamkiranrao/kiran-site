@@ -29,7 +29,7 @@
     madlab:       'MadLab',
     career:       'Receipts',
     underhood:    'Under the Hood',
-    skills:       'The Stack',
+    skills:       'Skills',
     blog:         'Blog',
     now:          '/Now'
   };

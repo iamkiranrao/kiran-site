@@ -66,7 +66,7 @@
     },
     skills: {
       eyebrow: 'Range & Evidence',
-      stat: 'The Stack',
+      stat: 'Skills',
       desc: 'Mastered. Mapped. Proven.',
       tags: ['Product', 'AI', 'Cloud'],
       character: 'Cartographer (octopus)',
